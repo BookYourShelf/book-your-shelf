@@ -2,22 +2,22 @@ package com.oak.bookyourshelf.model;
 
 public class PhysicalBookCase extends BookCase  {
 
-    private float width;
-    private float height;
+    private float caseWidth;
+    private float caseHeight;
 
-    public void setWidth(float width) {
-        this.width = width;
+    public void setCaseWidth(float caseWidth) {
+        this.caseWidth = caseWidth;
     }
 
-    public void setHeight(float height) {
-        this.height = height;
+    public void setCaseHeight(float caseHeight) {
+        this.caseHeight = caseHeight;
     }
 
-    public float getWidth() {
-        return width;
+    public float getCaseWidth() {
+        return caseWidth;
     }
 
-    public float getHeight() {
-        return height;
+    public float getCaseHeight() {
+        return caseHeight;
     }
 }

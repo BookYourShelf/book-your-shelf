@@ -2,31 +2,31 @@ package com.oak.bookyourshelf.model;
 
 public  abstract class BookCase extends Product  {
 
-    private String color;
-    private String brand;
+    private String caseColor;
+    private String caseBrand;
     private String caseModel;
 
 
 
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setCaseColor(String caseColor) {
+        this.caseColor = caseColor;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setCaseBrand(String caseBrand) {
+        this.caseBrand = caseBrand;
     }
 
     public void setCaseModel(String caseModel) {
         this.caseModel = caseModel;
     }
 
-    public String getColor() {
-        return color;
+    public String getCaseColor() {
+        return caseColor;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getCaseBrand() {
+        return caseBrand;
     }
 
     public String getCaseModel() {
