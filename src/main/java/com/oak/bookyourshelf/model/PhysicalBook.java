@@ -6,10 +6,10 @@ public class PhysicalBook extends Book {
     private int editionNum;
     private float height;
     private float width;
-    enum MediaType { HARDCOVER, SOFTCOVER, POCKET_SIZE, TABLET_SIZE; }
+    enum MediaType { HARDCOVER, SOFTCOVER, POCKET_SIZE, TABLET_SIZE, MONTHLY; }
     enum PaperType { COATED, UN_COATED, AMERICAN_BRISTOL, TRACING, CANVAS, CELLOPHANE, CRAFT, MATTE_COATED_PLASTER; }
     enum BindingType { SADDLE_STITCHING , CASE_BINDING, CASE_WRAPPED, PLASTIC_COIL, PERFECT_BINDING; }
-    
+
     public float getHeight() {
         return height;
     }
