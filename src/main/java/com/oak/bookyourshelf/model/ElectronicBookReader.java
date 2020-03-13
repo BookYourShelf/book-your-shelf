@@ -1,38 +1,47 @@
 package com.oak.bookyourshelf.model;
 
 public class ElectronicBookReader extends Product {
-    private String electronicBookColor;
-    private String electronicBookBrand;
-    private String electronicBookModel;
-    private String technicalSpecifications;
+    private String readerColor;
+    private String readerBrand;
+    private String readerModel;
+    private String technicalSpecifications; /* TODO: This can be classified*/
     private float weight;
     private float width;
     private float height;
-    private float screenWidth;
-    private float screenHeight;
+    private float screenSize;
+    private float batteryLife;
+    private int resolution;
+    private boolean glareFreeScreen;
+    private boolean waterProof;
+    private boolean autoAdjustingLight;
+    private boolean buttons;
+    private boolean wifi;
+    private boolean cellular;
+    private boolean backLight;
+    private boolean warmBackLight;
 
-    public String getElectronicBookColor() {
-        return electronicBookColor;
+    public String getReaderColor() {
+        return readerColor;
     }
 
-    public void setElectronicBookColor(String electronicBookColor) {
-        this.electronicBookColor = electronicBookColor;
+    public void setReaderColor(String readerColor) {
+        this.readerColor = readerColor;
     }
 
-    public String getElectronicBookBrand() {
-        return electronicBookBrand;
+    public String getReaderBrand() {
+        return readerBrand;
     }
 
-    public void setElectronicBookBrand(String electronicBookBrand) {
-        this.electronicBookBrand = electronicBookBrand;
+    public void setReaderBrand(String readerBrand) {
+        this.readerBrand = readerBrand;
     }
 
-    public String getElectronicBookModel() {
-        return electronicBookModel;
+    public String getReaderModel() {
+        return readerModel;
     }
 
-    public void setElectronicBookModel(String electronicBookModel) {
-        this.electronicBookModel = electronicBookModel;
+    public void setReaderModel(String readerModel) {
+        this.readerModel = readerModel;
     }
 
     public String getTechnicalSpecifications() {
@@ -67,19 +76,92 @@ public class ElectronicBookReader extends Product {
         this.height = height;
     }
 
-    public float getScreenWidth() {
-        return screenWidth;
+    public float getScreenSize() {
+        return screenSize;
     }
 
-    public void setScreenWidth(float screenWidth) {
-        this.screenWidth = screenWidth;
+    public void setScreenSize(float screenSize) {
+        this.screenSize = screenSize;
     }
 
-    public float getScreenHeight() {
-        return screenHeight;
+    public float getBatteryLife() {
+        return batteryLife;
     }
 
-    public void setScreenHeight(float screenHeight) {
-        this.screenHeight = screenHeight;
+    public void setBatteryLife(float batteryLife) {
+        this.batteryLife = batteryLife;
     }
+
+    public int getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(int resolution) {
+        this.resolution = resolution;
+    }
+
+    public boolean isGlareFreeScreen() {
+        return glareFreeScreen;
+    }
+
+    public void setGlareFreeScreen(boolean glareFreeScreen) {
+        this.glareFreeScreen = glareFreeScreen;
+    }
+
+    public boolean isWaterProof() {
+        return waterProof;
+    }
+
+    public void setWaterProof(boolean waterProof) {
+        this.waterProof = waterProof;
+    }
+
+    public boolean isAutoAdjustingLight() {
+        return autoAdjustingLight;
+    }
+
+    public void setAutoAdjustingLight(boolean autoAdjustingLight) {
+        this.autoAdjustingLight = autoAdjustingLight;
+    }
+
+    public boolean isButtons() {
+        return buttons;
+    }
+
+    public void setButtons(boolean buttons) {
+        this.buttons = buttons;
+    }
+
+    public boolean isWifi() {
+        return wifi;
+    }
+
+    public void setWifi(boolean wifi) {
+        this.wifi = wifi;
+    }
+
+    public boolean isCellular() {
+        return cellular;
+    }
+
+    public void setCellular(boolean cellular) {
+        this.cellular = cellular;
+    }
+
+    public boolean isBackLight() {
+        return backLight;
+    }
+
+    public void setBackLight(boolean backLight) {
+        this.backLight = backLight;
+    }
+
+    public boolean isWarmBackLight() {
+        return warmBackLight;
+    }
+
+    public void setWarmBackLight(boolean warmBackLight) {
+        this.warmBackLight = warmBackLight;
+    }
+
 }
