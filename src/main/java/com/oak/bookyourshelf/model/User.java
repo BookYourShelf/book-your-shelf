@@ -18,7 +18,7 @@ public class User {
     private String phoneNumber;
     private ArrayList<Product> productsPurchased;
     private ArrayList<String> searchHistory;
-    /* Orders must be here */
+    /* TODO: Orders must be here */
 
     public int getUserId() {
         return userId;
