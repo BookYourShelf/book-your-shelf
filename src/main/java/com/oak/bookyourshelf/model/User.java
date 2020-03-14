@@ -1,23 +1,53 @@
 package com.oak.bookyourshelf.model;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String email;
     private String name;
     private String surname;
     private Date birthDate;
     private byte[] profilePicture;
-    private ArrayList<Review> reviews;
-    private ArrayList<String> addresses;
-    private ArrayList<Product> shoppingCart;
-    private ArrayList<Product> wishList;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Review> reviews;
+
+    @ElementCollection
+    private List<String> addresses;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Product> shoppingCart;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Product> wishList;
+    @Transient
     transient private String password;
     private String phoneNumber;
-    private ArrayList<Product> productsPurchased;
-    private ArrayList<String> searchHistory;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Product> productsPurchased;
+
+    @ElementCollection
+    private List<String> searchHistory;
     /* TODO: Orders must be here */
 
     public int getUserId() {
@@ -68,7 +98,7 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-    public ArrayList<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
@@ -76,7 +106,7 @@ public class User {
         this.reviews = reviews;
     }
 
-    public ArrayList<String> getAddresses() {
+    public List<String> getAddresses() {
         return addresses;
     }
 
@@ -84,7 +114,7 @@ public class User {
         this.addresses = addresses;
     }
 
-    public ArrayList<Product> getShoppingCart() {
+    public List<Product> getShoppingCart() {
         return shoppingCart;
     }
 
@@ -92,7 +122,7 @@ public class User {
         this.shoppingCart = shoppingCart;
     }
 
-    public ArrayList<Product> getWishList() {
+    public List<Product> getWishList() {
         return wishList;
     }
 
@@ -116,7 +146,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<Product> getProductsPurchased() {
+    public List<Product> getProductsPurchased() {
         return productsPurchased;
     }
 
@@ -124,7 +154,7 @@ public class User {
         this.productsPurchased = productsPurchased;
     }
 
-    public ArrayList<String> getSearchHistory() {
+    public List<String> getSearchHistory() {
         return searchHistory;
     }
 
