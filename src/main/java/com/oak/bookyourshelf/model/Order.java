@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Order {
 
@@ -37,7 +38,7 @@ public class Order {
     }
 
     private int orderId;
-    private int[] productId;
+    private ArrayList<Integer> productId;
     private int userId;
     private String userName;
     private Date orderDate;
@@ -56,11 +57,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public int[] getProductId() {
+    public ArrayList<Integer> getProductId() {
         return productId;
     }
 
-    public void setProductId(int[] productId) {
+    public void setProductId(ArrayList<Integer> productId) {
         this.productId = productId;
     }
 
@@ -136,7 +137,7 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public float getTotalAmountOfShipping(int[] productId){
+    public float getTotalAmountOfShipping(){
         float totalAmount = 0;
         /* TODO: find sum of products */
         if (totalAmount < MIN_SHIPPING){
