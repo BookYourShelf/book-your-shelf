@@ -40,15 +40,25 @@ public class User {
     transient private String password;
     private String phoneNumber;
 
+    @ElementCollection
+    private List<String> searchHistory;
+    /* TODO: Orders must be here */
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Product> productsPurchased;
+    private List<Order> orders;
 
-    @ElementCollection
-    private List<String> searchHistory;
-    /* TODO: Orders must be here */
+
+    public ArrayList<Product> getProductsPurchased() {
+
+        ArrayList<Product> products = new ArrayList<>();
+        // TODO get all products from orders
+        return products;
+    }
+
+    // GETTER & SETTER
 
     public int getUserId() {
         return userId;
@@ -146,19 +156,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Product> getProductsPurchased() {
-        return productsPurchased;
-    }
-
-    public void setProductsPurchased(ArrayList<Product> productsPurchased) {
-        this.productsPurchased = productsPurchased;
-    }
-
     public List<String> getSearchHistory() {
         return searchHistory;
     }
 
     public void setSearchHistory(ArrayList<String> searchHistory) {
         this.searchHistory = searchHistory;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
     }
 }
