@@ -42,7 +42,6 @@ public class User {
 
     @ElementCollection
     private List<String> searchHistory;
-    /* TODO: Orders must be here */
 
     @OneToMany(
             cascade = CascadeType.ALL,
