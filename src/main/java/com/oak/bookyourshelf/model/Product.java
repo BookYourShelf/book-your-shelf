@@ -1,37 +1,60 @@
 package com.oak.bookyourshelf.model;
 
-import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.util.ArrayList;
 
 public abstract class Product {
 
-    private int id;
-    private int totalReviewNum;
+    private int productId;
     private int stock;
-    private int[] totalStarNum;
+    private int salesNum;
+    private int[] totalStarNum = {0, 0, 0, 0, 0};
     private float price;
     private float saleRate;
-    private float scoreOutOf5;
     private boolean onSale;
     private Date uploadDate;
+    private String productName;
     private String shortDesc;
     private String longDesc;
     private String barcode;
-    private BufferedImage coverImg;
+    private ArrayList<Integer> buyerUserIds;
     private ArrayList<Review> reviews;
-    private ArrayList<BufferedImage> images;
+    private ArrayList<byte[]> images;
 
-    public int getId() {
-        return id;
+    public byte[] getCoverImage() {     // cover image of the product is the first image in images
+        return images.get(0);
+    }
+
+    public float getScoreOutOf5() {        // calculate score of the product
+        float total = 0;
+
+        for (int i = 0; i < 5; i++) {
+            total += (i+1) * totalStarNum[i];
+        }
+
+        return total/5;
     }
 
     public int getTotalReviewNum() {
-        return totalReviewNum;
+        return reviews.size();
+    }
+
+    public void increaseSalesNum() {
+        salesNum++;
+    }
+
+    // GETTER & SETTER
+
+    public int getProductId() {
+        return productId;
     }
 
     public int getStock() {
         return stock;
+    }
+
+    public int getSalesNum() {
+        return salesNum;
     }
 
     public int[] getTotalStarNum() {
@@ -46,16 +69,16 @@ public abstract class Product {
         return saleRate;
     }
 
-    public float getScoreOutOf5() {
-        return scoreOutOf5;
-    }
-
     public boolean isOnSale() {
         return onSale;
     }
 
     public Date getUploadDate() {
         return uploadDate;
+    }
+
+    public String getProductName() {
+        return productName;
     }
 
     public String getShortDesc() {
@@ -70,28 +93,28 @@ public abstract class Product {
         return barcode;
     }
 
-    public BufferedImage getCoverImg() {
-        return coverImg;
+    public ArrayList<Integer> getBuyerUserIds() {
+        return buyerUserIds;
     }
 
     public ArrayList<Review> getReviews() {
         return reviews;
     }
 
-    public ArrayList<BufferedImage> getImages() {
+    public ArrayList<byte[]> getImages() {
         return images;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTotalReviewNum(int totalReviewNum) {
-        this.totalReviewNum = totalReviewNum;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public void setSalesNum(int salesNum) {
+        this.salesNum = salesNum;
     }
 
     public void setTotalStarNum(int[] totalStarNum) {
@@ -106,16 +129,16 @@ public abstract class Product {
         this.saleRate = saleRate;
     }
 
-    public void setScoreOutOf5(float scoreOutOf5) {
-        this.scoreOutOf5 = scoreOutOf5;
-    }
-
     public void setOnSale(boolean onSale) {
         this.onSale = onSale;
     }
 
     public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public void setShortDesc(String shortDesc) {
@@ -130,15 +153,15 @@ public abstract class Product {
         this.barcode = barcode;
     }
 
-    public void setCoverImg(BufferedImage coverImg) {
-        this.coverImg = coverImg;
+    public void setBuyerUserIds(ArrayList<Integer> buyerUserIds) {
+        this.buyerUserIds = buyerUserIds;
     }
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public void setImages(ArrayList<BufferedImage> images) {
+    public void setImages(ArrayList<byte[]> images) {
         this.images = images;
     }
 }
