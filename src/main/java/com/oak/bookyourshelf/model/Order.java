@@ -4,6 +4,9 @@ import java.sql.Date;
 
 public class Order {
 
+    private static final float MIN_SHIPPING = 100f;
+    private static final float SHIPPING_PRICE = 6.99f;
+
     public enum DeliveryStatus{
         INFO_RECEIVED,
         IN_TRANSIT,
@@ -15,6 +18,18 @@ public class Order {
         PENDING
     }
 
+    public enum PaymentStatus{
+        PENDING,
+        PROCESSED,
+        COMPLETED,
+        REFUNDED,
+        FAILED,
+        EXPIRED,
+        REVOKED,
+        PREAPPROVED,
+        CANCELLED
+    }
+
     public enum PaymentOption{
         CREDIT_CARD,
         PAYPAL,
@@ -22,16 +37,16 @@ public class Order {
     }
 
     private int orderId;
-    private int productId;
+    private int[] productId;
     private int userId;
     private String userName;
     private Date orderDate;
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
-    private boolean fastDelivery;
     private DeliveryStatus deliveryStatus;
     private PaymentOption paymentOption;
+    private PaymentStatus paymentStatus;
 
     public int getOrderId() {
         return orderId;
@@ -41,11 +56,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public int getProductId() {
+    public int[] getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(int[] productId) {
         this.productId = productId;
     }
 
@@ -97,14 +112,6 @@ public class Order {
         this.shippingCompany = shippingCompany;
     }
 
-    public boolean isFastDelivery() {
-        return fastDelivery;
-    }
-
-    public void setFastDelivery(boolean fastDelivery) {
-        this.fastDelivery = fastDelivery;
-    }
-
     public DeliveryStatus getDeliveryStatus() {
         return deliveryStatus;
     }
@@ -120,4 +127,25 @@ public class Order {
     public void setPaymentOption(PaymentOption paymentOption) {
         this.paymentOption = paymentOption;
     }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public float getTotalAmountOfShipping(int[] productId){
+        float totalAmount = 0;
+        /* TODO: find sum of products */
+        if (totalAmount < MIN_SHIPPING){
+            totalAmount += SHIPPING_PRICE;
+        }
+        return totalAmount;
+    }
+
+
+
+
 }
