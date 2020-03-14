@@ -5,6 +5,8 @@ public class ElectronicBookReaderCase extends BookCase {
     private String readerBrand;
     private String readerModel;
 
+    // GETTER & SETTER
+
     public void setReaderBrand(String readerBrand) {
         this.readerBrand = readerBrand;
     }

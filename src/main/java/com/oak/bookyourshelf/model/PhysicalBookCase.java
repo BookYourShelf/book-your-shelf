@@ -5,6 +5,8 @@ public class PhysicalBookCase extends BookCase  {
     private float caseWidth;
     private float caseHeight;
 
+    // GETTER & SETTER
+
     public void setCaseWidth(float caseWidth) {
         this.caseWidth = caseWidth;
     }

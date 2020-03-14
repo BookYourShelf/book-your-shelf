@@ -1,10 +1,11 @@
 package com.oak.bookyourshelf.model;
 
 public class ElectronicBookReader extends Product {
+
     private String readerColor;
     private String readerBrand;
     private String readerModel;
-    private String technicalSpecifications; /* TODO: This can be classified*/
+    private String technicalSpecifications; /* TODO: This can be classified */
     private float weight;
     private float width;
     private float height;
@@ -19,6 +20,8 @@ public class ElectronicBookReader extends Product {
     private boolean cellular;
     private boolean backLight;
     private boolean warmBackLight;
+
+    // GETTER & SETTER
 
     public String getReaderColor() {
         return readerColor;
@@ -163,5 +166,4 @@ public class ElectronicBookReader extends Product {
     public void setWarmBackLight(boolean warmBackLight) {
         this.warmBackLight = warmBackLight;
     }
-
 }

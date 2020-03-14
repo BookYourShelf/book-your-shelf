@@ -14,6 +14,8 @@ public abstract class Book extends Product {
     private ArrayList<String> authors;
     private ArrayList<String> keywords;
 
+    // GETTER & SETTER
+
     public int getBookId() {
         return bookId;
     }

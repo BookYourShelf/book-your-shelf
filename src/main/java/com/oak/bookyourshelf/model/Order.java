@@ -8,7 +8,7 @@ public class Order {
     private static final float MIN_SHIPPING = 100f;
     private static final float SHIPPING_PRICE = 6.99f;
 
-    public enum DeliveryStatus{
+    private enum DeliveryStatus{
         INFO_RECEIVED,
         IN_TRANSIT,
         OUT_FOR_DELIVERY,
@@ -19,7 +19,7 @@ public class Order {
         PENDING
     }
 
-    public enum PaymentStatus{
+    private enum PaymentStatus{
         PENDING,
         PROCESSED,
         COMPLETED,
@@ -31,7 +31,7 @@ public class Order {
         CANCELLED
     }
 
-    public enum PaymentOption{
+    private enum PaymentOption{
         CREDIT_CARD,
         PAYPAL,
         TRANSFERRING_MONEY_PTT
@@ -48,6 +48,18 @@ public class Order {
     private DeliveryStatus deliveryStatus;
     private PaymentOption paymentOption;
     private PaymentStatus paymentStatus;
+
+    public float getTotalAmountOfShipping(){
+
+        float totalAmount = 0;
+        /* TODO: find sum of products */
+        if (totalAmount < MIN_SHIPPING){
+            totalAmount += SHIPPING_PRICE;
+        }
+        return totalAmount;
+    }
+
+    // GETTER & SETTER
 
     public int getOrderId() {
         return orderId;
@@ -136,17 +148,4 @@ public class Order {
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-
-    public float getTotalAmountOfShipping(){
-        float totalAmount = 0;
-        /* TODO: find sum of products */
-        if (totalAmount < MIN_SHIPPING){
-            totalAmount += SHIPPING_PRICE;
-        }
-        return totalAmount;
-    }
-
-
-
-
 }

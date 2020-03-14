@@ -2,13 +2,42 @@ package com.oak.bookyourshelf.model;
 
 public class PhysicalBook extends Book {
 
+    private enum MediaType {
+        HARDCOVER,
+        SOFTCOVER,
+        POCKET_SIZE,
+        TABLET_SIZE,
+        MONTHLY;
+    }
+
+    private enum PaperType {
+        COATED,
+        UN_COATED,
+        AMERICAN_BRISTOL,
+        TRACING,
+        CANVAS,
+        CELLOPHANE,
+        CRAFT,
+        MATTE_COATED_PLASTER;
+    }
+
+    private enum BindingType {
+        SADDLE_STITCHING,
+        CASE_BINDING,
+        CASE_WRAPPED,
+        PLASTIC_COIL,
+        PERFECT_BINDING;
+    }
+
     private int pageNum;
     private int editionNum;
     private float height;
     private float width;
-    enum MediaType { HARDCOVER, SOFTCOVER, POCKET_SIZE, TABLET_SIZE, MONTHLY; }
-    enum PaperType { COATED, UN_COATED, AMERICAN_BRISTOL, TRACING, CANVAS, CELLOPHANE, CRAFT, MATTE_COATED_PLASTER; }
-    enum BindingType { SADDLE_STITCHING , CASE_BINDING, CASE_WRAPPED, PLASTIC_COIL, PERFECT_BINDING; }
+    private MediaType mediaType;
+    private PaperType paperType;
+    private BindingType bindingType;
+
+    // GETTER & SETTER
 
     public float getHeight() {
         return height;
@@ -42,4 +71,27 @@ public class PhysicalBook extends Book {
         this.pageNum = pageNum;
     }
 
+    public MediaType getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public PaperType getPaperType() {
+        return paperType;
+    }
+
+    public void setPaperType(PaperType paperType) {
+        this.paperType = paperType;
+    }
+
+    public BindingType getBindingType() {
+        return bindingType;
+    }
+
+    public void setBindingType(BindingType bindingType) {
+        this.bindingType = bindingType;
+    }
 }

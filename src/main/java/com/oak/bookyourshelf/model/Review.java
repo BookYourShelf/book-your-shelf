@@ -13,6 +13,8 @@ public class Review {
     private int scoreOutOf5;
     private Date uploadDate;
 
+    // GETTER & SETTER
+
     public int getReviewId() {
         return reviewId;
     }

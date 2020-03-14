@@ -5,6 +5,8 @@ public class AudioBook extends Book {
     private int lengthInMinutes;
     private String narratedBy;
 
+    // GETTER & SETTER
+
     public int getLengthInMinutes() {
         return lengthInMinutes;
     }
@@ -20,6 +22,4 @@ public class AudioBook extends Book {
     public void setNarratedBy(String narratedBy) {
         this.narratedBy = narratedBy;
     }
-
 }
-

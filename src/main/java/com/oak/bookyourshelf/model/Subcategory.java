@@ -3,9 +3,12 @@ package com.oak.bookyourshelf.model;
 import java.util.ArrayList;
 
 public class Subcategory {
-    int itemNum;
-    String name;
-    ArrayList<Subcategory> subcategories;
+
+    private int itemNum;
+    private String name;
+    private ArrayList<Subcategory> subcategories;
+
+    // GETTER & SETTER
 
     public int getItemNum() {
         return itemNum;

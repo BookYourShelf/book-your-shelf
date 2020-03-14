@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class User {
+
     private int userId;
     private String email;
     private String name;
@@ -16,9 +17,17 @@ public class User {
     private ArrayList<Product> wishList;
     transient private String password;
     private String phoneNumber;
-    private ArrayList<Product> productsPurchased;
     private ArrayList<String> searchHistory;
-    /* TODO: Orders must be here */
+    private ArrayList<Order> orders;
+
+    public ArrayList<Product> getProductsPurchased() {
+
+        ArrayList<Product> products = new ArrayList<>();
+        // TODO get all products from orders
+        return products;
+    }
+
+    // GETTER & SETTER
 
     public int getUserId() {
         return userId;
@@ -116,19 +125,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<Product> getProductsPurchased() {
-        return productsPurchased;
-    }
-
-    public void setProductsPurchased(ArrayList<Product> productsPurchased) {
-        this.productsPurchased = productsPurchased;
-    }
-
     public ArrayList<String> getSearchHistory() {
         return searchHistory;
     }
 
     public void setSearchHistory(ArrayList<String> searchHistory) {
         this.searchHistory = searchHistory;
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
     }
 }
