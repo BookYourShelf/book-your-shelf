@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.model;
 
+@Entity
 public class AudioBook extends Book {
 
     private int lengthInMinutes;
