@@ -1,14 +1,24 @@
 package com.oak.bookyourshelf.model;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+@Entity
 public abstract class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int productId;
+
     private int stock;
     private int salesNum;
-    private int[] totalStarNum = {0, 0, 0, 0, 0};
+
+    @ElementCollection
+    private List<Integer> totalStarNum = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0));
+
     private float price;
     private float saleRate;
     private boolean onSale;
@@ -17,9 +27,20 @@ public abstract class Product {
     private String shortDesc;
     private String longDesc;
     private String barcode;
-    private ArrayList<Integer> buyerUserIds;
-    private ArrayList<Review> reviews;
-    private ArrayList<byte[]> images;
+
+    @ElementCollection
+    private List<Integer> buyerUserIds;
+
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<Review> reviews;
+
+    @ElementCollection
+    private List<byte[]> images;
+
+    // FUNCTIONS
 
     public byte[] getCoverImage() {     // cover image of the product is the first image in images
         return images.get(0);
@@ -29,7 +50,7 @@ public abstract class Product {
         float total = 0;
 
         for (int i = 0; i < 5; i++) {
-            total += (i+1) * totalStarNum[i];
+            total += (i+1) * totalStarNum.get(i);
         }
 
         return total/5;
@@ -57,7 +78,7 @@ public abstract class Product {
         return salesNum;
     }
 
-    public int[] getTotalStarNum() {
+    public List<Integer> getTotalStarNum() {
         return totalStarNum;
     }
 
@@ -93,15 +114,15 @@ public abstract class Product {
         return barcode;
     }
 
-    public ArrayList<Integer> getBuyerUserIds() {
+    public List<Integer> getBuyerUserIds() {
         return buyerUserIds;
     }
 
-    public ArrayList<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public ArrayList<byte[]> getImages() {
+    public List<byte[]> getImages() {
         return images;
     }
 
@@ -117,7 +138,7 @@ public abstract class Product {
         this.salesNum = salesNum;
     }
 
-    public void setTotalStarNum(int[] totalStarNum) {
+    public void setTotalStarNum(List<Integer> totalStarNum) {
         this.totalStarNum = totalStarNum;
     }
 
@@ -153,15 +174,15 @@ public abstract class Product {
         this.barcode = barcode;
     }
 
-    public void setBuyerUserIds(ArrayList<Integer> buyerUserIds) {
+    public void setBuyerUserIds(List<Integer> buyerUserIds) {
         this.buyerUserIds = buyerUserIds;
     }
 
-    public void setReviews(ArrayList<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public void setImages(ArrayList<byte[]> images) {
+    public void setImages(List<byte[]> images) {
         this.images = images;
     }
 }
