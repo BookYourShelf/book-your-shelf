@@ -6,10 +6,6 @@ import java.util.List;
 @Entity
 public abstract class Book extends Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int bookId;
-
     private int publishedYear;
     private String bookName;
     private String language;
@@ -24,10 +20,6 @@ public abstract class Book extends Product {
     private List<String> keywords;
 
     // GETTER & SETTER
-
-    public int getBookId() {
-        return bookId;
-    }
 
     public int getPublishedYear() {
         return publishedYear;
@@ -59,10 +51,6 @@ public abstract class Book extends Product {
 
     public List<String> getKeywords() {
         return keywords;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
     }
 
     public void setPublishedYear(int publishedYear) {
