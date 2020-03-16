@@ -1,8 +1,16 @@
 package com.oak.bookyourshelf.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Id;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Order {
 
     private static final float MIN_SHIPPING = 100f;
@@ -37,16 +45,27 @@ public class Order {
         TRANSFERRING_MONEY_PTT
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
-    private ArrayList<Integer> productId;
+
+    @ElementCollection
+    private List<Integer> productId;
+
     private int userId;
     private String userName;
     private Date orderDate;
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
+
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
+
+    @Enumerated(EnumType.STRING)
     private PaymentOption paymentOption;
+
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
     public float getTotalAmountOfShipping(){
@@ -69,11 +88,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public ArrayList<Integer> getProductId() {
+    public List<Integer> getProductId() {
         return productId;
     }
 
-    public void setProductId(ArrayList<Integer> productId) {
+    public void setProductId(List<Integer> productId) {
         this.productId = productId;
     }
 
