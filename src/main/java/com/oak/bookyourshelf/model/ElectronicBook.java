@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.model;
 
+@Entity
 public class ElectronicBook extends Book {
 
     private enum FileFormat {
@@ -9,6 +10,8 @@ public class ElectronicBook extends Book {
 
     private int pageNum;
     private int fileSize;
+
+    @Enumerated(EnumType.STRING)
     private FileFormat fileFormat;
 
     // GETTER & SETTER
