@@ -1,14 +1,33 @@
 package com.oak.bookyourshelf.model;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
 public class Category {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     private int itemNum;
     private String name;
-    private ArrayList<Subcategory> subcategories;
+
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<Subcategory> subcategories;
 
     // GETTER & SETTER
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getItemNum() {
         return itemNum;
@@ -26,11 +45,11 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<Subcategory> getSubcategories() {
+    public List<Subcategory> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(ArrayList<Subcategory> subcategories) {
+    public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
 }

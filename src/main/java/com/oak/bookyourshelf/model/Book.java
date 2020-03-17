@@ -1,24 +1,25 @@
 package com.oak.bookyourshelf.model;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
 public abstract class Book extends Product {
 
-    private int bookId;
     private int publishedYear;
     private String bookName;
     private String language;
     private String translator;
     private String isbn;
     private String publisher;
-    private ArrayList<String> authors;
-    private ArrayList<String> keywords;
+
+    @ElementCollection
+    private List<String> authors;
+
+    @ElementCollection
+    private List<String> keywords;
 
     // GETTER & SETTER
-
-    public int getBookId() {
-        return bookId;
-    }
 
     public int getPublishedYear() {
         return publishedYear;
@@ -28,7 +29,7 @@ public abstract class Book extends Product {
         return bookName;
     }
 
-    public ArrayList<String> getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
@@ -48,12 +49,8 @@ public abstract class Book extends Product {
         return publisher;
     }
 
-    public ArrayList<String> getKeywords() {
+    public List<String> getKeywords() {
         return keywords;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
     }
 
     public void setPublishedYear(int publishedYear) {
@@ -64,7 +61,7 @@ public abstract class Book extends Product {
         this.bookName = name;
     }
 
-    public void setAuthors(ArrayList<String> authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
@@ -84,7 +81,7 @@ public abstract class Book extends Product {
         this.publisher = publisher;
     }
 
-    public void setKeywords(ArrayList<String> keywords) {
+    public void setKeywords(List<String> keywords) {
         this.keywords = keywords;
     }
 }
