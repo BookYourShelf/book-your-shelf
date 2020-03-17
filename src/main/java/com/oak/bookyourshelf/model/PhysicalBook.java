@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.model;
 
+@Entity
 public class PhysicalBook extends Book {
 
     private enum MediaType {
@@ -33,8 +34,14 @@ public class PhysicalBook extends Book {
     private int editionNum;
     private float height;
     private float width;
+
+    @Enumerated(EnumType.STRING)
     private MediaType mediaType;
+
+    @Enumerated(EnumType.STRING)
     private PaperType paperType;
+
+    @Enumerated(EnumType.STRING)
     private BindingType bindingType;
 
     // GETTER & SETTER
