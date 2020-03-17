@@ -1,5 +1,10 @@
 package com.oak.bookyourshelf.model;
 
+
+import javax.persistence.Entity;
+
+@Entity
+
 public class ElectronicBookReaderCase extends BookCase {
 
     private String readerBrand;
