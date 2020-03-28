@@ -1,15 +1,8 @@
 package com.oak.bookyourshelf.model;
 
-
-
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
-
 public abstract class BookCase extends Product  {
 
     private String caseColor;

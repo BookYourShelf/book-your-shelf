@@ -4,9 +4,11 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
@@ -14,7 +16,7 @@ public class User {
     private String name;
     private String surname;
     private Date birthDate;
-    private byte[] profilePicture;
+    private String phoneNumber;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -36,12 +38,12 @@ public class User {
             orphanRemoval = true
     )
     private List<Product> wishList;
+
     @Transient
     transient private String password;
-    private String phoneNumber;
 
     @ElementCollection
-    private List<String> searchHistory;
+    private Map<String, Integer> searchHistory;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -49,6 +51,7 @@ public class User {
     )
     private List<Order> orders;
 
+    // FUNCTIONS
 
     public ArrayList<Product> getProductsPurchased() {
 
@@ -99,19 +102,19 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(ArrayList<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -119,7 +122,7 @@ public class User {
         return addresses;
     }
 
-    public void setAddresses(ArrayList<String> addresses) {
+    public void setAddresses(List<String> addresses) {
         this.addresses = addresses;
     }
 
@@ -127,7 +130,7 @@ public class User {
         return shoppingCart;
     }
 
-    public void setShoppingCart(ArrayList<Product> shoppingCart) {
+    public void setShoppingCart(List<Product> shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
 
@@ -135,7 +138,7 @@ public class User {
         return wishList;
     }
 
-    public void setWishList(ArrayList<Product> wishList) {
+    public void setWishList(List<Product> wishList) {
         this.wishList = wishList;
     }
 
@@ -147,19 +150,11 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public List<String> getSearchHistory() {
+    public Map<String, Integer> getSearchHistory() {
         return searchHistory;
     }
 
-    public void setSearchHistory(ArrayList<String> searchHistory) {
+    public void setSearchHistory(Map<String, Integer> searchHistory) {
         this.searchHistory = searchHistory;
     }
 
@@ -167,7 +162,7 @@ public class User {
         return orders;
     }
 
-    public void setOrders(ArrayList<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 }
