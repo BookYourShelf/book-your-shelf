@@ -1,5 +1,9 @@
 package com.oak.bookyourshelf.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 @Entity
 public class PhysicalBook extends Book {
 

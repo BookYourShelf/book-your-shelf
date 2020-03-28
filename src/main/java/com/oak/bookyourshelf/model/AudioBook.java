@@ -1,5 +1,7 @@
 package com.oak.bookyourshelf.model;
 
+import javax.persistence.Entity;
+
 @Entity
 public class AudioBook extends Book {
 
