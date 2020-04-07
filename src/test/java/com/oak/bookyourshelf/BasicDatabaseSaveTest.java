@@ -42,7 +42,7 @@ class BasicDatabaseSaveTest {
         electronicBookRepository.save(electronicBook);
 
         ElectronicBook foundElectronicBook = electronicBookRepository
-                .findById(electronicBook.getId()).orElse(null);
+                .findById(electronicBook.getProductId()).orElse(null);
 
         Assert.notNull(electronicBook, "ElectronicBook can't be null");
 

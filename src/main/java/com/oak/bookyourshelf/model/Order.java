@@ -1,16 +1,11 @@
 package com.oak.bookyourshelf.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ElementCollection;
-import javax.persistence.Id;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
 
     private static final float MIN_SHIPPING = 100f;
