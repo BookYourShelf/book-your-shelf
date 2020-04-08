@@ -6,20 +6,40 @@ import java.util.List;
 @Entity
 public class Category {
 
+    private enum ProductType {
+        BOOK,
+        E_BOOK,
+        AUDIO_BOOK,
+        E_BOOK_READER,
+        E_BOOK_READER_CASE,
+        BOOK_CASE;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
 
     private int itemNum;
     private String name;
 
     @OneToMany(
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Subcategory> subcategories;
 
     // GETTER & SETTER
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 
     public int getId() {
         return id;
