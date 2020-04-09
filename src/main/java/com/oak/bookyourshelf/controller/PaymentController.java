@@ -1,9 +1,9 @@
-package com.oak.bookyourshelf.controller.payment;
+package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.CreditCard;
-import com.oak.bookyourshelf.model.payment.Payment;
-import com.oak.bookyourshelf.model.payment.PaymentMethod;
-import com.oak.bookyourshelf.model.payment.PaymentResult;
+import com.oak.bookyourshelf.model.Payment;
+import com.oak.bookyourshelf.model.PaymentMethod;
+import com.oak.bookyourshelf.model.PaymentResult;
 import com.oak.bookyourshelf.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Controller
