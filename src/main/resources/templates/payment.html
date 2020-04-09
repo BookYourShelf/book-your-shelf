@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Payment | Book Your Shelf</title>
@@ -266,18 +266,18 @@
                                 <div class="tab-pane fade show active" id="nav-tab-card">
                                     <p class="alert alert-success d-none">Some text success or error</p>
                                     <br>
-                                    <form role="form">
+                                    <form role="form" action="#" th:action="@{pay}" th:object="${creditCard}" method="post">
                                         <div class="form-group">
                                             <label>Full Name On the Card</label>
                                             <input type="text" class="checkout_input form-control" name="name"
-                                                   required="">
+                                                   required="" th:field="*{fullName}">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Card Number</label>
                                             <div class="input-group">
                                                 <input type="text" class="checkout_input form-control credit-card"
-                                                       name="card-number">
+                                                       name="card-number" required="" th:field="*{cardNumber}">
                                                 <div class="input-group-append">
                                                         <span class="input-group-text text-muted">
                                                             <i class="fa fa-cc-visa"></i>   <i
@@ -293,7 +293,7 @@
                                             <div class="input-group">
                                                 <select name="billing_address_title" id="expiration-month"
                                                         class="dropdown_item_select checkout_input form-control"
-                                                        require="required">
+                                                        require="">
                                                     <option>MONTH</option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -311,7 +311,7 @@
 
                                                 <select name="billing_address_title" id="expiration-year"
                                                         class="dropdown_item_select checkout_input form-control"
-                                                        require="required">
+                                                        require="">
                                                     <option>YEAR</option>
                                                     <option>2020</option>
                                                     <option>2021</option>
@@ -337,11 +337,10 @@
                                                    data-original-title="3-digit number on the back side of the card.">CVV
                                                 <i class="fa fa-question-circle"></i></label>
                                             <input type="text" class="checkout_input form-control cvv"
-                                                   required="">
+                                                   required="" th:field="*{cvv}">
                                         </div>
 
-                                        <div class="checkout_button trans_200"><a href="thank-you.html">Confirm</a>
-                                        </div>
+                                        <input type="submit" value="Confirm" class="checkout_button trans_200">
                                     </form>
                                 </div>
 
