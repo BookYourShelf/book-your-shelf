@@ -1277,7 +1277,7 @@ section {
     border: solid 2px #fbaa1d;
 }
 
-.checkout_button a {
+.checkout_button[type=submit] {
     display: block;
     font-size: 18px;
     font-weight: 700;
@@ -1291,7 +1291,7 @@ section {
     transition: all 200ms ease;
 }
 
-.checkout_button:hover a {
+.checkout_button:hover[type=submit] {
     color: #fbaa1d;
 }
 
