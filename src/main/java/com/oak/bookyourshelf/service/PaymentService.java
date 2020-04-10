@@ -2,15 +2,19 @@ package com.oak.bookyourshelf.service;
 
 import com.oak.bookyourshelf.model.Payment;
 import com.oak.bookyourshelf.repository.PaymentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 public class PaymentService {
-    @Autowired
+
+    final
     PaymentRepository paymentRepository;
+
+    public PaymentService(PaymentRepository paymentRepository) {
+        this.paymentRepository = paymentRepository;
+    }
 
     public Iterable<Payment> listAll() {
         return paymentRepository.findAll();
