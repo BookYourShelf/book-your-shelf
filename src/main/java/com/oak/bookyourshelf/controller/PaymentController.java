@@ -2,10 +2,7 @@ package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.CreditCard;
 import com.oak.bookyourshelf.model.Payment;
-import com.oak.bookyourshelf.model.PaymentMethod;
-import com.oak.bookyourshelf.model.PaymentResult;
 import com.oak.bookyourshelf.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +15,13 @@ import java.sql.Timestamp;
 
 @Controller
 public class PaymentController {
-    @Autowired
+
+    final
     PaymentService paymentService;
+
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @RequestMapping("/payment")
     public String showNewPaymentPage(Model model) {
@@ -35,12 +37,10 @@ public class PaymentController {
             Payment payment = new Payment();
             payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
             payment.setPayerId(1);
-            payment.setPaymentMethod(PaymentMethod.PAYMENT_METHOD_BANK_TRANSFER);
-            payment.setPaymentResult(PaymentResult.PAYMENT_RESULT_SUCCESS);
+            payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_BANK_TRANSFER);
+            payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
             paymentService.save(payment);
         }
         return ((errors.hasErrors()) ? "payment" : "thank-you");
     }
-
-
 }
