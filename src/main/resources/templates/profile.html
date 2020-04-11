@@ -251,7 +251,7 @@
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text" id="information-tab" data-toggle="tab"
                            href="#information" role="tab" aria-controls="information" aria-selected="true">My
-                            Informations</a>
+                            Information</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text" id="order-tab" data-toggle="tab" href="#order"
@@ -281,7 +281,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="billing">
-                                                <div class="checkout_title">Personal Informations</div>
+                                                <div class="checkout_title">Personal Information</div>
                                                 <div class="login_form_container">
                                                     <form action="#" id="personal_information_form" class="login_form">
                                                         <div>
@@ -373,7 +373,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="billing">
-                                            <div class="checkout_title">Password Informations</div>
+                                            <div class="checkout_title">Password Information</div>
                                             <div class="login_form_container">
                                                 <form action="#" id="login_form" class="login_form">
                                                     <div>
@@ -969,15 +969,6 @@
                                                                placeholder="(XXX) XXX XX XX" required="required">
                                                     </div>
 
-                                                    <!-- Email -->
-                                                    <div>
-                                                        <div class="login-text p-b-10" style="color: black;">E-Mail
-                                                        </div>
-                                                        <input type="email" id="billing_address_email"
-                                                               class="checkout_input form-control"
-                                                               placeholder="E-Mail" required="required">
-                                                    </div>
-
                                                     <div><!--ERROR--></div>
 
                                                     <!-- Button -->
@@ -1196,17 +1187,6 @@
                                                                        required="required">
                                                             </div>
 
-                                                            <!-- Email -->
-                                                            <div>
-                                                                <div class="login-text p-b-10" style="color: black;">
-                                                                    E-Mail
-                                                                </div>
-                                                                <input type="email" id="billing_address_update_email"
-                                                                       class="checkout_input form-control"
-                                                                       value="jane_doe@gmail.com"
-                                                                       placeholder="E-Mail" required="required">
-                                                            </div>
-
                                                             <div><!--ERROR--></div>
 
                                                             <!-- Button -->
@@ -1416,16 +1396,6 @@
                                                                        required="required">
                                                             </div>
 
-                                                            <!-- Email -->
-                                                            <div>
-                                                                <div class="login-text p-b-10" style="color: black;">
-                                                                    E-Mail
-                                                                </div>
-                                                                <input type="email" id="billing_address_update_email_id"
-                                                                       class="checkout_input form-control"
-                                                                       placeholder="E-Mail" required="required">
-                                                            </div>
-
                                                             <div><!--ERROR--></div>
 
                                                             <!-- Button -->
@@ -1617,15 +1587,6 @@
                                                         <input type="text" id="textbox"
                                                                class="checkout_input form-control phone_mask"
                                                                placeholder="(XXX) XXX XX XX" required="required">
-                                                    </div>
-
-                                                    <!-- Email -->
-                                                    <div>
-                                                        <div class="login-text p-b-10" style="color: black;">E-Mail
-                                                        </div>
-                                                        <input type="email" id="delivery_address_email"
-                                                               class="checkout_input form-control"
-                                                               placeholder="E-Mail" required="required">
                                                     </div>
 
                                                     <div><!--ERROR--></div>
@@ -1846,16 +1807,6 @@
                                                                        required="required">
                                                             </div>
 
-                                                            <!-- Email -->
-                                                            <div>
-                                                                <div class="login-text p-b-10" style="color: black;">
-                                                                    E-Mail
-                                                                </div>
-                                                                <input type="email" id="delivery_address_update_email"
-                                                                       class="checkout_input form-control"
-                                                                       placeholder="E-Mail" required="required">
-                                                            </div>
-
                                                             <div><!--ERROR--></div>
 
                                                             <!-- Button -->
@@ -1886,7 +1837,7 @@
                                     <li class="item_sorting_btn"
                                         data-isotope-option='{ "sortBy": "original-order" }'>Date
                                     </li>
-                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "book-name" }'>Book
+                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "book-name" }'>Product
                                         Name
                                     </li>
                                     <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "decr-rate" }'>
@@ -1897,10 +1848,18 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div style="width: 50px"></div>
+                            <div class="products_dropdown product_dropdown_filter">
+                                <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
+                                                                                       aria-hidden="true"></i></div>
+                                <ul style="">
+                                    <li class="item_filter_btn" data-filter="*">All</li>
+                                    <li class="item_filter_btn" data-filter=".commented">Commented</li>
+                                    <li class="item_filter_btn" data-filter=".uncommented">Uncommented</li>
+                                </ul>
+                            </div>
                         </div>
-
                         <br>
-
                         <div>
                             <!-- Review -->
                             <div class="row">
@@ -1943,7 +1902,7 @@
                                 <div class="col-lg-4">
                                     <div class="review_list">
                                         <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                            <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                            <div class="product_row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                                 <a href="product.html">
                                                     <div>
                                                         <div class="product_image"><img src="images/seker_portakali.jpg"
@@ -2007,7 +1966,7 @@
                                 <div class="col-lg-4">
                                     <div class="review_list">
                                         <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                            <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                            <div class="product_row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                                 <a href="product.html">
                                                     <div>
                                                         <div class="product_image"><img src="images/kurk_mantolu.jpg"
@@ -2028,8 +1987,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- No product -->
-                        <div class="warning-text" style="display: none">There are no reviews.</div>
+                        <!-- No review -->
+                        <div class="warning-text" style="display: none">There are no review.</div>
 
                         <div class="row page_nav_row">
                             <div class="col">
