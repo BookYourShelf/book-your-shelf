@@ -1,15 +1,14 @@
 package com.oak.bookyourshelf.model;
 
-import javax.persistence.Entity;
-import java.io.Serializable;
+public class CreditCard {
 
-public class CreditCard implements Serializable {
     String fullName;
     String cardNumber;
     String expMonth;
     String expYear;
-
     int cvv;
+
+    // GETTER & SETTER
 
     public String getFullName() {
         return fullName;

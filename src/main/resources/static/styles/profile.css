@@ -1674,12 +1674,10 @@ section {
 .products_dropdown > ul {
     position: absolute;
     top: 100%;
-    right: -15px;
     visibility: hidden;
     opacity: 0;
-    width: 100px;
+    width: 135px;
     z-index: 111111;
-    text-align: right;
     background: #f6f8fa;
     padding-left: 15px;
     padding-right: 15px;
@@ -1789,4 +1787,8 @@ section {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.product-row {
+    height: 100%;
 }

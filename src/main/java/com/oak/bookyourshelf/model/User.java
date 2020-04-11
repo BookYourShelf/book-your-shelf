@@ -24,8 +24,17 @@ public class User {
     )
     private List<Review> reviews;
 
-    @ElementCollection
-    private List<String> addresses;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Address> billingAddresses;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Address> deliveryAddresses;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -50,6 +59,9 @@ public class User {
             orphanRemoval = true
     )
     private List<Order> orders;
+
+    public User() {
+    }
 
     // FUNCTIONS
 
@@ -118,14 +130,6 @@ public class User {
         this.reviews = reviews;
     }
 
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<String> addresses) {
-        this.addresses = addresses;
-    }
-
     public List<Product> getShoppingCart() {
         return shoppingCart;
     }
@@ -164,5 +168,21 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public List<Address> getBillingAddresses() {
+        return billingAddresses;
+    }
+
+    public void setBillingAddresses(List<Address> billingAddresses) {
+        this.billingAddresses = billingAddresses;
+    }
+
+    public List<Address> getDeliveryAddresses() {
+        return deliveryAddresses;
+    }
+
+    public void setDeliveryAddresses(List<Address> deliveryAddresses) {
+        this.deliveryAddresses = deliveryAddresses;
     }
 }

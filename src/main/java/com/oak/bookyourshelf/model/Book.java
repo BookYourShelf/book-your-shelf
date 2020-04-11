@@ -7,7 +7,6 @@ import java.util.List;
 public abstract class Book extends Product {
 
     private int publishedYear;
-    private String bookName;
     private String language;
     private String translator;
     private String isbn;
@@ -23,10 +22,6 @@ public abstract class Book extends Product {
 
     public int getPublishedYear() {
         return publishedYear;
-    }
-
-    public String getBookName() {
-        return bookName;
     }
 
     public List<String> getAuthors() {
@@ -55,10 +50,6 @@ public abstract class Book extends Product {
 
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
-    }
-
-    public void setBookName(String name) {
-        this.bookName = name;
     }
 
     public void setAuthors(List<String> authors) {

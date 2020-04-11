@@ -6,6 +6,17 @@ import java.sql.Timestamp;
 @Entity
 public class Payment {
 
+    public enum PaymentMethod {
+        PAYMENT_METHOD_PAYPAL,
+        PAYMENT_METHOD_CREDIT_CARD,
+        PAYMENT_METHOD_BANK_TRANSFER
+    }
+
+    public enum PaymentResult {
+        PAYMENT_RESULT_SUCCESS,
+        PAYMENT_RESULT_DECLINED
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int paymentId;
@@ -18,6 +29,8 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     PaymentResult paymentResult;
+
+    // GETTER & SETTER
 
     public int getPaymentId() {
         return paymentId;
