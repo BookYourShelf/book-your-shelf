@@ -71,7 +71,7 @@ img {
     outline: 0;
     font-size: 14px;
     font-weight: 400;
-    color: #1abc9c
+    color: #fbaa1d
 }
 
 .classy-navbar .nav-brand,
@@ -91,7 +91,7 @@ img {
 }
 
 .classy-nav-container.box-skins .classynav > ul > li {
-    background-color: #1abc9c
+    background-color: #fbaa1d
 }
 
 .classy-nav-container.box-skins .classynav > ul > li > a {
@@ -488,7 +488,7 @@ img {
     padding: 0 25px;
     line-height: 42px;
     height: 42px;
-    background-color: #1abc9c;
+    background-color: #fbaa1d;
     border-radius: 50px;
     color: #fff !important;
     margin-left: 30px;

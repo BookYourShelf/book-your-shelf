@@ -40,3 +40,7 @@
 .dropdown_item_select::-ms-expand {
     display: none;
 }
+
+.tab_icons {
+    color: inherit!important;
+}

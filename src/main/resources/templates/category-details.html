@@ -255,7 +255,7 @@
                 <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text" id="info-tab" data-toggle="tab"
-                           href="#info" role="tab" aria-controls="information" aria-selected="true">Informations</a>
+                           href="#info" role="tab" aria-controls="information" aria-selected="true">Information</a>
                     </li>
 
                     <li class="nav-item">
@@ -267,7 +267,7 @@
                 <br>
                 <div class="tab-content" id="myTabContent">
 
-                    <!-- Informations -->
+                    <!-- Information -->
                     <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
 
                         <div class="address-element-padding">
@@ -300,6 +300,20 @@
                                                                 class="fa product_text">&#xf014;</i></a>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Type -->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="tab-title-text">
+                                                Product Type
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="tab-content-text">
+                                                Book
                                             </div>
                                         </div>
                                     </div>
@@ -349,13 +363,32 @@
                             </div>
                         </div>
 
-                        <!-- Update informations form -->
+                        <!-- Update information form -->
                         <div id="category-info-update" class="collapse">
 
                             <div class="address-container">
                                 <div class="billingAddress">
                                     <div class="checkout_form_container">
                                         <form action="#" id="category-info-update-form" class="checkout_form">
+
+                                            <!-- Product Type -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Product Type
+                                                </div>
+
+                                                <select name="book_type" id="category_product_type"
+                                                        class="dropdown_item_select checkout_input"
+                                                        require="required">
+                                                    <option>Select Product Type</option>
+                                                    <option selected>Book</option>
+                                                    <option>E-Book</option>
+                                                    <option>Audio Book</option>
+                                                    <option>E-Book Reader</option>
+                                                    <option>E-Book Reader Case</option>
+                                                    <option>Book Case</option>
+                                                </select>
+                                            </div>
 
                                             <!-- Category Name -->
                                             <div>

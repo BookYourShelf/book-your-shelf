@@ -255,7 +255,7 @@
                 <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text" id="info-tab" data-toggle="tab"
-                           href="#info" role="tab" aria-controls="information" aria-selected="true">Informations</a>
+                           href="#info" role="tab" aria-controls="information" aria-selected="true">Information</a>
                     </li>
 
                     <li class="nav-item">
@@ -683,15 +683,6 @@
                                                                placeholder="(XXX) XXX XX XX" required="required">
                                                     </div>
 
-                                                    <!-- Email -->
-                                                    <div>
-                                                        <div class="login-text p-b-10" style="color: black;">E-Mail
-                                                        </div>
-                                                        <input type="email" id="billing_address_email"
-                                                               class="checkout_input form-control"
-                                                               placeholder="E-Mail" required="required">
-                                                    </div>
-
                                                     <div><!--ERROR--></div>
 
                                                     <!-- Button -->
@@ -900,16 +891,6 @@
                                                                        class="checkout_input form-control phone_mask"
                                                                        placeholder="(XXX) XXX XX XX"
                                                                        required="required">
-                                                            </div>
-
-                                                            <!-- Email -->
-                                                            <div>
-                                                                <div class="login-text p-b-10" style="color: black;">
-                                                                    E-Mail
-                                                                </div>
-                                                                <input type="email" id="billing_address_update_email"
-                                                                       class="checkout_input form-control"
-                                                                       placeholder="E-Mail" required="required">
                                                             </div>
 
                                                             <div><!--ERROR--></div>
@@ -1121,16 +1102,6 @@
                                                                        required="required">
                                                             </div>
 
-                                                            <!-- Email -->
-                                                            <div>
-                                                                <div class="login-text p-b-10" style="color: black;">
-                                                                    E-Mail
-                                                                </div>
-                                                                <input type="email" id="billing_address_update_email_id"
-                                                                       class="checkout_input form-control"
-                                                                       placeholder="E-Mail" required="required">
-                                                            </div>
-
                                                             <div><!--ERROR--></div>
 
                                                             <!-- Button -->
@@ -1321,15 +1292,6 @@
                                                         <input type="text" id="delivery_address_phone"
                                                                class="checkout_input form-control phone_mask"
                                                                placeholder="(XXX) XXX XX XX" required="required">
-                                                    </div>
-
-                                                    <!-- Email -->
-                                                    <div>
-                                                        <div class="login-text p-b-10" style="color: black;">E-Mail
-                                                        </div>
-                                                        <input type="email" id="delivery_address_email"
-                                                               class="checkout_input form-control"
-                                                               placeholder="E-Mail" required="required">
                                                     </div>
 
                                                     <div><!--ERROR--></div>
@@ -1541,16 +1503,6 @@
                                                                        class="checkout_input form-control phone_mask"
                                                                        placeholder="(XXX) XXX XX XX"
                                                                        required="required">
-                                                            </div>
-
-                                                            <!-- Email -->
-                                                            <div>
-                                                                <div class="login-text p-b-10" style="color: black;">
-                                                                    E-Mail
-                                                                </div>
-                                                                <input type="email" id="delivery_address_update_email"
-                                                                       class="checkout_input form-control"
-                                                                       placeholder="E-Mail" required="required">
                                                             </div>
 
                                                             <div><!--ERROR--></div>
@@ -1945,7 +1897,7 @@
                                     <li class="item_sorting_btn"
                                         data-isotope-option='{ "sortBy": "original-order" }'>Date
                                     </li>
-                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "book-name" }'>Book
+                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "book-name" }'>Product
                                         Name
                                     </li>
                                     <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "decr-rate" }'>
@@ -1954,6 +1906,16 @@
                                     <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "incr-rate" }'>
                                         Increasing Rate
                                     </li>
+                                </ul>
+                            </div>
+                            <div style="width: 50px"></div>
+                            <div class="products_dropdown product_dropdown_filter">
+                                <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
+                                                                                       aria-hidden="true"></i></div>
+                                <ul style="text-align: start">
+                                    <li class="item_filter_btn" data-filter="*">All</li>
+                                    <li class="item_filter_btn" data-filter=".commented">Commented</li>
+                                    <li class="item_filter_btn" data-filter=".uncommented">Uncommented</li>
                                 </ul>
                             </div>
                         </div>
@@ -2090,8 +2052,21 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- No product -->
-                        <div class="warning-text" style="display: none">There are no reviews.</div>
+                        <!-- No review -->
+                        <div class="warning-text" style="display: none">There are no review.</div>
+
+                        <div class="row page_nav_row">
+                            <div class="col">
+                                <div class="page_nav">
+                                    <ul class="d-flex flex-row align-items-start justify-content-center">
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Cart -->
@@ -2180,7 +2155,20 @@
                         </div>
 
                         <!-- No product -->
-                        <div class="warning-text" style="display: none">There are no reviews.</div>
+                        <div class="warning-text" style="display: none">There are no product.</div>
+
+                        <div class="row page_nav_row">
+                            <div class="col">
+                                <div class="page_nav">
+                                    <ul class="d-flex flex-row align-items-start justify-content-center">
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Wish List -->
@@ -2259,11 +2247,42 @@
                         </div>
 
                         <!-- No product -->
-                        <div class="warning-text" style="display: none">There are no reviews.</div>
+                        <div class="warning-text" style="display: none">There are no product.</div>
+
+                        <div class="row page_nav_row">
+                            <div class="col">
+                                <div class="page_nav">
+                                    <ul class="d-flex flex-row align-items-start justify-content-center">
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Search History -->
                     <div class="tab-pane fade " id="history" role="tabpanel" aria-labelledby="history-tab">
+
+                        <!-- Sort orders -->
+                        <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
+                            <div class="products_dropdown product_dropdown_sorting">
+                                <div class="isotope_sorting_text"><span>Sort</span><i
+                                        class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                <ul style="text-align: start">
+                                    <li class="item_sorting_btn"
+                                        data-isotope-option='{ "sortBy": "original-order" }'>Date
+                                    </li>
+                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "search-value" }'>Search Value</li>
+                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "total-search" }'>Total Search</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <br>
+
                         <div class="table-responsive">
                             <table>
                                 <tr>
@@ -2291,8 +2310,18 @@
 
                         <!-- No search -->
                         <div class="warning-text" style="display: none">There are no searches.</div>
-                        <br>
-                        <br>
+                        <div class="row page_nav_row">
+                            <div class="col">
+                                <div class="page_nav">
+                                    <ul class="d-flex flex-row align-items-start justify-content-center">
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Message -->
