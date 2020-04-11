@@ -1,3 +1,3 @@
-function confirmClick() {
-    confirm('Press a button!');
+function confirmClick(str) {
+    confirm(str);
 }
