@@ -1,0 +1,159 @@
+<!-- Add category button -->
+<div class="address-element-padding">
+    <a href="#billing_address_column" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Subcategory</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Category form -->
+<div id="billing_address_column" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form action="#" id="billing_address_form" class="checkout_form">
+
+                    <!-- Name -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Subcategory Name
+                        </div>
+
+                        <input type="text" id="billing_address_name"
+                               class="checkout_input form-control"
+                               placeholder="Subcategory Name" required="required">
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+                    <div class="login_button trans_200"><a href="#">Add Subcategory</a></div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn"
+                data-isotope-option='{ "sortBy": "original-order" }'>ID
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
+                Total Product
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
+                Total Subcategory
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br>
+
+<div>
+    <div class="row order - row">
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">ID</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Name</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Total Product</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Total Subcategory</div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="orderDetailBox">
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a href="category-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">1</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Poetry</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">0</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a href="category-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">2</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Novel</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">4</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- No categories -->
+<div class="warning-text" style="display: none">There are no subcategories.</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

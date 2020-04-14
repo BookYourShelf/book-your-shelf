@@ -252,15 +252,15 @@
 
         <section class="product_description_area">
             <div class="container">
-                <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <ul class="nav nav-tabs justify-content-center" id="siteTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active profile-navbar-text" id="info-tab" data-toggle="tab"
-                           href="#info" role="tab" aria-controls="information" aria-selected="true">Information</a>
+                        <a class="nav-link active profile-navbar-text" data-url="/category-details/information"
+                           href="#information">Information</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" id="sub-tab" data-toggle="tab" href="#sub"
-                           role="tab" aria-controls="sub" aria-selected="true">Subcategories</a>
+                        <a class="nav-link profile-navbar-text" data-url="/category-details/subcategory"
+                           href="#subcategory">Subcategories</a>
                     </li>
                 </ul>
                 <br>
@@ -268,314 +268,10 @@
                 <div class="tab-content" id="myTabContent">
 
                     <!-- Information -->
-                    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-
-                        <div class="address-element-padding">
-                            <div class="billingAddress">
-                                <div class="product_content">
-
-                                    <!-- ID -->
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="tab-title-text align-items-center">
-                                                ID
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="row">
-                                                <div class="col-lg-11 tab-content-text">
-                                                    2
-                                                </div>
-                                                <!-- Buttons -->
-                                                <div class="col-lg-1">
-                                                    <div class="row">
-                                                        <!-- Update button -->
-                                                        <a href="#category-info-update"
-                                                           class="trans_200" data-toggle="collapse"><i
-                                                                style="font-size: 25px; padding-right: 10px"
-                                                                class="fa fa-pencil"></i></a>
-                                                        <!-- Delete button -->
-                                                        <a href="#" class="trans_200" data-toggle="collapse"><i
-                                                                style="font-size: 25px; color: #4a4a4a"
-                                                                class="fa product_text">&#xf014;</i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Type -->
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="tab-title-text">
-                                                Product Type
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="tab-content-text">
-                                                Book
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Name -->
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="tab-title-text">
-                                                Name
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="tab-content-text">
-                                                Literature
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Total Products -->
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="tab-title-text">
-                                                Total Products
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="tab-content-text">
-                                                4
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Total Subcategories -->
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="tab-title-text">
-                                                Total Subcategories
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="tab-content-text">
-                                                2
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Update information form -->
-                        <div id="category-info-update" class="collapse">
-
-                            <div class="address-container">
-                                <div class="billingAddress">
-                                    <div class="checkout_form_container">
-                                        <form action="#" id="category-info-update-form" class="checkout_form">
-
-                                            <!-- Product Type -->
-                                            <div>
-                                                <div class="login-text p-b-10" style="color: black;">
-                                                    Product Type
-                                                </div>
-
-                                                <select name="book_type" id="category_product_type"
-                                                        class="dropdown_item_select checkout_input"
-                                                        require="required">
-                                                    <option>Select Product Type</option>
-                                                    <option selected>Book</option>
-                                                    <option>E-Book</option>
-                                                    <option>Audio Book</option>
-                                                    <option>E-Book Reader</option>
-                                                    <option>E-Book Reader Case</option>
-                                                    <option>Book Case</option>
-                                                </select>
-                                            </div>
-
-                                            <!-- Category Name -->
-                                            <div>
-                                                <div class="login-text p-b-10" style="color: black;">
-                                                    Category Name
-                                                </div>
-                                                <input type="text" id="category-name-update"
-                                                       class="login_input form-control"
-                                                       required="required" value="Literature">
-                                            </div>
-
-                                            <div><!--ERROR--></div>
-
-                                            <!-- Button -->
-                                            <div class="login_button trans_200"><a href="#">Update</a></div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
+                    <div class="tab-pane active" id="information"></div>
 
                     <!-- Orders -->
-                    <div class="tab-pane fade" id="sub" role="tabpanel" aria-labelledby="sub-tab">
-
-                        <!-- Add category button -->
-                        <div class="address-element-padding">
-                            <a href="#billing_address_column" class="trans_200" data-toggle="collapse">
-                                <div class="billingAddress">
-                                    <div class="product_content">
-                                        <div style="align-items: center; justify-content: center"
-                                             class="row order - row ">
-                                            <div class="add-address">Add New Subcategory</div>
-                                            <i style="padding-left: 5px" class="fa fa-plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Category form -->
-                        <div id="billing_address_column" class="collapse">
-
-                            <div class="address-container">
-                                <div class="billingAddress">
-                                    <div class="checkout_form_container">
-                                        <form action="#" id="billing_address_form" class="checkout_form">
-
-                                            <!-- Name -->
-                                            <div>
-                                                <div class="login-text p-b-10" style="color: black;">
-                                                    Subcategory Name
-                                                </div>
-
-                                                <input type="text" id="billing_address_name"
-                                                       class="checkout_input form-control"
-                                                       placeholder="Subcategory Name" required="required">
-                                            </div>
-
-                                            <div><!--ERROR--></div>
-
-                                            <!-- Button -->
-                                            <div class="login_button trans_200"><a href="#">Add Subcategory</a></div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sort orders -->
-                        <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
-                            <div class="products_dropdown product_dropdown_sorting">
-                                <div class="isotope_sorting_text"><span>Sort</span><i
-                                        class="fa fa-caret-down" aria-hidden="true"></i></div>
-                                <ul>
-                                    <li class="item_sorting_btn"
-                                        data-isotope-option='{ "sortBy": "original-order" }'>ID
-                                    </li>
-                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
-                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
-                                        Total Product
-                                    </li>
-                                    <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
-                                        Total Subcategory
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div>
-                            <div class="row order - row">
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-title">ID</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-title">Name</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-title">Total Product</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-title">Total Subcategory</div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="container">
-                                <div class="orderDetailBox">
-
-                                    <!-- Category -->
-                                    <div class="address-element-padding">
-                                        <a href="category-details.html">
-                                            <div class="category-element">
-                                                <div class="product_content">
-                                                    <div class="row order - row collapsible">
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">1</div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">Poetry</div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">0</div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">3</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <!-- Category -->
-                                    <div class="address-element-padding">
-                                        <a href="category-details.html">
-                                            <div class="category-element">
-                                                <div class="product_content">
-                                                    <div class="row order - row collapsible">
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">2</div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">Novel</div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">4</div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                                            <div class="profile-order-text">5</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- No categories -->
-                        <div class="warning-text" style="display: none">There are no subcategories.</div>
-
-                        <div class="row page_nav_row">
-                            <div class="col">
-                                <div class="page_nav">
-                                    <ul class="d-flex flex-row align-items-start justify-content-center">
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="tab-pane" id="subcategory"></div>
                 </div>
             </div>
         </section>
@@ -662,7 +358,11 @@
 <script src="js/active.js"></script>
 <script src="js/checkout.js"></script>
 <script src="js/login.js"></script>
-
+<script src="js/select.js"></script>
+<script>
+    $('#information').load($('.nav-link.active').attr("data-url"), function (result) {
+    });
+</script>
 </body>
 
 </html>
