@@ -1,0 +1,210 @@
+<!-- Add campaign button -->
+<div class="address-element-padding">
+    <a href="#new_campaign" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Campaign</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Category form -->
+<div id="new_campaign" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form action="#" id="new_campaign_form" class="checkout_form">
+
+                    <!-- Name -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Campaign Name
+                        </div>
+
+                        <input type="text" id="new_campaign_name"
+                               class="checkout_input form-control"
+                               placeholder="Campaign Name" required="required">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Discount Rate
+                            </div>
+                            <input type="text" id="new_campaign_rate"
+                                   class="checkout_input form-control discount-rate"
+                                   placeholder="Discount Rate" required="required">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Category
+                            </div>
+                            <select name="campaign_update_categories"
+                                    id="new_campaign_categories" multiple="multiple"
+                                    require="required">
+                                <option value="literature">Literature</option>
+                                <option value="novel">Novel</option>
+                                <option value="poet">Poet</option>
+                                <option value="comicon">Comicon</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Campaign Start Date
+                            </div>
+                            <input type="text" id="campaign_start_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Campaign End Date
+                            </div>
+                            <input type="text" id="campaign_end_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy">
+                        </div>
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+                    <div class="login_button trans_200"><a href="#">Add campaign</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn"
+                data-isotope-option='{ "sortBy": "original-order" }'>ID
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Campaign
+                Name
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "rate" }'>
+                Discount Rate
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "category" }'>
+                Category
+            </li>
+        </ul>
+    </div>
+    <div class="products_dropdown text-right product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
+                                                               aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_filter_btn" data-filter="*">All</li>
+            <li class="item_filter_btn" data-filter=".ongoing">Ongoing</li>
+            <li class="item_filter_btn" data-filter=".ended">Ended</li>
+        </ul>
+    </div>
+</div>
+<br>
+<div>
+    <div class="row order - row ">
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">ID</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Campaign Name</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Discount Rate</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Category</div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="orderDetailBox">
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a href="campaign-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">1</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Literature Day</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">%10</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Literature</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a href="campaign-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">2</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Crazy Friday</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">%20</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">All</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- No categories -->
+<div class="warning-text" style="display: none">There are no categories.</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
