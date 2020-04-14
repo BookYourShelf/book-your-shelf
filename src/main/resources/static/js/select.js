@@ -12,7 +12,7 @@ $('select').each(
         });
     }
 );
-$('#myTab a').click(function (e) {
+$('#siteTab a').click(function (e) {
     e.preventDefault();
 
     var url = $(this).attr("data-url");
