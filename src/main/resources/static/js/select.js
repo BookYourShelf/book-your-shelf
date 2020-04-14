@@ -12,3 +12,17 @@ $('select').each(
         });
     }
 );
+$('#siteTab a').click(function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr("data-url");
+    var href = this.hash;
+    var pane = $(this);
+
+    $(href).load(url, function (result) {
+        pane.tab('show');
+    });
+});
+
+$('#user').load($('.nav-link.active').attr("data-url"), function (result) {
+});

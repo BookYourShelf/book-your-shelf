@@ -1,0 +1,1495 @@
+<!-- Add campaign button -->
+<div class="address-element-padding">
+    <a href="#new_product" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Product</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Category form -->
+<div id="new_product" class="collapse">
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form action="#" id="new_product_form" class="checkout_form">
+                    <select name="book_type" id="book_type"
+                            class="dropdown_item_select checkout_input"
+                            require="required">
+                        <option>Select Product Type</option>
+                        <option>Book</option>
+                        <option>E-Book</option>
+                        <option>Audio Book</option>
+                        <option>E-Book Reader</option>
+                        <option>E-Book Reader Case</option>
+                        <option>Book Case</option>
+                    </select>
+                    <br><br>
+                    <div id="book" class="d-none">
+                        <!-- Name -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="book_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+
+                                <input type="text" id="book_barcode_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+
+                                <input type="number" id="book_stock_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+
+                        <div class="row m-t-20">
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price
+                                </div>
+                                <input type="number" id="book_price_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="category" id="book_category_input"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Literature</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                                <select name="subcategory" id="book_subcategory_input"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Novel</option>
+                                    <option>Poet</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Published Year
+                                </div>
+
+                                <input type="text" id="book_published_year_input"
+                                       class="checkout_input form-control year"
+                                       placeholder="Published Year" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Language
+                                </div>
+
+                                <input type="text" id="book_language_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Language" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Translator
+                                </div>
+
+                                <input type="text" id="book_translator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Translator" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Authors
+                                </div>
+
+                                <input type="text" id="book_authors_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Authors(Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    ISBN
+                                </div>
+
+                                <input type="text" id="book_isbn_input"
+                                       class="checkout_input form-control"
+                                       placeholder="ISBN" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Publisher
+                                </div>
+
+                                <input type="text" id="book_publisher_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Publisher" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Keywords
+                                </div>
+
+                                <input type="text" id="book_keywords_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Keywords(Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+
+                                <input type="text" id="book_short_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Short Description" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+
+                                <input type="text" id="book_long_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Long Description" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Media Type
+                                </div>
+                                <select name="category" id="book_media_type_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Hard Cover</option>
+                                    <option>Soft Cover</option>
+                                    <option>Pocket Size</option>
+                                    <option>Tablet Size</option>
+                                    <option>Monthly</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Paper Type
+                                </div>
+                                <select name="category" id="book_paper_type_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Coated</option>
+                                    <option>Uncoated</option>
+                                    <option>American Bristol</option>
+                                    <option>Tracing</option>
+                                    <option>Canvas</option>
+                                    <option>Cellophane</option>
+                                    <option>Craft</option>
+                                    <option>Matte Coated Plaster</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Binding Type
+                                </div>
+                                <select name="category" id="book_binding_type_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Saddle Stitching</option>
+                                    <option>Case Binding</option>
+                                    <option>Case Wrapped</option>
+                                    <option>Plastic Coil</option>
+                                    <option>Perfect Binding</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Page Number
+                                </div>
+
+                                <input type="number" id="book_page_number_input"
+                                       class="checkout_input form-control" min=0
+                                       placeholder="Page Number" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Edition Number
+                                </div>
+
+                                <input type="number" id="book_edition_number_input"
+                                       class="checkout_input form-control" min=0
+                                       placeholder="Edition Number" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height
+                                </div>
+
+                                <input type="number" step="0.01" id="book_height_input"
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="Height" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width
+                                </div>
+
+                                <input type="number" step="0.01" id="book_width_input"
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="Width" required="required">
+                            </div>
+                        </div>
+
+                        <div><!--ERROR--></div>
+                        <br>
+                        <!-- Button -->
+
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="book-cover-photo" class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Cover Photo</a>
+                                </label>
+                                <input id="book-cover-photo" onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected file:</p>
+                                <div id="book-cover-photo-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="book-product-photos" class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Product Photos</a>
+                                </label>
+                                <input multiple id="book-product-photos"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected files:</p>
+                                <div id="book-product-photos-list"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login_button trans_200"><a href="#">Add product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="e-book" class="d-none">
+                        <!-- Name -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+
+                                <input type="text" id="ebook_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+
+                                <input type="text" id="ebook_product_barcode_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+
+                                <input type="number" id="ebook_stock_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+
+                        </div>
+
+                        <div class="row m-t-20">
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price
+                                </div>
+                                <input type="number" id="ebook_price_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="category" id="ebook_category_input"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Literature</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                                <select name="subcategory" id="ebook_subcategory_input"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Novel</option>
+                                    <option>Poet</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Published Year
+                                </div>
+
+                                <input type="text" id="ebook_published_year_input"
+                                       class="checkout_input form-control year"
+                                       placeholder="Published Year" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Language
+                                </div>
+
+                                <input type="text" id="ebook_language_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Language" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Translator
+                                </div>
+
+                                <input type="text" id="ebook_translator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Translator" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Authors
+                                </div>
+
+                                <input type="text" id="ebook_authors_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Authors(Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    ISBN
+                                </div>
+
+                                <input type="text" id="ebook_isbn_input"
+                                       class="checkout_input form-control"
+                                       placeholder="ISBN" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Publisher
+                                </div>
+
+                                <input type="text" id="ebook_publisher_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Publisher" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Keywords
+                                </div>
+
+                                <input type="text" id="ebook_keywords_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Keywords(Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+
+                                <input type="text" id="ebook_short_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Short Description" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+
+                                <input type="text" id="ebook_long_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Long Description" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Page Number
+                                </div>
+
+                                <input type="number" id="ebook_page_number_input"
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="Page Number" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    File Size
+                                </div>
+
+                                <input type="number" id="ebook_filesize_input"
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="File Size" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    File Format
+                                </div>
+                                <select name="file_format" id="ebook_file_format_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>PDF</option>
+                                    <option>EPUB</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div><!--ERROR--></div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="e-book-cover-photo" class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Cover Photo</a>
+                                </label>
+                                <input id="e-book-cover-photo" onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected file:</p>
+                                <div id="e-book-cover-photo-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="e-book-product-photos"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Product Photos</a>
+                                </label>
+                                <input multiple id="e-book-product-photos"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected files:</p>
+                                <div id="e-book-product-photos-list"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login_button trans_200"><a href="#">Add product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="audiobook" class="d-none">
+                        <!-- Name -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+
+                                <input type="text" id="audiobook_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+
+                                <input type="text" id="audiobook_barcode_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+
+                                <input type="number" id="audiobook_stock_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+
+                        <div class="row m-t-20">
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price
+                                </div>
+                                <input type="number" id="audiobook_price_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="category" id="audiobook_category_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Literature</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                                <select name="subcategory" id="audiobook_subcategory_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Novel</option>
+                                    <option>Poet</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Published Year
+                                </div>
+
+                                <input type="text" id="audiobook_published_year_input"
+                                       class="checkout_input form-control year"
+                                       placeholder="Published Year" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Language
+                                </div>
+
+                                <input type="text" id="audiobook_language_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Language" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Translator
+                                </div>
+
+                                <input type="text" id="audiobook_translator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Translator" required="required">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Authors
+                                </div>
+
+                                <input type="text" id="audiobook_authors_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Authors(Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    ISBN
+                                </div>
+
+                                <input type="text" id="audiobook_isbn_input"
+                                       class="checkout_input form-control"
+                                       placeholder="ISBN" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Publisher
+                                </div>
+
+                                <input type="text" id="audiobook_publisher_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Publisher" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Keywords
+                                </div>
+
+                                <input type="text" id="audiobook_keywords_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Keywords(Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+
+                                <input type="text" id="audiobook_short_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Short Description" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+
+                                <input type="text" id="audiobook_long_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Long Description" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Length (In minutes)
+                                </div>
+
+                                <input type="number" id="audiobook_length_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Length (In minutes)" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Narrated By
+                                </div>
+
+                                <input type="text" id="audiobook_narrator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Narrated By" required="required">
+                            </div>
+                        </div>
+
+                        <div><!--ERROR--></div>
+                        <br>
+
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="audio-book-cover-photo"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Cover Photo</a>
+                                </label>
+                                <input id="audio-book-cover-photo"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected file:</p>
+                                <div id="audio-book-cover-photo-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="audio-book-product-photos"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Product Photos</a>
+                                </label>
+                                <input multiple id="audio-book-product-photos"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected files:</p>
+                                <div id="audio-book-product-photos-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login_button trans_200"><a href="#">Add product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="e-book_reader" class="d-none">
+                        <!-- Name -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+
+                                <input type="text" id="ebook_reader_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+
+                                <input type="text" id="ebook_reader_barcode_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+
+                                <input type="number" id="ebook_reader_stock_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+
+                                <input type="text" id="ebook_reader_short_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Short Description" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+
+                                <input type="text" id="ebook_reader_long_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Long Description" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Brand
+                                </div>
+                                <input type="text" id="ebook_reader_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Model
+                                </div>
+                                <input type="text" id="ebook_reader_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Model" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price
+                                </div>
+                                <input type="number" id="ebook_reader_price_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Color
+                                </div>
+                                <input type="text" id="ebook_reader_color_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Color" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Specification
+                                </div>
+                                <input type="text" id="ebook_reader_specification_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Specification" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Weight
+                                </div>
+                                <input type="number" id="ebook_reader_weight_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Weight" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_width_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Width" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_height_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Height" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Screen Size
+                                </div>
+                                <input type="number" id="ebook_reader_screen_size_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Screen Size" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Battery Life
+                                </div>
+                                <input type="number" step="0.1"
+                                       id="ebook_reader_battery_life_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Battery Life" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Resolution
+                                </div>
+                                <input type="number" id="ebook_reader_resolution_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Resolution" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Glare Free Screen
+                                </div>
+                                <select name="subcategory" id="ebook_reader_glare_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Water Proof
+                                </div>
+                                <select name="subcategory" id="ebook_reader_water_proof_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Auto Adjusting Light
+                                </div>
+                                <select name="subcategory"
+                                        id="ebook_reader_auto_adjusting_light_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Buttons
+                                </div>
+                                <select name="subcategory" id="ebook_reader_buttons_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Wifi
+                                </div>
+                                <select name="subcategory" id="ebook_reader_wifi_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Cellular
+                                </div>
+                                <select name="subcategory" id="ebook_reader_cellular_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Backlight
+                                </div>
+                                <select name="subcategory" id="ebook_reader_backlight_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Warm Backlight
+                                </div>
+                                <select name="subcategory"
+                                        id="ebook_reader_warm_backlight_select"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div><!--ERROR--></div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="e-book-reader-cover-photo"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Cover Photo</a>
+                                </label>
+                                <input id="e-book-reader-cover-photo"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected file:</p>
+                                <div id="e-book-reader-cover-photo-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="e-book-reader-product-photos"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Product Photos</a>
+                                </label>
+                                <input multiple id="e-book-reader-product-photos"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected files:</p>
+                                <div id="e-book-reader-product-photos-list"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login_button trans_200"><a href="#">Add product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="e-book_reader_case" class="d-none">
+                        <!-- Name -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+
+                                <input type="text" id="ebook_reader_case_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+
+                                <input type="text" id="ebook_reader_case_barcode_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+
+                                <input type="number" id="ebook_reader_case_stock_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+
+                                <input type="text"
+                                       id="ebook_reader_case_short_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Short Description" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+
+                                <input type="text" id="ebook_reader_case_long_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Long Description" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Brand
+                                </div>
+                                <input type="text" id="ebook_reader_case_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Model
+                                </div>
+                                <input type="text" id="ebook_reader_case_case_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Case Model" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price
+                                </div>
+                                <input type="number" id="ebook_reader_case_price_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Color
+                                </div>
+                                <input type="text" id="ebook_reader_case_color_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Color" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Reader Brand
+                                </div>
+                                <input type="text" id="ebook_reader_case_reader_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Reader Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Reader Model
+                                </div>
+                                <input type="text" id="ebook_reader_case_reader_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Reader Model" required="required">
+                            </div>
+                        </div>
+
+                        <div><!--ERROR--></div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="e-book-reader-case-cover-photo"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Cover Photo</a>
+                                </label>
+                                <input id="e-book-reader-case-cover-photo"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected file:</p>
+                                <div id="e-book-reader-case-cover-photo-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="e-book-reader-case-product-photos"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Product Photos</a>
+                                </label>
+                                <input multiple id="e-book-reader-case-product-photos"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected files:</p>
+                                <div id="e-book-reader-case-product-photos-list"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login_button trans_200"><a href="#">Add product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="book_case" class="d-none">
+                        <!-- Name -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+
+                                <input type="text" id="book_case_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+
+                                <input type="text" id="book_case_barcode_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+
+                                <input type="number" id="book_case_stock_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+
+                                <input type="text" id="book_case_short_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Short Description" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+
+                                <input type="text" id="book_case_long_description_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Long Description" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Brand
+                                </div>
+                                <input type="text" id="book_case_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Model
+                                </div>
+                                <input type="text" id="book_case_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Model" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price
+                                </div>
+                                <input type="number" id="book_case_price_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Color
+                                </div>
+                                <input type="text" id="book_case_color_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Color" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width
+                                </div>
+                                <input type="number" step="0.01" id="book_case_case_width_input"
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="Width" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height
+                                </div>
+                                <input type="number" step="0.01"
+                                       id="book_case_case_height_input"
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="Height" required="required">
+                            </div>
+                        </div>
+                        <div><!--ERROR--></div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="book-case-cover-photo"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Cover Photo</a>
+                                </label>
+                                <input id="book-case-cover-photo"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected file:</p>
+                                <div id="book-case-cover-photo-list"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="book-case-product-photos"
+                                       class="login_button trans_200">
+                                    <a class="choose_file_button">Upload Product Photos</a>
+                                </label>
+                                <input multiple id="book-case-product-photos"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p>Selected files:</p>
+                                <div id="book-case-product-photos-list"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login_button trans_200"><a href="#">Add product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn"
+                data-isotope-option='{ "sortBy": "original-order" }'>ID
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Product
+                Name
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
+                Category
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "stock" }'>
+                Stock
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br>
+
+<div>
+    <div class="row order - row ">
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">ID</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Name</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Category</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Stock</div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="orderDetailBox">
+
+            <div class="address-element-padding">
+                <a href="../product-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">1</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Animal Farm-George Orwell
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Book-Novel</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="address-element-padding">
+                <a href="../product-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">2</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Kürk Mantolu
+                                        Madonna-Sabahattin Ali
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Book-Novel</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">500</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="address-element-padding">
+                <a href="../product-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">3</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">My Sweet Orange Tree-José
+                                        Mauro de Vasconcelos
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Book-Novel</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">341</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="address-element-padding">
+                <a href="../product-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">4</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Lord of the Flies-William
+                                        Golding
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Book-Novel</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">23</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- No categories -->
+<div class="warning-text" style="display: none">There are no categories.</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,237 @@
+<!-- Add hot list button -->
+<div class="address-element-padding">
+    <a href="#new_hot_list" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Hot List</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Category form -->
+<div id="new_hot_list" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form action="#" id="new_hot_list_form" class="checkout_form">
+
+                    <!-- Category -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Category
+                        </div>
+                        <select name="new_hot_list_categories"
+                                id="new_hot_list_categories" multiple="multiple"
+                                require="required">
+                            <option value="literature">Literature</option>
+                            <option value="novel">Novel</option>
+                            <option value="poet">Poet</option>
+                            <option value="comicon">Comicon</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Type
+                            </div>
+                            <select name="new_hot_list_type" id="new_hot_list_type"
+                                    class="dropdown_item_select checkout_input"
+                                    require="required">
+                                <option>SELECT</option>
+                                <option>Best Sellers</option>
+                                <option>New Releases</option>
+                                <option>Our Picks For You</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Number of Products
+                            </div>
+                            <input type="number" id="new_hot_list_product_number"
+                                   class="checkout_input form-control" min="1"
+                                   placeholder="Number of Products" required="required">
+                        </div>
+                    </div>
+
+                    <!-- Start -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Start Date
+                            </div>
+                            <input type="text" id="new_hot_list_start_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Start Time
+                            </div>
+                            <input type="text" id="new_hot_list_start_time"
+                                   class="checkout_input form-control time"
+                                   placeholder="hh:mm">
+                        </div>
+                    </div>
+
+                    <!-- End -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List End Date
+                            </div>
+                            <input type="text" id="new_hot_list_end_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List End Time
+                            </div>
+                            <input type="text" id="new_hot_list_end_time"
+                                   class="checkout_input form-control time"
+                                   placeholder="hh:mm">
+                        </div>
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+                    <div class="login_button trans_200"><a href="#">Add Hot List</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn"
+                data-isotope-option='{ "sortBy": "original-order" }'>ID
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Category
+            </li>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
+                Number of Products
+            </li>
+        </ul>
+    </div>
+    <div class="products_dropdown text-right product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
+                                                               aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_filter_btn" data-filter="*">All</li>
+            <li class="item_filter_btn" data-filter=".ongoing">Ongoing</li>
+            <li class="item_filter_btn" data-filter=".ended">Ended</li>
+            <li class="item_filter_btn" data-filter=".ended">Best Sellers</li>
+            <li class="item_filter_btn" data-filter=".ended">New Releases</li>
+            <li class="item_filter_btn" data-filter=".ended">Our Picks For You</li>
+        </ul>
+    </div>
+</div>
+
+<br>
+
+<div>
+    <div class="row order - row ">
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">ID</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Category</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Hot List Type</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Number of Products</div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="orderDetailBox">
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a href="hot-list-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">1</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Literature, Novel</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Best Sellers</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">10</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a href="hot-list-details.html">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">2</div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">Literature</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">New Releases</div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">100</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- No categories -->
+<div class="warning-text" style="display: none">There are no categories.</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
