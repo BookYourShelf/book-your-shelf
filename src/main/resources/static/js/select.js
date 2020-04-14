@@ -27,11 +27,11 @@ $('#siteTab a').click(function (e) {
 var tabs$ = $(".nav-tabs a");
 
 $(window).on("hashchange", function () {
-    var hash = window.location.hash, // get current hash
-        menu_item$ = tabs$.filter('[href="' + hash + '"]'); // get the menu element
+    var hash = window.location.hash,
+        menu_item$ = tabs$.filter('[href="' + hash + '"]');
 
     var url = menu_item$.attr("data-url");
     $(hash).load(url, function (result) {
-        menu_item$.tab("show"); // call bootstrap to show the tab
+        menu_item$.tab("show");
     });
 }).trigger("hashchange");
