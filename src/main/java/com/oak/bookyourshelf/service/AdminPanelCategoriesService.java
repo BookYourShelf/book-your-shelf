@@ -1,6 +1,6 @@
 package com.oak.bookyourshelf.service;
 
-import com.oak.bookyourshelf.repository.AdminPanelCategoriesRepository;
+import com.oak.bookyourshelf.repository.AdminPanelCategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AdminPanelCategoriesService {
     final
-    AdminPanelCategoriesRepository adminPanelCategoriesRepository;
+    AdminPanelCategoryRepository adminPanelCategoryRepository;
 
-    public AdminPanelCategoriesService(AdminPanelCategoriesRepository adminPanelCategoriesRepository) {
-        this.adminPanelCategoriesRepository = adminPanelCategoriesRepository;
+    public AdminPanelCategoriesService(AdminPanelCategoryRepository adminPanelCategoryRepository) {
+        this.adminPanelCategoryRepository = adminPanelCategoryRepository;
     }
 }
