@@ -385,10 +385,6 @@
         </footer>
     </div>
 </div>
-<script>
-    $('#information').load($('.nav-link.active').attr("data-url"), function (result) {
-    });
-</script>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap-4.1.2/popper.js"></script>
 <script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
@@ -409,7 +405,11 @@
 <script src="js/login.js"></script>
 <script src="js/input-mask.js"></script>
 <script src="js/jquery.mask.js"></script>
-
+<script src="js/select.js"></script>
+<script>
+    $('#information').load($('.nav-link.active').attr("data-url"), function (result) {
+    });
+</script>
 </body>
 
 </html>

@@ -412,7 +412,10 @@
 <script src="js/checkbox-dropdown.js"></script>
 <script src="js/bootstrap-multiselect.js"></script>
 <script src="js/select.js"></script>
-
+<script>
+    $('#user').load($('.nav-link.active').attr("data-url"), function (result) {
+    });
+</script>
 </body>
 
 </html>
