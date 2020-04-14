@@ -1,0 +1,204 @@
+<div class="address-element-padding">
+    <div class="billingAddress">
+        <div class="product_content">
+            <div class="row">
+                <!-- ID -->
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        ID
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-11 tab-content-text">
+                            1
+                        </div>
+                        <!-- Buttons -->
+                        <div class="col-lg-1">
+                            <div class="row">
+                                <!-- Update button -->
+                                <a href="#user-info-update"
+                                   class="trans_200" data-toggle="collapse"><i
+                                        style="font-size: 25px; padding-right: 10px"
+                                        class="fa fa-pencil"></i></a>
+                                <!-- Delete button -->
+                                <a href="#" class="trans_200" data-toggle="collapse"><i
+                                        style="font-size: 25px; color: #4a4a4a"
+                                        class="fa product_text">&#xf014;</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Name
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="tab-content-text">
+                        Jane
+                    </div>
+                </div>
+            </div>
+
+            <!-- Surname -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Surname
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="tab-content-text">
+                        Doe
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        E-Mail
+                    </div>
+                </div>
+
+                <div class="col-lg-10">
+                    <div class="tab-content-text">
+                        jane_doe@gmail.com
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birth Date -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Birth Date
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="tab-content-text date">
+                        02.02.1990
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Phone
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="tab-content-text phone_mask">
+                        5555555555
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update informations form -->
+<div id="user-info-update" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form action="#" id="user-info-update_form" class="checkout_form">
+
+                    <!-- Name Surname -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Name -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Name
+                            </div>
+
+                            <input type="text" id="user-info-update_name"
+                                   class="login_input form-control"
+                                   placeholder="Name" required="required" value="Jane">
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- Surname -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Surname
+                            </div>
+
+                            <input type="text" id="user-info-update_surname"
+                                   class="login_input form-control"
+                                   placeholder="Surname"
+                                   required="required" value="Doe">
+                        </div>
+                    </div>
+
+                    <!-- E-Mail -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            E-Mail
+                        </div>
+                        <input type="email" id="login_email" class="login_input form-control"
+                               required="required" value="jane_doe@gmail.com">
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Password
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="login_password"
+                                   class="login_input form-control pwd" required="required"
+                                   placeholder="Password">
+                            <div class="input-group-append">
+                                                        <span class="input-group-text show_password_bg">
+                                                            <button class="btn btn-default reveal" type="button">
+                                                                <i class="fa fa-eye" id="eye"></i>
+                                                            </button>
+                                                        </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Birth Date - Phone no -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Birth Date -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Birth Date
+                            </div>
+                            <input type="text" id="user-info-update_birth_date"
+                                   class="login_input form-control date"
+                                   placeholder="dd.mm.yyyy" value="02.02.1990"
+                                   required="required">
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- Phone no -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Phone Number
+                            </div>
+                            <input type="text" id="user-info-update_phone"
+                                   class="login_input form-control phone_mask"
+                                   placeholder="(XXX) XXX XX XX" value="5555555555"
+                                   required="required">
+                        </div>
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+                    <div class="login_button trans_200"><a href="#">Update</a></div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
