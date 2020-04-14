@@ -19,12 +19,10 @@ $('#siteTab a').click(function (e) {
     var href = this.hash;
     var pane = $(this);
 
-    // ajax load from data-url
     $(href).load(url, function (result) {
         pane.tab('show');
     });
 });
 
-// load first tab content
 $('#user').load($('.nav-link.active').attr("data-url"), function (result) {
 });
