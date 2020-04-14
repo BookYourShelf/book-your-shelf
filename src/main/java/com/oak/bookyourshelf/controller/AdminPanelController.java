@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminPanelController {
     @RequestMapping("/admin-panel")
-    public String showNewPaymentPage(Model model) {
-
+    public String showAdminPanelPage(Model model) {
 
         return "admin-panel";
     }
