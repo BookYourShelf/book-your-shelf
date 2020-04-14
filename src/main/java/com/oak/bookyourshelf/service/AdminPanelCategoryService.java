@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AdminPanelCategoriesService {
+public class AdminPanelCategoryService {
     final
     AdminPanelCategoryRepository adminPanelCategoryRepository;
 
-    public AdminPanelCategoriesService(AdminPanelCategoryRepository adminPanelCategoryRepository) {
+    public AdminPanelCategoryService(AdminPanelCategoryRepository adminPanelCategoryRepository) {
         this.adminPanelCategoryRepository = adminPanelCategoryRepository;
     }
 }
