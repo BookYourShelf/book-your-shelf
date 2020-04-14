@@ -1,6 +1,6 @@
-package com.oak.bookyourshelf.service;
+package com.oak.bookyourshelf.service.admin_panel;
 
-import com.oak.bookyourshelf.repository.AdminPanelCategoryRepository;
+import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
