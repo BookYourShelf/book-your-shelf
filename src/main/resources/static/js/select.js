@@ -23,6 +23,3 @@ $('#siteTab a').click(function (e) {
         pane.tab('show');
     });
 });
-
-$('#user').load($('.nav-link.active').attr("data-url"), function (result) {
-});
