@@ -1,0 +1,1014 @@
+<div class="row order - row ">
+    <div class="col-lg-6">
+        <div class="address-element-padding">
+            <div class="billingAddress">
+                <div class="product_content">
+                    <div class="row order - row">
+                        <div class="address-title">Billing Address</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add address button -->
+        <div class="address-element-padding">
+            <a href="#billing_address_column" class="trans_200" data-toggle="collapse">
+                <div class="billingAddress">
+                    <div class="product_content">
+                        <div style="align-items: center; justify-content: center"
+                             class="row order - row ">
+                            <div class="add-address">Add New Address</div>
+                            <i style="padding-left: 5px" class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Address form -->
+        <div id="billing_address_column" class="collapse">
+            <div class="address-container">
+                <div class="billingAddress">
+                    <div class="checkout_form_container">
+                        <form action="#" id="billing_address_form" class="checkout_form">
+
+                            <!-- Address Title -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Address Title
+                                </div>
+
+                                <select name="billing_address_title" id="billing_address_title"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Home</option>
+                                    <option>Workplace</option>
+                                    <option>Summery</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Name Surname -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Name -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Name
+                                    </div>
+
+                                    <input type="text" id="billing_address_name"
+                                           class="checkout_input form-control"
+                                           placeholder="Name" required="required">
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Surname -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Surname
+                                    </div>
+
+                                    <input type="text" id="billing_address_surname"
+                                           class="checkout_input form-control"
+                                           placeholder="Surname"
+                                           required="required">
+                                </div>
+                            </div>
+
+                            <!-- Country -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Country
+                                </div>
+
+                                <select name="billing_address_country"
+                                        id="billing_address_country"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Lithuania</option>
+                                    <option>Sweden</option>
+                                    <option>UK</option>
+                                    <option>Italy</option>
+                                </select>
+                            </div>
+
+                            <!-- City Province -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- City -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        City
+                                    </div>
+
+                                    <select name="billing_address_city"
+                                            id="billing_address_city"
+                                            class="dropdown_item_select checkout_input"
+                                            require="required">
+                                        <option>SELECT</option>
+                                        <option>City</option>
+                                        <option>City</option>
+                                        <option>City</option>
+                                        <option>City</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Province -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Province
+                                    </div>
+
+                                    <select name="billing_address_province"
+                                            id="billing_address_province"
+                                            class="dropdown_item_select checkout_input"
+                                            require="required">
+                                        <option>SELECT</option>
+                                        <option>Province</option>
+                                        <option>Province</option>
+                                        <option>Province</option>
+                                        <option>Province</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Neighborhood Zipcode -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Neighborhood -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Neighborhood
+                                    </div>
+
+                                    <input type="text" id="billing_address_neighborhood"
+                                           class="checkout_input form-control"
+                                           required="required">
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Zipcode -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Zip Code
+                                    </div>
+
+                                    <input type="number" id="billing_address_zip_code"
+                                           class="checkout_input form-control"
+                                           required="required">
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Address
+                                </div>
+                                <input type="text" id="billing_open_address"
+                                       class="checkout_input form-control"
+                                       placeholder="Full Address" required="required">
+                            </div>
+
+                            <!-- Phone no -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">Phone
+                                    Number
+                                </div>
+                                <input type="text" id="billing_address_phone"
+                                       class="checkout_input form-control phone_mask"
+                                       placeholder="(XXX) XXX XX XX" required="required">
+                            </div>
+
+                            <div><!--ERROR--></div>
+
+                            <!-- Button -->
+                            <div class="login_button trans_200"><a href="#">Add address</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registered addresses -->
+        <div>
+            <ul>
+                <!-- Registered address 1 -->
+                <div class="address-element-padding">
+                    <div class="billingAddress">
+                        <div class="product_content">
+                            <li class="row">
+                                <div class="col-md-9 registered-address-title">
+                                    Workplace
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#billing_address_update"
+                                       class="trans_200" data-toggle="collapse"><i
+                                            style="font-size: 25px; padding-right: 10px"
+                                            class="fa fa-pencil"></i></a>
+                                    <a href="#" class="trans_200" data-toggle="collapse"><i
+                                            style="font-size: 25px; color: #4a4a4a"
+                                            class="fa product_text">&#xf014;</i></a>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-md-9 registered-address-content">
+                                    Üniversiteler Mahallesi, Hacettepe Beytepe Kampüsü No:21,
+                                    06800
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-md-9 registered-address-content">
+                                    Çankaya/Ankara
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update address form -->
+                <div id="billing_address_update" class="collapse">
+
+                    <div class="address-container">
+                        <div class="billingAddress">
+                            <div class="checkout_form_container">
+                                <form action="#" id="billing_address_update_form"
+                                      class="checkout_form">
+
+                                    <!-- Address Title -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Address Title
+                                        </div>
+
+                                        <select name="billing_address_update_title"
+                                                id="billing_address_update_title"
+                                                class="dropdown_item_select checkout_input"
+                                                require="required">
+                                            <option>SELECT</option>
+                                            <option>Home</option>
+                                            <option>Workplace</option>
+                                            <option>Summery</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Name Surname -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- Name -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Name
+                                            </div>
+
+                                            <input type="text" id="billing_address_update_name"
+                                                   class="checkout_input form-control"
+                                                   placeholder="Name" required="required">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Surname -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Surname
+                                            </div>
+
+                                            <input type="text"
+                                                   id="billing_address_update_surname"
+                                                   class="checkout_input form-control"
+                                                   placeholder="Surname"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Country -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Country
+                                        </div>
+
+                                        <select name="billing_address_update_country"
+                                                id="billing_address_update_country"
+                                                class="dropdown_item_select checkout_input"
+                                                require="required">
+                                            <option>SELECT</option>
+                                            <option>Lithuania</option>
+                                            <option>Sweden</option>
+                                            <option>UK</option>
+                                            <option>Italy</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- City Province -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- City -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                City
+                                            </div>
+
+                                            <select name="billing_address_update_city"
+                                                    id="billing_address_update_city"
+                                                    class="dropdown_item_select checkout_input"
+                                                    require="required">
+                                                <option>SELECT</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Province -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Province
+                                            </div>
+
+                                            <select name="billing_address_update_province"
+                                                    id="billing_address_update_province"
+                                                    class="dropdown_item_select checkout_input"
+                                                    require="required">
+                                                <option>SELECT</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Neighborhood Zipcode -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- Neighborhood -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Neighborhood
+                                            </div>
+
+                                            <input type="text"
+                                                   id="billing_address_update_neighborhood"
+                                                   class="checkout_input form-control"
+                                                   required="required">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Zipcode -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Zip Code
+                                            </div>
+
+                                            <input type="number"
+                                                   id="billing_address_update_zip_code"
+                                                   class="checkout_input form-control"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Address
+                                        </div>
+                                        <input type="text" id="billing_update_open_address_1_id"
+                                               class="checkout_input form-control"
+                                               placeholder="Full Address" required="required">
+                                    </div>
+
+                                    <!-- Phone no -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Phone
+                                            Number
+                                        </div>
+                                        <input type="text" id="billing_address_update_phone"
+                                               class="checkout_input form-control phone_mask"
+                                               placeholder="(XXX) XXX XX XX"
+                                               required="required">
+                                    </div>
+
+                                    <div><!--ERROR--></div>
+
+                                    <!-- Button -->
+                                    <div class="login_button trans_200"><a href="#">Update</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registered address 2 -->
+                <div class="address-element-padding">
+                    <div class="billingAddress">
+                        <div class="product_content">
+                            <li class="row">
+                                <div class="col-md-9 registered-address-title">
+                                    Home
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#billing_address_update_id"
+                                       class="trans_200" data-toggle="collapse"><i
+                                            style="font-size: 25px; padding-right: 10px"
+                                            class="fa fa-pencil"></i></a>
+                                    <a href="#" class="trans_200" data-toggle="collapse"><i
+                                            style="font-size: 25px; color: #4a4a4a"
+                                            class="fa product_text">&#xf014;</i></a>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-md-9 registered-address-content">
+                                    Üniversiteler Mahallesi, Hacettepe Beytepe Kampüsü No:21,
+                                    06800
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-md-9 registered-address-content">
+                                    Çankaya/Ankara
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update address form -->
+                <div id="billing_address_update_id" class="collapse">
+
+                    <div class="address-container">
+                        <div class="billingAddress">
+                            <div class="checkout_form_container">
+                                <form action="#" id="billing_address_update_form_2"
+                                      class="checkout_form">
+
+                                    <!-- Address Title -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Address Title
+                                        </div>
+
+                                        <select name="billing_address_update_title_id"
+                                                id="billing_address_update_title_id"
+                                                class="dropdown_item_select checkout_input"
+                                                require="required">
+                                            <option>SELECT</option>
+                                            <option>Home</option>
+                                            <option>Workplace</option>
+                                            <option>Summery</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Name Surname -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- Name -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Name
+                                            </div>
+
+                                            <input type="text"
+                                                   id="billing_address_update_name_id"
+                                                   class="checkout_input form-control"
+                                                   placeholder="Name" required="required">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Surname -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Surname
+                                            </div>
+
+                                            <input type="text"
+                                                   id="billing_address_update_surname_id"
+                                                   class="checkout_input form-control"
+                                                   placeholder="Surname"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Country -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Country
+                                        </div>
+
+                                        <select name="billing_address_update_country_id"
+                                                id="billing_address_update_country_id"
+                                                class="dropdown_item_select checkout_input"
+                                                require="required">
+                                            <option>SELECT</option>
+                                            <option>Lithuania</option>
+                                            <option>Sweden</option>
+                                            <option>UK</option>
+                                            <option>Italy</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- City Province -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- City -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                City
+                                            </div>
+
+                                            <select name="billing_address_update_city_id"
+                                                    id="billing_address_update_city_id"
+                                                    class="dropdown_item_select checkout_input"
+                                                    require="required">
+                                                <option>SELECT</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Province -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Province
+                                            </div>
+
+                                            <select name="billing_address_update_province_id"
+                                                    id="billing_address_update_province_id"
+                                                    class="dropdown_item_select checkout_input"
+                                                    require="required">
+                                                <option>SELECT</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Neighborhood Zipcode -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- Neighborhood -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Neighborhood
+                                            </div>
+
+                                            <input type="text"
+                                                   id="billing_address_update_neighborhood_id"
+                                                   class="checkout_input form-control"
+                                                   required="required">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Zipcode -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Zip Code
+                                            </div>
+
+                                            <input type="number"
+                                                   id="billing_address_update_zip_code_id"
+                                                   class="checkout_input form-control"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Address
+                                        </div>
+                                        <input type="text" id="billing_update_open_address_2_id"
+                                               class="checkout_input form-control"
+                                               placeholder="Full Address" required="required">
+                                    </div>
+
+                                    <!-- Phone no -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Phone
+                                            Number
+                                        </div>
+                                        <input type="text" id="billing_address_update_phone_id"
+                                               class="checkout_input form-control phone_mask"
+                                               placeholder="(XXX) XXX XX XX"
+                                               required="required">
+                                    </div>
+
+                                    <div><!--ERROR--></div>
+
+                                    <!-- Button -->
+                                    <div class="login_button trans_200"><a href="#">Update</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="address-element-padding">
+            <div class="billingAddress">
+                <div class="product_content">
+                    <div class="row order - row ">
+                        <div class="address-title">Delivery Address</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add address button -->
+        <div class="address-element-padding">
+            <a href="#delivery_address_column" class="trans_200" data-toggle="collapse">
+                <div class="billingAddress">
+                    <div class="product_content">
+                        <div style="align-items: center; justify-content: center"
+                             class="row order - row ">
+                            <div class="add-address">Add New Address</div>
+                            <i style="padding-left: 5px" class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Address form -->
+        <div id="delivery_address_column" class="collapse">
+
+            <div class="address-container">
+                <div class="billingAddress">
+                    <div class="checkout_form_container">
+                        <form action="#" id="delivery_address_form" class="checkout_form">
+
+                            <!-- Address Title -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Address Title
+                                </div>
+
+                                <select name="delivery_address_title"
+                                        id="delivery_address_title"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Home</option>
+                                    <option>Workplace</option>
+                                    <option>Summery</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Name Surname -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Name -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Name
+                                    </div>
+
+                                    <input type="text" id="delivery_address_name"
+                                           class="checkout_input form-control"
+                                           placeholder="Name" required="required">
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Surname -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Surname
+                                    </div>
+
+                                    <input type="text" id="delivery_address_surname"
+                                           class="checkout_input form-control"
+                                           placeholder="Surname"
+                                           required="required">
+                                </div>
+                            </div>
+
+                            <!-- Country -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Country
+                                </div>
+
+                                <select name="delivery_address_country"
+                                        id="delivery_address_country"
+                                        class="dropdown_item_select checkout_input"
+                                        require="required">
+                                    <option>SELECT</option>
+                                    <option>Lithuania</option>
+                                    <option>Sweden</option>
+                                    <option>UK</option>
+                                    <option>Italy</option>
+                                </select>
+                            </div>
+
+                            <!-- City Province -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- City -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        City
+                                    </div>
+
+                                    <select name="delivery_address_city"
+                                            id="delivery_address_city"
+                                            class="dropdown_item_select checkout_input"
+                                            require="required">
+                                        <option>SELECT</option>
+                                        <option>City</option>
+                                        <option>City</option>
+                                        <option>City</option>
+                                        <option>City</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Province -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Province
+                                    </div>
+
+                                    <select name="delivery_address_province"
+                                            id="delivery_address_province"
+                                            class="dropdown_item_select checkout_input"
+                                            require="required">
+                                        <option>SELECT</option>
+                                        <option>Province</option>
+                                        <option>Province</option>
+                                        <option>Province</option>
+                                        <option>Province</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Neighborhood Zipcode -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- Neighborhood -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Neighborhood
+                                    </div>
+
+                                    <input type="text" id="delivery_address_neighborhood"
+                                           class="checkout_input form-control"
+                                           required="required">
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- Zipcode -->
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Zip Code
+                                    </div>
+
+                                    <input type="number" id="delivery_address_zip_code"
+                                           class="checkout_input form-control"
+                                           required="required">
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Address
+                                </div>
+                                <input type="text" id="delivery_open_address"
+                                       class="checkout_input form-control"
+                                       placeholder="Full Address" required="required">
+                            </div>
+
+                            <!-- Phone no -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">Phone
+                                    Number
+                                </div>
+                                <input type="text" id="delivery_address_phone"
+                                       class="checkout_input form-control phone_mask"
+                                       placeholder="(XXX) XXX XX XX" required="required">
+                            </div>
+
+                            <div><!--ERROR--></div>
+
+                            <!-- Button -->
+                            <div class="login_button trans_200"><a href="#">Add
+                                address</a></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registered addresses -->
+        <div>
+            <ul>
+                <!-- Registered address 1 -->
+                <div class="address-element-padding">
+                    <div class="billingAddress">
+                        <div class="product_content">
+                            <li class="row">
+                                <div class="col-md-9 registered-address-title">
+                                    Workplace
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#delivery_address_update"
+                                       class="trans_200" data-toggle="collapse"><i
+                                            style="font-size: 25px; padding-right: 10px"
+                                            class="fa fa-pencil"></i></a>
+                                    <a href="#" class="trans_200" data-toggle="collapse"><i
+                                            style="font-size: 25px; color: #4a4a4a"
+                                            class="fa product_text">&#xf014;</i></a>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-md-9 registered-address-content">
+                                    Üniversiteler Mahallesi, Hacettepe Beytepe Kampüsü No:21,
+                                    06800
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-md-9 registered-address-content">
+                                    Çankaya/Ankara
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update address form -->
+                <div id="delivery_address_update" class="collapse">
+
+                    <div class="address-container">
+                        <div class="billingAddress">
+                            <div class="checkout_form_container">
+                                <form action="#" id="delivery_address_update_form"
+                                      class="checkout_form">
+
+                                    <!-- Address Title -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Address Title
+                                        </div>
+
+                                        <select name="delivery_address_update_title"
+                                                id="delivery_address_update_title"
+                                                class="dropdown_item_select checkout_input"
+                                                require="required">
+                                            <option>SELECT</option>
+                                            <option>Home</option>
+                                            <option>Workplace</option>
+                                            <option>Summery</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Name Surname -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- Name -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Name
+                                            </div>
+
+                                            <input type="text" id="delivery_address_update_name"
+                                                   class="checkout_input form-control"
+                                                   placeholder="Name" required="required">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Surname -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Surname
+                                            </div>
+
+                                            <input type="text"
+                                                   id="delivery_address_update_surname"
+                                                   class="checkout_input form-control"
+                                                   placeholder="Surname"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Country -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Country
+                                        </div>
+
+                                        <select name="delivery_address_update_country"
+                                                id="delivery_address_update_country"
+                                                class="dropdown_item_select checkout_input"
+                                                require="required">
+                                            <option>SELECT</option>
+                                            <option>Lithuania</option>
+                                            <option>Sweden</option>
+                                            <option>UK</option>
+                                            <option>Italy</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- City Province -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- City -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                City
+                                            </div>
+
+                                            <select name="delivery_address_update_city"
+                                                    id="delivery_address_update_city"
+                                                    class="dropdown_item_select checkout_input"
+                                                    require="required">
+                                                <option>SELECT</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                                <option>City</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Province -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Province
+                                            </div>
+
+                                            <select name="delivery_address_update_province"
+                                                    id="delivery_address_update_province"
+                                                    class="dropdown_item_select checkout_input"
+                                                    require="required">
+                                                <option>SELECT</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                                <option>Province</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Neighborhood Zipcode -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <!-- Neighborhood -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Neighborhood
+                                            </div>
+
+                                            <input type="text"
+                                                   id="delivery_address_update_neighborhood"
+                                                   class="checkout_input form-control"
+                                                   required="required">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- Zipcode -->
+                                            <div class="login-text p-b-10"
+                                                 style="color: black;">
+                                                Zip Code
+                                            </div>
+
+                                            <input type="number"
+                                                   id="delivery_address_update_zip_code"
+                                                   class="checkout_input form-control"
+                                                   required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Address
+                                        </div>
+                                        <input type="text" id="delivery_update_open_address_id"
+                                               class="checkout_input form-control"
+                                               placeholder="Full Address" required="required">
+                                    </div>
+
+                                    <!-- Phone no -->
+                                    <div>
+                                        <div class="login-text p-b-10" style="color: black;">
+                                            Phone
+                                            Number
+                                        </div>
+                                        <input type="text" id="delivery_address_update_phone"
+                                               class="checkout_input form-control phone_mask"
+                                               placeholder="(XXX) XXX XX XX"
+                                               required="required">
+                                    </div>
+
+                                    <div><!--ERROR--></div>
+
+                                    <!-- Button -->
+                                    <div class="login_button trans_200"><a href="#">Update</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
