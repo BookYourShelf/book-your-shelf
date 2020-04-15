@@ -27,6 +27,10 @@ public class User {
     private String surname;
     private Date birthDate;
     private String phoneNumber;
+    @NotNull(message = "*Please accept the terms and conditions.")
+    private String checked;
+    @NotNull(message = "*Please read and approve the membership agreement")
+    private String checkedAgain;
 
 
     @OneToMany(
@@ -59,7 +63,7 @@ public class User {
     )
     private List<Product> wishList;
     @NotEmpty(message = "*Please Provide your Password")
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "*Please enter a valid Password")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$", message = "*Please enter a valid Password")
     @Transient
     transient private String password;
 
@@ -198,4 +202,19 @@ public class User {
         this.deliveryAddresses = deliveryAddresses;
     }
 
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
+    }
+
+    public String getCheckedAgain() {
+        return checkedAgain;
+    }
+
+    public void setCheckedAgain(String checkedAgain) {
+        this.checkedAgain = checkedAgain;
+    }
 }
