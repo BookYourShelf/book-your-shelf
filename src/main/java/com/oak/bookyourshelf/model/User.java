@@ -16,18 +16,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
-    @NotEmpty(message= "*Please Provide an E-Mail Address")
-    @Email(message= "*Please Provide a valid E-Mail Address")
+    @NotEmpty(message = "*Please Provide an E-Mail Address")
+    @Email(message = "*Please Provide a valid E-Mail Address")
     private String email;
-    @Pattern(regexp = "[a-zA-Z ]+$", message= "*Please enter a valid Name")
-    @NotEmpty(message= "*Please Provide your Name")
+    @Pattern(regexp = "[a-zA-Z ]+$", message = "*Please enter a valid Name")
+    @NotEmpty(message = "*Please Provide your Name")
     private String name;
-    @Pattern(regexp = "[a-zA-Z ]+$", message= "*Please enter a valid Surname")
-    @NotEmpty(message= "*Please Provide your SurName")
+    @Pattern(regexp = "[a-zA-Z ]+$", message = "*Please enter a valid Surname")
+    @NotEmpty(message = "*Please Provide your SurName")
     private String surname;
     private Date birthDate;
     private String phoneNumber;
-
 
 
     @OneToMany(
@@ -59,8 +58,8 @@ public class User {
             orphanRemoval = true
     )
     private List<Product> wishList;
-    @NotEmpty(message= "*Please Provide your Password")
-    @Pattern(regexp= "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message= "*Please enter a valid Password")
+    @NotEmpty(message = "*Please Provide your Password")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "*Please enter a valid Password")
     @Transient
     transient private String password;
 
