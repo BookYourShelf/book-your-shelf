@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.sql.Date;
-import java.sql.Timestamp;
+
 
 @Controller
 public class RegisterController {
@@ -20,24 +19,26 @@ public class RegisterController {
     final
     RegisterService registerService;
 
-    public RegisterController(RegisterService registerService) { this.registerService = registerService; }
+    public RegisterController(RegisterService registerService) {
+        this.registerService = registerService;
+    }
 
     @RequestMapping("/register")
-    public String showRegisterPage(Model model){
+    public String showRegisterPage(Model model) {
         User newUser = new User();
-        model.addAttribute("newUser",newUser);
+        model.addAttribute("newUser", newUser);
         return "register";
     }
 
-    @RequestMapping(value = "/register", method= RequestMethod.POST)
-    public String registerUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult error, Model model){
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult error, Model model) {
         User user = new User();
         User existing = registerService.findByEmail(newUser.getEmail());
         if (existing != null) {
             error.rejectValue("email", null, "There is already an account registered with that email");
         }
 
-        if(!error.hasErrors()){
+        if (!error.hasErrors()) {
             user.setName(newUser.getName());
             user.setSurname(newUser.getSurname());
             user.setEmail(newUser.getEmail());
@@ -46,10 +47,6 @@ public class RegisterController {
         }
         return "register";
     }
-
-
-
-
 
 
 }
