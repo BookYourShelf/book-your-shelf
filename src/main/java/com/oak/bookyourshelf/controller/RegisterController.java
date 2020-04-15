@@ -2,7 +2,7 @@ package com.oak.bookyourshelf.controller;
 
 
 import com.oak.bookyourshelf.model.User;
-import com.oak.bookyourshelf.service.UserDetailsRegisterService;
+import com.oak.bookyourshelf.service.RegisterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,12 +15,12 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Controller
-public class UserDetailsRegisterController {
+public class RegisterController {
 
     final
-    UserDetailsRegisterService registerService;
+    RegisterService registerService;
 
-    public UserDetailsRegisterController(UserDetailsRegisterService registerService) { this.registerService = registerService; }
+    public RegisterController(RegisterService registerService) { this.registerService = registerService; }
 
     @RequestMapping("/register")
     public String showRegisterPage(Model model){
