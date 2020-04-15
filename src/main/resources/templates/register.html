@@ -280,11 +280,13 @@
                                                 <div>
                                                     <label>
                                                         <label class="checkbox_container">
-                                                            <input type="checkbox"  id="permission_agreement"
-                                                                   name="permission_agreement" class="billing_checkbox" required/>
+                                                            <span th:if="${#fields.hasErrors('checked')}" th:errors="*{checked}"style="color:red;"></span>
+                                                            <input type="checkbox"  th:field= "*{checked}" id="permission_agreement"
+                                                                   value="permission_agreement" class="billing_checkbox" >
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
+
                                                             <span class="checkbox_text  login-text">I have permission to send commercial electronic messages
                                                             to Oak Book Store Marketing Inc. to those mentioned
                                                             <a href="privacy_policy.html" target="_blank"
@@ -293,8 +295,9 @@
                                                     </label>
                                                     <label>
                                                         <label class="checkbox_container">
-                                                            <input type="checkbox"  id="membership_agreement"
-                                                                   name="membership_agreement" class="billing_checkbox" required/>
+                                                            <input type="checkbox"  th:field= "*{checkedAgain}" id="membership_agreement"
+                                                                   value="membership_agreement" class="billing_checkbox" >
+                                                            <span th:if="${#fields.hasErrors('checkedAgain')}" th:errors="*{checkedAgain}"style="color:red;"></span>
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
