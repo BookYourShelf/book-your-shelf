@@ -239,30 +239,30 @@
                                     <div>
                                         <!-- Name -->
                                         <div class="login-text p-b-10" style="color: black;">Name</div>
-                                        <input type="text" th:field= "*{name}" id="register_name" class="login_input form-control">
-                                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></span>
+                                        <input type="text" th:field= "*{name}" id="register_name" class="login_input form-control" required="required">
+
                                     </div>
 
                                     <div>
                                         <!-- Surname -->
                                         <div class="login-text p-b-10" style="color: black;">Surname</div>
-                                        <input type="text" th:field= "*{surname}"  id="register_surname" class="login_input form-control">
-                                        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" style="color:red;"></span>
+                                        <input type="text" th:field= "*{surname}"  id="register_surname" class="login_input form-control" required="required">
+
                                     </div>
 
                                     <div>
                                         <!-- Email -->
                                         <div class="login-text p-b-10" style="color: black;">E-Mail Address</div>
-                                        <input type="text" th:field= "*{email}" id="register_email" class="login_input form-control">
-                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red;"></span>
+                                        <input type="text" th:field= "*{email}" id="register_email" class="login_input form-control" required="required">
+
                                     </div>
                                     <div>
                                         <!-- Password -->
                                         <div class="login-text p-b-10" style="color: black;">Password</div>
-                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"style="color:red;"></span>
+
                                         <div class="input-group">
                                             <input type="text" th:field= "*{password}" id="register_password"
-                                                   class="login_input form-control pwd" >
+                                                   class="login_input form-control pwd" required="required">
                                             <div class="input-group-append">
                                                 <span class="input-group-text show_password_bg">
                                                     <button class="btn btn-default reveal" type="button"><i
@@ -280,7 +280,7 @@
                                                 <div>
                                                     <label>
                                                         <label class="checkbox_container">
-                                                            <span th:if="${#fields.hasErrors('checked')}" th:errors="*{checked}"style="color:red;"></span>
+
                                                             <input type="checkbox"  th:field= "*{checked}" id="permission_agreement"
                                                                    value="permission_agreement" class="billing_checkbox" >
                                                             <span class="checkbox_mark"></span>
@@ -297,7 +297,7 @@
                                                         <label class="checkbox_container">
                                                             <input type="checkbox"  th:field= "*{checkedAgain}" id="membership_agreement"
                                                                    value="membership_agreement" class="billing_checkbox" >
-                                                            <span th:if="${#fields.hasErrors('checkedAgain')}" th:errors="*{checkedAgain}"style="color:red;"></span>
+
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
@@ -311,7 +311,11 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div><!--ERROR--></div>
+                                    <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                                        </ul>
+                                    </div>
                                     <input type="submit" value="REGISTER" class="login_button trans_200">
                                     <div class="text-center login-text">Already have an account? <a href="login.html"
                                                                                                     class="login-text register-text">Login</a>
