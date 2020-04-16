@@ -1,3 +1,5 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <!-- Add category button -->
 <div class="address-element-padding">
     <a href="#new_category" class="trans_200" data-toggle="collapse">
@@ -19,7 +21,8 @@
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form action="#" id="new_category_form" class="checkout_form">
+                <form id="new_category_form" class="checkout_form" th:object="${category}"
+                      action="/admin-panel/category" method="post">
 
                     <!-- Product Type -->
                     <div>
@@ -27,16 +30,14 @@
                             Product Type
                         </div>
 
-                        <select name="book_type" id="category_product_type"
+                        <select name="product_type" id="category_product_type"
                                 class="dropdown_item_select checkout_input"
-                                require="required">
-                            <option>Select Product Type</option>
-                            <option>Book</option>
-                            <option>E-Book</option>
-                            <option>Audio Book</option>
-                            <option>E-Book Reader</option>
-                            <option>E-Book Reader Case</option>
-                            <option>Book Case</option>
+                                required="required" th:field="*{productType}">
+                            <option value="">Select Product Type</option>
+                            <option th:each="category : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
+                                    th:value="${category}"
+                                    th:text="${category}">productType
+                            </option>
                         </select>
                     </div>
 
@@ -48,13 +49,17 @@
 
                         <input type="text" id="new_category_name"
                                class="checkout_input form-control"
-                               placeholder="Category Name" required="required">
+                               placeholder="Category Name" required="required" th:field="*{name}">
                     </div>
 
-                    <div><!--ERROR--></div>
+                    <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
 
                     <!-- Button -->
-                    <div class="login_button trans_200"><a href="#">Add category</a></div>
+                    <input type="submit" value="Add category" class="login_button trans_200" data-rel="back">
 
                 </form>
             </div>
@@ -176,3 +181,4 @@
         </div>
     </div>
 </div>
+</html>

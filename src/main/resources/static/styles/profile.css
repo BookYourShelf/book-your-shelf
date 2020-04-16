@@ -60,7 +60,7 @@ TODO Profile will be here
     transition: all 200ms ease;
 }
 
-.login_button a {
+.login_button {
     display: block;
     font-size: 18px;
     font-weight: 700;
@@ -78,7 +78,7 @@ TODO Profile will be here
     background: transparent;
 }
 
-.login_button:hover a {
+.login_button:hover {
     color: #fbaa1d;
 }
 

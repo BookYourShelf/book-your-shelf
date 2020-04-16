@@ -1,18 +1,30 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
 public class Category {
 
-    private enum ProductType {
-        BOOK,
-        E_BOOK,
-        AUDIO_BOOK,
-        E_BOOK_READER,
-        E_BOOK_READER_CASE,
-        BOOK_CASE;
+    public enum ProductType {
+        BOOK("Book"),
+        E_BOOK("E-Book"),
+        AUDIO_BOOK("Audio Book"),
+        E_BOOK_READER("E-Book Reader"),
+        E_BOOK_READER_CASE("E-Book Reader Case"),
+        BOOK_CASE("Book Case");
+
+        private String description;
+
+        ProductType(final String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+
     }
 
     @Id
