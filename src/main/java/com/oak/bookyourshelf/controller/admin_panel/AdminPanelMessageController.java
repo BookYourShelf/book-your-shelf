@@ -29,36 +29,36 @@ public class AdminPanelMessageController {
     @RequestMapping(value = "/admin-panel/message", method = RequestMethod.GET)
     public String tab(Model model) {
         Message message = new Message();
-        model.addAttribute("adminmessage", message);
+        model.addAttribute("AdminMessage", message);
         return "admin_panel/_message";
     }
 
 
     @RequestMapping(value = "/admin-panel/message", method = RequestMethod.POST)
-    public String sendMessage(@Valid @ModelAttribute Message adminmessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
+    public String sendMessage(@Valid @ModelAttribute Message AdminMessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
 
 
         List<Integer> receiver = new ArrayList<>(
                 List.of(1, 2, 3, 4));
         /*user sevice ile user idlerini al*/
 
-        adminmessage.setMessage(input);
-        adminmessage.setReceivers(receiver);
+        AdminMessage.setMessage(input);
+        AdminMessage.setReceivers(receiver);
         if (submit.equals("Send SMS")) {
-            adminmessage.setMail(false);
-            adminmessage.setSms(true);
+            AdminMessage.setMail(false);
+            AdminMessage.setSms(true);
         } else if (submit.equals("Send E-mail")) {
 
-            adminmessage.setMail(true);
-            adminmessage.setSms(false);
+            AdminMessage.setMail(true);
+            AdminMessage.setSms(false);
         } else {
 
-            adminmessage.setMail(true);
-            adminmessage.setSms(true);
+            AdminMessage.setMail(true);
+            AdminMessage.setSms(true);
         }
 
 
-        adminPanelMessageService.save(adminmessage);
+        adminPanelMessageService.save(AdminMessage);
 
         System.out.println("sms sended");
         return ("redirect:/admin-panel#message");

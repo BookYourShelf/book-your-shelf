@@ -26,34 +26,34 @@ public class UserDetailsMessageController {
     @RequestMapping(value = "/user-details/message", method = RequestMethod.GET)
     public String tab(Model model) {
         Message message = new Message();
-        model.addAttribute("personalmessage", message);
+        model.addAttribute("PersonalMessage", message);
         return "user_details/_message";
     }
 
 
     @RequestMapping(value = "/user-details/message", method = RequestMethod.POST)
-    public String sendMessage(@Valid @ModelAttribute Message personalmessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
+    public String sendMessage(@Valid @ModelAttribute Message PersonalMessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
 
         List<Integer> receiver = new ArrayList<>(
                 List.of(111));
         /*user idsi al*/
 
 
-        personalmessage.setMessage(input);
+        PersonalMessage.setMessage(input);
 
-        personalmessage.setReceivers(receiver);
+        PersonalMessage.setReceivers(receiver);
         if (submit.equals("Send SMS")) {
-            personalmessage.setMail(false);
-            personalmessage.setSms(true);
+            PersonalMessage.setMail(false);
+            PersonalMessage.setSms(true);
         } else if (submit.equals("Send E-mail")) {
-            personalmessage.setMail(true);
-            personalmessage.setSms(false);
+            PersonalMessage.setMail(true);
+            PersonalMessage.setSms(false);
         } else {
-            personalmessage.setMail(true);
-            personalmessage.setSms(true);
+            PersonalMessage.setMail(true);
+            PersonalMessage.setSms(true);
         }
 
-        userDetailsMessageService.save(personalmessage);
+        userDetailsMessageService.save(PersonalMessage);
         System.out.println("sms sended");
         return ("redirect:/user-details#message");
     }
