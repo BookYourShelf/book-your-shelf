@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,26 +32,28 @@ public class UserDetailsMessageController {
 
 
     @RequestMapping(value = "/user-details/message", method = RequestMethod.POST)
-    public String sendMessage(@Valid @ModelAttribute Message personalmessage,@RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
+    public String sendMessage(@Valid @ModelAttribute Message personalmessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
 
-
+        List<Integer> receiver = new ArrayList<>(
+                List.of(111));
         /*user idsi al*/
-        Message message = new Message();
 
-        message.setMessage(input);
-        message.setSubject(personalmessage.getSubject());
+
+        personalmessage.setMessage(input);
+
+        personalmessage.setReceivers(receiver);
         if (submit.equals("Send SMS")) {
-            message.setMail(false);
-            message.setSms(true);
+            personalmessage.setMail(false);
+            personalmessage.setSms(true);
         } else if (submit.equals("Send E-mail")) {
-            message.setMail(true);
-            message.setSms(false);
+            personalmessage.setMail(true);
+            personalmessage.setSms(false);
         } else {
-            message.setMail(true);
-            message.setSms(true);
+            personalmessage.setMail(true);
+            personalmessage.setSms(true);
         }
 
-        userDetailsMessageService.save(message);
+        userDetailsMessageService.save(personalmessage);
         System.out.println("sms sended");
         return ("redirect:/user-details#message");
     }

@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,24 +38,28 @@ public class AdminPanelMessageController {
     public String sendMessage(@Valid @ModelAttribute Message adminmessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
 
 
-        List<User> users = Collections.emptyList();
+        List<Integer> receiver = new ArrayList<>(
+                List.of(1, 2, 3, 4));
         /*user sevice ile user idlerini al*/
-        Message message = new Message();
 
-        message.setMessage(input);
-        message.setSubject(adminmessage.getSubject());
+        adminmessage.setMessage(input);
+        adminmessage.setReceivers(receiver);
         if (submit.equals("Send SMS")) {
-            message.setMail(false);
-            message.setSms(true);
+            adminmessage.setMail(false);
+            adminmessage.setSms(true);
         } else if (submit.equals("Send E-mail")) {
-            message.setMail(true);
-            message.setSms(false);
+
+            adminmessage.setMail(true);
+            adminmessage.setSms(false);
         } else {
-            message.setMail(true);
-            message.setSms(true);
+
+            adminmessage.setMail(true);
+            adminmessage.setSms(true);
         }
 
-        adminPanelMessageService.save(message);
+
+        adminPanelMessageService.save(adminmessage);
+
         System.out.println("sms sended");
         return ("redirect:/admin-panel#message");
     }
