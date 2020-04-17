@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.controller.admin_panel;
 
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,12 +28,18 @@ public class AdminPanelCategoryController {
     }
 
     @RequestMapping(value = "/admin-panel/category", method = RequestMethod.POST)
-    public String saveCategory(@Valid @ModelAttribute Category category, BindingResult error, Model model) {
-        if (!error.hasErrors()) {
-            adminPanelCategoryService.save(category);
-            return "redirect:/admin-panel#category";
+    @ResponseBody
+    public ResponseEntity<String> saveCategory(@RequestParam String name, Category category) {
+        if (name != null) {
+            Category categoryDb = adminPanelCategoryService.getByName(name);
+            if (categoryDb != null) {
+                if (category.getProductType() == categoryDb.getProductType()) { // Same name and product type found
+                    return ResponseEntity.badRequest().body("Category name already exists.");
+                }
+            }
         }
-        System.out.println("hede");
-        return "redirect:/admin-panel#category";
+
+        adminPanelCategoryService.save(category);
+        return ResponseEntity.ok("");
     }
 }
