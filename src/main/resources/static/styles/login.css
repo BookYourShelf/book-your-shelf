@@ -951,8 +951,18 @@ section {
 }
 
 .billing_checkbox {
-    display: none;
+    display: inherit;
+    padding: 0;
+    opacity: 1;
+    height: inherit;
+    width: inherit;
+    overflow: visible;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    margin: 0;
 }
+
 
 
 /* Create a custom checkbox */
