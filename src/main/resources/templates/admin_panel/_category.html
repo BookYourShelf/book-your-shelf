@@ -49,7 +49,8 @@
 
                         <input type="text" id="new_category_name"
                                class="checkout_input form-control"
-                               placeholder="Category Name" required="required" th:field="*{name}">
+                               placeholder="Category Name" required="required" th:field="*{name}"
+                               pattern="[A-Za-z]+" title="Category name cannot have digits.">
                     </div>
 
                     <div style="color: red;" th:if="${#fields.hasErrors('*')}">
