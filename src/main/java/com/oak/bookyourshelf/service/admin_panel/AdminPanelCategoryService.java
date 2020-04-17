@@ -28,6 +28,10 @@ public class AdminPanelCategoryService {
         return adminPanelCategoryRepository.findById(id).get();
     }
 
+    public Category getByName(String name) {
+        return adminPanelCategoryRepository.findCategoryByName(name);
+    }
+
     public void delete(int id) {
         adminPanelCategoryRepository.deleteById(id);
     }
