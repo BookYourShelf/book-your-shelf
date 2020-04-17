@@ -1,10 +1,7 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,18 +13,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
-    @Email(message = "*Please Provide a valid E-Mail Address")
     private String email;
-    @Pattern(regexp = "[a-zA-Z ]+$", message = "*Please enter a valid Name")
     private String name;
-    @Pattern(regexp = "[a-zA-Z ]+$", message = "*Please enter a valid Surname")
     private String surname;
     private Date birthDate;
     private String phoneNumber;
-    @NotNull(message = "*Please accept the terms and conditions.")
-    private String checked;
-    @NotNull(message = "*Please read and approve the membership agreement")
-    private String checkedAgain;
 
 
     @OneToMany(
@@ -59,7 +49,6 @@ public class User {
             orphanRemoval = true
     )
     private List<Product> wishList;
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$", message = "*Please enter a valid Password")
     @Transient
     transient private String password;
 
@@ -198,19 +187,4 @@ public class User {
         this.deliveryAddresses = deliveryAddresses;
     }
 
-    public String getChecked() {
-        return checked;
-    }
-
-    public void setChecked(String checked) {
-        this.checked = checked;
-    }
-
-    public String getCheckedAgain() {
-        return checkedAgain;
-    }
-
-    public void setCheckedAgain(String checkedAgain) {
-        this.checkedAgain = checkedAgain;
-    }
 }
