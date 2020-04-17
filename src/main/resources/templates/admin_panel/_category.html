@@ -36,7 +36,7 @@
                             <option value="">Select Product Type</option>
                             <option th:each="category : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
                                     th:value="${category}"
-                                    th:text="${category}">productType
+                                    th:text="#{${'category.' + category}}">productType
                             </option>
                         </select>
                     </div>
