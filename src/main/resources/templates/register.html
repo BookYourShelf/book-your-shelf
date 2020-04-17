@@ -239,21 +239,21 @@
                                     <div>
                                         <!-- Name -->
                                         <div class="login-text p-b-10" style="color: black;">Name</div>
-                                        <input type="text" th:field= "*{name}" id="register_name" class="login_input form-control" required="required">
+                                        <input type="text" th:field= "*{name}" id="register_name" class="login_input form-control" pattern= "^[a-zA-Z ]+$" required="required">
 
                                     </div>
 
                                     <div>
                                         <!-- Surname -->
                                         <div class="login-text p-b-10" style="color: black;">Surname</div>
-                                        <input type="text" th:field= "*{surname}"  id="register_surname" class="login_input form-control" required="required">
+                                        <input type="text" th:field= "*{surname}"  id="register_surname" class="login_input form-control" pattern= "^[a-zA-Z ]+$" required="required">
 
                                     </div>
 
                                     <div>
                                         <!-- Email -->
                                         <div class="login-text p-b-10" style="color: black;">E-Mail Address</div>
-                                        <input type="text" th:field= "*{email}" id="register_email" class="login_input form-control" required="required">
+                                        <input type="email" th:field= "*{email}" id="register_email" class="login_input form-control" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required">
 
                                     </div>
                                     <div>
@@ -261,8 +261,8 @@
                                         <div class="login-text p-b-10" style="color: black;">Password</div>
 
                                         <div class="input-group">
-                                            <input type="text" th:field= "*{password}" id="register_password"
-                                                   class="login_input form-control pwd" required="required">
+                                            <input type="password" th:field= "*{password}" id="register_password"
+                                                   class="login_input form-control pwd" value= "secret" pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$" required="required">
                                             <div class="input-group-append">
                                                 <span class="input-group-text show_password_bg">
                                                     <button class="btn btn-default reveal" type="button"><i
@@ -271,7 +271,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <span>*Your password must be 8-16 characters, and include at least one lowercase letter, one uppercase letter, and a number.</span>
+                                            <span>*Your password must be 8-16 characters, and include at least one lowercase letter, one uppercase letter, one number and a special character.</span>
                                         </div>
                                     </div>
                                     <div class="login_extra">
@@ -281,28 +281,28 @@
                                                     <label>
                                                         <label class="checkbox_container">
 
-                                                            <input type="checkbox"  th:field= "*{checked}" id="permission_agreement"
-                                                                   value="permission_agreement" class="billing_checkbox" >
+                                                            <input type="checkbox"  id="permission_agreement"
+                                                                   name="permission_agreement" class="billing_checkbox" required>
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
 
                                                             <span class="checkbox_text  login-text">I have permission to send commercial electronic messages
                                                             to Oak Book Store Marketing Inc. to those mentioned
-                                                            <a href="privacy_policy.html" target="_blank"
+                                                            <a href="/privacy_policy" target="_blank"
                                                                class="login-text register-text"> here</a>.</span>
                                                         </label>
                                                     </label>
                                                     <label>
                                                         <label class="checkbox_container">
-                                                            <input type="checkbox"  th:field= "*{checkedAgain}" id="membership_agreement"
-                                                                   value="membership_agreement" class="billing_checkbox" >
+                                                            <input type="checkbox"   id="membership_agreement"
+                                                                   value="membership_agreement" class="billing_checkbox" required>
 
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
                                                             <span class="checkbox_text login-text">I have read and approved the
-                                                            <a href="membership.html" target="_blank"
+                                                            <a href="/membership" target="_blank"
                                                                class="login-text register-text"> Membership Agreement</a>.</span>
                                                         </label>
 
@@ -317,7 +317,7 @@
                                         </ul>
                                     </div>
                                     <input type="submit" value="REGISTER" class="login_button trans_200">
-                                    <div class="text-center login-text">Already have an account? <a href="login.html"
+                                    <div class="text-center login-text" style="margin-top: 20px;">Already have an account? <a href="/login"
                                                                                                     class="login-text register-text">Login</a>
                                     </div>
                                 </form>
@@ -410,6 +410,7 @@
 <script src="js/custom.js"></script>
 <script src="js/active.js"></script>
 <script src="js/login.js"></script>
+
 
 
 </body>
