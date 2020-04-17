@@ -42,6 +42,7 @@ public class RegisterController {
             user.setName(newUser.getName());
             user.setSurname(newUser.getSurname());
             user.setEmail(newUser.getEmail());
+            user.setPassword(newUser.getPassword());
             registerService.save(user);
             return "index";
         }
