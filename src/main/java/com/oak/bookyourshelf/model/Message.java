@@ -1,14 +1,13 @@
 package com.oak.bookyourshelf.model;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Message {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int messageID;
 
     boolean mail;
