@@ -1,12 +1,16 @@
-<form action="#" class="form-contact form-review mt-3">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<form action="/user-details/message" th:object="${personalmessage}" class="form-contact form-review mt-3"
+      method="post">
     <div class="form-group">
         <input class="form-control" name="subject" type="text"
-               placeholder="Enter Subject">
+               placeholder="Enter Subject" required="" th:field="*{subject}">
     </div>
     <div class="form-group">
                                 <textarea class="form-control different-control w-100" name="textarea"
                                           id="textarea" cols="30" rows="5"
-                                          placeholder="Enter Message"></textarea>
+                                          placeholder="Enter Message" required="" th:text="*{message}"></textarea>
     </div>
     <p>
         Note 1: This message will be sent to the user
@@ -17,18 +21,20 @@
     <br>
     <div class="row">
         <div class="col-lg-4">
-            <div class="login_button trans_200"><a href="#">Send SMS</a></div>
+            <input name=submit id="sms" type="submit" value="Send SMS" class="login_button trans_200">
         </div>
 
         <div class="col-lg-4">
-            <div class="login_button trans_200"><a href="#">Send E-mail</a></div>
+            <input name=submit id="mail" type="submit" value="Send E-mail" class="login_button trans_200">
 
         </div>
 
         <div class="col-lg-4">
-            <div class="login_button trans_200"><a href="#">Send SMS & E-mail</a></div>
+            <input name=submit id="smsandmail" type="submit" value="Send SMS & E-mail"
+                   class="login_button trans_200">
         </div>
     </div>
     <br/>
     <br/>
 </form>
+</html>
