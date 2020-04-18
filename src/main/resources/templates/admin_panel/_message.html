@@ -4,13 +4,13 @@
 <form action="/admin-panel/message" th:object="${AdminMessage}" class="form-contact form-review mt-3"
       method="post">
     <div class="form-group">
-        <input class="form-control" name="subject" type="text"
+        <input class="form-control" id="subject_area" name="subject" type="text"
                placeholder="Enter Subject" required="" th:field="*{subject}">
     </div>
     <div class="form-group">
                                 <textarea class="form-control different-control w-100" name="textarea"
                                           id="textarea" cols="30" rows="5"
-                                          placeholder="Enter Message" required="" th:text="*{message}"></textarea>
+                                          placeholder="Enter Message" required=""></textarea>
     </div>
     <p>
         Note 1: This message will be sent to all Book Your Shelf users
@@ -30,12 +30,42 @@
         </div>
 
         <div class="col-lg-4">
-            <input name=submit id="smsandmail" type="submit" value="Send SMS & E-mail"
+            <input name=submit id="SmsAndMail" type="submit" value="Send SMS & E-mail"
                    class="login_button trans_200">
         </div>
     </div>
     <br/>
     <br/>
 </form>
+<script>
+    $('#sms ,#mail ,#SmsAndMail').click(function (event) {
+        event.preventDefault();
+        var subject = $('#subject_area').val();
+        var text = $('#textarea').val();
+        var submit = $(this).attr("id");
 
+        var ret = {
+            subject: subject,
+            text: text,
+            submit: submit
+        };
+
+        $.post("/admin-panel/message", ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: 'Message sent successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+            window.location.href = "/admin-panel#message";
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
+</script>
 </html>

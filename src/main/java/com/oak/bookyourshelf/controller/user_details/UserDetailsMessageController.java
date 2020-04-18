@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.controller.user_details;
 import com.oak.bookyourshelf.model.Message;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.user_details.UserDetailsMessageService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,29 +33,28 @@ public class UserDetailsMessageController {
 
 
     @RequestMapping(value = "/user-details/message", method = RequestMethod.POST)
-    public String sendMessage(@Valid @ModelAttribute Message PersonalMessage, @RequestParam("submit") String submit, Model model, @RequestParam("textarea") String input) {
+    @ResponseBody
+    public ResponseEntity<String> saveMessage(Message PersonalMessage, @RequestParam("submit") String submit, @RequestParam String text) {
 
         List<Integer> receiver = new ArrayList<>(
                 List.of(111));
-        /*user idsi al*/
-
-
-        PersonalMessage.setMessage(input);
-
-        PersonalMessage.setReceivers(receiver);
-        if (submit.equals("Send SMS")) {
-            PersonalMessage.setMail(false);
-            PersonalMessage.setSms(true);
-        } else if (submit.equals("Send E-mail")) {
-            PersonalMessage.setMail(true);
-            PersonalMessage.setSms(false);
-        } else {
-            PersonalMessage.setMail(true);
-            PersonalMessage.setSms(true);
+        switch (submit) {
+            case "sms":
+                PersonalMessage.setSms(true);
+                PersonalMessage.setMail(false);
+                break;
+            case "mail":
+                PersonalMessage.setSms(false);
+                PersonalMessage.setMail(true);
+                break;
+            case "SmsAndMail":
+                PersonalMessage.setSms(true);
+                PersonalMessage.setMail(true);
+                break;
         }
-
+        PersonalMessage.setMessageContent(text);
+        PersonalMessage.setReceivers(receiver);
         userDetailsMessageService.save(PersonalMessage);
-        System.out.println("sms sended");
-        return ("redirect:/user-details#message");
+        return ResponseEntity.ok("");
     }
 }
