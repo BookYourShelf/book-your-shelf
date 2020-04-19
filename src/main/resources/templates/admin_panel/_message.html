@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<form action="/admin-panel/message" th:object="${AdminMessage}" class="form-contact form-review mt-3"
-      method="post">
-    <div class="form-group">
+<form class="form-contact form-review mt-3" method="post" id="message_form">
+    <div class="form-group" id="subject">
         <input class="form-control" id="subject_area" name="subject" type="text"
-               placeholder="Enter Subject" required="" th:field="*{subject}">
+               placeholder="Enter Subject" required="">
     </div>
-    <div class="form-group">
+    <div class="form-group" id="content">
                                 <textarea class="form-control different-control w-100" name="textarea"
                                           id="textarea" cols="30" rows="5"
                                           placeholder="Enter Message" required=""></textarea>
@@ -39,33 +38,45 @@
 </form>
 <script>
     $('#sms ,#mail ,#SmsAndMail').click(function (event) {
-        event.preventDefault();
+
         var subject = $('#subject_area').val();
-        var text = $('#textarea').val();
+        var messageContent = $('#textarea').val();
         var submit = $(this).attr("id");
 
         var ret = {
             subject: subject,
-            text: text,
+            messageContent: messageContent,
             submit: submit
         };
 
-        $.post("/admin-panel/message", ret, function (data) {
-            iziToast.show({
-                title: 'Success',
-                message: 'Message sent successfully.',
-                position: 'topRight',
-                color: 'green'
-            });
-            window.location.href = "/admin-panel#message";
-        }).fail(function (data) {
-            iziToast.show({
-                title: 'Fail',
-                message: data.responseText,
-                position: 'topRight',
-                color: 'red'
-            });
-        })
+        if(validation_check(["subject_area","textarea"])) {
+            event.preventDefault();
+            $.post("/admin-panel/message", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Message sent successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                $("#message_form")[0].reset();
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
     });
+
+    function validation_check(arr){
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
 </script>
 </html>

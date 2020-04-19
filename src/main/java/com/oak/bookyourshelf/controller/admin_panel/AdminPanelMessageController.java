@@ -22,42 +22,38 @@ public class AdminPanelMessageController {
 
     final AdminPanelMessageService adminPanelMessageService;
 
-
     public AdminPanelMessageController(AdminPanelMessageService adminPanelMessageService) {
         this.adminPanelMessageService = adminPanelMessageService;
     }
 
     @RequestMapping(value = "/admin-panel/message", method = RequestMethod.GET)
     public String tab(Model model) {
-        Message message = new Message();
-        model.addAttribute("AdminMessage", message);
         return "admin_panel/_message";
     }
 
-
     @RequestMapping(value = "/admin-panel/message", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveMessage(Message AdminMessage, @RequestParam("submit") String submit, @RequestParam String text) {
+    public ResponseEntity<String> saveMessage(@RequestParam String submit, Message message) {
 
         List<Integer> receiver = new ArrayList<>(
                 List.of(1, 2, 3, 4, 5));
         switch (submit) {
             case "sms":
-                AdminMessage.setSms(true);
-                AdminMessage.setMail(false);
+                message.setSms(true);
+                message.setMail(false);
                 break;
             case "mail":
-                AdminMessage.setSms(false);
-                AdminMessage.setMail(true);
+                message.setSms(false);
+                message.setMail(true);
                 break;
             case "SmsAndMail":
-                AdminMessage.setSms(true);
-                AdminMessage.setMail(true);
+                message.setSms(true);
+                message.setMail(true);
                 break;
         }
-        AdminMessage.setMessageContent(text);
-        AdminMessage.setReceivers(receiver);
-        adminPanelMessageService.save(AdminMessage);
+
+        message.setReceivers(receiver);
+        adminPanelMessageService.save(message);
         return ResponseEntity.ok("");
     }
 

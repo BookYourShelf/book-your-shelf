@@ -1,7 +1,7 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
-import com.oak.bookyourshelf.repository.admin_panel.AdminPanelMessageRepository;
 import com.oak.bookyourshelf.model.Message;
+import com.oak.bookyourshelf.repository.admin_panel.AdminPanelMessageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
