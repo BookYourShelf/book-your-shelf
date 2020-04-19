@@ -51,6 +51,7 @@ TODO Profile will be here
     background: #fbaa1d;
     border-radius: 2px;
     text-align: center;
+    cursor: pointer;
 
     border: solid 2px #fbaa1d;
     -webkit-transition: all 200ms ease;
@@ -60,7 +61,7 @@ TODO Profile will be here
     transition: all 200ms ease;
 }
 
-.login_button {
+.login_button[type=submit] {
     display: block;
     font-size: 18px;
     font-weight: 700;
@@ -78,7 +79,7 @@ TODO Profile will be here
     background: transparent;
 }
 
-.login_button:hover {
+.login_button:hover[type=submit] {
     color: #fbaa1d;
 }
 
