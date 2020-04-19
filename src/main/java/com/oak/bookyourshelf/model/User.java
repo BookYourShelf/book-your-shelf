@@ -18,6 +18,7 @@ public class User {
     private Date birthDate;
     private String phoneNumber;
 
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -47,7 +48,6 @@ public class User {
             orphanRemoval = true
     )
     private List<Product> wishList;
-
     @Transient
     transient private String password;
 
@@ -185,4 +185,5 @@ public class User {
     public void setDeliveryAddresses(List<Address> deliveryAddresses) {
         this.deliveryAddresses = deliveryAddresses;
     }
+
 }

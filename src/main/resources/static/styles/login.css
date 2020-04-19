@@ -951,8 +951,18 @@ section {
 }
 
 .billing_checkbox {
-    display: none;
+    display: inherit;
+    padding: 0;
+    opacity: 1;
+    height: inherit;
+    width: inherit;
+    overflow: visible;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    margin: 0;
 }
+
 
 
 /* Create a custom checkbox */
@@ -1080,9 +1090,10 @@ section {
     -ms-transition: all 200ms ease;
     -o-transition: all 200ms ease;
     transition: all 200ms ease;
+    cursor: pointer;
 }
 
-.login_button a {
+.login_button[type=submit] {
     display: block;
     font-size: 18px;
     font-weight: 700;
@@ -1100,7 +1111,7 @@ section {
     background: transparent;
 }
 
-.login_button:hover a {
+.login_button:hover[type=submit] {
     color: #fbaa1d;
 }
 
