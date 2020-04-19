@@ -1,8 +1,8 @@
 package com.oak.bookyourshelf.service.user_details;
 
 
-import com.oak.bookyourshelf.model.Message;
 import com.oak.bookyourshelf.repository.user_details.UserDetailsMessageRepository;
+import com.oak.bookyourshelf.model.Message;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

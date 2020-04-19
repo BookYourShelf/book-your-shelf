@@ -26,15 +26,13 @@ public class UserDetailsMessageController {
 
     @RequestMapping(value = "/user-details/message", method = RequestMethod.GET)
     public String tab(Model model) {
-        Message message = new Message();
-        model.addAttribute("PersonalMessage", message);
         return "user_details/_message";
     }
 
 
     @RequestMapping(value = "/user-details/message", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveMessage(Message PersonalMessage, @RequestParam("submit") String submit, @RequestParam String text) {
+    public ResponseEntity<String> saveMessage(@RequestParam String submit, Message PersonalMessage) {
 
         List<Integer> receiver = new ArrayList<>(
                 List.of(111));
@@ -52,7 +50,7 @@ public class UserDetailsMessageController {
                 PersonalMessage.setMail(true);
                 break;
         }
-        PersonalMessage.setMessageContent(text);
+
         PersonalMessage.setReceivers(receiver);
         userDetailsMessageService.save(PersonalMessage);
         return ResponseEntity.ok("");
