@@ -1,20 +1,19 @@
 package com.oak.bookyourshelf.model;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Message {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int messageID;
 
     boolean mail;
     boolean sms;
     String subject;
-    String message;
+    String messageContent;
 
     @ElementCollection
     List<Integer> receivers;
@@ -51,12 +50,12 @@ public class Message {
         this.subject = subject;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageContent() {
+        return messageContent;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
     }
 
     public List<Integer> getReceivers() {
