@@ -421,48 +421,19 @@
 <script th:src="@{static/js/login.js}"></script>
 <script th:src="@{static/js/iziToast.min.js}"></script>
 
-<script>
-    $('#register_button').click(function (event) {
-        var name = $('#register_name').val();
-        var surname = $('#register_surname').val();
-        var email = $('#register_email').val();
-        var password = $('#register_password').val();
-        var ret = {
-            name: name,
-            surname: surname,
-            email: email,
-            password: password
-        };
-
-        if(validation_check(["register_name","register_surname","register_email", "register_password", "membership_agreement", "permission_agreement"])) {
-            event.preventDefault();
-            $.post("/register", ret, function (data) {
-                window.location.href = "/";
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
-
-        }
-    });
-</script>
-
-<script>
-    function validation_check(arr){
-        for (var i = 0; i < arr.length; i++) {
-            if (!document.getElementById(arr[i]).checkValidity()) {
-                return false;
-            }
-        }
-        return true;
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var lastUser = /*[[${lastUser}]]*/ 'default';
+    if (lastUser) {
+        iziToast.show({
+            title: 'Fail',
+            message: 'This email address already exists. Please try another one.',
+            position: 'topRight',
+            color: 'red'
+        });
     }
-
+    /*]]>*/
 </script>
-
 
 </body>
 
