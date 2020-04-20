@@ -2,23 +2,20 @@ package com.oak.bookyourshelf.controller;
 
 
 import com.oak.bookyourshelf.model.User;
-import com.oak.bookyourshelf.service.RegisterService;
+import com.oak.bookyourshelf.service.LoginService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import javax.validation.Valid;
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -28,46 +25,43 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
-
 @Controller
-public class RegisterController {
+public class LoginController {
 
     final
-    RegisterService registerService;
+    LoginService loginService;
     private static byte[] key;
     private static SecretKeySpec secretKey;
 
-    public RegisterController(RegisterService registerService) {
-        this.registerService = registerService;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
     }
 
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegisterPage(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "register";
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLoginPage(Model model) {
+        return "login";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> registerUser(@RequestParam String email, User user) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
+    public ResponseEntity<String> loginUser(@RequestParam String email, User user) throws NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException {
         if (email != null) {
-            User existing = registerService.findByEmail(email);
-            if (existing != null) {
-                return ResponseEntity.badRequest().body("This email address already exists. Please try another one.");
+            User existing = loginService.findByEmail(email);
+            if (existing == null) {
+                return ResponseEntity.badRequest().body("Email address is not registered.Please create an account to login.");
+            } else {
+                prepareSecreteKey("secrete");
+                Cipher cipher = Cipher.getInstance("AES");
+                cipher.init(Cipher.DECRYPT_MODE, secretKey);
+                String newPassword = new String(cipher.doFinal(Base64.getDecoder().decode(existing.getPassword())));
+
+
+                if (!(user.getPassword().equals(newPassword))) {
+                    return ResponseEntity.badRequest().body("Entered password is not correct.Please enter the correct password.");
+                }
             }
         }
 
-        prepareSecreteKey("secrete");
-        Cipher cipher =Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE,secretKey);
-        String newPassword= Base64.getEncoder().encodeToString(cipher.doFinal(user.getPassword().getBytes("UTF-8")));
-
-        user.setPassword(newPassword);
-
-
-        registerService.save(user);
         return ResponseEntity.ok("");
     }
 
@@ -82,4 +76,6 @@ public class RegisterController {
             e.printStackTrace();
         }
     }
+
+
 }
