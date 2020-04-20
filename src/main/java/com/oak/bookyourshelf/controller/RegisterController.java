@@ -3,7 +3,11 @@ package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.RegisterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -34,11 +39,12 @@ public class RegisterController {
 
     final
     RegisterService registerService;
-    private static byte[] key;
-    private static SecretKeySpec secretKey;
 
-    public RegisterController(RegisterService registerService) {
+    public final PasswordEncoder passwordEncoder;
+
+    public RegisterController(RegisterService registerService, PasswordEncoder passwordEncoder) {
         this.registerService = registerService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -50,36 +56,22 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<String> registerUser(@RequestParam String email, User user) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
-        if (email != null) {
-            User existing = registerService.findByEmail(email);
-            if (existing != null) {
-                return ResponseEntity.badRequest().body("This email address already exists. Please try another one.");
-            }
+    public String registerUser(RedirectAttributes redirectAttributes, @ModelAttribute User user, Model model) {
+        User dbUser = registerService.findByEmail(user.getEmail());
+
+        if (dbUser != null) {
+            user.setPassword("");
+            model.addAttribute("lastUser", user);
+//            model.addAttribute("name", user.getName());
+//            model.addAttribute("surname", user.getSurname());
+//            model.addAttribute("email", user.getEmail());
+            return "/register";
         }
 
-        prepareSecreteKey("secrete");
-        Cipher cipher =Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE,secretKey);
-        String newPassword= Base64.getEncoder().encodeToString(cipher.doFinal(user.getPassword().getBytes("UTF-8")));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        user.setPassword(newPassword);
-
-
+        user.setRole(User.Roles.USER.getRole());
         registerService.save(user);
-        return ResponseEntity.ok("");
-    }
-
-    public void prepareSecreteKey(String myKey) {
-        MessageDigest sha = null;
-        try {
-            key = myKey.getBytes(StandardCharsets.UTF_8);
-            key = MessageDigest.getInstance("SHA-1").digest(key);
-            key = Arrays.copyOf(key, 16);
-            secretKey = new SecretKeySpec(key, "AES");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        return "redirect:/";
     }
 }
