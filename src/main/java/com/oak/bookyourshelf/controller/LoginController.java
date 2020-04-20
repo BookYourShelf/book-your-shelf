@@ -48,7 +48,7 @@ public class LoginController {
         if (email != null) {
             User existing = loginService.findByEmail(email);
             if (existing == null) {
-                return ResponseEntity.badRequest().body("User is not registered.Please create an account to login.");
+                return ResponseEntity.badRequest().body("Email address is not registered.Please create an account to login.");
             } else {
                 prepareSecreteKey("secrete");
                 Cipher cipher = Cipher.getInstance("AES");
