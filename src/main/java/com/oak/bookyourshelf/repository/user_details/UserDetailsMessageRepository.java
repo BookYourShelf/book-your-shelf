@@ -1,4 +1,8 @@
 package com.oak.bookyourshelf.repository.user_details;
 
-public class UserDetailsMessageRepository {
+import org.springframework.data.repository.CrudRepository;
+import com.oak.bookyourshelf.model.Message;
+
+
+public interface UserDetailsMessageRepository extends CrudRepository<Message, Integer> {
 }
