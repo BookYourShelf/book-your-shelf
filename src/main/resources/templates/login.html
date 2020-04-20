@@ -247,7 +247,7 @@
                                         <div class="login-text p-b-10" style="color: black;">Password</div>
                                         <div class="input-group">
                                             <input type="password" id="login_password"
-                                                   class="login_input form-control pwd" pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$" required="required">
+                                                   class="login_input form-control pwd"  required="required">
                                             <div class="input-group-append">
                                                 <span class="input-group-text show_password_bg">
                                                     <button class="btn btn-default reveal" type="button"><i
@@ -263,11 +263,11 @@
                                                     <label>
                                                         <label class="checkbox_container">
                                                             <input type="checkbox" id="remember"
-                                                                   class="billing_checkbox" checked="true">
+                                                                   class="billing_checkbox" checked="checked">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
-                                                            <span class="checkbox_text login-text">Keep Me Signned In</span>
+                                                            <span class="checkbox_text login-text">Remember Me</span>
                                                         </label>
                                                     </label>
                                                 </div>
@@ -280,7 +280,7 @@
                                     </div>
                                     <div><!--ERROR--></div>
                                     <input id="login_button" type="submit" value="LOGIN" class="login_button trans_200" >
-                                    <div class="text-center login-text">Don't have an account? <a href="/register"
+                                    <div class="text-center login-text" style="margin-top: 20px;">Don't have an account? <a href="/register"
                                                                                                   class="login-text register-text">Register</a>
                                     </div>
                                 </form>
