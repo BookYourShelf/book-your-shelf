@@ -378,43 +378,6 @@
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/iziToast.min.js}"></script>
 
-<script>
-    $('#login_button').click(function (event) {
-
-        var email = $('#login_email').val();
-        var password = $('#login_password').val();
-        var ret = {
-            email: email,
-            password: password
-        };
-
-        if(validation_check(["login_email", "login_password"])) {
-            event.preventDefault();
-            $.post("/login", ret, function (data) {
-                window.location.href = "/";
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
-
-        }
-    });
-</script>
-<script>
-    function validation_check(arr){
-        for (var i = 0; i < arr.length; i++) {
-            if (!document.getElementById(arr[i]).checkValidity()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-</script>
 
 </body>
 
