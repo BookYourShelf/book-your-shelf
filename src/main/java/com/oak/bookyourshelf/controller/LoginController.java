@@ -37,45 +37,14 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login")
     public String showLoginPage(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<String> loginUser(@RequestParam String email, User user) throws NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException {
-        if (email != null) {
-            User existing = loginService.findByEmail(email);
-            if (existing == null) {
-                return ResponseEntity.badRequest().body("Email address is not registered.Please create an account to login.");
-            } else {
-                prepareSecreteKey("secrete");
-                Cipher cipher = Cipher.getInstance("AES");
-                cipher.init(Cipher.DECRYPT_MODE, secretKey);
-                String newPassword = new String(cipher.doFinal(Base64.getDecoder().decode(existing.getPassword())));
 
-
-                if (!(user.getPassword().equals(newPassword))) {
-                    return ResponseEntity.badRequest().body("Entered password is not correct.Please enter the correct password.");
-                }
-            }
-        }
-
-        return ResponseEntity.ok("");
-    }
-
-    public void prepareSecreteKey(String myKey) {
-        MessageDigest sha = null;
-        try {
-            key = myKey.getBytes(StandardCharsets.UTF_8);
-            key = MessageDigest.getInstance("SHA-1").digest(key);
-            key = Arrays.copyOf(key, 16);
-            secretKey = new SecretKeySpec(key, "AES");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }
