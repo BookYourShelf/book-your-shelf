@@ -36,4 +36,8 @@ public class LoginService {
     public void delete(int id) {
         loginRepository.deleteById(id);
     }
+
+    public User update(User user) {
+        return loginRepository.save(user);
+    }
 }
