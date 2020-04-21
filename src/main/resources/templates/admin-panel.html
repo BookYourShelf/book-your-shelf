@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Panel | Book Your Shelf</title>
@@ -205,11 +205,17 @@
             <div class="user-button-dropdown user-login-info">
                 <a href=""><img src="images/core-img/user.svg" alt=""></a>
                 <div class="user-button-dropdown-content">
-                    <a href="register.html" style="line-height: 40px">Register</a>
-                    <a href="login.html" style="line-height: 40px">Login</a>
-                    <a href="profile.html" style="line-height: 40px">Profile</a>
-                    <a href="admin-panel.html" style="line-height: 40px">Panel</a>
-                    <a href="index.html" style="line-height: 40px">Logout</a>
+                    <div sec:authorize="isAnonymous()">
+                        <a href="/register" style="line-height: 40px">Register</a>
+                        <a href="/login" style="line-height: 40px">Login</a>
+                    </div>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="/admin-panel" style="line-height: 40px">Panel</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a href="/profile" style="line-height: 40px">Profile</a>
+                        <a href="/perform_logout" style="line-height: 40px">Logout</a>
+                    </div>
                 </div>
             </div>
 

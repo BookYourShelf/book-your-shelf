@@ -9,9 +9,29 @@ import java.util.Map;
 @Entity
 public class User {
 
+    public enum Roles {
+        USER(0),
+        ADMIN(1);
+
+        private int role;
+
+        Roles(int role) {
+            this.role = role;
+        }
+
+        public int getRole() {
+            return role;
+        }
+
+        public void setRole(int role) {
+            this.role = role;
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
+    private int role;
     private String email;
     private String name;
     private String surname;
@@ -80,6 +100,14 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getEmail() {

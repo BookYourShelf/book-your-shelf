@@ -31,7 +31,9 @@ $(window).on("hashchange", function () {
         menu_item$ = tabs$.filter('[href="' + hash + '"]');
 
     var url = menu_item$.attr("data-url");
-    $(hash).load(url, function (result) {
-        menu_item$.tab("show");
-    });
+    if (hash) {
+        $(hash).load(url, function (result) {
+            menu_item$.tab("show");
+        });
+    }
 }).trigger("hashchange");
