@@ -15,6 +15,8 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
 
+        System.out.println(e.toString());
+
         String jsonPayload = "{\"message\" : \"%s\", \"timestamp\" : \"%s\" }";
         httpServletResponse.getOutputStream().println(String.format(jsonPayload, e.getMessage(), Calendar.getInstance().getTime()));
     }
