@@ -12,9 +12,11 @@ public class ElectronicBookReader extends Product {
     private float weight;
     private float width;
     private float height;
+    private float depth;
     private float screenSize;
     private float batteryLife;
-    private int resolution;
+    private float resolution;
+    private int ram;
     private boolean glareFreeScreen;
     private boolean waterProof;
     private boolean autoAdjustingLight;
@@ -25,6 +27,22 @@ public class ElectronicBookReader extends Product {
     private boolean warmBackLight;
 
     // GETTER & SETTER
+
+    public int getRam() {
+        return ram;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public float getDepth() {
+        return depth;
+    }
+
+    public void setDepth(float depth) {
+        this.depth = depth;
+    }
 
     public String getReaderColor() {
         return readerColor;
@@ -98,11 +116,11 @@ public class ElectronicBookReader extends Product {
         this.batteryLife = batteryLife;
     }
 
-    public int getResolution() {
+    public float getResolution() {
         return resolution;
     }
 
-    public void setResolution(int resolution) {
+    public void setResolution(float resolution) {
         this.resolution = resolution;
     }
 

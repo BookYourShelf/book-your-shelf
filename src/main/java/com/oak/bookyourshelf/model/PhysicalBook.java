@@ -38,6 +38,7 @@ public class PhysicalBook extends Book {
     private int editionNum;
     private float height;
     private float width;
+    private float depth;
 
     @Enumerated(EnumType.STRING)
     private MediaType mediaType;
@@ -49,6 +50,14 @@ public class PhysicalBook extends Book {
     private BindingType bindingType;
 
     // GETTER & SETTER
+
+    public float getDepth() {
+        return depth;
+    }
+
+    public void setDepth(float depth) {
+        this.depth = depth;
+    }
 
     public float getHeight() {
         return height;
