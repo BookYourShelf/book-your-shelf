@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Login | Book Your Shelf</title>
@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="styles/responsive.css">
     <link rel="stylesheet" type="text/css" href="styles/core-style.css">
     <link rel="stylesheet" type="text/css" href="styles/util.css">
+    <link rel="stylesheet" type="text/css" href="styles/iziToast.min.css">
 
 </head>
 
@@ -28,7 +29,7 @@
         <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
             <!-- Logo -->
-            <a href="index.html" class="book_your_shelf_logo">
+            <a href="/" class="book_your_shelf_logo">
                 <img src="images/logo/book_your_shelf_logo.png" alt="">
             </a>
             <!-- Navbar Toggler -->
@@ -48,36 +49,36 @@
                             <div class="megamenu">
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Categories</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Novel</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Children and Youth</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Literature</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Novel</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Children and Youth</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Science</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Comic Book</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Religion Sufism</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Course/Exam Books</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Philosophy</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Foreign Languages</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow" style="font-weight: bold">
+                                    <li><a href="/category" class="nav-bar-text-overflow">Science</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Comic Book</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Religion Sufism</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Course/Exam Books</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Philosophy</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Foreign Languages</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow" style="font-weight: bold">
                                         Book Cases
                                     </a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Campaigns</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature Day</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Home Reading Festival</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Literature Day</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Black Friday</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Home Reading Festival</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Up to 40% Discount at
+                                    <li><a href="/category" class="nav-bar-text-overflow">Up to 40% Discount at
                                         İşbank Cultural Publications & İşbank Science Publications</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">40% Discount on Bilgi
+                                    <li><a href="/category" class="nav-bar-text-overflow">40% Discount on Bilgi
                                         Publishing House Classics</a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
                                     <img src="images/icons/01brownbookicon.jpg" alt="">
@@ -88,29 +89,29 @@
                             <div class="megamenu">
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Categories</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Fiction and Literature</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Fiction and Literature</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Health and Care</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature and Writing</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Health and Care</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Literature and Writing</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Life Style</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Sports and Recreation</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Life Style</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Sports and Recreation</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Science Fiction and
+                                    <li><a href="/category" class="nav-bar-text-overflow">Science Fiction and
                                         Fantasy</a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Campaigns</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Sports Day</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">%40 Discount on Science
+                                    <li><a href="/category" class="nav-bar-text-overflow">Black Friday</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Sports Day</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">%40 Discount on Science
                                         Fiction and Fantasy</a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
                                     <img src="images/icons/01brownebookicon.jpg" alt="">
@@ -121,32 +122,32 @@
                             <div class="megamenu">
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Categories</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Mystery and Suspicion</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Mystery and Suspicion</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Romance</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Children and Youth</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Romance</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Literature</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Children and Youth</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Cartoons and Comics</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Cartoons and Comics</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Business and Finance</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Business and Finance</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Biography and Memory</a>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Biography and Memory</a>
                                     </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Romantic</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Romantic</a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Campaigns</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Cartoons and Comics
+                                    <li><a href="/category" class="nav-bar-text-overflow">Black Friday</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Cartoons and Comics
                                         Day</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">%20 on Romantic</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">%20 on Romantic</a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
                                     <img src="images/icons/01brownaudiobookicon.jpg" alt="">
@@ -157,22 +158,22 @@
                             <div class="megamenu">
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Categories</li>
-                                    <li><a href="category.html">Kobo</a></li>
-                                    <li><a href="category.html">Calibro</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow" style="font-weight: bold">
+                                    <li><a href="/category">Kobo</a></li>
+                                    <li><a href="/category">Calibro</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow" style="font-weight: bold">
                                         E-Book Reader Cases
                                     </a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Campaigns</li>
-                                    <li><a href="category.html">Black Friday</a></li>
-                                    <li><a href="category.html">E-Book Reader Day</a></li>
+                                    <li><a href="/category">Black Friday</a></li>
+                                    <li><a href="/category">E-Book Reader Day</a></li>
                                 </ul>
                                 <ul class="single-mega cn-col-4">
                                     <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
+                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
                                     <img src="images/icons/01brownebookicon.jpg" alt="">
@@ -199,22 +200,22 @@
             <div class="user-button-dropdown user-login-info">
                 <a href=""><img src="images/core-img/user.svg" alt=""></a>
                 <div class="user-button-dropdown-content">
-                    <a href="register.html" style="line-height: 40px">Register</a>
-                    <a href="login.html" style="line-height: 40px">Login</a>
-                    <a href="profile.html" style="line-height: 40px">Profile</a>
-                    <a href="admin-panel.html" style="line-height: 40px">Panel</a>
-                    <a href="index.html" style="line-height: 40px">Logout</a>
+                    <a href="/register" style="line-height: 40px">Register</a>
+                    <a href="/login" style="line-height: 40px">Login</a>
+                    <a href="/profile" style="line-height: 40px">Profile</a>
+                    <a href="/admin-panel" style="line-height: 40px">Panel</a>
+                    <a href="/" style="line-height: 40px">Logout</a>
                 </div>
             </div>
 
             <!-- Favourite Area -->
             <div class="favourite-area">
-                <a href="wish-list.html"><img src="images/core-img/heart.svg" alt=""></a>
+                <a href="/wish-list"><img src="images/core-img/heart.svg" alt=""></a>
             </div>
 
             <!-- Cart Area -->
             <div class="cart-area">
-                <a href="cart.html" id="essenceCartBtn"><img src="images/core-img/bag.svg" alt="">
+                <a href="/cart" id="essenceCartBtn"><img src="images/core-img/bag.svg" alt="">
                     <span>3</span></a>
             </div>
         </div>
@@ -234,19 +235,19 @@
 
                             <div class="login_title">Login</div>
                             <div class="login_form_container">
-                                <form action="#" id="login_form" class="login_form">
+                                <form id="login_form" class="login_form" method="post">
                                     <div>
                                         <!-- Email -->
                                         <div class="login-text p-b-10" style="color: black;">E-Mail Address</div>
                                         <input type="email" id="login_email" class="login_input form-control"
-                                               required="required">
+                                               pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required">
                                     </div>
                                     <div>
                                         <!-- Password -->
                                         <div class="login-text p-b-10" style="color: black;">Password</div>
                                         <div class="input-group">
                                             <input type="password" id="login_password"
-                                                   class="login_input form-control pwd" required="required">
+                                                   class="login_input form-control pwd"  required="required">
                                             <div class="input-group-append">
                                                 <span class="input-group-text show_password_bg">
                                                     <button class="btn btn-default reveal" type="button"><i
@@ -261,8 +262,8 @@
                                                 <div>
                                                     <label>
                                                         <label class="checkbox_container">
-                                                            <input type="checkbox" id="permission_agreement"
-                                                                   name="permission_agreement" class="billing_checkbox">
+                                                            <input type="checkbox" id="remember"
+                                                                   class="billing_checkbox" >
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                         <label style="padding-left: 29px; cursor: text">
@@ -271,15 +272,15 @@
                                                     </label>
                                                 </div>
                                                 <div style="alignment: center">
-                                                    <a href="forgot-password.html" class="login-text register-text">Forgot
+                                                    <a href="/forgot-password" class="login-text register-text">Forgot
                                                         Password</a>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                                     <div><!--ERROR--></div>
-                                    <div class="login_button trans_200"><a href="index.html">login</a></div>
-                                    <div class="text-center login-text">Don't have an account? <a href="register.html"
+                                    <input id="login_button" type="submit" value="LOGIN" class="login_button trans_200" >
+                                    <div class="text-center login-text" style="margin-top: 20px;">Don't have an account? <a href="/register"
                                                                                                   class="login-text register-text">Register</a>
                                     </div>
                                 </form>
@@ -314,7 +315,7 @@
                         <div class="col-lg-4 footer_col">
                             <ul class="footer_list">
                                 <li>
-                                    <a href="membership.html" target="_blank">
+                                    <a href="/membership" target="_blank">
                                         <div>Terms and Conditions</div>
                                     </a>
                                 </li>
@@ -372,6 +373,46 @@
 <script src="js/custom.js"></script>
 <script src="js/active.js"></script>
 <script src="js/login.js"></script>
+<script src="js/iziToast.min.js"></script>
+
+
+<script>
+    $('#login_button').click(function (event) {
+
+        var email = $('#login_email').val();
+        var password = $('#login_password').val();
+        var ret = {
+            email: email,
+            password: password
+        };
+
+        if(validation_check(["login_email", "login_password"])) {
+            event.preventDefault();
+            $.post("/login", ret, function (data) {
+                window.location.href = "/";
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+
+        }
+    });
+</script>
+<script>
+    function validation_check(arr){
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+</script>
 
 </body>
 

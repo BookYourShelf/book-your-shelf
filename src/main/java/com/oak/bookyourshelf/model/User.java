@@ -48,8 +48,8 @@ public class User {
             orphanRemoval = true
     )
     private List<Product> wishList;
-    @Transient
-    transient private String password;
+
+    private String password;
 
     @ElementCollection
     private Map<String, Integer> searchHistory;
