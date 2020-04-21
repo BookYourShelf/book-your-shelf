@@ -7,8 +7,17 @@ public class ElectronicBookReaderCase extends BookCase {
 
     private String readerBrand;
     private String readerModel;
+    private float caseDepth;
 
     // GETTER & SETTER
+
+    public float getCaseDepth() {
+        return caseDepth;
+    }
+
+    public void setCaseDepth(float caseDepth) {
+        this.caseDepth = caseDepth;
+    }
 
     public void setReaderBrand(String readerBrand) {
         this.readerBrand = readerBrand;
