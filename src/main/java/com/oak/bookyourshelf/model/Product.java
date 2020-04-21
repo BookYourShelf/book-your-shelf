@@ -26,14 +26,14 @@ public abstract class Product {
     private String productName;
     private String shortDesc;
     private String longDesc;
-    private String barcode;
+    private int barcode;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
 
     @OneToMany(
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Review> reviews;
 
@@ -50,10 +50,10 @@ public abstract class Product {
         float total = 0;
 
         for (int i = 0; i < 5; i++) {
-            total += (i+1) * totalStarNum.get(i);
+            total += (i + 1) * totalStarNum.get(i);
         }
 
-        return total/5;
+        return total / 5;
     }
 
     public int getTotalReviewNum() {
@@ -110,7 +110,7 @@ public abstract class Product {
         return longDesc;
     }
 
-    public String getBarcode() {
+    public int getBarcode() {
         return barcode;
     }
 
@@ -170,7 +170,7 @@ public abstract class Product {
         this.longDesc = longDesc;
     }
 
-    public void setBarcode(String barcode) {
+    public void setBarcode(int barcode) {
         this.barcode = barcode;
     }
 
