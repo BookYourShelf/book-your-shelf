@@ -1,12 +1,13 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
 public class Category {
 
-    private enum ProductType {
+    public enum ProductType {
         BOOK,
         E_BOOK,
         AUDIO_BOOK,
