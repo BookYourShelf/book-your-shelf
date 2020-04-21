@@ -1,11 +1,13 @@
 package com.oak.bookyourshelf.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +42,6 @@ public class AuthService implements UserDetailsService {
         if (user != null) {
             return new User(user.getEmail(), user.getPassword(), getAuthorities(user.getRole()));
         }
-        return null;
+        throw new UsernameNotFoundException("Username not found");
     }
 }
