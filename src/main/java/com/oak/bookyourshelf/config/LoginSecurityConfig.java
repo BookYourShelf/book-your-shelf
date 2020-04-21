@@ -37,10 +37,9 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/admin-panel/**").hasRole("ADMIN")
-                .antMatchers("/profile/**").hasRole("USER")
+                .antMatchers("/profile/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/", "/login*", "/register*", "/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
