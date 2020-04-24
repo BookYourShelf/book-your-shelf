@@ -47,8 +47,9 @@ public class NewPasswordController {
             int expire = (int) ((currInMilliSecond - timeInMilliSecond) / (60 * 1000));
 
             if (expire > 60) {
-                System.out.println("Link has expired.");
                 model.addAttribute("error", "Token has expired");
+                return "forgot-password";
+            } else if (log.getToken() == null) {
                 return "forgot-password";
             } else {
                 model.addAttribute("token", token);
@@ -66,10 +67,14 @@ public class NewPasswordController {
         if (!newPassword.equals(confirmPassword)) {
             return ResponseEntity.badRequest().body("Passwords don't match. Please enter your password again.");
         } else {
-            if (user.getPassword().equals(passwordEncoder.encode(confirmPassword))) {
-                return ResponseEntity.badRequest().body("New Password can't match old Password.Please enter a new password.");
+            
+            if (passwordEncoder.matches(confirmPassword, user.getPassword())) {
+
+                return ResponseEntity.badRequest().body("New password can't match old password.Please enter a new password.");
             }
+            log.setToken(null);
             user.setPassword(passwordEncoder.encode(confirmPassword));
+            newPasswordService.save(log);
             loginService.save(user);
         }
         return ResponseEntity.ok("");
