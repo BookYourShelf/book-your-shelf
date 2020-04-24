@@ -2,12 +2,10 @@ package com.oak.bookyourshelf.service;
 
 
 import com.oak.bookyourshelf.model.Log;
-import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.NewPasswordRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 
 @Service
 @Transactional
@@ -23,6 +21,10 @@ public class NewPasswordService {
 
     public Log findByToken(String token) {
         return newPasswordRepository.findByToken(token);
+    }
+
+    public void save(Log log) {
+        newPasswordRepository.save(log);
     }
 
 }
