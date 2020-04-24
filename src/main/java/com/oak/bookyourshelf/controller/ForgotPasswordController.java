@@ -3,7 +3,7 @@ package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.Log;
 import com.oak.bookyourshelf.model.User;
-import com.oak.bookyourshelf.service.ForgetPasswordService;
+import com.oak.bookyourshelf.service.ForgotPasswordService;
 import com.oak.bookyourshelf.service.LoginService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,14 +17,14 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Controller
-public class ForgetPasswordController {
+public class ForgotPasswordController {
 
     final
-    ForgetPasswordService forgetPasswordService;
+    ForgotPasswordService forgetPasswordService;
     final
     LoginService loginService;
 
-    public ForgetPasswordController(ForgetPasswordService forgetPasswordService, LoginService loginService) {
+    public ForgotPasswordController(ForgotPasswordService forgetPasswordService, LoginService loginService) {
         this.forgetPasswordService = forgetPasswordService;
         this.loginService = loginService;
     }

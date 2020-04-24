@@ -3,18 +3,18 @@ package com.oak.bookyourshelf.service;
 
 import com.oak.bookyourshelf.model.Log;
 import com.oak.bookyourshelf.model.User;
-import com.oak.bookyourshelf.repository.ForgetPasswordRepository;
+import com.oak.bookyourshelf.repository.ForgotPasswordRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ForgetPasswordService {
+public class ForgotPasswordService {
 
     final
-    ForgetPasswordRepository forgetPasswordRepository;
+    ForgotPasswordRepository forgetPasswordRepository;
 
-    public ForgetPasswordService(ForgetPasswordRepository forgetPasswordRepository) {
+    public ForgotPasswordService(ForgotPasswordRepository forgetPasswordRepository) {
         this.forgetPasswordRepository = forgetPasswordRepository;
     }
 
