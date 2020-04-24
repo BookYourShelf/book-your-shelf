@@ -39,7 +39,7 @@ public class NewPasswordController {
 
         if (log == null) {
             model.addAttribute("error", "Couldn't find token");
-            return "forgot-password";
+            return "redirect:/forgot-password";
         } else {
             /*Link Expiration Check in minutes*/
             long currInMilliSecond = new Timestamp(System.currentTimeMillis()).getTime();
@@ -48,9 +48,9 @@ public class NewPasswordController {
 
             if (expire > 60) {
                 model.addAttribute("error", "Token has expired");
-                return "forgot-password";
+                return "redirect:/forgot-password";
             } else if (log.getToken() == null) {
-                return "forgot-password";
+                return "redirect:/forgot-password";
             } else {
                 model.addAttribute("token", token);
                 tokens = token;
@@ -67,7 +67,7 @@ public class NewPasswordController {
         if (!newPassword.equals(confirmPassword)) {
             return ResponseEntity.badRequest().body("Passwords don't match. Please enter your password again.");
         } else {
-            
+
             if (passwordEncoder.matches(confirmPassword, user.getPassword())) {
 
                 return ResponseEntity.badRequest().body("New password can't match old password.Please enter a new password.");
