@@ -41,7 +41,6 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin-panel/**").hasRole("ADMIN")
                 .antMatchers("/profile/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/", "/login*", "/register*", "/static/**").permitAll()
-                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionFixation()
