@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Details | Book Your Shelf</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-    <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
     <!-- Favicon  -->
-    <link rel="icon" href="images/logo/book_your_shelf_tab.png">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="styles/user-details.css">
-    <link rel="stylesheet" type="text/css" href="styles/cart.css">
-    <link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/core-style.css">
-    <link rel="stylesheet" type="text/css" href="styles/util.css">
-    <link rel="stylesheet" type="text/css" href="styles/checkout.css">
-    <link rel="stylesheet" type="text/css" href="styles/login.css">
-    <link rel="stylesheet" type="text/css" href="styles/profile.css">
-    <link rel="stylesheet" type="text/css" href="styles/iziToast.min.css">
+
+
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/user-details.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+
 
 </head>
 
@@ -35,8 +39,9 @@
         <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
             <!-- Logo -->
-            <a href="index.html" class="book_your_shelf_logo">
-                <img src="images/logo/book_your_shelf_logo.png" alt="">
+            <a th:href="@{index.html}" class="book_your_shelf_logo">
+
+                <img th:src="@{/static/images/logo/book_your_shelf_logo.png}" alt="">
             </a>
             <!-- Navbar Toggler -->
             <div class="classy-navbar-toggler">
@@ -87,7 +92,7 @@
                                     <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownbookicon.jpg" alt="">
+                                    <img th:src="@{/static/images/icons/01brownbookicon.jpg}" alt="">
                                 </div>
                             </div>
                         </li>
@@ -120,7 +125,7 @@
                                     <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownebookicon.jpg" alt="">
+                                    <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
                                 </div>
                             </div>
                         </li>
@@ -156,7 +161,7 @@
                                     <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownaudiobookicon.jpg" alt="">
+                                    <img th:src="@{/static/images/icons/01brownaudiobookicon.jpg}" alt="">
                                 </div>
                             </div>
                         </li>
@@ -182,7 +187,7 @@
                                     <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
                                 </ul>
                                 <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownebookicon.jpg" alt="">
+                                    <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
                                 </div>
                             </div>
                         </li>
@@ -204,7 +209,7 @@
 
             <!-- User Area -->
             <div class="user-button-dropdown user-login-info">
-                <a href=""><img src="images/core-img/user.svg" alt=""></a>
+                <a href=""><img th:src="@{/static/images/core-img/user.svg}" alt=""></a>
                 <div class="user-button-dropdown-content">
                     <div sec:authorize="isAnonymous()">
                         <a href="/register" style="line-height: 40px">Register</a>
@@ -222,12 +227,12 @@
 
             <!-- Favourite Area -->
             <div class="favourite-area">
-                <a href="wish-list.html"><img src="images/core-img/heart.svg" alt=""></a>
+                <a href="wish-list.html"><img th:src="@{/static/images/core-img/heart.svg}" alt=""></a>
             </div>
 
             <!-- Cart Area -->
             <div class="cart-area">
-                <a href="cart.html" id="essenceCartBtn"><img src="images/core-img/bag.svg" alt="">
+                <a href="cart.html" id="essenceCartBtn"><img th:src="@{/static/images/core-img/bag.svg}" alt="">
                     <span>3</span></a>
             </div>
         </div>
@@ -249,7 +254,8 @@
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="admin-panel.html">Panel</a></li>
                                 <!-- TODO Name -->
-                                <li style="color: #fbaa1d">Jane Doe</li>
+                                <li style="color: #fbaa1d" th:value="${user.name + user.surname}"></li>
+                                <a th:href="@{'/user-details#information'}"></a>
                             </ul>
                         </div>
                     </div>
@@ -261,7 +267,8 @@
             <div class="container">
                 <ul class="nav nav-tabs justify-content-center" id="siteTab">
                     <li class="nav-item">
-                        <a class="nav-link active profile-navbar-text" data-url="/user-details/information"
+                        <a class="nav-link active profile-navbar-text"
+                           th:data-url="'/user-details/information/' + ${user.getUserId()}"
                            href="#information">Information</a>
                     </li>
 
@@ -341,7 +348,8 @@
                             <div class="footer_about">
                                 <div class="footer_logo">
                                     <div class="d-flex flex-row align-items-center justify-content-center">
-                                        <img class="book_your_shelf_footer" src="images/logo/book_your_shelf_logo.png"
+                                        <img class="book_your_shelf_footer"
+                                             th:src="@{/static/images/logo/book_your_shelf_logo.png}"
                                              alt="">
                                     </div>
                                 </div>
@@ -392,32 +400,35 @@
         </footer>
     </div>
 </div>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap-4.1.2/popper.js"></script>
-<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="plugins/greensock/TweenMax.min.js"></script>
-<script src="plugins/greensock/TimelineMax.min.js"></script>
-<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="plugins/greensock/animation.gsap.min.js"></script>
-<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/progressbar/progressbar.min.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/classy-nav.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/active.js"></script>
-<script src="js/checkout.js"></script>
-<script src="js/login.js"></script>
-<script src="js/input-mask.js"></script>
-<script src="js/jquery.mask.js"></script>
-<script src="js/select.js"></script>
-<script src="js/iziToast.min.js"></script>
+
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/select.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
 <script>
     $('#information').load($('.nav-link.active').attr("data-url"), function (result) {
     });
 </script>
 </body>
-
+</html>
 </html>
