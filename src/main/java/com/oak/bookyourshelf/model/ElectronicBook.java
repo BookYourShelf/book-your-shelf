@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 @Entity
 public class ElectronicBook extends Book {
 
-    private enum FileFormat {
+    public enum FileFormat {
         EPUB,
         PDF;
     }

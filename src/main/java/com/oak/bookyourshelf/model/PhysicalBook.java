@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 @Entity
 public class PhysicalBook extends Book {
 
-    private enum MediaType {
+    public enum MediaType {
         HARDCOVER,
         SOFTCOVER,
         POCKET_SIZE,
@@ -15,7 +15,7 @@ public class PhysicalBook extends Book {
         MONTHLY;
     }
 
-    private enum PaperType {
+    public enum PaperType {
         COATED,
         UN_COATED,
         AMERICAN_BRISTOL,
@@ -26,7 +26,7 @@ public class PhysicalBook extends Book {
         MATTE_COATED_PLASTER;
     }
 
-    private enum BindingType {
+    public enum BindingType {
         SADDLE_STITCHING,
         CASE_BINDING,
         CASE_WRAPPED,
