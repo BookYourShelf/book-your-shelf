@@ -1,4 +1,8 @@
 <!-- Sort orders -->
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
@@ -38,53 +42,45 @@
     <br>
     <div class="container">
         <div class="orderDetailBox">
+            <div th:if="${allUsers != null}">
+                <tr th:each="user: ${allUsers}">
 
-            <!-- User -->
-            <div class="product">
-                <a href="../user-details.html">
-                    <div class="product_content">
-                        <div class="row order - row collapsible">
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">1</div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">Jane</div>
-                            </div>
+                    <!-- User -->
+                    <div class="product" >
+                        <a th:href="@{'/user-details/' + ${user.userId}}">
+                            <div class="product_content">
+                                <div class="row order - row collapsible">
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${user.userId}"></td>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${user.name}"></td>
+                                        </div>
+                                    </div>
 
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">Doe</div>
-                            </div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${user.surname}"></td>
+                                        </div>
+                                    </div>
 
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">jane_doe@gmail.com</div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${user.email}"></td>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+
+                </tr>
             </div>
-
-            <!-- User -->
-            <div class="product">
-                <a href="../user-details.html">
-                    <div class="product_content">
-                        <div class="row order - row collapsible">
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">2</div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">John</div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">Doe</div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                <div class="profile-order-text">john_doe@gmail.com</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+            <div th:if="${allUsers == null}">
+                <div class="warning-text" style="display: none">There are no users.</div>
             </div>
         </div>
     </div>
@@ -105,3 +101,6 @@
         </div>
     </div>
 </div>
+
+
+</html>

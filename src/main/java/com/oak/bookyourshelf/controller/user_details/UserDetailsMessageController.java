@@ -24,18 +24,28 @@ public class UserDetailsMessageController {
     }
 
 
-    @RequestMapping(value = "/user-details/message", method = RequestMethod.GET)
-    public String tab(Model model) {
-        return "user_details/_message";
+    @RequestMapping(value = "/user-details/message/{id}", method = RequestMethod.GET)
+    public String tab(Model model, @PathVariable int id) {
+        System.out.println(id);
+        System.out.println("get method");
+        List<Integer> receiver = new ArrayList<>(
+                List.of(id));
+        Message message = new Message();
+        message.setReceivers(receiver);
+        model.addAttribute("PersonalMessage", message);
+        return "/user_details/_message";
     }
 
 
-    @RequestMapping(value = "/user-details/message", method = RequestMethod.POST)
+    @RequestMapping(value = "/user-details/message/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveMessage(@RequestParam String submit, Message PersonalMessage) {
+    public ResponseEntity<String> saveMessage(@RequestParam String submit, @PathVariable int id, Message PersonalMessage) {
 
+        System.out.println("post");
+        System.out.println(id);
         List<Integer> receiver = new ArrayList<>(
-                List.of(111));
+                List.of(id));
+
         switch (submit) {
             case "sms":
                 PersonalMessage.setSms(true);
