@@ -22,13 +22,13 @@ public class UserDetailsInformationController {
     }
 
     @RequestMapping(value = "/user-details/information/{id}", method = RequestMethod.GET)
-    public String showUser(Model model, @PathVariable int id) {
+    public String tab(Model model, @PathVariable int id) {
 
         User user = userDetailsInformationService.get(id);
         model.addAttribute("user", user);
 
         System.out.println("bbnbnb");
-        return "user_details/_information";
+        return "/user_details/_information" ;
     }
 
     @RequestMapping(value = "/user-details/information/{id}", method = RequestMethod.POST)

@@ -6,6 +6,8 @@ import com.oak.bookyourshelf.repository.user_details.UserDetailsInformationRepos
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class UserDetailsInformationService {
@@ -33,5 +35,9 @@ public class UserDetailsInformationService {
 
     public User getByEmail(String email) {
         return userDetailsInformationRepository.findUserByEmail(email);
+    }
+
+    public List<Integer> findAllIds() {
+        return userDetailsInformationRepository.findAllIds();
     }
 }

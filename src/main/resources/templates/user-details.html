@@ -254,7 +254,7 @@
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="admin-panel.html">Panel</a></li>
                                 <!-- TODO Name -->
-                                <li style="color: #fbaa1d" th:value="${user.name + user.surname}"></li>
+                                <li style="color: #fbaa1d" th:value="${user.name}"></li>
                                 <a th:href="@{'/user-details#information'}"></a>
                             </ul>
                         </div>
@@ -301,7 +301,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/user-details/message" href="#message">Send
+                        <a class="nav-link profile-navbar-text"
+                           th:data-url="'/user-details/message/' + ${user.getUserId()}" href="#message">Send
                             Message</a>
                     </li>
                 </ul>

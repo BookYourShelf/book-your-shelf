@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<form class="form-contact form-review mt-3" method="post" id="message_form">
+<form class="form-contact form-review mt-3" th:object="${PersonalMessage}" th:action="@{/user-details}" method="post"
+      id="message_form">
     <div class="form-group">
         <input class="form-control" id="subject_area" name="subject" type="text"
                placeholder="Enter Subject" required="">
@@ -37,21 +38,26 @@
     <br/>
 </form>
 
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $('#sms ,#mail ,#SmsAndMail').click(function (event) {
 
         var subject = $('#subject_area').val();
         var messageContent = $('#textarea').val();
         var submit = $(this).attr("id");
+        var receiver = /*[[${PersonalMessage.getReceivers()}]]*/ 'default';
+
 
         var ret = {
             subject: subject,
             messageContent: messageContent,
-            submit: submit
+            submit: submit,
+
+
         };
         if (validation_check(["subject_area", "textarea"])) {
             event.preventDefault();
-            $.post("/user-details/message", ret, function (data) {
+            $.post("/user-details/message/" + receiver, ret, function (data) {
                 iziToast.show({
                     title: 'Success',
                     message: 'Message sent successfully.',
