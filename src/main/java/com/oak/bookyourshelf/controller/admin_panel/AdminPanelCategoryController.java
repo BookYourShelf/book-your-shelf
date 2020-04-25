@@ -23,6 +23,7 @@ public class AdminPanelCategoryController {
     public String tab(Model model) {
         Category category = new Category();
         model.addAttribute("category", category);
+        model.addAttribute("allCategories", adminPanelCategoryService.listAll());
 
         return "admin_panel/_category";
     }
