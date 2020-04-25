@@ -254,7 +254,7 @@
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="admin-panel.html">Panel</a></li>
                                 <!-- TODO Name -->
-                                <li style="color: #fbaa1d" th:value="${user.name}"></li>
+                                <li style="color: #fbaa1d" th:text="${user.name  +  user.surname}"></li>
                                 <a th:href="@{'/user-details#information'}"></a>
                             </ul>
                         </div>
