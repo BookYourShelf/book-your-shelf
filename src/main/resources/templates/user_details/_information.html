@@ -25,9 +25,14 @@
                                         style="font-size: 25px; padding-right: 10px"
                                         class="fa fa-pencil"></i></a>
                                 <!-- Delete button -->
-                                <a href="#" class="trans_200" data-toggle="collapse" id="deleteUser"><i
+                                <button type="submit" value="&#xf014;"
+                                        class="trans_200 fa product_text"
+                                        id="deleteUser"
                                         style="font-size: 25px; color: #4a4a4a"
-                                        class="fa product_text">&#xf014;</i></a>
+                                        data-toggle="collapse"
+                                >
+                                    &#xf014;
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -266,7 +271,7 @@
         <!-- Burada eger date ve phone bos degilse validation_check ile kontrol et -->
         if (button === "updateUser") {
             if ((((birthDate !== "") && (validation_check(['user-info-update_birth_date']))) || birthDate === "") &&
-                (((password !== "") && (validation_check(['login_password']))) || password === "")&&
+                (((password !== "") && (validation_check(['login_password']))) || password === "") &&
                 (((phoneNumber !== "") && (validation_check(['user-info-update_phone']))) || phoneNumber === "") &&
                 (validation_check(['user-info-update_name', 'user-info-update_surname', 'login_email']))) {
                 event.preventDefault();
@@ -282,6 +287,7 @@
                         history.pushState(null, null, ' ');
                     }, 100);
 
+
                 }).fail(function (data) {
                     iziToast.show({
                         title: 'Fail',
@@ -291,28 +297,31 @@
                     });
                 })
             }
-        } else if (button === "deleteUser") {
-            event.preventDefault();
-            $.post("/user-details/information/" + userId, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'User deleted successfully',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#user";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
+        } else {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/user-details/information/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'User deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#user";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
 
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/admin-panel#user";
+
         }
 
 
@@ -329,5 +338,7 @@
 
     /*]]>*/
 </script>
+<script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
+
 </html>
