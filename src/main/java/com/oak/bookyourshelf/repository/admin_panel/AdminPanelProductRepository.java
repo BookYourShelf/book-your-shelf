@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AdminPanelProductRepository extends CrudRepository<Product, Integer> {
-    @Query("SELECT t FROM Product t WHERE t.barcode = ?1")
-    Product findProductByBarcode(int barcode);
 
-    @Query("SELECT t FROM Book t WHERE t.isbn = ?1")
+    @Query("SELECT p FROM Product p WHERE p.barcode = ?1")
+    Product findProductByBarcode(String barcode);
+
+    @Query("SELECT p FROM Book p WHERE p.isbn = ?1")
     Product findBookByISBN(String isbn);
 }

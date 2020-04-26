@@ -16,11 +16,15 @@ public class AdminPanelProductService {
         this.adminPanelProductRepository = adminPanelProductRepository;
     }
 
+    public Iterable<Product> listAll() {
+        return adminPanelProductRepository.findAll();
+    }
+
     public void save(Product product) {
         adminPanelProductRepository.save(product);
     }
 
-    public Product getByBarcode(int barcode) {
+    public Product getByBarcode(String barcode) {
         return adminPanelProductRepository.findProductByBarcode(barcode);
     }
 

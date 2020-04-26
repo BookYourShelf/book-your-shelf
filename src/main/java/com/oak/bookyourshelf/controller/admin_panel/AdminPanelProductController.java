@@ -23,7 +23,7 @@ public class AdminPanelProductController {
 
     @RequestMapping(value = "/admin-panel/product", method = RequestMethod.GET)
     public String tab(Model model, @ModelAttribute("selectedOption") String selectedOption) {
-
+        model.addAttribute("allProducts", adminPanelProductService.listAll());
         return "admin_panel/_product";
     }
 
