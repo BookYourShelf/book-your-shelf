@@ -384,7 +384,18 @@
 <script th:src="@{/static/js/active.js}"></script>
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/iziToast.min.js}"></script>
-
+<script>
+    var url = window.location.href;
+    var mark = url.split('?').pop();
+    if (mark === "error") {
+        iziToast.show({
+            title: 'Fail',
+            message: "Wrong credentials",
+            position: 'topRight',
+            color: 'red'
+        });
+    }
+</script>
 
 </body>
 

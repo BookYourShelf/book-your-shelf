@@ -111,57 +111,97 @@
     <div class="container">
         <div class="orderDetailBox">
 
-            <!-- Category -->
-            <div class="address-element-padding">
-                <a href="../category-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">1</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Novel</div>
-                                </div>
+            <div th:if="${allCategories != null}">
+                <tr th:each="category: ${allCategories}">
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">4</div>
-                                </div>
+                    <!-- User -->
+                    <div class="product">
+                        <a th:href="@{'/category-details/' + ${category.id}}">
+                            <div class="product_content">
+                                <div class="row order - row collapsible">
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${category.id}"></td>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${category.name}"></td>
+                                        </div>
+                                    </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">2</div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${category.itemNum}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${category.subcategories.size()}"></td>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+
+                </tr>
             </div>
+            <div th:if="${allCategories == null}">
+                <div class="warning-text" style="display: none">There are no users.</div>
+            </div>
+            <!-- Category -->
+            <!--            <div class="address-element-padding">-->
+            <!--                <a href="../category-details.html">-->
+            <!--                    <div class="category-element">-->
+            <!--                        <div class="product_content">-->
+            <!--                            <div class="row order - row collapsible">-->
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">1</div>-->
+            <!--                                </div>-->
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">Novel</div>-->
+            <!--                                </div>-->
+
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">4</div>-->
+            <!--                                </div>-->
+
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">2</div>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </a>-->
+            <!--            </div>-->
 
             <!-- Category -->
-            <div class="address-element-padding">
-                <a href="../category-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">2</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Literature</div>
-                                </div>
+            <!--            <div class="address-element-padding">-->
+            <!--                <a href="../category-details.html">-->
+            <!--                    <div class="category-element">-->
+            <!--                        <div class="product_content">-->
+            <!--                            <div class="row order - row collapsible">-->
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">2</div>-->
+            <!--                                </div>-->
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">Literature</div>-->
+            <!--                                </div>-->
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">0</div>
-                                </div>
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">0</div>-->
+            <!--                                </div>-->
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">3</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
+            <!--                                    <div class="profile-order-text">3</div>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </a>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>
