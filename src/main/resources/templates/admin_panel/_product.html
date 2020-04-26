@@ -46,7 +46,7 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Barcode
                                 </div>
-                                <input type="number" id="book_barcode_input" min=0
+                                <input type="text" id="book_barcode_input" pattern="[0-9]+"
                                        class="checkout_input form-control"
                                        placeholder="Barcode" required="required">
                             </div>
@@ -54,7 +54,7 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Stock
                                 </div>
-                                <input type="number" id="book_stock_input" min=0
+                                <input type="number" id="book_stock_input" min=0 max=2147483647
                                        class="checkout_input form-control"
                                        placeholder="Stock" required="required">
                             </div>
@@ -66,7 +66,7 @@
                                     Price (₺)
                                 </div>
                                 <input type="number" id="book_price_input" step="0.01"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Price" required="required"
                                        min=0>
                             </div>
@@ -129,7 +129,7 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Page Number
                                 </div>
-                                <input type="number" id="book_page_number_input"
+                                <input type="number" id="book_page_number_input" max=2147483647
                                        class="checkout_input form-control" min=0
                                        placeholder="Page Number" required="required">
                             </div>
@@ -137,7 +137,7 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Edition Number
                                 </div>
-                                <input type="number" id="book_edition_number_input"
+                                <input type="number" id="book_edition_number_input" max=2147483647
                                        class="checkout_input form-control" min=0
                                        placeholder="Edition Number" required="required">
                             </div>
@@ -249,7 +249,7 @@
                                     Height (mm)
                                 </div>
                                 <input type="number" step="0.01" id="book_height_input"
-                                       class="checkout_input form-control" min="0"
+                                       class="checkout_input form-control" min=0 max=2147483647
                                        placeholder="Height" required="required">
                             </div>
                             <div class="col-md-4">
@@ -257,7 +257,7 @@
                                     Width (mm)
                                 </div>
                                 <input type="number" step="0.01" id="book_width_input"
-                                       class="checkout_input form-control" min="0"
+                                       class="checkout_input form-control" min=0 max=2147483647
                                        placeholder="Width" required="required">
                             </div>
                             <div class="col-md-4">
@@ -265,7 +265,7 @@
                                     Depth (mm)
                                 </div>
                                 <input type="number" step="0.01" id="book_depth_input"
-                                       class="checkout_input form-control" min="0"
+                                       class="checkout_input form-control" min=0 max=2147483647
                                        placeholder="Width" required="required">
                             </div>
                         </div>
@@ -315,15 +315,15 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Barcode
                                 </div>
-                                <input type="number" id="ebook_product_barcode_input"
-                                       class="checkout_input form-control" min=0
+                                <input type="text" id="ebook_product_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
                                        placeholder="Barcode" required="required">
                             </div>
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Stock
                                 </div>
-                                <input type="number" id="ebook_stock_input"
+                                <input type="number" id="ebook_stock_input" max=2147483647
                                        class="checkout_input form-control"
                                        placeholder="Stock" required="required"
                                        min=0>
@@ -335,7 +335,7 @@
                                     Price (₺)
                                 </div>
                                 <input type="number" id="ebook_price_input" step="0.01"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Price" required="required"
                                        min=0>
                             </div>
@@ -455,16 +455,16 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Page Number
                                 </div>
-                                <input type="number" id="ebook_page_number_input"
+                                <input type="number" id="ebook_page_number_input" max=2147483647
                                        class="checkout_input form-control" min="0"
                                        placeholder="Page Number" required="required">
                             </div>
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
-                                    File Size
+                                    File Size (MB)
                                 </div>
-                                <input type="number" id="ebook_filesize_input"
-                                       class="checkout_input form-control" min="0"
+                                <input type="number" id="ebook_filesize_input" max=2147483647
+                                       class="checkout_input form-control" min=0
                                        placeholder="File Size" required="required">
                             </div>
                             <div class="col-md-4">
@@ -529,8 +529,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Barcode
                                 </div>
-                                <input type="number" id="audiobook_barcode_input"
-                                       class="checkout_input form-control" min=0
+                                <input type="text" id="audiobook_barcode_input" pattern="[0-9]+"
+                                       class="checkout_input form-control"
                                        placeholder="Barcode" required="required">
                             </div>
                             <div class="col-md-4">
@@ -538,7 +538,7 @@
                                     Stock
                                 </div>
                                 <input type="number" id="audiobook_stock_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Stock" required="required"
                                        min=0>
                             </div>
@@ -549,7 +549,7 @@
                                     Price (₺)
                                 </div>
                                 <input type="number" id="audiobook_price_input" step="0.01"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Price" required="required"
                                        min=0>
                             </div>
@@ -669,7 +669,7 @@
                                     Length (In minutes)
                                 </div>
                                 <input type="number" id="audiobook_length_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Length (In minutes)" required="required"
                                        min=0>
                             </div>
@@ -734,8 +734,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Barcode
                                 </div>
-                                <input type="number" id="ebook_reader_barcode_input"
-                                       class="checkout_input form-control" min=0
+                                <input type="text" id="ebook_reader_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
                                        placeholder="Barcode" required="required">
                             </div>
                             <div class="col-md-4">
@@ -743,7 +743,7 @@
                                     Stock
                                 </div>
                                 <input type="number" id="ebook_reader_stock_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Stock" required="required"
                                        min=0>
                             </div>
@@ -754,7 +754,7 @@
                                     Price (₺)
                                 </div>
                                 <input type="number" id="ebook_reader_price_input" step="0.01"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Price" required="required"
                                        min=0>
                             </div>
@@ -819,7 +819,7 @@
                                     Weight (g)
                                 </div>
                                 <input type="number" step="0.01" id="ebook_reader_weight_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Weight" required="required"
                                        min=0>
                             </div>
@@ -828,7 +828,7 @@
                                     Height (mm)
                                 </div>
                                 <input type="number" step="0.01" id="ebook_reader_height_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Height" required="required"
                                        min=0>
                             </div>
@@ -837,7 +837,7 @@
                                     Width (mm)
                                 </div>
                                 <input type="number" step="0.01" id="ebook_reader_width_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Width" required="required"
                                        min=0>
                             </div>
@@ -846,7 +846,7 @@
                                     Depth (mm)
                                 </div>
                                 <input type="number" step="0.01" id="ebook_reader_depth_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Depth" required="required"
                                        min=0>
                             </div>
@@ -857,7 +857,7 @@
                                     Screen Size (inch)
                                 </div>
                                 <input type="number" step="0.01" id="ebook_reader_screen_size_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Screen Size" required="required"
                                        min=0>
                             </div>
@@ -865,7 +865,7 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Battery Life (hours)
                                 </div>
-                                <input type="number" step="0.01"
+                                <input type="number" step="0.01" max=2147483647
                                        id="ebook_reader_battery_life_input"
                                        class="checkout_input form-control"
                                        placeholder="Battery Life" required="required"
@@ -876,7 +876,7 @@
                                     Resolution (dpi)
                                 </div>
                                 <input type="number" step="0.01" id="ebook_reader_resolution_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Resolution" required="required"
                                        min=0>
                             </div>
@@ -885,7 +885,7 @@
                                     RAM (MB)
                                 </div>
                                 <input type="number" id="ebook_reader_ram_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="RAM" required="required"
                                        min=0>
                             </div>
@@ -1042,8 +1042,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Barcode
                                 </div>
-                                <input type="number" id="ebook_reader_case_barcode_input"
-                                       class="checkout_input form-control" min=0
+                                <input type="text" id="ebook_reader_case_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
                                        placeholder="Barcode" required="required">
                             </div>
                             <div class="col-md-4">
@@ -1051,7 +1051,7 @@
                                     Stock
                                 </div>
                                 <input type="number" id="ebook_reader_case_stock_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Stock" required="required"
                                        min=0>
                             </div>
@@ -1062,7 +1062,7 @@
                                     Price (₺)
                                 </div>
                                 <input type="number" id="ebook_reader_case_price_input" step="0.01"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Price" required="required"
                                        min=0>
                             </div>
@@ -1133,7 +1133,7 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Height (mm)
                                 </div>
-                                <input type="number" step="0.01" min=0
+                                <input type="number" step="0.01" min=0 max=2147483647
                                        id="ebook_reader_case_height_input"
                                        class="checkout_input form-control"
                                        placeholder="Height" required="required">
@@ -1143,7 +1143,7 @@
                                     Width (mm)
                                 </div>
                                 <input type="number" step="0.01" min=0 id="ebook_reader_case_width_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Width" required="required">
                             </div>
                             <div class="col-md-4">
@@ -1151,7 +1151,7 @@
                                     Depth (mm)
                                 </div>
                                 <input type="number" step="0.01" min=0 id="ebook_reader_case_depth_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Depth" required="required">
                             </div>
                         </div>
@@ -1204,8 +1204,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Barcode
                                 </div>
-                                <input type="number" id="book_case_barcode_input"
-                                       class="checkout_input form-control" min=0
+                                <input type="text" id="book_case_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
                                        placeholder="Barcode" required="required">
                             </div>
                             <div class="col-md-4">
@@ -1213,7 +1213,7 @@
                                     Stock
                                 </div>
                                 <input type="number" id="book_case_stock_input"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Stock" required="required"
                                        min=0>
                             </div>
@@ -1224,7 +1224,7 @@
                                     Price (₺)
                                 </div>
                                 <input type="number" id="book_case_price_input" step="0.01"
-                                       class="checkout_input form-control"
+                                       class="checkout_input form-control" max=2147483647
                                        placeholder="Price" required="required"
                                        min=0>
                             </div>
@@ -1261,7 +1261,7 @@
                                     Width (mm)
                                 </div>
                                 <input type="number" step="0.01" id="book_case_case_width_input"
-                                       class="checkout_input form-control" min="0"
+                                       class="checkout_input form-control" min=0 max=2147483647
                                        placeholder="Width" required="required">
                             </div>
                             <div class="col-md-4">
@@ -1270,7 +1270,7 @@
                                 </div>
                                 <input type="number" step="0.01"
                                        id="book_case_case_height_input"
-                                       class="checkout_input form-control" min="0"
+                                       class="checkout_input form-control" min=0 max=2147483647
                                        placeholder="Height" required="required">
                             </div>
                             <div class="col-md-4">
@@ -1279,7 +1279,7 @@
                                 </div>
                                 <input type="number" step="0.01"
                                        id="book_case_max_depth_input"
-                                       class="checkout_input form-control" min="0"
+                                       class="checkout_input form-control" min=0 max=2147483647
                                        placeholder="Maximum Book Depth" required="required">
                             </div>
                         </div>
@@ -1339,173 +1339,127 @@
 </div>
 
 <!-- Sort orders -->
-<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
-    <div class="products_dropdown product_dropdown_sorting">
-        <div class="isotope_sorting_text"><span>Sort</span><i
-                class="fa fa-caret-down" aria-hidden="true"></i></div>
-        <ul>
-            <li class="item_sorting_btn"
-                data-isotope-option='{ "sortBy": "original-order" }'>ID
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Product
-                Name
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
-                Category
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "stock" }'>
-                Stock
-            </li>
-        </ul>
-    </div>
-</div>
-
-<br>
-
-<div>
-    <div class="row order - row ">
-
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">ID</div>
-        </div>
-
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Product Name</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Category</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Stock</div>
-        </div>
-    </div>
-    <br>
-    <div class="container">
-        <div class="orderDetailBox">
-
-            <div class="address-element-padding">
-                <a href="../product-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">1</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Animal Farm-George Orwell
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Book-Novel</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">12</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="address-element-padding">
-                <a href="../product-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="rowta order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">2</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Kürk Mantolu
-                                        Madonna-Sabahattin Ali
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Book-Novel</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">500</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="address-element-padding">
-                <a href="../product-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">3</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">My Sweet Orange Tree-José
-                                        Mauro de Vasconcelos
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Book-Novel</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">341</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="address-element-padding">
-                <a href="../product-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">4</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Lord of the Flies-William
-                                        Golding
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Book-Novel</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">23</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- No categories -->
-<div class="warning-text" style="display: none">There are no categories.</div>
-
-<div class="row page_nav_row">
-    <div class="col">
-        <div class="page_nav">
-            <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+<span th:unless="${#lists.isEmpty(allProducts)}">
+    <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+        <div class="products_dropdown product_dropdown_sorting">
+            <div class="isotope_sorting_text"><span>Sort</span><i
+                    class="fa fa-caret-down" aria-hidden="true"></i></div>
+            <ul>
+                <li class="item_sorting_btn"
+                    data-isotope-option='{ "sortBy": "original-order" }'>ID
+                </li>
+                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Product
+                    Name
+                </li>
+                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
+                    Category
+                </li>
+                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "stock" }'>
+                    Stock
+                </li>
             </ul>
         </div>
     </div>
-</div>
+
+    <br>
+
+    <div>
+        <div class="row order - row ">
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">ID</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Name</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Type</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Price</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Barcode</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Stock</div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="orderDetailBox">
+            <tr th:each="product: ${allProducts}">
+
+                <!-- Product -->
+                <div class="product">
+                    <a th:href="@{'/product-details/' + ${product.productId}}">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-2 col-md-2 col-xs-4">
+                                    <div class="profile-order-text">
+                                        <td th:text="${product.productId}"></td>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-xs-4">
+                                    <div class="profile-order-text">
+                                        <td th:text="${product.productName}"></td>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-xs-4">
+                                    <div class="profile-order-text">
+                                        <td th:text="${product.getProductTypeName()}"></td>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-xs-4">
+                                    <div class="profile-order-text">
+                                        <td th:text="${product.price} +  ' ₺'"></td>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-xs-4">
+                                    <div class="profile-order-text">
+                                        <td th:text="${product.barcode}"></td>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2 col-xs-4">
+                                    <div class="profile-order-text">
+                                        <td th:text="${product.stock}"></td>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </tr>
+            </div>
+        </div>
+    </div>
+
+    <!-- No categories -->
+    <div class="warning-text" style="display: none">There are no categories.</div>
+
+    <div class="row page_nav_row">
+        <div class="col">
+            <div class="page_nav">
+                <ul class="d-flex flex-row align-items-start justify-content-center">
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                    <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                    <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</span>
+
+<!-- No product -->
+<span th:if="${#lists.isEmpty(allProducts)}">
+    <div class="warning-text">There are no products.</div>
+</span>
+
 <script>
 
     $('#new_book').click(function (event) {
