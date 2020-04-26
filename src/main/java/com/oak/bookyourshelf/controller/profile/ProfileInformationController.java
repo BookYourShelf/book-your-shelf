@@ -35,8 +35,6 @@ public class ProfileInformationController {
         String mail = authService.getUserDetails().getUsername();
         if(mail != null) {
             model.addAttribute("user", profileInformationService.getByEmail(mail));
-            System.out.println(profileInformationService.getByEmail(mail).getUserId());
-            System.out.println("bbnbnb");
             return "profile/_information";
         }
         return "/";
@@ -45,14 +43,11 @@ public class ProfileInformationController {
     @RequestMapping(value = "/profile/information", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> UpdateInformations(@RequestParam Boolean receiveMessage , @RequestParam String button,@RequestParam String newPassword, @RequestParam String currentPassword, @RequestParam String newPasswordAgain , User NewUser) {
-        System.out.println("update");
         String mail = authService.getUserDetails().getUsername();
         User user = new User();
         if(mail != null) {
             user = profileInformationService.getByEmail(mail);
-            System.out.println(user.getUserId());
-            System.out.println("jhkjh");
-            System.out.println(receiveMessage);
+
         }
         else
             return ResponseEntity.badRequest().body("There is no logged in user");
@@ -72,7 +67,7 @@ public class ProfileInformationController {
             if (!NewUser.getBirthDate().equals(""))
                 user.setBirthDate(NewUser.getBirthDate());
             else
-                user.setBirthDate("null");
+                user.setBirthDate(null);
             if (!NewUser.getPhoneNumber().equals(""))
                 user.setPhoneNumber(NewUser.getPhoneNumber());
             else
