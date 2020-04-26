@@ -27,19 +27,17 @@ public class UserDetailsInformationController {
         User user = userDetailsInformationService.get(id);
         model.addAttribute("user", user);
 
-        System.out.println("bbnbnb");
-        return "/user_details/_information" ;
+
+        return "/user_details/_information";
     }
 
     @RequestMapping(value = "/user-details/information/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> UserUpdate(@RequestParam String button, @PathVariable int id, User newUser) {
 
-        System.out.println(button);
-        System.out.println(newUser.getBirthDate());
+
         User user = userDetailsInformationService.get(id);
 
-        System.out.println(user.getName());
         switch (button) {
             case "updateUser":
 
@@ -47,23 +45,22 @@ public class UserDetailsInformationController {
 
                 user.setSurname(newUser.getSurname());
 
-                    if (!user.getEmail().equals(newUser.getEmail())) {
-                        if (userDetailsInformationService.getByEmail(newUser.getEmail()) == null) {
-                            user.setEmail(newUser.getEmail());
-                        } else
-                            return ResponseEntity.badRequest().body("This email address is already exist");
+                if (!user.getEmail().equals(newUser.getEmail())) {
+                    if (userDetailsInformationService.getByEmail(newUser.getEmail()) == null) {
+                        user.setEmail(newUser.getEmail());
+                    } else
+                        return ResponseEntity.badRequest().body("This email address is already exist");
 
                 }
                 if (!newUser.getBirthDate().equals("")) {
                     user.setBirthDate(newUser.getBirthDate());
 
-                }
-                else
+                } else
                     user.setBirthDate(null);
                 if (!newUser.getPhoneNumber().equals(""))
                     user.setPhoneNumber(newUser.getPhoneNumber());
                 else
-                    user.setPhoneNumber("");
+                    user.setPhoneNumber(null);
                 if (newUser.getPassword() != null)
                     user.setPassword(passwordEncoder.encode(newUser.getPassword()));
                 user.setUserId(id);
