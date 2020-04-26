@@ -26,7 +26,7 @@ public abstract class Product {
     private String productName;
     private String shortDesc;
     private String longDesc;
-    private int barcode;
+    private String barcode;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
@@ -110,7 +110,7 @@ public abstract class Product {
         return longDesc;
     }
 
-    public int getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
@@ -170,7 +170,7 @@ public abstract class Product {
         this.longDesc = longDesc;
     }
 
-    public void setBarcode(int barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 
