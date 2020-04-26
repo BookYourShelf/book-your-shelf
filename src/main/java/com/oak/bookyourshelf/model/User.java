@@ -36,8 +36,9 @@ public class User {
     private String email;
     private String name;
     private String surname;
-    private Date birthDate;
+    private String birthDate;
     private String phoneNumber;
+    private Boolean receiveMeesage;
 
 
     @OneToMany(
@@ -135,11 +136,11 @@ public class User {
         this.surname = surname;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -213,6 +214,14 @@ public class User {
 
     public void setDeliveryAddresses(List<Address> deliveryAddresses) {
         this.deliveryAddresses = deliveryAddresses;
+    }
+
+    public Boolean getReceiveMeesage() {
+        return receiveMeesage;
+    }
+
+    public void setReceiveMeesage(Boolean receiveMeesage) {
+        this.receiveMeesage = receiveMeesage;
     }
 
 }

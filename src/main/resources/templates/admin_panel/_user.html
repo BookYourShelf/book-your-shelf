@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<span th:unless="${#lists.isEmpty(allUsers)}">
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
@@ -21,7 +21,7 @@
 
 <br>
 
-<div>
+
     <div class="row order - row ">
 
         <div class="col-lg-3 col-md-3 col-xs-6">
@@ -40,13 +40,14 @@
         </div>
     </div>
     <br>
+
     <div class="container">
         <div class="orderDetailBox">
-            <div th:if="${allUsers != null}">
+
                 <tr th:each="user: ${allUsers}">
 
                     <!-- User -->
-                    <div class="product" >
+                    <div class="product">
                         <a th:href="@{'/user-details/' + ${user.userId}}">
                             <div class="product_content">
                                 <div class="row order - row collapsible">
@@ -78,18 +79,12 @@
                     </div>
 
                 </tr>
-            </div>
-            <div th:if="${allUsers == null}">
-                <div class="warning-text" style="display: none">There are no users.</div>
-            </div>
+
+
         </div>
     </div>
-</div>
 
-<!-- No user -->
-<div class="warning-text" style="display: none">There are no users.</div>
-
-<div class="row page_nav_row">
+    <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
@@ -101,6 +96,13 @@
         </div>
     </div>
 </div>
+
+</span>
+
+<!-- No user -->
+<span th:if="${#lists.isEmpty(allUsers)}">
+<div class="warning-text">There are no users.</div>
+</span>
 
 
 </html>
