@@ -44,7 +44,7 @@ public class ProfileInformationController {
 
     @RequestMapping(value = "/profile/information", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> UpdateInformations(@RequestParam String button,@RequestParam String newPassword, @RequestParam String currentPassword, @RequestParam String newPasswordAgain , User NewUser) {
+    public ResponseEntity<String> UpdateInformations(@RequestParam Boolean receiveMessage , @RequestParam String button,@RequestParam String newPassword, @RequestParam String currentPassword, @RequestParam String newPasswordAgain , User NewUser) {
         System.out.println("update");
         String mail = authService.getUserDetails().getUsername();
         User user = new User();
@@ -52,6 +52,7 @@ public class ProfileInformationController {
             user = profileInformationService.getByEmail(mail);
             System.out.println(user.getUserId());
             System.out.println("jhkjh");
+            System.out.println(receiveMessage);
         }
         else
             return ResponseEntity.badRequest().body("There is no logged in user");
@@ -59,6 +60,7 @@ public class ProfileInformationController {
 
                 user.setName(NewUser.getName());
                 user.setSurname(NewUser.getSurname());
+                user.setReceiveMeesage(receiveMessage);
 
                 if (!NewUser.getEmail().equals(user.getEmail())) {
                     if (profileInformationService.getByEmail(NewUser.getEmail()) == null) {
@@ -80,11 +82,13 @@ public class ProfileInformationController {
         }
         else
         {
+            if(!(passwordEncoder.matches(currentPassword, user.getPassword())))
+                return ResponseEntity.badRequest().body("Your current password incorrect.");
             if (!newPassword.equals(newPasswordAgain)) {
                 return ResponseEntity.badRequest().body("Passwords don't match. Please enter your password again.");
             } else {
 
-                if (passwordEncoder.matches(newPasswordAgain, currentPassword)) {
+                if (passwordEncoder.matches(newPasswordAgain, user.getPassword())) {
 
                     return ResponseEntity.badRequest().body("New password can't match old password.Please enter a new password.");
                 }
