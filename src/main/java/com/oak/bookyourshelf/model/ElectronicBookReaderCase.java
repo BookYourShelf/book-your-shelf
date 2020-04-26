@@ -11,6 +11,10 @@ public class ElectronicBookReaderCase extends BookCase {
 
     // GETTER & SETTER
 
+    public String getProductTypeName() {
+        return "E-Book Reader Case";
+    }
+
     public float getCaseDepth() {
         return caseDepth;
     }

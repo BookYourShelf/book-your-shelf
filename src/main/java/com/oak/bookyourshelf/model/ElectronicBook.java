@@ -20,6 +20,10 @@ public class ElectronicBook extends Book {
 
     // GETTER & SETTER
 
+    public String getProductTypeName() {
+        return "E-Book";
+    }
+
     public int getFileSize() {
         return fileSize;
     }

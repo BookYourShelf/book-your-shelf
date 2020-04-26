@@ -9,6 +9,10 @@ public class PhysicalBookCase extends BookCase {
 
     // GETTER & SETTER
 
+    public String getProductTypeName() {
+        return "Book Case";
+    }
+
     public float getMaxBookDepth() {
         return maxBookDepth;
     }

@@ -28,6 +28,10 @@ public class ElectronicBookReader extends Product {
 
     // GETTER & SETTER
 
+    public String getProductTypeName() {
+        return "E-Book Reader";
+    }
+
     public int getRam() {
         return ram;
     }

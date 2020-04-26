@@ -51,6 +51,10 @@ public class PhysicalBook extends Book {
 
     // GETTER & SETTER
 
+    public String getProductTypeName() {
+        return "Book";
+    }
+
     public float getDepth() {
         return depth;
     }
