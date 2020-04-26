@@ -6,6 +6,8 @@ import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCategoryRepository
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class AdminPanelCategoryService {
@@ -30,6 +32,10 @@ public class AdminPanelCategoryService {
 
     public Category getByName(String name) {
         return adminPanelCategoryRepository.findCategoryByName(name);
+    }
+
+    public List<Category> getAllByName(String name) {
+        return adminPanelCategoryRepository.findAllByName(name);
     }
 
     public void delete(int id) {
