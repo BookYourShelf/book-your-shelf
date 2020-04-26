@@ -9,8 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AdminPanelProductService {
 
-    final
-    AdminPanelProductRepository adminPanelProductRepository;
+    final AdminPanelProductRepository adminPanelProductRepository;
 
     public AdminPanelProductService(AdminPanelProductRepository adminPanelProductRepository) {
         this.adminPanelProductRepository = adminPanelProductRepository;
