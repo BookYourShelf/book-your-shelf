@@ -78,7 +78,7 @@
                                                         <input type="checkbox"
                                                                id="permission_agreement"
                                                                name="permission_agreement"
-                                                               class="billing_checkbox">
+                                                               class="billing_checkbox" value="receiveMessage">
                                                         <span class="checkbox_mark"></span>
                                                     </label>
                                                     <label style="padding-left: 29px; cursor: text">
@@ -169,12 +169,19 @@
 
         var button = $(this).attr("id");
         var ret;
+        var receiveMessage;
         if(button === "updateInformations") {
             var name = $('#change_name').val();
             var surname = $('#change_surname').val();
             var email = $('#change_email').val();
             var phoneNumber = $('#change_phone').val();
             var birthDate = $('#change_birthdate').val();
+
+            if( $('#permission_agreement').val() === "receiveMessage"){
+                receiveMessage = true;
+            }
+            else
+                receiveMessage=false;
 
              ret = {
 
@@ -187,6 +194,7 @@
                 currentPassword: "",
                 newPassword: "",
                 newPasswordAgain: "",
+                 receiveMessage: receiveMessage
 
             };
             if ((((birthDate !== "") && (validation_check(['change_birthdate']))) || birthDate === "") &&
@@ -220,12 +228,14 @@
             var newPassword = $('#new_password').val();
             var newPasswordAgain = $('#new_password_again').val();
 
+
              ret = {
 
                 currentPassword: currentPassword,
                 newPassword: newPassword,
                 newPasswordAgain: newPasswordAgain,
-                button:button
+                button:button,
+                 receiveMessage:false
 
             };
             if ( (validation_check(['current_password', 'new_password', 'new_password_again']))) {
