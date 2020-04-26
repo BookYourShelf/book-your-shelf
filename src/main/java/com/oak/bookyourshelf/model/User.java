@@ -38,6 +38,7 @@ public class User {
     private String surname;
     private String birthDate;
     private String phoneNumber;
+    private Boolean receiveMeesage;
 
 
     @OneToMany(
@@ -213,6 +214,14 @@ public class User {
 
     public void setDeliveryAddresses(List<Address> deliveryAddresses) {
         this.deliveryAddresses = deliveryAddresses;
+    }
+
+    public Boolean getReceiveMeesage() {
+        return receiveMeesage;
+    }
+
+    public void setReceiveMeesage(Boolean receiveMeesage) {
+        this.receiveMeesage = receiveMeesage;
     }
 
 }
