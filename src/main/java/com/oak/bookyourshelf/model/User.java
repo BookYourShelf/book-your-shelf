@@ -36,7 +36,7 @@ public class User {
     private String email;
     private String name;
     private String surname;
-    private Date birthDate;
+    private String birthDate;
     private String phoneNumber;
 
 
@@ -135,11 +135,11 @@ public class User {
         this.surname = surname;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

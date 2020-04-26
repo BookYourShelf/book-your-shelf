@@ -21,6 +21,7 @@ public class AdminPanelUserController {
     @RequestMapping(value = "/admin-panel/user", method = RequestMethod.GET)
     public String tab(Model model) {
         model.addAttribute("allUsers" , adminPanelUserService.listAllCustomers());
+        System.out.println(adminPanelUserService.listAllCustomers());
         return "admin_panel/_user";
     }
 

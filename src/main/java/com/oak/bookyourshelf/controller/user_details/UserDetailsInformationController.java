@@ -36,48 +36,47 @@ public class UserDetailsInformationController {
     public ResponseEntity<String> UserUpdate(@RequestParam String button, @PathVariable int id, User newUser) {
 
         System.out.println(button);
-
+        System.out.println(newUser.getBirthDate());
         User user = userDetailsInformationService.get(id);
 
         System.out.println(user.getName());
         switch (button) {
             case "updateUser":
-                if (newUser.getName().equals("") || newUser.getName() == null) {
-                    return ResponseEntity.badRequest().body("User name cannot be empty");
-                } else
-                    user.setName(user.getName());
-                if (newUser.getSurname().equals("") || newUser.getSurname() == null) {
-                    return ResponseEntity.badRequest().body("User surname cannot be empty");
-                } else // TODO: Buna dikkat et
-                    user.setSurname(newUser.getSurname());
-                if (newUser.getEmail().equals("")) {
-                    return ResponseEntity.badRequest().body("User email cannot be empty");
-                } else {
+
+                user.setName(newUser.getName());
+
+                user.setSurname(newUser.getSurname());
+
                     if (!user.getEmail().equals(newUser.getEmail())) {
                         if (userDetailsInformationService.getByEmail(newUser.getEmail()) == null) {
                             user.setEmail(newUser.getEmail());
                         } else
                             return ResponseEntity.badRequest().body("This email address is already exist");
-                    }
+
                 }
-                if (newUser.getBirthDate() != null)
+                if (!newUser.getBirthDate().equals("")) {
                     user.setBirthDate(newUser.getBirthDate());
-                else // TODO: Bunlari silmeyebilirsin
+
+                }
+                else
                     user.setBirthDate(null);
-                if (newUser.getPhoneNumber() != null)
+                if (!newUser.getPhoneNumber().equals(""))
                     user.setPhoneNumber(newUser.getPhoneNumber());
                 else
-                    user.setPhoneNumber(null);
+                    user.setPhoneNumber("");
                 if (newUser.getPassword() != null)
                     user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+                user.setUserId(id);
+                userDetailsInformationService.save(user);
 
 
                 break;
             case "deleteUser":
-                userDetailsInformationService.delete(newUser.getUserId());
+                userDetailsInformationService.delete(user.getUserId());
                 break;
         }
-        userDetailsInformationService.save(user); // Update
+
+
         return ResponseEntity.ok("");
     }
 
