@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Category Details | Book Your Shelf</title>
+    <title>Subcategory Details | Book Your Shelf</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
@@ -263,14 +263,7 @@
                 <ul class="nav nav-tabs justify-content-center" id="siteTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text"
-                           th:data-url="'/category-details/information/' + ${category.getId()}"
                            th:href="@{#information}">Information</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link profile-navbar-text"
-                           th:data-url="'/category-details/subcategory/' + ${category.getId()}"
-                           th:href="@{#subcategory}">Subcategories</a>
                     </li>
                 </ul>
                 <br>
@@ -278,10 +271,122 @@
                 <div class="tab-content" id="myTabContent">
 
                     <!-- Information -->
-                    <div class="tab-pane active" id="information"></div>
+                    <div class="tab-pane active" id="information">
+                        <div class="address-element-padding">
+                            <div class="billingAddress">
+                                <div class="product_content">
 
-                    <!-- Orders -->
-                    <div class="tab-pane" id="subcategory"></div>
+                                    <!-- ID -->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="tab-title-text align-items-center">
+                                                ID
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="row">
+                                                <div class="col-lg-11 tab-content-text">
+                                                    <h th:text="${subcategory.id}"></h>
+                                                </div>
+                                                <!-- Buttons -->
+                                                <div class="col-lg-1">
+                                                    <div class="row">
+                                                        <!-- Update button -->
+                                                        <a href="#category-info-update"
+                                                           class="trans_200" data-toggle="collapse"><i
+                                                                style="font-size: 25px; padding-right: 10px"
+                                                                class="fa fa-pencil"></i></a>
+                                                        <!-- Delete button -->
+                                                        <button type="submit" value="&#xf014;"
+                                                                class="trans_200 fa product_text"
+                                                                id="deleteSubcategory"
+                                                                style="font-size: 25px; color: #4a4a4a"
+                                                                data-toggle="collapse">
+                                                            &#xf014;
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="tab-title-text">
+                                                Name
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="tab-content-text">
+                                                <h th:text="${subcategory.name}"></h>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Total Products -->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="tab-title-text">
+                                                Total Products
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="tab-content-text">
+                                                <h th:text="${subcategory.itemNum}"></h>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Total Subcategories -->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="tab-title-text">
+                                                Total Subcategories
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="tab-content-text">
+                                                <h th:text="${subcategory.subcategories.size()}"></h>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Update information form -->
+                        <div id="category-info-update" class="collapse">
+
+                            <div class="address-container">
+                                <div class="billingAddress">
+                                    <div class="checkout_form_container">
+                                        <form action="#" id="category-info-update-form" class="checkout_form">
+
+
+                                            <!-- Category Name -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Subcategory Name
+                                                </div>
+                                                <input type="text" id="category-name-update"
+                                                       class="login_input form-control"
+                                                       required="required" th:value="${subcategory.name}">
+                                            </div>
+
+                                            <div><!--ERROR--></div>
+
+                                            <!-- Button -->
+                                            <input name=submit id="updateSubcategory" type="submit" value="UPDATE"
+                                                   class="login_button trans_200">
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -371,9 +476,64 @@
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/select.js}"></script>
 <script th:src="@{/static/js/iziToast.min.js}"></script>
-<script>
-    $('#information').load($('.nav-link.active').attr("data-url"), function (result) {
-    });
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateSubcategory,#deleteSubcategory').click(function (event) {
+        event.preventDefault();
+        var button = $(this).attr("id");
+        var subcategoryId = /*[[${subcategory.getId()}]]*/ 'default';
+        var name = $('#category-name-update').val();
+        var productType = $('#category_product_type option:selected').val();
+        var ret = {
+            name: name,
+            button: button
+        };
+
+        if (button === "updateSubcategory") {
+            $.post("/subcategory-details/" + subcategoryId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Subcategory ' + name + ' updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/subcategory-details/" + subcategoryId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        } else if (button === "deleteSubcategory") {
+            if (confirm('Are you sure you want to delete?')) {
+                $.post("/subcategory-details/" + subcategoryId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Subcategory ' + name + ' removed successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel";
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else {
+                window.location.href = "/admin-panel";
+            }
+        }
+
+    })
+    /*]]>*/
 </script>
 </body>
 
