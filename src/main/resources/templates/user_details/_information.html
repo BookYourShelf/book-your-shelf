@@ -307,7 +307,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/admin-panel#user";
+                    window.location.href = "/admin-panel";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -320,7 +320,7 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "/admin-panel#user";
+            } else window.location.href = "/user-details/" + userId + "#information";
 
         }
 
