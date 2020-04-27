@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.controller.product_details;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,11 @@ import java.util.Map;
 public class ProductDetailsInformationController {
 
     final ProductDetailsInformationService productDetailsInformationService;
+    final AdminPanelCategoryService adminPanelCategoryService;
 
-    public ProductDetailsInformationController(ProductDetailsInformationService productDetailsInformationService) {
+    public ProductDetailsInformationController(ProductDetailsInformationService productDetailsInformationService, AdminPanelCategoryService adminPanelCategoryService) {
         this.productDetailsInformationService = productDetailsInformationService;
+        this.adminPanelCategoryService = adminPanelCategoryService;
     }
 
     @RequestMapping(value = "/product-details/information/{id}", method = RequestMethod.GET)
@@ -26,6 +29,7 @@ public class ProductDetailsInformationController {
 
         Product product = productDetailsInformationService.get(id);
         model.addAttribute("product", product);
+        model.addAttribute("categoryService", adminPanelCategoryService);
 
         return "product_details/_information";
     }

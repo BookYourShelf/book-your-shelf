@@ -3,14 +3,13 @@ package com.oak.bookyourshelf.controller.admin_panel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -18,14 +17,17 @@ import java.util.Map;
 public class AdminPanelProductController {
 
     final AdminPanelProductService adminPanelProductService;
+    final AdminPanelCategoryService adminPanelCategoryService;
 
-    public AdminPanelProductController(AdminPanelProductService adminPanelProductService) {
+    public AdminPanelProductController(AdminPanelProductService adminPanelProductService, AdminPanelCategoryService adminPanelCategoryService) {
         this.adminPanelProductService = adminPanelProductService;
+        this.adminPanelCategoryService = adminPanelCategoryService;
     }
 
     @RequestMapping(value = "/admin-panel/product", method = RequestMethod.GET)
     public String tab(Model model, @ModelAttribute("selectedOption") String selectedOption) {
         model.addAttribute("allProducts", adminPanelProductService.listAll());
+        model.addAttribute("categoryService", adminPanelCategoryService);
         return "admin_panel/_product";
     }
 

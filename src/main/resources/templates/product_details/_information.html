@@ -966,7 +966,10 @@
                                             th:value="${product.getCategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option>Literature</option>
+                                        <option th:each="category : ${categoryService.listAll()}"
+                                                th:value="${category}"
+                                                th:text="${category.getName()}">category
+                                        </option>
                                     </select>
                                 </div>
 
@@ -979,8 +982,10 @@
                                             th:value="${product.getSubcategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option>Novel</option>
-                                        <option>Poet</option>
+                                        <option th:each="category : ${categoryService.listAll()}"
+                                                th:value="${category}"
+                                                th:text="${category.getName()}">category
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -1234,7 +1239,10 @@
                                             th:value="${product.getCategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option>Literature</option>
+                                        <option th:each="category : ${categoryService.listAll()}"
+                                                th:value="${category}"
+                                                th:text="${category.getName()}">category
+                                        </option>
                                     </select>
                                 </div>
 
@@ -1247,8 +1255,10 @@
                                             class="dropdown_item_select checkout_input" th:field="*{subcategory}"
                                             th:value="${product.getSubcategory()}"
                                             required="required">
-                                        <option>Novel</option>
-                                        <option>Poet</option>
+                                        <option th:each="category : ${categoryService.listAll()}"
+                                                th:value="${category}"
+                                                th:text="${category.getName()}">category
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -1442,7 +1452,10 @@
                                             th:value="${product.getCategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option>Literature</option>
+                                        <option th:each="category : ${categoryService.listAll()}"
+                                                th:value="${category}"
+                                                th:text="${category.getName()}">category
+                                        </option>
                                     </select>
                                 </div>
 
@@ -1455,8 +1468,10 @@
                                             class="dropdown_item_select checkout_input" th:field="*{subcategory}"
                                             th:value="${product.getSubcategory()}"
                                             required="required">
-                                        <option>Novel</option>
-                                        <option>Poet</option>
+                                        <option th:each="category : ${categoryService.listAll()}"
+                                                th:value="${category}"
+                                                th:text="${category.getName()}">category
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -2534,7 +2549,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/admin-panel#product";
+                window.location.href = "/admin-panel";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);

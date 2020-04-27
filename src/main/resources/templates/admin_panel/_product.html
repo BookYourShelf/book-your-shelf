@@ -80,7 +80,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option>Literature</option>
+                                    <option th:each="category : ${categoryService.listAll()}"
+                                            th:value="${category}"
+                                            th:text="${category.getName()}">category
+                                    </option>
                                 </select>
                             </div>
 
@@ -93,8 +96,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option>Novel</option>
-                                    <option>Poet</option>
+                                    <option th:each="category : ${categoryService.listAll()}"
+                                            th:value="${category}"
+                                            th:text="${category.getName()}">category
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -349,7 +354,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option>Literature</option>
+                                    <option th:each="category : ${categoryService.listAll()}"
+                                            th:value="${category}"
+                                            th:text="${category.getName()}">category
+                                    </option>
                                 </select>
                             </div>
 
@@ -362,8 +370,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option>Novel</option>
-                                    <option>Poet</option>
+                                    <option th:each="category : ${categoryService.listAll()}"
+                                            th:value="${category}"
+                                            th:text="${category.getName()}">category
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -563,7 +573,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option>Literature</option>
+                                    <option th:each="category : ${categoryService.listAll()}"
+                                            th:value="${category}"
+                                            th:text="${category.getName()}">category
+                                    </option>
                                 </select>
                             </div>
 
@@ -576,8 +589,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option>Novel</option>
-                                    <option>Poet</option>
+                                    <option th:each="category : ${categoryService.listAll()}"
+                                            th:value="${category}"
+                                            th:text="${category.getName()}">category
+                                    </option>
                                 </select>
                             </div>
                         </div>
