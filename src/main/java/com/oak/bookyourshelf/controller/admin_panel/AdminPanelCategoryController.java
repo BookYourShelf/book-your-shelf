@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 public class AdminPanelCategoryController {
@@ -32,10 +33,10 @@ public class AdminPanelCategoryController {
     @ResponseBody
     public ResponseEntity<String> saveCategory(@RequestParam String name, Category category) {
         if (name != null) {
-            Category categoryDb = adminPanelCategoryService.getByName(name);
-            if (categoryDb != null) {
-                if (category.getProductType() == categoryDb.getProductType()) { // Same name and product type found
-                    return ResponseEntity.badRequest().body("Category name already exists.");
+            ArrayList<Category> categoryDb = (ArrayList<Category>) adminPanelCategoryService.getAllByName(name);
+            for (Category cat : categoryDb) {
+                if (name.equals(cat.getName()) && cat.getProductType() == category.getProductType()) {
+                    return ResponseEntity.badRequest().body("Category name already exists with same product type.");
                 }
             }
         }

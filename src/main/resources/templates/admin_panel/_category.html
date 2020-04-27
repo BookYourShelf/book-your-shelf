@@ -225,7 +225,7 @@
     $('#add_category_button').click(function (event) {
         event.preventDefault();
         var name = $('#new_category_name').val();
-        var productType = $('#category_product_type option:selected').text().toUpperCase().split("-").join("_").split(" ").join("_");
+        var productType = $('#category_product_type option:selected').val();
         var ret = {
             name: name,
             productType: productType
