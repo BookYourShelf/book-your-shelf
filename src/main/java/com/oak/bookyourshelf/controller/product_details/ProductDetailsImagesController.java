@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ProductDetailsPhotosController {
+public class ProductDetailsImagesController {
 
-    @GetMapping("/product-details/photos")
+    @GetMapping("/product-details/images")
     public String tab() {
 
-        return "product_details/_photos";
+        return "_images";
     }
 }

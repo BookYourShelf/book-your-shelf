@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 @Entity
 public class PhysicalBook extends Book {
 
-    private enum MediaType {
+    public enum MediaType {
         HARDCOVER,
         SOFTCOVER,
         POCKET_SIZE,
@@ -15,7 +15,7 @@ public class PhysicalBook extends Book {
         MONTHLY;
     }
 
-    private enum PaperType {
+    public enum PaperType {
         COATED,
         UN_COATED,
         AMERICAN_BRISTOL,
@@ -26,7 +26,7 @@ public class PhysicalBook extends Book {
         MATTE_COATED_PLASTER;
     }
 
-    private enum BindingType {
+    public enum BindingType {
         SADDLE_STITCHING,
         CASE_BINDING,
         CASE_WRAPPED,
@@ -38,6 +38,7 @@ public class PhysicalBook extends Book {
     private int editionNum;
     private float height;
     private float width;
+    private float depth;
 
     @Enumerated(EnumType.STRING)
     private MediaType mediaType;
@@ -49,6 +50,18 @@ public class PhysicalBook extends Book {
     private BindingType bindingType;
 
     // GETTER & SETTER
+
+    public String getProductTypeName() {
+        return "Book";
+    }
+
+    public float getDepth() {
+        return depth;
+    }
+
+    public void setDepth(float depth) {
+        this.depth = depth;
+    }
 
     public float getHeight() {
         return height;

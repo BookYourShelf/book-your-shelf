@@ -8,9 +8,15 @@ public abstract class Book extends Product {
 
     private int publishedYear;
     private String language;
-    private String translator;
     private String isbn;
-    private String publisher;
+    private String category;
+    private String subcategory;
+
+    @ElementCollection
+    private List<String> publishers;
+
+    @ElementCollection
+    private List<String> translators;
 
     @ElementCollection
     private List<String> authors;
@@ -19,6 +25,22 @@ public abstract class Book extends Product {
     private List<String> keywords;
 
     // GETTER & SETTER
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
 
     public int getPublishedYear() {
         return publishedYear;
@@ -32,16 +54,16 @@ public abstract class Book extends Product {
         return language;
     }
 
-    public String getTranslator() {
-        return translator;
+    public List<String> getTranslators() {
+        return translators;
     }
 
     public String getIsbn() {
         return isbn;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public List<String> getPublishers() {
+        return publishers;
     }
 
     public List<String> getKeywords() {
@@ -60,16 +82,16 @@ public abstract class Book extends Product {
         this.language = language;
     }
 
-    public void setTranslator(String translator) {
-        this.translator = translator;
+    public void setTranslators(List<String> translators) {
+        this.translators = translators;
     }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setPublishers(List<String> publishers) {
+        this.publishers = publishers;
     }
 
     public void setKeywords(List<String> keywords) {
