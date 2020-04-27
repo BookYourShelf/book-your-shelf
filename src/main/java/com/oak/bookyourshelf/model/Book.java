@@ -9,6 +9,8 @@ public abstract class Book extends Product {
     private int publishedYear;
     private String language;
     private String isbn;
+    private String category;
+    private String subcategory;
 
     @ElementCollection
     private List<String> publishers;
@@ -23,6 +25,22 @@ public abstract class Book extends Product {
     private List<String> keywords;
 
     // GETTER & SETTER
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
 
     public int getPublishedYear() {
         return publishedYear;
