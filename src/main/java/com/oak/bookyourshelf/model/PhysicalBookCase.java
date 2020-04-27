@@ -3,26 +3,21 @@ package com.oak.bookyourshelf.model;
 import javax.persistence.Entity;
 
 @Entity
-public class PhysicalBookCase extends BookCase  {
+public class PhysicalBookCase extends BookCase {
 
-    private float caseWidth;
-    private float caseHeight;
+    private float maxBookDepth;
 
     // GETTER & SETTER
 
-    public void setCaseWidth(float caseWidth) {
-        this.caseWidth = caseWidth;
+    public String getProductTypeName() {
+        return "Book Case";
     }
 
-    public void setCaseHeight(float caseHeight) {
-        this.caseHeight = caseHeight;
+    public float getMaxBookDepth() {
+        return maxBookDepth;
     }
 
-    public float getCaseWidth() {
-        return caseWidth;
-    }
-
-    public float getCaseHeight() {
-        return caseHeight;
+    public void setMaxBookDepth(float maxBookDepth) {
+        this.maxBookDepth = maxBookDepth;
     }
 }

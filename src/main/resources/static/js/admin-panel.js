@@ -1,23 +1,22 @@
-$('#book_type').change(function () {
+$('#product_type').change(function () {
     var index = $(this).prop('selectedIndex');
 
-    if (index == 1) {
-        console.log("hede");
+    if (index === 1) {
         clearOthers();
         $('#book').removeClass('d-none');
-    } else if (index == 2) {
+    } else if (index === 2) {
         clearOthers();
         $('#e-book').removeClass('d-none');
-    } else if (index == 3) {
+    } else if (index === 3) {
         clearOthers();
         $('#audiobook').removeClass('d-none');
-    } else if (index == 4) {
+    } else if (index === 4) {
         clearOthers();
         $('#e-book_reader').removeClass('d-none');
-    } else if (index == 5) {
+    } else if (index === 5) {
         clearOthers();
         $('#e-book_reader_case').removeClass('d-none');
-    } else if (index == 6) {
+    } else if (index === 6) {
         clearOthers();
         $('#book_case').removeClass('d-none');
     }
@@ -25,7 +24,7 @@ $('#book_type').change(function () {
 
 function updatePhoto(inputId) {
     var input = document.getElementById(inputId);
-    var output = document.getElementById(inputId.concat("-list"));
+    var output = document.getElementById(inputId.concat("_list"));
     var children = "";
     for (var i = 0; i < input.files.length; ++i) {
         children += '<li>' + input.files.item(i).name + '</li>';

@@ -10,6 +10,10 @@ public class AudioBook extends Book {
 
     // GETTER & SETTER
 
+    public String getProductTypeName() {
+        return "Audio Book";
+    }
+
     public int getLengthInMinutes() {
         return lengthInMinutes;
     }

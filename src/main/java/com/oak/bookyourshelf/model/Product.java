@@ -32,8 +32,8 @@ public abstract class Product {
     private List<Integer> buyerUserIds;
 
     @OneToMany(
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Review> reviews;
 
@@ -50,10 +50,10 @@ public abstract class Product {
         float total = 0;
 
         for (int i = 0; i < 5; i++) {
-            total += (i+1) * totalStarNum.get(i);
+            total += (i + 1) * totalStarNum.get(i);
         }
 
-        return total/5;
+        return total / 5;
     }
 
     public int getTotalReviewNum() {
