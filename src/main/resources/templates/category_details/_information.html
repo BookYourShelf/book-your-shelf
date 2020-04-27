@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <div class="address-element-padding">
     <div class="billingAddress">
         <div class="product_content">
@@ -12,7 +15,7 @@
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-lg-11 tab-content-text">
-                            2
+                            <h th:text="${category.id}"></h>
                         </div>
                         <!-- Buttons -->
                         <div class="col-lg-1">
@@ -23,9 +26,13 @@
                                         style="font-size: 25px; padding-right: 10px"
                                         class="fa fa-pencil"></i></a>
                                 <!-- Delete button -->
-                                <a href="#" class="trans_200" data-toggle="collapse"><i
+                                <button type="submit" value="&#xf014;"
+                                        class="trans_200 fa product_text"
+                                        id="deleteCategory"
                                         style="font-size: 25px; color: #4a4a4a"
-                                        class="fa product_text">&#xf014;</i></a>
+                                        data-toggle="collapse">
+                                    &#xf014;
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -41,7 +48,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="tab-content-text">
-                        Book
+                        <h th:text="#{${'category.' + category.productType}}"></h>
                     </div>
                 </div>
             </div>
@@ -55,7 +62,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="tab-content-text">
-                        Literature
+                        <h th:text="${category.name}"></h>
                     </div>
                 </div>
             </div>
@@ -69,7 +76,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="tab-content-text">
-                        4
+                        <h th:text="${category.itemNum}"></h>
                     </div>
                 </div>
             </div>
@@ -83,7 +90,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="tab-content-text">
-                        2
+                        <h th:text="${category.subcategories.size()}"></h>
                     </div>
                 </div>
             </div>
@@ -105,16 +112,13 @@
                             Product Type
                         </div>
 
-                        <select name="book_type" id="category_product_type"
+                        <select name="product_type" id="category_product_type"
                                 class="dropdown_item_select checkout_input"
-                                require="required">
-                            <option>Select Product Type</option>
-                            <option selected>Book</option>
-                            <option>E-Book</option>
-                            <option>Audio Book</option>
-                            <option>E-Book Reader</option>
-                            <option>E-Book Reader Case</option>
-                            <option>Book Case</option>
+                                required="required" th:field="${category.productType}">
+                            <option th:each="type : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
+                                    th:value="${type}"
+                                    th:text="#{${'category.' + type}}">productType
+                            </option>
                         </select>
                     </div>
 
@@ -125,13 +129,13 @@
                         </div>
                         <input type="text" id="category-name-update"
                                class="login_input form-control"
-                               required="required" value="Literature">
+                               required="required" th:value="${category.name}">
                     </div>
 
                     <div><!--ERROR--></div>
 
                     <!-- Button -->
-                    <div class="login_button trans_200"><a href="#">Update</a></div>
+                    <input name=submit id="updateCategory" type="submit" value="UPDATE" class="login_button trans_200">
 
                 </form>
             </div>
@@ -139,3 +143,64 @@
     </div>
 </div>
 <br>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateCategory,#deleteCategory').click(function (event) {
+        event.preventDefault();
+        var button = $(this).attr("id");
+        var categoryId = /*[[${category.getId()}]]*/ 'default';
+        var name = $('#category-name-update').val();
+        var productType = $('#category_product_type option:selected').val();
+        var ret = {
+            name: name,
+            button: button,
+            productType: productType
+        };
+
+        if (button === "updateCategory") {
+            $.post("/category-details/information/" + categoryId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Category ' + name + ' updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/category-details/" + categoryId + "#information";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        } else if (button === "deleteCategory") {
+            if (confirm('Are you sure you want to delete?')) {
+                $.post("/category-details/information/" + categoryId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Category ' + name + ' removed successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel";
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else {
+                window.location.href = "/admin-panel";
+            }
+        }
+
+    })
+    /*]]>*/
+</script>
+</html>
