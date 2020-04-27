@@ -22,6 +22,10 @@ public class AdminPanelCategoryService {
         return adminPanelCategoryRepository.findAll();
     }
 
+    public List<Category> getAllByCategory(String productType) {
+        return adminPanelCategoryRepository.getAllByCategory(productType);
+    }
+
     public void save(Category category) {
         adminPanelCategoryRepository.save(category);
     }
