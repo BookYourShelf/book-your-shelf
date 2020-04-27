@@ -71,7 +71,6 @@
                                        min=0>
                             </div>
 
-                            <!-- TODO-->
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Category
@@ -80,7 +79,7 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.listAll()}"
+                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
                                     </option>
@@ -344,7 +343,6 @@
                                        min=0>
                             </div>
 
-                            <!-- TODO-->
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Category
@@ -353,7 +351,7 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.listAll()}"
+                                    <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
                                     </option>
@@ -562,7 +560,6 @@
                                        min=0>
                             </div>
 
-                            <!-- TODO-->
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Category
@@ -571,7 +568,7 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.listAll()}"
+                                    <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
                                     </option>

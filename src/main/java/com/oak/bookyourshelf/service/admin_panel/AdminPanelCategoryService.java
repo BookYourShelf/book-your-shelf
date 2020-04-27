@@ -22,8 +22,16 @@ public class AdminPanelCategoryService {
         return adminPanelCategoryRepository.findAll();
     }
 
-    public List<Category> getAllByCategory(String productType) {
-        return adminPanelCategoryRepository.getAllByCategory(productType);
+    public Iterable<Category> getAllByCategory(String productType) {
+        switch (productType) {
+            case "Book":
+                return adminPanelCategoryRepository.getAllByCategory(Category.ProductType.values()[0]);
+            case "E-Book":
+                return adminPanelCategoryRepository.getAllByCategory(Category.ProductType.values()[1]);
+            case "Audio Book":
+                return adminPanelCategoryRepository.getAllByCategory(Category.ProductType.values()[2]);
+        }
+        return null;
     }
 
     public void save(Category category) {
