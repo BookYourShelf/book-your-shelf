@@ -14,5 +14,5 @@ public interface AdminPanelCategoryRepository extends CrudRepository<Category, I
     List<Category> findAllByName(String name);
 
     @Query("SELECT t from Category t where t.productType = ?1")
-    List<Category> getAllByCategory(String productType);
+    Iterable<Category> getAllByCategory(Category.ProductType productType);
 }
