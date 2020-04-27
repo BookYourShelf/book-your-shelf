@@ -143,3 +143,64 @@
     </div>
 </div>
 <br>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateCategory,#deleteCategory').click(function (event) {
+        event.preventDefault();
+        var button = $(this).attr("id");
+        var categoryId = /*[[${category.getId()}]]*/ 'default';
+        var name = $('#category-name-update').val();
+        var productType = $('#category_product_type option:selected').val();
+        var ret = {
+            name: name,
+            button: button,
+            productType: productType
+        };
+
+        if (button === "updateCategory") {
+            $.post("/category-details/information/" + categoryId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Category ' + name + ' updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/category-details/" + categoryId + "#information";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        } else if (button === "deleteCategory") {
+            if (confirm('Are you sure you want to delete?')) {
+                $.post("/category-details/information/" + categoryId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Category ' + name + ' removed successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel";
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else {
+                window.location.href = "/admin-panel";
+            }
+        }
+
+    })
+    /*]]>*/
+</script>
+</html>
