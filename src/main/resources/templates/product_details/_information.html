@@ -176,7 +176,16 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.getBuyerUserIds()}"></h>
+                            <div th:if="${product.getBuyerUserIds() != null}">
+                                <div th:unless="${product.getBuyerUserIds().size() > 0}">
+                                    <div>-</div>
+                                </div>
+                                <div th:if="${product.getBuyerUserIds().size() > 0}">
+                                    <tr th:each="userID: ${product.getBuyerUserIds()}">
+                                        <h th:text="${userID}"></h><br>
+                                    </tr>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,6 +204,18 @@
                 </div>
 
                 <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                ISBN
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getIsbn()}"></h>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-3">
@@ -217,7 +238,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getCategory()}"></h>
+                                <h th:text="${product.getSubcategory()}"></h>
                             </div>
                         </div>
                     </div>
@@ -230,7 +251,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getSubcategory()}"></h>
+                                <h th:text="${product.getPublishedYear()}"></h>
                             </div>
                         </div>
                     </div>
@@ -256,7 +277,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getAuthors()}"></h>
+                                <div th:if="${product.getAuthors() != null}">
+                                    <div th:unless="${product.getAuthors().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getAuthors().size() > 0}">
+                                        <tr th:each="author: ${product.getAuthors()}">
+                                            <h th:text="${author}"></h><br>
+                                        </tr>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -269,20 +299,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getTranslators()}"></h>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="tab-title-text">
-                                ISBN
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="tab-content-text">
-                                <h th:text="${product.getIsbn()}"></h>
+                                <div th:if="${product.getTranslators() != null}">
+                                    <div th:unless="${product.getTranslators().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getTranslators().size() > 0}">
+                                        <tr th:each="translator: ${product.getTranslators()}">
+                                            <h th:text="${translator}"></h><br>
+                                        </tr>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -295,7 +321,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getPublishers()}"></h>
+                                <div th:if="${product.getPublishers() != null}">
+                                    <div th:unless="${product.getPublishers().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getPublishers().size() > 0}">
+                                        <tr th:each="publisher: ${product.getPublishers()}">
+                                            <h th:text="${publisher}"></h><br>
+                                        </tr>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -308,7 +343,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getKeywords()}"></h>
+                                <div th:if="${product.getKeywords() != null}">
+                                    <div th:unless="${product.getKeywords().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getKeywords().size() > 0}">
+                                        <tr th:each="keyword: ${product.getKeywords()}">
+                                            <h th:text="${keyword}"></h><br>
+                                        </tr>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -323,7 +367,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="tab-content-text">
-                                    <h th:text="${product.getMediaType()}"></h>
+                                    <h th:text="#{${'media_type.' + product.getMediaType()}}"></h>
                                 </div>
                             </div>
                         </div>
@@ -336,7 +380,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="tab-content-text">
-                                    <h th:text="${product.getPaperType()}"></h>
+                                    <h th:text="#{${'paper_type.' + product.getPaperType()}}"></h>
                                 </div>
                             </div>
                         </div>
@@ -349,7 +393,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="tab-content-text">
-                                    <h th:text="${product.getBindingType()}"></h>
+                                    <h th:text="#{${'binding_type.' + product.getBindingType()}}"></h>
                                 </div>
                             </div>
                         </div>
