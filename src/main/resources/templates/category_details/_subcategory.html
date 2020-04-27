@@ -149,3 +149,38 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#addSubcategory').click(function (event) {
+        event.preventDefault();
+        var name = $('#subcategory_name').val();
+        var categoryId = /*[[${category.getId()}]]*/ 'default';
+        var categoryName = /*[[${category.getName()}]]*/ 'default';
+        var ret = {
+            name: name
+        };
+
+        $.post("/category-details/subcategory/" + categoryId, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: 'Subcategory ' + name + ' added successfully to ' + categoryName + ' category.',
+                position: 'topRight',
+                color: 'green'
+            });
+            window.location.href = "/category-details/" + categoryId + "#subcategory";
+            setTimeout(function () {
+                history.pushState(null, null, ' ');
+            }, 100);
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
+    /*]]>*/
+</script>
+
+</html>
