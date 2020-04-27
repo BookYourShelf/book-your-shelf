@@ -1010,10 +1010,10 @@
                                             th:value="${product.getCategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option th:each="category : ${categoryService.listAll()}"
-                                                th:value="${category}"
+                                        <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                                th:value="${category.getName()}"
                                                 th:text="${category.getName()}">category
-                                        </option>
+                                    </option>
                                     </select>
                                 </div>
 
@@ -1274,7 +1274,6 @@
                                            min=0>
                                 </div>
 
-                                <!-- TODO-->
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
@@ -1283,10 +1282,10 @@
                                             th:value="${product.getCategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option th:each="category : ${categoryService.listAll()}"
-                                                th:value="${category}"
+                                        <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
+                                                th:value="${category.getName()}"
                                                 th:text="${category.getName()}">category
-                                        </option>
+                                    </option>
                                     </select>
                                 </div>
 
@@ -1487,7 +1486,6 @@
                                            min=0>
                                 </div>
 
-                                <!-- TODO-->
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
@@ -1496,10 +1494,10 @@
                                             th:value="${product.getCategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option th:each="category : ${categoryService.listAll()}"
-                                                th:value="${category}"
+                                        <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
+                                                th:value="${category.getName()}"
                                                 th:text="${category.getName()}">category
-                                        </option>
+                                    </option>
                                     </select>
                                 </div>
 
