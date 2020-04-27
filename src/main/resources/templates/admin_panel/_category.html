@@ -67,6 +67,7 @@
     </div>
 </div>
 
+<span th:unless="${#lists.isEmpty(allCategories)}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -151,65 +152,9 @@
             <div th:if="${allCategories == null}">
                 <div class="warning-text" style="display: none">There are no categories.</div>
             </div>
-            <!-- Category -->
-            <!--            <div class="address-element-padding">-->
-            <!--                <a href="../category-details.html">-->
-            <!--                    <div class="category-element">-->
-            <!--                        <div class="product_content">-->
-            <!--                            <div class="row order - row collapsible">-->
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">1</div>-->
-            <!--                                </div>-->
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">Novel</div>-->
-            <!--                                </div>-->
-
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">4</div>-->
-            <!--                                </div>-->
-
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">2</div>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </a>-->
-            <!--            </div>-->
-
-            <!-- Category -->
-            <!--            <div class="address-element-padding">-->
-            <!--                <a href="../category-details.html">-->
-            <!--                    <div class="category-element">-->
-            <!--                        <div class="product_content">-->
-            <!--                            <div class="row order - row collapsible">-->
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">2</div>-->
-            <!--                                </div>-->
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">Literature</div>-->
-            <!--                                </div>-->
-
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">0</div>-->
-            <!--                                </div>-->
-
-            <!--                                <div class="col-lg-3 col-md-3 col-xs-6">-->
-            <!--                                    <div class="profile-order-text">3</div>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </a>-->
-            <!--            </div>-->
         </div>
     </div>
 </div>
-
-<!-- No categories -->
-<span th:if="${#lists.isEmpty(allCategories)}">
-    <div class="warning-text">There are no categories.</div>
-</span>
 
 <div class="row page_nav_row">
     <div class="col">
@@ -223,6 +168,14 @@
         </div>
     </div>
 </div>
+</span>
+
+<!-- No categories -->
+<span th:if="${#lists.isEmpty(allCategories)}">
+    <div class="warning-text">There are no categories.</div>
+</span>
+
+
 <script>
     $('#add_category_button').click(function (event) {
         event.preventDefault();
