@@ -149,7 +149,7 @@
                 </tr>
             </div>
             <div th:if="${allCategories == null}">
-                <div class="warning-text" style="display: none">There are no users.</div>
+                <div class="warning-text" style="display: none">There are no categories.</div>
             </div>
             <!-- Category -->
             <!--            <div class="address-element-padding">-->
@@ -207,7 +207,9 @@
 </div>
 
 <!-- No categories -->
-<div class="warning-text" style="display: none">There are no categories.</div>
+<span th:if="${#lists.isEmpty(allCategories)}">
+    <div class="warning-text">There are no categories.</div>
+</span>
 
 <div class="row page_nav_row">
     <div class="col">
