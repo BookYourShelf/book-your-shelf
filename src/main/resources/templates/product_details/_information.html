@@ -1026,7 +1026,7 @@
                                             th:value="${product.getSubcategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option th:each="category : ${categoryService.listAll()}"
+                                        <option th:each="category : ${categoryService.getAllByCategory('Book')}"
                                                 th:value="${category}"
                                                 th:text="${category.getName()}">category
                                         </option>
@@ -1298,7 +1298,7 @@
                                             class="dropdown_item_select checkout_input" th:field="*{subcategory}"
                                             th:value="${product.getSubcategory()}"
                                             required="required">
-                                        <option th:each="category : ${categoryService.listAll()}"
+                                        <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
                                                 th:value="${category}"
                                                 th:text="${category.getName()}">category
                                         </option>
@@ -1510,7 +1510,7 @@
                                             class="dropdown_item_select checkout_input" th:field="*{subcategory}"
                                             th:value="${product.getSubcategory()}"
                                             required="required">
-                                        <option th:each="category : ${categoryService.listAll()}"
+                                        <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
                                                 th:value="${category}"
                                                 th:text="${category.getName()}">category
                                         </option>

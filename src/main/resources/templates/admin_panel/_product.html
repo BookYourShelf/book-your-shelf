@@ -94,7 +94,7 @@
                                 <select name="subcategory" id="book_subcategory_input"
                                         class="dropdown_item_select checkout_input">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.listAll()}"
+                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
                                     </option>
@@ -366,7 +366,7 @@
                                 <select name="subcategory" id="ebook_subcategory_input"
                                         class="dropdown_item_select checkout_input">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.listAll()}"
+                                    <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
                                     </option>
@@ -583,7 +583,7 @@
                                 <select name="subcategory" id="audiobook_subcategory_select"
                                         class="dropdown_item_select checkout_input">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.listAll()}"
+                                    <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
                                     </option>
