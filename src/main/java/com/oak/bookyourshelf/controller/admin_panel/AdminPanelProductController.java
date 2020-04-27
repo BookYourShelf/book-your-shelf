@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -61,6 +63,9 @@ public class AdminPanelProductController {
             return ResponseEntity.badRequest().body("Product with given barcode already exists.");
         }
 
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        product.setUploadDate(sqlDate);
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
     }
@@ -85,6 +90,9 @@ public class AdminPanelProductController {
             return ResponseEntity.badRequest().body("Product with given ISBN already exists.");
         }
 
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        product.setUploadDate(sqlDate);
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
     }

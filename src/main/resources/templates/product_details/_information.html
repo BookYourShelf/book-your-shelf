@@ -54,6 +54,19 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="tab-title-text">
+                            Upload Date
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getUploadDate()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
                             Barcode
                         </div>
                     </div>
@@ -151,19 +164,6 @@
                     <div class="col-md-9">
                         <div class="tab-content-text">
                             <h th:text="${product.getSaleRate()}"></h>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="tab-title-text">
-                            Upload Date
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="tab-content-text">
-                            <h th:text="${product.getUploadDate()}"></h>
                         </div>
                     </div>
                 </div>
