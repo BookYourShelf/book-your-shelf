@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" >
 <head>
     <title>User Details | Book Your Shelf</title>
     <meta charset="utf-8">
@@ -260,7 +260,7 @@
                                 <li><a th:href="@{/}">Home</a></li>
                                 <li><a th:href="@{/admin-panel}">Panel</a></li>
                                 <!-- TODO Name -->
-                                <li style="color: #fbaa1d" th:text="${user.name  +  user.surname}"></li>
+                                <li style="color: #fbaa1d" th:text="${user.getName() + ' ' + user.getSurname()}"  ></li>
                                 <a th:href="@{'/user-details#information'}"></a>
                             </ul>
                         </div>
@@ -440,5 +440,5 @@
 
 
 </body>
-</html>
+
 </html>
