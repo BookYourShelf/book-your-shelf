@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.repository.user_details;
 
 import com.oak.bookyourshelf.model.Address;
+import com.oak.bookyourshelf.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
