@@ -1,3 +1,5 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <!-- Add category button -->
 <div class="address-element-padding">
     <a href="#billing_address_column" class="trans_200" data-toggle="collapse">
@@ -27,7 +29,7 @@
                             Subcategory Name
                         </div>
 
-                        <input type="text" id="billing_address_name"
+                        <input type="text" id="subcategory_name"
                                class="checkout_input form-control"
                                placeholder="Subcategory Name" required="required">
                     </div>
@@ -35,7 +37,8 @@
                     <div><!--ERROR--></div>
 
                     <!-- Button -->
-                    <div class="login_button trans_200"><a href="#">Add Subcategory</a></div>
+                    <input name=submit id="addSubcategory" type="submit" value="ADD SUBCATEGORY"
+                           class="login_button trans_200">
 
                 </form>
             </div>
@@ -87,56 +90,45 @@
     <div class="container">
         <div class="orderDetailBox">
 
-            <!-- Category -->
-            <div class="address-element-padding">
-                <a href="category-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">1</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Poetry</div>
-                                </div>
+            <div th:if="${allSubcategories != null}">
+                <tr th:each="subcategory: ${allSubcategories}">
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">0</div>
-                                </div>
+                    <!-- User -->
+                    <div class="product">
+                        <a th:href="@{'/subcategory-details/' + ${subcategory.id}}">
+                            <div class="product_content">
+                                <div class="row order - row collapsible">
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${subcategory.id}"></td>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${subcategory.name}"></td>
+                                        </div>
+                                    </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">3</div>
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${subcategory.itemNum}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                            <td th:text="${subcategory.subcategories.size()}"></td>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+
+                </tr>
             </div>
-
-            <!-- Category -->
-            <div class="address-element-padding">
-                <a href="category-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">2</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Novel</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">4</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">5</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+            <div th:if="${allSubcategories == null}">
+                <div class="warning-text" style="display: none">There are no subcategories.</div>
             </div>
         </div>
     </div>
