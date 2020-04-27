@@ -1463,9 +1463,6 @@
 <script>
 
     $('#new_book').click(function (event) {
-        var category = $('#book_category_input').val();     // TODO
-        var subcategory = $('#book_subcategory_input').val();     // TODO
-
         var ret = {
             productType: "book",
             productName: $('#book_product_name_input').val(),
@@ -1485,6 +1482,8 @@
             height: $('#book_height_input').val(),
             width: $('#book_width_input').val(),
             depth: $('#book_depth_input').val(),
+            category: $('#book_category_input').val(),
+            subcategory: $('#book_subcategory_input').val(),
             images: JSON.stringify(image_arr('book_cover_image', 'book_product_images')),
             lists: JSON.stringify({
                 publishers: $('#book_publisher_input').val().split(','),
@@ -1498,7 +1497,8 @@
             "book_published_year_input", "book_language_input", "book_translator_input", "book_authors_input", "book_isbn_input",
             "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
             "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
-            "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image"])) {
+            "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image",
+            "book_category_input", "book_subcategory_input"])) {
             event.preventDefault();
             $.post("/admin-panel/product", ret, function (data) {
                 iziToast.show({
@@ -1524,9 +1524,6 @@
     });
 
     $('#new_ebook').click(function (event) {
-        var category = $('#ebook_category_input').val();     // TODO
-        var subcategory = $('#ebook_subcategory_input').val();     // TODO
-
         var ret = {
             productType: "ebook",
             productName: $('#ebook_product_name_input').val(),
@@ -1541,6 +1538,8 @@
             pageNum: $('#ebook_page_number_input').val(),
             fileSize: $('#ebook_filesize_input').val(),
             fileFormat: $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"),
+            category: $('#ebook_category_input').val(),
+            subcategory: $('#ebook_subcategory_input').val(),
             images: image_arr('ebook_cover_image', 'ebook_product_images'),
             lists: JSON.stringify({
                 publishers: $('#ebook_publisher_input').val().split(','),
@@ -1553,7 +1552,8 @@
         if (validation_check(["ebook_product_name_input", "ebook_product_barcode_input", "ebook_stock_input", "ebook_price_input",
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
             "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
-            "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image"])) {
+            "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image",
+            "ebook_category_input", "ebook_subcategory_input"])) {
             event.preventDefault();
             $.post("/admin-panel/product", ret, function (data) {
                 iziToast.show({
@@ -1579,9 +1579,6 @@
     });
 
     $('#new_audio_book').click(function (event) {
-        var category = $('#audiobook_category_select').val();     // TODO
-        var subcategory = $('#audiobook_subcategory_select').val();     // TODO
-
         var ret = {
             productType: "audio_book",
             productName: $('#audiobook_product_name_input').val(),
@@ -1595,6 +1592,8 @@
             longDesc: $('#audiobook_long_description_input').val(),
             lengthInMinutes: $('#audiobook_length_input').val(),
             narratedBy: $('#audiobook_narrator_input').val(),
+            category: $('#audiobook_category_select').val(),
+            subcategory: $('#audiobook_subcategory_select').val(),
             images: image_arr('audiobook_cover_image', 'audiobook_product_images'),
             lists: JSON.stringify({
                 publishers: $('#audiobook_publisher_input').val().split(','),
@@ -1608,7 +1607,7 @@
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
             "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
             "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
-            "audiobook_cover_image"])) {
+            "audiobook_cover_image", "audiobook_category_select", "audiobook_subcategory_select"])) {
             event.preventDefault();
             $.post("/admin-panel/product", ret, function (data) {
                 iziToast.show({
@@ -1634,7 +1633,6 @@
     });
 
     $('#new_ebook_reader').click(function (event) {
-
         var ret = {
             productType: "ebook_reader",
             productName: $('#ebook_reader_product_name_input').val(),
@@ -1700,7 +1698,6 @@
     });
 
     $('#new_ebook_reader_case').click(function (event) {
-
         var ret = {
             productType: "ebook_reader_case",
             productName: $('#ebook_reader_case_product_name_input').val(),
@@ -1751,7 +1748,6 @@
     });
 
     $('#new_book_case').click(function (event) {
-
         var ret = {
             productType: "book_case",
             productName: $('#book_case_product_name_input').val(),

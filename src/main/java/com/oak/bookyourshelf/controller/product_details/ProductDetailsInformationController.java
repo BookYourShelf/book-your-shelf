@@ -42,22 +42,29 @@ public class ProductDetailsInformationController {
 
         Product product = productDetailsInformationService.get(id);
 
-        switch (productType) {
-            case "book":
-                return bookBarcodeAndISBNCheck(physicalBook, lists, product);
-            case "ebook":
-                return bookBarcodeAndISBNCheck(electronicBook, lists, product);
-            case "audio_book":
-                return bookBarcodeAndISBNCheck(audioBook, lists, product);
-            case "ebook_reader":
-                return productBarcodeCheck(electronicBookReader, product);
-            case "ebook_reader_case":
-                return productBarcodeCheck(electronicBookReaderCase, product);
-            case "book_case":
-                return productBarcodeCheck(physicalBookCase, product);
-            default:
-                return ResponseEntity.badRequest().body("An error occurred.");
+        switch (buttonType) {
+            case "update":
+                switch (productType) {
+                    case "book":
+                        return bookBarcodeAndISBNCheck(physicalBook, lists, product);
+                    case "ebook":
+                        return bookBarcodeAndISBNCheck(electronicBook, lists, product);
+                    case "audio_book":
+                        return bookBarcodeAndISBNCheck(audioBook, lists, product);
+                    case "ebook_reader":
+                        return productBarcodeCheck(electronicBookReader, product);
+                    case "ebook_reader_case":
+                        return productBarcodeCheck(electronicBookReaderCase, product);
+                    case "book_case":
+                        return productBarcodeCheck(physicalBookCase, product);
+                }
+                break;
+
+            case "delete":
+                productDetailsInformationService.deleteProduct(id);
+                return ResponseEntity.ok("");
         }
+        return ResponseEntity.badRequest().body("An error occurred.");
     }
 
     public ResponseEntity<String> productBarcodeCheck(Product newProduct, Product oldProduct) {

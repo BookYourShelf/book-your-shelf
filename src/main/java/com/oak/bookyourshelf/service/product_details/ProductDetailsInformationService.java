@@ -29,4 +29,8 @@ public class ProductDetailsInformationService {
     public Product getByISBN(String isbn) {
         return productDetailsInformationRepository.findBookByISBN(isbn);
     }
+
+    public void deleteProduct(int id) {
+        productDetailsInformationRepository.deleteById(id);
+    }
 }
