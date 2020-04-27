@@ -33,25 +33,29 @@ public class AdminPanelMessageController {
     @ResponseBody
     public ResponseEntity<String> saveMessage(@RequestParam String submit, Message message) {
 
+        if (userDetailsInformationService.findAllIds().isEmpty()) {
+            return ResponseEntity.badRequest().body("There are no users.");
+        } else {
 
-        switch (submit) {
-            case "sms":
-                message.setSms(true);
-                message.setMail(false);
-                break;
-            case "mail":
-                message.setSms(false);
-                message.setMail(true);
-                break;
-            case "SmsAndMail":
-                message.setSms(true);
-                message.setMail(true);
-                break;
+            switch (submit) {
+                case "sms":
+                    message.setSms(true);
+                    message.setMail(false);
+                    break;
+                case "mail":
+                    message.setSms(false);
+                    message.setMail(true);
+                    break;
+                case "SmsAndMail":
+                    message.setSms(true);
+                    message.setMail(true);
+                    break;
+            }
+
+            message.setReceivers(userDetailsInformationService.findAllIds());
+            adminPanelMessageService.save(message);
+            return ResponseEntity.ok("");
         }
-
-        message.setReceivers(userDetailsInformationService.findAllIds());
-        adminPanelMessageService.save(message);
-        return ResponseEntity.ok("");
     }
 
 
