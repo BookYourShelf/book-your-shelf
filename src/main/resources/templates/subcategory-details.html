@@ -247,10 +247,10 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="admin-panel.html">Panel</a></li>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/admin-panel}">Panel</a></li>
                                 <!-- TODO Name -->
-                                <li style="color: #fbaa1d">Literature</li>
+                                <li style="color: #fbaa1d" th:text="${subcategory.getName()}"></li>
                             </ul>
                         </div>
                     </div>
