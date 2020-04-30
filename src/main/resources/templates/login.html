@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Login | Book Your Shelf</title>
@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
@@ -19,214 +20,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
-
 </head>
 
 <body>
 <!-- Header -->
-<header class="header_area">
-    <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
-        <!-- Classy Menu -->
-        <nav class="classy-navbar" id="essenceNav">
-            <!-- Logo -->
-            <a href="/" class="book_your_shelf_logo">
-                <img th:src="@{/static/images/logo/book_your_shelf_logo.png}" alt="">
-            </a>
-            <!-- Navbar Toggler -->
-            <div class="classy-navbar-toggler">
-                <span class="navbarToggler"><span></span><span></span><span></span></span>
-            </div>
-            <!-- Menu -->
-            <div class="classy-menu">
-                <!-- close btn -->
-                <div class="classycloseIcon">
-                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                </div>
-                <!-- Nav Start -->
-                <div class="classynav">
-                    <ul>
-                        <li><a href="#">Book</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Literature</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Novel</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Children and Youth</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Science</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Comic Book</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Religion Sufism</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Course/Exam Books</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Philosophy</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Foreign Languages</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow" style="font-weight: bold">
-                                        Book Cases
-                                    </a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Literature Day</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Home Reading Festival</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Up to 40% Discount at
-                                        İşbank Cultural Publications & İşbank Science Publications</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">40% Discount on Bilgi
-                                        Publishing House Classics</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img th:src="@{/static/images/icons/01brownbookicon.jpg}" alt="">
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">E-Book</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Fiction and Literature</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Health and Care</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Literature and Writing</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Life Style</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Sports and Recreation</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Science Fiction and
-                                        Fantasy</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Sports Day</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">%40 Discount on Science
-                                        Fiction and Fantasy</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">Audio Book</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Mystery and Suspicion</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Romance</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Literature</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Children and Youth</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Cartoons and Comics</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Business and Finance</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Biography and Memory</a>
-                                    </li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Romantic</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Cartoons and Comics
-                                        Day</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">%20 on Romantic</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img th:src="@{/static/images/icons/01brownaudiobookicon.jpg}" alt="">
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">E-Book Reader</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="/category">Kobo</a></li>
-                                    <li><a href="/category">Calibro</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow" style="font-weight: bold">
-                                        E-Book Reader Cases
-                                    </a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="/category">Black Friday</a></li>
-                                    <li><a href="/category">E-Book Reader Day</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="/category" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Nav End -->
-            </div>
-        </nav>
-
-        <!-- Header Meta Data -->
-        <div class="header-meta d-flex clearfix justify-content-end">
-            <!-- Search Area -->
-            <div class="search-area">
-                <form action="#" method="post">
-                    <input type="search" name="search" id="headerSearch" placeholder="Type for search">
-                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
-            </div>
-
-            <!-- User Area -->
-            <div class="user-button-dropdown user-login-info">
-                <a href=""><img th:src="@{/static/images/core-img/user.svg}" alt=""></a>
-                <div class="user-button-dropdown-content">
-                    <div sec:authorize="isAnonymous()">
-                        <a href="/register" style="line-height: 40px">Register</a>
-                        <a href="/login" style="line-height: 40px">Login</a>
-                    </div>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a href="/admin-panel" style="line-height: 40px">Panel</a>
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a href="/profile" style="line-height: 40px">Profile</a>
-                        <a href="/perform_logout" style="line-height: 40px">Logout</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Favourite Area -->
-            <div class="favourite-area">
-                <a href="/wish-list"><img th:src="@{/static/images/core-img/heart.svg}" alt=""></a>
-            </div>
-
-            <!-- Cart Area -->
-            <div class="cart-area">
-                <a href="/cart" id="essenceCartBtn"><img th:src="@{/static/images/core-img/bag.svg}" alt="">
-                    <span>3</span></a>
-            </div>
-        </div>
-    </div>
-</header>
+<header class="header_area" th:insert="fragments/header.html"></header>
 
 <div class="super_container">
     <div class="super_container_inner">
@@ -303,67 +101,7 @@
         </div>
 
         <!-- Footer -->
-        <footer class="footer">
-            <div class="footer_content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-2 footer_col"></div>
-
-                        <!-- About -->
-                        <div class="col-lg-4 footer_col">
-                            <div class="footer_about">
-                                <div class="footer_logo">
-                                    <div class="d-flex flex-row align-items-center justify-content-center">
-                                        <img class="book_your_shelf_footer"
-                                             th:src="@{/static/images/logo/book_your_shelf_logo.png}"
-                                             alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Footer Links -->
-                        <div class="col-lg-4 footer_col">
-                            <ul class="footer_list">
-                                <li>
-                                    <a href="/membership" target="_blank">
-                                        <div>Terms and Conditions</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="mailto: oak.bookyourshelf@gmail.com">
-                                        <div>Contact</div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-lg-2 footer_col"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer_bar">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="footer_bar_content d-flex flex-md-row flex-column align-items-center justify-content-center">
-                                <div class="copyright order-md-1 order-2">
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                    All rights reserved | This template is made with <i
-                                        class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                        href="https://colorlib.com" target="_blank" class="orange-text">Colorlib</a> &
-                                    <b class="orange-text">Oak</b>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
     </div>
 </div>
 
