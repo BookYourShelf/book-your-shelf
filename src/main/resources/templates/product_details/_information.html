@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.productName}"></h>
+                            <h th:text="${product.getProductName()}"></h>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.barcode}"></h>
+                            <h th:text="${product.getBarcode()}"></h>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.stock}"></h>
+                            <h th:text="${product.getStock()}"></h>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.price} + ' ₺'"></h>
+                            <h th:text="${product.getPrice()} + ' ₺'"></h>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.getSaleRate()}"></h>
+                            <h th:text="${product.getDiscountRate()}"></h>
                         </div>
                     </div>
                 </div>
@@ -432,7 +432,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="tab-content-text">
-                                    <h th:text="${product.getHeight()}"></h>
+                                    <h th:text="${product.getHeight() + ' mm'}"></h>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +445,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="tab-content-text">
-                                    <h th:text="${product.getWidth()}"></h>
+                                    <h th:text="${product.getWidth() + ' mm'}"></h>
                                 </div>
                             </div>
                         </div>
@@ -458,7 +458,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="tab-content-text">
-                                    <h th:text="${product.getDepth()}"></h>
+                                    <h th:text="${product.getDepth() + ' mm'}"></h>
                                 </div>
                             </div>
                         </div>
