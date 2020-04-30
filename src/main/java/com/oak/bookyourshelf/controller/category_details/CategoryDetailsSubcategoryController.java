@@ -9,17 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CategoryDetailsSubcategoryController {
 
-    final
-    CategoryDetailsSubcategoryService categoryDetailsSubcategoryService;
-
-    final
-    CategoryDetailsInformationService categoryDetailsInformationService;
+    final CategoryDetailsSubcategoryService categoryDetailsSubcategoryService;
+    final CategoryDetailsInformationService categoryDetailsInformationService;
 
     public CategoryDetailsSubcategoryController(CategoryDetailsSubcategoryService categoryDetailsSubcategoryService, CategoryDetailsInformationService categoryDetailsInformationService) {
         this.categoryDetailsSubcategoryService = categoryDetailsSubcategoryService;

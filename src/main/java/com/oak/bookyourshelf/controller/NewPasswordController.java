@@ -15,14 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 
-
 @Controller
 public class NewPasswordController {
 
-    final
-    NewPasswordService newPasswordService;
-    final
-    LoginService loginService;
+    final NewPasswordService newPasswordService;
+    final LoginService loginService;
     public final PasswordEncoder passwordEncoder;
     String tokens;
 
@@ -31,7 +28,6 @@ public class NewPasswordController {
         this.loginService = loginService;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @RequestMapping(value = "/new-password", method = RequestMethod.GET)
     public String showNewPasswordPage(@RequestParam("token") String token, Model model) {
@@ -67,7 +63,6 @@ public class NewPasswordController {
         if (!newPassword.equals(confirmPassword)) {
             return ResponseEntity.badRequest().body("Passwords don't match. Please enter your password again.");
         } else {
-
             if (passwordEncoder.matches(confirmPassword, user.getPassword())) {
 
                 return ResponseEntity.badRequest().body("New password can't match old password.Please enter a new password.");
@@ -79,5 +74,4 @@ public class NewPasswordController {
         }
         return ResponseEntity.ok("");
     }
-
 }

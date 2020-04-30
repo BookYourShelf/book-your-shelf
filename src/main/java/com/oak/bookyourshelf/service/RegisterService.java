@@ -7,11 +7,9 @@ import com.oak.bookyourshelf.repository.RegisterRepository;
 
 @Service
 @Transactional
-
 public class RegisterService {
 
-    final
-    RegisterRepository registerRepository;
+    final RegisterRepository registerRepository;
 
     public RegisterService(RegisterRepository registerRepository) {
         this.registerRepository = registerRepository;

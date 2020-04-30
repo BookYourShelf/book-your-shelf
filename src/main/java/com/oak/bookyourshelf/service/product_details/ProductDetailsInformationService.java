@@ -9,7 +9,6 @@ public class ProductDetailsInformationService {
 
     final ProductDetailsInformationRepository productDetailsInformationRepository;
 
-
     public ProductDetailsInformationService(ProductDetailsInformationRepository productDetailsInformationRepository) {
         this.productDetailsInformationRepository = productDetailsInformationRepository;
     }

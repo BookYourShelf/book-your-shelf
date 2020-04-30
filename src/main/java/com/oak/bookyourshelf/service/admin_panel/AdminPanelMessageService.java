@@ -5,7 +5,6 @@ import com.oak.bookyourshelf.repository.admin_panel.AdminPanelMessageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 @Transactional
 public class AdminPanelMessageService {
@@ -14,7 +13,6 @@ public class AdminPanelMessageService {
     public AdminPanelMessageService(AdminPanelMessageRepository adminPanelMessageRepository) {
         this.adminPanelMessageRepository = adminPanelMessageRepository;
     }
-
 
     public Iterable<Message> listAll() {
         return adminPanelMessageRepository.findAll();
@@ -32,7 +30,3 @@ public class AdminPanelMessageService {
         adminPanelMessageRepository.save(message);
     }
 }
-
-
-
-

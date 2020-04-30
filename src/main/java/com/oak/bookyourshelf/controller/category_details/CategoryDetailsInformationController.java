@@ -1,9 +1,7 @@
 package com.oak.bookyourshelf.controller.category_details;
 
 import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.category_details.CategoryDetailsInformationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class CategoryDetailsInformationController {
 
-    final
-    CategoryDetailsInformationService categoryDetailsInformationService;
+    final CategoryDetailsInformationService categoryDetailsInformationService;
 
     public CategoryDetailsInformationController(CategoryDetailsInformationService categoryDetailsInformationService) {
         this.categoryDetailsInformationService = categoryDetailsInformationService;

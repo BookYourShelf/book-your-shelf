@@ -11,7 +11,6 @@ import java.util.List;
 @Controller
 public class AdminPanelUserController {
 
-
     final AdminPanelUserService adminPanelUserService;
 
     public AdminPanelUserController(AdminPanelUserService adminPanelUserService) {
@@ -28,10 +27,6 @@ public class AdminPanelUserController {
     @RequestMapping(value = "/admin-panel/user", method = RequestMethod.POST)
     @ResponseBody
     public String users(@ModelAttribute  List<User> allUsers) {
-
-
-
         return "redirect:/user-details";
     }
-
 }
