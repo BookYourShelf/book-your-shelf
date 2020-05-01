@@ -79,7 +79,7 @@
                                                                id="permission_agreement"
                                                                name="permission_agreement"
                                                                class="billing_checkbox" value="receiveMessage"
-                                                        th:checked="${user.getReceiveMeesage()}">
+                                                        th:checked="${user.getReceiveMessage()}">
                                                         <span class="checkbox_mark"></span>
                                                     </label>
                                                     <label style="padding-left: 29px; cursor: text">
@@ -165,27 +165,31 @@
 </div>
 <br>
 <br>
-<script>
-    $('#updateInformations ,#update_password').click(function (event) {
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateInformations, #update_password').click(function (event) {
 
         var button = $(this).attr("id");
         var ret;
         var receiveMessage;
+
         if(button === "updateInformations") {
+
             var name = $('#change_name').val();
             var surname = $('#change_surname').val();
             var email = $('#change_email').val();
             var phoneNumber = $('#change_phone').val();
             var birthDate = $('#change_birthdate').val();
 
-            if( $('#permission_agreement').val() === "receiveMessage"){
+            if($('#permission_agreement').val() === "receiveMessage"){
                 receiveMessage = true;
-            }
-            else
+
+            } else {
                 receiveMessage=false;
+            }
 
-             ret = {
-
+            ret = {
                 name: name,
                 surname: surname,
                 email: email,
@@ -195,9 +199,9 @@
                 currentPassword: "",
                 newPassword: "",
                 newPasswordAgain: "",
-                 receiveMessage: receiveMessage
-
+                receiveMessage: receiveMessage
             };
+
             if ((((birthDate !== "") && (validation_check(['change_birthdate']))) || birthDate === "") &&
                 (((phoneNumber !== "") && (validation_check(['change_phone']))) || phoneNumber === "") &&
                 (validation_check(['change_name', 'change_surname', 'change_email']))) {
@@ -213,6 +217,7 @@
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
+
                 }).fail(function (data) {
                     iziToast.show({
                         title: 'Fail',
@@ -222,24 +227,22 @@
                     });
                 })
             }
-        }
-        else if(button === "update_password")
-        {
+
+        } else if(button === "update_password") {
+
             var currentPassword = $('#current_password').val();
             var newPassword = $('#new_password').val();
             var newPasswordAgain = $('#new_password_again').val();
 
-
-             ret = {
-
+            ret = {
                 currentPassword: currentPassword,
                 newPassword: newPassword,
                 newPasswordAgain: newPasswordAgain,
                 button:button,
-                 receiveMessage:false
-
+                receiveMessage:false
             };
-            if ( (validation_check(['current_password', 'new_password', 'new_password_again']))) {
+
+            if ((validation_check(['current_password', 'new_password', 'new_password_again']))) {
                 event.preventDefault();
                 $.post("/profile/information", ret, function (data) {
                     iziToast.show({
@@ -263,11 +266,8 @@
                 })
             }
         }
-
-
-
-
     });
+
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
             if (!document.getElementById(arr[i]).checkValidity()) {
@@ -276,12 +276,8 @@
         }
         return true;
     }
-
     /*]]>*/
-
 </script>
-
 <script th:src="@{/static/js/input-mask.js}"></script>
-
 
 </html>
