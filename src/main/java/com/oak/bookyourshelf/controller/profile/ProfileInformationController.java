@@ -5,6 +5,7 @@ import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +29,9 @@ public class ProfileInformationController {
     @RequestMapping(value = "/profile/information", method = RequestMethod.GET)
     public String showUser(Model model ) {
 
-        String mail = authService.getUserDetails().getUsername();
-        if(mail != null) {
-            model.addAttribute("user", profileInformationService.getByEmail(mail));
+        UserDetails userDetails = authService.getUserDetails();
+        if(userDetails != null) {
+            model.addAttribute("user", profileInformationService.getByEmail(userDetails.getUsername()));
             return "profile/_information";
         }
         return "/";
@@ -42,11 +43,12 @@ public class ProfileInformationController {
                                                     @RequestParam String newPassword, @RequestParam String currentPassword,
                                                     @RequestParam String newPasswordAgain , User NewUser) {
 
-        String mail = authService.getUserDetails().getUsername();
+        UserDetails userDetails = authService.getUserDetails();
         User user;
 
-        if(mail != null) {
-            user = profileInformationService.getByEmail(mail);
+        if(userDetails != null) {
+            user = profileInformationService.getByEmail(userDetails.getUsername());
+
         } else {
             return ResponseEntity.badRequest().body("There is no logged in user");
         }
@@ -55,7 +57,7 @@ public class ProfileInformationController {
 
             user.setName(NewUser.getName());
             user.setSurname(NewUser.getSurname());
-            user.setReceiveMeesage(receiveMessage);
+            user.setReceiveMessage(receiveMessage);
 
             if (!NewUser.getEmail().equals(user.getEmail())) {
                 if (profileInformationService.getByEmail(NewUser.getEmail()) == null) {
