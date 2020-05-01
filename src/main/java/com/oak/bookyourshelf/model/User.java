@@ -1,11 +1,9 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 @Entity
 public class User {
@@ -38,8 +36,7 @@ public class User {
     private String surname;
     private String birthDate;
     private String phoneNumber;
-    private Boolean receiveMeesage;
-
+    private Boolean receiveMessage;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -82,10 +79,17 @@ public class User {
     )
     private List<Order> orders;
 
-    public User() {
-    }
+    public User() {}
 
     // FUNCTIONS
+
+    public void addToWishList(Product product) {
+        this.wishList.add(product);
+    }
+
+    public void addToCart(Product product) {
+        this.shoppingCart.add(product);
+    }
 
     public ArrayList<Product> getProductsPurchased() {
 
@@ -216,12 +220,11 @@ public class User {
         this.deliveryAddresses = deliveryAddresses;
     }
 
-    public Boolean getReceiveMeesage() {
-        return receiveMeesage;
+    public Boolean getReceiveMessage() {
+        return receiveMessage;
     }
 
-    public void setReceiveMeesage(Boolean receiveMeesage) {
-        this.receiveMeesage = receiveMeesage;
+    public void setReceiveMessage(Boolean receiveMeesage) {
+        this.receiveMessage = receiveMeesage;
     }
-
 }
