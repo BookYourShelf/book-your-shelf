@@ -20,8 +20,8 @@ public abstract class Product {
     private List<Integer> totalStarNum = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0));
 
     private float price;
-    private float saleRate;
-    private boolean onSale;
+    private float discountRate;
+    private boolean onDiscount;
     private Date uploadDate;
     private String productName;
     private String shortDesc;
@@ -56,6 +56,16 @@ public abstract class Product {
         return total / 5;
     }
 
+    public int getStarNum() {
+        int num = 0;
+
+        for (int i = 0; i < 5; i++) {
+            num += totalStarNum.get(i);
+        }
+
+        return num;
+    }
+
     public int getTotalReviewNum() {
         return reviews.size();
     }
@@ -86,12 +96,12 @@ public abstract class Product {
         return price;
     }
 
-    public float getSaleRate() {
-        return saleRate;
+    public float getDiscountRate() {
+        return discountRate;
     }
 
-    public boolean isOnSale() {
-        return onSale;
+    public boolean isOnDiscount() {
+        return onDiscount;
     }
 
     public Date getUploadDate() {
@@ -146,12 +156,12 @@ public abstract class Product {
         this.price = price;
     }
 
-    public void setSaleRate(float saleRate) {
-        this.saleRate = saleRate;
+    public void setDiscountRate(float saleRate) {
+        this.discountRate = saleRate;
     }
 
-    public void setOnSale(boolean onSale) {
-        this.onSale = onSale;
+    public void setOnDiscount(boolean onSale) {
+        this.onDiscount = onSale;
     }
 
     public void setUploadDate(Date uploadDate) {

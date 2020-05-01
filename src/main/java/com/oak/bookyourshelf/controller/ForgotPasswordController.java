@@ -1,6 +1,5 @@
 package com.oak.bookyourshelf.controller;
 
-
 import com.oak.bookyourshelf.model.Log;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.ForgotPasswordService;
@@ -19,16 +18,13 @@ import java.util.UUID;
 @Controller
 public class ForgotPasswordController {
 
-    final
-    ForgotPasswordService forgetPasswordService;
-    final
-    LoginService loginService;
+    final ForgotPasswordService forgetPasswordService;
+    final LoginService loginService;
 
     public ForgotPasswordController(ForgotPasswordService forgetPasswordService, LoginService loginService) {
         this.forgetPasswordService = forgetPasswordService;
         this.loginService = loginService;
     }
-
 
     @RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
     public String showForgetPasswordPage(Model model) {
@@ -49,5 +45,4 @@ public class ForgotPasswordController {
         }
         return ResponseEntity.ok("");
     }
-
 }

@@ -113,8 +113,8 @@ public class ProductDetailsInformationController {
         newProduct.setProductId(oldProduct.getProductId());
         newProduct.setSalesNum(oldProduct.getSalesNum());
         newProduct.setTotalStarNum(oldProduct.getTotalStarNum());
-        newProduct.setSaleRate(oldProduct.getSaleRate());
-        newProduct.setOnSale(oldProduct.isOnSale());
+        newProduct.setDiscountRate(oldProduct.getDiscountRate());
+        newProduct.setOnDiscount(oldProduct.isOnDiscount());
         newProduct.setUploadDate(oldProduct.getUploadDate());
         newProduct.setBuyerUserIds(oldProduct.getBuyerUserIds());
         newProduct.setReviews(oldProduct.getReviews());

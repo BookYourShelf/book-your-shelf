@@ -1,0 +1,62 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div class="footer_content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 footer_col"></div>
+
+            <!-- About -->
+            <div class="col-lg-4 footer_col">
+                <div class="footer_about">
+                    <div class="footer_logo">
+                        <div class="d-flex flex-row align-items-center justify-content-center">
+                            <img class="book_your_shelf_footer"
+                                 th:src="@{/static/images/logo/book_your_shelf_logo.png}"
+                                 alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="col-lg-4 footer_col">
+                <ul class="footer_list">
+                    <li>
+                        <a th:href="@{/membership}" target="_blank">
+                            <div>Terms and Conditions</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto: oak.bookyourshelf@gmail.com">
+                            <div>Contact</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 footer_col"></div>
+        </div>
+    </div>
+</div>
+<div class="footer_bar">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="footer_bar_content d-flex flex-md-row flex-column align-items-center justify-content-center">
+                    <div class="copyright order-md-1 order-2">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                        All rights reserved | This template is made with <i
+                            class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank" class="orange-text">Colorlib</a> &
+                        <b class="orange-text">Oak</b>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        

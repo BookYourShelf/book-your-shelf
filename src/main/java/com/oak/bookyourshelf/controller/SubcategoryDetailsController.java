@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class SubcategoryDetailsController {
 
-    final
-    SubcategoryDetailsService subcategoryDetailsService;
+    final SubcategoryDetailsService subcategoryDetailsService;
 
     public SubcategoryDetailsController(SubcategoryDetailsService subcategoryDetailsService) {
         this.subcategoryDetailsService = subcategoryDetailsService;

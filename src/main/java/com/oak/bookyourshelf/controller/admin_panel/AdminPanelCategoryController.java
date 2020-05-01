@@ -5,16 +5,14 @@ import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
 public class AdminPanelCategoryController {
-    final
-    AdminPanelCategoryService adminPanelCategoryService;
+
+    final AdminPanelCategoryService adminPanelCategoryService;
 
     public AdminPanelCategoryController(AdminPanelCategoryService adminPanelCategoryService) {
         this.adminPanelCategoryService = adminPanelCategoryService;

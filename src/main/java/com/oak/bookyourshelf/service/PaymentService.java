@@ -9,8 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PaymentService {
 
-    final
-    PaymentRepository paymentRepository;
+    final PaymentRepository paymentRepository;
 
     public PaymentService(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;

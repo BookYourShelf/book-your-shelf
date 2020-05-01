@@ -1,6 +1,5 @@
 package com.oak.bookyourshelf.controller.user_details;
 
-
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.user_details.UserDetailsInformationService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-
 public class UserDetailsInformationController {
 
     final UserDetailsInformationService userDetailsInformationService;
@@ -27,7 +25,6 @@ public class UserDetailsInformationController {
         User user = userDetailsInformationService.get(id);
         model.addAttribute("user", user);
 
-
         return "/user_details/_information";
     }
 
@@ -35,47 +32,45 @@ public class UserDetailsInformationController {
     @ResponseBody
     public ResponseEntity<String> UserUpdate(@RequestParam String button, @PathVariable int id, User newUser) {
 
-
         User user = userDetailsInformationService.get(id);
 
         switch (button) {
             case "updateUser":
-
                 user.setName(newUser.getName());
-
                 user.setSurname(newUser.getSurname());
 
                 if (!user.getEmail().equals(newUser.getEmail())) {
                     if (userDetailsInformationService.getByEmail(newUser.getEmail()) == null) {
                         user.setEmail(newUser.getEmail());
-                    } else
+                    } else {
                         return ResponseEntity.badRequest().body("This email address is already exist");
-
+                    }
                 }
+
                 if (!newUser.getBirthDate().equals("")) {
                     user.setBirthDate(newUser.getBirthDate());
-
-                } else
+                } else {
                     user.setBirthDate(null);
-                if (!newUser.getPhoneNumber().equals(""))
+                }
+
+                if (!newUser.getPhoneNumber().equals("")) {
                     user.setPhoneNumber(newUser.getPhoneNumber());
-                else
+                } else {
                     user.setPhoneNumber(null);
-                if (newUser.getPassword() != null)
+                }
+
+                if (newUser.getPassword() != null) {
                     user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+                }
+
                 user.setUserId(id);
                 userDetailsInformationService.save(user);
-
-
                 break;
+
             case "deleteUser":
                 userDetailsInformationService.delete(user.getUserId());
                 break;
         }
-
-
         return ResponseEntity.ok("");
     }
-
-
 }

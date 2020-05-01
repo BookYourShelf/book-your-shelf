@@ -1,0 +1,217 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+    <!-- Classy Menu -->
+    <nav class="classy-navbar" id="essenceNav">
+        <!-- Logo -->
+        <a th:href="@{/}" class="book_your_shelf_logo">
+            <img th:src="@{/static/images/logo/book_your_shelf_logo.png}" alt="">
+        </a>
+        <!-- Navbar Toggler -->
+        <div class="classy-navbar-toggler">
+            <span class="navbarToggler"><span></span><span></span><span></span></span>
+        </div>
+        <!-- Menu -->
+        <div class="classy-menu">
+            <!-- close btn -->
+            <div class="classycloseIcon">
+                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </div>
+            <!-- Nav Start -->
+            <div class="classynav">
+                <ul>
+                    <li><a href="#">Book</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Categories</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Novel</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Children and Youth</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Science</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Comic Book</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Religion Sufism</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Course/Exam Books</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Philosophy</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Foreign Languages</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow"
+                                       style="font-weight: bold">
+                                    Book Cases
+                                </a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Campaigns</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature Day</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Black Friday</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Home Reading
+                                    Festival</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Up to 40% Discount at
+                                    İşbank Cultural Publications & İşbank Science Publications</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">40% Discount on Bilgi
+                                    Publishing House Classics</a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Hot Lists</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">New Releases</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Our Picks For You</a>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownbookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#">E-Book</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Categories</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Fiction and
+                                    Literature</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Health and Care</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature and
+                                    Writing</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Life Style</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Sports and
+                                    Recreation</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Science Fiction and
+                                    Fantasy</a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Campaigns</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Black Friday</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Sports Day</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">%40 Discount on Science
+                                    Fiction and Fantasy</a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Hot Lists</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">New Releases</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Our Picks For You</a>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#">Audio Book</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Categories</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Mystery and
+                                    Suspicion</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Romance</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Children and Youth</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Cartoons and Comics</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Business and Finance</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Biography and Memory</a>
+                                </li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Romantic</a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Campaigns</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Black Friday</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Cartoons and Comics
+                                    Day</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">%20 on Romantic</a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Hot Lists</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">New Releases</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Our Picks For You</a>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownaudiobookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                    <li><a th:href="@{#}">E-Book Reader</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Categories</li>
+                                <li><a th:href="@{/category}">Kobo</a></li>
+                                <li><a th:href="@{/category}">Calibro</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow"
+                                       style="font-weight: bold">
+                                    E-Book Reader Cases
+                                </a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Campaigns</li>
+                                <li><a th:href="@{/category}">Black Friday</a></li>
+                                <li><a th:href="@{/category}">E-Book Reader Day</a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4">
+                                <li class="title">Hot Lists</li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Best Sellers</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">New Releases</a></li>
+                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Our Picks For You</a>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Nav End -->
+        </div>
+    </nav>
+
+    <!-- Header Meta Data -->
+    <div class="header-meta d-flex clearfix justify-content-end">
+        <!-- Search Area -->
+        <div class="search-area">
+            <form action="#" method="post">
+                <input type="search" name="search" id="headerSearch" placeholder="Type for search">
+                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+
+        <!-- User Area -->
+        <div class="user-button-dropdown user-login-info">
+            <a href=""><img th:src="@{/static/images/core-img/user.svg}" alt=""></a>
+            <div class="user-button-dropdown-content">
+                <div sec:authorize="isAnonymous()">
+                    <a th:href="@{/register}" style="line-height: 40px">Register</a>
+                    <a th:href="@{/login}" style="line-height: 40px">Login</a>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin-panel}" style="line-height: 40px">Panel</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a href="/profile" style="line-height: 40px">Profile</a>
+                    <a th:href="@{/perform_logout}" style="line-height: 40px">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favourite Area -->
+        <div class="favourite-area">
+            <a th:href="@{/wish-list}"><img th:src="@{/static/images/core-img/heart.svg}" alt=""></a>
+        </div>
+
+        <!-- Cart Area -->
+        <div class="cart-area">
+            <a th:href="@{/cart}" id="essenceCartBtn"><img th:src="@{/static/images/core-img/bag.svg}" alt="">
+                <span>3</span></a>
+        </div>
+    </div>
+</div>
+</html>

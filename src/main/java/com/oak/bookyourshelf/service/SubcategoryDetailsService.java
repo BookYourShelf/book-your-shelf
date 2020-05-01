@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class SubcategoryDetailsService {
-    final
-    SubcategoryDetailsRepository subcategoryDetailsRepository;
+
+    final SubcategoryDetailsRepository subcategoryDetailsRepository;
 
     public SubcategoryDetailsService(SubcategoryDetailsRepository subcategoryDetailsRepository) {
         this.subcategoryDetailsRepository = subcategoryDetailsRepository;
