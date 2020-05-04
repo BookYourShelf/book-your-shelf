@@ -1,223 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Product | Book Your Shelf</title>
+    <title th:text="${product.productName + ' | Book Your Shelf'}"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-    <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     <!-- Favicon  -->
-    <link rel="icon" href="images/logo/book_your_shelf_tab.png">
-    <link rel="stylesheet" type="text/css" href="plugins/flexslider/flexslider.css">
-    <link rel="stylesheet" type="text/css" href="styles/product.css">
-    <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/core-style.css">
-    <link rel="stylesheet" type="text/css" href="styles/util.css">
-    <link rel="stylesheet" type="text/css" href="styles/single-product.css">
-    <link rel="stylesheet" type="text/css" href="styles/star.css">
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/flexslider/flexslider.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/product_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/single-product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/star.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
+
 <body>
 <!-- Header -->
-<header class="header_area">
-    <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
-        <!-- Classy Menu -->
-        <nav class="classy-navbar" id="essenceNav">
-            <!-- Logo -->
-            <a href="index.html" class="book_your_shelf_logo">
-                <img src="images/logo/book_your_shelf_logo.png" alt="">
-            </a>
-            <!-- Navbar Toggler -->
-            <div class="classy-navbar-toggler">
-                <span class="navbarToggler"><span></span><span></span><span></span></span>
-            </div>
-            <!-- Menu -->
-            <div class="classy-menu">
-                <!-- close btn -->
-                <div class="classycloseIcon">
-                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                </div>
-                <!-- Nav Start -->
-                <div class="classynav">
-                    <ul>
-                        <li><a href="#">Book</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Novel</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Children and Youth</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Science</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Comic Book</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Religion Sufism</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Course/Exam Books</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Philosophy</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Foreign Languages</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow" style="font-weight: bold">
-                                        Book Cases
-                                    </a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature Day</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Home Reading Festival</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Up to 40% Discount at
-                                        İşbank Cultural Publications & İşbank Science Publications</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">40% Discount on Bilgi
-                                        Publishing House Classics</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownbookicon.jpg" alt="">
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">E-Book</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Fiction and Literature</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Health and Care</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature and Writing</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Life Style</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Sports and Recreation</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Science Fiction and
-                                        Fantasy</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Sports Day</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">%40 Discount on Science
-                                        Fiction and Fantasy</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownebookicon.jpg" alt="">
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">Audio Book</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Mystery and Suspicion</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Romance</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Literature</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Children and Youth</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Cartoons and Comics</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Business and Finance</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Biography and Memory</a>
-                                    </li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Romantic</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Black Friday</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Cartoons and Comics
-                                        Day</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">%20 on Romantic</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownaudiobookicon.jpg" alt="">
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">E-Book Reader</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Categories</li>
-                                    <li><a href="category.html">Kobo</a></li>
-                                    <li><a href="category.html">Calibro</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow" style="font-weight: bold">
-                                        E-Book Reader Cases
-                                    </a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Campaigns</li>
-                                    <li><a href="category.html">Black Friday</a></li>
-                                    <li><a href="category.html">E-Book Reader Day</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Hot Lists</li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Best Sellers</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">New Releases</a></li>
-                                    <li><a href="category.html" class="nav-bar-text-overflow">Our Picks For You</a></li>
-                                </ul>
-                                <div class="single-mega cn-col-4">
-                                    <img src="images/icons/01brownebookicon.jpg" alt="">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Nav End -->
-            </div>
-        </nav>
-
-        <!-- Header Meta Data -->
-        <div class="header-meta d-flex clearfix justify-content-end">
-            <!-- Search Area -->
-            <div class="search-area">
-                <form action="#" method="post">
-                    <input type="search" name="search" id="headerSearch" placeholder="Type for search">
-                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
-            </div>
-
-            <!-- User Area -->
-            <div class="user-button-dropdown user-login-info">
-                <a href=""><img src="images/core-img/user.svg" alt=""></a>
-                <div class="user-button-dropdown-content">
-                    <a href="register.html" style="line-height: 40px">Register</a>
-                    <a href="login.html" style="line-height: 40px">Login</a>
-                    <a href="profile.html" style="line-height: 40px">Profile</a>
-                    <a href="admin-panel.html" style="line-height: 40px">Panel</a>
-                    <a href="index.html" style="line-height: 40px">Logout</a>
-                </div>
-            </div>
-
-            <!-- Favourite Area -->
-            <div class="favourite-area">
-                <a href="wish-list.html"><img src="images/core-img/heart.svg" alt=""></a>
-            </div>
-
-            <!-- Cart Area -->
-            <div class="cart-area">
-                <a href="cart.html" id="essenceCartBtn"><img src="images/core-img/bag.svg" alt="">
-                    <span>3</span></a>
-            </div>
-        </div>
-    </div>
-</header>
+<header class="header_area" th:insert="fragments/header.html"></header>
 
 <div class="super_container">
 
@@ -231,9 +39,10 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="category.html">Literature</a></li>
-                                <li style="color: #fbaa1d">Animal Farm</li>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <!-- TODO -->
+                                <li><a th:href="@{/category}">Literature</a></li>
+                                <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
                             </ul>
                         </div>
                     </div>
@@ -252,32 +61,32 @@
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
                                     <li>
-                                        <img src="images/hayvan_ciftligi.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi.jpg}"/>
                                     </li>
                                     <li>
-                                        <img src="images/hayvan_ciftligi_2.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi_2.jpg}"/>
                                     </li>
                                     <li>
-                                        <img src="images/hayvan_ciftligi_3.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi_3.jpg}"/>
                                     </li>
                                     <li>
-                                        <img src="images/hayvan_ciftligi_4.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi_4.jpg}"/>
                                     </li>
                                 </ul>
                             </div>
                             <div id="carousel" class="flexslider">
                                 <ul class="slides">
                                     <li>
-                                        <img src="images/hayvan_ciftligi.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi.jpg}"/>
                                     </li>
                                     <li>
-                                        <img src="images/hayvan_ciftligi_2.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi_2.jpg}"/>
                                     </li>
                                     <li>
-                                        <img src="images/hayvan_ciftligi_3.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi_3.jpg}"/>
                                     </li>
                                     <li>
-                                        <img src="images/hayvan_ciftligi_4.jpg"/>
+                                        <img th:src="@{/static/images/hayvan_ciftligi_4.jpg}"/>
                                     </li>
                                 </ul>
                             </div>
@@ -287,7 +96,9 @@
                     <!-- Product Info -->
                     <div class="col-lg-8 product_col">
                         <div class="product_info">
-                            <span class="product_name" contenteditable="true">Animal Farm</span>
+                            <span class="product_name" contenteditable="true">
+                                <h th:text="${product.productName}"></h>
+                            </span>
                             <div class="product_rating_container d-flex flex-row align-items-center justify-content-start">
                                 <div style="text-align:center;">
                                     <i class="fa fa-star" style="color:#4a4a4a"></i>
@@ -296,702 +107,1003 @@
                                     <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                     <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                 </div>
-                                <div class="product_reviews">4.7 out of (143)</div>
+                                <div class="product_reviews">
+                                    <h th:text="${product.getScoreOutOf5()}"></h>
+                                    out of
+                                    <h th:text="${product.getStarNum()}"></h>
+                                </div>
                                 <div class="product_reviews_link"><a href="#product_description_area" id="show_review">Review</a>
                                 </div>
                             </div>
                             <div class="sale_price_container align-items-start justify-content-start">
                                 <div class="sale_price">
-                                    <del>₺15.99</del>
-                                </div>    <!-- when no sale delete it -->
-                                <div class="sale_price"><b>%40</b></div>  <!-- when no sale &nbsp; -->
-                            </div>
-                            <div class="product_price">₺11<span>.99</span></div>
+                                    <span th:switch="${product.isOnDiscount()}">
+                                        <del th:case="True">
+                                            <h th:text="${product.getPrice()}"></h> ₺
+                                        </del>
+                                    </span>
+                                    </span>    <!-- when no sale delete it -->
+                                    <div class="sale_price">
+                                    <span th:switch="${product.isOnDiscount()}">
+                                        <del th:case="True">
+                                            <!-- TODO -->
+                                            <b th:text="${product.getDiscountRate()}"></b>
+                                        </del>
+                                        <div th:case="*">&nbsp;</div>
+                                    </span>
+                                    </div>  <!-- when no sale &nbsp; -->
+                                </div>
+                                <div class="product_price">₺11<span>.99</span></div>
 
-                            <div class="product_text">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consequat lorem.
-                                    Maecenas elementum at diam consequat bibendum. Mauris iaculis fringilla ex, sit amet
-                                    semper libero facilisis sit amet. Nunc ut aliquet metus. Praesent pulvinar justo sed
-                                    velit tempus bibendum. Quisque dictum lorem id mi viverra, in auctor justo laoreet.
-                                    Nam at massa malesuada, ullamcorper metus vel, consequat risus. Phasellus ultricies
-                                    velit vel accumsan porta.</p>
-                            </div>
-                            <div class="product_buttons">
-                                <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                    <div title="Add to wish list"
-                                         class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                        <div>
-                                            <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                <div>+</div>
+                                <div class="product_text">
+                                    <p th:text="${product.getShortDesc()}"></p>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="product_buttons">
+                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                        <div title="Add to wish list" id="add_wish_list"
+                                             class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div>
+                                                <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div title="Add to shopping cart"
-                                         class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                        <div>
-                                            <div><img src="images/cart.svg" class="svg" alt="">
-                                                <div>+</div>
+                                        <div title="Add to shopping cart" id="add_cart"
+                                             class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div>
+                                                <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div title="Add reminder"
-                                         class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                        <div>
-                                            <div><img src="images/notification.svg" class="svg" alt="">
-                                                <div>+</div>
+                                        <div title="Add reminder" id="add_notif"
+                                             class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div>
+                                                <div><img th:src="@{/static/images/notification.svg}" class="svg"
+                                                          alt="">
+                                                    <div>+</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!--================Product Description Area =================-->
-        <section class="product_description_area" id="product_description_area">
-            <div class="container">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                           aria-selected="true">DESCRIPTION</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                           aria-controls="profile"
-                           aria-selected="false">SPECIFICATION</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
-                           aria-controls="review"
-                           aria-selected="false">REVIEWS</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consequat lorem.
-                            Maecenas elementum at diam consequat bibendum. Mauris iaculis fringilla ex, sit amet
-                            semper libero facilisis sit amet. Nunc ut aliquet metus. Praesent pulvinar justo sed
-                            velit tempus bibendum. Quisque dictum lorem id mi viverra, in auctor justo laoreet.
-                            Nam at massa malesuada, ullamcorper metus vel, consequat risus. Phasellus ultricies
-                            velit vel accumsan porta.</p>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <h5>Width</h5>
-                                    </td>
-                                    <td>
-                                        <h5>128mm</h5>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5>Height</h5>
-                                    </td>
-                                    <td>
-                                        <h5>508mm</h5>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5>Depth</h5>
-                                    </td>
-                                    <td>
-                                        <h5>85mm</h5>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5>Weight</h5>
-                                    </td>
-                                    <td>
-                                        <h5>52gm</h5>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+            <!-- Product Description Area -->
+            <section class="product_description_area" id="product_description_area">
+                <div class="container">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="desc-tab" data-toggle="tab" href="#desc" role="tab"
+                               aria-controls="desc"
+                               aria-selected="true">DESCRIPTION</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile"
+                               aria-selected="false">SPECIFICATION</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
+                               aria-controls="review"
+                               aria-selected="false">REVIEWS</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade" id="desc" role="tabpanel" aria-labelledby="desc-tab">
+                            <p th:text="${product.getShortDesc()}"></p>
+                            <p th:text="${product.getLongDesc()}"></p>
                         </div>
-                    </div>
-                    <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="row total_rate">
-                                    <div class="col-6">
-                                        <div class="box_total">
-                                            <h5>Overall</h5>
-                                            <h4>4.0</h4>
-                                            <h6>(03 Reviews)</h6>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td><h5>Name</h5></td>
+                                        <td><h5 th:text="${product.getProductName()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Barcode</h5></td>
+                                        <td><h5 th:text="${product.getBarcode()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Stock</h5></td>
+                                        <td><h5 th:text="${product.getStock()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Price</h5></td>
+                                        <td><h5 th:text="${product.getPrice()} + ' ₺'"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Number of Sales</h5></td>
+                                        <td><h5 th:text="${product.getSalesNum()} + ' ₺'"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Discount Rate</h5></td>
+                                        <td><h5 th:text="${product.getDiscountRate()}"></h5></td>
+                                    </tr>
+
+                                    <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+
+                                    <tr><td><h5>ISBN</h5></td>
+                                        <td><h5 th:text="${product.getIsbn()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Published Year</h5></td>
+                                        <td><h5 th:text="${product.getPublishedYear()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Language</h5></td>
+                                        <td><h5 th:text="${product.getLanguage()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Author</h5></td>
+                                        <td><h5 th:text="${product.getAuthors()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Translator</h5></td>
+                                        <td><h5 th:text="${product.getTranslators()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Publisher</h5></td>
+                                        <td><h5 th:text="${product.getPublishers()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Keyword</h5></td>
+                                        <td><h5 th:text="${product.getKeywords()}"></h5></td>
+                                    </tr>
+
+                                    <span th:if="${product.getProductTypeName() == 'Book'}">
+                                        <tr><td><h5>Media Type</h5></td>
+                                            <td><h5 th:text="#{${'media_type.' + product.getMediaType()}}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Paper Type</h5></td>
+                                            <td><h5 th:text="#{${'paper_type.' + product.getPaperType()}}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Binding Type</h5></td>
+                                            <td><h5 th:text="#{${'binding_type.' + product.getBindingType()}}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Page Number</h5></td>
+                                            <td><h5 th:text="${product.getPageNum()}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Edition Number</h5></td>
+                                            <td><h5 th:text="${product.getEditionNum()}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Height</h5></td>
+                                            <td><h5 th:text="${product.getHeight() + ' mm'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Width</h5></td>
+                                            <td><h5 th:text="${product.getWidth() + ' mm'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Depth</h5></td>
+                                            <td><h5 th:text="${product.getDepth() + ' mm'}"></h5></td>
+                                        </tr>
+                                    </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                        <tr><td><h5>Page Number</h5></td>
+                                            <td><h5 th:text="${product.getPageNum()}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>File Size</h5></td>
+                                            <td><h5 th:text="${product.getFileSize()}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>File Format</h5></td>
+                                            <td><h5 th:text="${product.getFileFormat()}"></h5></td>
+                                        </tr>
+                                    </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'Audio Book'}">
+                                        <tr><td><h5>Length</h5></td>
+                                            <td><h5 th:text="${product.getLengthInMinutes() + ' minutes'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Narrated By</h5></td>
+                                            <td><h5 th:text="${product.getNarratedBy()}"></h5></td>
+                                        </tr>
+                                    </span>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                    <tr><td><h5>Color</h5></td>
+                                        <td><h5 th:text="${product.getReaderColor()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Color</h5></td>
+                                        <td><h5 th:text="${product.getReaderColor()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Brand</h5></td>
+                                        <td><h5 th:text="${product.getReaderBrand()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Model</h5></td>
+                                        <td><h5 th:text="${product.getReaderModel()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Technical Specifications</h5></td>
+                                        <td><h5 th:text="${product.getTechnicalSpecifications()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Weight</h5></td>
+                                        <td><h5 th:text="${product.getWeight() + ' g'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Height</h5></td>
+                                        <td><h5 th:text="${product.getHeight() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Width</h5></td>
+                                        <td><h5 th:text="${product.getWidth() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Depth</h5></td>
+                                        <td><h5 th:text="${product.getDepth() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Screen Size</h5></td>
+                                        <td><h5 th:text="${product.getScreenSize() + ' inch'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Battery Life</h5></td>
+                                        <td><h5 th:text="${product.getBatteryLife() + ' hours'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Resolution</h5></td>
+                                        <td><h5 th:text="${product.getResolution() + ' dpi'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>RAM</h5></td>
+                                        <td><h5 th:text="${product.getRam() + ' MB'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Glare Free Screen</h5></td>
+                                        <div th:switch="${product.isGlareFreeScreen()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
                                         </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="rating_list">
-                                            <h3>Based on 3 Reviews</h3>
-                                            <ul class="list">
-                                                <li><a>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    1</a></li>
-                                                <li><a>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    1</a></li>
-                                                <li><a>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    1</a></li>
-                                                <li><a>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    1</a></li>
-                                                <li><a>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    1</a></li>
-                                            </ul>
+                                    </tr>
+
+                                    <tr><td><h5>Water Proof</h5></td>
+                                        <div th:switch="${product.isWaterProof()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
                                         </div>
-                                    </div>
-                                </div>
+                                    </tr>
 
-                                <!-- Sort orders -->
-                                <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
-                                    <div class="products_dropdown product_dropdown_sorting">
-                                        <div class="isotope_sorting_text"><span>Sort</span><i
-                                                class="fa fa-caret-down" aria-hidden="true"></i></div>
-                                        <ul>
-                                            <li class="item_sorting_btn"
-                                                data-isotope-option='{ "sortBy": "original-order" }'>Date
-                                            </li>
-                                            <li class="item_sorting_btn"
-                                                data-isotope-option='{ "sortBy": "user-name" }'>User Name
-                                            </li>
-                                            <li class="item_sorting_btn"
-                                                data-isotope-option='{ "sortBy": "user-surname" }'>User Surname
-                                            </li>
-                                            <li class="item_sorting_btn"
-                                                data-isotope-option='{ "sortBy": "decr-rate" }'>Decreasing Rate
-                                            </li>
-                                            <li class="item_sorting_btn"
-                                                data-isotope-option='{ "sortBy": "incr-rate" }'>Increasing Rate
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                    <tr><td><h5>Auto Adjusting Light</h5></td>
+                                        <div th:switch="${product.isAutoAdjustingLight()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </div>
+                                    </tr>
 
-                                <br>
+                                    <tr><td><h5>Buttons</h5></td>
+                                        <div th:switch="${product.isButtons()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </div>
+                                    </tr>
 
-                                <div class="review_list">
-                                    <div class="review_item">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <div class="row">
-                                                    <div class="col-lg-9">
-                                                        <h4>Jane Doe</h4>
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <h5 class="date">01.03.2020</h5>
-                                                    </div>
-                                                </div>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                                                <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                    <tr><td><h5>Wifi</h5></td>
+                                        <div th:switch="${product.isWifi()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </div>
+                                    </tr>
+
+                                    <tr><td><h5>Cellular</h5></td>
+                                        <div th:switch="${product.isCellular()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </div>
+                                    </tr>
+
+                                    <tr><td><h5>Backlight</h5></td>
+                                        <div th:switch="${product.isBackLight()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </div>
+                                    </tr>
+
+                                    <tr><td><h5>Warm Backlight</h5></td>
+                                        <div th:switch="${product.isWarmBackLight()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </div>
+                                    </tr>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                    <tr><td><h5>Color</h5></td>
+                                        <td><h5 th:text="${product.getCaseColor()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Brand</h5></td>
+                                        <td><h5 th:text="${product.getCaseBrand()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Model</h5></td>
+                                        <td><h5 th:text="${product.getCaseModel()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Height</h5></td>
+                                        <td><h5 th:text="${product.getCaseHeight() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Width</h5></td>
+                                        <td><h5 th:text="${product.getCaseWidth() + ' mm'}"></h5></td>
+                                    </tr>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                                    <tr><td><h5>Reader Brand</h5></td>
+                                        <td><h5 th:text="${product.getReaderBrand()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Reader Model</h5></td>
+                                        <td><h5 th:text="${product.getReaderModel()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Depth</h5></td>
+                                        <td><h5 th:text="${product.getCaseDepth()}"></h5></td>
+                                    </tr>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'Book Case'}">
+                                    <tr><td><h5>Maximum Book Depth</h5></td>
+                                        <td><h5 th:text="${product.getMaxBookDepth() + ' mm'}"></h5></td>
+                                    </tr>
+                                </span>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row total_rate">
+                                        <div class="col-6">
+                                            <div class="box_total">
+                                                <h5>Overall</h5>
+                                                <h4>4.0</h4>
+                                                <h6>(03 Reviews)</h6>
                                             </div>
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                            ullamco laboris nisi ut aliquip ex ea
-                                            commodo</p>
-                                    </div>
-                                    <br>
-                                    <div class="review_item">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <div class="row">
-                                                    <div class="col-lg-9">
-                                                        <h4>John Doe</h4>
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <h5 class="date">23.02.2020</h5>
-                                                    </div>
-                                                </div>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                                                <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                            ullamco laboris nisi ut aliquip ex ea
-                                            commodo</p>
-                                    </div>
-                                    <br>
-                                    <div class="review_item">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <div class="row">
-                                                    <div class="col-lg-9">
-                                                        <h4>Jane Doe</h4>
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <h5 class="date">02.02.2020</h5>
-                                                    </div>
-                                                </div>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star" style="color:#fbd600"></i>
-                                                <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et
-                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                            ullamco laboris nisi ut aliquip ex ea
-                                            commodo</p>
-                                    </div>
-
-                                    <div class="row page_nav_row">
-                                        <div class="col">
-                                            <div class="page_nav">
-                                                <ul class="d-flex flex-row align-items-start justify-content-center">
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                                                    <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                                                    <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                                        <div class="col-6">
+                                            <div class="rating_list">
+                                                <h3>Based on 3 Reviews</h3>
+                                                <ul class="list">
+                                                    <li><a>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        1</a></li>
+                                                    <li><a>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        1</a></li>
+                                                    <li><a>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        1</a></li>
+                                                    <li><a>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        1</a></li>
+                                                    <li><a>
+                                                        <i class="fa fa-star" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                        1</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- No reviews -->
-                                <div class="warning-text" style="font-size: 18px; display: none">There are no reviews.
-                                    Be the first to review!
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="review_box">
-                                    <h4>Add a Review</h4>
-                                    <fieldset class="rating">
-                                        <input type="radio" id="star5" name="rating" value="5"/><label
-                                            class="full review-star-cursor"
-                                            for="star5"
-                                            title="Excellent - 5 stars"></label>
-                                        <input type="radio" id="star4" name="rating" value="4"/><label
-                                            class="full review-star-cursor"
-                                            for="star4"
-                                            title="Very good - 4 stars"></label>
-                                        <input type="radio" id="star3" name="rating" value="3"/><label
-                                            class="full review-star-cursor"
-                                            for="star3"
-                                            title="Good - 3 stars"></label>
-                                        <input type="radio" id="star2" name="rating" value="2"/><label
-                                            class="full review-star-cursor"
-                                            for="star2"
-                                            title="Bad - 2 stars"></label>
-                                        <input type="radio" id="star1" name="rating" value="1"/><label
-                                            class="full review-star-cursor"
-                                            for="star1"
-                                            title="Very bad- 1 star"></label>
-                                    </fieldset>
-                                    <br>
-                                    <form action="#/" class="form-contact form-review mt-3">
-                                        <div class="form-group">
-                                            <input class="form-control" name="subject" type="text"
-                                                   placeholder="Specify Your Review Title (Optional)">
+                                    <!-- Sort orders -->
+                                    <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
+                                        <div class="products_dropdown product_dropdown_sorting">
+                                            <div class="isotope_sorting_text"><span>Sort</span><i
+                                                    class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                            <ul>
+                                                <li class="item_sorting_btn"
+                                                    data-isotope-option='{ "sortBy": "original-order" }'>Date
+                                                </li>
+                                                <li class="item_sorting_btn"
+                                                    data-isotope-option='{ "sortBy": "user-name" }'>User Name
+                                                </li>
+                                                <li class="item_sorting_btn"
+                                                    data-isotope-option='{ "sortBy": "user-surname" }'>User Surname
+                                                </li>
+                                                <li class="item_sorting_btn"
+                                                    data-isotope-option='{ "sortBy": "decr-rate" }'>Decreasing Rate
+                                                </li>
+                                                <li class="item_sorting_btn"
+                                                    data-isotope-option='{ "sortBy": "incr-rate" }'>Increasing Rate
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="form-group">
+                                    </div>
+
+                                    <br>
+
+                                    <div class="review_list">
+                                        <div class="review_item">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-9">
+                                                            <h4>Jane Doe</h4>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <h5 class="date">01.03.2020</h5>
+                                                        </div>
+                                                    </div>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star-half-full" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                </div>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                tempor incididunt ut labore et
+                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                                ullamco laboris nisi ut aliquip ex ea
+                                                commodo</p>
+                                        </div>
+                                        <br>
+                                        <div class="review_item">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-9">
+                                                            <h4>John Doe</h4>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <h5 class="date">23.02.2020</h5>
+                                                        </div>
+                                                    </div>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star-half-full" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
+                                                </div>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                tempor incididunt ut labore et
+                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                                ullamco laboris nisi ut aliquip ex ea
+                                                commodo</p>
+                                        </div>
+                                        <br>
+                                        <div class="review_item">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-9">
+                                                            <h4>Jane Doe</h4>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <h5 class="date">02.02.2020</h5>
+                                                        </div>
+                                                    </div>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star" style="color:#fbd600"></i>
+                                                    <i class="fa fa-star-half-full" style="color:#fbd600"></i>
+                                                </div>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                tempor incididunt ut labore et
+                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                                ullamco laboris nisi ut aliquip ex ea
+                                                commodo</p>
+                                        </div>
+
+                                        <div class="row page_nav_row">
+                                            <div class="col">
+                                                <div class="page_nav">
+                                                    <ul class="d-flex flex-row align-items-start justify-content-center">
+                                                        <li class="active"><a href="#">1</a></li>
+                                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
+                                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
+                                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- No reviews -->
+                                    <div class="warning-text" style="font-size: 18px; display: none">There are no
+                                        reviews.
+                                        Be the first to review!
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="review_box">
+                                        <h4>Add a Review</h4>
+                                        <fieldset class="rating">
+                                            <input type="radio" id="star5" name="rating" value="5"/><label
+                                                class="full review-star-cursor"
+                                                for="star5"
+                                                title="Excellent - 5 stars"></label>
+                                            <input type="radio" id="star4" name="rating" value="4"/><label
+                                                class="full review-star-cursor"
+                                                for="star4"
+                                                title="Very good - 4 stars"></label>
+                                            <input type="radio" id="star3" name="rating" value="3"/><label
+                                                class="full review-star-cursor"
+                                                for="star3"
+                                                title="Good - 3 stars"></label>
+                                            <input type="radio" id="star2" name="rating" value="2"/><label
+                                                class="full review-star-cursor"
+                                                for="star2"
+                                                title="Bad - 2 stars"></label>
+                                            <input type="radio" id="star1" name="rating" value="1"/><label
+                                                class="full review-star-cursor"
+                                                for="star1"
+                                                title="Very bad- 1 star"></label>
+                                        </fieldset>
+                                        <br>
+                                        <form action="#" class="form-contact form-review mt-3">
+                                            <div class="form-group">
+                                                <input class="form-control" name="subject" type="text"
+                                                       placeholder="Specify Your Review Title (Optional)">
+                                            </div>
+                                            <div class="form-group">
                                             <textarea class="form-control different-control w-100" name="textarea"
                                                       id="textarea" cols="30" rows="5"
                                                       placeholder="Write Your Review"></textarea>
+                                            </div>
+                                            <div class="form-group text-center text-md-right mt-3">
+                                                <button type="submit" class="button button--active button-review">SUBMIT
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--================End Product Description Area =================-->
+
+            <div class="products" style="padding-top: 0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <div class="section_title text-center">Our Picks For You</div>
+                        </div>
+                    </div>
+
+                    <div class="row products_row">
+
+                        <!-- Product -->
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase"><a href="product.html"><img
+                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
+                                        class="product_image_img"></a></div>
+                                <div class="product_content">
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                         </div>
-                                        <div class="form-group text-center text-md-right mt-3">
-                                            <button type="submit" class="button button--active button-review">SUBMIT
-                                            </button>
+
+                                        <div>
+                                            <div class="our_picks_product_name"><a href="product.html">Animal Farm</a>
+                                            </div>
+                                            <div class="our_picks_product_text">George Orwell</div>
                                         </div>
-                                    </form>
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                <del>₺15.99</del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>%40</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended">₺11<span>.99</span></div>
+                                    </div>
+
+                                    <div class="our_picks_product_buttons product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                                 class="our_picks_product_button_last our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="col-xl-3 col-md-3">
+
+                            <div class="product">
+
+                                <div class="product_image_showcase"><a href="product.html"><img
+                                        th:src="@{/static/images/sineklerin_tanrisi.jpg}" alt=""
+                                        class="product_image_img"></a></div>
+                                <div class="product_content">
+
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                        </div>
+                                        <div>
+                                            <div class="our_picks_product_name"><a href="product.html">Lord of the
+                                                Flies</a>
+                                            </div>
+                                            <div class="our_picks_product_text">William Golding</div>
+                                        </div>
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                <del>₺11.99</del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>%40</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended">₺9<span>.60</span></div>
+                                    </div>
+
+                                    <div class="our_picks_product_buttons product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt=""
+                                                              title="Add to shopping cart">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase"><a href="product.html"><img
+                                        th:src="@{/static/images/seker_portakali.jpg}" alt=""
+                                        class="product_image_img"></a></div>
+                                <div class="product_content">
+
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                        </div>
+                                        <div>
+                                            <div class="our_picks_product_name"><a href="product.html">My Sweet Orange
+                                                Tree</a></div>
+                                            <div class="our_picks_product_text">José Mauro de Vasconcelos</div>
+                                        </div>
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                <del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended">₺17<span>.86</span></div>
+                                    </div>
+
+                                    <div class="our_picks_product_buttons product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase">
+                                    <a href="product.html">
+                                        <img th:src="@{/static/images/otomatik_portakal.jpg}" alt=""
+                                             class="product_image_img">
+                                    </a>
+                                </div>
+                                <div class="product_content">
+
+                                    <div class="our_picks_product_buttons product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                        </div>
+                                        <div>
+                                            <div class="our_picks_product_name"><a href="product.html">A Clockwork
+                                                Orange</a></div>
+                                            <div class="our_picks_product_text">Anthony Burgess</div>
+                                        </div>
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                <del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended">₺9<span>.60</span></div>
+                                    </div>
+
+                                    <div class="our_picks_product_buttons product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!--================End Product Description Area =================-->
 
-        <div class="products" style="padding-top: 0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-3">
-                        <div class="section_title text-center">Our Picks For You</div>
-                    </div>
-                </div>
-
-                <div class="row products_row">
-
-                    <!-- Product -->
-                    <div class="col-xl-3 col-md-3">
-                        <div class="product">
-                            <div class="product_image_showcase"><a href="product.html"><img
-                                    src="images/hayvan_ciftligi.jpg" alt=""
-                                    class="product_image_img"></a></div>
-                            <div class="product_content">
-                                <div class="product_info align-items-center justify-content-center">
-                                    <div style="text-align:center;">
-                                        <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                    </div>
-
-                                    <div>
-                                        <div class="our_picks_product_name"><a href="product.html">Animal Farm</a></div>
-                                        <div class="our_picks_product_text">George Orwell</div>
-                                    </div>
-                                    <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                        <div class="sale_price">
-                                            <del>₺15.99</del>
-                                        </div>
-                                        <div class="ml-auto text-right">
-                                            <div class="sale_price"><b>%40</b></div>
-                                        </div>
-                                    </div>
-                                    <div class="product_price_recommended">₺11<span>.99</span></div>
-                                </div>
-
-                                <div class="our_picks_product_buttons product_buttons">
-                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                        <div title="Add to wish list"
-                                             class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Add to shopping cart"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/cart.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Compare products" onclick="location.href='compare.html'"
-                                             class="our_picks_product_button_last our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/compare.svg" class="svg" alt=""></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product -->
-                    <div class="col-xl-3 col-md-3">
-
-                        <div class="product">
-
-                            <div class="product_image_showcase"><a href="product.html"><img
-                                    src="images/sineklerin_tanrisi.jpg" alt=""
-                                    class="product_image_img"></a></div>
-                            <div class="product_content">
-
-                                <div class="product_info align-items-center justify-content-center">
-                                    <div style="text-align:center;">
-                                        <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                    </div>
-                                    <div>
-                                        <div class="our_picks_product_name"><a href="product.html">Lord of the Flies</a>
-                                        </div>
-                                        <div class="our_picks_product_text">William Golding</div>
-                                    </div>
-                                    <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                        <div class="sale_price">
-                                            <del>₺11.99</del>
-                                        </div>
-                                        <div class="ml-auto text-right">
-                                            <div class="sale_price"><b>%40</b></div>
-                                        </div>
-                                    </div>
-                                    <div class="product_price_recommended">₺9<span>.60</span></div>
-                                </div>
-
-                                <div class="our_picks_product_buttons product_buttons">
-                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                        <div title="Add to wish list"
-                                             class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Add to shopping cart"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/cart.svg" class="svg" alt=""
-                                                          title="Add to shopping cart">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Compare products" onclick="location.href='compare.html'"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/compare.svg" class="svg" alt=""></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product -->
-                    <div class="col-xl-3 col-md-3">
-                        <div class="product">
-                            <div class="product_image_showcase"><a href="product.html"><img
-                                    src="images/seker_portakali.jpg" alt=""
-                                    class="product_image_img"></a></div>
-                            <div class="product_content">
-
-                                <div class="product_info align-items-center justify-content-center">
-                                    <div style="text-align:center;">
-                                        <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                    </div>
-                                    <div>
-                                        <div class="our_picks_product_name"><a href="product.html">My Sweet Orange
-                                            Tree</a></div>
-                                        <div class="our_picks_product_text">José Mauro de Vasconcelos</div>
-                                    </div>
-                                    <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                        <div class="sale_price">
-                                            <del></del>
-                                        </div>
-                                        <div class="ml-auto text-right">
-                                            <div class="sale_price"><b>&nbsp;</b></div>
-                                        </div>
-                                    </div>
-                                    <div class="product_price_recommended">₺17<span>.86</span></div>
-                                </div>
-
-                                <div class="our_picks_product_buttons product_buttons">
-                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                        <div title="Add to wish list"
-                                             class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Add to shopping cart"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/cart.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Compare products" onclick="location.href='compare.html'"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/compare.svg" class="svg" alt=""></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product -->
-                    <div class="col-xl-3 col-md-3">
-                        <div class="product">
-                            <div class="product_image_showcase">
-                                <a href="product.html">
-                                    <img src="images/otomatik_portakal.jpg" alt="" class="product_image_img">
-                                </a>
-                            </div>
-                            <div class="product_content">
-
-                                <div class="our_picks_product_buttons product_info align-items-center justify-content-center">
-                                    <div style="text-align:center;">
-                                        <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                    </div>
-                                    <div>
-                                        <div class="our_picks_product_name"><a href="product.html">A Clockwork
-                                            Orange</a></div>
-                                        <div class="our_picks_product_text">Anthony Burgess</div>
-                                    </div>
-                                    <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                        <div class="sale_price">
-                                            <del></del>
-                                        </div>
-                                        <div class="ml-auto text-right">
-                                            <div class="sale_price"><b>&nbsp;</b></div>
-                                        </div>
-                                    </div>
-                                    <div class="product_price_recommended">₺9<span>.60</span></div>
-                                </div>
-
-                                <div class="our_picks_product_buttons product_buttons">
-                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                        <div title="Add to wish list"
-                                             class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Add to shopping cart"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/cart.svg" class="svg" alt="">
-                                                    <div>+</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div title="Compare products" onclick="location.href='compare.html'"
-                                             class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                            <div>
-                                                <div><img src="images/compare.svg" class="svg" alt=""></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Footer -->
+            <footer class="footer" th:insert="fragments/footer.html"></footer>
         </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer_content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-2 footer_col"></div>
-
-                        <!-- About -->
-                        <div class="col-lg-4 footer_col">
-                            <div class="footer_about">
-                                <div class="footer_logo">
-                                    <div class="d-flex flex-row align-items-center justify-content-center">
-                                        <img class="book_your_shelf_footer" src="images/logo/book_your_shelf_logo.png"
-                                             alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Footer Links -->
-                        <div class="col-lg-4 footer_col">
-                            <ul class="footer_list">
-                                <li>
-                                    <a href="membership.html" target="_blank">
-                                        <div>Terms and Conditions</div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="mailto: oak.bookyourshelf@gmail.com">
-                                        <div>Contact</div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-lg-2 footer_col"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer_bar">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="footer_bar_content d-flex flex-md-row flex-column align-items-center justify-content-center">
-                                <div class="copyright order-md-1 order-2">
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                    All rights reserved | This template is made with <i
-                                        class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                        href="https://colorlib.com" target="_blank" class="orange-text">Colorlib</a> &
-                                    <b class="orange-text">Oak</b>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap-4.1.2/popper.js"></script>
-<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="plugins/greensock/TweenMax.min.js"></script>
-<script src="plugins/greensock/TimelineMax.min.js"></script>
-<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="plugins/greensock/animation.gsap.min.js"></script>
-<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/progressbar/progressbar.min.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="plugins/flexslider/jquery.flexslider-min.js"></script>
-<script src="js/classy-nav.min.js"></script>
-<script src="js/product.js"></script>
-<script src="js/active.js"></script>
-<script src="js/input-mask.js"></script>
-<script src="js/jquery.mask.js"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/plugins/flexslider/jquery.flexslider-min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/product.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var productID = /*[[${product.getProductId()}]]*/ 'default';
+    var productName = /*[[${product.getProductName()}]]*/ 'default';
+
+    $('#add_wish_list').click(function (event) {
+
+        var ret = {
+            type: "wish-list",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: productName + ' added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('#add_cart').click(function (event) {
+
+        var ret = {
+            type: "cart",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: productName + ' added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('#add_reminder').click(function (event) {
+        <!-- TODO -->
+        var ret = {
+            type: "reminder",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: 'Reminder added for ' + productName + ' successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+    /*]]>*/
+</script>
+
 </body>
 </html>

@@ -1,9 +1,7 @@
 package com.oak.bookyourshelf.service.profile;
 
-
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.profile.ProfileInformationRepository;
-import com.oak.bookyourshelf.service.LoginService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +27,4 @@ public class ProfileInformationService {
     }
 
     public User getByEmail (String email){return profileInformationRepository.findUserByEmail(email);}
-
-
 }

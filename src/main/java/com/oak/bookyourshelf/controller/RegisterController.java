@@ -1,6 +1,5 @@
 package com.oak.bookyourshelf.controller;
 
-
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.RegisterService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,12 +13,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-
 @Controller
 public class RegisterController {
 
-    final
-    RegisterService registerService;
+    final RegisterService registerService;
 
     public final PasswordEncoder passwordEncoder;
 
@@ -27,7 +24,6 @@ public class RegisterController {
         this.registerService = registerService;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterPage(Model model) {

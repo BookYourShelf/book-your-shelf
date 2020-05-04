@@ -16,8 +16,7 @@ import java.sql.Timestamp;
 @Controller
 public class PaymentController {
 
-    final
-    PaymentService paymentService;
+    final PaymentService paymentService;
 
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;

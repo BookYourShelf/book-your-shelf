@@ -1,21 +1,17 @@
 package com.oak.bookyourshelf.controller.user_details;
 
 import com.oak.bookyourshelf.model.Message;
-import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.user_details.UserDetailsMessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
 public class UserDetailsMessageController {
-
 
     final UserDetailsMessageService userDetailsMessageService;
 
@@ -23,26 +19,22 @@ public class UserDetailsMessageController {
         this.userDetailsMessageService = userDetailsMessageService;
     }
 
-
     @RequestMapping(value = "/user-details/message/{id}", method = RequestMethod.GET)
     public String tab(Model model, @PathVariable int id) {
-        System.out.println(id);
-        System.out.println("get method");
+
         List<Integer> receiver = new ArrayList<>(
                 List.of(id));
         Message message = new Message();
         message.setReceivers(receiver);
         model.addAttribute("PersonalMessage", message);
+
         return "/user_details/_message";
     }
-
 
     @RequestMapping(value = "/user-details/message/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> saveMessage(@RequestParam String submit, @PathVariable int id, Message PersonalMessage) {
 
-        System.out.println("post");
-        System.out.println(id);
         List<Integer> receiver = new ArrayList<>(
                 List.of(id));
 

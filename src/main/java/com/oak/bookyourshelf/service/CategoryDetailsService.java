@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CategoryDetailsService {
-    final
-    CategoryDetailsRepository categoryDetailsRepository;
+
+    final CategoryDetailsRepository categoryDetailsRepository;
 
     public CategoryDetailsService(CategoryDetailsRepository categoryDetailsRepository) {
         this.categoryDetailsRepository = categoryDetailsRepository;

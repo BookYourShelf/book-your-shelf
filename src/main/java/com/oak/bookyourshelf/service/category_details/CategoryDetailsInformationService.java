@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CategoryDetailsInformationService {
-    final
-    CategoryDetailsInformationRepository categoryDetailsInformationRepository;
+
+    final CategoryDetailsInformationRepository categoryDetailsInformationRepository;
 
     public CategoryDetailsInformationService(CategoryDetailsInformationRepository categoryDetailsInformationRepository) {
         this.categoryDetailsInformationRepository = categoryDetailsInformationRepository;
@@ -33,5 +33,4 @@ public class CategoryDetailsInformationService {
     public void save(Category user) {
         categoryDetailsInformationRepository.save(user);
     }
-
 }

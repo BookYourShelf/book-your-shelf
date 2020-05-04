@@ -1,16 +1,12 @@
 package com.oak.bookyourshelf.controller.admin_panel;
 
 import com.oak.bookyourshelf.model.Message;
-import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelMessageService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsInformationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class AdminPanelMessageController {
@@ -20,7 +16,6 @@ public class AdminPanelMessageController {
 
     public AdminPanelMessageController(AdminPanelMessageService adminPanelMessageService, UserDetailsInformationService userDetailsInformationService) {
         this.adminPanelMessageService = adminPanelMessageService;
-
         this.userDetailsInformationService = userDetailsInformationService;
     }
 
@@ -57,6 +52,4 @@ public class AdminPanelMessageController {
             return ResponseEntity.ok("");
         }
     }
-
-
 }
