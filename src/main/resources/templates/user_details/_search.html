@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -21,22 +25,11 @@
             <th>Search Value</th>
             <th>Total Search</th>
         </tr>
-        <tr>
-            <td>My Sweet Orange Tree</td>
-            <td>4</td>
+        <tr th:each="searchValue: ${searchValues}">
+            <td th:text="${searchValue.key}"></td>
+            <td th:text="${searchValue.value}"></td>
         </tr>
-        <tr>
-            <td>A Clockwork Orange</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>Animal</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Animal Farm</td>
-            <td>8</td>
-        </tr>
+
     </table>
 </div>
 
@@ -54,4 +47,4 @@
         </div>
     </div>
 </div>
-                    
+</html>

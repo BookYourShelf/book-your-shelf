@@ -88,7 +88,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/user-details/search" th:href="@{#search}">Search
+                        <a class="nav-link profile-navbar-text" th:data-url="'/user-details/search/' + ${user.getUserId()}" th:href="@{#search}">Search
                             History</a>
                     </li>
 
