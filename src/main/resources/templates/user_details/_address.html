@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<span th:unless="${#lists.isEmpty(allUsers)}">
+
 <div class="row order - row ">
     <div class="col-lg-6">
         <div class="address-element-padding">
@@ -43,11 +43,11 @@
 
                                 <select name="billing_address_title" id="billing_address_title"
                                         class="dropdown_item_select checkout_input"
-                                        required ="required">
+                                        required="required">
                                     <option value="">SELECT</option>
-                                    <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
-                                            th:value="${address_title}"
-                                            th:text="#{${'address_title.' + address_title}}">addressTitle
+                                    <option th:each="add : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
+                                            th:value="${add}"
+                                            th:text="#{${'add.' + add}}">addressTitle
                                     </option>
 
                                 </select>
@@ -63,7 +63,7 @@
 
                                     <input type="text" id="billing_address_name"
                                            class="checkout_input form-control"
-                                           placeholder="Name"  pattern="^[a-zA-Z ]+$" required="required">
+                                           placeholder="Name" pattern="^[a-zA-Z ]+$" required="required">
                                 </div>
                                 <div class="col-lg-6">
                                     <!-- Surname -->
@@ -86,10 +86,10 @@
                                 <select name="billing_address_country"
                                         id="billing_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        size="1" required ="required">
-                                    <option value="" >SELECT</option>
-                                    <option value ="Turkey">Turkey</option>
-                                    <option value ="USA">USA</option>
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option value="Turkey">Turkey</option>
+                                    <option value="USA">USA</option>
                                 </select>
                             </div>
 
@@ -104,10 +104,10 @@
                                     <select name="billing_address_city"
                                             id="billing_address_city"
                                             class="dropdown_item_select checkout_input"
-                                            size="1" required ="required">
-                                        <option value="" >SELECT</option>
-                                        <option value ="Ankara">Ankara</option>
-                                        <option value ="Las vegas">Las Vegas</option>
+                                            required="required">
+                                        <option value="">SELECT</option>
+                                        <option value="Ankara">Ankara</option>
+                                        <option value="Las vegas">Las Vegas</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
@@ -119,10 +119,10 @@
                                     <select name="billing_address_province"
                                             id="billing_address_province"
                                             class="dropdown_item_select checkout_input"
-                                            size="1" required ="required">
+                                            required="required">
                                         <option value="" selected="selected">SELECT</option>
-                                        <option value ="cankaya">cankaya</option>
-                                        <option value ="San frasisco">San fransisco</option>
+                                        <option value="cankaya">cankaya</option>
+                                        <option value="San frasisco">San fransisco</option>
 
                                     </select>
                                 </div>
@@ -146,7 +146,8 @@
                                         Zip Code
                                     </div>
 
-                                    <input type="number" id="billing_address_zip_code" class="checkout_input form-control" required="required">
+                                    <input type="number" id="billing_address_zip_code"
+                                           class="checkout_input form-control" required="required">
 
                                 </div>
                             </div>
@@ -174,7 +175,8 @@
                             <div><!--ERROR--></div>
 
                             <!-- Button -->
-                            <input name=submit id="add_billing_address" type="submit" value="ADD ADDRESS" class="login_button trans_200">
+                            <input name=submit id="add_billing_address" type="submit" value="ADD ADDRESS"
+                                   class="login_button trans_200">
                         </form>
                     </div>
                 </div>
@@ -182,22 +184,26 @@
         </div>
 
         <!-- Registered addresses -->
+        <!-- Registered address 1 -->
+        <!--Billing Address-->
         <div>
             <ul>
-                <!-- Registered address 1 -->
+                <span th:unless="${#lists.isEmpty(allBillingAddress)}">
+                        <tr th:each="address, iStat: ${allBillingAddress}" >
+                             <input type="hidden" id="addressId" class="addressId" th:value="${address.getAddressId()}">
 
-
-                <div class="address-element-padding">
-                    <div class="billingAddress">
-                        <div class="product_content">
+                        <div class="address-element-padding" id="accordion">
+                        <div class="billingAddress">
+                            <div class="product_content">
                             <li class="row">
                                 <div class="col-md-9 registered-address-title">
-                                    Workplace
-                                    
+                                    <td th:text="${address.getAddressTitle()}"></td>
+
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="#billing_address_update"
-                                       class="trans_200" data-toggle="collapse"><i
+                                    <a data-toggle="collapse" data-parent="#accordion"
+                                       th:href="'#billing_address_update' + ${address.getAddressId()}"
+                                       class="trans_200"><i
                                             style="font-size: 25px; padding-right: 10px"
                                             class="fa fa-pencil"></i></a>
                                     <a href="#" class="trans_200" data-toggle="collapse" id="delete_billing_address"><i
@@ -207,44 +213,49 @@
                             </li>
                             <li class="row">
                                 <div class="col-md-9 registered-address-content">
-                                    Üniversiteler Mahallesi, Hacettepe Beytepe Kampüsü No:21,
-                                    06800
+                                    <td th:text="${address.getFullAddress()}"></td>
+                                    <td th:text="${address.getNeighborhood()}"></td>
+                                    <td th:text="${address.getZipCode()}"></td>
                                 </div>
                             </li>
                             <li class="row">
                                 <div class="col-md-9 registered-address-content">
-                                    Çankaya/Ankara
-
+                                    <td th:text="${address.getProvince()}"></td>
+                                    <td th:text="${address.getCity()}"></td>
+                                    <td th:text="${address.getCountry()}"></td>
                                 </div>
                             </li>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                </tr>
-                <!-- Update address form -->
-                <div id="billing_address_update" class="collapse">
+                        </div>
 
+                            <!--No Billing Address-->
+                    <div th:if="${allBillingAddress== null}">
+                        <div class="warning-text" style="display: none">There are no billing addresses.</div>
+                    </div>
+
+                            <!-- Update address form -->
+
+                <div th:id="'billing_address_update' + ${address.getAddressId()}" class="collapse">
                     <div class="address-container">
                         <div class="billingAddress">
                             <div class="checkout_form_container">
                                 <form action="#" id="billing_address_update_form"
-                                      class="checkout_form">
-
+                                      class="checkout_form" method="post">
                                     <!-- Address Title -->
                                     <div>
                                         <div class="login-text p-b-10" style="color: black;">
                                             Address Title
                                         </div>
+                                        <select id="billing_address_update_title"
+                                                name="billing_address_update_title"
+                                                th:value="${address.getAddressTitle()}"
+                                                class="dropdown_item_select checkout_input" required="required">
+                                            <option th:each="add : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
+                                                    th:value="${add}"
+                                                    th:text="#{${'add.' + add}}">addressTitle
+                                            </option>
 
-                                        <select name="billing_address_update_title"
-                                                id="billing_address_update_title"
-                                                class="dropdown_item_select checkout_input"
-                                                required ="required">
-                                            <option value= "">SELECT</option>
-                                            <option value="Home">Home</option>
-                                            <option value="Workplace">Workplace</option>
-                                            <option value="Summery">Summery</option>
-                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
 
@@ -258,7 +269,7 @@
                                             </div>
 
                                             <input type="text" id="billing_address_update_name"
-                                                   class="checkout_input form-control"
+                                                   th:value="${address.getName()}" class="checkout_input form-control"
                                                    placeholder="Name" pattern="^[a-zA-Z ]+$" required="required">
                                         </div>
                                         <div class="col-lg-6">
@@ -270,6 +281,7 @@
 
                                             <input type="text"
                                                    id="billing_address_update_surname"
+                                                   th:value="${address.getSurname()}"
                                                    class="checkout_input form-control"
                                                    placeholder="Surname" pattern="^[a-zA-Z ]+$"
                                                    required="required">
@@ -282,12 +294,13 @@
                                             Country
                                         </div>
 
-                                        <select name="billing_address_update_country"
-                                                id="billing_address_update_country"
+                                        <select id="billing_address_update_country"
+                                                name="billing_address_update_country"
+                                                th:value="${address.getCountry()}"
                                                 class="dropdown_item_select checkout_input"
-                                                size= "1" required ="required">
-                                            <option value="" selected="selected">SELECT</option>
-
+                                                required="required">
+                                            <option th:value="Turkey">Turkey</option>
+                                            <option th:value="USA">USA</option>
                                         </select>
                                     </div>
 
@@ -300,12 +313,13 @@
                                                 City
                                             </div>
 
-                                            <select name="billing_address_update_city"
-                                                    id="billing_address_update_city"
+                                            <select id="billing_address_update_city"
+                                                    name="billing_address_update_city"
+                                                    th:value="${address.getCity()}"
                                                     class="dropdown_item_select checkout_input"
-                                                    size="1" required="required">
-                                                <option value="" selected="selected">SELECT</option>
-
+                                                    required="required">
+                                                <option th:value="Ankara">Ankara</option>
+                                                <option th:value="Sanfransisco">Sanfransisco</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-6">
@@ -315,11 +329,14 @@
                                                 Province
                                             </div>
 
-                                            <select name="billing_address_update_province"
-                                                    id="billing_address_update_province"
+                                            <select id="billing_address_update_province"
+                                                    th:value="${address.getProvince()}"
+                                                    name="billing_address_update_province"
                                                     class="dropdown_item_select checkout_input"
-                                                    size="1" required="required">
-                                                <option value="" selected="selected">SELECT</option>
+                                                    required="required">
+                                                <option th:value="cankaya">cankaya</option>
+                                                <option th:value="sanfransisco">sanfransisco</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -335,6 +352,7 @@
 
                                             <input type="text"
                                                    id="billing_address_update_neighborhood"
+                                                   th:value="${address.getNeighborhood()}"
                                                    class="checkout_input form-control"
                                                    required="required">
                                         </div>
@@ -345,7 +363,9 @@
                                                 Zip Code
                                             </div>
 
-                                            <input type="number" id="billing_address_update_zip_code" class="checkout_input form-control" required="required">
+                                            <input type="number" id="billing_address_update_zip_code"
+                                                   th:value="${address.getZipCode()}"
+                                                   class="checkout_input form-control" required="required">
                                         </div>
                                     </div>
 
@@ -356,6 +376,7 @@
                                         </div>
                                         <input type="text" id="billing_update_open_address_1_id"
                                                class="checkout_input form-control"
+                                               th:value="${address.getFullAddress()}"
                                                placeholder="Full Address" required="required">
                                     </div>
 
@@ -366,6 +387,7 @@
                                             Number
                                         </div>
                                         <input type="text" id="billing_address_update_phone"
+                                               th:value="${address.getPhoneNumber()}"
                                                class="checkout_input form-control phone_mask"
                                                placeholder="(XXX) XXX XX XX"
                                                required="required">
@@ -374,24 +396,25 @@
                                     <div><!--ERROR--></div>
 
                                     <!-- Button -->
-                                    <input name=submit id="update_billing_address" type="submit" value="UPDATE" class="login_button trans_200">
-
+                                    <input name=submit id="update_billing_address" type="submit" value="UPDATE"
+                                           class="login_button trans_200">
 
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                        </tr>
+                    </span>
 
-                <!-- Registered address 2 -->
-
-
-                <!-- Update address form -->
-
+                <!-- No Billing  Address -->
+                <span th:if="${#lists.isEmpty(allBillingAddress)}">
+                    <div class="warning-text">There are no Billing Addresses.</div>
+                </span>
             </ul>
         </div>
     </div>
-
+    <!-- Add delivery address -->
     <div class="col-lg-6">
         <div class="address-element-padding">
             <div class="billingAddress">
@@ -424,7 +447,7 @@
             <div class="address-container">
                 <div class="billingAddress">
                     <div class="checkout_form_container">
-                        <form action="#" id="delivery_address_form" class="checkout_form">
+                        <form action="#" id="delivery_address_form" class="checkout_form" method="post">
 
                             <!-- Address Title -->
                             <div>
@@ -478,8 +501,9 @@
                                 <select name="delivery_address_country"
                                         id="delivery_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        size="1" required="required">
-                                    <option value="" selected="selected">SELECT</option>
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option value="Turkey">Turkey</option>
 
                                 </select>
                             </div>
@@ -496,7 +520,8 @@
                                             id="delivery_address_city"
                                             class="dropdown_item_select checkout_input"
                                             size="1" required="required">
-                                        <option value="" selected="selected">SELECT</option>
+                                        <option value="">SELECT</option>
+                                        <option value="Ankara">Ankara</option>
 
                                     </select>
                                 </div>
@@ -510,7 +535,8 @@
                                             id="delivery_address_province"
                                             class="dropdown_item_select checkout_input"
                                             require="required">
-                                        <option value="" selected="selected">SELECT</option>
+                                        <option value="">SELECT</option>
+                                        <option value="Cankaya">Cankaya</option>
                                     </select>
                                 </div>
                             </div>
@@ -533,7 +559,8 @@
                                         Zip Code
                                     </div>
 
-                                    <input type="number" id="delivery_address_zip_code" class="checkout_input form-control" required="required">
+                                    <input type="number" id="delivery_address_zip_code"
+                                           class="checkout_input form-control" required="required">
 
                                 </div>
                             </div>
@@ -561,7 +588,8 @@
                             <div><!--ERROR--></div>
 
                             <!-- Button -->
-                            <input name=submit id="add_delivery_address" type="submit" value="ADD ADDRESS" class="login_button trans_200">
+                            <input name=submit id="add_delivery_address" type="submit" value="ADD ADDRESS"
+                                   class="login_button trans_200">
 
                         </form>
                     </div>
@@ -573,12 +601,15 @@
         <div>
             <ul>
                 <!-- Registered address 1 -->
-                <div class="address-element-padding">
+                <span th:unless="${#lists.isEmpty(allDeliveryAddress)}">
+                 <div th:if="${allDeliveryAddress != null}">
+                        <tr th:each="address: ${allDeliveryAddress}">
+                     <div class="address-element-padding">
                     <div class="billingAddress">
                         <div class="product_content">
                             <li class="row">
                                 <div class="col-md-9 registered-address-title">
-                                    Workplace
+                                    <td th:text="${address.getAddressTitle()}"></td>
                                 </div>
                                 <div class="col-md-3">
                                     <a href="#delivery_address_update"
@@ -592,19 +623,36 @@
                             </li>
                             <li class="row">
                                 <div class="col-md-9 registered-address-content">
-                                    Üniversiteler Mahallesi, Hacettepe Beytepe Kampüsü No:21,
-                                    06800
+                                    <td th:text="${address.getFullAddress()}"></td>
+                                    <td th:text="${address.getNeighborhood()}"></td>
+                                    <div>,</div>
+                                    <td th:text="${address.getZipCode()}"></td>
                                 </div>
                             </li>
                             <li class="row">
                                 <div class="col-md-9 registered-address-content">
-                                    Çankaya/Ankara
+                                    <td th:text="${address.getProvince()}"></td>
+                                    <td th:text="${address.getCity()}"></td>
+                                    <td th:text="${address.getCountry()}"></td>
                                 </div>
                             </li>
                         </div>
                     </div>
+                     </div>
+                </tr>
                 </div>
+                    <!--No Delivery Address-->
+                    <div th:if="${allDeliveryAddress== null}">
+                        <div class="warning-text" style="display: none">There are no billing addresses.</div>
+                    </div>
 
+
+                </span>
+
+                <!-- No Delivery Address -->
+                <span th:if="${#lists.isEmpty(allDeliveryAddress)}">
+                    <div class="warning-text">There are no Delivery Addresses.</div>
+                </span>
                 <!-- Update address form -->
                 <div id="delivery_address_update" class="collapse">
 
@@ -623,7 +671,7 @@
                                         <select name="delivery_address_update_title"
                                                 id="delivery_address_update_title"
                                                 class="dropdown_item_select checkout_input"
-                                                required ="required">
+                                                required="required">
                                             <option value="">SELECT</option>
                                             <option value="Home">Home</option>
                                             <option value="Workplace">Workplace</option>
@@ -668,7 +716,7 @@
                                         <select name="delivery_address_update_country"
                                                 id="delivery_address_update_country"
                                                 class="dropdown_item_select checkout_input"
-                                                size="1" required ="required">
+                                                size="1" required="required">
                                             <option value="" selected="selected">SELECT</option>
 
                                         </select>
@@ -686,7 +734,7 @@
                                             <select name="delivery_address_update_city"
                                                     id="delivery_address_update_city"
                                                     class="dropdown_item_select checkout_input"
-                                                    size="1" required ="required">
+                                                    size="1" required="required">
                                                 <option value="" selcted="selected">SELECT</option>
                                             </select>
                                         </div>
@@ -700,7 +748,7 @@
                                             <select name="delivery_address_update_province"
                                                     id="delivery_address_update_province"
                                                     class="dropdown_item_select checkout_input"
-                                                    size="1" required ="required">
+                                                    size="1" required="required">
                                                 <option value="" selected="selected">SELECT</option>
                                             </select>
                                         </div>
@@ -727,7 +775,8 @@
                                                 Zip Code
                                             </div>
 
-                                            <input type="number" id="delivery_address_update_zip_code" class="checkout_input form-control" required="required">
+                                            <input type="number" id="delivery_address_update_zip_code"
+                                                   class="checkout_input form-control" required="required">
 
                                         </div>
                                     </div>
@@ -757,7 +806,8 @@
                                     <div><!--ERROR--></div>
 
                                     <!-- Button -->
-                                    <input name=submit id="update_delivery_address" type="submit" value="UPDATE" class="login_button trans_200">
+                                    <input name=submit id="update_delivery_address" type="submit" value="UPDATE"
+                                           class="login_button trans_200">
 
                                 </form>
                             </div>
@@ -771,25 +821,29 @@
 <br>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $('#update_billing_address,#delete_billing_address').click(function (event) {
-        var button = $(this).attr("id");
+
+    $('#update_billing_address').click(function (event) {
+        var button_2 = $(this).attr("id");
         var name = $('#billing_address_update_name').val();
         var surname = $('#billing_address_update_surname').val();
         var country = $('#billing_address_update_country').val();
         var city = $('#billing_address_update_city').val();
-        var province =  $('#billing_address_update_province').val();
-        var neighborhood =  $('#billing_address_update_neighborhood').val();
-        var zipCode= $('#billing_address_update_zip_code').val();
-        var fullAddress =  $('#billing_address_update_open_address_1_id').val();
+        var province = $('#billing_address_update_province').val();
+        var neighborhood = $('#billing_address_update_neighborhood').val();
+        var zipCode = $('#billing_address_update_zip_code').val();
+        var fullAddress = $('#billing_address_update_open_address_1_id').val();
         var addressTitle = $('#billing_address_update_title').val();
         var phoneNumber = $('#billing_address_update_phone').val();
+        var addressId = $('#addressId').val();
         var userId = /*[[${user.getUserId()}]]*/ 'default';
         var user = /*[[${user}]]*/ 'default';
 
+        document.write("In js");
+        document.write(addressId);
 
         var ret = {
 
-            button: button,
+            button_2: button_2,
             name: name,
             surname: surname,
             country: country,
@@ -801,13 +855,15 @@
             addressTitle: addressTitle,
             phoneNumber: phoneNumber,
             userId: userId,
-            user: user
+            user: user,
+            addressId: addressId
 
         };
 
 
-        if (button === "update_billing_address") {
-            $.post("/user-details/address/" + userId , ret, function (data) {
+        if (button_2 === "update_billing_address") {
+            $.post("/user-details/address/" + userId, ret, function (data) {
+                event.preventDefault();
                 iziToast.show({
                     title: 'Success',
                     message: 'Address updated successfully',
@@ -815,26 +871,9 @@
                     color: 'green'
                 });
                 window.location.href = "/user-details/" + userId + "#address";
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
-        } else if (button === "delete_billing_address") {
-            $.post("/user-details/address", ret, function (data) {
-                event.preventDefault();
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Address deleted successfully',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#user";
-
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
             }).fail(function (data) {
                 iziToast.show({
                     title: 'Fail',
@@ -844,22 +883,24 @@
                 });
             })
         }
-
-
     });
 
-    /*UPDATE AND DELETE DELIVERY ADDRESS*/
+    /*]]>*/
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $('#update_delivery_address,#delete_delivery_address').click(function (event) {
 
-        var button_1 = $(this).attr("id");
+        var button_2 = $(this).attr("id");
         var name = $('#delivery_address_update_name').val();
         var surname = $('#delivery_address_update_surname').val();
         var country = $('#delivery_address_update_country').val();
         var city = $('#delivery_address_update_city').val();
-        var province =  $('#delivery_address_update_province').val();
-        var neighborhood =  $('#delivery_address_update_neighborhood').val();
-        var zipCode= $('#delivery_address_update_zip_code').val();
-        var fullAddress =  $('#delivery_update_open_address_id').val();
+        var province = $('#delivery_address_update_province').val();
+        var neighborhood = $('#delivery_address_update_neighborhood').val();
+        var zipCode = $('#delivery_address_update_zip_code').val();
+        var fullAddress = $('#delivery_update_open_address_id').val();
         var addressTitle = $('#delivery_address_update_title').val();
         var phoneNumber = $('#delivery_address_update_phone').val();
         var userId = /*[[${user.getUserId()}]]*/ 'default';
@@ -868,7 +909,7 @@
 
         var ret = {
 
-            button_1: button_1,
+            button_2: button_2,
             name: name,
             surname: surname,
             country: country,
@@ -884,27 +925,30 @@
 
         };
 
-
-        if (button_1 === "update_delivery_address") {
-            $.post("/user-details/address/" + userId , ret, function (data) {
+        if (button_2 === "update_delivery_address") {
+            if (validation_check(["delivery_address_update_name", "delivery_address_update_surname", "delivery_address_update_country", "delivery_address_update_city",
+                "delivery_address_update_province", "delivery_address_update_neighborhood", "delivery_address_update_zip_code", "delivery_update_open_address_id", "delivery_address_update_title",
+                "delivery_address_update_phone"])) {
                 event.preventDefault();
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Address updated successfully',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/user-details/" + userId + "#address";
+                $.post("/user-details/address/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/user-details/" + userId + "#address";
 
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
-        } else if (button_1 === "delete_delivery_address") {
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else if (button_2 === "delete_delivery_address") {
             $.post("/user-details/address", ret, function (data) {
                 event.preventDefault();
                 iziToast.show({
@@ -924,22 +968,24 @@
                 });
             })
         }
-
-
     });
 
-    /*ADD BILLING ADDRESS*/
+    /*]]>*/
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $('#add_billing_address').click(function (event) {
         var button_2 = $(this).attr("id");
         var name = $('#billing_address_name').val();
         var surname = $('#billing_address_surname').val();
         var country = $('#billing_address_country').val();
         var city = $('#billing_address_city').val();
-        var province =  $('#billing_address_province').val();
-        var neighborhood =  $('#billing_address_neighborhood').val();
-        var zipCode= $('#billing_address_zip_code').val();
-        var fullAddress =  $('#billing_open_address').val();
-        var addressTitle =  $('#billing_address_title').val().toUpperCase().split(" ").join("_");
+        var province = $('#billing_address_province').val();
+        var neighborhood = $('#billing_address_neighborhood').val();
+        var zipCode = $('#billing_address_zip_code').val();
+        var fullAddress = $('#billing_open_address').val();
+        var addressTitle = $('#billing_address_title').val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#billing_address_phone').val();
         var userId = /*[[${user.getUserId()}]]*/ 'default';
         var user = /*[[${user}]]*/ 'default';
@@ -963,12 +1009,12 @@
         };
 
 
-
-
-        if (button_2 === "add_billing_address" ) {
-            if(validation_check(["billing_address_name","billing_address_surname","billing_open_address","billing_address_neighborhood"])) {
+        if (button_2 === "add_billing_address") {
+            if (validation_check(["billing_address_name", "billing_address_surname", "billing_open_address", "billing_address_neighborhood",
+                "billing_address_phone", "billing_address_zip_code", "billing_address_country", "billing_address_city", "billing_address_province",
+                "billing_address_title"])) {
+                event.preventDefault();
                 $.post("/user-details/address/" + userId, ret, function (data) {
-                    event.preventDefault();
                     iziToast.show({
                         title: 'Success',
                         message: 'Address added successfully',
@@ -976,7 +1022,9 @@
                         color: 'green'
                     });
                     window.location.href = "/user-details/" + userId + "#address";
-
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
                 }).fail(function (data) {
                     iziToast.show({
                         title: 'Fail',
@@ -989,17 +1037,20 @@
         }
     });
 
-    /*ADD Delivery ADDRESS*/
+    /*]]>*/
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $('#add_delivery_address').click(function (event) {
-        var button_3 = $(this).attr("id");
+        var button_2 = $(this).attr("id");
         var name = $('#delivery_address_name').val();
         var surname = $('#delivery_address_surname').val();
         var country = $('#delivery_address_country').val();
         var city = $('#delivery_address_city').val();
-        var province =  $('#delivery_address_province').val();
-        var neighborhood =  $('#delivery_address_neighborhood').val();
-        var zipCode= $('#delivery_address_zip_code').val();
-        var fullAddress =  $('#delivery_open_address').val();
+        var province = $('#delivery_address_province').val();
+        var neighborhood = $('#delivery_address_neighborhood').val();
+        var zipCode = $('#delivery_address_zip_code').val();
+        var fullAddress = $('#delivery_open_address').val();
         var addressTitle = $('#delivery_address_title').val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#delivery_address_phone').val();
         var userId = /*[[${user.getUserId()}]]*/ 'default';
@@ -1007,7 +1058,7 @@
 
         var ret = {
 
-            button_3: button_3,
+            button_2: button_2,
             name: name,
             surname: surname,
             country: country,
@@ -1024,29 +1075,38 @@
         };
 
 
-        if (button_3 === "add_delivery_address") {
-            $.post("/user-details/address/" + userId , ret, function (data) {
+        if (button_2 === "add_delivery_address") {
+            if (validation_check(["delivery_address_name", "delivery_address_surname", "delivery_open_address", "delivery_address_neighborhood",
+                "delivery_address_phone", "delivery_address_zip_code", "delivery_address_country", "delivery_address_city", "delivery_address_province",
+                "delivery_address_title"])) {
                 event.preventDefault();
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Address added successfully',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/user-details/" + userId + "#address";
+                $.post("/user-details/address/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address added successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/user-details/" + userId + "#address";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
 
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
         }
     });
+    /*]]>*/
+</script>
 
-
+<script>
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
             if (!document.getElementById(arr[i]).checkValidity()) {
@@ -1055,104 +1115,7 @@
         }
         return true;
     }
-
-    /*]]>*/
 </script>
-<script>
-    var countryStateInfo = {
-        "USA": {
-            "California": {
-                "Los Angeles": ["90001", "90002", "90003", "90004"],
-                "San Diego": ["92093", "92101"],
-                "Beverly Hills": ["23453","90098"],
-                "San Fransisco": ["98789"]
 
-            },
-            "Texas": {
-                "Dallas": ["75201", "75202"],
-                "Austin": ["73301", "73344"],
-                "Huston": ["90876"]
-            },
-
-            "Nevada": {
-                "Las Vegas": ["75200"],
-                "Carson City": ["75000"]
-            },
-
-            "New York": {
-                "Queens": ["78200"]
-            }
-        },
-        "India": {
-            "Assam": {
-                "Dispur": ["781005"],
-                "Guwahati" : ["781030", "781030"]
-            },
-            "Gujarat": {
-                "Vadodara" : ["390011", "390020"],
-                "Surat" : ["395006", "395002"]
-            }
-        }
-    }
-
-
-    window.onload = function () {
-
-        //Get html elements
-        var countySel = document.getElementById("delivery_address_country");
-        var stateSel = document.getElementById("delivery_address_city");
-        var citySel = document.getElementById("delivery_address_province");
-        var zipSel = document.getElementById("");
-
-        //Load countries
-        for (var country in countryStateInfo) {
-            countySel.options[countySel.options.length] = new Option(country, country);
-        }
-
-        //County Changed
-        countySel.onchange = function () {
-
-            stateSel.length = 1; // remove all options bar first
-            citySel.length = 1; // remove all options bar first
-            zipSel.length = 1; // remove all options bar first
-
-            if (this.selectedIndex < 1)
-                return; // done
-
-            for (var state in countryStateInfo[this.value]) {
-                stateSel.options[stateSel.options.length] = new Option(state, state);
-            }
-        }
-
-        //State Changed
-        stateSel.onchange = function () {
-
-            citySel.length = 1; // remove all options bar first
-            zipSel.length = 1; // remove all options bar first
-
-            if (this.selectedIndex < 1)
-                return; // done
-
-            for (var city in countryStateInfo[countySel.value][this.value]) {
-                citySel.options[citySel.options.length] = new Option(city, city);
-            }
-        }
-
-        //City Changed
-        citySel.onchange = function () {
-            zipSel.length = 1; // remove all options bar first
-
-            if (this.selectedIndex < 1)
-                return; // done
-
-            var zips = countryStateInfo[countySel.value][stateSel.value][this.value];
-            for (var i = 0; i < zips.length; i++) {
-                zipSel.options[zipSel.options.length] = new Option(zips[i], zips[i]);
-            }
-        }
-    }
-
-
-    </script>
 
 </html>

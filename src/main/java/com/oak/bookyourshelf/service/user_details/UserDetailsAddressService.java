@@ -18,11 +18,9 @@ public class UserDetailsAddressService {
         this.userDetailsAddressRepository = userDetailsAddressRepository;
     }
 
-     public Iterable<Address> listAll() {return userDetailsAddressRepository.findAll();}
+    public Iterable<Address> listAll() {return userDetailsAddressRepository.findAll();}
 
-    public Address get(int id) {
-        return userDetailsAddressRepository.findById(id).get();
-    }
+    public Address findAddressById(int id) { return userDetailsAddressRepository.findAddressById(id); }
 
     public void delete(int id) {
         userDetailsAddressRepository.deleteById(id);
@@ -32,6 +30,7 @@ public class UserDetailsAddressService {
         userDetailsAddressRepository.save(address);
     }
 
-   // public List<Integer> findAllIds() {return userDetailsAddressRepository.findAllIds();}
+    public Address findAddressByName(String name){ return userDetailsAddressRepository.findAddressByName(name);}
+
 
 }
