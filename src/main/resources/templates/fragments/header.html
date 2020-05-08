@@ -178,9 +178,9 @@
     <div class="header-meta d-flex clearfix justify-content-end">
         <!-- Search Area -->
         <div class="search-area">
-            <form action="#" method="post">
-                <input type="search" name="search" id="headerSearch" placeholder="Type for search">
-                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <form th:action="@{/search-result}">
+                <input type="search" name="search" id="searchValue" placeholder="Type for search">
+                <button type="submit" id="headerSearch"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>
         </div>
 
@@ -214,4 +214,6 @@
         </div>
     </div>
 </div>
+
+
 </html>
