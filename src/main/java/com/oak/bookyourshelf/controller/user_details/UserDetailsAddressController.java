@@ -81,6 +81,28 @@ public class UserDetailsAddressController {
 
         }
 
+        else if(button_2.equals("update_delivery_address")){
+            Address oldAddress = findAddress(user.getDeliveryAddresses(), address.getAddressId());
+
+            System.out.println("I am updatings");
+            System.out.println(address.getAddressTitle());
+            System.out.println(address.getAddressId());
+            System.out.println(address.getZipCode());
+            // TODO Will put inside function
+            oldAddress.setName(address.getName());
+            oldAddress.setSurname(address.getSurname());
+            oldAddress.setCountry(address.getCountry());
+            oldAddress.setCity(address.getCity());
+            oldAddress.setZipCode(address.getZipCode());  // update checking using zip code
+            oldAddress.setNeighborhood(address.getNeighborhood());
+            oldAddress.setProvince(address.getProvince());
+            oldAddress.setAddressTitle(address.getAddressTitle());
+            oldAddress.setFullAddress(address.getFullAddress());
+            oldAddress.setPhoneNumber(address.getPhoneNumber());
+            userDetailsAddressService.save(oldAddress);
+
+        }
+
       return ResponseEntity.ok("");
     }
 
