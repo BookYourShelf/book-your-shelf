@@ -47,12 +47,6 @@ public class UserDetailsAddressController {
         if(button_2.equals("add_billing_address")){
             System.out.println("I am inside add billing address");
 
-            if(!user.getName().equals(address.getName())){
-                return ResponseEntity.badRequest().body("User's name must match with the name used to register to the system.");
-            }
-            if(!user.getSurname().equals(address.getSurname())){
-                return ResponseEntity.badRequest().body("User's surname must match with the surname used to register to the system.");
-            }
             userDetailsAddressService.save(address);
             user.getBillingAddresses().add(address);
             userDetailsInformationService.save(user);
@@ -60,12 +54,6 @@ public class UserDetailsAddressController {
         /*ADD DELIVERY ADDRESS*/
         else if(button_2.equals("add_delivery_address")){
 
-            if(!user.getName().equals(address.getName())){
-                return ResponseEntity.badRequest().body("User's name must match with the name used to register to the system.");
-            }
-            if(!user.getSurname().equals(address.getSurname())){
-                return ResponseEntity.badRequest().body("User's surname must match with the surname used to register to the system.");
-            }
             userDetailsAddressService.save(address);
             user.getDeliveryAddresses().add(address);
             userDetailsInformationService.save(user);
@@ -74,18 +62,21 @@ public class UserDetailsAddressController {
         else if(button_2.equals("update_billing_address")){
             Address oldAddress = findAddress(user.getBillingAddresses(), address.getAddressId());
 
-            if(!oldAddress.getName().equals(address.getName())){
-                return ResponseEntity.badRequest().body("Name can't be updated.");
-            }
-            if(!oldAddress.getSurname().equals(address.getSurname())){
-                return ResponseEntity.badRequest().body("Surname can't be updated");
-            }
-
             System.out.println("I am updating");
             System.out.println(address.getAddressTitle());
             System.out.println(address.getAddressId());
             System.out.println(address.getZipCode());
+
+            oldAddress.setName(address.getName());
+            oldAddress.setSurname(address.getSurname());
+            oldAddress.setCountry(address.getCountry());
+            oldAddress.setCity(address.getCity());
             oldAddress.setZipCode(address.getZipCode());  // update checking using zip code
+            oldAddress.setNeighborhood(address.getNeighborhood());
+            oldAddress.setProvince(address.getProvince());
+            oldAddress.setAddressTitle(address.getAddressTitle());
+            oldAddress.setFullAddress(address.getFullAddress());
+            oldAddress.setPhoneNumber(address.getPhoneNumber());
             userDetailsAddressService.save(oldAddress);
 
         }
