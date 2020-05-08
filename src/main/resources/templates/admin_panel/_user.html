@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<span th:unless="${#lists.isEmpty(allUsers)}">
+
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
@@ -44,7 +44,7 @@
     <div class="container">
         <div class="orderDetailBox">
 
-                <tr th:each="user: ${allUsers}">
+                <tr th:each="user: ${userPage.content}">
 
                     <!-- User -->
                     <div class="product">
@@ -84,25 +84,25 @@
         </div>
     </div>
 
+
+
     <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <div th:if="${userPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+                <li ><a th:href="@{/admin-panel#user(size=${userPage.size}, page=${pageNumber})}"
+                                      th:text="${pageNumber}"
+                                      th:class="${pageNumber==userPage.number + 1} ? active"></a></li>
+                </div>
             </ul>
         </div>
     </div>
 </div>
 
-</span>
 
 <!-- No user -->
-<span th:if="${#lists.isEmpty(allUsers)}">
-<div class="warning-text">There are no users.</div>
-</span>
+
 
 
 </html>
