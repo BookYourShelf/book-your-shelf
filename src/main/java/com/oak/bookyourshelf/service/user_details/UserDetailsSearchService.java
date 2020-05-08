@@ -6,7 +6,7 @@ import com.oak.bookyourshelf.repository.user_details.UserDetailsSearchRepository
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -41,4 +41,20 @@ public class UserDetailsSearchService {
     public List<Integer> findAllIds() {
         return userDetailsSearchRepository.findAllIds();
     }
+
+    public Map<String,Integer> sortByKey(Map<String,Integer> searchValues){
+        List sortedKeys;
+        sortedKeys = new ArrayList(searchValues.keySet());
+        Map<String,Integer> sortedMap=new HashMap<String, Integer>();
+
+        Collections.sort(sortedKeys);
+        String key = null;
+        for(int i =0 ;i<sortedKeys.size();++i)
+        {
+            sortedMap.put(sortedKeys.get(i).toString(),searchValues.get(sortedKeys.get(i).toString()));
+        }
+        return sortedMap;
+    }
+
+
 }
