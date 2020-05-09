@@ -48,14 +48,14 @@ public class UserDetailsAddressController {
             System.out.println("I am inside add billing address");
 
             userDetailsAddressService.save(address);
-            user.getBillingAddresses().add(address);
+            user.getBillingAddresses().add(0,address);
             userDetailsInformationService.save(user);
         }
         /*ADD DELIVERY ADDRESS*/
         else if(button.equals("add_delivery_address")){
 
             userDetailsAddressService.save(address);
-            user.getDeliveryAddresses().add(address);
+            user.getDeliveryAddresses().add(0,address);
             userDetailsInformationService.save(user);
         }
 
