@@ -39,12 +39,12 @@ public class UserDetailsAddressController {
 
     @RequestMapping(value = "/user-details/address/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> AddressUpdate(@RequestParam String button_2, @PathVariable int id, Address address) {
-        System.out.println(button_2);
+    public ResponseEntity<String> AddressUpdate(@RequestParam String button, @PathVariable int id, Address address) {
+        System.out.println(button);
         System.out.println(id);
         User user = userDetailsInformationService.get(id);
         /*ADD BILLING ADDRESS*/
-        if(button_2.equals("add_billing_address")){
+        if(button.equals("add_billing_address")){
             System.out.println("I am inside add billing address");
 
             userDetailsAddressService.save(address);
@@ -52,20 +52,21 @@ public class UserDetailsAddressController {
             userDetailsInformationService.save(user);
         }
         /*ADD DELIVERY ADDRESS*/
-        else if(button_2.equals("add_delivery_address")){
+        else if(button.equals("add_delivery_address")){
 
             userDetailsAddressService.save(address);
             user.getDeliveryAddresses().add(address);
             userDetailsInformationService.save(user);
         }
 
-        else if(button_2.equals("update_billing_address")){
+        else if(button.equals("update_billing_address")){
             Address oldAddress = findAddress(user.getBillingAddresses(), address.getAddressId());
 
             System.out.println("I am updating");
             System.out.println(address.getAddressTitle());
             System.out.println(address.getAddressId());
             System.out.println(address.getZipCode());
+            System.out.println(address.getCountry());
 
             oldAddress.setName(address.getName());
             oldAddress.setSurname(address.getSurname());
@@ -81,7 +82,7 @@ public class UserDetailsAddressController {
 
         }
 
-        else if(button_2.equals("update_delivery_address")){
+        else if(button.equals("update_delivery_address")){
             Address oldAddress = findAddress(user.getDeliveryAddresses(), address.getAddressId());
 
             System.out.println("I am updatings");
