@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
 
 <div class="row order - row ">
     <div class="col-lg-6">
@@ -86,13 +89,12 @@
                                 <select name="billing_address_country"
                                         id="billing_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        size="1" required="required">
+                                        required="required">
                                 </select>
                             </div>
 
                             <!-- City Province -->
-                            <div class="row">
-                                <div class="col-lg-6">
+                            <div >
                                     <!-- City -->
                                     <div class="login-text p-b-10" style="color: black;">
                                         City
@@ -101,31 +103,8 @@
                                     <select name="billing_address_city"
                                             id="billing_address_city"
                                             class="dropdown_item_select checkout_input"
-                                            size="1" required="required">
+                                            required="required">
                                     </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- Province -->
-                                    <div class="login-text p-b-10" style="color: black;">
-                                        Province
-                                    </div>
-
-                                    <select name="billing_address_province"
-                                            id="billing_address_province"
-                                            class="dropdown_item_select checkout_input"
-                                            size="1" required="required">
-                                        <option value=""> Select</option>
-                                        <option value="USA">QUEENS</option>
-                                        <option value="USA">SAN FRANSISCO</option>
-                                        <option value="USA">TEXAS</option>
-                                        <option value="TURKEY">CANKAYA</option>
-                                        <option value="TURKEY">YENIMAHALLE</option>
-                                        <option value="TURKEY">MAMAK</option>
-                                        <option value="GERMANY">BERLIN</option>
-                                        <option value="GERMANY">DUISBURG</option>
-                                        <option value="ETHIOPIA">BOLE<option>
-                                    </select>
-                                </div>
                             </div>
 
                             <!-- Neighborhood Zipcode -->
@@ -200,7 +179,7 @@
                                         <div class="col-md-3">
                                             <a data-toggle="collapse" data-parent="#accordion"
                                                th:href="'#billing_address_update' + ${address.getAddressId()}"
-                                               class="trans_200"><i style="font-size: 25px; padding-right: 10px"
+                                               th:id="${address.getAddressId()}" class="trans_200 update_address_icon"><i style="font-size: 25px; padding-right: 10px"
                                                                     class="fa fa-pencil"></i></a>
                                             <a href="#" class="trans_200 delete_billing_address" data-toggle="collapse"
                                                name="delete_billing_address" th:id="${address.getAddressId()}" ><i
@@ -217,8 +196,7 @@
                                     </li>
                                     <li class="row">
                                         <div class="col-md-9 registered-address-content">
-                                            <td th:text="${address.getProvince() + '/'}"></td>
-                                            <td th:text="${address.getCity() + ','}"></td>
+                                            <td th:text="${address.getCity() + '/'}"></td>
                                             <td th:text="${address.getCountry()}"></td>
                                         </div>
                                     </li>
@@ -289,16 +267,10 @@
                                                         th:value="${address.getCountry()}"
                                                         class="dropdown_item_select checkout_input country"
                                                         required="required">
-                                                    <option value="">SELECT</option>
-                                                    <option value="USA">USA</option>
-                                                    <option value="TURKEY">TURKEY</option>
-                                                    <option value="GERMANY">GERMANY</option>
-                                                    <option value="ETHIOPIA">ETHIOPIA</option>
                                                 </select>
                                             </div>
                                             <!-- City Province -->
-                                            <div class="row">
-                                                <div class="col-lg-6">
+                                            <div>
                                                     <!-- City -->
                                                     <div class="login-text p-b-10"
                                                          style="color: black;">
@@ -309,41 +281,8 @@
                                                             th:value="${address.getCity()}"
                                                             class="dropdown_item_select checkout_input"
                                                             required="required">
-                                                        <option value="">SELECT</option>
-                                                        <option value="USA">NEW YORK</option>
-                                                        <option value="USA">LAS VEGAS</option>
-                                                        <option value="USA">IOWA</option>
-                                                        <option value="TURKEY">ANKARA</option>
-                                                        <option value="TURKEY">IZMIR</option>
-                                                        <option value="TURKEY">ISTANBUL</option>
-                                                        <option value="GERMANY">BRANDENBURG</option>
-                                                        <option value="GERMANY">DUSSELDORF</option>
-                                                        <option value="ETHIOPIA">ADDIS ABABA<option>
                                                     </select>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <!-- Province -->
-                                                    <div class="login-text p-b-10"
-                                                         style="color: black;">
-                                                        Province
-                                                    </div>
-                                                    <select th:id="'billing_address_update_province' + ${address.getAddressId()}"
-                                                            th:value="${address.getProvince()}"
-                                                            name="billing_address_update_province"
-                                                            class="dropdown_item_select checkout_input"
-                                                            required="required">
-                                                            <option value="">SELECT</option>
-                                                            <option value="USA">QUEENS</option>
-                                                            <option value="USA">SAN FRANSISCO</option>
-                                                            <option value="USA">TEXAS</option>
-                                                            <option value="TURKEY">CANKAYA</option>
-                                                            <option value="TURKEY">YENIMAHALLE</option>
-                                                            <option value="TURKEY">MAMAK</option>
-                                                            <option value="GERMANY">BERLIN</option>
-                                                            <option value="GERMANY">DUISBURG</option>
-                                                            <option value="ETHIOPIA">BOLE<option>
-                                                    </select>
-                                                </div>
+
                                             </div>
                                             <!-- Neighborhood Zipcode -->
                                             <div class="row">
@@ -500,13 +439,12 @@
                                 <select name="delivery_address_country"
                                         id="delivery_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        size="1" required="required">
+                                        required="required">
                                 </select>
                             </div>
 
                             <!-- City Province -->
-                            <div class="row">
-                                <div class="col-lg-6">
+                            <div>
                                     <!-- City -->
                                     <div class="login-text p-b-10" style="color: black;">
                                         City
@@ -515,31 +453,8 @@
                                     <select name="delivery_address_city"
                                             id="delivery_address_city"
                                             class="dropdown_item_select checkout_input"
-                                            size="1" required="required">
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- Province -->
-                                    <div class="login-text p-b-10" style="color: black;">
-                                        Province
-                                    </div>
-
-                                    <select name="delivery_address_province"
-                                            id="delivery_address_province"
-                                            class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option value=""> Select</option>
-                                        <option value="USA">QUEENS</option>
-                                        <option value="USA">SAN FRANSISCO</option>
-                                        <option value="USA">TEXAS</option>
-                                        <option value="TURKEY">CANKAYA</option>
-                                        <option value="TURKEY">YENIMAHALLE</option>
-                                        <option value="TURKEY">MAMAK</option>
-                                        <option value="GERMANY">BERLIN</option>
-                                        <option value="GERMANY">DUISBURG</option>
-                                        <option value="ETHIOPIA">BOLE<option>
                                     </select>
-                                </div>
                             </div>
 
                             <!-- Neighborhood Zipcode -->
@@ -616,7 +531,7 @@
                                             <div class="col-md-3">
                                                 <a data-toggle="collapse"
                                                    th:href="'#delivery_address_update' + ${address.getAddressId()}"
-                                                   class="trans_200"><i style="font-size: 25px; padding-right: 10px"
+                                                   th:id="${address.getAddressId()}" class="trans_200 delivery_icon"><i style="font-size: 25px; padding-right: 10px"
                                                                         class="fa fa-pencil"></i></a>
                                                 <a href="#" class="trans_200 delete_delivery_address" data-toggle="collapse"
                                                    th:id="${address.getAddressId()}" name="delete_delivery_address"><i
@@ -633,8 +548,7 @@
                                         </li>
                                         <li class="row">
                                             <div class="col-md-9 registered-address-content">
-                                                <td th:text="${address.getProvince() +'/'}"></td>
-                                                <td th:text="${address.getCity() + ','}"></td>
+                                                <td th:text="${address.getCity() + '/'}"></td>
                                                 <td th:text="${address.getCountry()}"></td>
                                             </div>
                                         </li>
@@ -706,61 +620,21 @@
                                                             th:value="${address.getCountry()}"
                                                             class="dropdown_item_select checkout_input"
                                                             required="required">
-                                                         <option value="">SELECT</option>
-                                                        <option value="USA">USA</option>
-                                                        <option value="TURKEY">TURKEY</option>
-                                                        <option value="GERMANY">GERMANY</option>
-                                                        <option value="ETHIOPIA">ETHIOPIA</option>
                                                     </select>
                                                 </div>
                                                 <!-- City Province -->
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <!-- City -->
-                                                        <div class="login-text p-b-10"
-                                                             style="color: black;">
-                                                            City
-                                                        </div>
-                                                        <select name="delivery_address_update_city"
-                                                                th:id="'delivery_address_update_city' + ${address.getAddressId()}"
-                                                                th:value="${address.getCity()}"
-                                                                class="dropdown_item_select checkout_input"
-                                                                required="required">
-                                                            <option value="">SELECT</option>
-                                                            <option value="USA">NEW YORK</option>
-                                                            <option value="USA">LAS VEGAS</option>
-                                                            <option value="USA">IOWA</option>
-                                                            <option value="TURKEY">ANKARA</option>
-                                                            <option value="TURKEY">IZMIR</option>
-                                                            <option value="TURKEY">ISTANBUL</option>
-                                                            <option value="GERMANY">BRANDENBURG</option>
-                                                            <option value="GERMANY">DUSSELDORF</option>
-                                                            <option value="ETHIOPIA">ADDIS ABABA<option>
-                                                        </select>
+                                                <div>
+                                                    <!-- City -->
+                                                    <div class="login-text p-b-10"
+                                                         style="color: black;">
+                                                        City
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <!-- Province -->
-                                                        <div class="login-text p-b-10"
-                                                             style="color: black;">
-                                                            Province
-                                                        </div>
-                                                        <select name="delivery_address_update_province"
-                                                                th:id="'delivery_address_update_province' + ${address.getAddressId()}"
-                                                                th:value="${address.getProvince()}"
-                                                                class="dropdown_item_select checkout_input"
-                                                                required="required">
-                                                                <option value=""> Select</option>
-                                                                <option value="USA">QUEENS</option>
-                                                                <option value="USA">SAN FRANSISCO</option>
-                                                                <option value="USA">TEXAS</option>
-                                                                <option value="TURKEY">CANKAYA</option>
-                                                                <option value="TURKEY">YENIMAHALLE</option>
-                                                                <option value="TURKEY">MAMAK</option>
-                                                                <option value="GERMANY">BERLIN</option>
-                                                                <option value="GERMANY">DUISBURG</option>
-                                                                <option value="ETHIOPIA">BOLE<option>
-                                                        </select>
-                                                    </div>
+                                                    <select name="delivery_address_update_city"
+                                                            th:id="'delivery_address_update_city' + ${address.getAddressId()}"
+                                                            th:value="${address.getCity()}"
+                                                            class="dropdown_item_select checkout_input"
+                                                            required="required">
+                                                    </select>
                                                 </div>
                                                 <!-- Neighborhood Zipcode -->
                                                 <div class="row">
@@ -841,9 +715,8 @@
         var button = $(this).attr("name");
         var name = $('#billing_address_update_name' + addressId).val();
         var surname = $('#billing_address_update_surname' + addressId).val();
-        var country = $('#billing_address_update_country' + addressId).children("option:selected").text();
-        var city = $('#billing_address_update_city' + addressId).children("option:selected").text();
-        var province = $('#billing_address_update_province' + addressId).children("option:selected").text();
+        var country = $('#billing_address_update_country' + addressId).children("option:selected").val();
+        var city = $('#billing_address_update_city' + addressId).children("option:selected").val();
         var neighborhood = $('#billing_address_update_neighborhood' + addressId).val();
         var zipCode = $('#billing_address_update_zip_code' + addressId).val();
         var fullAddress = $('#billing_address_update_open_address_1_id' + addressId).val();
@@ -859,7 +732,6 @@
             surname: surname,
             country: country,
             city: city,
-            province: province,
             neighborhood: neighborhood,
             zipCode: zipCode,
             fullAddress: fullAddress,
@@ -873,8 +745,7 @@
 
         if (button === "update_billing_address") {
             if(validation_check(["billing_address_update_name" + addressId,"billing_address_update_surname" + addressId,"billing_address_update_country" + addressId,
-                "billing_address_update_city" + addressId,"billing_address_update_province" + addressId,"billing_address_update_neighborhood" + addressId,
-                "billing_address_update_zip_code" + addressId,"billing_address_update_open_address_1_id" + addressId,"billing_address_update_title" + addressId,
+                "billing_address_update_city" + addressId,"billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId,"billing_address_update_open_address_1_id" + addressId,"billing_address_update_title" + addressId,
                 "billing_address_update_phone" + addressId])){
                 event.preventDefault();
                 $.post("/user-details/address/" + userId, ret, function (data) {
@@ -920,6 +791,7 @@
                 })
             } else window.location.href = "/user-details/" + userId + "#address";
         }
+
     });
 
 
@@ -930,7 +802,6 @@
         var surname = $('#delivery_address_update_surname' + addressId).val();
         var country = $('#delivery_address_update_country' + addressId).children("option:selected").text();
         var city = $('#delivery_address_update_city' + addressId).children("option:selected").text();
-        var province = $('#delivery_address_update_province' + addressId).children("option:selected").text();
         var neighborhood = $('#delivery_address_update_neighborhood' + addressId).val();
         var zipCode = $('#delivery_address_update_zip_code' + addressId).val();
         var fullAddress = $('#delivery_address_update_open_address_id' + addressId).val();
@@ -947,7 +818,6 @@
             surname: surname,
             country: country,
             city: city,
-            province: province,
             neighborhood: neighborhood,
             zipCode: zipCode,
             fullAddress: fullAddress,
@@ -962,7 +832,7 @@
 
         if (button === "update_delivery_address") {
             if (validation_check(["delivery_address_update_name" + addressId, "delivery_address_update_surname" + addressId, "delivery_address_update_country" + addressId, "delivery_address_update_city" + addressId,
-                "delivery_address_update_province" + addressId, "delivery_address_update_neighborhood" + addressId, "delivery_address_update_zip_code" + addressId, "delivery_address_update_open_address_id" + addressId, "delivery_address_update_title" + addressId,
+                "delivery_address_update_neighborhood" + addressId, "delivery_address_update_zip_code" + addressId, "delivery_address_update_open_address_id" + addressId, "delivery_address_update_title" + addressId,
                 "delivery_address_update_phone" + addressId])) {
                 event.preventDefault();
                 $.post("/user-details/address/" + userId, ret, function (data) {
@@ -1021,7 +891,6 @@
         var surname = $('#billing_address_surname').val();
         var country = $('#billing_address_country').val();
         var city = $('#billing_address_city').val();
-        var province = $("#billing_address_province option:selected").text();
         var neighborhood = $('#billing_address_neighborhood').val();
         var zipCode = $('#billing_address_zip_code').val();
         var fullAddress = $('#billing_open_address').val();
@@ -1037,7 +906,6 @@
             surname: surname,
             country: country,
             city: city,
-            province: province,
             neighborhood: neighborhood,
             zipCode: zipCode,
             fullAddress: fullAddress,
@@ -1051,7 +919,7 @@
 
         if (button === "add_billing_address") {
             if (validation_check(["billing_address_name", "billing_address_surname", "billing_open_address", "billing_address_neighborhood",
-                "billing_address_phone", "billing_address_zip_code", "billing_address_country", "billing_address_city", "billing_address_province",
+                "billing_address_phone", "billing_address_zip_code", "billing_address_country", "billing_address_city",
                 "billing_address_title"])) {
                 event.preventDefault();
                 $.post("/user-details/address/" + userId, ret, function (data) {
@@ -1084,7 +952,6 @@
         var surname = $('#delivery_address_surname').val();
         var country = $('#delivery_address_country').val();
         var city = $('#delivery_address_city').val();
-        var province = $("#delivery_address_province option:selected").text();
         var neighborhood = $('#delivery_address_neighborhood').val();
         var zipCode = $('#delivery_address_zip_code').val();
         var fullAddress = $('#delivery_open_address').val();
@@ -1100,7 +967,6 @@
             surname: surname,
             country: country,
             city: city,
-            province: province,
             neighborhood: neighborhood,
             zipCode: zipCode,
             fullAddress: fullAddress,
@@ -1114,7 +980,7 @@
 
         if (button === "add_delivery_address") {
             if (validation_check(["delivery_address_name", "delivery_address_surname", "delivery_open_address", "delivery_address_neighborhood",
-                "delivery_address_phone", "delivery_address_zip_code", "delivery_address_country", "delivery_address_city", "delivery_address_province",
+                "delivery_address_phone", "delivery_address_zip_code", "delivery_address_country", "delivery_address_city",
                 "delivery_address_title"])) {
                 event.preventDefault();
                 $.post("/user-details/address/" + userId, ret, function (data) {
@@ -1158,8 +1024,21 @@
 
 <script th:inline="javascript">
 
+
+    $('.update_address_icon').click(function () {
+        var ID = $(this).attr("id");
+        populateCountries("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+    });
+
+    $('.delivery_icon').click(function () {
+        var ID = $(this).attr("id");
+        populateCountries("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+    });
+
     populateCountries("billing_address_country", "billing_address_city");
     populateCountries("delivery_address_country","delivery_address_city");
+
+
 
 
 </script>
