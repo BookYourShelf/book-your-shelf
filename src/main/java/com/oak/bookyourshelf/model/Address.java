@@ -22,7 +22,6 @@ public class Address {
     private String surname;
     private String country;
     private String city;
-    private String province;
     private String neighborhood;
     private int zipCode;
     private String fullAddress;
@@ -76,14 +75,6 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
     }
 
     public String getNeighborhood() {
