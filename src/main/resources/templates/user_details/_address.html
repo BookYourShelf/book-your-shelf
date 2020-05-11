@@ -86,10 +86,13 @@
                                 <select name="billing_address_country"
                                         id="billing_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        required="required">
-                                    <option value="">SELECT</option>
-                                    <option value="Turkey">Turkey</option>
+                                        size="1" required="required">
+                                    <option value=""> Select</option>
                                     <option value="USA">USA</option>
+                                    <option value="TURKEY">TURKEY</option>
+                                    <option value="GERMANY">GERMANY</option>
+                                    <option value="ETHIOPIA">ETHIOPIA</option>
+
                                 </select>
                             </div>
 
@@ -104,10 +107,17 @@
                                     <select name="billing_address_city"
                                             id="billing_address_city"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
-                                        <option value="">SELECT</option>
-                                        <option value="Ankara">Ankara</option>
-                                        <option value="Las vegas">Las Vegas</option>
+                                            size="1" required="required">
+                                        <option value=""> Select</option>
+                                        <option value="USA">NEW YORK</option>
+                                        <option value="USA">LAS VEGAS</option>
+                                        <option value="USA">IOWA</option>
+                                        <option value="TURKEY">ANKARA</option>
+                                        <option value="TURKEY">IZMIR</option>
+                                        <option value="TURKEY">ISTANBUL</option>
+                                        <option value="GERMANY">BRANDENBURG</option>
+                                        <option value="GERMANY">DUSSELDORF</option>
+                                        <option value="ETHIOPIA">ADDIS ABABA<option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
@@ -119,11 +129,17 @@
                                     <select name="billing_address_province"
                                             id="billing_address_province"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
-                                        <option value="" selected="selected">SELECT</option>
-                                        <option value="cankaya">cankaya</option>
-                                        <option value="San frasisco">San fransisco</option>
-
+                                            size="1" required="required">
+                                        <option value=""> Select</option>
+                                        <option value="USA">QUEENS</option>
+                                        <option value="USA">SAN FRANSISCO</option>
+                                        <option value="USA">TEXAS</option>
+                                        <option value="TURKEY">CANKAYA</option>
+                                        <option value="TURKEY">YENIMAHALLE</option>
+                                        <option value="TURKEY">MAMAK</option>
+                                        <option value="GERMANY">BERLIN</option>
+                                        <option value="GERMANY">DUISBURG</option>
+                                        <option value="ETHIOPIA">BOLE<option>
                                     </select>
                                 </div>
                             </div>
@@ -169,7 +185,7 @@
                                 </div>
                                 <input type="text" id="billing_address_phone"
                                        class="checkout_input form-control phone_mask"
-                                       placeholder="(XXX) XXX XX XX" required="required">
+                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
                             </div>
 
                             <div><!--ERROR--></div>
@@ -202,23 +218,23 @@
                                                th:href="'#billing_address_update' + ${address.getAddressId()}"
                                                class="trans_200"><i style="font-size: 25px; padding-right: 10px"
                                                                     class="fa fa-pencil"></i></a>
-                                            <a href="#" class="trans_200" data-toggle="collapse"
-                                               id="delete_billing_address"><i
+                                            <a href="#" class="trans_200 delete_billing_address" data-toggle="collapse"
+                                               name="delete_billing_address" th:id="${address.getAddressId()}" ><i
                                                     style="font-size: 25px; color: #4a4a4a"
                                                     class="fa product_text">&#xf014;</i></a>
                                         </div>
                                     </li>
                                     <li class="row">
                                         <div class="col-md-9 registered-address-content">
-                                            <td th:text="${address.getFullAddress()}"></td>
-                                            <td th:text="${address.getNeighborhood()}"></td>
+                                            <td th:text="${address.getFullAddress() + ','}"></td>
+                                            <td th:text="${address.getNeighborhood() + ','}"></td>
                                             <td th:text="${address.getZipCode()}"></td>
                                         </div>
                                     </li>
                                     <li class="row">
                                         <div class="col-md-9 registered-address-content">
-                                            <td th:text="${address.getProvince()}"></td>
-                                            <td th:text="${address.getCity()}"></td>
+                                            <td th:text="${address.getProvince() + '/'}"></td>
+                                            <td th:text="${address.getCity() + ','}"></td>
                                             <td th:text="${address.getCountry()}"></td>
                                         </div>
                                     </li>
@@ -235,7 +251,7 @@
                             <div class="address-container">
                                 <div class="billingAddress">
                                     <div class="checkout_form_container">
-                                        <form action="#" id="billing_address_update_form" class="checkout_form"
+                                        <form action="#"  id="billing_address_update_form" class="checkout_form"
                                               method="post">
                                             <!-- Address Title -->
                                             <div>
@@ -248,7 +264,7 @@
                                                         class="dropdown_item_select checkout_input" required="required">
                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                             th:value="${address_title}"
-                                                            th:text="#{${'address_title.' + address_title}}">addressTitle
+                                                            th:text="#{${'address_title.' + address.getAddressTitle()}}">addressTitle
                                                     </option>
                                                 </select>
                                             </div>
@@ -289,8 +305,11 @@
                                                         th:value="${address.getCountry()}"
                                                         class="dropdown_item_select checkout_input country"
                                                         required="required">
-                                                    <option th:value="Turkey">Turkey</option>
-                                                    <option th:value="USA">USA</option>
+                                                    <option value="">SELECT</option>
+                                                    <option value="USA">USA</option>
+                                                    <option value="TURKEY">TURKEY</option>
+                                                    <option value="GERMANY">GERMANY</option>
+                                                    <option value="ETHIOPIA">ETHIOPIA</option>
                                                 </select>
                                             </div>
                                             <!-- City Province -->
@@ -306,8 +325,16 @@
                                                             th:value="${address.getCity()}"
                                                             class="dropdown_item_select checkout_input"
                                                             required="required">
-                                                        <option th:value="Ankara">Ankara</option>
-                                                        <option th:value="LasVegas">Lasvegas</option>
+                                                        <option value="">SELECT</option>
+                                                        <option value="USA">NEW YORK</option>
+                                                        <option value="USA">LAS VEGAS</option>
+                                                        <option value="USA">IOWA</option>
+                                                        <option value="TURKEY">ANKARA</option>
+                                                        <option value="TURKEY">IZMIR</option>
+                                                        <option value="TURKEY">ISTANBUL</option>
+                                                        <option value="GERMANY">BRANDENBURG</option>
+                                                        <option value="GERMANY">DUSSELDORF</option>
+                                                        <option value="ETHIOPIA">ADDIS ABABA<option>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -321,8 +348,16 @@
                                                             name="billing_address_update_province"
                                                             class="dropdown_item_select checkout_input"
                                                             required="required">
-                                                        <option th:value="cankaya">cankaya</option>
-                                                        <option th:value="sanfransisco">sanfransisco</option>
+                                                            <option value="">SELECT</option>
+                                                            <option value="USA">QUEENS</option>
+                                                            <option value="USA">SAN FRANSISCO</option>
+                                                            <option value="USA">TEXAS</option>
+                                                            <option value="TURKEY">CANKAYA</option>
+                                                            <option value="TURKEY">YENIMAHALLE</option>
+                                                            <option value="TURKEY">MAMAK</option>
+                                                            <option value="GERMANY">BERLIN</option>
+                                                            <option value="GERMANY">DUISBURG</option>
+                                                            <option value="ETHIOPIA">BOLE<option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -374,7 +409,7 @@
                                                        th:value="${address.getPhoneNumber()}"
                                                        class="checkout_input form-control phone_mask"
                                                        placeholder="(XXX) XXX XX XX"
-                                                       required="required">
+                                                       required="required" pattern=".{15}">
                                             </div>
                                             <div><!--ERROR--></div>
                                             <!-- Button -->
@@ -483,8 +518,10 @@
                                         class="dropdown_item_select checkout_input"
                                         required="required">
                                     <option value="">SELECT</option>
-                                    <option value="Turkey">Turkey</option>
                                     <option value="USA">USA</option>
+                                    <option value="TURKEY">TURKEY</option>
+                                    <option value="GERMANY">GERMANY</option>
+                                    <option value="ETHIOPIA">ETHIOPIA</option>
                                 </select>
                             </div>
 
@@ -501,8 +538,15 @@
                                             class="dropdown_item_select checkout_input"
                                             size="1" required="required">
                                         <option value="">SELECT</option>
-                                        <option value="Ankara">Ankara</option>
-
+                                        <option value="USA">NEW YORK</option>
+                                        <option value="USA">LAS VEGAS</option>
+                                        <option value="USA">IOWA</option>
+                                        <option value="TURKEY">ANKARA</option>
+                                        <option value="TURKEY">IZMIR</option>
+                                        <option value="TURKEY">ISTANBUL</option>
+                                        <option value="GERMANY">BRANDENBURG</option>
+                                        <option value="GERMANY">DUSSELDORF</option>
+                                        <option value="ETHIOPIA">ADDIS ABABA<option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
@@ -515,8 +559,16 @@
                                             id="delivery_address_province"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option value="">SELECT</option>
-                                        <option value="Cankaya">Cankaya</option>
+                                        <option value=""> Select</option>
+                                        <option value="USA">QUEENS</option>
+                                        <option value="USA">SAN FRANSISCO</option>
+                                        <option value="USA">TEXAS</option>
+                                        <option value="TURKEY">CANKAYA</option>
+                                        <option value="TURKEY">YENIMAHALLE</option>
+                                        <option value="TURKEY">MAMAK</option>
+                                        <option value="GERMANY">BERLIN</option>
+                                        <option value="GERMANY">DUISBURG</option>
+                                        <option value="ETHIOPIA">BOLE<option>
                                     </select>
                                 </div>
                             </div>
@@ -562,7 +614,7 @@
                                 </div>
                                 <input type="text" id="delivery_address_phone"
                                        class="checkout_input form-control phone_mask"
-                                       placeholder="(XXX) XXX XX XX" required="required">
+                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
                             </div>
 
                             <div><!--ERROR--></div>
@@ -584,7 +636,7 @@
                 <!-- Registered address 1 -->
                 <span th:unless="${#lists.isEmpty(allDeliveryAddress)}">
                     <span th:if="${allDeliveryAddress != null}">
-                        <tr th:each="address: ${allDeliveryAddress}">
+                        <tr th:each="address, iStat : ${allDeliveryAddress}">
                             <div class="address-element-padding">
                                 <div class="billingAddress">
                                     <div class="product_content">
@@ -597,23 +649,23 @@
                                                    th:href="'#delivery_address_update' + ${address.getAddressId()}"
                                                    class="trans_200"><i style="font-size: 25px; padding-right: 10px"
                                                                         class="fa fa-pencil"></i></a>
-                                                <a href="#" class="trans_200" data-toggle="collapse"
-                                                   id="delete_delivery_address"><i
+                                                <a href="#" class="trans_200 delete_delivery_address" data-toggle="collapse"
+                                                   th:id="${address.getAddressId()}" name="delete_delivery_address"><i
                                                         style="font-size: 25px; color: #4a4a4a"
                                                         class="fa product_text">&#xf014;</i></a>
                                             </div>
                                         </li>
                                         <li class="row">
                                             <div class="col-md-9 registered-address-content">
-                                                <td th:text="${address.getFullAddress()}"></td>
-                                                <td th:text="${address.getNeighborhood()}"></td>
+                                                <td th:text="${address.getFullAddress() + ','}"></td>
+                                                <td th:text="${address.getNeighborhood() + ','}"></td>
                                                 <td th:text="${address.getZipCode()}"></td>
                                             </div>
                                         </li>
                                         <li class="row">
                                             <div class="col-md-9 registered-address-content">
-                                                <td th:text="${address.getProvince()}"></td>
-                                                <td th:text="${address.getCity()}"></td>
+                                                <td th:text="${address.getProvince() +'/'}"></td>
+                                                <td th:text="${address.getCity() + ','}"></td>
                                                 <td th:text="${address.getCountry()}"></td>
                                             </div>
                                         </li>
@@ -630,7 +682,7 @@
                                 <div class="address-container">
                                     <div class="billingAddress">
                                         <div class="checkout_form_container">
-                                            <form action="#" id="delivery_address_update_form"
+                                            <form  action="#" id="delivery_address_update_form"
                                                   class="checkout_form" method="post">
                                                 <!-- Address Title -->
                                                 <div>
@@ -644,7 +696,7 @@
                                                             required="required">
                                                         <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                                 th:value="${address_title}"
-                                                                th:text="#{${'address_title.' + address_title}}">addressTitle
+                                                                th:text="#{${'address_title.' + address.getAddressTitle()}}">addressTitle
                                                         </option>
                                                     </select>
                                                 </div>
@@ -685,8 +737,11 @@
                                                             th:value="${address.getCountry()}"
                                                             class="dropdown_item_select checkout_input"
                                                             required="required">
-                                                        <option th:value="Turkey">Turkey</option>
-                                                        <option th:value="USA">USA</option>
+                                                         <option value="">SELECT</option>
+                                                        <option value="USA">USA</option>
+                                                        <option value="TURKEY">TURKEY</option>
+                                                        <option value="GERMANY">GERMANY</option>
+                                                        <option value="ETHIOPIA">ETHIOPIA</option>
                                                     </select>
                                                 </div>
                                                 <!-- City Province -->
@@ -702,8 +757,16 @@
                                                                 th:value="${address.getCity()}"
                                                                 class="dropdown_item_select checkout_input"
                                                                 required="required">
-                                                            <option th:value="Ankara">Ankara</option>
-                                                            <option th:value="LasVegas">LasVegas</option>
+                                                            <option value="">SELECT</option>
+                                                            <option value="USA">NEW YORK</option>
+                                                            <option value="USA">LAS VEGAS</option>
+                                                            <option value="USA">IOWA</option>
+                                                            <option value="TURKEY">ANKARA</option>
+                                                            <option value="TURKEY">IZMIR</option>
+                                                            <option value="TURKEY">ISTANBUL</option>
+                                                            <option value="GERMANY">BRANDENBURG</option>
+                                                            <option value="GERMANY">DUSSELDORF</option>
+                                                            <option value="ETHIOPIA">ADDIS ABABA<option>
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6">
@@ -717,8 +780,16 @@
                                                                 th:value="${address.getProvince()}"
                                                                 class="dropdown_item_select checkout_input"
                                                                 required="required">
-                                                            <option th:value="cankaya">cankaya</option>
-                                                            <option th:value="SanFransisco">SanFransisco</option>
+                                                                <option value=""> Select</option>
+                                                                <option value="USA">QUEENS</option>
+                                                                <option value="USA">SAN FRANSISCO</option>
+                                                                <option value="USA">TEXAS</option>
+                                                                <option value="TURKEY">CANKAYA</option>
+                                                                <option value="TURKEY">YENIMAHALLE</option>
+                                                                <option value="TURKEY">MAMAK</option>
+                                                                <option value="GERMANY">BERLIN</option>
+                                                                <option value="GERMANY">DUISBURG</option>
+                                                                <option value="ETHIOPIA">BOLE<option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -754,7 +825,7 @@
                                                         Address
                                                     </div>
                                                     <input type="text"
-                                                           th:id="'delivery_address_open_address_id' + ${address.getAddressId()}"
+                                                           th:id="'delivery_address_update_open_address_id' + ${address.getAddressId()}"
                                                            th:value="${address.getFullAddress()}"
                                                            class="checkout_input form-control"
                                                            placeholder="Full Address" required="required">
@@ -769,12 +840,12 @@
                                                            th:id="'delivery_address_update_phone' + ${address.getAddressId()}"
                                                            th:value="${address.getPhoneNumber()}"
                                                            class="checkout_input form-control phone_mask"
-                                                           placeholder="(XXX) XXX XX XX" pattern="^[0-9 ]+$"
+                                                           placeholder="(XXX) XXX XX XX" pattern=".{15}"
                                                            required="required">
                                                 </div>
                                                 <div><!--ERROR--></div>
                                                 <!-- Button -->
-                                                <input name=submit th:id="${address.getAddressId()}" type="submit"
+                                                <input name="update_delivery_address" th:id="${address.getAddressId()}" type="submit"
                                                        value="UPDATE"
                                                        class="login_button trans_200 update_delivery_address">
                                             </form>
@@ -796,18 +867,18 @@
 <br>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $('.update_billing_address').click(function (event) {
+    $('.update_billing_address,.delete_billing_address').click(function (event) {
         var addressId = $(this).attr("id");
         var button = $(this).attr("name");
         var name = $('#billing_address_update_name' + addressId).val();
         var surname = $('#billing_address_update_surname' + addressId).val();
-        var country = $('#billing_address_update_country' + addressId).children("option:selected").val();
-        var city = $('#billing_address_update_city' + addressId).children("option:selected").val();
-        var province = $('#billing_address_update_province' + addressId).children("option:selected").val();
+        var country = $('#billing_address_update_country' + addressId).children("option:selected").text();
+        var city = $('#billing_address_update_city' + addressId).children("option:selected").text();
+        var province = $('#billing_address_update_province' + addressId).children("option:selected").text();
         var neighborhood = $('#billing_address_update_neighborhood' + addressId).val();
         var zipCode = $('#billing_address_update_zip_code' + addressId).val();
         var fullAddress = $('#billing_address_update_open_address_1_id' + addressId).val();
-        var addressTitle = $('#billing_address_update_title' + addressId).children("option:selected").val();
+        var addressTitle = $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#billing_address_update_phone' + addressId).val();
         var userId = /*[[${user.getUserId()}]]*/ 'default';
         var user = /*[[${user}]]*/ 'default';
@@ -832,42 +903,69 @@
         };
 
         if (button === "update_billing_address") {
-            event.preventDefault();
-            $.post("/user-details/address/" + userId, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Address updated successfully',
-                    position: 'topRight',
-                    color: 'green'
+            if(validation_check(["billing_address_update_name" + addressId,"billing_address_update_surname" + addressId,"billing_address_update_country" + addressId,
+                "billing_address_update_city" + addressId,"billing_address_update_province" + addressId,"billing_address_update_neighborhood" + addressId,
+                "billing_address_update_zip_code" + addressId,"billing_address_update_open_address_1_id" + addressId,"billing_address_update_title" + addressId,
+                "billing_address_update_phone" + addressId])){
+                event.preventDefault();
+                $.post("/user-details/address/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address updated successfully',
+                        position: 'topRight',
+                        color: 'green'
                 });
                 window.location.href = "/user-details/" + userId + "#address";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
                 });
             })
+        } } else if(button === "delete_billing_address"){
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/user-details/address/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/user-details/" + userId + "#address";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/user-details/" + userId + "#address";
         }
     });
 
 
-    $('.update_delivery_address').click(function (event) {
+    $('.update_delivery_address,.delete_delivery_address').click(function (event) {
         var addressId = $(this).attr("id");
         var button = $(this).attr("name");
         var name = $('#delivery_address_update_name' + addressId).val();
         var surname = $('#delivery_address_update_surname' + addressId).val();
-        var country = $('#delivery_address_update_country' + addressId).children("option:selected").val();
-        var city = $('#delivery_address_update_city' + addressId).val();
-        var province = $('#delivery_address_update_province' + addressId).children("option:selected").val();
+        var country = $('#delivery_address_update_country' + addressId).children("option:selected").text();
+        var city = $('#delivery_address_update_city' + addressId).children("option:selected").text();
+        var province = $('#delivery_address_update_province' + addressId).children("option:selected").text();
         var neighborhood = $('#delivery_address_update_neighborhood' + addressId).val();
         var zipCode = $('#delivery_address_update_zip_code' + addressId).val();
         var fullAddress = $('#delivery_address_update_open_address_id' + addressId).val();
-        var addressTitle = $('#delivery_address_update_title' + addressId).children("option:selected").val();
+        var addressTitle = $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#delivery_address_update_phone' + addressId).val();
         var userId = /*[[${user.getUserId()}]]*/ 'default';
         var user = /*[[${user}]]*/ 'default';
@@ -892,10 +990,11 @@
 
         };
 
+
         if (button === "update_delivery_address") {
-            if (validation_check(["delivery_address_update_name", "delivery_address_update_surname", "delivery_address_update_country", "delivery_address_update_city",
-                "delivery_address_update_province", "delivery_address_update_neighborhood", "delivery_address_update_zip_code", "delivery_update_open_address_id", "delivery_address_update_title",
-                "delivery_address_update_phone"])) {
+            if (validation_check(["delivery_address_update_name" + addressId, "delivery_address_update_surname" + addressId, "delivery_address_update_country" + addressId, "delivery_address_update_city" + addressId,
+                "delivery_address_update_province" + addressId, "delivery_address_update_neighborhood" + addressId, "delivery_address_update_zip_code" + addressId, "delivery_address_update_open_address_id" + addressId, "delivery_address_update_title" + addressId,
+                "delivery_address_update_phone" + addressId])) {
                 event.preventDefault();
                 $.post("/user-details/address/" + userId, ret, function (data) {
                     iziToast.show({
@@ -905,7 +1004,9 @@
                         color: 'green'
                     });
                     window.location.href = "/user-details/" + userId + "#address";
-
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
                 }).fail(function (data) {
                     iziToast.show({
                         title: 'Fail',
@@ -915,7 +1016,33 @@
                     });
                 })
             }
+        } else if(button === "delete_delivery_address"){
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/user-details/address/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/user-details/" + userId + "#address";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/user-details/" + userId + "#address";
         }
+
+
+
     });
 
 
@@ -923,9 +1050,9 @@
         var button = $(this).attr("id");
         var name = $('#billing_address_name').val();
         var surname = $('#billing_address_surname').val();
-        var country = $('#billing_address_country').val();
-        var city = $('#billing_address_city').val();
-        var province = $('#billing_address_province').val();
+        var country = $("#billing_address_country option:selected").text();
+        var city = $("#billing_address_city option:selected").text();
+        var province = $("#billing_address_province option:selected").text();
         var neighborhood = $('#billing_address_neighborhood').val();
         var zipCode = $('#billing_address_zip_code').val();
         var fullAddress = $('#billing_open_address').val();
@@ -986,9 +1113,9 @@
         var button = $(this).attr("id");
         var name = $('#delivery_address_name').val();
         var surname = $('#delivery_address_surname').val();
-        var country = $('#delivery_address_country').val();
-        var city = $('#delivery_address_city').val();
-        var province = $('#delivery_address_province').val();
+        var country = $("#delivery_address_country option:selected").text();
+        var city = $("#delivery_address_city option:selected").text();
+        var province = $("#delivery_address_province option:selected").text();
         var neighborhood = $('#delivery_address_neighborhood').val();
         var zipCode = $('#delivery_address_zip_code').val();
         var fullAddress = $('#delivery_open_address').val();
@@ -1056,6 +1183,34 @@
         }
         return true;
     }
+</script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+
+<script th:inline="javascript">
+
+    var $select1 = $( '#billing_address_country' ),
+        $select2 = $( '#billing_address_city' ),
+        $select3 = $( '#billing_address_province' ),
+        $options = $select2.find( 'option' ),
+        $options1 = $select3.find( 'option' );
+
+    $select1.on( 'change', function() {
+        $select2.html( $options.filter( '[value="' + this.value + '"]' ) );
+        $select3.html( $options1.filter( '[value="' + this.value + '"]' ) );
+    } ).trigger( 'change' );
+
+    var $select1 = $( '#delivery_address_country' ),
+        $select2 = $( '#delivery_address_city' ),
+        $select3 = $( '#delivery_address_province' ),
+        $options = $select2.find( 'option' ),
+        $options1 = $select3.find( 'option' );
+
+    $select1.on( 'change', function() {
+        $select2.html( $options.filter( '[value="' + this.value + '"]' ) );
+        $select3.html( $options1.filter( '[value="' + this.value + '"]' ) );
+    } ).trigger( 'change' );
+
+
 </script>
 
 </html>

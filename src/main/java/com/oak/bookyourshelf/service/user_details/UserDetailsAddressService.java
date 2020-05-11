@@ -30,7 +30,4 @@ public class UserDetailsAddressService {
         userDetailsAddressRepository.save(address);
     }
 
-    public Address findAddressByName(String name){ return userDetailsAddressRepository.findAddressByName(name);}
-
-
 }

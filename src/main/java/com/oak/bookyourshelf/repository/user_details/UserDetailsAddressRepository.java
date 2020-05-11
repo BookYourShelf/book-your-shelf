@@ -13,5 +13,4 @@ public interface UserDetailsAddressRepository extends CrudRepository<Address, In
     @Query("SELECT a FROM Address a WHERE a.addressId = ?1")
     Address findAddressById(int id);
 
-    Address findAddressByName(String name);
 }

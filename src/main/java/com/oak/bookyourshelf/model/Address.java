@@ -13,20 +13,20 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int addressId;
+    private int addressId;
 
     @Enumerated(EnumType.STRING)
     AddressTitle addressTitle;
 
-    String name;
-    String surname;
-    String country;
-    String city;
-    String province;
-    String neighborhood;
-    int zipCode;
-    String fullAddress;
-    String phoneNumber;
+    private String name;
+    private String surname;
+    private String country;
+    private String city;
+    private String province;
+    private String neighborhood;
+    private int zipCode;
+    private String fullAddress;
+    private String phoneNumber;
 
     // GETTER & SETTER
 
