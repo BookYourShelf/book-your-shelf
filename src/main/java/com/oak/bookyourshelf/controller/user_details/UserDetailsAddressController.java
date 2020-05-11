@@ -27,7 +27,6 @@ public class UserDetailsAddressController {
     public String tab(Model model, @PathVariable int id) {
         User user = userDetailsInformationService.get(id);
         Address address = new Address();
-        System.out.println(id);
         model.addAttribute("user", user);
         model.addAttribute("address", address);
         model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
@@ -39,19 +38,15 @@ public class UserDetailsAddressController {
     @RequestMapping(value = "/user-details/address/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> AddressUpdate(@RequestParam String button, @PathVariable int id, Address address) {
-        System.out.println(button);
-        System.out.println(id);
+
         User user = userDetailsInformationService.get(id);
-        /*ADD BILLING ADDRESS*/
+
         if (button.equals("add_billing_address")) {
-            System.out.println("I am inside add billing address");
             userDetailsAddressService.save(address);
             user.getBillingAddresses().add(0, address);
             userDetailsInformationService.save(user);
-        }
-        /*ADD DELIVERY ADDRESS*/
-        else if (button.equals("add_delivery_address")) {
 
+        } else if (button.equals("add_delivery_address")) {
             userDetailsAddressService.save(address);
             user.getDeliveryAddresses().add(0, address);
             userDetailsInformationService.save(user);
@@ -60,7 +55,6 @@ public class UserDetailsAddressController {
             Address oldBillingAddress = findAddress(user.getBillingAddresses(), address.getAddressId());
             oldBillingAddress = copyAddress(oldBillingAddress, address);
             userDetailsAddressService.save(oldBillingAddress);
-            System.out.println("I am updating");
             System.out.println(address.getAddressTitle());
             System.out.println(address.getAddressId());
             System.out.println(address.getZipCode());
@@ -70,20 +64,13 @@ public class UserDetailsAddressController {
             Address oldDeliveryAddress = findAddress(user.getDeliveryAddresses(), address.getAddressId());
             oldDeliveryAddress = copyAddress(oldDeliveryAddress, address);
             userDetailsAddressService.save(oldDeliveryAddress);
-            System.out.println("I am updatings");
-            System.out.println(address.getAddressTitle());
-            System.out.println(address.getAddressId());
-            System.out.println(address.getZipCode());
 
         } else if (button.equals("delete_billing_address")) {
-            System.out.println("I am deleting");
-            System.out.println(address.getAddressId());
             Address toBeDeleted = findAddress(user.getBillingAddresses(), address.getAddressId());
             user.getBillingAddresses().remove(toBeDeleted);
             userDetailsAddressService.delete(address.getAddressId());
+
         } else {
-            System.out.println("I am deleting");
-            System.out.println(address.getAddressId());
             Address toBeDeleted = findAddress(user.getDeliveryAddresses(), address.getAddressId());
             user.getDeliveryAddresses().remove(toBeDeleted);
             userDetailsAddressService.delete(address.getAddressId());
@@ -107,9 +94,8 @@ public class UserDetailsAddressController {
         oldAddress.setSurname(address.getSurname());
         oldAddress.setCountry(address.getCountry());
         oldAddress.setCity(address.getCity());
-        oldAddress.setZipCode(address.getZipCode());  // update checking using zip code
+        oldAddress.setZipCode(address.getZipCode());
         oldAddress.setNeighborhood(address.getNeighborhood());
-        oldAddress.setProvince(address.getProvince());
         oldAddress.setAddressTitle(address.getAddressTitle());
         oldAddress.setFullAddress(address.getFullAddress());
         oldAddress.setPhoneNumber(address.getPhoneNumber());
