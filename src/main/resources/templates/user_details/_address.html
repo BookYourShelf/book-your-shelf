@@ -87,12 +87,6 @@
                                         id="billing_address_country"
                                         class="dropdown_item_select checkout_input"
                                         size="1" required="required">
-                                    <option value=""> Select</option>
-                                    <option value="USA">USA</option>
-                                    <option value="TURKEY">TURKEY</option>
-                                    <option value="GERMANY">GERMANY</option>
-                                    <option value="ETHIOPIA">ETHIOPIA</option>
-
                                 </select>
                             </div>
 
@@ -108,16 +102,6 @@
                                             id="billing_address_city"
                                             class="dropdown_item_select checkout_input"
                                             size="1" required="required">
-                                        <option value=""> Select</option>
-                                        <option value="USA">NEW YORK</option>
-                                        <option value="USA">LAS VEGAS</option>
-                                        <option value="USA">IOWA</option>
-                                        <option value="TURKEY">ANKARA</option>
-                                        <option value="TURKEY">IZMIR</option>
-                                        <option value="TURKEY">ISTANBUL</option>
-                                        <option value="GERMANY">BRANDENBURG</option>
-                                        <option value="GERMANY">DUSSELDORF</option>
-                                        <option value="ETHIOPIA">ADDIS ABABA<option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
@@ -516,12 +500,7 @@
                                 <select name="delivery_address_country"
                                         id="delivery_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        required="required">
-                                    <option value="">SELECT</option>
-                                    <option value="USA">USA</option>
-                                    <option value="TURKEY">TURKEY</option>
-                                    <option value="GERMANY">GERMANY</option>
-                                    <option value="ETHIOPIA">ETHIOPIA</option>
+                                        size="1" required="required">
                                 </select>
                             </div>
 
@@ -537,16 +516,6 @@
                                             id="delivery_address_city"
                                             class="dropdown_item_select checkout_input"
                                             size="1" required="required">
-                                        <option value="">SELECT</option>
-                                        <option value="USA">NEW YORK</option>
-                                        <option value="USA">LAS VEGAS</option>
-                                        <option value="USA">IOWA</option>
-                                        <option value="TURKEY">ANKARA</option>
-                                        <option value="TURKEY">IZMIR</option>
-                                        <option value="TURKEY">ISTANBUL</option>
-                                        <option value="GERMANY">BRANDENBURG</option>
-                                        <option value="GERMANY">DUSSELDORF</option>
-                                        <option value="ETHIOPIA">ADDIS ABABA<option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
@@ -1050,8 +1019,8 @@
         var button = $(this).attr("id");
         var name = $('#billing_address_name').val();
         var surname = $('#billing_address_surname').val();
-        var country = $("#billing_address_country option:selected").text();
-        var city = $("#billing_address_city option:selected").text();
+        var country = $('#billing_address_country').val();
+        var city = $('#billing_address_city').val();
         var province = $("#billing_address_province option:selected").text();
         var neighborhood = $('#billing_address_neighborhood').val();
         var zipCode = $('#billing_address_zip_code').val();
@@ -1113,8 +1082,8 @@
         var button = $(this).attr("id");
         var name = $('#delivery_address_name').val();
         var surname = $('#delivery_address_surname').val();
-        var country = $("#delivery_address_country option:selected").text();
-        var city = $("#delivery_address_city option:selected").text();
+        var country = $('#delivery_address_country').val();
+        var city = $('#delivery_address_city').val();
         var province = $("#delivery_address_province option:selected").text();
         var neighborhood = $('#delivery_address_neighborhood').val();
         var zipCode = $('#delivery_address_zip_code').val();
@@ -1185,30 +1154,12 @@
     }
 </script>
 <script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/countries.js}"></script>
 
 <script th:inline="javascript">
 
-    var $select1 = $( '#billing_address_country' ),
-        $select2 = $( '#billing_address_city' ),
-        $select3 = $( '#billing_address_province' ),
-        $options = $select2.find( 'option' ),
-        $options1 = $select3.find( 'option' );
-
-    $select1.on( 'change', function() {
-        $select2.html( $options.filter( '[value="' + this.value + '"]' ) );
-        $select3.html( $options1.filter( '[value="' + this.value + '"]' ) );
-    } ).trigger( 'change' );
-
-    var $select1 = $( '#delivery_address_country' ),
-        $select2 = $( '#delivery_address_city' ),
-        $select3 = $( '#delivery_address_province' ),
-        $options = $select2.find( 'option' ),
-        $options1 = $select3.find( 'option' );
-
-    $select1.on( 'change', function() {
-        $select2.html( $options.filter( '[value="' + this.value + '"]' ) );
-        $select3.html( $options1.filter( '[value="' + this.value + '"]' ) );
-    } ).trigger( 'change' );
+    populateCountries("billing_address_country", "billing_address_city");
+    populateCountries("delivery_address_country","delivery_address_city");
 
 
 </script>
