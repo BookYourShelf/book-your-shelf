@@ -53,6 +53,7 @@
         </div>
 
         <!-- Products -->
+        <span th:unless="${#lists.isEmpty(products)}">
         <div class="products">
             <div class="container">
                 <div class="row products_bar_row">
@@ -906,9 +907,11 @@
                 </div>
             </div>
         </div>
+        </span>
 
         <!-- Search fail - No book -->
-        <div class="search_fail" style="display: none">
+        <span th:if="${#lists.isEmpty(products)}">
+        <div class="search_fail" >
             <br>
             <img src="images/search-fail.png">
             <div>
@@ -921,6 +924,7 @@
             </div>
             <br>
         </div>
+        </span>
 
         <!-- Footer -->
         <footer class="footer" th:insert="fragments/footer.html"></footer>
