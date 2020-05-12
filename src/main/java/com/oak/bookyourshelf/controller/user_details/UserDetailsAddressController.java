@@ -55,10 +55,6 @@ public class UserDetailsAddressController {
             Address oldBillingAddress = findAddress(user.getBillingAddresses(), address.getAddressId());
             oldBillingAddress = copyAddress(oldBillingAddress, address);
             userDetailsAddressService.save(oldBillingAddress);
-            System.out.println(address.getAddressTitle());
-            System.out.println(address.getAddressId());
-            System.out.println(address.getZipCode());
-            System.out.println(address.getCountry());
 
         } else if (button.equals("update_delivery_address")) {
             Address oldDeliveryAddress = findAddress(user.getDeliveryAddresses(), address.getAddressId());
