@@ -2,9 +2,9 @@ package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.AuthService;
+import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,12 @@ public class SearchController {
 
     final AuthService authService;
     final ProfileInformationService profileInformationService;
+    final ProductService productService;
 
-    public SearchController(@Qualifier("customUserDetailsService") AuthService authService, ProfileInformationService profileInformationService) {
+    public SearchController(@Qualifier("customUserDetailsService") AuthService authService, ProfileInformationService profileInformationService, ProductService productService) {
         this.authService = authService;
         this.profileInformationService = profileInformationService;
+        this.productService = productService;
     }
 
 
@@ -40,6 +42,7 @@ public class SearchController {
         }
         profileInformationService.save(user);
         model.addAttribute("searchValue",search);
+        model.addAttribute("products",productService.getAllProduct());
 
         return "/search-result";
     }
