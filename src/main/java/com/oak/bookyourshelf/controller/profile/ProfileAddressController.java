@@ -34,7 +34,6 @@ public class ProfileAddressController {
     public String showAddress(Model model) {
         UserDetails userDetails = authService.getUserDetails();
         if (userDetails != null) {
-            System.out.println("I am inside profile address");
             User user = profileInformationService.getByEmail(userDetails.getUsername());
             Address address = new Address();
             model.addAttribute("address", address);
@@ -47,20 +46,21 @@ public class ProfileAddressController {
     }
 
     @RequestMapping(value = "/profile/address", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseEntity<String> updateAddress(@RequestParam String button, Address address) {
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
-        System.out.println(button);
+            
 
         if (button.equals("add_delivery_address")) {
             profileAddressService.save(address);
             user.getDeliveryAddresses().add(address);
             profileInformationService.save(user);
+
         } else if (button.equals("add_billing_address")) {
             profileAddressService.save(address);
             user.getBillingAddresses().add(address);
             profileInformationService.save(user);
+
         } else if (button.equals("update_billing_address")) {
             Address oldBillingAddress = findAddress(user.getBillingAddresses(), address.getAddressId());
             oldBillingAddress = copyAddress(oldBillingAddress, address);
@@ -88,7 +88,6 @@ public class ProfileAddressController {
     public Address findAddress(List<Address> addressList, int Id) {
         for (Address add : addressList) {
             if (add.getAddressId() == Id) {
-                System.out.println(add.getAddressTitle());
                 return add;
             }
         }

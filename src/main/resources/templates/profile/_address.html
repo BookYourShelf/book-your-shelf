@@ -334,7 +334,7 @@
                                                 <div class="login-text p-b-10" style="color: black;">
                                                     Address
                                                 </div>
-                                                <input type="text" th:id="'billing_update_open_address_2_id' + ${address.getAddressId()}"
+                                                <input type="text" th:id="'billing_address_update_open_address_2_id' + ${address.getAddressId()}"
                                                        th:value="${address.getFullAddress()}"
                                                        class="checkout_input form-control"
                                                        placeholder="Full Address" required="required">
@@ -787,7 +787,7 @@
                 "billing_address_update_city" + addressId,"billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId,"billing_address_update_open_address_2_id" + addressId,"billing_address_update_title" + addressId,
                 "billing_address_update_phone" + addressId])){
                 event.preventDefault();
-                $.post("/profile/address/", ret, function (data) {
+                $.post("/profile/address", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address updated successfully',
@@ -809,7 +809,7 @@
             } } else if(button === "delete_billing_address"){
             if (confirm('Are you sure you want to delete?')) {
                 event.preventDefault();
-                $.post("/user-details/address/" + userId, ret, function (data) {
+                $.post("/profile/address" , ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address deleted successfully',
@@ -870,7 +870,7 @@
                 "delivery_address_phone", "delivery_address_zip_code", "delivery_address_country", "delivery_address_city",
                 "delivery_address_title"])) {
                 event.preventDefault();
-                $.post("/profile/address/", ret, function (data) {
+                $.post("/profile/address", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address added successfully',
@@ -931,7 +931,7 @@
                 "billing_address_phone", "billing_address_zip_code", "billing_address_country", "billing_address_city",
                 "billing_address_title"])) {
                 event.preventDefault();
-                $.post("/profile/address/", ret, function (data) {
+                $.post("/profile/address", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address added successfully',
@@ -995,7 +995,7 @@
                 "delivery_address_update_neighborhood" + addressId, "delivery_address_update_zip_code" + addressId, "delivery_address_update_open_address_id" + addressId, "delivery_address_update_title" + addressId,
                 "delivery_address_update_phone" + addressId])) {
                 event.preventDefault();
-                $.post("/profile/address/", ret, function (data) {
+                $.post("/profile/address", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address updated successfully',
@@ -1018,7 +1018,7 @@
         } else if(button === "delete_delivery_address"){
             if (confirm('Are you sure you want to delete?')) {
                 event.preventDefault();
-                $.post("/profile/address/", ret, function (data) {
+                $.post("/profile/address", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address deleted successfully',
