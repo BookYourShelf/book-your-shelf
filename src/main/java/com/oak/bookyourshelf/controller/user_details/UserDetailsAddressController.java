@@ -90,7 +90,7 @@ public class UserDetailsAddressController {
         oldAddress.setCountry(address.getCountry());
         oldAddress.setCity(address.getCity());
         oldAddress.setZipCode(address.getZipCode());
-        oldAddress.setNeighborhood(address.getNeighborhood());
+        oldAddress.setTown(address.getTown());
         oldAddress.setAddressTitle(address.getAddressTitle());
         oldAddress.setFullAddress(address.getFullAddress());
         oldAddress.setPhoneNumber(address.getPhoneNumber());
