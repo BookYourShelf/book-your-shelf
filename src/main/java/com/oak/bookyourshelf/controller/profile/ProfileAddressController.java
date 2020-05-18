@@ -49,7 +49,7 @@ public class ProfileAddressController {
     public ResponseEntity<String> updateAddress(@RequestParam String button, Address address) {
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
-            
+
 
         if (button.equals("add_delivery_address")) {
             profileAddressService.save(address);
@@ -67,6 +67,7 @@ public class ProfileAddressController {
             profileAddressService.save(oldBillingAddress);
 
         } else if (button.equals("update_delivery_address")) {
+            System.out.println("I am in update");
             Address oldDeliveryAddress = findAddress(user.getDeliveryAddresses(), address.getAddressId());
             oldDeliveryAddress = copyAddress(oldDeliveryAddress, address);
             profileAddressService.save(oldDeliveryAddress);
@@ -100,7 +101,7 @@ public class ProfileAddressController {
         oldAddress.setCountry(address.getCountry());
         oldAddress.setCity(address.getCity());
         oldAddress.setZipCode(address.getZipCode());
-        oldAddress.setNeighborhood(address.getNeighborhood());
+        oldAddress.setTown(address.getTown());
         oldAddress.setAddressTitle(address.getAddressTitle());
         oldAddress.setFullAddress(address.getFullAddress());
         oldAddress.setPhoneNumber(address.getPhoneNumber());
