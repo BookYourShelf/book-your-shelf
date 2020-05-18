@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-</head>
+
 
 <div class="row order - row ">
     <div class="col-lg-6">
@@ -112,7 +110,7 @@
                                 <div class="col-lg-6">
                                     <!-- Neighborhood -->
                                     <div class="login-text p-b-10" style="color: black;">
-                                        Neighborhood
+                                        Town
                                     </div>
 
                                     <input type="text" id="billing_address_neighborhood"
@@ -190,7 +188,7 @@
                                     <li class="row">
                                         <div class="col-md-9 registered-address-content">
                                             <td th:text="${address.getFullAddress() + ','}"></td>
-                                            <td th:text="${address.getNeighborhood() + ','}"></td>
+                                            <td th:text="${address.getTown() + ','}"></td>
                                             <td th:text="${address.getZipCode()}"></td>
                                         </div>
                                     </li>
@@ -290,11 +288,11 @@
                                                     <!-- Neighborhood -->
                                                     <div class="login-text p-b-10"
                                                          style="color: black;">
-                                                        Neighborhood
+                                                        Town
                                                     </div>
                                                     <input type="text"
                                                            th:id="'billing_address_update_neighborhood' + ${address.getAddressId()}"
-                                                           th:value="${address.getNeighborhood()}"
+                                                           th:value="${address.getTown()}"
                                                            class="checkout_input form-control"
                                                            required="required">
                                                 </div>
@@ -462,7 +460,7 @@
                                 <div class="col-lg-6">
                                     <!-- Neighborhood -->
                                     <div class="login-text p-b-10" style="color: black;">
-                                        Neighborhood
+                                        Town
                                     </div>
 
                                     <input type="text" id="delivery_address_neighborhood"
@@ -504,7 +502,7 @@
                             <div><!--ERROR--></div>
 
                             <!-- Button -->
-                            <input name="update_delivery_address" id="add_delivery_address" type="submit"
+                            <input name="add_delivery_address" id="add_delivery_address" type="submit"
                                    value="ADD ADDRESS"
                                    class="login_button trans_200">
 
@@ -542,7 +540,7 @@
                                         <li class="row">
                                             <div class="col-md-9 registered-address-content">
                                                 <td th:text="${address.getFullAddress() + ','}"></td>
-                                                <td th:text="${address.getNeighborhood() + ','}"></td>
+                                                <td th:text="${address.getTown() + ','}"></td>
                                                 <td th:text="${address.getZipCode()}"></td>
                                             </div>
                                         </li>
@@ -642,11 +640,11 @@
                                                         <!-- Neighborhood -->
                                                         <div class="login-text p-b-10"
                                                              style="color: black;">
-                                                            Neighborhood
+                                                            Town
                                                         </div>
                                                         <input type="text"
                                                                th:id="'delivery_address_update_neighborhood' + ${address.getAddressId()}"
-                                                               th:value="${address.getNeighborhood()}"
+                                                               th:value="${address.getTown()}"
                                                                class="checkout_input form-control"
                                                                pattern="^[a-zA-Z ]+$" required="required">
                                                     </div>
@@ -717,7 +715,7 @@
         var surname = $('#billing_address_update_surname' + addressId).val();
         var country = $('#billing_address_update_country' + addressId).children("option:selected").val();
         var city = $('#billing_address_update_city' + addressId).children("option:selected").val();
-        var neighborhood = $('#billing_address_update_neighborhood' + addressId).val();
+        var town = $('#billing_address_update_neighborhood' + addressId).val();
         var zipCode = $('#billing_address_update_zip_code' + addressId).val();
         var fullAddress = $('#billing_address_update_open_address_1_id' + addressId).val();
         var addressTitle = $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
@@ -732,7 +730,7 @@
             surname: surname,
             country: country,
             city: city,
-            neighborhood: neighborhood,
+            town: town,
             zipCode: zipCode,
             fullAddress: fullAddress,
             addressTitle: addressTitle,
@@ -802,7 +800,7 @@
         var surname = $('#delivery_address_update_surname' + addressId).val();
         var country = $('#delivery_address_update_country' + addressId).children("option:selected").text();
         var city = $('#delivery_address_update_city' + addressId).children("option:selected").text();
-        var neighborhood = $('#delivery_address_update_neighborhood' + addressId).val();
+        var town = $('#delivery_address_update_neighborhood' + addressId).val();
         var zipCode = $('#delivery_address_update_zip_code' + addressId).val();
         var fullAddress = $('#delivery_address_update_open_address_id' + addressId).val();
         var addressTitle = $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
@@ -818,7 +816,7 @@
             surname: surname,
             country: country,
             city: city,
-            neighborhood: neighborhood,
+            town: town,
             zipCode: zipCode,
             fullAddress: fullAddress,
             addressTitle: addressTitle,
@@ -891,7 +889,7 @@
         var surname = $('#billing_address_surname').val();
         var country = $('#billing_address_country').val();
         var city = $('#billing_address_city').val();
-        var neighborhood = $('#billing_address_neighborhood').val();
+        var town = $('#billing_address_neighborhood').val();
         var zipCode = $('#billing_address_zip_code').val();
         var fullAddress = $('#billing_open_address').val();
         var addressTitle = $('#billing_address_title').val().toUpperCase().split(" ").join("_");
@@ -906,7 +904,7 @@
             surname: surname,
             country: country,
             city: city,
-            neighborhood: neighborhood,
+            town: town,
             zipCode: zipCode,
             fullAddress: fullAddress,
             phoneNumber: phoneNumber,
@@ -952,7 +950,7 @@
         var surname = $('#delivery_address_surname').val();
         var country = $('#delivery_address_country').val();
         var city = $('#delivery_address_city').val();
-        var neighborhood = $('#delivery_address_neighborhood').val();
+        var town = $('#delivery_address_neighborhood').val();
         var zipCode = $('#delivery_address_zip_code').val();
         var fullAddress = $('#delivery_open_address').val();
         var addressTitle = $('#delivery_address_title').val().toUpperCase().split(" ").join("_");
@@ -967,7 +965,7 @@
             surname: surname,
             country: country,
             city: city,
-            neighborhood: neighborhood,
+            town: town,
             zipCode: zipCode,
             fullAddress: fullAddress,
             addressTitle: addressTitle,
