@@ -22,7 +22,7 @@ public class Address {
     private String surname;
     private String country;
     private String city;
-    private String neighborhood;
+    private String town;
     private int zipCode;
     private String fullAddress;
     private String phoneNumber;
@@ -77,14 +77,6 @@ public class Address {
         this.city = city;
     }
 
-    public String getNeighborhood() {
-        return neighborhood;
-    }
-
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
     public int getZipCode() {
         return zipCode;
     }
@@ -109,4 +101,7 @@ public class Address {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getTown() { return town; }
+
+    public void setTown(String town) { this.town = town; }
 }
