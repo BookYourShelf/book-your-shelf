@@ -267,7 +267,7 @@ function populateStates( countryElementId, stateElementId ){
     var stateElement = document.getElementById( stateElementId );
 
     stateElement.length=0;	// Fixed by Julian Woods
-    stateElement.options[0] = new Option('Select City','');
+    stateElement.options[0] = new Option('SELECT','');
     stateElement.selectedIndex = 0;
 
     var state_arr = s_a[selectedCountryIndex].split("|");
@@ -284,8 +284,8 @@ function populateCountries(countryElementId, stateElementId){
 
 
     countryElement.length=0;
-    countryElement.options[0] = new Option('Select','');
-    stateElement.options[0] = new Option('Select','');
+    countryElement.options[0] = new Option('SELECT','');
+    stateElement.options[0] = new Option('SELECT','');
     countryElement.selectedIndex = 0;
     for (var i=0; i<country_arr.length; i++) {
         countryElement.options[countryElement.length] = new Option(country_arr[i],country_arr[i]);
