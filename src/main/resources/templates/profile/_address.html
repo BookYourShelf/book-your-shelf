@@ -116,7 +116,7 @@
                                     </div>
 
                                     <input type="text" id="billing_address_neighborhood"
-                                           class="checkout_input form-control"
+                                           placeholder="Town" class="checkout_input form-control"
                                            required="required" pattern="^[a-zA-Z ]+$">
                                 </div>
                                 <div class="col-lg-6">
@@ -231,7 +231,8 @@
                                                         required="required">
                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                             th:value="${address_title}"
-                                                            th:text="#{${'address_title.' + address.getAddressTitle()}}">addressTitle
+                                                            th:text="#{${'address_title.' + address_title}}"
+                                                            th:selected="${address_title == address.getAddressTitle()}">addressTitle
                                                     </option>
                                                 </select>
                                             </div>
@@ -488,7 +489,7 @@
 
                                     <input type="text" id="delivery_address_neighborhood"
                                            class="checkout_input form-control"
-                                           required="required" pattern="^[a-zA-Z ]+$">
+                                           placeholder="Town" required="required" pattern="^[a-zA-Z ]+$">
                                 </div>
                                 <div class="col-lg-6">
                                     <!-- Zipcode -->
@@ -602,7 +603,8 @@
                                                         required="required">
                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                             th:value="${address_title}"
-                                                            th:text="#{${'address_title.' + address.getAddressTitle()}}">addressTitle
+                                                            th:text="#{${'address_title.' + address_title}}"
+                                                            th:selected="${address_title == address.getAddressTitle()}">addressTitle
                                                     </option>
                                                 </select>
                                             </div>
