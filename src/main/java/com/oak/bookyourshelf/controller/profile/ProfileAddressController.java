@@ -67,7 +67,6 @@ public class ProfileAddressController {
             profileAddressService.save(oldBillingAddress);
 
         } else if (button.equals("update_delivery_address")) {
-            System.out.println("I am in update");
             Address oldDeliveryAddress = findAddress(user.getDeliveryAddresses(), address.getAddressId());
             oldDeliveryAddress = copyAddress(oldDeliveryAddress, address);
             profileAddressService.save(oldDeliveryAddress);
