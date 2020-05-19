@@ -31,7 +31,6 @@ public class UserDetailsAddressController {
         model.addAttribute("address", address);
         model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
         model.addAttribute("allBillingAddress", user.getBillingAddresses());
-        System.out.println("hello");
         return "/user_details/_address";
     }
 
