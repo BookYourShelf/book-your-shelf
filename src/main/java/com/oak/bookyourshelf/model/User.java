@@ -36,7 +36,7 @@ public class User {
     private String surname;
     private String birthDate;
     private String phoneNumber;
-    private Boolean receiveMessage;
+    private Boolean receiveMessage = false;
 
     @OneToMany(
             cascade = CascadeType.ALL,
