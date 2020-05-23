@@ -2,8 +2,6 @@ package com.oak.bookyourshelf.service.admin_panel;
 
 
 import com.oak.bookyourshelf.model.Campaign;
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCampaignRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
