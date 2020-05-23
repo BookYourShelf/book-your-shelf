@@ -1,3 +1,6 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
 <!-- Add hot list button -->
 <div class="address-element-padding">
     <a href="#new_hot_list" class="trans_200" data-toggle="collapse">
@@ -44,10 +47,10 @@
                             <select name="new_hot_list_type" id="new_hot_list_type"
                                     class="dropdown_item_select checkout_input"
                                     require="required">
-                                <option>SELECT</option>
-                                <option>Best Sellers</option>
-                                <option>New Releases</option>
-                                <option>Our Picks For You</option>
+                                <option th:each="hotListType : ${hotList.hotListType.values()}"
+                                        th:value="${hotListType}"
+                                        th:text="#{${'hotListType.' + hotListType}}">productType
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -103,13 +106,13 @@
                     <div><!--ERROR--></div>
 
                     <!-- Button -->
-                    <div class="login_button trans_200"><a href="#">Add Hot List</a></div>
+                    <input type="submit" class="login_button trans_200" value="Add Campaign"  id="new_hotList_button">
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<span th:if="${hotListPage.totalPages>0}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -164,15 +167,17 @@
     <br>
     <div class="container">
         <div class="orderDetailBox">
-
+             <tr th:each="hotList: ${hotListPage.content}">
             <!-- Category -->
             <div class="address-element-padding">
-                <a href="hot-list-details.html">
+               <a th:href="@{'/hotlist-details/' + ${hotList.id}}">
                     <div class="category-element">
                         <div class="product_content">
                             <div class="row order - row collapsible">
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">1</div>
+                                    <div class="profile-order-text">
+                                        <td th:text="${hotList.getId()}"></td>
+                                    </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">Literature, Novel</div>
@@ -183,55 +188,80 @@
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">10</div>
+                                    <div class="profile-order-text">
+                                        <td th:text="${hotList.getProductNum()}"></td>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-
-            <!-- Category -->
-            <div class="address-element-padding">
-                <a href="hot-list-details.html">
-                    <div class="category-element">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">2</div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Literature</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">New Releases</div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">100</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+             </tr>
         </div>
     </div>
 </div>
 
-<!-- No categories -->
-<div class="warning-text" style="display: none">There are no categories.</div>
+
 
 <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <div th:if="${hotListPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+                <li ><a th:href="@{/admin-panel#hot-list(size=${hotListPage.size}, page=${pageNumber})}"
+                        th:text="${pageNumber}"
+                        th:class="${pageNumber==hotListPage.number + 1} ? active"></a></li>
+                </div>
             </ul>
         </div>
     </div>
 </div>
+    </span>
+<!-- No categories -->
+<span th:unless="${hotListPage.totalPages >0}">
+<div class="warning-text">There are no campaigns.</div>
+</span>
+
+<script>
+
+    $('#new_hotList_button').click(function (event) {
+        var ret = {
+
+            productNum: $('#new_hot_list_product_number').val(),
+            startDate: $('#new_hot_list_start_date').val(),
+            endDate: $('#new_hot_list_end_date').val(),
+
+
+        };
+
+        if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date"
+        ])) {
+            event.preventDefault();
+            $.post("/admin-panel/hot-list", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Hot List added successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/admin-panel#hot-list";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+</script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+
+</html>

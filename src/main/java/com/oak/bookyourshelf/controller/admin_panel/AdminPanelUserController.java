@@ -45,7 +45,7 @@ public class AdminPanelUserController {
 
     @RequestMapping(value = "/admin-panel/user", method = RequestMethod.POST)
     @ResponseBody
-    public String users(@ModelAttribute  List<User> allUsers) {
+    public String users(@ModelAttribute List<User> allUsers) {
         return "redirect:/user-details";
     }
 }

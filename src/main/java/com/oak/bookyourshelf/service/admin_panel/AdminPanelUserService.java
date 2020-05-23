@@ -40,7 +40,7 @@ public class AdminPanelUserService {
     }
 
     public Page<User> findPaginated(Pageable pageable) {
-        List users = (List)adminPanelUserRepository.findAllCustomers();
+        List users = (List) adminPanelUserRepository.findAllCustomers();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
