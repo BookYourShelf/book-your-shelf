@@ -43,6 +43,7 @@ public class AdminPanelProductController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("productPage", productPage);
         model.addAttribute("allProducts", adminPanelProductService.listAll());
         model.addAttribute("categoryService", adminPanelCategoryService);

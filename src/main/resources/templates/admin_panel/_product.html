@@ -1456,11 +1456,12 @@
         <div class="col">
             <div class="page_nav">
                 <ul class="d-flex flex-row align-items-start justify-content-center">
-                    <div th:if="${productPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-                    <li ><a th:href="@{/admin-panel#product(size=${productPage.size}, page=${pageNumber})}"
-                            th:text="${pageNumber}"
-                            th:class="${pageNumber==productPage.number + 1} ? active"></a></li>
-                    </div>
+                    <li th:if="${productPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
+                        th:class="${currentPage == pageNumber} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${pageNumber})}"
+                           th:text="${pageNumber}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
