@@ -28,10 +28,10 @@ public class HotList {
     private List<Category> categories;
 
     private int productNum;
-    private Date startDate;
-    private Time startTime;
-    private Date endDate;
-    private Time endTime;
+    private String startDate;
+    private String startTime;
+    private String endDate;
+    private String endTime;
 
     // GETTER & SETTER
 
@@ -67,35 +67,35 @@ public class HotList {
         this.productNum = productNum;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Time getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public Time getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }
