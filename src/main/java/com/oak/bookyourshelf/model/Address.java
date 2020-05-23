@@ -13,20 +13,19 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int addressId;
+    private int addressId;
 
     @Enumerated(EnumType.STRING)
     AddressTitle addressTitle;
 
-    String name;
-    String surname;
-    String country;
-    String city;
-    String province;
-    String neighborhood;
-    int zipCode;
-    String fullAddress;
-    String phoneNumber;
+    private String name;
+    private String surname;
+    private String country;
+    private String city;
+    private String town;
+    private int zipCode;
+    private String fullAddress;
+    private String phoneNumber;
 
     // GETTER & SETTER
 
@@ -78,22 +77,6 @@ public class Address {
         this.city = city;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getNeighborhood() {
-        return neighborhood;
-    }
-
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
     public int getZipCode() {
         return zipCode;
     }
@@ -117,4 +100,8 @@ public class Address {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public String getTown() { return town; }
+
+    public void setTown(String town) { this.town = town; }
 }
