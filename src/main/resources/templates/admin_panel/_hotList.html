@@ -23,22 +23,40 @@
         <div class="billingAddress">
             <div class="checkout_form_container">
                 <form action="#" id="new_hot_list_form" class="checkout_form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Product Type
+                            </div>
 
-                    <!-- Category -->
-                    <div>
-                        <div class="login-text p-b-10" style="color: black;">
-                            Category
+                            <select name="product_type" id="category_product_type"
+                                    class="dropdown_item_select checkout_input"
+                                    required="required" th:field="${hotList.productType}">
+                                <option value="">Select Product Type</option>
+                                <option th:each="ctgry : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
+                                        th:value="${ctgry}"
+                                        th:text="#{${'category.' + ctgry}}">productType
+                                </option>
+                            </select>
                         </div>
-                        <select name="new_hot_list_categories"
-                                id="new_hot_list_categories" multiple="multiple"
-                                require="required">
-                            <option value="literature">Literature</option>
-                            <option value="novel">Novel</option>
-                            <option value="poet">Poet</option>
-                            <option value="comicon">Comicon</option>
-                        </select>
+                        <div class="col-md-6">
+                            <!-- Category -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="new_hot_list_categories" class="dropdown_item_select checkout_input"
+                                        id="new_hot_list_categories"
+                                        require="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                            th:value="${category.getName()}"
+                                            th:text="${category.getName()}">category
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
@@ -47,9 +65,10 @@
                             <select name="new_hot_list_type" id="new_hot_list_type"
                                     class="dropdown_item_select checkout_input"
                                     require="required">
-                                <option th:each="hotListType : ${hotList.hotListType.values()}"
-                                        th:value="${hotListType}"
-                                        th:text="#{${'hotListType.' + hotListType}}">productType
+                                <option value="">Select Hot List Type</option>
+                                <option th:each="htype : ${T(com.oak.bookyourshelf.model.HotList.HotListType).values()}"
+                                        th:value="${htype}"
+                                        th:text="#{${'hotListType.' + htype}}">productType
                                 </option>
                             </select>
                         </div>
@@ -106,7 +125,7 @@
                     <div><!--ERROR--></div>
 
                     <!-- Button -->
-                    <input type="submit" class="login_button trans_200" value="Add Campaign"  id="new_hotList_button">
+                    <input type="submit" class="login_button trans_200" value="Add Campaign" id="new_hotList_button">
                 </form>
             </div>
         </div>
@@ -208,16 +227,18 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <div th:if="${hotListPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-                <li ><a th:href="@{/admin-panel#hot-list(size=${hotListPage.size}, page=${pageNumber})}"
-                        th:text="${pageNumber}"
-                        th:class="${pageNumber==hotListPage.number + 1} ? active"></a></li>
-                </div>
+                <li th:if="${hotListPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
+                    th:class="${currentPage == pageNumber} ? 'active'">
+                    <a th:href="@{/admin-panel#hot-list(size=${hotListPage.size}, page=${pageNumber})}"
+                       th:text="${pageNumber}" style="color: #fbaa1d;"></a></li>
+                </li>
             </ul>
         </div>
     </div>
 </div>
     </span>
+
+
 <!-- No categories -->
 <span th:unless="${hotListPage.totalPages >0}">
 <div class="warning-text">There are no campaigns.</div>
@@ -238,14 +259,14 @@
         if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date"
         ])) {
             event.preventDefault();
-            $.post("/admin-panel/hot-list", ret, function (data) {
+            $.post("/admin-panel/hotList", ret, function (data) {
                 iziToast.show({
                     title: 'Success',
                     message: 'Hot List added successfully.',
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/admin-panel#hot-list";
+                window.location.href = "/admin-panel#hotList";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
