@@ -90,7 +90,7 @@
         </div>
     </div>
 </div>
-<span th:unless="${#lists.isEmpty(allCampaigns)}">
+<span th:if="${campaignPage.totalPages>0}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -143,7 +143,7 @@
     <br>
     <div class="container">
         <div class="orderDetailBox">
-            <tr th:each="campaign: ${allCampaigns}">
+            <tr th:each="campaign: ${campaignPage.content}">
 
             <!-- Category -->
             <div class="address-element-padding">
@@ -191,19 +191,21 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <div th:if="${campaignPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+                <li ><a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${pageNumber})}"
+                        th:text="${pageNumber}"
+                        th:class="${pageNumber==campaignPage.number + 1} ? active"></a></li>
+                </div>
             </ul>
         </div>
     </div>
 </div>
 </span>
     <!-- No categories -->
-<span th:if="${#lists.isEmpty(allCampaigns)}">
-    <div class="warning-text">There are no campaigns.</div>
+<span th:unless="${campaignPage.totalPages >0}">
+<div class="warning-text">There are no campaigns.</div>
 </span>
+
 <script>
 
     $('#new_campaign_button').click(function (event) {
