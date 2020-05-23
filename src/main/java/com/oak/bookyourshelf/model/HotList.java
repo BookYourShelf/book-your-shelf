@@ -32,6 +32,7 @@ public class HotList {
     private String startTime;
     private String endDate;
     private String endTime;
+    private Category.ProductType productType;
 
     // GETTER & SETTER
 
@@ -97,5 +98,13 @@ public class HotList {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public Category.ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(Category.ProductType productType) {
+        this.productType = productType;
     }
 }
