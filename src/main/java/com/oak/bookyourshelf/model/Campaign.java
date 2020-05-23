@@ -22,6 +22,8 @@ public class Campaign {
     )
     private List<Category> categories;
 
+    private Category.ProductType productType;
+
     // GETTER & SETTER
 
     public int getId() {
@@ -71,4 +73,13 @@ public class Campaign {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    public Category.ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(Category.ProductType productType) {
+        this.productType = productType;
+    }
+
 }
