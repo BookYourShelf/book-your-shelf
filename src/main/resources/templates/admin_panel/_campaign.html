@@ -41,23 +41,42 @@
                                 Discount Rate
                             </div>
                             <input type="text" id="new_campaign_rate"
-                                   class="checkout_input form-control discount-rate"
+                                    class="checkout_input form-control discount-rate"
                                    placeholder="Discount Rate" required="required">
                         </div>
+
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
-                                Category
+                                Product Type
                             </div>
-                            <select name="campaign_update_categories"
-                                    id="new_campaign_categories" multiple="multiple"
-                                    require="required">
-                                <option value="">SELECT</option>
-                                <option th:each="category : ${categoryService.listAll()}"
-                                        th:value="${category.getName()}"
-                                        th:text="${category.getName()}">category
+
+                            <select name="product_type" id="category_product_type"
+                                    class="dropdown_item_select checkout_input"
+                                    required="required" th:field="*{productType}">
+                                <option value="">Select Product Type</option>
+                                <option th:each="ctgry : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
+                                        th:value="${ctgry}"
+                                        th:text="#{${'category.' + ctgry}}">productType
                                 </option>
                             </select>
                         </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="login-text p-b-10" style="color: black;">
+                            Category
+                        </div>
+                        <select name="campaign_update_categories"
+                                class="dropdown_item_select checkout_input"
+                                id="new_campaign_categories" multiple="multiple"
+                                require="required">
+                            <option value="">SELECT</option>
+                            <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                    th:value="${category.getName()}"
+                                    th:text="${category.getName()}">category
+                            </option>
+                        </select>
                     </div>
 
                     <div class="row">
@@ -191,15 +210,16 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <div th:if="${campaignPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-                <li ><a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${pageNumber})}"
-                        th:text="${pageNumber}"
-                        th:class="${pageNumber==campaignPage.number + 1} ? active"></a></li>
-                </div>
+                <li th:if="${campaignPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
+                    th:class="${currentPage == pageNumber} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${pageNumber})}"
+                        th:text="${pageNumber}"  style="color: #fbaa1d;"></a></li>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+
 </span>
     <!-- No categories -->
 <span th:unless="${campaignPage.totalPages >0}">
