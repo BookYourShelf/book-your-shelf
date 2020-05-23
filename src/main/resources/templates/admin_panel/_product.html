@@ -1399,43 +1399,45 @@
             <tr th:each="product: ${allProducts}">
 
                 <!-- Product -->
-                <div class="product">
+                <div class="address-element-padding">
                     <a th:href="@{'/product-details/' + ${product.productId}}">
-                        <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-2 col-md-2 col-xs-4">
-                                    <div class="profile-order-text">
-                                        <td th:text="${product.productId}"></td>
+                        <div class="category-element">
+                            <div class="product_content">
+                                <div class="row order - row collapsible">
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text">
+                                            <td th:text="${product.productId}"></td>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-2 col-md-2 col-xs-4">
-                                    <div class="profile-order-text">
-                                        <td th:text="${product.productName}"></td>
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text">
+                                            <td th:text="${product.productName}"></td>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-2 col-md-2 col-xs-4">
-                                    <div class="profile-order-text">
-                                        <td th:text="${product.getProductTypeName()}"></td>
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text">
+                                            <td th:text="${product.getProductTypeName()}"></td>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-2 col-md-2 col-xs-4">
-                                    <div class="profile-order-text">
-                                        <td th:text="${product.price} +  ' ₺'"></td>
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text">
+                                            <td th:text="${product.price} +  ' ₺'"></td>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-2 col-md-2 col-xs-4">
-                                    <div class="profile-order-text">
-                                        <td th:text="${product.barcode}"></td>
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text">
+                                            <td th:text="${product.barcode}"></td>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-2 col-md-2 col-xs-4">
-                                    <div class="profile-order-text">
-                                        <td th:text="${product.stock}"></td>
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text">
+                                            <td th:text="${product.stock}"></td>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
