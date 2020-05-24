@@ -1456,10 +1456,49 @@
         <div class="col">
             <div class="page_nav">
                 <ul class="d-flex flex-row align-items-start justify-content-center">
-                    <li th:if="${productPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
-                        th:class="${currentPage == pageNumber} ? 'active'">
-                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${pageNumber})}"
-                           th:text="${pageNumber}" style="color: #fbaa1d;">
+                    <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip"
+                           th:title="${'Page 1'}">
+                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
+                    <!-- First page -->
+                    <li th:if="${productPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1})}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                    <!-- Pages -->
+                    <li th:if="${productPage.totalPages > 1}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , productPage.totalPages > 2 + currentPage ? currentPage + 2 : productPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${i})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
+
+                    <li th:if="${currentPage + 3 < productPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                    <!-- Last page -->
+                    <li th:if="${productPage.totalPages > 0}"
+                        th:class="${currentPage == productPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${productPage.totalPages})}"
+                           th:text="${productPage.totalPages}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <!-- Next button -->
+                    <li th:style="${currentPage == productPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${currentPage + 1})}"
+                            aria-label="Next" title="Next Page" rel="tooltip" th:title="${'Page '+ currentPage}">
+                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
                         </a>
                     </li>
                 </ul>
