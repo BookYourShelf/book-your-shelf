@@ -39,7 +39,7 @@ public class AdminPanelUserController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-
+        model.addAttribute("currentPage", currentPage);
         return "admin_panel/_user";
     }
 
