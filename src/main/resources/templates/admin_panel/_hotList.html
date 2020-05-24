@@ -31,7 +31,7 @@
 
                             <select name="product_type" id="category_product_type"
                                     class="dropdown_item_select checkout_input"
-                                    required="required" th:field="${hotList.productType}">
+                                    required="required" th:field="${hotList.productType}" >
                                 <option value="">Select Product Type</option>
                                 <option th:each="ctgry : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
                                         th:value="${ctgry}"
@@ -39,6 +39,7 @@
                                 </option>
                             </select>
                         </div>
+                        <div id="thumb0" style="display: none" onclick="productType()"></div>
                         <div class="col-md-6">
                             <!-- Category -->
                             <div>
@@ -64,7 +65,7 @@
                             </div>
                             <select name="new_hot_list_type" id="new_hot_list_type"
                                     class="dropdown_item_select checkout_input"
-                                    require="required">
+                                    require="required" th:field="${hotList.hotListType}">
                                 <option value="">Select Hot List Type</option>
                                 <option th:each="htype : ${T(com.oak.bookyourshelf.model.HotList.HotListType).values()}"
                                         th:value="${htype}"
@@ -229,7 +230,7 @@
             <ul class="d-flex flex-row align-items-start justify-content-center">
                 <li th:if="${hotListPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
                     th:class="${currentPage == pageNumber} ? 'active'">
-                    <a th:href="@{/admin-panel#hot-list(size=${hotListPage.size}, page=${pageNumber})}"
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${pageNumber})}"
                        th:text="${pageNumber}" style="color: #fbaa1d;"></a></li>
                 </li>
             </ul>
@@ -252,6 +253,7 @@
             productNum: $('#new_hot_list_product_number').val(),
             startDate: $('#new_hot_list_start_date').val(),
             endDate: $('#new_hot_list_end_date').val(),
+            productType : $('#category_product_type option:selected').val()
 
 
         };
@@ -282,6 +284,25 @@
         }
     });
 </script>
+<script>
+    function productType() {
+        var pType = $('#category_product_type option:selected').val();
+        var x = document.getElementById("new_hot_list_categories");
+        var option = document.createElement("option");
+        if (pType === "BOOK")
+        {
+
+            option.text = "Kiwi";
+            x.add(option);
+        }
+        else
+        {
+            option.text = "Banana";
+            x.add(option);
+        }
+    }
+</script>
+
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
 
