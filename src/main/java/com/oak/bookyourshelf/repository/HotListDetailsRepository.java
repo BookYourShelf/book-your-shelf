@@ -1,4 +1,7 @@
 package com.oak.bookyourshelf.repository;
 
-public class HotListDetailsRepository {
+import com.oak.bookyourshelf.model.HotList;
+import org.springframework.data.repository.CrudRepository;
+
+public interface HotListDetailsRepository extends CrudRepository<HotList,Integer> {
 }
