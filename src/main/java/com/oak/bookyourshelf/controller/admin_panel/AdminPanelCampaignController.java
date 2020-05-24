@@ -39,7 +39,7 @@ public class AdminPanelCampaignController {
         model.addAttribute("campaignPage", campaignPage);
         model.addAttribute("allCampaigns", adminPanelCampaignService.listAll());
         model.addAttribute("categoryService", adminPanelCategoryService);
-
+        model.addAttribute("currentPage", currentPage);
         int totalPages = campaignPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
