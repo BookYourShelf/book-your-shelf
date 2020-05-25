@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="styles/responsive.css">
     <link rel="stylesheet" type="text/css" href="styles/core-style.css">
     <link rel="stylesheet" type="text/css" href="styles/util.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
 
 <body>
@@ -66,119 +67,87 @@
                             <!-- Cart Items -->
                             <div class="cart_items">
                                 <ul class="cart_items_list">
+                                    <span th:unless="${#lists.isEmpty(wishListProducts)}">
+                                        <tr th:each="product : ${wishListProducts}">
+                                            <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+                                                <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                                    <a th:href="'/product/' + ${product.getProductId()}">
+                                                        <div>
+                                                            <div class="product_image"><img src="images/hayvan_ciftligi.jpg"
+                                                                                            alt="" class="product_image_img">
+                                                            </div>
+                                                        </div>
 
-                                    <!-- Cart Item 1 -->
-                                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                        <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                            <a href="product.html">
-                                                <div>
-                                                    <div class="product_image"><img src="images/hayvan_ciftligi.jpg"
-                                                                                    alt="" class="product_image_img">
+                                                        <div class="product_name_container">
+                                                            <div class="product_name"><a th:href="'/product/' + ${product.getProductId()}">
+                                                                <td th:text="${product.getProductName()}"></td></a>
+                                                            </div>
+                                                            <!-- Author -->
+                                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                                                <div class="product_text">
+                                                                    <div th:each="authors : ${product.getAuthors()}">
+                                                                        <td th:text="${authors}"></td>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                            <!-- Case Brand -->
+                                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                                                <div class="product_text">
+                                                                    <td th:text="${product.getCaseBrand()}"></td>
+                                                                </div>
+                                                            </span>
+                                                            <!-- Tablet Brand -->
+                                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                                                <div class="product_text">
+                                                                    <td th:text="${product.getReaderBrand()}"></td>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="product_total product_text">
+                                                    <div th:if="${product.isOnDiscount()}">
+                                                        <div class="align-items-start justify-content-start">
+                                                        <!-- when no sale delete -->
+                                                            <div class="sale_price"><b><td th:text="${product.getDiscountRate() + '% ' + 'off'}"></td></b></div>
+                                                            <div class="sale_price">
+                                                                <del><td th:text="${product.getPrice() + '₺'}"></td></del>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    <span>Price:</span> <span style="display:block" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate() + '₺'}"></span>
                                                 </div>
-                                                <div class="product_name_container">
-                                                    <div class="product_name"><a href="product.html">Animal Farm</a>
-                                                    </div>
-                                                    <div class="product_text">George Orwell</div>
+                                                <div th:if="${product.getStock() == 0}">
+                                                    <div><i style="font-size:30px"
+                                                            class="fa fa-close product_text product_stock"></i></div>
                                                 </div>
-                                            </a>
-                                        </div>
-                                        <div class="product_total product_text">
-                                            <div class="align-items-start justify-content-start">
-                                                <!-- when no sale delete -->
-                                                <div class="sale_price"><b>%40 off</b></div>
-                                                <div class="sale_price">
-                                                    <del>₺15.99</del>
+                                                <div th:unless="${product.getStock() == 0}">
+                                                    <div><i style="font-size:30px"
+                                                            class="fa fa-check product_text product_stock"></i></div>
                                                 </div>
-                                            </div>
-                                            <span>Price: </span>₺11.99
-                                        </div>
-                                        <div><i style="font-size:30px"
-                                                class="fa fa-close product_text product_stock"></i></div>
-                                        <div class="product_total product_text"><a href="cart.html" title="Add to cart">
-                                            <button style="font-size:30px"><i
-                                                    class="fa fa-shopping-cart product_text"></i></button>
-                                        </a></div>
-                                        <div class="product_total product_text"><a href="#"
-                                                                                   title="Remove from wish list">
-                                            <button style="font-size:30px" class="fa product_text">&#xf014;</button>
-                                        </a></div>
-                                    </li>
-
-                                    <!-- Cart Item 2 -->
-                                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                        <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                            <a href="product.html">
-                                                <div>
-                                                    <div class="product_image"><img src="images/seker_portakali.jpg"
-                                                                                    alt="" class="product_image_img">
-                                                    </div>
-                                                </div>
-                                                <div class="product_name_container">
-                                                    <div class="product_name"><a href="product.html">My Sweet Orange
-                                                        Tree</a></div>
-                                                    <div class="product_text">José Mauro de Vasconcelos</div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="product_total product_text">
-                                            <div class="align-items-start justify-content-start">
-                                                <!-- when no sale delete -->
-                                                <div class="sale_price"><b>%40 off</b></div>
-                                                <div class="sale_price">
-                                                    <del>₺15.99</del>
-                                                </div>
-                                            </div>
-                                            <span>Price: </span>₺11.99
-                                        </div>
-                                        <div><i style="font-size:30px"
-                                                class="fa fa-check product_text product_stock"></i></div>
-                                        <div class="product_total product_text"><a href="cart.html" title="Add to cart">
-                                            <button style="font-size:30px"><i
-                                                    class="fa fa-shopping-cart product_text"></i></button>
-                                        </a></div>
-                                        <div class="product_total product_text"><a href="#"
-                                                                                   title="Remove from wish list">
-                                            <button style="font-size:30px" class="fa product_text">&#xf014;</button>
-                                        </a></div>
-                                    </li>
-
-                                    <!-- Cart Item 2 -->
-                                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                        <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                            <a href="product.html">
-                                                <div>
-                                                    <div class="product_image"><img src="images/otomatik_portakal.jpg"
-                                                                                    alt="" class="product_image_img">
-                                                    </div>
-                                                </div>
-                                                <div class="product_name_container">
-                                                    <div class="product_name"><a href="product.html">A Clockwork
-                                                        Orange</a></div>
-                                                    <div class="product_text">Anthony Burgess</div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="product_total product_text"><span>Price: </span>₺9.60</div>
-                                        <div><i style="font-size:30px"
-                                                class="fa fa-check product_text product_stock"></i></div>
-                                        <div class="product_total product_text"><a href="cart.html" title="Add to cart">
-                                            <button style="font-size:30px"><i
-                                                    class="fa fa-shopping-cart product_text"></i></button>
-                                        </a></div>
-                                        <div class="product_total product_text"><a href="#"
-                                                                                   title="Remove from wish list">
-                                            <button style="font-size:30px" class="fa product_text">&#xf014;</button>
-                                        </a></div>
-                                    </li>
+                                                <div class="product_total product_text"><a href="/cart" title="Add to cart">
+                                                    <button th:id="${product.getProductId()}" name="add_to_shopping_cart" class="wish_to_shopping" style="font-size:30px"><i
+                                                            class="fa fa-shopping-cart product_text"></i></button>
+                                                </a></div>
+                                                <div class="product_total product_text"><a href="#"
+                                                                                           title="Remove from wish list">
+                                                    <button th:id="${product.getProductId()}" name="delete_product" style="font-size:30px" class="fa product_text wish_product_delete">&#xf014;</button>
+                                                </a></div>
+                                            </li>
+                                        </tr>
+                                    </span>
+                                    <!-- No Wish List -->
+                                    <span th:if="${#lists.isEmpty(wishListProducts)}">
+                                        <div class="warning-text">There are no Products.</div>
+                                    </span>
                                 </ul>
                             </div>
                             <!-- Cart Buttons -->
                             <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
                                 <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                    <div class="button button_clear trans_200"><a href="categories.html">clear wish
+                                    <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_wish_list">clear wish
                                         list</a></div>
-                                    <div class="button button_continue trans_200"><a href="checkout.html">continue
+                                    <div class="button button_continue trans_200"><a href="/checkout">continue
                                         shopping</a></div>
                                 </div>
                             </div>
@@ -215,6 +184,97 @@
 <script src="js/classy-nav.min.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/active.js"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('.wish_to_shopping').click(function (event){
+
+        var button = $(this).attr("name");
+        var productID = $(this).attr("id");
+
+        var ret = {
+            button: button,
+            productID: productID
+        };
+        event.preventDefault();
+        $.post("/wish-list", ret, function (data) {
+            window.location.href= "/cart";
+        })
+    });
+
+    $('#clear_list').click(function (event){
+
+        var button = $(this).attr("id");
+        var productID = 0;
+
+        var ret = {
+            button: button,
+            productID: productID
+        };
+
+        if (confirm('Are you sure you want to clear list?')) {
+            event.preventDefault();
+            $.post("/wish-list" , ret , function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Wish list cleared successfully',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "wish-list";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        } else window.location.href = "wish-list";
+    });
+
+    $('.wish_product_delete').click(function (event){
+
+        var button = $(this).attr("name");
+        var productID = $(this).attr("id");
+
+        var ret = {
+            button: button,
+            productID: productID
+        };
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/wish-list" , ret , function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Product deleted successfully',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/wish-list";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        } else window.location.href = "/wish-list";
+    });
+
+
+
+    /*]]>*/
+</script>
 
 </body>
 </html>
