@@ -41,6 +41,7 @@ public class UserDetailsSearchController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         model.addAttribute("user", user);
+        model.addAttribute("currentPage", currentPage);
 
         return "user_details/_search";
     }
