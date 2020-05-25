@@ -1,5 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
 <!-- Add campaign button -->
 <div class="address-element-padding">
     <a href="#new_campaign" class="trans_200" data-toggle="collapse">
@@ -64,6 +64,7 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-12">
                         <div class="login-text p-b-10" style="color: black;">
                             Category
                         </div>
@@ -75,6 +76,7 @@
                             <option value="poet">Poet</option>
                             <option value="comicon">Comicon</option>
                         </select>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -320,4 +322,6 @@
 
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.js}"></script>
 </html>
