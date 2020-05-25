@@ -493,8 +493,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="rating_list">
-                                                <h6 style="padding-top: 10px; padding-bottom: 10px">Based on 3 Reviews</h6>
-                                                <ul class="list">
+                                                <ul class="list" style="padding-top: 20px">
                                                     <li><a>
                                                         <i class="fa fa-star" style="color:#fbd600"></i>
                                                         <i class="fa fa-star" style="color:#fbd600"></i>
@@ -541,40 +540,47 @@
                                         <h4>Add a Review</h4>
                                         <div sec:authorize="isAuthenticated()">
                                             <fieldset class="rating">
-                                                <input type="radio" id="star5" name="rating" value="5"/><label
+                                                <input class="scoreOutOf5" type="radio" id="star5" name="rating"
+                                                       value="5"/><label
                                                     class="full review-star-cursor"
                                                     for="star5"
                                                     title="Excellent - 5 stars"></label>
-                                                <input type="radio" id="star4" name="rating" value="4"/><label
+                                                <input class="scoreOutOf5" type="radio" id="star4" name="rating"
+                                                       value="4"/><label
                                                     class="full review-star-cursor"
                                                     for="star4"
                                                     title="Very good - 4 stars"></label>
-                                                <input type="radio" id="star3" name="rating" value="3"/><label
+                                                <input class="scoreOutOf5" type="radio" id="star3" name="rating"
+                                                       value="3"/><label
                                                     class="full review-star-cursor"
                                                     for="star3"
                                                     title="Good - 3 stars"></label>
-                                                <input type="radio" id="star2" name="rating" value="2"/><label
+                                                <input class="scoreOutOf5" type="radio" id="star2" name="rating"
+                                                       value="2"/><label
                                                     class="full review-star-cursor"
                                                     for="star2"
                                                     title="Bad - 2 stars"></label>
-                                                <input type="radio" id="star1" name="rating" value="1"/><label
+                                                <input class="scoreOutOf5" type="radio" id="star1" name="rating"
+                                                       value="1"/><label
                                                     class="full review-star-cursor"
                                                     for="star1"
                                                     title="Very bad- 1 star"></label>
                                             </fieldset>
                                             <br>
-                                            <form action="#" class="form-contact form-review mt-3">
+                                            <form method="post" class="form-contact form-review mt-3">
                                                 <div class="form-group">
                                                     <input class="form-control" name="subject" type="text"
+                                                           id="review_title"
                                                            placeholder="Specify Your Review Title (Optional)">
                                                 </div>
                                                 <div class="form-group">
                                                 <textarea class="form-control different-control w-100" name="textarea"
-                                                          id="textarea" cols="30" rows="5"
+                                                          id="review_content" cols="30" rows="5" required="required"
                                                           placeholder="Write Your Review"></textarea>
                                                 </div>
                                                 <div class="form-group text-center text-md-right mt-3">
-                                                    <button type="submit" class="button button--active button-review">SUBMIT
+                                                    <button type="submit" id="add_review"
+                                                            class="button button--active button-review">SUBMIT
                                                     </button>
                                                 </div>
                                             </form>
@@ -1020,6 +1026,7 @@
     /*<![CDATA[*/
     var productID = /*[[${product.getProductId()}]]*/ 'default';
     var productName = /*[[${product.getProductName()}]]*/ 'default';
+    var scoreOutOf5 = 0;
 
     $('#add_wish_list').click(function (event) {
 
@@ -1113,6 +1120,57 @@
             }
         })
     });
+
+    $('.scoreOutOf5').click(function (event) {
+        scoreOutOf5 = $(this).attr("value");
+    });
+
+    $('#add_review').click(function (event) {
+        var ret = {
+            type: "review",
+            id: productID,
+            productId: productID,
+            reviewTitle: $('#review_title').val(),
+            reviewContent: $('#review_content').val(),
+            scoreOutOf5: scoreOutOf5
+        };
+
+        if (validation_check(["review_content"])) {
+            event.preventDefault();
+            $.post("/product/" + productID, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Review added for ' + productName + ' successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+
+            }).fail(function (data) {
+
+                if (data.responseText === "") {
+                    <!-- TODO -->
+                    window.location.href = "/login";
+                } else {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            })
+        }
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /*]]>*/
 </script>
 
