@@ -25,9 +25,9 @@
             <th>Search Value</th>
             <th>Total Search</th>
         </tr>
-        <tr th:each="searchValue: ${searchValues}">
-            <td th:text="${searchValue.key}"></td>
-            <td th:text="${searchValue.value}"></td>
+        <tr th:each="searchValue: ${keyPage.content}">
+            <td th:text="${searchValue}"></td>
+            <td th:text="${user.getSearchHistory().get(searchValue)}"></td>
         </tr>
 
     </table>
@@ -35,14 +35,16 @@
 
 <!-- No search -->
 <div class="warning-text" style="display: none">There are no searches.</div>
+
 <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <div th:if="${keyPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+                    <li ><a th:href="@{/user-details#search( size=${keyPage.size}, id=${user.userId},page=${pageNumber})}"
+                            th:text="${pageNumber}"
+                            th:class="${pageNumber==keyPage.number + 1} ? active"></a></li>
+                </div>
             </ul>
         </div>
     </div>

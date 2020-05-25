@@ -3,6 +3,10 @@ package com.oak.bookyourshelf.service.user_details;
 
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.user_details.UserDetailsSearchRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +58,26 @@ public class UserDetailsSearchService {
             sortedMap.put(sortedKeys.get(i).toString(),searchValues.get(sortedKeys.get(i).toString()));
         }
         return sortedMap;
+    }
+
+    public Page<String> findPaginated(Pageable pageable,User user) {
+        List<String> keys = new ArrayList<>(user.getSearchHistory().keySet());
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<String > list;
+
+        if (keys.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, keys.size());
+            list = keys.subList(startItem, toIndex);
+        }
+
+        Page<String> searchPage
+                = new PageImpl<String>(list, PageRequest.of(currentPage, pageSize), keys.size());
+
+        return searchPage;
     }
 
 
