@@ -39,8 +39,9 @@ public class SearchController {
             {
                 user.getSearchHistory().put(search,1);
             }
+            profileInformationService.save(user);
         }
-        profileInformationService.save(user);
+
         model.addAttribute("searchValue",search);
         model.addAttribute("products",productService.getAllProduct());
 
