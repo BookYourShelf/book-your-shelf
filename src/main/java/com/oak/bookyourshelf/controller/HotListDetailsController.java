@@ -34,7 +34,7 @@ public class HotListDetailsController {
 
     @RequestMapping(value = "/hotList-details/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> updateHotList(@PathVariable int id, @RequestParam String button, HotList newHotList)  {
+    public ResponseEntity<String> updateHotList(@PathVariable int id, @RequestParam String button, HotList newHotList) {
 
         HotList hotList = hotListDetailsService.get(id);
         System.out.println("update");

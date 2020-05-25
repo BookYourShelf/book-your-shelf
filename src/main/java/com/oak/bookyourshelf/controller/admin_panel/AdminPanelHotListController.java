@@ -53,7 +53,7 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveCategory( HotList hotList) {
+    public ResponseEntity<String> saveCategory(HotList hotList) {
         System.out.println("post method");
 
         adminPanelHotListService.save(hotList);

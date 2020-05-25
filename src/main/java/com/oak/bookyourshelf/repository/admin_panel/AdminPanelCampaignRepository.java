@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface AdminPanelCampaignRepository extends CrudRepository<Campaign,Integer> {
+public interface AdminPanelCampaignRepository extends CrudRepository<Campaign, Integer> {
     @Query("SELECT t FROM Campaign t WHERE t.name = ?1")
     Campaign findCampaignByName(String name);
 

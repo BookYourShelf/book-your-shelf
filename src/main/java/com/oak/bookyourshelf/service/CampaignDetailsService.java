@@ -17,7 +17,6 @@ public class CampaignDetailsService {
     }
 
 
-
     public Iterable<Campaign> listAll() {
         return campaignDetailsRepository.findAll();
     }

@@ -47,7 +47,7 @@ public class AdminPanelCampaignService {
     }
 
     public Page<Campaign> findPaginated(Pageable pageable) {
-        List campaigns = (List)adminPanelCampaignRepository.findAll();
+        List campaigns = (List) adminPanelCampaignRepository.findAll();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;

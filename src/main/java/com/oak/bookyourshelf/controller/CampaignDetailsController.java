@@ -33,7 +33,7 @@ public class CampaignDetailsController {
 
     @RequestMapping(value = "/campaign-details/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> updateCampaign(@PathVariable int id, @RequestParam String button, Campaign newCampaign)  {
+    public ResponseEntity<String> updateCampaign(@PathVariable int id, @RequestParam String button, Campaign newCampaign) {
 
         Campaign campaign = campaignDetailsService.get(id);
         System.out.println("update");

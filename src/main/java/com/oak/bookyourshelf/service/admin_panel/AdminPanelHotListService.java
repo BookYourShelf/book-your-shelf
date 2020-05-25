@@ -46,7 +46,7 @@ public class AdminPanelHotListService {
     }
 
     public Page<HotList> findPaginated(Pageable pageable) {
-        List hotlists = (List)adminPanelHotListRepository.findAll();
+        List hotlists = (List) adminPanelHotListRepository.findAll();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;

@@ -21,7 +21,7 @@
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form  id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
+                <form id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
 
                     <!-- Name -->
                     <div>
@@ -41,7 +41,7 @@
                                 Discount Rate
                             </div>
                             <input type="text" id="new_campaign_rate"
-                                    class="checkout_input form-control discount-rate"
+                                   class="checkout_input form-control discount-rate"
                                    placeholder="Discount Rate" required="required">
                         </div>
 
@@ -100,7 +100,7 @@
 
                     <!-- Button -->
 
-                        <input type="submit" class="login_button trans_200" value="Add Campaign"  id="new_campaign_button">
+                    <input type="submit" class="login_button trans_200" value="Add Campaign" id="new_campaign_button">
 
                 </form>
             </div>
@@ -222,12 +222,14 @@
                 <!-- First page -->
                     <li th:if="${campaignPage.totalPages > 0}"
                         th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
                            th:text="${1}" style="color: #fbaa1d;">
                         </a>
                     </li>
 
-                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage - 3 > 1}"
+                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
 
                 <!-- Pages -->
                     <li th:if="${campaignPage.totalPages > 2}"
@@ -235,13 +237,15 @@
                                         , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
                         th:class="${currentPage == i} ? 'active'">
 
-                    <li th:if="${currentPage + 3 < campaignPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage + 3 < campaignPage.totalPages}"
+                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
 
                 <!-- Last page -->
                     <li th:if="${campaignPage.totalPages > 1}"
                         th:class="${currentPage == campaignPage.totalPages} ? 'active'">
                         <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages})}"
-                           th:text="${campaignPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ campaignPage.totalPages}">
+                           th:text="${campaignPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ campaignPage.totalPages}">
                         </a>
                     </li>
 
@@ -259,7 +263,7 @@
 </div>
 
 </span>
-    <!-- No categories -->
+<!-- No categories -->
 <span th:unless="${campaignPage.totalPages >0}">
 <div class="warning-text">There are no campaigns.</div>
 </span>
@@ -274,12 +278,12 @@
             startDate: $('#campaign_start_date').val(),
             endDate: $('#campaign_end_date').val(),
             categories: $('#new_campaign_categories option:selected').val(),
-            productType : $('#category_product_type option:selected').val()
+            productType: $('#category_product_type option:selected').val()
 
         };
 
         if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date",
-           ])) {
+        ])) {
             event.preventDefault();
             $.post("/admin-panel/campaign", ret, function (data) {
                 iziToast.show({
@@ -303,6 +307,7 @@
             })
         }
     });
+
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
             if (!document.getElementById(arr[i]).checkValidity()) {
