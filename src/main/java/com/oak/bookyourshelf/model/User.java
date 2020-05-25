@@ -91,6 +91,10 @@ public class User {
         this.shoppingCart.add(product);
     }
 
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
     public ArrayList<Product> getProductsPurchased() {
 
         ArrayList<Product> products = new ArrayList<>();
