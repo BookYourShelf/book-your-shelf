@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
+<span th:if="${keyPage.totalPages>0}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -33,22 +33,69 @@
     </table>
 </div>
 
-<!-- No search -->
-<div class="warning-text" style="display: none">There are no searches.</div>
+
 
 <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
-            <ul class="d-flex flex-row align-items-start justify-content-center">
-                <div th:if="${keyPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-                    <li ><a th:href="@{/user-details#search( size=${keyPage.size}, id=${user.userId},page=${pageNumber})}"
-                            th:text="${pageNumber}"
-                            th:class="${pageNumber==keyPage.number + 1} ? active"></a></li>
-                </div>
+            <ul class="d-flex flex-row align-items-start justify-content-center" style="color: #fbaa1d;">
+
+
+                <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#search(size=${keyPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
+                <!-- First page -->
+                    <li th:if="${keyPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#search(size=${keyPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}"
+                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Pages -->
+                    <li th:if="${keyPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , keyPage.totalPages > 2 + currentPage ? currentPage + 2 : keyPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+
+                    <li th:if="${currentPage + 3 < keyPage.totalPages}"
+                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Last page -->
+                    <li th:if="${keyPage.totalPages > 1}"
+                        th:class="${currentPage == keyPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#search(size=${keyPage.size}, page=${keyPage.totalPages})}"
+                           th:text="${keyPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ keyPage.totalPages}">
+                        </a>
+                    </li>
+
+                <!-- Next button -->
+                    <li th:style="${currentPage == keyPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#search(size=${keyPage.size}, page=${currentPage + 1})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
+
             </ul>
         </div>
     </div>
 </div>
 
+</span>
 
+<span th:unless="${keyPage.totalPages >0}">
+<div class="warning-text">There are no search value yet.</div>
+</span>
 </html>
