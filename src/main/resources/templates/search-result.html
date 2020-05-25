@@ -10,19 +10,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon  -->
-    <link rel="icon" href="images/logo/book_your_shelf_tab.png">
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="styles/category.css">
-    <link rel="stylesheet" type="text/css" href="styles/category_responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/core-style.css">
-    <link rel="stylesheet" type="text/css" href="styles/util.css">
-    <link rel="stylesheet" type="text/css" href="styles/nouislider.min.css">
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/category.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/category_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/nouislider.min.css}">
 </head>
+
+
 
 <body>
 <!-- Header -->
@@ -33,35 +35,15 @@
     <div class="super_container_inner">
         <div class="super_overlay"></div>
 
-        <!-- Breadcrumbs -->
-        <div class="container">
-            <div class="row products_bar_row">
-                <div class="col">
-                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
-                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
-                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="category.html">Book</a></li>
-                                <li style="color: #fbaa1d">
-                                    <div th:text="${searchValue}"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Products -->
-        <span th:unless="${#lists.isEmpty(products)}">
+        <span th:if="${#lists.isEmpty(products)}">
         <div class="products">
             <div class="container">
                 <div class="row products_bar_row">
                     <!-- Category name -->
-                    <div class="col-lg-6">
-                        <div><b class="category-name">Literature</b></div>
-                        <div style="display: none"><b class="category-name">Search results for </b>
-                            <b class="category-name">"literature"</b>   <!-- TODO Search value will be here -->
+                    <div style="padding-top: 30px;" class="col-lg-6">
+                        <div ><b class="category-name">Search results for </b>
+                            <b th:text="${'&quot;' + searchValue + '&quot;'}" class="category-name"></b>   <!-- TODO Search value will be here -->
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -547,7 +529,7 @@
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a href="product.html">
-                                            <img src="images/hayvan_ciftligi.jpg" alt="" class="product_image_img">
+                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}" alt="" class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -580,7 +562,7 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -588,7 +570,7 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -604,7 +586,7 @@
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a href="product.html">
-                                            <img src="images/sineklerin_tanrisi.jpg" alt="" class="product_image_img">
+                                            <img th:src="@{/static/images/sineklerin_tanrisi.jpg}" alt="" class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -638,7 +620,7 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -646,7 +628,7 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -662,7 +644,7 @@
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a href="product.html">
-                                            <img src="images/seker_portakali.jpg" alt="" class="product_image_img">
+                                            <img th:src="@{/static/images/seker_portakali.jpg}" alt="" class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -697,7 +679,7 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -705,7 +687,7 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -722,7 +704,7 @@
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a href="product.html">
-                                            <img src="images/otomatik_portakal.jpg" alt="" class="product_image_img">
+                                            <img th:src="@{/static/images/otomatik_portakal.jpg}" alt="" class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -756,7 +738,7 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -764,7 +746,7 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -780,7 +762,7 @@
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a href="product.html">
-                                            <img src="images/kurk_mantolu.jpg" alt="" class="product_image_img">
+                                            <img th:src="@{/static/images/kurk_mantolu.jpg}" alt="" class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -815,7 +797,7 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -823,7 +805,7 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -839,7 +821,7 @@
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a href="product.html">
-                                            <img src="images/donusum.jpg" alt="" class="product_image_img">
+                                            <img th:src="@{/static/images/donusum.jpg}" alt="" class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -872,7 +854,7 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -880,7 +862,7 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -913,7 +895,7 @@
         <span th:if="${#lists.isEmpty(products)}">
         <div class="search_fail" >
             <br>
-            <img src="images/search-fail.png">
+            <img th:src="@{/static/images/search-fail.png}">
             <div>
                 <br>
                 <b class="category-name">No products were found according to your search criteria.</b>
@@ -990,25 +972,27 @@
     };
 </script>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap-4.1.2/popper.js"></script>
-<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="plugins/greensock/TweenMax.min.js"></script>
-<script src="plugins/greensock/TimelineMax.min.js"></script>
-<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="plugins/greensock/animation.gsap.min.js"></script>
-<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/progressbar/progressbar.min.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
-<script src="plugins/Isotope/fitcolumns.js"></script>
-<script src="js/classy-nav.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/category.js"></script>
-<script src="js/active.js"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/static/plugins/Isotope/fitcolumns.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/category.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
 
 </body>
 </html>
+
+
