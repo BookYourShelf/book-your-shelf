@@ -190,7 +190,7 @@
              <tr th:each="hotList: ${hotListPage.content}">
             <!-- Category -->
             <div class="address-element-padding">
-               <a th:href="@{'/hotlist-details/' + ${hotList.id}}">
+               <a th:href="@{'/hotList-details/' + ${hotList.id}}">
                     <div class="category-element">
                         <div class="product_content">
                             <div class="row order - row collapsible">
@@ -228,11 +228,49 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li th:if="${hotListPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
-                    th:class="${currentPage == pageNumber} ? 'active'">
-                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${pageNumber})}"
-                       th:text="${pageNumber}" style="color: #fbaa1d;"></a></li>
-                </li>
+
+                <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-hotListPage#hotList(size=${hotListPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
+                <!-- First page -->
+                    <li th:if="${hotListPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Pages -->
+                    <li th:if="${hotListPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , hotListPage.totalPages > 2 + currentPage ? currentPage + 2 : hotListPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+
+                    <li th:if="${currentPage + 3 < hotListPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Last page -->
+                    <li th:if="${hotListPage.totalPages > 1}"
+                        th:class="${currentPage == hotListPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${hotListPage.totalPages})}"
+                           th:text="${hotListPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ hotListPage.totalPages}">
+                        </a>
+                    </li>
+
+                <!-- Next button -->
+                    <li th:style="${currentPage == hotListPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${currentPage + 1})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
             </ul>
         </div>
     </div>
@@ -253,7 +291,9 @@
             productNum: $('#new_hot_list_product_number').val(),
             startDate: $('#new_hot_list_start_date').val(),
             endDate: $('#new_hot_list_end_date').val(),
-            productType : $('#category_product_type option:selected').val()
+            productType : $('#category_product_type option:selected').val(),
+            startTime: $('#new_hot_list_start_time').val(),
+            endTime: $('#new_hot_list_end_time').val(),
 
 
         };
@@ -283,6 +323,14 @@
             })
         }
     });
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
 </script>
 <script>
     function productType() {
