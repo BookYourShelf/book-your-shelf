@@ -68,14 +68,12 @@
                             Category
                         </div>
                         <select name="campaign_update_categories"
-                                class="dropdown_item_select checkout_input"
                                 id="new_campaign_categories" multiple="multiple"
                                 require="required">
-                            <option value="">SELECT</option>
-                            <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                    th:value="${category.getName()}"
-                                    th:text="${category.getName()}">category
-                            </option>
+                            <option value="literature">Literature</option>
+                            <option value="novel">Novel</option>
+                            <option value="poet">Poet</option>
+                            <option value="comicon">Comicon</option>
                         </select>
                     </div>
 
@@ -210,11 +208,51 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li th:if="${campaignPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}"
-                    th:class="${currentPage == pageNumber} ? 'active'">
-                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${pageNumber})}"
-                        th:text="${pageNumber}"  style="color: #fbaa1d;"></a></li>
-                </li>
+
+
+
+                <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
+                <!-- First page -->
+                    <li th:if="${campaignPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Pages -->
+                    <li th:if="${campaignPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+
+                    <li th:if="${currentPage + 3 < campaignPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Last page -->
+                    <li th:if="${campaignPage.totalPages > 1}"
+                        th:class="${currentPage == campaignPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages})}"
+                           th:text="${campaignPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ campaignPage.totalPages}">
+                        </a>
+                    </li>
+
+                <!-- Next button -->
+                    <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
             </ul>
         </div>
     </div>
@@ -235,7 +273,8 @@
             name: $('#new_campaign_name').val(),
             startDate: $('#campaign_start_date').val(),
             endDate: $('#campaign_end_date').val(),
-            categories: $('#new_campaign_categories option:selected').val()
+            categories: $('#new_campaign_categories option:selected').val(),
+            productType : $('#category_product_type option:selected').val()
 
         };
 
@@ -264,9 +303,16 @@
             })
         }
     });
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
 </script>
 
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
-
 </html>
