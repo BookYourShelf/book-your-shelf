@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <title th:text="${product.productName + ' | Book Your Shelf'}"></title>
@@ -480,19 +480,20 @@
                             </div>
                         </div>
                         <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="row total_rate">
                                         <div class="col-6">
                                             <div class="box_total">
-                                                <h5>Overall</h5>
+                                                <h5 style="font-weight: 500">Overall</h5>
                                                 <h4>4.0</h4>
                                                 <h6>(03 Reviews)</h6>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="rating_list">
-                                                <h3>Based on 3 Reviews</h3>
+                                                <h6 style="padding-top: 10px; padding-bottom: 10px">Based on 3 Reviews</h6>
                                                 <ul class="list">
                                                     <li><a>
                                                         <i class="fa fa-star" style="color:#fbd600"></i>
@@ -533,6 +534,64 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="col-lg-7">
+                                    <div class="review_box">
+                                        <h4>Add a Review</h4>
+                                        <div sec:authorize="isAuthenticated()">
+                                            <fieldset class="rating">
+                                                <input type="radio" id="star5" name="rating" value="5"/><label
+                                                    class="full review-star-cursor"
+                                                    for="star5"
+                                                    title="Excellent - 5 stars"></label>
+                                                <input type="radio" id="star4" name="rating" value="4"/><label
+                                                    class="full review-star-cursor"
+                                                    for="star4"
+                                                    title="Very good - 4 stars"></label>
+                                                <input type="radio" id="star3" name="rating" value="3"/><label
+                                                    class="full review-star-cursor"
+                                                    for="star3"
+                                                    title="Good - 3 stars"></label>
+                                                <input type="radio" id="star2" name="rating" value="2"/><label
+                                                    class="full review-star-cursor"
+                                                    for="star2"
+                                                    title="Bad - 2 stars"></label>
+                                                <input type="radio" id="star1" name="rating" value="1"/><label
+                                                    class="full review-star-cursor"
+                                                    for="star1"
+                                                    title="Very bad- 1 star"></label>
+                                            </fieldset>
+                                            <br>
+                                            <form action="#" class="form-contact form-review mt-3">
+                                                <div class="form-group">
+                                                    <input class="form-control" name="subject" type="text"
+                                                           placeholder="Specify Your Review Title (Optional)">
+                                                </div>
+                                                <div class="form-group">
+                                                <textarea class="form-control different-control w-100" name="textarea"
+                                                          id="textarea" cols="30" rows="5"
+                                                          placeholder="Write Your Review"></textarea>
+                                                </div>
+                                                <div class="form-group text-center text-md-right mt-3">
+                                                    <button type="submit" class="button button--active button-review">SUBMIT
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div sec:authorize="isAnonymous()" style="margin: 10px 0;">
+                                            <a style="color: #fbaa1d;" th:href="@{/login}">
+                                                <strong>
+                                                    You must login to review.
+                                                </strong>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
 
                                     <!-- Sort orders -->
                                     <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
@@ -567,10 +626,8 @@
                                                 <div class="media-body">
                                                     <div class="row">
                                                         <div class="col-lg-9">
+                                                            <h5 class="date" style="padding-bottom: 5px">01.03.2020</h5>
                                                             <h4>Jane Doe</h4>
-                                                        </div>
-                                                        <div class="col-lg-3">
-                                                            <h5 class="date">01.03.2020</h5>
                                                         </div>
                                                     </div>
                                                     <i class="fa fa-star" style="color:#fbd600"></i>
@@ -592,11 +649,9 @@
                                                 <div class="media-body">
                                                     <div class="row">
                                                         <div class="col-lg-9">
+                                                            <h5 class="date" style="padding-bottom: 5px">23.02.2020</h5>
                                                             <h4>John Doe</h4>
                                                         </div>
-                                                        <div class="col-lg-3">
-                                                            <h5 class="date">23.02.2020</h5>
-                                                        </div>
                                                     </div>
                                                     <i class="fa fa-star" style="color:#fbd600"></i>
                                                     <i class="fa fa-star" style="color:#fbd600"></i>
@@ -617,10 +672,8 @@
                                                 <div class="media-body">
                                                     <div class="row">
                                                         <div class="col-lg-9">
+                                                            <h5 class="date" style="padding-bottom: 5px">23.02.2020</h5>
                                                             <h4>Jane Doe</h4>
-                                                        </div>
-                                                        <div class="col-lg-3">
-                                                            <h5 class="date">02.02.2020</h5>
                                                         </div>
                                                     </div>
                                                     <i class="fa fa-star" style="color:#fbd600"></i>
@@ -657,49 +710,7 @@
                                         Be the first to review!
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="review_box">
-                                        <h4>Add a Review</h4>
-                                        <fieldset class="rating">
-                                            <input type="radio" id="star5" name="rating" value="5"/><label
-                                                class="full review-star-cursor"
-                                                for="star5"
-                                                title="Excellent - 5 stars"></label>
-                                            <input type="radio" id="star4" name="rating" value="4"/><label
-                                                class="full review-star-cursor"
-                                                for="star4"
-                                                title="Very good - 4 stars"></label>
-                                            <input type="radio" id="star3" name="rating" value="3"/><label
-                                                class="full review-star-cursor"
-                                                for="star3"
-                                                title="Good - 3 stars"></label>
-                                            <input type="radio" id="star2" name="rating" value="2"/><label
-                                                class="full review-star-cursor"
-                                                for="star2"
-                                                title="Bad - 2 stars"></label>
-                                            <input type="radio" id="star1" name="rating" value="1"/><label
-                                                class="full review-star-cursor"
-                                                for="star1"
-                                                title="Very bad- 1 star"></label>
-                                        </fieldset>
-                                        <br>
-                                        <form action="#" class="form-contact form-review mt-3">
-                                            <div class="form-group">
-                                                <input class="form-control" name="subject" type="text"
-                                                       placeholder="Specify Your Review Title (Optional)">
-                                            </div>
-                                            <div class="form-group">
-                                            <textarea class="form-control different-control w-100" name="textarea"
-                                                      id="textarea" cols="30" rows="5"
-                                                      placeholder="Write Your Review"></textarea>
-                                            </div>
-                                            <div class="form-group text-center text-md-right mt-3">
-                                                <button type="submit" class="button button--active button-review">SUBMIT
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -720,7 +731,7 @@
                         <!-- Product -->
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a href="product.html"><img
+                                <div class="product_image_showcase"><a th:href="@{/product}"><img
                                         th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
@@ -734,7 +745,7 @@
                                         </div>
 
                                         <div>
-                                            <div class="our_picks_product_name"><a href="product.html">Animal Farm</a>
+                                            <div class="our_picks_product_name"><a th:href="@{/product}">Animal Farm</a>
                                             </div>
                                             <div class="our_picks_product_text">George Orwell</div>
                                         </div>
@@ -785,7 +796,7 @@
 
                             <div class="product">
 
-                                <div class="product_image_showcase"><a href="product.html"><img
+                                <div class="product_image_showcase"><a th:href="@{/product}"><img
                                         th:src="@{/static/images/sineklerin_tanrisi.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
@@ -799,7 +810,7 @@
                                             <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                         </div>
                                         <div>
-                                            <div class="our_picks_product_name"><a href="product.html">Lord of the
+                                            <div class="our_picks_product_name"><a th:href="@{/product}">Lord of the
                                                 Flies</a>
                                             </div>
                                             <div class="our_picks_product_text">William Golding</div>
@@ -850,7 +861,7 @@
                         <!-- Product -->
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a href="product.html"><img
+                                <div class="product_image_showcase"><a th:href="@{/product}"><img
                                         th:src="@{/static/images/seker_portakali.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
@@ -864,7 +875,7 @@
                                             <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                         </div>
                                         <div>
-                                            <div class="our_picks_product_name"><a href="product.html">My Sweet Orange
+                                            <div class="our_picks_product_name"><a th:href="@{/product}">My Sweet Orange
                                                 Tree</a></div>
                                             <div class="our_picks_product_text">José Mauro de Vasconcelos</div>
                                         </div>
@@ -914,7 +925,7 @@
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase">
-                                    <a href="product.html">
+                                    <a th:href="@{/product}">
                                         <img th:src="@{/static/images/otomatik_portakal.jpg}" alt=""
                                              class="product_image_img">
                                     </a>
@@ -930,7 +941,7 @@
                                             <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                         </div>
                                         <div>
-                                            <div class="our_picks_product_name"><a href="product.html">A Clockwork
+                                            <div class="our_picks_product_name"><a th:href="@{/product}">A Clockwork
                                                 Orange</a></div>
                                             <div class="our_picks_product_text">Anthony Burgess</div>
                                         </div>
