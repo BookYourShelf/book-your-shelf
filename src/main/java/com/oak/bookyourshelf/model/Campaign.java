@@ -13,14 +13,16 @@ public class Campaign {
 
     private int rate;
     private String name;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Category> categories;
+
+    private Category.ProductType productType;
 
     // GETTER & SETTER
 
@@ -56,19 +58,28 @@ public class Campaign {
         this.categories = categories;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    public Category.ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(Category.ProductType productType) {
+        this.productType = productType;
+    }
+
 }
