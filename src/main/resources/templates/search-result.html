@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   
+
     <title th:text="${'&quot;' + searchValue + '&quot;' + ' Search Results | Book Your Shelf'}"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +35,7 @@
         <div class="super_overlay"></div>
 
         <!-- Products -->
-        <span th:if="${#lists.isEmpty(products)}">
+        <span th:unless="${#lists.isEmpty(products)}">
         <div class="products">
             <div class="container">
                 <div class="row products_bar_row">
