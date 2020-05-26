@@ -47,9 +47,8 @@
                                     Category
                                 </div>
                                 <select name="new_hot_list_categories" class="dropdown_item_select checkout_input"
-                                        id="new_hot_list_categories"
+                                        id="new_hot_list_categories" multiple="multiple"
                                         require="required">
-                                    <option value="">SELECT</option>
                                     <option th:each="category : ${categoryService.getAllByCategory('Book')}"
                                             th:value="${category.getName()}"
                                             th:text="${category.getName()}">category
@@ -67,10 +66,9 @@
                                     class="dropdown_item_select checkout_input"
                                     require="required" th:field="${hotList.hotListType}">
                                 <option value="">Select Hot List Type</option>
-                                <option th:each="htype : ${T(com.oak.bookyourshelf.model.HotList.HotListType).values()}"
-                                        th:value="${htype}"
-                                        th:text="#{${'hotListType.' + htype}}">productType
-                                </option>
+                                <option value="">Best Sellers</option>
+                                <option value="">New Releases</option>
+                                <option value="">Our Picks For You</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -290,6 +288,23 @@
 <script>
 
     $('#new_hotList_button').click(function (event) {
+
+
+        var x=document.getElementById("new_hot_list_categories");
+        var category = [];
+        for (var i = 0; i < x.options.length; i++) {
+            if(x.options[i].selected===true ){
+                category.push(x.options[i].value);
+            }
+        }
+        console.log(category);
+        var ctg =String(category[0]);
+        for(var j=1;j<category.length;j++)
+        {
+            ctg+=("-");
+            ctg+=(String(category[j]));
+        }
+        console.log(ctg);
         var ret = {
 
             productNum: $('#new_hot_list_product_number').val(),
@@ -298,9 +313,11 @@
             productType: $('#category_product_type option:selected').val(),
             startTime: $('#new_hot_list_start_time').val(),
             endTime: $('#new_hot_list_end_time').val(),
+            ctg:ctg
 
 
         };
+
 
         if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date"
         ])) {
@@ -337,21 +354,7 @@
         return true;
     }
 </script>
-<script>
-    function productType() {
-        var pType = $('#category_product_type option:selected').val();
-        var x = document.getElementById("new_hot_list_categories");
-        var option = document.createElement("option");
-        if (pType === "BOOK") {
 
-            option.text = "Kiwi";
-            x.add(option);
-        } else {
-            option.text = "Banana";
-            x.add(option);
-        }
-    }
-</script>
 
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
