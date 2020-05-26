@@ -71,10 +71,10 @@
                         <select name="campaign_update_categories"
                                 id="new_campaign_categories" multiple="multiple"
                                 require="required">
-                            <option value="literature">Literature</option>
-                            <option value="novel">Novel</option>
-                            <option value="poet">Poet</option>
-                            <option value="comicon">Comicon</option>
+                            <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                    th:value="${category.getName()}"
+                                    th:text="${category.getName()}">category
+                            </option>
                         </select>
                         </div>
                     </div>
@@ -273,14 +273,29 @@
 <script>
 
     $('#new_campaign_button').click(function (event) {
+        var x=document.getElementById("new_campaign_categories");
+        var category =[];
+        for (var i = 0; i < x.options.length; i++) {
+            if(x.options[i].selected===true ){
+                category.push(x.options[i].value);
+            }
+        }
+        console.log(category.length);
+        var ctg =String(category[0]);
+        for(var j=1;j<category.length;j++)
+        {
+            ctg+=("-");
+            ctg+=(String(category[j]));
+        }
+        console.log(ctg);
         var ret = {
 
             rate: $('#new_campaign_rate').val(),
             name: $('#new_campaign_name').val(),
             startDate: $('#campaign_start_date').val(),
             endDate: $('#campaign_end_date').val(),
-            categories: $('#new_campaign_categories option:selected').val(),
-            productType: $('#category_product_type option:selected').val()
+            productType: $('#category_product_type option:selected').val(),
+            ctg:ctg
 
         };
 
