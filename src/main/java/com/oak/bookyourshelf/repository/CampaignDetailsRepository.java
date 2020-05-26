@@ -1,4 +1,7 @@
 package com.oak.bookyourshelf.repository;
 
-public class CampaignDetailsRepository {
+import com.oak.bookyourshelf.model.Campaign;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CampaignDetailsRepository extends CrudRepository<Campaign, Integer> {
 }

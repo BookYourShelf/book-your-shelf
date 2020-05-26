@@ -5,6 +5,8 @@ import com.oak.bookyourshelf.repository.profile.ProfileInformationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 @Service
 @Transactional
 public class ProfileInformationService {
@@ -27,4 +29,14 @@ public class ProfileInformationService {
     }
 
     public User getByEmail (String email){return profileInformationRepository.findUserByEmail(email);}
+
+    public boolean findSearchValue(String searchValue, User user)
+    {
+        for (Map.Entry<String, Integer> entry : user.getSearchHistory().entrySet()){
+            if(entry.getKey().equals(searchValue))
+                return true;
+
+        }
+        return false;
+    }
 }

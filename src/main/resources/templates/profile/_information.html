@@ -78,7 +78,7 @@
                                                         <input type="checkbox"
                                                                id="permission_agreement"
                                                                name="permission_agreement"
-                                                               class="billing_checkbox" value="receiveMessage"
+                                                               class="billing_checkbox"
                                                         th:checked="${user.getReceiveMessage()}">
                                                         <span class="checkbox_mark"></span>
                                                     </label>
@@ -182,7 +182,7 @@
             var phoneNumber = $('#change_phone').val();
             var birthDate = $('#change_birthdate').val();
 
-            if($('#permission_agreement').val() === "receiveMessage"){
+            if(document.getElementById('permission_agreement').checked === true){
                 receiveMessage = true;
 
             } else {

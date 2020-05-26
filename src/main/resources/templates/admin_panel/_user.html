@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<span th:unless="${#lists.isEmpty(allUsers)}">
+<span th:if="${userPage.totalPages > 0}">
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
@@ -44,7 +44,7 @@
     <div class="container">
         <div class="orderDetailBox">
 
-                <tr th:each="user: ${allUsers}">
+                <tr th:each="user: ${userPage.content}">
 
                     <!-- User -->
                     <div class="product">
@@ -84,14 +84,55 @@
         </div>
     </div>
 
+
+
     <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+
+                <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
+                <!-- First page -->
+                    <li th:if="${userPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Pages -->
+                    <li th:if="${userPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , userPage.totalPages > 2 + currentPage ? currentPage + 2 : userPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+
+                    <li th:if="${currentPage + 3 < userPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+
+                <!-- Last page -->
+                    <li th:if="${userPage.totalPages > 1}"
+                        th:class="${currentPage == userPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${userPage.totalPages})}"
+                           th:text="${userPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ userPage.totalPages}">
+                        </a>
+                    </li>
+
+                <!-- Next button -->
+                    <li th:style="${currentPage == userPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage + 1})}"
+                            aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                        </a>
+                    </li>
+
             </ul>
         </div>
     </div>
@@ -100,9 +141,49 @@
 </span>
 
 <!-- No user -->
-<span th:if="${#lists.isEmpty(allUsers)}">
+<span th:unless="${userPage.totalPages >0}">
 <div class="warning-text">There are no users.</div>
 </span>
 
 
+<script>
+    $('#data-isotope-option').click(function (event) {
+
+
+        var ret = {
+            subject: subject,
+            messageContent: messageContent,
+            submit: submit
+        };
+
+        if (validation_check(["subject_area", "textarea"])) {
+            event.preventDefault();
+            $.post("/admin-panel/message", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Message sent successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                $("#message_form")[0].reset();
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
 </html>

@@ -1,13 +1,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
-<!-- Add campaign button -->
+<!-- Add hot list button -->
 <div class="address-element-padding">
-    <a href="#new_campaign" class="trans_200" data-toggle="collapse">
+    <a href="#new_hot_list" class="trans_200" data-toggle="collapse">
         <div class="billingAddress">
             <div class="product_content">
                 <div style="align-items: center; justify-content: center"
                      class="row order - row ">
-                    <div class="add-address">Add New Campaign</div>
+                    <div class="add-address">Add New Hot List</div>
                     <i style="padding-left: 5px" class="fa fa-plus"></i>
                 </div>
             </div>
@@ -16,35 +17,13 @@
 </div>
 
 <!-- Category form -->
-<div id="new_campaign" class="collapse">
+<div id="new_hot_list" class="collapse">
 
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
-
-                    <!-- Name -->
-                    <div>
-                        <div class="login-text p-b-10" style="color: black;">
-                            Campaign Name
-                        </div>
-
-                        <input type="text" id="new_campaign_name"
-                               class="checkout_input form-control"
-                               placeholder="Campaign Name" required="required"
-                               pattern="[A-Za-z]+" title="Campaign name cannot have digits.">
-                    </div>
-
+                <form action="#" id="new_hot_list_form" class="checkout_form">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="login-text p-b-10" style="color: black;">
-                                Discount Rate
-                            </div>
-                            <input type="text" id="new_campaign_rate"
-                                   class="checkout_input form-control discount-rate"
-                                   placeholder="Discount Rate" required="required">
-                        </div>
-
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
                                 Product Type
@@ -52,7 +31,7 @@
 
                             <select name="product_type" id="category_product_type"
                                     class="dropdown_item_select checkout_input"
-                                    required="required" th:field="*{productType}">
+                                    required="required" th:field="${hotList.productType}">
                                 <option value="">Select Product Type</option>
                                 <option th:each="ctgry : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
                                         th:value="${ctgry}"
@@ -60,56 +39,100 @@
                                 </option>
                             </select>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                        <div class="login-text p-b-10" style="color: black;">
-                            Category
+                        <div id="thumb0" style="display: none" onclick="productType()"></div>
+                        <div class="col-md-6">
+                            <!-- Category -->
+                            <div>
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="new_hot_list_categories" class="dropdown_item_select checkout_input"
+                                        id="new_hot_list_categories"
+                                        require="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                            th:value="${category.getName()}"
+                                            th:text="${category.getName()}">category
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <select name="campaign_update_categories"
-                                id="new_campaign_categories" multiple="multiple"
-                                require="required">
-                            <option value="literature">Literature</option>
-                            <option value="novel">Novel</option>
-                            <option value="poet">Poet</option>
-                            <option value="comicon">Comicon</option>
-                        </select>
-                        </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
-                                Campaign Start Date
+                                Hot List Type
                             </div>
-                            <input type="text" id="campaign_start_date"
+                            <select name="new_hot_list_type" id="new_hot_list_type"
+                                    class="dropdown_item_select checkout_input"
+                                    require="required" th:field="${hotList.hotListType}">
+                                <option value="">Select Hot List Type</option>
+                                <option th:each="htype : ${T(com.oak.bookyourshelf.model.HotList.HotListType).values()}"
+                                        th:value="${htype}"
+                                        th:text="#{${'hotListType.' + htype}}">productType
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Number of Products
+                            </div>
+                            <input type="number" id="new_hot_list_product_number"
+                                   class="checkout_input form-control" min="1"
+                                   placeholder="Number of Products" required="required">
+                        </div>
+                    </div>
+
+                    <!-- Start -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Start Date
+                            </div>
+                            <input type="text" id="new_hot_list_start_date"
                                    class="checkout_input form-control date"
                                    placeholder="dd/mm/yyyy">
                         </div>
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
-                                Campaign End Date
+                                Hot List Start Time
                             </div>
-                            <input type="text" id="campaign_end_date"
+                            <input type="text" id="new_hot_list_start_time"
+                                   class="checkout_input form-control time"
+                                   placeholder="hh:mm">
+                        </div>
+                    </div>
+
+                    <!-- End -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List End Date
+                            </div>
+                            <input type="text" id="new_hot_list_end_date"
                                    class="checkout_input form-control date"
                                    placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List End Time
+                            </div>
+                            <input type="text" id="new_hot_list_end_time"
+                                   class="checkout_input form-control time"
+                                   placeholder="hh:mm">
                         </div>
                     </div>
 
                     <div><!--ERROR--></div>
 
                     <!-- Button -->
-
-                    <input type="submit" class="login_button trans_200" value="Add Campaign" id="new_campaign_button">
-
+                    <input type="submit" class="login_button trans_200" value="Add Campaign" id="new_hotList_button">
                 </form>
             </div>
         </div>
     </div>
 </div>
-<span th:if="${campaignPage.totalPages>0}">
+<span th:if="${hotListPage.totalPages>0}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -119,14 +142,10 @@
             <li class="item_sorting_btn"
                 data-isotope-option='{ "sortBy": "original-order" }'>ID
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Campaign
-                Name
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Category
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "rate" }'>
-                Discount Rate
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "category" }'>
-                Category
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
+                Number of Products
             </li>
         </ul>
     </div>
@@ -137,10 +156,15 @@
             <li class="item_filter_btn" data-filter="*">All</li>
             <li class="item_filter_btn" data-filter=".ongoing">Ongoing</li>
             <li class="item_filter_btn" data-filter=".ended">Ended</li>
+            <li class="item_filter_btn" data-filter=".ended">Best Sellers</li>
+            <li class="item_filter_btn" data-filter=".ended">New Releases</li>
+            <li class="item_filter_btn" data-filter=".ended">Our Picks For You</li>
         </ul>
     </div>
 </div>
+
 <br>
+
 <div>
     <div class="row order - row ">
 
@@ -149,47 +173,43 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Campaign Name</div>
+            <div class="profile-order-title">Category</div>
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Discount Rate</div>
+            <div class="profile-order-title">Hot List Type</div>
         </div>
+
         <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Category</div>
+            <div class="profile-order-title">Number of Products</div>
         </div>
     </div>
     <br>
     <div class="container">
         <div class="orderDetailBox">
-            <tr th:each="campaign: ${campaignPage.content}">
-
+             <tr th:each="hotList: ${hotListPage.content}">
             <!-- Category -->
             <div class="address-element-padding">
-                <a th:href="@{'/campaign-details/' + ${campaign.id}}">
+               <a th:href="@{'/hotList-details/' + ${hotList.id}}">
                     <div class="category-element">
                         <div class="product_content">
                             <div class="row order - row collapsible">
                                 <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
-                                        <td th:text="${campaign.getId()}"></td>
+                                        <td th:text="${hotList.getId()}"></td>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
-                                        <td th:text="${campaign.getName()}"></td>
-                                    </div>
+                                    <div class="profile-order-text">Literature, Novel</div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">%
-                                        <td th:text="${campaign.getRate()}"></td>
-                                    </div>
+                                    <div class="profile-order-text">Best Sellers</div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
-                                        <td th:text="${campaign.getId()}"></td>
+                                        <td th:text="${hotList.getProductNum()}"></td>
                                     </div>
                                 </div>
                             </div>
@@ -197,12 +217,10 @@
                     </div>
                 </a>
             </div>
-            </tr>
+             </tr>
         </div>
     </div>
 </div>
-
-
 
 
 
@@ -211,20 +229,18 @@
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
 
-
-
                 <!-- Previous button -->
                     <li th:style="${currentPage == 1} ? 'display:none'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1})}"
+                        <a th:href="@{/admin-hotListPage#hotList(size=${hotListPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
                             <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
                         </a>
                     </li>
 
                 <!-- First page -->
-                    <li th:if="${campaignPage.totalPages > 0}"
+                    <li th:if="${hotListPage.totalPages > 0}"
                         th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1})}"
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1})}"
                            th:title="${'Page '+ 1}"
                            th:text="${1}" style="color: #fbaa1d;">
                         </a>
@@ -234,26 +250,26 @@
                         style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
 
                 <!-- Pages -->
-                    <li th:if="${campaignPage.totalPages > 2}"
+                    <li th:if="${hotListPage.totalPages > 2}"
                         th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
-                                        , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
+                                        , hotListPage.totalPages > 2 + currentPage ? currentPage + 2 : hotListPage.totalPages - 1, 1)}"
                         th:class="${currentPage == i} ? 'active'">
 
-                    <li th:if="${currentPage + 3 < campaignPage.totalPages}"
+                    <li th:if="${currentPage + 3 < hotListPage.totalPages}"
                         style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
 
                 <!-- Last page -->
-                    <li th:if="${campaignPage.totalPages > 1}"
-                        th:class="${currentPage == campaignPage.totalPages} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages})}"
-                           th:text="${campaignPage.totalPages}" style="color: #fbaa1d;"
-                           th:title="${'Page '+ campaignPage.totalPages}">
+                    <li th:if="${hotListPage.totalPages > 1}"
+                        th:class="${currentPage == hotListPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${hotListPage.totalPages})}"
+                           th:text="${hotListPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ hotListPage.totalPages}">
                         </a>
                     </li>
 
                 <!-- Next button -->
-                    <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1})}"
+                    <li th:style="${currentPage == hotListPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${currentPage + 1})}"
                            aria-label="Next" title="Next Page" rel="tooltip">
                             <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
                         </a>
@@ -263,38 +279,40 @@
         </div>
     </div>
 </div>
+    </span>
 
-</span>
+
 <!-- No categories -->
-<span th:unless="${campaignPage.totalPages >0}">
+<span th:unless="${hotListPage.totalPages >0}">
 <div class="warning-text">There are no campaigns.</div>
 </span>
 
 <script>
 
-    $('#new_campaign_button').click(function (event) {
+    $('#new_hotList_button').click(function (event) {
         var ret = {
 
-            rate: $('#new_campaign_rate').val(),
-            name: $('#new_campaign_name').val(),
-            startDate: $('#campaign_start_date').val(),
-            endDate: $('#campaign_end_date').val(),
-            categories: $('#new_campaign_categories option:selected').val(),
-            productType: $('#category_product_type option:selected').val()
+            productNum: $('#new_hot_list_product_number').val(),
+            startDate: $('#new_hot_list_start_date').val(),
+            endDate: $('#new_hot_list_end_date').val(),
+            productType: $('#category_product_type option:selected').val(),
+            startTime: $('#new_hot_list_start_time').val(),
+            endTime: $('#new_hot_list_end_time').val(),
+
 
         };
 
-        if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date",
+        if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date"
         ])) {
             event.preventDefault();
-            $.post("/admin-panel/campaign", ret, function (data) {
+            $.post("/admin-panel/hotList", ret, function (data) {
                 iziToast.show({
                     title: 'Success',
-                    message: 'Campaign added successfully.',
+                    message: 'Hot List added successfully.',
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/admin-panel#campaign";
+                window.location.href = "/admin-panel#hotList";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -319,9 +337,25 @@
         return true;
     }
 </script>
+<script>
+    function productType() {
+        var pType = $('#category_product_type option:selected').val();
+        var x = document.getElementById("new_hot_list_categories");
+        var option = document.createElement("option");
+        if (pType === "BOOK") {
+
+            option.text = "Kiwi";
+            x.add(option);
+        } else {
+            option.text = "Banana";
+            x.add(option);
+        }
+    }
+</script>
 
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
 <script th:src="@{/static/js/checkbox-dropdown.js}"></script>
 <script th:src="@{/static/js/bootstrap-multiselect.js}"></script>
+
 </html>
