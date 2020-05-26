@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,8 +55,13 @@ public class AdminPanelCampaignController {
 
     @RequestMapping(value = "/admin-panel/campaign", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveCategory(@RequestParam String name, Campaign campaign) {
+    public ResponseEntity<String> saveCategory(@RequestParam String name , String ctg, Campaign campaign) {
         System.out.println("post method");
+        System.out.println(ctg);
+        String[] category = ctg.split("-");
+        System.out.println(category[0]);
+        System.out.println(category[1]);
+        System.out.println(category.length);
       if( adminPanelCampaignService.getByName(name) != null)
       {
           return ResponseEntity.badRequest().body("This campaign name exist");
