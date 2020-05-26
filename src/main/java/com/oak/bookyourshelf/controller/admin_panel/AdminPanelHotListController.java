@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,9 +54,9 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveCategory(HotList hotList) {
+    public ResponseEntity<String> saveCategory(@RequestParam String ctg, HotList hotList) {
         System.out.println("post method");
-
+        System.out.println(ctg);
         adminPanelHotListService.save(hotList);
         return ResponseEntity.ok("");
     }
