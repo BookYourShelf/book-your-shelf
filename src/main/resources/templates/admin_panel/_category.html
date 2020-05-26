@@ -78,10 +78,10 @@
                 data-isotope-option='{ "sortBy": "original-order" }'>ID
             </li>
             <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "itemNum" }'>
                 Total Product
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
+            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "subcategory" }'>
                 Total Subcategory
             </li>
         </ul>
@@ -121,25 +121,26 @@
                             <div class="product_content">
                                 <div class="row order - row collapsible">
                                     <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
+                                        <div class="profile-order-text category-id">
                                             <td th:text="${category.id}"></td>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${category.name}"></td>
+                                        <div class="profile-order-text category-name">
+                                            <td class="category-name" th:text="${category.name}"></td>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3 col-md-3 col-xs-6">
                                         <div class="profile-order-text">
-                                            <td th:text="${category.itemNum}"></td>
+                                            <td class="category-itemNum" th:text="${category.itemNum}"></td>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3 col-md-3 col-xs-6">
                                         <div class="profile-order-text">
-                                            <td th:text="${category.subcategories.size()}"></td>
+                                            <td class="category-subcategory-size"
+                                                th:text="${category.subcategories.size()}"></td>
                                         </div>
                                     </div>
                                 </div>
@@ -207,4 +208,5 @@
         })
     });
 </script>
+<script th:src="@{/static/js/category.js}"></script>
 </html>
