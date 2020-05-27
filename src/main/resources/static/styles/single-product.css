@@ -34,7 +34,6 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Oswald", sans-serif;
     color: #222;
     line-height: 1.1
 }
@@ -4501,8 +4500,8 @@ a {
 .product_description_area .tab-content .total_rate .box_total {
     background: #f1f6f7;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px
+    padding-top: 30px;
+    padding-bottom: 30px
 }
 
 .product_description_area .tab-content .total_rate .box_total h4 {
@@ -4581,7 +4580,10 @@ a {
 }
 
 .review_item {
-    margin-bottom: 10px
+    margin-bottom: 25px;
+    border: solid 1px #ededed;
+    border-radius: 5px;
+    padding: 10px 16px;
 }
 
 .review_item:last-child {
