@@ -2111,3 +2111,11 @@ section {
 .our_picks_product_button {
     border-bottom: none !important;
 }
+
+.review_date {
+    padding-bottom: 5px;
+}
+
+.review_star {
+    color:#fbd600;
+}
