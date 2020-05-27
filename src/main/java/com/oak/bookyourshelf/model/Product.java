@@ -42,6 +42,10 @@ public abstract class Product {
 
     // FUNCTIONS
 
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
     public byte[] getCoverImage() {     // cover image of the product is the first image in images
         return images.get(0);
     }
