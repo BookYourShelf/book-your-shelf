@@ -1457,7 +1457,7 @@
                     <li th:style="${currentPage == 1} ? 'display:none'">
                         <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
-                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                            <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
                     </li>
 
@@ -1469,7 +1469,7 @@
                         </a>
                     </li>
 
-                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
 
                     <!-- Pages -->
                     <li th:if="${productPage.totalPages > 2}"
@@ -1480,7 +1480,7 @@
                            th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
                     </li>
 
-                    <li th:if="${currentPage + 3 < productPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage + 3 < productPage.totalPages}" class="pagination_dots">...</li>
 
                     <!-- Last page -->
                     <li th:if="${productPage.totalPages > 1}"
@@ -1494,7 +1494,7 @@
                     <li th:style="${currentPage == productPage.totalPages} ? 'display:none'">
                         <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${currentPage + 1})}"
                             aria-label="Next" title="Next Page" rel="tooltip">
-                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                            <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
                     </li>
                 </ul>
