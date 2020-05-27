@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.controller;
 
+import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.ProductService;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -29,11 +32,12 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
-    public String showProductPage(Model model, @PathVariable int id) {
+    public String showProductPage(@RequestParam("page") Optional<Integer> page,
+                                  @RequestParam("size") Optional<Integer> size, Model model, @PathVariable int id) {
 
         Product product = productService.get(id);
+        Globals.getPageNumbers(page, size, product.getReviews(), model, "reviewPage");
         model.addAttribute("product", product);
-
         return "product";
     }
 

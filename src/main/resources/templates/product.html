@@ -112,7 +112,7 @@
                                     out of
                                     <h th:text="${product.getStarNum()}"></h>
                                 </div>
-                                <div class="product_reviews_link"><a href="#product_description_area" id="show_review">Review</a>
+                                <div class="product_reviews_link"><a href="#information" id="show_review">Review</a>
                                 </div>
                             </div>
                             <div class="sale_price_container align-items-start justify-content-start">
@@ -177,7 +177,7 @@
             </div>
 
             <!-- Product Description Area -->
-            <section class="product_description_area" id="product_description_area">
+            <section class="product_description_area" id="information">
                 <div class="container">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -598,125 +598,127 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <span th:if="${reviewPage.totalPages > 0}">
 
-                                    <!-- Sort orders -->
-                                    <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
-                                        <div class="products_dropdown product_dropdown_sorting">
-                                            <div class="isotope_sorting_text"><span>Sort</span><i
-                                                    class="fa fa-caret-down" aria-hidden="true"></i></div>
-                                            <ul>
-                                                <li class="item_sorting_btn"
-                                                    data-isotope-option='{ "sortBy": "original-order" }'>Date
-                                                </li>
-                                                <li class="item_sorting_btn"
-                                                    data-isotope-option='{ "sortBy": "user-name" }'>User Name
-                                                </li>
-                                                <li class="item_sorting_btn"
-                                                    data-isotope-option='{ "sortBy": "user-surname" }'>User Surname
-                                                </li>
-                                                <li class="item_sorting_btn"
-                                                    data-isotope-option='{ "sortBy": "decr-rate" }'>Decreasing Rate
-                                                </li>
-                                                <li class="item_sorting_btn"
-                                                    data-isotope-option='{ "sortBy": "incr-rate" }'>Increasing Rate
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <br>
-
-                                    <div class="review_list">
-                                        <div class="review_item">
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-9">
-                                                            <h5 class="date" style="padding-bottom: 5px">01.03.2020</h5>
-                                                            <h4>Jane Doe</h4>
-                                                        </div>
-                                                    </div>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                </div>
+                                        <!-- Sort orders -->
+                                        <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
+                                            <div class="products_dropdown product_dropdown_sorting">
+                                                <div class="isotope_sorting_text"><span>Sort</span><i
+                                                        class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                                <ul>
+                                                    <li class="item_sorting_btn"
+                                                        data-isotope-option='{ "sortBy": "original-order" }'>Date
+                                                    </li>
+                                                    <li class="item_sorting_btn"
+                                                        data-isotope-option='{ "sortBy": "user-name" }'>User Name
+                                                    </li>
+                                                    <li class="item_sorting_btn"
+                                                        data-isotope-option='{ "sortBy": "user-surname" }'>User Surname
+                                                    </li>
+                                                    <li class="item_sorting_btn"
+                                                        data-isotope-option='{ "sortBy": "decr-rate" }'>Decreasing Rate
+                                                    </li>
+                                                    <li class="item_sorting_btn"
+                                                        data-isotope-option='{ "sortBy": "incr-rate" }'>Increasing Rate
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et
-                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                                ullamco laboris nisi ut aliquip ex ea
-                                                commodo</p>
                                         </div>
                                         <br>
-                                        <div class="review_item">
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-9">
-                                                            <h5 class="date" style="padding-bottom: 5px">23.02.2020</h5>
-                                                            <h4>John Doe</h4>
-                                                        </div>
-                                                    </div>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et
-                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                                ullamco laboris nisi ut aliquip ex ea
-                                                commodo</p>
-                                        </div>
-                                        <br>
-                                        <div class="review_item">
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-9">
-                                                            <h5 class="date" style="padding-bottom: 5px">23.02.2020</h5>
-                                                            <h4>Jane Doe</h4>
-                                                        </div>
-                                                    </div>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star" style="color:#fbd600"></i>
-                                                    <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et
-                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                                ullamco laboris nisi ut aliquip ex ea
-                                                commodo</p>
-                                        </div>
+                                        <div class="review_list">
+                                            <tr th:each="review: ${reviewPage.content}">
 
-                                        <div class="row page_nav_row">
-                                            <div class="col">
-                                                <div class="page_nav">
-                                                    <ul class="d-flex flex-row align-items-start justify-content-center">
-                                                        <li class="active"><a href="#">1</a></li>
-                                                        <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                                                        <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                                                        <li><a href="#" style="color: #fbaa1d;">4</a></li>
-                                                    </ul>
+                                                <!-- Review -->
+                                                <div class="review_item">
+                                                    <div class="media">
+                                                        <div class="media-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-9">
+                                                                    <h5 class="review_date date"
+                                                                        th:text="${review.getUploadDate()}"></h5>
+                                                                    <!-- TODO empty -->
+                                                                    <h4 th:text="${review.getReviewTitle()}"></h4>
+                                                                </div>
+                                                            </div>
+                                                            <i class="review_star fa fa-star"></i>
+                                                            <i class="review_star fa fa-star"></i>
+                                                            <i class="review_star fa fa-star-half-full"></i>
+                                                            <i class="review_star fa fa-star-o"></i>
+                                                            <i class="review_star fa fa-star-o"></i>
+                                                        </div>
+                                                    </div>
+                                                    <p th:text="${review.getReviewContent()}"></p>
+                                                </div>
+                                            </tr>
+
+                                            <div class="row page_nav_row">
+                                                <div class="col">
+                                                    <div class="page_nav">
+                                                        <ul class="d-flex flex-row align-items-start justify-content-center">
+                                                            <!-- Previous button -->
+                                                            <li th:style="${currentPage == 1} ? 'display:none'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()}, size=${reviewPage.size}, page=${currentPage - 1})}"
+                                                                   aria-label="Previous" title="Previous Page"
+                                                                   rel="tooltip">
+                                                                    <i class="pagination_arrow fa fa-angle-left"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <!-- First page -->
+                                                            <li th:if="${reviewPage.totalPages > 0}"
+                                                                th:class="${currentPage == 1} ? 'active'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()}, size=${reviewPage.size}, page=${1})}"
+                                                                   th:title="${'Page '+ 1}"
+                                                                   th:text="${1}" style="color: #fbaa1d;">
+                                                                </a>
+                                                            </li>
+
+                                                            <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                                                            <!-- Pages -->
+                                                            <li th:if="${reviewPage.totalPages > 2}"
+                                                                th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                                                                , reviewPage.totalPages > 2 + currentPage ? currentPage + 2 : reviewPage.totalPages - 1, 1)}"
+                                                                th:class="${currentPage == i} ? 'active'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()}, size=${reviewPage.size}, page=${i})}"
+                                                                   th:text="${i}" th:title="${'Page '+ i}"
+                                                                   style="color: #fbaa1d;"></a>
+                                                            </li>
+
+                                                            <li th:if="${currentPage + 3 < reviewPage.totalPages}"
+                                                                class="pagination_dots">...</li>
+
+                                                            <!-- Last page -->
+                                                            <li th:if="${reviewPage.totalPages > 1}"
+                                                                th:class="${currentPage == reviewPage.totalPages} ? 'active'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()}, size=${reviewPage.size}, page=${reviewPage.totalPages})}"
+                                                                   th:text="${reviewPage.totalPages}"
+                                                                   style="color: #fbaa1d;"
+                                                                   th:title="${'Page '+ reviewPage.totalPages}">
+                                                                </a>
+                                                            </li>
+
+                                                            <!-- Next button -->
+                                                            <li th:style="${currentPage == reviewPage.totalPages} ? 'display:none'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()}, size=${reviewPage.size}, page=${currentPage + 1})}"
+                                                                   aria-label="Next" title="Next Page" rel="tooltip">
+                                                                    <i class="pagination_arrow fa fa-angle-right"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </span>
 
                                     <!-- No reviews -->
-                                    <div class="warning-text" style="font-size: 18px; display: none">There are no
-                                        reviews.
-                                        Be the first to review!
-                                    </div>
+                                    <span th:unless="${reviewPage.totalPages > 0}">
+                                        <div class="warning-text">There are no reviews.
+                                            Be the first to review!
+                                        </div>
+                                    </span>
                                 </div>
-
                             </div>
                         </div>
                     </div>
