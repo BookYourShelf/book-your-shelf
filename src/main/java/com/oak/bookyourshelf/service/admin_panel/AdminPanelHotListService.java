@@ -45,23 +45,4 @@ public class AdminPanelHotListService {
         adminPanelHotListRepository.deleteById(id);
     }
 
-    public Page<HotList> findPaginated(Pageable pageable) {
-        List hotlists = (List) adminPanelHotListRepository.findAll();
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<HotList> list;
-
-        if (hotlists.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, hotlists.size());
-            list = hotlists.subList(startItem, toIndex);
-        }
-
-        Page<HotList> hotListPage
-                = new PageImpl<HotList>(list, PageRequest.of(currentPage, pageSize), hotlists.size());
-
-        return hotListPage;
-    }
 }
