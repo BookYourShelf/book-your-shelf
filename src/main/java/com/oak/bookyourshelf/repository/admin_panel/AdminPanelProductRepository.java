@@ -11,7 +11,4 @@ public interface AdminPanelProductRepository extends CrudRepository<Product, Int
 
     @Query("SELECT p FROM Book p WHERE p.isbn = ?1")
     Product findBookByISBN(String isbn);
-
-    @Query("SELECT p FROM Product p")
-    Iterable<Product> findAllProducts();
 }
