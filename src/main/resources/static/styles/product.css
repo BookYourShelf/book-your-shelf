@@ -58,7 +58,6 @@ ul {
 }
 
 p {
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 1.5;
     font-weight: 300;
@@ -2111,4 +2110,12 @@ section {
 
 .our_picks_product_button {
     border-bottom: none !important;
+}
+
+.review_date {
+    padding-bottom: 5px;
+}
+
+.review_star {
+    color:#fbd600;
 }

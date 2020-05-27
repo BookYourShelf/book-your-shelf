@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminPanelProductService {
 
-    final AdminPanelProductRepository adminPanelProductRepository;
+    public final AdminPanelProductRepository adminPanelProductRepository;
 
     public AdminPanelProductService(AdminPanelProductRepository adminPanelProductRepository) {
         this.adminPanelProductRepository = adminPanelProductRepository;

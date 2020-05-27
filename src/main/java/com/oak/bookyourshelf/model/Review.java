@@ -16,12 +16,21 @@ public class Review {
     private int productId;
     private int userId;
     private String userName;
+    private String userSurname;
     private String reviewTitle;
     private String reviewContent;
     private int scoreOutOf5;
     private Date uploadDate;
 
     // GETTER & SETTER
+
+    public String getUserSurname() {
+        return userSurname;
+    }
+
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
+    }
 
     public int getReviewId() {
         return reviewId;
