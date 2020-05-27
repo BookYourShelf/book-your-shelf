@@ -107,7 +107,7 @@
                         </a>
                     </li>
 
-                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
 
                 <!-- Pages -->
                      <li th:if="${userPage.totalPages > 2}"
@@ -123,15 +123,16 @@
                     <li th:if="${userPage.totalPages > 1}"
                         th:class="${currentPage == userPage.totalPages} ? 'active'">
                         <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${userPage.totalPages})}"
-                           th:text="${userPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ userPage.totalPages}">
+                           th:text="${userPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ userPage.totalPages}">
                         </a>
                     </li>
 
                 <!-- Next button -->
                     <li th:style="${currentPage == userPage.totalPages} ? 'display:none'">
                         <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage + 1})}"
-                            aria-label="Next" title="Next Page" rel="tooltip">
-                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
                     </li>
 
