@@ -13000,3 +13000,19 @@ iframe {
     border-color: #C0C0C0;
     border-width: 1px;
 }
+
+.pagination_arrow {
+    font-size:24px;
+    color: #fbaa1d;
+    font-weight: bold;
+}
+
+.pagination_button {
+    color: #fbaa1d;
+}
+
+.pagination_dots {
+    color: #fbaa1d;
+    pointer-events:none;
+    background-color: transparent;
+}
