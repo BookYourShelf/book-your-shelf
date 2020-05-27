@@ -1449,9 +1449,6 @@
         </div>
     </div>
 
-    <!-- No categories -->
-    <div class="warning-text" style="display: none">There are no categories.</div>
-
     <div class="row page_nav_row">
         <div class="col">
             <div class="page_nav">
@@ -1507,7 +1504,7 @@
 </span>
 
 <!-- No product -->
-<span th:unless="${productPage.totalPages >0}">
+<span th:unless="${productPage.totalPages > 0}">
     <div class="warning-text">There are no products.</div>
 </span>
 
