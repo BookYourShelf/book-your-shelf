@@ -96,7 +96,7 @@
                     <!-- Product Info -->
                     <div class="col-lg-8 product_col">
                         <div class="product_info">
-                            <span class="product_name" contenteditable="true">
+                            <span class="product_name">
                                 <h th:text="${product.productName}"></h>
                             </span>
                             <div class="product_rating_container d-flex flex-row align-items-center justify-content-start">
@@ -133,7 +133,7 @@
                                     </span>
                                     </div>  <!-- when no sale &nbsp; -->
                                 </div>
-                                <div class="product_price">₺11<span>.99</span></div>
+                                <div class="product_price" th:text="'₺' + ${product.getPrice()}"></div>
 
                                 <div class="product_text">
                                     <p th:text="${product.getShortDesc()}"></p>
@@ -169,7 +169,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -487,48 +486,58 @@
                                         <div class="col-6">
                                             <div class="box_total">
                                                 <h5 style="font-weight: 500">Overall</h5>
-                                                <h4>4.0</h4>
-                                                <h6>(03 Reviews)</h6>
+                                                <h4 th:text="${product.getScoreOutOf5()}"></h4>
+                                                <h6 th:text="${'(' + product.getStarNum() + ' Reviews)'}"></h6>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="rating_list">
                                                 <ul class="list" style="padding-top: 20px">
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>

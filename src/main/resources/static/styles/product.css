@@ -2119,3 +2119,7 @@ section {
 .review_star {
     color:#fbd600;
 }
+
+.review_star_numbers {
+    padding-left: 15px;
+}
