@@ -635,7 +635,7 @@
                                                             <div class="row">
                                                                 <div class="col-lg-9">
                                                                     <h5 class="review_date date"
-                                                                        th:text="${review.getUploadDate()}"></h5>
+                                                                        th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
                                                                     <!-- TODO empty -->
                                                                     <h4 th:text="${review.getReviewTitle()}"></h4>
                                                                 </div>
