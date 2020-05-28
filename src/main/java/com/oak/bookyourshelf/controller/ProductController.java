@@ -88,6 +88,7 @@ public class ProductController {
                     user.addReview(review);
                     profileInformationService.save(user);
                     product.addReview(review);
+                    product.increaseStarNum(review.getScoreOutOf5());
                     adminPanelProductService.save(product);
 
                     return ResponseEntity.ok("");
