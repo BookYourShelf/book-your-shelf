@@ -640,11 +640,16 @@
                                                                     <h4 th:text="${review.getReviewTitle()}"></h4>
                                                                 </div>
                                                             </div>
-                                                            <i class="review_star fa fa-star"></i>
-                                                            <i class="review_star fa fa-star"></i>
-                                                            <i class="review_star fa fa-star-half-full"></i>
-                                                            <i class="review_star fa fa-star-o"></i>
-                                                            <i class="review_star fa fa-star-o"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 1} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 2} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 3} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 4} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() == 5} ? 'fa-star' : 'fa-star-o'"></i>
                                                         </div>
                                                     </div>
                                                     <p th:text="${review.getReviewContent()}"></p>
