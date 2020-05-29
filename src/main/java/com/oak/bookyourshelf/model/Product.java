@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,8 @@ public abstract class Product {
     @ElementCollection
     private List<byte[]> images;
 
+    private static DecimalFormat df = new DecimalFormat("0.00");
+
     // FUNCTIONS
 
     public void increaseStarNum(int star) {
@@ -54,7 +57,7 @@ public abstract class Product {
         return images.get(0);
     }
 
-    public float getScoreOutOf5() {        // calculate score of the product
+    public double getScoreOutOf5() {        // calculate score of the product
         float total = 0;
 
         for (int i = 0; i < 5; i++) {
@@ -66,7 +69,7 @@ public abstract class Product {
         if (starNum == 0) {
             return 0;
         } else {
-            return total / getStarNum();
+            return Math.round(total / getStarNum() * 10) / 10.0;
         }
     }
 

@@ -101,11 +101,16 @@
                             </span>
                             <div class="product_rating_container d-flex flex-row align-items-center justify-content-start">
                                 <div style="text-align:center;">
-                                    <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
                                 </div>
                                 <div class="product_reviews">
                                     <h th:text="${product.getScoreOutOf5()}"></h>
@@ -140,21 +145,21 @@
                                             <div th:if="${product.getAuthors().size() > 0}">
                                                 <p class="product_summary_title">Authors: </p>
                                                 <p><span th:each="a, iterStat : ${product.getAuthors()}"
-                                                         th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></p>
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
                                             </div>
                                         </div>
                                         <div th:if="${product.getTranslators() != null}">
                                             <div th:if="${product.getTranslators().size() > 0}">
                                                 <p class="product_summary_title">Translators: </p>
                                                 <p><span th:each="a, iterStat : ${product.getTranslators()}"
-                                                         th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></p>
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
                                             </div>
                                         </div>
                                         <div th:if="${product.getPublishers() != null}">
                                             <div th:if="${product.getPublishers().size() > 0}">
                                                 <p class="product_summary_title">Publishers: </p>
                                                 <p><span th:each="a, iterStat : ${product.getPublishers()}"
-                                                         th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></p>
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
                                             </div>
                                         </div>
                                         <p class="product_summary_title">Language: </p>
@@ -309,22 +314,22 @@
 
                                     <tr><td><h5>Author</h5></td>
                                         <td><h5><span th:each="a, iterStat : ${product.getAuthors()}"
-                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Translator</h5></td>
                                         <td><h5><span th:each="a, iterStat : ${product.getTranslators()}"
-                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Publisher</h5></td>
                                         <td><h5><span th:each="a, iterStat : ${product.getPublishers()}"
-                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Keyword</h5></td>
                                         <td><h5><span th:each="a, iterStat : ${product.getKeywords()}"
-                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <span th:if="${product.getProductTypeName() == 'Book'}">
