@@ -126,8 +126,7 @@
                                     <div class="sale_price">
                                     <span th:switch="${product.isOnDiscount()}">
                                         <del th:case="True">
-                                            <!-- TODO -->
-                                            <b th:text="${product.getDiscountRate()}"></b>
+                                            <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                         </del>
                                         <div th:case="*">&nbsp;</div>
                                     </span>
@@ -140,25 +139,22 @@
                                         <div th:if="${product.getAuthors() != null}">
                                             <div th:if="${product.getAuthors().size() > 0}">
                                                 <p class="product_summary_title">Authors: </p>
-                                                <tr th:each="author: ${product.getAuthors()}">
-                                                    <p th:text="${author} + ' '"></p>
-                                                </tr>
+                                                <p><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></p>
                                             </div>
                                         </div>
                                         <div th:if="${product.getTranslators() != null}">
                                             <div th:if="${product.getTranslators().size() > 0}">
                                                 <p class="product_summary_title">Translators: </p>
-                                                <tr th:each="translator: ${product.getTranslators()}">
-                                                    <p th:text="${translator} + ' '"></p>
-                                                </tr>
+                                                <p><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></p>
                                             </div>
                                         </div>
                                         <div th:if="${product.getPublishers() != null}">
                                             <div th:if="${product.getPublishers().size() > 0}">
                                                 <p class="product_summary_title">Publishers: </p>
-                                                <tr th:each="publisher: ${product.getPublishers()}">
-                                                    <p th:text="${publisher} + ' '"></p>
-                                                </tr>
+                                                <p><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></p>
                                             </div>
                                         </div>
                                         <p class="product_summary_title">Language: </p>
@@ -292,7 +288,9 @@
 
                                     <tr>
                                         <td><h5>Discount Rate</h5></td>
-                                        <td><h5 th:text="${product.getDiscountRate()}"></h5></td>
+                                        <td>
+                                            <h5 th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></h5>
+                                        </td>
                                     </tr>
 
                                     <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
@@ -369,7 +367,7 @@
                                         </tr>
 
                                         <tr><td><h5>File Size</h5></td>
-                                            <td><h5 th:text="${product.getFileSize()}"></h5></td>
+                                            <td><h5 th:text="${product.getFileSize() + ' MB'}"></h5></td>
                                         </tr>
 
                                         <tr><td><h5>File Format</h5></td>
@@ -389,10 +387,6 @@
                                 </span>
 
                                     <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
-                                    <tr><td><h5>Color</h5></td>
-                                        <td><h5 th:text="${product.getReaderColor()}"></h5></td>
-                                    </tr>
-
                                     <tr><td><h5>Color</h5></td>
                                         <td><h5 th:text="${product.getReaderColor()}"></h5></td>
                                     </tr>
@@ -521,16 +515,16 @@
                                 </span>
 
                                     <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                                    <tr><td><h5>Depth</h5></td>
+                                        <td><h5 th:text="${product.getCaseDepth() + ' mm'}"></h5></td>
+                                    </tr>
+
                                     <tr><td><h5>Reader Brand</h5></td>
                                         <td><h5 th:text="${product.getReaderBrand()}"></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Reader Model</h5></td>
                                         <td><h5 th:text="${product.getReaderModel()}"></h5></td>
-                                    </tr>
-
-                                    <tr><td><h5>Depth</h5></td>
-                                        <td><h5 th:text="${product.getCaseDepth()}"></h5></td>
                                     </tr>
                                 </span>
 
@@ -565,7 +559,7 @@
                                                         <i class="review_star fa fa-star"></i>
                                                         <i class="review_star fa fa-star"></i>
                                                         <span class="review_star_numbers"
-                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                              th:text="${product.getTotalStarNum().get(4)}"></span></a>
                                                     </li>
                                                     <li><a>
                                                         <i class="review_star fa fa-star"></i>
@@ -574,7 +568,7 @@
                                                         <i class="review_star fa fa-star"></i>
                                                         <i class="review_star fa fa-star-o"></i>
                                                         <span class="review_star_numbers"
-                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                              th:text="${product.getTotalStarNum().get(3)}"></span></a>
                                                     </li>
                                                     <li><a>
                                                         <i class="review_star fa fa-star"></i>
@@ -583,7 +577,7 @@
                                                         <i class="review_star fa fa-star-o"></i>
                                                         <i class="review_star fa fa-star-o"></i>
                                                         <span class="review_star_numbers"
-                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                              th:text="${product.getTotalStarNum().get(2)}"></span></a>
                                                     </li>
                                                     <li><a>
                                                         <i class="review_star fa fa-star"></i>
@@ -592,7 +586,7 @@
                                                         <i class="review_star fa fa-star-o"></i>
                                                         <i class="review_star fa fa-star-o"></i>
                                                         <span class="review_star_numbers"
-                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                              th:text="${product.getTotalStarNum().get(1)}"></span></a>
                                                     </li>
                                                     <li><a>
                                                         <i class="review_star fa fa-star"></i>
