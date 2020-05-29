@@ -136,6 +136,67 @@
                                 <div class="product_price" th:text="'₺' + ${product.getPrice()}"></div>
 
                                 <div class="product_text">
+                                    <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                        <div th:if="${product.getAuthors() != null}">
+                                            <div th:if="${product.getAuthors().size() > 0}">
+                                                <p class="product_summary_title">Authors: </p>
+                                                <tr th:each="author: ${product.getAuthors()}">
+                                                    <p th:text="${author} + ' '"></p>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.getTranslators() != null}">
+                                            <div th:if="${product.getTranslators().size() > 0}">
+                                                <p class="product_summary_title">Translators: </p>
+                                                <tr th:each="translator: ${product.getTranslators()}">
+                                                    <p th:text="${translator} + ' '"></p>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.getPublishers() != null}">
+                                            <div th:if="${product.getPublishers().size() > 0}">
+                                                <p class="product_summary_title">Publishers: </p>
+                                                <tr th:each="publisher: ${product.getPublishers()}">
+                                                    <p th:text="${publisher} + ' '"></p>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                        <p class="product_summary_title">Language: </p>
+                                        <p th:text="${product.getLanguage()}"></p>
+                                        <p class="product_summary_title">Published Year: </p>
+                                        <p th:text="${product.getPublishedYear()}"></p>
+                                        <p class="product_summary_title">ISBN: </p>
+                                        <p th:text="${product.getIsbn()}"></p>
+                                        <span th:if="${product.getProductTypeName() == 'Book'}">
+                                            <p class="product_summary_title">Media Type: </p>
+                                            <p th:text="#{${'media_type.' + product.getMediaType()}}"></p>
+                                            <p class="product_summary_title">Paper Type: </p>
+                                            <p th:text="#{${'paper_type.' + product.getPaperType()}}"></p>
+                                            <p class="product_summary_title">Binding Type: </p>
+                                            <p th:text="#{${'binding_type.' + product.getBindingType()}}"></p>
+                                        </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                            <p class="product_summary_title">File Format: </p>
+                                            <p th:text="${product.getFileFormat()}"></p>
+                                        </span>
+                                    </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <p class="product_summary_title">Brand: </p>
+                                        <p th:text="${product.getReaderBrand()}"></p>
+                                        <p class="product_summary_title">Model: </p>
+                                        <p th:text="${product.getReaderModel()}"></p>
+                                        <p class="product_summary_title">Color: </p>
+                                        <p th:text="${product.getReaderColor()}"></p>
+                                    </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                        <p class="product_summary_title">Brand: </p>
+                                        <p th:text="${product.getCaseBrand()}"></p>
+                                        <p class="product_summary_title">Model: </p>
+                                        <p th:text="${product.getCaseModel()}"></p>
+                                        <p class="product_summary_title">Color: </p>
+                                        <p th:text="${product.getCaseColor()}"></p>
+                                    </span>
+                                    <br>
                                     <p th:text="${product.getShortDesc()}"></p>
                                 </div>
 
@@ -226,7 +287,7 @@
 
                                     <tr>
                                         <td><h5>Number of Sales</h5></td>
-                                        <td><h5 th:text="${product.getSalesNum()} + ' ₺'"></h5></td>
+                                        <td><h5 th:text="${product.getSalesNum()}"></h5></td>
                                     </tr>
 
                                     <tr>
@@ -249,19 +310,23 @@
                                     </tr>
 
                                     <tr><td><h5>Author</h5></td>
-                                        <td><h5 th:text="${product.getAuthors()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Translator</h5></td>
-                                        <td><h5 th:text="${product.getTranslators()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Publisher</h5></td>
-                                        <td><h5 th:text="${product.getPublishers()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Keyword</h5></td>
-                                        <td><h5 th:text="${product.getKeywords()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getKeywords()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ',': ${a}"></span></h5></td>
                                     </tr>
 
                                     <span th:if="${product.getProductTypeName() == 'Book'}">
@@ -282,7 +347,7 @@
                                         </tr>
 
                                         <tr><td><h5>Edition Number</h5></td>
-                                            <td><h5 th:text="${product.getEditionNum()}"></h5></td>
+                                            <td><h5 th:text="${product.getEditionNum() + '. Edition'}"></h5></td>
                                         </tr>
 
                                         <tr><td><h5>Height</h5></td>
@@ -377,59 +442,59 @@
                                     </tr>
 
                                     <tr><td><h5>Glare Free Screen</h5></td>
-                                        <div th:switch="${product.isGlareFreeScreen()}">
+                                        <td th:switch="${product.isGlareFreeScreen()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Water Proof</h5></td>
-                                        <div th:switch="${product.isWaterProof()}">
+                                        <td th:switch="${product.isWaterProof()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Auto Adjusting Light</h5></td>
-                                        <div th:switch="${product.isAutoAdjustingLight()}">
+                                        <td th:switch="${product.isAutoAdjustingLight()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Buttons</h5></td>
-                                        <div th:switch="${product.isButtons()}">
+                                        <td th:switch="${product.isButtons()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Wifi</h5></td>
-                                        <div th:switch="${product.isWifi()}">
+                                        <td th:switch="${product.isWifi()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Cellular</h5></td>
-                                        <div th:switch="${product.isCellular()}">
+                                        <td th:switch="${product.isCellular()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Backlight</h5></td>
-                                        <div th:switch="${product.isBackLight()}">
+                                        <td th:switch="${product.isBackLight()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Warm Backlight</h5></td>
-                                        <div th:switch="${product.isWarmBackLight()}">
+                                        <td th:switch="${product.isWarmBackLight()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
                                 </span>
 
