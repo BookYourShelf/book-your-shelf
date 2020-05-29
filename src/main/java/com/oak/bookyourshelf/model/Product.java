@@ -61,7 +61,13 @@ public abstract class Product {
             total += (i + 1) * totalStarNum.get(i);
         }
 
-        return total / 5;
+        int starNum = getStarNum();
+
+        if (starNum == 0) {
+            return 0;
+        } else {
+            return total / getStarNum();
+        }
     }
 
     public int getStarNum() {
