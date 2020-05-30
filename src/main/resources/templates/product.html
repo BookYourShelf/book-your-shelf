@@ -853,7 +853,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                            <div title="Compare products" id="compare_products" th:value="${'22'}"
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -982,7 +982,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                            <div title="Compare products"
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -1162,6 +1162,20 @@
                 }
             })
         }
+    });
+    $('#compare_products').click(function (event) {
+
+        var second = "22";
+        var ret = {
+            type: "review",
+        };
+        console.log(second);
+        event.preventDefault();
+        $.get("/compare/" + productID +"/" + second, ret, function (data) {
+
+
+        })
+
     });
 
     function validation_check(arr) {
