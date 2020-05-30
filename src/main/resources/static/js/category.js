@@ -140,22 +140,19 @@ $(document).ready(function () {
 
     function initIsotope() {
         var sortingButtons = $('.item_sorting_btn');
-
-        if ($('.grid').length) {
-            var grid = $('.grid').isotope({
-                itemSelector: '.grid-item',
+        if ($('.orderDetailBox').length) {
+            var grid = $('.orderDetailBox').isotope({
+                itemSelector: '.product_content',
                 percentPosition: true,
                 masonry:
                     {
-                        horizontalOrder: true
+                        verticalOrder: true
                     },
                 getSortData:
                     {
-                        price: function (itemElement) {
-                            var priceEle = $(itemElement).find('.product_price').text().replace('$', '');
-                            return parseFloat(priceEle);
-                        },
-                        name: '.product_name'
+                        name: '.category-name',
+                        itemNum: '.category-itemNum',
+                        subcategory: '.category-subcategory-size'
                     }
             });
 
