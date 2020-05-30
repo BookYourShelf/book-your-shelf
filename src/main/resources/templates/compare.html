@@ -26,7 +26,6 @@
 </head>
 
 
-
 <body>
 <!-- Header -->
 <header class="header_area" th:insert="fragments/header.html"></header>
@@ -44,7 +43,9 @@
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a href="product.html">Animal Farm</a></li>
+                                <li><<a th:href="@{'/product/' + ${mainProduct.productId}}">
+                                    <h th:text="${mainProduct.getProductName()}"></h>
+                                </a></li>
                                 <li style="color: #fbaa1d">Compare</li>
                             </ul>
                         </div>
@@ -60,14 +61,16 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th style="width: 20.0%">Book</th>
+                            <th style="width: 20.0%">
+                            <td th:text="${mainProduct.getProductTypeName()}"></td>
+                            </th>
                             <th style="width: 40.0%">
                                 <div>
                                     <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
                                                                     alt="" class="product_image_img">
                                     </div>
                                 </div>
-                                Animal Farm
+                                <h th:text="${mainProduct.getProductName()}"></h>
                             </th>
                             <th style="width: 40.0%">
                                 <div>
@@ -75,16 +78,11 @@
                                                                     alt="" class="product_image_img">
                                     </div>
                                 </div>
-                                Lord of the Flies
+                                <h th:text="${comparedProduct.getProductName()}"></h>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">Author</th>
-                            <td>George Orwell</td>
-                            <td>William Golding</td>
-                        </tr>
                         <tr>
                             <th scope="row">Stars</th>
                             <td>
@@ -104,10 +102,19 @@
                                 3 out of (334)
                             </td>
                         </tr>
+
+
+                        <span th:if="${mainProduct.getProductTypeName() == 'Book' || mainProduct.getProductTypeName() == 'E-Book' || mainProduct.getProductTypeName() == 'Audio Book'}">
+                        <tr>
+                            <th scope="row">Author</th>
+                            <td>George Orwell</td>
+                            <td>William Golding</td>
+                        </tr>
+
                         <tr>
                             <th scope="row">Language</th>
-                            <td>English</td>
-                            <td>English</td>
+                            <td th:text="${mainProduct.getLanguage()}"></td>
+                            <td th:text="${comparedProduct.getLanguage()}"></td>
                         </tr>
                         <tr>
                             <th scope="row">Translator</th>
@@ -116,44 +123,351 @@
                         </tr>
                         <tr>
                             <th scope="row">Publisher</th>
-                            <td>Can Yayınları</td>
-                            <td>Can Yayınları</td>
+                            <td>
+                                <div th:if="${mainProduct.getPublishers() != null}">
+                                    <div th:unless="${mainProduct.getPublishers().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${mainProduct.getPublishers().size() > 0}">
+                                        <th:block th:each="publisher: ${mainProduct.getPublishers()}">
+                                            <h th:text="${publisher}"></h><br>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div th:if="${comparedProduct.getPublishers() != null}">
+                                    <div th:unless="${comparedProduct.getPublishers().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${comparedProduct.getPublishers().size() > 0}">
+                                        <th:block th:each="publisher: ${comparedProduct.getPublishers()}">
+                                            <h th:text="${publisher}"></h><br>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
+
                         <tr>
-                            <th scope="row">Paper Type</th>
-                            <td>Coated</td>
-                            <td>Uncoated</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Binding Type</th>
-                            <td>Saddle Stitching</td>
-                            <td>Saddle Stitching</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Size</th>
-                            <td>14x21</td>
-                            <td>14x21</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Number of Edition</th>
-                            <td>2017</td>
-                            <td>2014</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Page Number</th>
-                            <td>132</td>
-                            <td>645</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Media Type</th>
-                            <td>Hardcover</td>
-                            <td>Softcover</td>
+                            <th scope="row">Published Year</th>
+                            <td th:text="${mainProduct.getPublishedYear()}"></td>
+                            <td th:text="${comparedProduct.getPublishedYear()}"></td>
                         </tr>
                         <tr>
                             <th scope="row">ISBN</th>
-                            <td>654541536565</td>
-                            <td>684654134167</td>
+                            <td th:text="${mainProduct.getIsbn()}"></td>
+                            <td th:text="${comparedProduct.getIsbn()}"></td>
                         </tr>
+
+
+                        <span th:if="${mainProduct.getProductTypeName() == 'Book'}">
+                        <tr>
+                            <th scope="row">Media Type</th>
+                            <td th:text="${mainProduct.getMediaType()}"></td>
+                            <td th:text="${comparedProduct.getMediaType()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Paper Type</th>
+                            <td th:text="${mainProduct.getPaperType()}"></td>
+                            <td th:text="${comparedProduct.getPaperType()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Binding Type</th>
+                            <td th:text="${mainProduct.getBindingType()}"></td>
+                            <td th:text="${comparedProduct.getBindingType()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Page Number</th>
+                            <td th:text="${mainProduct.getPageNum()}"></td>
+                            <td th:text="${comparedProduct.getPageNum()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Number of Edition</th>
+                            <td th:text="${mainProduct.getEditionNum()}"></td>
+                            <td th:text="${comparedProduct.getEditionNum()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Width</th>
+                            <td th:text="${mainProduct.getWidth()}"></td>
+                            <td th:text="${comparedProduct.getWidth()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Height</th>
+                            <td th:text="${mainProduct.getHeight()}"></td>
+                            <td th:text="${comparedProduct.getHeight()}"></td>
+                        </tr>
+                        </span>
+                        <span th:if="${mainProduct.getProductTypeName() == 'Audio Book'}">
+                             <tr>
+                                <th scope="row">Length</th>
+                                <td th:text="${mainProduct.getLengthInMinutes() + ' minutes'}"></td>
+                                 <td th:text="${comparedProduct.getLengthInMinutes() +' minutes'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Narrated By</th>
+                                <td th:text="${mainProduct.getNarratedBy()}"></td>
+                                 <td th:text="${comparedProduct.getNarratedBy()}"></td>
+                            </tr>
+                        </span>
+
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book'}">
+                            <tr>
+                                <th scope="row">Page Number</th>
+
+                                <td th:text="${mainProduct.getPageNum()}"></td>
+                                 <td th:text="${comparedProduct.getPageNum()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">File Size</th>
+                                <td th:text="${mainProduct.getFileSize()}"></td>
+                                <td th:text="${comparedProduct.getFileSize()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">File Format</th>
+                                <td th:text="${mainProduct.getFileFormat()}"></td>
+                                <td th:text="${comparedProduct.getFileFormat()}"></td>
+                            </tr>
+
+                        </span>
+                        </span>
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader'}">
+                             <tr>
+                                <th scope="row">Color</th>
+                                <td th:text="${mainProduct.getReaderColor()}"></td>
+                                <td th:text="${comparedProduct.getReaderColor()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Brand</th>
+                               <td th:text="${mainProduct.getReaderBrand()}"></td>
+                                <td th:text="${comparedProduct.getReaderBrand()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Model</th>
+                                <td th:text="${mainProduct.getReaderModel()}"></td>
+                                <td th:text="${comparedProduct.getReaderModel()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Technical Specifications</th>
+                                <td th:text="${mainProduct.getTechnicalSpecifications()}"></td>
+                                <td th:text="${comparedProduct.getTechnicalSpecifications()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Weight</th>
+                                <td th:text="${mainProduct.getWeight() + 'g'}"></td>
+                                <td th:text="${comparedProduct.getWeight() + 'g'}"></td>
+                            </tr>
+                             <tr>
+                                <th scope="row">Height</th>
+                                <td th:text="${mainProduct.getHeight() + 'mm'}"></td>
+                                <td th:text="${comparedProduct.getHeight() + 'mm'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Width</th>
+                                <td th:text="${mainProduct.getWidth() + 'mm'}"></td>
+                                <td th:text="${comparedProduct.getWidth() + 'mm'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Depth</th>
+                                <td th:text="${mainProduct.getDepth() + ' mm'}"></td>
+                                <td th:text="${comparedProduct.getDepth() + ' mm'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Screen Size</th>
+                                <td th:text="${mainProduct.getScreenSize() + ' inch'}"></td>
+                                <td th:text="${comparedProduct.getScreenSize() + ' inch'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Battery Life</th>
+                               <td th:text="${mainProduct.getBatteryLife() + ' hours'}"></td>
+                                <td th:text="${comparedProduct.getBatteryLife() + ' hours'}"></td>
+                            </tr>
+                             <tr>
+                                <th scope="row">Resolution</th>
+                                <td th:text="${mainProduct.getResolution() + ' dpi'}"></td>
+                                <td th:text="${comparedProduct.getResolution() + ' dpi'}"></td>
+                            </tr>
+                             <tr>
+                                <th scope="row">RAM</th>
+                                <td th:text="${mainProduct.getRam() + ' MB'}"></td>
+                                <td th:text="${comparedProduct.getRam() + ' MB'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Glare Free Screen</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isGlareFreeScreen()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isGlareFreeScreen()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Water Proof</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isWaterProof()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isWaterProof()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <th scope="row">Auto Adjusting Light</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isAutoAdjustingLight()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isAutoAdjustingLight()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <th scope="row">Buttons</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isButtons()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isButtons()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wifi</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isWifi()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isWifi()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Cellular</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isCellular()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isCellular()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Backlight</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isBackLight()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isBackLight()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Warm Backlight</th>
+                                <td>
+                                    <div th:switch="${mainProduct.isWarmBackLight()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                                 <td>
+                                    <div th:switch="${comparedProduct.isWarmBackLight()}">
+                                        <h th:case="True">Yes</h>
+                                        <h th:case="*">No</h>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </span>
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case' || mainProduct.getProductTypeName() == 'Book Case'}">
+                            <tr>
+                                <th scope="row">Color</th>
+                                <td th:text="${mainProduct.getCaseColor()}"></td>
+                                <td th:text="${comparedProduct.getCaseColor()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Brand</th>
+                                <td th:text="${mainProduct.getCaseBrand()}"></td>
+                                <td th:text="${comparedProduct.getCaseBrand()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Model</th>
+                                <td th:text="${mainProduct.getCaseModel()}"></td>
+                                <td th:text="${comparedProduct.getCaseModel()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Height</th>
+                                <td th:text="${mainProduct.getCaseHeight() + ' mm'}"></td>
+                                <td th:text="${comparedProduct.getCaseHeight() + ' mm'}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Width</th>
+                                <td th:text="${mainProduct.getCaseWidth() + ' mm'}"></td>
+                                <td th:text="${comparedProduct.getCaseWidth() + ' mm'}"></td>
+                            </tr>
+                             <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case'}">
+                                  <tr>
+                                <th scope="row">Reader Brand</th>
+                                <td th:text="${mainProduct.getReaderBrand()}"></td>
+                                <td th:text="${comparedProduct.getReaderBrand()}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Reader Model</th>
+                                <td th:text="${mainProduct.getReaderModel()}"></td>
+                                <td th:text="${comparedProduct.getReaderModel()}"></td>
+                            </tr>
+                             <tr>
+                                <th scope="row">Depth</th>
+                                <td th:text="${mainProduct.getCaseDepth()}"></td>
+                                <td th:text="${comparedProduct.getCaseDepth()}"></td>
+                            </tr>
+                             </span>
+                            <span th:if="${mainProduct.getProductTypeName() == 'Book Case'}">
+
+                            <tr>
+                                <th scope="row">Maximum Book Depth</th>
+                               <td th:text="${mainProduct.getMaxBookDepth()}"></td>
+                                <td th:text="${comparedProduct.getMaxBookDepth()}"></td>
+                            </tr>
+
+                             </span>
+
+                        </span>
                         <tr>
                             <th scope="row">Short Description</th>
                             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consequat lorem.
@@ -163,6 +477,7 @@
                                 Maecenas elementum at diam consequat bibendum.
                             </td>
                         </tr>
+
                         <tr>
                             <th scope="row">Barcode</th>
                             <td>869465164665</td>
