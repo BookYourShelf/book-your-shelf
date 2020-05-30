@@ -22,6 +22,13 @@ public class Campaign {
     )
     private List<Category> categories;
 
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Subcategory> subcategories;
+
     private Category.ProductType productType;
 
     // GETTER & SETTER
@@ -81,5 +88,15 @@ public class Campaign {
     public void setProductType(Category.ProductType productType) {
         this.productType = productType;
     }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+
+    public void addSubcategory(Subcategory subcategory){this.getSubcategories().add(subcategory);}
 
 }
