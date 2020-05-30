@@ -1,4 +1,9 @@
 package com.oak.bookyourshelf.repository;
 
-public interface CartRepository {
+import com.oak.bookyourshelf.model.Order;
+import com.oak.bookyourshelf.model.Product;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CartRepository extends CrudRepository<Order, Integer> {
+
 }
