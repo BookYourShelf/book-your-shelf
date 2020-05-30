@@ -1128,23 +1128,25 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Short Description
                                     </div>
                                     <input type="text" id="book_short_description_input" th:field="*{shortDesc}"
-                                           th:value="${product.getShortDesc()}"
+                                           th:value="${product.getShortDesc()}" maxlength="255"
                                            class="checkout_input form-control"
                                            placeholder="Short Description" required="required">
                                 </div>
-                                <div class="col-md-8">
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Long Description
                                     </div>
-                                    <input type="text" id="book_long_description_input" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}"
-                                           class="checkout_input form-control"
-                                           placeholder="Long Description" required="required">
+                                    <textarea type="text" id="book_long_description_input" th:field="*{longDesc}"
+                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                           class="long_desc_textarea form-control different-control w-100"
+                                           placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -1378,24 +1380,25 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Short Description
                                     </div>
                                     <input type="text" id="ebook_short_description_input" th:field="*{shortDesc}"
                                            th:value="${product.getShortDesc()}"
-                                           class="checkout_input form-control"
+                                           class="checkout_input form-control" maxlength="255"
                                            placeholder="Short Description" required="required">
                                 </div>
-                                <div class="col-md-8">
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Long Description
                                     </div>
-
-                                    <input type="text" id="ebook_long_description_input" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}"
-                                           class="checkout_input form-control"
-                                           placeholder="Long Description" required="required">
+                                    <textarea type="text" id="ebook_long_description_input" th:field="*{longDesc}"
+                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                           class="long_desc_textarea form-control different-control w-100"
+                                              placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -1589,23 +1592,25 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Short Description
                                     </div>
                                     <input type="text" id="audiobook_short_description_input" th:field="*{shortDesc}"
-                                           th:value="${product.getShortDesc()}"
+                                           th:value="${product.getShortDesc()}" maxlength="255"
                                            class="checkout_input form-control"
                                            placeholder="Short Description" required="required">
                                 </div>
-                                <div class="col-md-8">
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Long Description
                                     </div>
-                                    <input type="text" id="audiobook_long_description_input" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}"
-                                           class="checkout_input form-control"
-                                           placeholder="Long Description" required="required">
+                                    <textarea type="text" id="audiobook_long_description_input" th:field="*{longDesc}"
+                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                           class="long_desc_textarea form-control different-control w-100"
+                                              placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -1702,25 +1707,26 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Short Description
                                     </div>
 
                                     <input type="text" id="ebook_reader_short_description_input"
                                            class="checkout_input form-control" th:field="*{shortDesc}"
-                                           th:value="${product.getShortDesc()}"
+                                           th:value="${product.getShortDesc()}" maxlength="255"
                                            placeholder="Short Description" required="required">
                                 </div>
-                                <div class="col-md-8">
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Long Description
                                     </div>
-
-                                    <input type="text" id="ebook_reader_long_description_input"
-                                           class="checkout_input form-control" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}"
-                                           placeholder="Long Description" required="required">
+                                    <textarea type="text" id="ebook_reader_long_description_input"
+                                           class="long_desc_textarea form-control different-control w-100" th:field="*{longDesc}"
+                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -2032,24 +2038,26 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Short Description
                                     </div>
                                     <input type="text"
                                            id="ebook_reader_case_short_description_input"
                                            class="checkout_input form-control" th:field="*{shortDesc}"
-                                           th:value="${product.getShortDesc()}"
+                                           th:value="${product.getShortDesc()}" maxlength="255"
                                            placeholder="Short Description" required="required">
                                 </div>
-                                <div class="col-md-8">
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Long Description
                                     </div>
-                                    <input type="text" id="ebook_reader_case_long_description_input"
-                                           class="checkout_input form-control" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}"
-                                           placeholder="Long Description" required="required">
+                                    <textarea type="text" id="ebook_reader_case_long_description_input"
+                                           class="long_desc_textarea form-control different-control w-100" th:field="*{longDesc}"
+                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -2198,23 +2206,25 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Short Description
                                     </div>
                                     <input type="text" id="book_case_short_description_input"
                                            class="checkout_input form-control" th:field="*{shortDesc}"
-                                           th:value="${product.getShortDesc()}"
+                                           th:value="${product.getShortDesc()}" maxlength="255"
                                            placeholder="Short Description" required="required">
                                 </div>
-                                <div class="col-md-8">
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Long Description
                                     </div>
-                                    <input type="text" id="book_case_long_description_input"
-                                           class="checkout_input form-control" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}"
-                                           placeholder="Long Description" required="required">
+                                    <textarea type="text" id="book_case_long_description_input"
+                                           class="long_desc_textarea form-control different-control w-100" th:field="*{longDesc}"
+                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                         </div>

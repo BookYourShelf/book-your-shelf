@@ -35,12 +35,12 @@
     color: #fbaa1d;
 }
 
-.deneme::-webkit-input-placeholder {
+.long_desc_textarea::-webkit-input-placeholder {
     font-size: 14px !important;
     font-weight: 400 !important;
     color: #969696 !important;
 }
-.deneme {
+.long_desc_textarea {
     background: #FFFFFF;
     padding-left: 20px;
     color: #000000;
