@@ -1,12 +1,10 @@
 package com.oak.bookyourshelf.controller;
 
-import com.oak.bookyourshelf.model.CreditCard;
+
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.AuthService;
-import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.WishListService;
-import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
+
 
 @Controller
 public class WishListController {
@@ -58,27 +56,14 @@ public class WishListController {
 
         } else if (button.equals("delete_product")) {
             Product product = wishListService.get(productID);
-            if (user.getShoppingCart().contains(product)) {
-                user.getShoppingCart().remove(product);
-                user.getWishList().remove(product);
-                profileInformationService.save(user);
-                user.getShoppingCart().add(product);
-                profileInformationService.save(user);
-
-            } else {
-                user.getWishList().remove(product);
-                profileInformationService.save(user);
-                wishListService.save(product);
-
-            }
+            user.getWishList().remove(product);
+            profileInformationService.save(user);
 
         } else {
-
-
-
+            user.getWishList().clear();
+            profileInformationService.save(user);
 
         }
-
         return ResponseEntity.ok("");
     }
 
