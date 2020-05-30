@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.controller.admin_panel;
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Campaign;
 import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCampaignService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
@@ -40,6 +41,28 @@ public class AdminPanelCampaignController {
 
         return "admin_panel/_campaign";
     }
+    @RequestMapping(value = "/admin-panel/campaign/category", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Category> findAllCategories(@RequestParam String category) {
+
+        if (category.equals("BOOK")) {
+            System.out.println("mkdfg");
+            System.out.println(adminPanelCategoryService.getAllByCategory("Book"));
+            return  (List<Category>) adminPanelCategoryService.getAllByCategory("Book");
+        }
+        else if(category.equals("E_BOOK"))
+            return  (List<Category>) adminPanelCategoryService.getAllByCategory("E-Book");
+        else if(category.equals("AUDIO_BOOK"))
+            return  (List<Category>) adminPanelCategoryService.getAllByCategory("Audio Book");
+        else return null;
+
+    }
+
+    @RequestMapping(value = "/admin-panel/campaign/subcategory", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
+        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+    }
 
     @RequestMapping(value = "/admin-panel/campaign", method = RequestMethod.POST)
     @ResponseBody
@@ -54,6 +77,7 @@ public class AdminPanelCampaignController {
         }
 
         List<Campaign> sameType = adminPanelCampaignService.findAllByProductType(campaign.getProductType());
+        /*
         for (Campaign i : sameType) {
             for (String s : categories) {
                 if (i.getCategories().contains(adminPanelCategoryService.getByName(s))) {
@@ -76,7 +100,7 @@ public class AdminPanelCampaignController {
             campaign.setCategories(newCategories);
             adminPanelCampaignService.save(campaign);
         }
-
+*/
         return ResponseEntity.ok("");
     }
 }
