@@ -22,9 +22,9 @@
         <div class="billingAddress">
             <div class="checkout_form_container">
                 <form id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
-
+                    <div class="row">
                     <!-- Name -->
-                    <div>
+                    <div class="col-md-6">
                         <div class="login-text p-b-10" style="color: black;">
                             Campaign Name
                         </div>
@@ -34,16 +34,17 @@
                                placeholder="Campaign Name" required="required"
                                pattern="[A-Za-z]+" title="Campaign name cannot have digits.">
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="login-text p-b-10" style="color: black;">
-                                Discount Rate
-                            </div>
-                            <input type="text" id="new_campaign_rate"
-                                   class="checkout_input form-control discount-rate"
-                                   placeholder="Discount Rate" required="required">
+                    <div class="col-md-6">
+                        <div class="login-text p-b-10" style="color: black;">
+                            Discount Rate
                         </div>
+                        <input type="text" id="new_campaign_rate"
+                               class="checkout_input form-control discount-rate"
+                               placeholder="Discount Rate" required="required">
+                    </div>
+                    </div>
+                    <div class="row">
+
 
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
@@ -60,22 +61,29 @@
                                 </option>
                             </select>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
                                 Category
                             </div>
                             <select name="campaign_update_categories"
-                                    id="new_campaign_categories" multiple="multiple"
-                                    require="required" style="display: none">
-                                <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                        th:value="${category.getName()}"
-                                        th:text="${category.getName()}">category
-                                </option>
+                                    id="new_campaign_categories" class="dropdown_item_select checkout_input"
+                                    required="required" >
+                                <option value="">SELECT</option>
+
                             </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12"  >
+
+                            <div id="deneme">
+                                <div class="login-text p-b-10" style="color: black;display: none" id="title" >
+                                    Subcategory
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -274,7 +282,8 @@
 <script>
 
     $('#new_campaign_button').click(function (event) {
-        var x = document.getElementById("new_campaign_categories");
+        console.log("dfsdf")
+        var x = document.getElementById("new_campaign_subcategories");
         var category = [];
         for (var i = 0; i < x.options.length; i++) {
             if (x.options[i].selected === true) {
@@ -324,6 +333,57 @@
             })
         }
     });
+    $('#new_campaign_categories').change(function(event) {
+        $.getJSON("/admin-panel/campaign/subcategory", {
+            category : $(this).val(),
+            ajax : 'true'
+        }, function(data) {
+            buildSubcategoriesDropdown(data, "new_campaign_subcategories");
+        });
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        var counter = 1;
+        var newdiv = document.createElement('div');
+        newdiv.id='dynamicdiv' + counter;
+        var html = '<select id="new_campaign_subcategories" class=\"checkedValues\" multiple=\"multiple\">';
+        var len = data.length;
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        document.getElementById("title").style.display="block"
+        document.getElementById("deneme").appendChild(newdiv);
+        console.log(html);
+        counter++;
+
+        $(newdiv).find('.checkedValues').multiselect({
+            includeSelectAllOption: true
+        });  // call
+
+    }
+
+    $('#category_product_type').change(function(event) {
+        $.getJSON("/admin-panel/campaign/category", {
+            category : $(this).val(),
+            ajax : 'true'
+        }, function(data) {
+            buildCategoriesDropdown(data, "new_campaign_categories");
+        });
+    });
+
+    function buildCategoriesDropdown(data, categoryName) {
+        var html = '<option value="">SELECT</option>';
+        var len = data.length;
+
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option>';
+        $('#' + categoryName).html(html);
+    }
+
 
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
