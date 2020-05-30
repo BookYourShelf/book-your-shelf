@@ -86,7 +86,6 @@
                                 </select>
                             </div>
 
-                            <!-- TODO -->
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Subcategory
@@ -94,10 +93,6 @@
                                 <select name="subcategory" id="book_subcategory_input"
                                         class="dropdown_item_select checkout_input">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                            th:value="${category.getName()}"
-                                            th:text="${category.getName()}">category
-                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -358,7 +353,6 @@
                                 </select>
                             </div>
 
-                            <!-- TODO-->
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Subcategory
@@ -366,10 +360,6 @@
                                 <select name="subcategory" id="ebook_subcategory_input"
                                         class="dropdown_item_select checkout_input">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
-                                            th:value="${category.getName()}"
-                                            th:text="${category.getName()}">category
-                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -575,7 +565,6 @@
                                 </select>
                             </div>
 
-                            <!-- TODO-->
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Subcategory
@@ -583,10 +572,6 @@
                                 <select name="subcategory" id="audiobook_subcategory_select"
                                         class="dropdown_item_select checkout_input">
                                     <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
-                                            th:value="${category.getName()}"
-                                            th:text="${category.getName()}">category
-                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -1841,6 +1826,25 @@
             })
         }
     });
+
+    $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function(event) {
+        $.getJSON("/admin-panel/product/subcategory", {
+            category : $(this).val(),
+            ajax : 'true'
+        }, function(data) {
+            buildSubcategoriesDropdown(data, event.target.id.replace("category", "subcategory"));
+        });
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        var html = '<option value="">SELECT</option>';
+        var len = data.length;
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option>';
+        $('#' + subcategoryName).html(html);
+    }
 
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {

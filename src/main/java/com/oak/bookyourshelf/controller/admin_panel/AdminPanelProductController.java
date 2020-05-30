@@ -37,6 +37,12 @@ public class AdminPanelProductController {
         return "admin_panel/_product";
     }
 
+    @RequestMapping(value = "/admin-panel/product/subcategory", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
+        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+    }
+
     @RequestMapping(value = "/admin-panel/product", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> saveProduct(@RequestParam String productType, PhysicalBook physicalBook,
