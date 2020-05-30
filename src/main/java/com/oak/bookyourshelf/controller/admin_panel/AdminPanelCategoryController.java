@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.controller.admin_panel;
 
+import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminPanelCategoryController {
@@ -19,7 +22,10 @@ public class AdminPanelCategoryController {
     }
 
     @RequestMapping(value = "/admin-panel/category", method = RequestMethod.GET)
-    public String tab(Model model) {
+    public String tab(@RequestParam("page") Optional<Integer> page,
+                      @RequestParam("size") Optional<Integer> size, Model model) {
+
+        Globals.getPageNumbers(page, size, (List) adminPanelCategoryService.listAll(), model, "categoryPage");
         Category category = new Category();
         model.addAttribute("category", category);
         model.addAttribute("allCategories", adminPanelCategoryService.listAll());

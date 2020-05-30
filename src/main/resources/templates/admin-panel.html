@@ -69,7 +69,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/admin-panel/category" th:href="@{#category}">Categories</a>
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:href="@{#category}">Categories</a>
                     </li>
 
                     <li class="nav-item">
