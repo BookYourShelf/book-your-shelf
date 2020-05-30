@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<span th:if="${reviewPage.totalPages > 0}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -32,148 +36,143 @@
 
 <br>
 
-<div>
-    <!-- Review -->
-    <div class="row">
+<div class="review_list">
+    <tr th:each="review: ${reviewPage.content}">
 
-        <!-- Review Content -->
-        <div class="col-lg-8">
-            <div class="review_item">
-                <div class="media">
-                    <div class="media-body row">
-                        <div class="col-lg-10">
-                            <h4 class="date">02.02.2020</h4>
-                            <i class="fa fa-star" style="color:#fbd600"></i>
-                            <i class="fa fa-star" style="color:#fbd600"></i>
-                            <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                            <i class="fa fa-star-o" style="color:#fbd600"></i>
-                            <i class="fa fa-star-o" style="color:#fbd600"></i>
+        <!-- Review -->
+        <div class="review_item">
+            <div class="row">
+
+                <div class="col-lg-8">
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="review_date date"
+                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+                            <!-- TODO empty -->
+                            <h4 th:text="${review.getReviewTitle()}"></h4>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 1} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 2} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 3} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 4} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() == 5} ? 'fa-star' : 'fa-star-o'"></i>
                         </div>
-                        <div class="col-lg-2">
+                    </div>
+                    <p th:text="${review.getReviewContent()}"></p>
+                </div>
+
+                <!-- Product -->
+                <div class="col-lg-4 vertical_center">
+
+                    <div class="row vertical_center">
+                        <div class="col-lg-10 vertical_center">
+                            <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                <a th:href="@{/product}">
+                                    <div>
+                                        <div class="product_image"><img th:src="@{/static/images/seker_portakali.jpg}"
+                                                                        alt=""
+                                                                        class="product_image_img">
+                                        </div>
+                                    </div>
+                                    <div class="product_name_container">
+                                        <div class="review-product-name txt-left"><a
+                                                th:href="@{/product}">My Sweet Orange Tree</a>
+                                        </div>
+                                        <div class="review-product-text">José Mauro de Vasconcelos</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 vertical_center">
                             <!-- Delete button -->
                             <a href="#" class="trans_200" data-toggle="collapse"><i
-                                    style="font-size: 30px; color: #4a4a4a"
+                                    style="font-size: 25px; color: #4a4a4a"
                                     class="fa product_text"
                                     title="Delete this review">&#xf014;</i></a>
                         </div>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                    non proident, sunt in culpa qui officia deserunt mollit anim id est
-                    laborum.</p>
-            </div>
-            <br>
-            <br>
-        </div>
 
-        <!-- Book -->
-        <div class="col-lg-4">
-            <div class="review_list">
-                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                    <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                        <a href="product.html">
-                            <div>
-                                <div class="product_image"><img src="images/seker_portakali.jpg"
-                                                                alt=""
-                                                                class="product_image_img">
-                                </div>
-                            </div>
-                            <div class="product_name_container">
-                                <div class="review-product-name txt-left"><a
-                                        href="product.html">My Sweet Orange Tree</a>
-                                </div>
-                                <div class="review-product-text">José Mauro de Vasconcelos</div>
-                            </div>
-                        </a>
-                    </div>
-                </li>
             </div>
         </div>
-    </div>
-
-    <!-- Review -->
-    <div class="row">
-
-        <!-- Review Content -->
-        <div class="col-lg-8">
-            <div class="review_item">
-                <div class="media">
-                    <div class="media-body row">
-                        <div class="col-lg-10">
-                            <h4 class="date">18.03.2020</h4>
-                            <i class="fa fa-star" style="color:#fbd600"></i>
-                            <i class="fa fa-star" style="color:#fbd600"></i>
-                            <i class="fa fa-star-half-full" style="color:#fbd600"></i>
-                            <i class="fa fa-star-o" style="color:#fbd600"></i>
-                            <i class="fa fa-star-o" style="color:#fbd600"></i>
-                        </div>
-                        <div class="col-lg-2">
-                            <!-- Delete button -->
-                            <a href="#" class="trans_200" data-toggle="collapse"><i
-                                    style="font-size: 30px; color: #4a4a4a"
-                                    class="fa product_text"
-                                    title="Delete this review">&#xf014;</i></a>
-                        </div>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Bibendum est ultricies
-                    integer quis auctor. Leo vel orci porta non pulvinar neque laoreet
-                    suspendisse. Adipiscing elit duis tristique sollicitudin. Pulvinar elementum
-                    integer enim neque volutpat ac. Imperdiet sed euismod nisi porta lorem
-                    mollis aliquam. Cursus euismod quis viverra nibh. Lacus vestibulum sed arcu
-                    non odio euismod lacinia at. Pulvinar pellentesque habitant morbi tristique
-                    senectus. Gravida arcu ac tortor dignissim convallis aenean et tortor at.
-                    Fermentum odio eu feugiat pretium nibh. Porta lorem mollis aliquam ut. Lacus
-                    vel facilisis volutpat est. Consectetur lorem donec massa sapien faucibus et
-                    molestie ac. Posuere ac ut consequat semper viverra nam.
-                </p>
-            </div>
-            <br>
-            <br>
-        </div>
-
-        <!-- Book -->
-        <div class="col-lg-4">
-            <div class="review_list">
-                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                    <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                        <a href="product.html">
-                            <div>
-                                <div class="product_image"><img src="images/kurk_mantolu.jpg"
-                                                                alt=""
-                                                                class="product_image_img">
-                                </div>
-                            </div>
-                            <div class="product_name_container">
-                                <div class="review-product-name txt-left"><a
-                                        href="product.html">Kürk Mantolu Madonna</a>
-                                </div>
-                                <div class="review-product-text">Sabahattin Ali</div>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-            </div>
-        </div>
-    </div>
+    </tr>
 </div>
-<!-- No review -->
-<div class="warning-text" style="display: none">There are no review.</div>
 
 <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/user-details#review(id=${user.getUserId()}, size=${reviewPage.size}, page=${currentPage - 1})}"
+                       aria-label="Previous" title="Previous Page"
+                       rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${reviewPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/user-details#review(id=${user.getUserId()}, size=${reviewPage.size}, page=${1})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${reviewPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , reviewPage.totalPages > 2 + currentPage ? currentPage + 2 : reviewPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/user-details#review(id=${user.getUserId()}, size=${reviewPage.size}, page=${i})}"
+                       th:text="${i}" th:title="${'Page '+ i}"
+                       style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < reviewPage.totalPages}"
+                    class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                <li th:if="${reviewPage.totalPages > 1}"
+                    th:class="${currentPage == reviewPage.totalPages} ? 'active'">
+                    <a th:href="@{/user-details#review(id=${user.getUserId()}, size=${reviewPage.size}, page=${reviewPage.totalPages})}"
+                       th:text="${reviewPage.totalPages}"
+                       style="color: #fbaa1d;"
+                       th:title="${'Page '+ reviewPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == reviewPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/user-details#review(id=${user.getUserId()}, size=${reviewPage.size}, page=${currentPage + 1})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+
+</span>
+
+<!-- No reviews -->
+<span th:unless="${reviewPage.totalPages > 0}">
+    <div class="warning-text">There are no reviews.</div>
+</span>
+
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
+
+</html>
