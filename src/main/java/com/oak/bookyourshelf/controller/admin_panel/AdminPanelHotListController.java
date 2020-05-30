@@ -2,7 +2,9 @@ package com.oak.bookyourshelf.controller.admin_panel;
 
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Campaign;
+import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.HotList;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelHotListService;
 import org.springframework.data.domain.Page;
@@ -41,6 +43,32 @@ public class AdminPanelHotListController {
 
         return "admin_panel/_hotList";
     }
+
+
+    @RequestMapping(value = "/admin-panel/hotList/category", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Category> findAllCategories(@RequestParam String category) {
+
+        if (category.equals("BOOK")) {
+            System.out.println("mkdfg");
+            System.out.println(adminPanelCategoryService.getAllByCategory("Book"));
+            return  (List<Category>) adminPanelCategoryService.getAllByCategory("Book");
+        }
+        else if(category.equals("E_BOOK"))
+            return  (List<Category>) adminPanelCategoryService.getAllByCategory("E-Book");
+        else if(category.equals("AUDIO_BOOK"))
+            return  (List<Category>) adminPanelCategoryService.getAllByCategory("Audio Book");
+        else return null;
+
+    }
+
+    @RequestMapping(value = "/admin-panel/hotList/subcategory", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
+        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+    }
+
+
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.POST)
     @ResponseBody
