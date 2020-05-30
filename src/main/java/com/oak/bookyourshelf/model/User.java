@@ -57,14 +57,12 @@ public class User {
     private List<Address> deliveryAddresses;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL
     )
     private List<Product> shoppingCart;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL
     )
     private List<Product> wishList;
 
@@ -73,10 +71,7 @@ public class User {
     @ElementCollection
     private Map<String, Integer> searchHistory;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany
     private List<Order> orders;
 
     public User() {}
