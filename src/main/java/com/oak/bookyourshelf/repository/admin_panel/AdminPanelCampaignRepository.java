@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.repository.admin_panel;
 
 import com.oak.bookyourshelf.model.Campaign;
+import com.oak.bookyourshelf.model.Category;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,4 +13,7 @@ public interface AdminPanelCampaignRepository extends CrudRepository<Campaign, I
 
     @Query("SELECT t from Campaign t where t.name = ?1")
     List<Campaign> findAllByName(String name);
+
+    @Query("SELECT t from Campaign t where t.productType = ?1")
+    List<Campaign> findAllByProductType(Category.ProductType name);
 }
