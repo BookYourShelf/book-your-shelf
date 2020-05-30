@@ -47,14 +47,23 @@
                                     Category
                                 </div>
                                 <select name="new_hot_list_categories" class="dropdown_item_select checkout_input"
-                                        id="new_hot_list_categories" multiple="multiple"
+                                        id="new_hot_list_categories"
                                         require="required">
-                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                            th:value="${category.getName()}"
-                                            th:text="${category.getName()}">category
-                                    </option>
+                                    <option value="">SELECT</option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="login-text p-b-10" style="color: black;">
+                               Subcategory
+                            </div>
+                            <select name="new_hot_list_subcategories" class="dropdown_item_select checkout_input"
+                                    id="new_hot_list_subcategories" multiple="multiple"
+                                    require="required">
+
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -344,6 +353,46 @@
             })
         }
     });
+
+    $('#new_hot_list_categories').change(function(event) {
+        $.getJSON("/admin-panel/hotList/subcategory", {
+            category : $(this).val(),
+            ajax : 'true'
+        }, function(data) {
+            buildSubcategoriesDropdown(data, "new_hot_list_subcategories");
+        });
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        var html = '';
+        var len = data.length;
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option>';
+        console.log(html);
+        $('#' + subcategoryName).html(html);
+    }
+
+    $('#category_product_type').change(function(event) {
+        $.getJSON("/admin-panel/hotList/category", {
+            category : $(this).val(),
+            ajax : 'true'
+        }, function(data) {
+            buildCategoriesDropdown(data, "new_hot_list_categories");
+        });
+    });
+
+    function buildCategoriesDropdown(data, categoryName) {
+        var html = '<option value="">SELECT</option>';
+        var len = data.length;
+
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option>';
+        $('#' + categoryName).html(html);
+    }
 
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
