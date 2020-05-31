@@ -252,20 +252,7 @@
                             <div class="checkout_form_container">
                                 <form th:object="${hotList}" th:action="@{/hotList-details}" id="campaign_update_form" class="checkout_form" method="post">
 
-                                    <!-- Category -->
-                                    <div>
-                                        <div class="login-text p-b-10" style="color: black;">
-                                            Category
-                                        </div>
-                                        <select name="update_hot_list_categories"
-                                                id="update_hot_list_categories" multiple="multiple"
-                                                require="required">
-                                            <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                                    th:value="${category.getName()}"
-                                                    th:text="${category.getName()}">category
-                                            </option>
-                                        </select>
-                                    </div>
+
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -277,9 +264,9 @@
                                                     th:value="${hotList.getHotListType()}"
                                                     class="dropdown_item_select checkout_input"
                                                     require="required">
-                                                <option value="">Best Sellers</option>
-                                                <option value="">New Releases</option>
-                                                <option value="">Our Picks For You</option>
+                                                <option value="BEST_SELLERS">Best Sellers</option>
+                                                <option value="NEW_RELEASES">New Releases</option>
+                                                <option value="OUR_PICKS_FOR_YOU">Our Picks For You</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -304,7 +291,7 @@
                                                    class="checkout_input form-control date"
                                                    th:field="${hotList.startDate}"
                                                    th:value="${hotList.getStartDate()}"
-                                                   placeholder="dd/mm/yyyy">
+                                                   placeholder="dd/mm/yyyy" required="required">
                                         </div>
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
@@ -314,7 +301,7 @@
                                                    class="checkout_input form-control time"
                                                    th:field="${hotList.startTime}"
                                                    th:value="${hotList.getStartTime()}"
-                                                   placeholder="hh:mm">
+                                                   placeholder="hh:mm" required="required">
                                         </div>
                                     </div>
 
@@ -328,7 +315,7 @@
                                                    class="checkout_input form-control date"
                                                    th:field="${hotList.endDate}"
                                                    th:value="${hotList.getEndDate()}"
-                                                   placeholder="dd/mm/yyyy">
+                                                   placeholder="dd/mm/yyyy" required="required">
                                         </div>
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
@@ -338,7 +325,7 @@
                                                    class="checkout_input form-control time"
                                                    th:field="${hotList.endTime}"
                                                    th:value="${hotList.getEndTime()}"
-                                                   placeholder="hh:mm">
+                                                   placeholder="hh:mm" required="required">
                                         </div>
                                     </div>
 
@@ -384,12 +371,11 @@
 <script th:src="@{/static/js/iziToast.min.js}"></script>
 
 
-<script >
+<script th:inline="javascript">
     /*<![CDATA[*/
     var hotListId = /*[[${hotList.getId()}]]*/ 'default';
     $('#update_hotList,#delete_hotList').click(function (event) {
         var button = $(this).attr("id");
-        var categories= $('#update_hot_list_categories').val();
         var productNum= $('#update_hot_list_product_number').val();
         var hotListType= $('#update_hot_list_type').val();
         var startDate= $('#update_hot_list_start_date').val();
@@ -397,12 +383,11 @@
         var endDate= $('#update_hot_list_end_date').val();
         var endTime= $('#update_hot_list_end_time').val();
 
-
+        console.log(hotListId);
 
         var ret = {
 
             button: button,
-            categories: categories,
             productNum: productNum,
             hotListType: hotListType,
             startDate: startDate,
@@ -414,7 +399,7 @@
 
         if (button === "update_hotList") {
             if (
-                (validation_check(['update_hot_list_start_date', 'update_hot_list_end_date', 'update_hot_list_end_time']))) {
+                (validation_check(['update_hot_list_start_date', 'update_hot_list_end_date', 'update_hot_list_end_time' , 'update_hot_list_start_time']))) {
                 event.preventDefault();
                 $.post("/hotList-details/" + hotListId, ret, function (data) {
                     iziToast.show({
@@ -448,7 +433,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/admin-panel/campaign";
+                    window.location.href = "/admin-panel#hotList";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
