@@ -3,7 +3,7 @@
 
 <head>
     <title>Profile | Book Your Shelf</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,7 +60,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/profile/order" th:href="@{#order}">My Orders</a>
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:href="@{#order}">My Orders</a>
                     </li>
 
                     <li class="nav-item">
@@ -69,7 +71,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/profile/review" th:href="@{#review}">My Reviews</a>
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:href="@{#review}">My Reviews</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">

@@ -3,11 +3,10 @@
 
 <head>
     <title th:text="${user.getName() + ' ' + user.getSurname() + ' Details | Book Your Shelf'}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
 
 
     <!-- Favicon -->
@@ -67,7 +66,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" th:data-url="'/user-details/address/' + ${user.getUserId()}"
+                        <a class="nav-link profile-navbar-text"
+                           th:data-url="'/user-details/address/' + ${user.getUserId()}"
                            th:href="@{#address}">Addresses</a>
                     </li>
 
@@ -76,7 +76,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/user-details/review"
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/user-details/review(size=(${#request.getParameter('size')} ?: '2'),id= ${user.getUserId()}, page=(${#request.getParameter('page')} ?: '1'))}"
                            th:href="@{#review}">Reviews</a>
                     </li>
 
@@ -86,13 +87,15 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/user-details/wish-list" th:href="@{#wish-list}">Wish
+                        <a class="nav-link profile-navbar-text" data-url="/user-details/wish-list"
+                           th:href="@{#wish-list}">Wish
                             List</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" th:attr="data-url=@{/user-details/search(size=(${#request.getParameter('size')} ?: '2'),id= ${user.getUserId()}, page=(${#request.getParameter('page')} ?: '1'))}"
-                            th:href="@{#search}">Search
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/user-details/search(size=(${#request.getParameter('size')} ?: '2'),id= ${user.getUserId()}, page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:href="@{#search}">Search
                             History</a>
                     </li>
 
