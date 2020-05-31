@@ -96,16 +96,21 @@
                     <!-- Product Info -->
                     <div class="col-lg-8 product_col">
                         <div class="product_info">
-                            <span class="product_name" contenteditable="true">
+                            <span class="product_name">
                                 <h th:text="${product.productName}"></h>
                             </span>
                             <div class="product_rating_container d-flex flex-row align-items-center justify-content-start">
                                 <div style="text-align:center;">
-                                    <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                    <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
                                 </div>
                                 <div class="product_reviews">
                                     <h th:text="${product.getScoreOutOf5()}"></h>
@@ -126,16 +131,74 @@
                                     <div class="sale_price">
                                     <span th:switch="${product.isOnDiscount()}">
                                         <del th:case="True">
-                                            <!-- TODO -->
-                                            <b th:text="${product.getDiscountRate()}"></b>
+                                            <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                         </del>
                                         <div th:case="*">&nbsp;</div>
                                     </span>
                                     </div>  <!-- when no sale &nbsp; -->
                                 </div>
-                                <div class="product_price">₺11<span>.99</span></div>
+                                <div class="product_price"
+                                     th:text="'₺' + ${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
 
                                 <div class="product_text">
+                                    <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                        <div th:if="${product.getAuthors() != null}">
+                                            <div th:if="${product.getAuthors().size() > 0}">
+                                                <p class="product_summary_title">Authors: </p>
+                                                <p><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.getTranslators() != null}">
+                                            <div th:if="${product.getTranslators().size() > 0}">
+                                                <p class="product_summary_title">Translators: </p>
+                                                <p><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.getPublishers() != null}">
+                                            <div th:if="${product.getPublishers().size() > 0}">
+                                                <p class="product_summary_title">Publishers: </p>
+                                                <p><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
+                                            </div>
+                                        </div>
+                                        <p class="product_summary_title">Language: </p>
+                                        <p th:text="${product.getLanguage()}"></p>
+                                        <p class="product_summary_title">Published Year: </p>
+                                        <p th:text="${product.getPublishedYear()}"></p>
+                                        <p class="product_summary_title">ISBN: </p>
+                                        <p th:text="${product.getIsbn()}"></p>
+                                        <span th:if="${product.getProductTypeName() == 'Book'}">
+                                            <p class="product_summary_title">Media Type: </p>
+                                            <p th:text="#{${'media_type.' + product.getMediaType()}}"></p>
+                                            <p class="product_summary_title">Paper Type: </p>
+                                            <p th:text="#{${'paper_type.' + product.getPaperType()}}"></p>
+                                            <p class="product_summary_title">Binding Type: </p>
+                                            <p th:text="#{${'binding_type.' + product.getBindingType()}}"></p>
+                                        </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                            <p class="product_summary_title">File Format: </p>
+                                            <p th:text="${product.getFileFormat()}"></p>
+                                        </span>
+                                    </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <p class="product_summary_title">Brand: </p>
+                                        <p th:text="${product.getReaderBrand()}"></p>
+                                        <p class="product_summary_title">Model: </p>
+                                        <p th:text="${product.getReaderModel()}"></p>
+                                        <p class="product_summary_title">Color: </p>
+                                        <p th:text="${product.getReaderColor()}"></p>
+                                    </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                        <p class="product_summary_title">Brand: </p>
+                                        <p th:text="${product.getCaseBrand()}"></p>
+                                        <p class="product_summary_title">Model: </p>
+                                        <p th:text="${product.getCaseModel()}"></p>
+                                        <p class="product_summary_title">Color: </p>
+                                        <p th:text="${product.getCaseColor()}"></p>
+                                    </span>
+                                    <br>
                                     <p th:text="${product.getShortDesc()}"></p>
                                 </div>
 
@@ -169,7 +232,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -227,12 +289,14 @@
 
                                     <tr>
                                         <td><h5>Number of Sales</h5></td>
-                                        <td><h5 th:text="${product.getSalesNum()} + ' ₺'"></h5></td>
+                                        <td><h5 th:text="${product.getSalesNum()}"></h5></td>
                                     </tr>
 
                                     <tr>
                                         <td><h5>Discount Rate</h5></td>
-                                        <td><h5 th:text="${product.getDiscountRate()}"></h5></td>
+                                        <td>
+                                            <h5 th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></h5>
+                                        </td>
                                     </tr>
 
                                     <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
@@ -250,19 +314,23 @@
                                     </tr>
 
                                     <tr><td><h5>Author</h5></td>
-                                        <td><h5 th:text="${product.getAuthors()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Translator</h5></td>
-                                        <td><h5 th:text="${product.getTranslators()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Publisher</h5></td>
-                                        <td><h5 th:text="${product.getPublishers()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Keyword</h5></td>
-                                        <td><h5 th:text="${product.getKeywords()}"></h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getKeywords()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
                                     </tr>
 
                                     <span th:if="${product.getProductTypeName() == 'Book'}">
@@ -283,7 +351,7 @@
                                         </tr>
 
                                         <tr><td><h5>Edition Number</h5></td>
-                                            <td><h5 th:text="${product.getEditionNum()}"></h5></td>
+                                            <td><h5 th:text="${product.getEditionNum() + '. Edition'}"></h5></td>
                                         </tr>
 
                                         <tr><td><h5>Height</h5></td>
@@ -305,7 +373,7 @@
                                         </tr>
 
                                         <tr><td><h5>File Size</h5></td>
-                                            <td><h5 th:text="${product.getFileSize()}"></h5></td>
+                                            <td><h5 th:text="${product.getFileSize() + ' MB'}"></h5></td>
                                         </tr>
 
                                         <tr><td><h5>File Format</h5></td>
@@ -325,10 +393,6 @@
                                 </span>
 
                                     <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
-                                    <tr><td><h5>Color</h5></td>
-                                        <td><h5 th:text="${product.getReaderColor()}"></h5></td>
-                                    </tr>
-
                                     <tr><td><h5>Color</h5></td>
                                         <td><h5 th:text="${product.getReaderColor()}"></h5></td>
                                     </tr>
@@ -378,59 +442,59 @@
                                     </tr>
 
                                     <tr><td><h5>Glare Free Screen</h5></td>
-                                        <div th:switch="${product.isGlareFreeScreen()}">
+                                        <td th:switch="${product.isGlareFreeScreen()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Water Proof</h5></td>
-                                        <div th:switch="${product.isWaterProof()}">
+                                        <td th:switch="${product.isWaterProof()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Auto Adjusting Light</h5></td>
-                                        <div th:switch="${product.isAutoAdjustingLight()}">
+                                        <td th:switch="${product.isAutoAdjustingLight()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Buttons</h5></td>
-                                        <div th:switch="${product.isButtons()}">
+                                        <td th:switch="${product.isButtons()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Wifi</h5></td>
-                                        <div th:switch="${product.isWifi()}">
+                                        <td th:switch="${product.isWifi()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Cellular</h5></td>
-                                        <div th:switch="${product.isCellular()}">
+                                        <td th:switch="${product.isCellular()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Backlight</h5></td>
-                                        <div th:switch="${product.isBackLight()}">
+                                        <td th:switch="${product.isBackLight()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
 
                                     <tr><td><h5>Warm Backlight</h5></td>
-                                        <div th:switch="${product.isWarmBackLight()}">
+                                        <td th:switch="${product.isWarmBackLight()}">
                                             <h5 th:case="True">Yes</h5>
                                             <h5 th:case="*">No</h5>
-                                        </div>
+                                        </td>
                                     </tr>
                                 </span>
 
@@ -457,16 +521,16 @@
                                 </span>
 
                                     <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                                    <tr><td><h5>Depth</h5></td>
+                                        <td><h5 th:text="${product.getCaseDepth() + ' mm'}"></h5></td>
+                                    </tr>
+
                                     <tr><td><h5>Reader Brand</h5></td>
                                         <td><h5 th:text="${product.getReaderBrand()}"></h5></td>
                                     </tr>
 
                                     <tr><td><h5>Reader Model</h5></td>
                                         <td><h5 th:text="${product.getReaderModel()}"></h5></td>
-                                    </tr>
-
-                                    <tr><td><h5>Depth</h5></td>
-                                        <td><h5 th:text="${product.getCaseDepth()}"></h5></td>
                                     </tr>
                                 </span>
 
@@ -487,48 +551,58 @@
                                         <div class="col-6">
                                             <div class="box_total">
                                                 <h5 style="font-weight: 500">Overall</h5>
-                                                <h4>4.0</h4>
-                                                <h6>(03 Reviews)</h6>
+                                                <h4 th:text="${product.getScoreOutOf5()}"></h4>
+                                                <h6 th:text="${'(' + product.getStarNum() + ' Reviews)'}"></h6>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="rating_list">
                                                 <ul class="list" style="padding-top: 20px">
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(4)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(3)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(2)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(1)}"></span></a>
+                                                    </li>
                                                     <li><a>
-                                                        <i class="fa fa-star" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        <i class="fa fa-star-o" style="color:#fbd600"></i>
-                                                        1</a></li>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -539,35 +613,36 @@
                                     <div class="review_box">
                                         <h4>Add a Review</h4>
                                         <div sec:authorize="isAuthenticated()">
-                                            <fieldset class="rating">
-                                                <input class="scoreOutOf5" type="radio" id="star5" name="rating"
-                                                       value="5"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star5"
-                                                    title="Excellent - 5 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star4" name="rating"
-                                                       value="4"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star4"
-                                                    title="Very good - 4 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star3" name="rating"
-                                                       value="3"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star3"
-                                                    title="Good - 3 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star2" name="rating"
-                                                       value="2"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star2"
-                                                    title="Bad - 2 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star1" name="rating"
-                                                       value="1"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star1"
-                                                    title="Very bad- 1 star"></label>
-                                            </fieldset>
-                                            <br>
                                             <form method="post" class="form-contact form-review mt-3">
+
+                                                <fieldset class="rating">
+                                                    <input class="scoreOutOf5" type="radio" id="star5" name="rating"
+                                                           value="5" required="required"><label
+                                                        class="full review-star-cursor"
+                                                        for="star5"
+                                                        title="Excellent - 5 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star4" name="rating"
+                                                           value="4"><label
+                                                        class="full review-star-cursor"
+                                                        for="star4"
+                                                        title="Very good - 4 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star3" name="rating"
+                                                           value="3"><label
+                                                        class="full review-star-cursor"
+                                                        for="star3"
+                                                        title="Good - 3 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star2" name="rating"
+                                                           value="2"><label
+                                                        class="full review-star-cursor"
+                                                        for="star2"
+                                                        title="Bad - 2 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star1" name="rating"
+                                                           value="1"><label
+                                                        class="full review-star-cursor"
+                                                        for="star1"
+                                                        title="Very bad- 1 star"></label>
+                                                </fieldset>
+                                                <br>
                                                 <div class="form-group">
                                                     <input class="form-control" name="subject" type="text"
                                                            id="review_title"
@@ -633,18 +708,45 @@
                                                     <div class="media">
                                                         <div class="media-body">
                                                             <div class="row">
-                                                                <div class="col-lg-9">
-                                                                    <h5 class="review_date date"
-                                                                        th:text="${review.getUploadDate()}"></h5>
-                                                                    <!-- TODO empty -->
-                                                                    <h4 th:text="${review.getReviewTitle()}"></h4>
+                                                                <div class="col-lg-12">
+
+                                                                    <div sec:authorize="isAnonymous()">
+                                                                        <h5 class="review_date date"
+                                                                            th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+                                                                    </div>
+
+                                                                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                                                        <h5 class="date" style="float:left;"
+                                                                            th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+
+                                                                        <!-- Delete button -->
+                                                                        <button type="submit" value="&#xf014;"
+                                                                                class="delete_review trans_200 fa"
+                                                                                name="delete_review"
+                                                                                th:id="${review.getReviewId()}"
+                                                                                title="Delete this review"
+                                                                                style="font-size: 24px; color: #4a4a4a; float: right"
+                                                                                data-toggle="collapse">
+                                                                            &#xf014;
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <i class="review_star fa fa-star"></i>
-                                                            <i class="review_star fa fa-star"></i>
-                                                            <i class="review_star fa fa-star-half-full"></i>
-                                                            <i class="review_star fa fa-star-o"></i>
-                                                            <i class="review_star fa fa-star-o"></i>
+
+                                                            <span th:if="${review.getReviewTitle() != null}">
+                                                                <h4 th:text="${review.getReviewTitle()}"></h4>
+                                                            </span>
+
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 1} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 2} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 3} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 4} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() == 5} ? 'fa-star' : 'fa-star-o'"></i>
                                                         </div>
                                                     </div>
                                                     <p th:text="${review.getReviewContent()}"></p>
@@ -1129,7 +1231,7 @@
 
     $('#add_review').click(function (event) {
         var ret = {
-            type: "review",
+            type: "add_review",
             id: productID,
             productId: productID,
             reviewTitle: $('#review_title').val(),
@@ -1146,9 +1248,50 @@
                     position: 'topRight',
                     color: 'green'
                 });
+                window.location.href = "/product/" + productID + "#information";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
 
             }).fail(function (data) {
 
+                if (data.responseText === "") {
+                    <!-- TODO -->
+                    window.location.href = "/login";
+                } else {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            })
+        }
+    });
+
+    $('.delete_review').click(function (event) {
+        var ret = {
+            type: "delete_review",
+            id: productID,
+            reviewId: $(this).attr("id")
+        };
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/product/" + productID, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Review deleted successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product/" + productID + "#information";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
                 if (data.responseText === "") {
                     <!-- TODO -->
                     window.location.href = "/login";
