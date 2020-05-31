@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.controller.profile;
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.AuthService;
+import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileReviewService;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,15 @@ public class ProfileReviewController {
     final ProfileReviewService profileReviewService;
     final ProfileInformationService profileInformationService;
     final AuthService authService;
+    final ProductDetailsInformationService productDetailsInformationService;
 
     public ProfileReviewController(ProfileReviewService profileReviewService,
                                    ProfileInformationService profileInformationService,
-                                   AuthService authService) {
+                                   AuthService authService, ProductDetailsInformationService productDetailsInformationService) {
         this.profileReviewService = profileReviewService;
         this.profileInformationService = profileInformationService;
         this.authService = authService;
+        this.productDetailsInformationService = productDetailsInformationService;
     }
 
     @RequestMapping(value = "/profile/review", method = RequestMethod.GET)
@@ -38,6 +41,7 @@ public class ProfileReviewController {
             Globals.getPageNumbers(page, size, user.getReviews(), model, "reviewPage");
             model.addAttribute("user", user);
             model.addAttribute("reviews", user.getReviews());
+            model.addAttribute("productService", productDetailsInformationService);
             return "profile/_review";
         }
         return "/";
@@ -45,10 +49,8 @@ public class ProfileReviewController {
 
     @RequestMapping(value = "/profile/review", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> AddressUpdate(@RequestParam int reviewId) {
-//        User user = userDetailsInformationService.get(id);
-//        userDetailsReviewService.delete(reviewId);
-
+    public ResponseEntity<String> deleteReview(@RequestParam int reviewId) {
+        profileReviewService.delete(reviewId);
         return ResponseEntity.ok("");
     }
 }

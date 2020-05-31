@@ -23,6 +23,8 @@ public class ProfileReviewService {
     }
 
     public void delete(int id) {
+        profileReviewRepository.removeProductReviewByReviewId(id);
+        profileReviewRepository.removeUserReviewByReviewId(id);
         profileReviewRepository.deleteById(id);
     }
 

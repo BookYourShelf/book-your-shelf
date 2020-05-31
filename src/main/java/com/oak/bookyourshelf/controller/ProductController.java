@@ -4,6 +4,7 @@ import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.ProductService;
+import com.oak.bookyourshelf.service.ReviewService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelProductService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,13 +23,17 @@ public class ProductController {
     final ProfileInformationService profileInformationService;
     final AuthService authService;
     final AdminPanelProductService adminPanelProductService;
+    final ReviewService reviewService;
 
     public ProductController(ProductService productService, ProfileInformationService profileInformationService,
-                             @Qualifier("customUserDetailsService") AuthService authService, AdminPanelProductService adminPanelProductService) {
+                             @Qualifier("customUserDetailsService") AuthService authService,
+                             AdminPanelProductService adminPanelProductService,
+                             ReviewService reviewService) {
         this.productService = productService;
         this.profileInformationService = profileInformationService;
         this.authService = authService;
         this.adminPanelProductService = adminPanelProductService;
+        this.reviewService = reviewService;
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
@@ -86,10 +91,9 @@ public class ProductController {
                     review.setUserSurname(user.getSurname());
 
                     user.addReview(review);
-                    profileInformationService.save(user);
                     product.addReview(review);
                     product.increaseStarNum(review.getScoreOutOf5() - 1);
-                    adminPanelProductService.save(product);
+                    reviewService.save(review);
 
                     return ResponseEntity.ok("");
             }
