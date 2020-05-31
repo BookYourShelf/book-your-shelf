@@ -248,22 +248,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="login-text p-b-10" style="color: black;">
-                                                Category
-                                            </div>
-                                            <select name="campaign_update_categories"
-                                                    id="campaign_update_categories"  multiple="multiple"
-                                                    require="required">
-                                                <option value="">SELECT</option>
-                                                <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                                        th:value="${category.getName()}"
-                                                        th:text="${category.getName()}">category</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -337,7 +321,6 @@
     $('#update_campaign, #delete_campaign').click(function (event) {
         var button = $(this).attr("id");
         var name= $('#campaign_update_name').val();
-        var categories= $('#campaign_update_categories').val();
         var rate= $('#campaign_update_rate').val();
         var startDate= $('#campaign_update_start_date').val();
         var endDate= $('#campaign_update_end_date').val();
@@ -347,7 +330,6 @@
         var ret = {
 
             button: button,
-            categories: categories,
             rate: rate,
             name: name,
             startDate: startDate,
@@ -393,7 +375,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/admin-panel/campaign";
+                    window.location.href = "/admin-panel#campaign";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
