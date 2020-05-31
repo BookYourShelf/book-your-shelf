@@ -708,28 +708,34 @@
                                                         <div class="media-body">
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <div>
-                                                                        <h5 class="review_date date" style="float:left;"
+
+                                                                    <div sec:authorize="isAnonymous()">
+                                                                        <h5 class="review_date date"
                                                                             th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
-                                                                        <!-- Delete button -->
-                                                                        <div sec:authorize="hasRole('ROLE_ADMIN')">
-                                                                            <button type="submit" value="&#xf014;"
-                                                                                    class="delete_review trans_200 fa"
-                                                                                    name="delete_review"
-                                                                                    th:id="${review.getReviewId()}"
-                                                                                    title="Delete this review"
-                                                                                    style="font-size: 24px; color: #4a4a4a; float: right"
-                                                                                    data-toggle="collapse">
-                                                                                &#xf014;
-                                                                            </button>
-                                                                        </div>
                                                                     </div>
 
-                                                                    <span th:if="${review.getReviewTitle() != null}">
-                                                                        <h4 th:text="${review.getReviewTitle()}"></h4>
-                                                                    </span>
+                                                                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                                                        <h5 class="date" style="float:left;"
+                                                                            th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+
+                                                                        <!-- Delete button -->
+                                                                        <button type="submit" value="&#xf014;"
+                                                                                class="delete_review trans_200 fa"
+                                                                                name="delete_review"
+                                                                                th:id="${review.getReviewId()}"
+                                                                                title="Delete this review"
+                                                                                style="font-size: 24px; color: #4a4a4a; float: right"
+                                                                                data-toggle="collapse">
+                                                                            &#xf014;
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+
+                                                            <span th:if="${review.getReviewTitle() != null}">
+                                                                <h4 th:text="${review.getReviewTitle()}"></h4>
+                                                            </span>
+
                                                             <i class="review_star fa"
                                                                th:classappend="${review.getScoreOutOf5() >= 1} ? 'fa-star' : 'fa-star-o'"></i>
                                                             <i class="review_star fa"

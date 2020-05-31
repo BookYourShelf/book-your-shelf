@@ -1815,12 +1815,14 @@ section {
     padding-right: 15px
 }
 
-.review_item .col-lg-8 .media .media-body {
+.review_item .media .media-body {
     vertical-align: middle;
-    align-self: center
+    align-self: center;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
-.review_item .col-lg-8 .media .media-body h4 {
+.review_item .media .media-body h4 {
     font-size: 16px;
     color: #222;
     margin-bottom: 4px;
@@ -1829,17 +1831,17 @@ section {
     font-family: "Ubuntu", sans-serif;
 }
 
-.review_item .col-lg-8 .media .media-body i {
+.review_item .media .media-body i {
     color: #fbd600
 }
 
-.review_item .col-lg-8 .media .media-body h5 {
+.review_item .media .media-body h5 {
     font-size: 14px;
     font-weight: normal;
     color: #777
 }
 
-.review_item .col-lg-8 .media .media-body .reply_btn {
+.review_item .media .media-body .reply_btn {
     border: 1px solid #e0e0e0;
     padding: 0px 28px;
     display: inline-block;
@@ -1853,7 +1855,7 @@ section {
 @icnlude transition
 }
 
-.review_item .col-lg-8 .media .media-body .reply_btn:hover {
+.review_item .media .media-body .reply_btn:hover {
     background: #fbaa1d;
     border-color: #fbaa1d;
     color: #fff
