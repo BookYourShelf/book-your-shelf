@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
+import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.HotList;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelHotListRepository;
 import org.springframework.data.domain.Page;
@@ -43,6 +44,10 @@ public class AdminPanelHotListService {
 
     public void delete(int id) {
         adminPanelHotListRepository.deleteById(id);
+    }
+
+    public List<HotList> findAllByProductType(Category.ProductType type) {
+        return adminPanelHotListRepository.findAllByProductType(type);
     }
 
 }
