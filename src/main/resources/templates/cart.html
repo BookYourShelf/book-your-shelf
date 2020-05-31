@@ -116,7 +116,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <span>Price:</span> <span th:id="'trying' + ${product.getProductId()}" style="display:block" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate()}"></span>
+                                                    <span>Price:</span> <span th:id="'trying' + ${product.getProductId()}" style="display:inline" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate()}"></span><span style="display:inline">₺</span>
                                                 </div>
                                                 <div class="product_quantity_container quantities">
                                                     <div class="product_quantity ml-lg-auto mr-lg-auto text-center relativer">
@@ -129,7 +129,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="product-price" class="product_total product_text"><span>Total: </span> <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:block" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate()}"></span></div>
+                                                <div id="product-price" class="product_total product_text"><span>Total: </span> <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate()}"></span><span style="display:inline">₺</span></div>
                                                 <div th:id="${product.getProductId()}" name="add_to_wish_list" class="product_total product_text to_wish_list"><a href="/cart"
                                                                                                                                                                   title="Add to wish list">
                                                     <button style="font-size:30px"><i class="fa fa-heart product_text"></i>
@@ -191,7 +191,7 @@
                                                 <span class="radio_mark"></span>
                                                 <span class="radio_text">Next day delivery</span>
                                             </label>
-                                            <div class="shipping_price ml-auto">₺7.9</div>
+                                            <div class="shipping_price ml-auto">7.99₺</div>
                                         </li>
                                         <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
                                             <label class="radio_container">
@@ -214,7 +214,8 @@
                                 <ul class="cart_extra_total_list">
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
-                                        <div id="sub-total" class="cart_extra_total_value ml-auto result"> </div>
+                                        <div id="sub-total" style="display:inline" class="cart_extra_total_value ml-auto result"> </div>
+                                        <span style="display:inline">₺</span>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping</div>
@@ -226,25 +227,27 @@
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
-                                        <div id="final_result" class="cart_extra_total_value ml-auto relativer"></div>
+                                        <div id="final_result" style="display:inline" class="cart_extra_total_value ml-auto relativer"> </div>
+                                        <span style="display:inline" class="cart_extra_total_value relativer">₺</span>
+
                                     </li>
                                 </ul>
-                                <div class="checkout_button trans_200"><a id="checkout" href="/checkout">proceed to checkout</a>
+                                <div  type="submit" class="checkout_button trans_200"><a id="checkout" href="#">proceed to checkout</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
             <!-- No product -->
             <div class="warning-text" style="display: none">There are no products in your shopping cart.</div>
 
             <!-- Footer -->
             <footer class="footer" th:insert="fragments/footer.html"></footer>
-        </div>
     </div>
 </div>
+
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="styles/bootstrap-4.1.2/popper.js"></script>
     <script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
@@ -381,7 +384,7 @@
             value = isNaN(value) ? 0 : value;
             value++;
             document.getElementById('quantity'+ productID).textContent = value;
-            document.getElementById('second-try' + productID).textContent = (p * value).toFixed(1);
+            document.getElementById('second-try' + productID).textContent = (p * value).toFixed(2);
 
         });
 
@@ -393,21 +396,21 @@
             value <= 1 ? value = 2 : '';
             value--;
             document.getElementById('quantity'+ productID).textContent = value;
-            document.getElementById('second-try' + productID).textContent =(p * value).toFixed(1);
+            document.getElementById('second-try' + productID).textContent =(p * value).toFixed(2);
         });
 
 
         var sum = 0;
         $('.total').each(function () {
             sum += +$(this).text() || 0;
-            $("#sub-total").text(parseFloat(sum).toFixed(1));
+            $("#sub-total").text(parseFloat(sum).toFixed(2));
         });
 
         $('.total').on('DOMSubtreeModified',function() {
             var sum = 0;
             $('.total').each(function () {
                 sum += +$(this).text() || 0;
-                $("#sub-total").text(parseFloat(sum).toFixed(1));
+                $("#sub-total").text(parseFloat(sum).toFixed(2));
             });
         });
 
@@ -423,13 +426,13 @@
 
         var ship = $('input[name="shipping_radio"]:checked').val();
         var total = parseFloat(document.getElementById("sub-total").textContent) + parseFloat(ship);
-        $("#final_result").text(total.toFixed(1));
+        $("#final_result").text(total.toFixed(2));
 
         $('#shipping_text, #sub-total').on('DOMSubtreeModified',function() {
             var sum = 0;
             $('.result').each(function () {
                 sum += +$(this).text() || 0;
-                $("#final_result").text(parseFloat(sum).toFixed(1));
+                $("#final_result").text(parseFloat(sum).toFixed(2));
             });
         });
 
