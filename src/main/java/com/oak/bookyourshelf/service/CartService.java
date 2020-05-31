@@ -1,6 +1,6 @@
 package com.oak.bookyourshelf.service;
 
-import com.oak.bookyourshelf.model.Product;
+import com.oak.bookyourshelf.model.Order;
 import com.oak.bookyourshelf.repository.CartRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,8 @@ public class CartService {
 
     public CartService(CartRepository cartRepository){ this.cartRepository= cartRepository; }
 
-
+    public void save(Order order) {
+        cartRepository.save(order);
+    }
 
 }
