@@ -29,4 +29,8 @@ public class ReviewService {
     public void delete(int id) {
         reviewRepository.deleteById(id);
     }
+
+    public Review checkUserReviewsForProduct(int userId, int productId) {
+        return reviewRepository.checkUserReviewsForProduct(userId, productId);
+    }
 }

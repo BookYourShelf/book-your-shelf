@@ -51,7 +51,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> addProductToList(@RequestParam String type, @PathVariable int id, Review review, int reviewId) {
+    public ResponseEntity<String> addProductToList(@RequestParam String type, @PathVariable int id, Review review, Integer reviewId) {
 
         UserDetails userDetails = authService.getUserDetails();
         Product product = productService.get(id);
@@ -85,20 +85,25 @@ public class ProductController {
                     return ResponseEntity.ok("");
 
                 case "add_review":
-                    java.util.Date utilDate = new java.util.Date();
-                    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                    review.setUploadDate(sqlDate);
+                    if (reviewService.checkUserReviewsForProduct(user.getUserId(), id) != null) {
+                        return ResponseEntity.badRequest().body("You already reviewed this product.");
 
-                    review.setUserId(user.getUserId());
-                    review.setUserName(user.getName());
-                    review.setUserSurname(user.getSurname());
+                    } else {
+                        java.util.Date utilDate = new java.util.Date();
+                        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                        review.setUploadDate(sqlDate);
 
-                    user.addReview(review);
-                    product.addReview(review);
-                    product.increaseStarNum(review.getScoreOutOf5() - 1);
-                    reviewService.save(review);
+                        review.setUserId(user.getUserId());
+                        review.setUserName(user.getName());
+                        review.setUserSurname(user.getSurname());
 
-                    return ResponseEntity.ok("");
+                        user.addReview(review);
+                        product.addReview(review);
+                        product.increaseStarNum(review.getScoreOutOf5() - 1);
+                        reviewService.save(review);
+
+                        return ResponseEntity.ok("");
+                    }
 
                 case "delete_review":
                     userDetailsReviewService.delete(reviewId);
