@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminPanelProductController {
@@ -89,10 +90,10 @@ public class AdminPanelProductController {
         // Add lists to product
         ObjectMapper mapper = new ObjectMapper();
         Map<String, ArrayList<String>> map = mapper.readValue(lists, Map.class);
-        product.setPublishers(map.get("publishers"));
-        product.setTranslators(map.get("translators"));
-        product.setAuthors(map.get("authors"));
-        product.setKeywords(map.get("keywords"));
+        product.setPublishers(trimList(map.get("publishers")));
+        product.setTranslators(trimList(map.get("translators")));
+        product.setAuthors(trimList(map.get("authors")));
+        product.setKeywords(trimList(map.get("keywords")));
 
         Product barcodeDb = adminPanelProductService.getByBarcode(product.getBarcode());
         if (barcodeDb != null) {
@@ -109,5 +110,11 @@ public class AdminPanelProductController {
         product.setUploadDate(sqlDate);
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
+    }
+
+    public List<String> trimList(List<String> list) {
+        List<String> trimmedList = list.stream().map(String::trim).collect(Collectors.toList());
+        trimmedList.removeIf(s -> s.equals(""));
+        return trimmedList;
     }
 }
