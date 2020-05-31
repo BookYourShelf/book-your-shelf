@@ -147,18 +147,23 @@
 <div>
     <div class="row order - row ">
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">ID</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Campaign Name</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Discount Rate</div>
         </div>
-        <div class="col-lg-3 col-md-3 col-xs-6">
+
+        <div class="col-lg-2 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Category</div>
         </div>
     </div>
@@ -172,29 +177,35 @@
                 <a th:href="@{'/campaign-details/' + ${campaign.id}}">
                     <div class="category-element">
                         <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                            <div class="row order - row collapsible" >
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getId()}"></td>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getName()}"></td>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">%
                                         <td th:text="${campaign.getRate()}"></td>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
-                                        <td th:text="${campaign.getId()}"></td>
+                                        <td th:text="${campaign.getProductType()}"></td>
                                     </div>
                                 </div>
+                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <td th:text="${'sgs'}"></td>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -99,4 +99,6 @@ public class Campaign {
 
     public void addSubcategory(Subcategory subcategory){this.getSubcategories().add(subcategory);}
 
+    public String getCategoryName(){return this.getCategories().get(0).getName();}
+
 }
