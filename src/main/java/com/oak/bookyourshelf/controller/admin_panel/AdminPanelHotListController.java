@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,10 +73,71 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveCategory(@RequestParam String ctg, HotList hotList) {
+    public ResponseEntity<String> saveCategory(@RequestParam String category, String subctgry, String ptype , HotList hotList) {
         System.out.println("post method");
-        System.out.println(ctg);
+        List<HotList> sameType =adminPanelHotListService.findAllByProductType(hotList.getProductType());
+        List<Category> newCategoryList = new ArrayList<>();
+        List<Subcategory> newSubcategories = new ArrayList<Subcategory>();
+        if(ptype.equals("BOOK") || ptype.equals("E_BOOK") || ptype.equals("AUDIO_BOOK"))
+        {
+            Category newCategory = adminPanelCategoryService.getByName(category);
+
+            newCategoryList.add(newCategory);
+            if(subctgry.equals(""))
+            {
+                for (HotList i : sameType) {
+                    Category hotListCategory =i.getCategories().get(0);
+                    if(hotListCategory.getName().equals(category)) {
+
+                        return ResponseEntity.badRequest().body("There is a  hot list in " + category +" category . Please change your selection");
+
+                    }
+                }
+                hotList.setCategories(newCategoryList);
+            }
+
+            else{
+                String[] subcategory = subctgry.split("-");
+                List<String> subcategories = Arrays.asList(subcategory);
+
+                for (HotList i : sameType) {
+                    Category hotListCategory =i.getCategories().get(0);
+                    if(hotListCategory.getName().equals(category)) {
+                        for (String s : subcategories) {
+                            for(Subcategory sub : i.getSubcategories())
+                                if (sub.getName().equals(s)) {
+                                    return ResponseEntity.badRequest().body("There is a hot list in " + s +" subcategory . Please change your selection");
+                                }
+                        }
+                    }
+                }
+
+
+                for (String s : subcategories) {
+                    Subcategory newSubcategory = adminPanelCategoryService.getSubcategory(newCategory,s);
+                    newSubcategories.add(newSubcategory);
+                }
+
+                hotList.setSubcategories(newSubcategories);
+                hotList.setCategories(newCategoryList);
+            }
+        }
+
+        else
+        {
+            if(sameType.size()>0)
+                return ResponseEntity.badRequest().body("There is a hot list in " + ptype +" product type . Please change your selection");
+
+            else{
+                hotList.setSubcategories(newSubcategories);
+                hotList.setCategories(newCategoryList);
+            }
+        }
+
         adminPanelHotListService.save(hotList);
+
+
         return ResponseEntity.ok("");
+
     }
 }
