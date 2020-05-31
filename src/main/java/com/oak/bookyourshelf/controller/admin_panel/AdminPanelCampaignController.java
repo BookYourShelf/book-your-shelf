@@ -81,7 +81,7 @@ public class AdminPanelCampaignController {
                Category campaignCategory =i.getCategories().get(0);
                if(campaignCategory.getName().equals(category)) {
                    for (String s : subcategories) {
-                       for(Subcategory sub : campaignCategory.getSubcategories())
+                       for(Subcategory sub : i.getSubcategories())
                            if (sub.getName().equals(s)) {
                                return ResponseEntity.badRequest().body("There is a campaign in " + s +" subcategory . Please change your selection");
                            }
