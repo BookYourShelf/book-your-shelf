@@ -1,11 +1,14 @@
 package com.oak.bookyourshelf;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Subcategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -47,5 +50,26 @@ public class Globals {
         Page<Object> objectPage = new PageImpl<Object>(list, PageRequest.of(currentPage, pageSize), objects.size());
 
         return objectPage;
+    }
+
+
+    static void traverseSubcategories(Subcategory subcategory, ArrayList<Subcategory> subcategories) {
+        List<Subcategory> inSubcategory = subcategory.getSubcategories();
+        if (subcategory.getSubcategories().size() == 0) {
+            subcategories.add(subcategory);
+        } else {
+            for (Subcategory sub : inSubcategory) {
+                traverseSubcategories(sub, subcategories);
+            }
+        }
+    }
+
+    public static ArrayList<Subcategory> getAllSubcategories(Category category) {
+        ArrayList<Subcategory> subcategories = new ArrayList<>();
+        List<Subcategory> inCategory = category.getSubcategories();
+        for (Subcategory sub : inCategory) {
+            traverseSubcategories(sub, subcategories);
+        }
+        return subcategories;
     }
 }
