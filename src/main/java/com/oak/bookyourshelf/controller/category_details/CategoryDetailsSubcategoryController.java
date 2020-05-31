@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@SessionAttributes({"subcategoriesBreadcrumbs", "categoryBreadcrumb"})
 public class CategoryDetailsSubcategoryController {
 
     final CategoryDetailsSubcategoryService categoryDetailsSubcategoryService;
@@ -29,6 +31,8 @@ public class CategoryDetailsSubcategoryController {
                                      @RequestParam("size") Optional<Integer> size,
                                      Model model, @PathVariable int id) {
         Category category = categoryDetailsInformationService.get(id);
+        model.addAttribute("subcategoriesBreadcrumbs", new ArrayList<>()); // Add session breadcrumbs
+        model.addAttribute("categoryBreadcrumb", category);
         Globals.getPageNumbers(page, size, (List) category.getSubcategories(), model, "subcategoryPage");
         List<Subcategory> subcategories = category.getSubcategories();
         model.addAttribute("allSubcategories", subcategories);

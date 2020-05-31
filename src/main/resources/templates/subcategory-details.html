@@ -46,8 +46,15 @@
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
                                 <li><a th:href="@{/admin-panel}">Panel</a></li>
-                                <!-- TODO Name -->
-                                <li style="color: #fbaa1d" th:text="${subcategory.getName()}"></li>
+                                <li th:text="${categoryBreadcrumb.getName()}"></li>
+                                <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
+                                    <a style="color: #fbaa1d"
+                                       th:href="@{/subcategory-details/{id}(id=${subcategory.getId()})}"
+                                       th:if="${subcategoriesBreadcrumbs.indexOf(subcategory) == (subcategoriesBreadcrumbs.size() -1)}"
+                                       th:text="${subcategory.getName()}"></a>
+                                    <span th:unless="${subcategoriesBreadcrumbs.indexOf(subcategory) == (subcategoriesBreadcrumbs.size() -1)}"
+                                          th:text="${subcategory.getName()}"></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
