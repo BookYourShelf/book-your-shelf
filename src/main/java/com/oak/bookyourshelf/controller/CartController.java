@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class CartController {
@@ -29,6 +31,7 @@ public class CartController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
     final ProductService productService;
+    public static Order order = new Order();
 
 
     public CartController(CartService cartService, @Qualifier("customUserDetailsService") AuthService authService,
@@ -79,22 +82,25 @@ public class CartController {
 
         } else {
 
+            //Todo this gives null exception
+
+            List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
+            for(Integer p : productIds){
+                System.out.println(p);
+            }
+            order.setProductId(productIds);
+            order.setTotalAmount(totalAmount.get());
+            order.setSubTotal(subTotal.get());
+            order.setShippingMethod(shipping.get());
+
             System.out.println(shipping.get());
             System.out.println(totalAmount.get());
             System.out.println(subTotal.get());
 
 
+
         }
         return ResponseEntity.ok("");
     }
-
-    public List<Integer> purchased(List<Product> shoppingCart) {
-        List<Integer> productIds = null;
-        for (Product product : shoppingCart) {
-            productIds.add(product.getProductId());
-        }
-        return productIds;
-    }
-
 
 }
