@@ -1861,7 +1861,8 @@ section {
 
 .review_item p {
     padding-top: 10px;
-    margin-bottom: 0px
+    margin-bottom: 0px;
+    word-wrap: break-word;
 }
 
 .review_item.reply {
@@ -1877,5 +1878,7 @@ section {
 }
 
 .vertical_center {
+    display: flex;
+    align-items: center;
     justify-content: center;
 }

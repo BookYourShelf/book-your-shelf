@@ -4641,7 +4641,8 @@ a {
 
 .review_item p {
     padding-top: 10px;
-    margin-bottom: 0px
+    margin-bottom: 0px;
+    word-wrap: break-word;
 }
 
 .review_item.reply {
