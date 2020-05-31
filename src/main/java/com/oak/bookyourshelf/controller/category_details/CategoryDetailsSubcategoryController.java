@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.controller.category_details;
 
+import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.service.category_details.CategoryDetailsInformationService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CategoryDetailsSubcategoryController {
@@ -23,8 +25,11 @@ public class CategoryDetailsSubcategoryController {
     }
 
     @RequestMapping(value = "/category-details/subcategory/{id}", method = RequestMethod.GET)
-    public String showAdminPanelPage(Model model, @PathVariable int id) {
+    public String showAdminPanelPage(@RequestParam("page") Optional<Integer> page,
+                                     @RequestParam("size") Optional<Integer> size,
+                                     Model model, @PathVariable int id) {
         Category category = categoryDetailsInformationService.get(id);
+        Globals.getPageNumbers(page, size, (List) category.getSubcategories(), model, "subcategoryPage");
         List<Subcategory> subcategories = category.getSubcategories();
         model.addAttribute("allSubcategories", subcategories);
         model.addAttribute("category", category);

@@ -46,111 +46,159 @@
     </div>
 </div>
 
-<!-- Sort orders -->
-<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
-    <div class="products_dropdown product_dropdown_sorting">
-        <div class="isotope_sorting_text"><span>Sort</span><i
-                class="fa fa-caret-down" aria-hidden="true"></i></div>
-        <ul>
-            <li class="item_sorting_btn"
-                data-isotope-option='{ "sortBy": "original-order" }'>ID
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
-                Total Product
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
-                Total Subcategory
-            </li>
-        </ul>
-    </div>
-</div>
-
-<br>
-
-<div>
-    <div class="row order - row">
-
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">ID</div>
-        </div>
-
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Name</div>
-        </div>
-
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Total Product</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Total Subcategory</div>
+<span th:if="${subcategoryPage.totalPages > 0}">
+    <!-- Sort orders -->
+    <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+        <div class="products_dropdown product_dropdown_sorting">
+            <div class="isotope_sorting_text"><span>Sort</span><i
+                    class="fa fa-caret-down" aria-hidden="true"></i></div>
+            <ul>
+                <li class="item_sorting_btn"
+                    data-isotope-option='{ "sortBy": "original-order" }'>ID
+                </li>
+                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
+                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
+                    Total Product
+                </li>
+                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
+                    Total Subcategory
+                </li>
+            </ul>
         </div>
     </div>
+
     <br>
-    <div class="container">
-        <div class="orderDetailBox">
 
-            <div th:if="${allSubcategories != null}">
-                <tr th:each="subcategory: ${allSubcategories}">
+    <div>
+        <div class="row order - row">
 
-                    <!-- User -->
-                    <div class="address-element-padding">
-                        <a th:href="@{'/subcategory-details/' + ${subcategory.id}}">
-                            <div class="category-element">
-                                <div class="product_content">
-                                    <div class="row order - row collapsible">
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
-                                                <td th:text="${subcategory.id}"></td>
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">ID</div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Name</div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Total Product</div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Total Subcategory</div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="orderDetailBox">
+
+                <div th:if="${allSubcategories != null}">
+                    <tr th:each="subcategory: ${subcategoryPage.content}">
+
+                        <!-- User -->
+                        <div class="address-element-padding">
+                            <a th:href="@{'/subcategory-details/' + ${subcategory.id}}">
+                                <div class="category-element">
+                                    <div class="product_content">
+                                        <div class="row order - row collapsible">
+                                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                                <div class="profile-order-text">
+                                                    <td th:text="${subcategory.id}"></td>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
-                                                <td th:text="${subcategory.name}"></td>
+                                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                                <div class="profile-order-text">
+                                                    <td th:text="${subcategory.name}"></td>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
-                                                <td th:text="${subcategory.itemNum}"></td>
+                                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                                <div class="profile-order-text">
+                                                    <td th:text="${subcategory.itemNum}"></td>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
-                                                <td th:text="${subcategory.subcategories.size()}"></td>
+                                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                                <div class="profile-order-text">
+                                                    <td th:text="${subcategory.subcategories.size()}"></td>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+                        </div>
+
+                    </tr>
+                </div>
+                <div th:if="${allSubcategories == null}">
+                    <div class="warning-text" style="display: none">There are no subcategories.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page_nav_row">
+        <div class="col">
+            <div class="page_nav">
+                <ul class="d-flex flex-row align-items-start justify-content-center">
+                    <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/category-details/{id}/#subcategory(id=${category.getId()}, size=${subcategoryPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
-                    </div>
+                    </li>
 
-                </tr>
-            </div>
-            <div th:if="${allSubcategories == null}">
-                <div class="warning-text" style="display: none">There are no subcategories.</div>
+                    <!-- First page -->
+                    <li th:if="${subcategoryPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/category-details/{id}/#subcategory(id=${category.getId()}, size=${subcategoryPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                    <!-- Pages -->
+                    <li th:if="${subcategoryPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , subcategoryPage.totalPages > 2 + currentPage ? currentPage + 2 : subcategoryPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/category-details/{id}/#subcategory(id=${category.getId()}, size=${subcategoryPage.size}, page=${i})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
+
+                    <li th:if="${currentPage + 3 < subcategoryPage.totalPages}" class="pagination_dots">...</li>
+
+                    <!-- Last page -->
+                    <li th:if="${subcategoryPage.totalPages > 1}"
+                        th:class="${currentPage == subcategoryPage.totalPages} ? 'active'">
+                        <a th:href="@{/category-details/{id}/#subcategory(id=${category.getId()}, size=${subcategoryPage.size}, page=${subcategoryPage.totalPages})}"
+                           th:text="${subcategoryPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ subcategoryPage.totalPages}">
+                        </a>
+                    </li>
+
+                    <!-- Next button -->
+                    <li th:style="${currentPage == subcategoryPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/category-details/{id}/#subcategory(id=${category.getId()}, size=${subcategoryPage.size}, page=${currentPage + 1})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
+</span>
 
-<!-- No categories -->
-<div class="warning-text" style="display: none">There are no subcategories.</div>
+<!-- No category -->
+<span th:unless="${subcategoryPage.totalPages > 0}">
+    <div class="warning-text">There are no subcategories.</div>
+</span>
 
-<div class="row page_nav_row">
-    <div class="col">
-        <div class="page_nav">
-            <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
     $('#addSubcategory').click(function (event) {
