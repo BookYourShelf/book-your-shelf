@@ -14,8 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -25,6 +28,7 @@ public class CheckoutController {
     final ProfileInformationService profileInformationService;
     final AuthService authService;
     final ProfileAddressService profileAddressService;
+    Order order = CartController.order;
 
 
     public CheckoutController(CheckoutService checkoutService, @Qualifier("customUserDetailsService") AuthService authService,
@@ -38,8 +42,11 @@ public class CheckoutController {
 
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     public String showCheckout(Model model) {
+
+        System.out.println(order.getTotalAmount());
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
+        model.addAttribute("order",order);
         model.addAttribute("user", user);
         model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
         model.addAttribute("allBillingAddress", user.getBillingAddresses());
@@ -49,8 +56,8 @@ public class CheckoutController {
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> showCheckout(@RequestParam String button, @RequestParam Optional<String> cargo,
-                                                @RequestParam Optional<Integer> billing_address, @RequestParam Optional<Integer> delivery_address,
-                                                Address address) {
+                                               @RequestParam Optional<Integer> billing_address, @RequestParam Optional<Integer> delivery_address,
+                                               Address address) {
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
 
@@ -83,10 +90,14 @@ public class CheckoutController {
             profileAddressService.delete(address.getAddressId());
         } else {
 
-            //Todo set to the obtained order object from shopping cart
+
             System.out.println(cargo.get());
             System.out.println(billing_address.get());
             System.out.println(delivery_address.get());
+
+            order.setShippingCompany(cargo.get());
+            order.setBillingAddress(billing_address.get().toString());
+            order.setCustomerAddress(delivery_address.get().toString());
 
         }
 
