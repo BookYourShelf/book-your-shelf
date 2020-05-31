@@ -22,9 +22,9 @@
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form action="#" id="new_hot_list_form" class="checkout_form">
+                <form  id="new_hot_list_form" class="checkout_form" th:object="${hotList}" method="post">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="login-text p-b-10" style="color: black;">
                                 Product Type
                             </div>
@@ -40,30 +40,23 @@
                             </select>
                         </div>
                         <div id="thumb0" style="display: none" onclick="productType()"></div>
-                        <div class="col-md-6">
-                            <!-- Category -->
-                            <div>
+                    </div>
+                    <div class="row" id="category_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_category">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Category
                                 </div>
-                                <select name="new_hot_list_categories" class="dropdown_item_select checkout_input"
-                                        id="new_hot_list_categories"
-                                        require="required">
-                                    <option value="">SELECT</option>
-                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="subcategory_row" style="display: none">
                         <div class="col-md-12">
-                            <div class="login-text p-b-10" style="color: black;">
-                               Subcategory
+                            <div id="dynamic_subcategory">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
                             </div>
-                            <select name="new_hot_list_subcategories" class="dropdown_item_select checkout_input"
-                                    id="new_hot_list_subcategories" multiple="multiple"
-                                    require="required">
-
-                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -298,31 +291,48 @@
 <script>
 
     $('#new_hotList_button').click(function (event) {
+        var category;
+        var subctgry;
+        var productType =$('#category_product_type option:selected').val();
 
+        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
 
-        var x = document.getElementById("new_hot_list_categories");
-        var category = [];
-        for (var i = 0; i < x.options.length; i++) {
-            if (x.options[i].selected === true) {
-                category.push(x.options[i].value);
+            category = $('#new_hot_list_categories').val();
+            if(document.getElementById("new_hotList_subcategories") !== null) {
+                var x = document.getElementById("new_hotList_subcategories");
+                var subcategory = [];
+                for (var i = 0; i < x.options.length; i++) {
+                    if (x.options[i].selected === true) {
+                        subcategory.push(x.options[i].value);
+                    }
+                }
+                subctgry = String(subcategory[0]);
+                for (var j = 1; j < subcategory.length; j++) {
+                    subctgry += ("-");
+                    subctgry += (String(subcategory[j]));
+                }
+            }
+            else{
+                subctgry="";
             }
         }
-        console.log(category);
-        var ctg = String(category[0]);
-        for (var j = 1; j < category.length; j++) {
-            ctg += ("-");
-            ctg += (String(category[j]));
+        else{
+            subctgry = "" ;
+            category = "" ;
         }
-        console.log(ctg);
+        console.log(subctgry);
+        console.log(category);
         var ret = {
 
             productNum: $('#new_hot_list_product_number').val(),
             startDate: $('#new_hot_list_start_date').val(),
             endDate: $('#new_hot_list_end_date').val(),
-            productType: $('#category_product_type option:selected').val(),
+            productType: productType,
             startTime: $('#new_hot_list_start_time').val(),
             endTime: $('#new_hot_list_end_time').val(),
-            ctg: ctg
+            subctgry:subctgry,
+            category:category,
+            ptype:productType
 
 
         };
@@ -354,44 +364,76 @@
         }
     });
 
-    $('#new_hot_list_categories').change(function(event) {
-        $.getJSON("/admin-panel/hotList/subcategory", {
-            category : $(this).val(),
-            ajax : 'true'
-        }, function(data) {
-            buildSubcategoriesDropdown(data, "new_hot_list_subcategories");
-        });
+    $(document).on('change', '#new_hot_list_categories', function(event) {
+        if($(this).val() !== "SELECT") {
+            $.getJSON("/admin-panel/hotList/subcategory", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildSubcategoriesDropdown(data, "new_hot_list_subcategories");
+            });
+        }
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
-        var html = '';
-        var len = data.length;
-        for(var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        if(data.length >0) {
+            var div_id = 'subcategory_dynamicdiv';
+            if (document.getElementById(div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+            }
+
+            var newdiv = document.createElement('div');
+            newdiv.id = div_id;
+            var html = '<select id="new_hotList_subcategories" class=\"subcategory\" multiple=\"multiple\">';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            }
+            html += '</option></select>';
+            newdiv.innerHTML += html;
+            document.getElementById("subcategory_row").style.display = "block";
+            document.getElementById("dynamic_subcategory").appendChild(newdiv);
+
+            $(newdiv).find('.subcategory').multiselect({
+                includeSelectAllOption: true
+            });  // call
+
         }
-        html += '</option>';
-        console.log(html);
-        $('#' + subcategoryName).html(html);
+
     }
 
     $('#category_product_type').change(function(event) {
-        $.getJSON("/admin-panel/hotList/category", {
-            category : $(this).val(),
-            ajax : 'true'
-        }, function(data) {
-            buildCategoriesDropdown(data, "new_hot_list_categories");
-        });
+        if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+            $.getJSON("/admin-panel/hotList/category", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildCategoriesDropdown(data, "new_hot_list_categories");
+            });
+        }
     });
 
     function buildCategoriesDropdown(data, categoryName) {
-        var html = '<option value="">SELECT</option>';
+        var div_id = 'category_dynamicdiv';
+        if(document.getElementById(div_id)) {
+            // delete div
+            document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
+            document.getElementById("subcategory_row").style.display="none";
+        }
+
+        var newdiv = document.createElement('div');
+        newdiv.id = div_id;
+        var html = '<select id=\"new_hot_list_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
         for(var i = 0; i < len; i++) {
             html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
         }
-        html += '</option>';
-        $('#' + categoryName).html(html);
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        document.getElementById("category_row").style.display = "block"
+        document.getElementById("dynamic_category").appendChild(newdiv);
     }
 
     function validation_check(arr) {
