@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.getUploadDate()}"></h>
+                            <h class="date" th:text="${#dates.format(product.getUploadDate(), 'dd-MM-yyyy')}"></h>
                         </div>
                     </div>
                 </div>
@@ -158,12 +158,12 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="tab-title-text">
-                            Discount Rate
+                            Discount
                         </div>
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.getDiscountRate()}"></h>
+                            <h th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></h>
                         </div>
                     </div>
                 </div>
