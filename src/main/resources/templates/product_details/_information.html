@@ -181,8 +181,9 @@
                                     <div>-</div>
                                 </div>
                                 <div th:if="${product.getBuyerUserIds().size() > 0}">
-                                    <tr th:each="userID: ${product.getBuyerUserIds()}">
-                                        <h th:text="${userID}"></h><br>
+                                    <tr>
+                                        <h><span th:each="a, iterStat : ${product.getBuyerUserIds()}"
+                                                 th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
                                     </tr>
                                 </div>
                             </div>
@@ -282,8 +283,9 @@
                                         <div>-</div>
                                     </div>
                                     <div th:if="${product.getAuthors().size() > 0}">
-                                        <tr th:each="author: ${product.getAuthors()}">
-                                            <h th:text="${author}"></h><br>
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
                                         </tr>
                                     </div>
                                 </div>
@@ -304,8 +306,9 @@
                                         <div>-</div>
                                     </div>
                                     <div th:if="${product.getTranslators().size() > 0}">
-                                        <tr th:each="translator: ${product.getTranslators()}">
-                                            <h th:text="${translator}"></h><br>
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
                                         </tr>
                                     </div>
                                 </div>
@@ -326,8 +329,9 @@
                                         <div>-</div>
                                     </div>
                                     <div th:if="${product.getPublishers().size() > 0}">
-                                        <tr th:each="publisher: ${product.getPublishers()}">
-                                            <h th:text="${publisher}"></h><br>
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
                                         </tr>
                                     </div>
                                 </div>
@@ -348,8 +352,9 @@
                                         <div>-</div>
                                     </div>
                                     <div th:if="${product.getKeywords().size() > 0}">
-                                        <tr th:each="keyword: ${product.getKeywords()}">
-                                            <h th:text="${keyword}"></h><br>
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getKeywords()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
                                         </tr>
                                     </div>
                                 </div>
@@ -1144,9 +1149,9 @@
                                         Long Description
                                     </div>
                                     <textarea type="text" id="book_long_description_input" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
-                                           class="long_desc_textarea form-control different-control w-100"
-                                           placeholder="Long Description" required="required"></textarea>
+                                              th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -1396,8 +1401,8 @@
                                         Long Description
                                     </div>
                                     <textarea type="text" id="ebook_long_description_input" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
-                                           class="long_desc_textarea form-control different-control w-100"
+                                              th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              class="long_desc_textarea form-control different-control w-100"
                                               placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
@@ -1608,8 +1613,8 @@
                                         Long Description
                                     </div>
                                     <textarea type="text" id="audiobook_long_description_input" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
-                                           class="long_desc_textarea form-control different-control w-100"
+                                              th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              class="long_desc_textarea form-control different-control w-100"
                                               placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
@@ -1724,8 +1729,9 @@
                                         Long Description
                                     </div>
                                     <textarea type="text" id="ebook_reader_long_description_input"
-                                           class="long_desc_textarea form-control different-control w-100" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="255" rows="3"
                                               placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
@@ -2055,8 +2061,9 @@
                                         Long Description
                                     </div>
                                     <textarea type="text" id="ebook_reader_case_long_description_input"
-                                           class="long_desc_textarea form-control different-control w-100" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="255" rows="3"
                                               placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
@@ -2222,8 +2229,9 @@
                                         Long Description
                                     </div>
                                     <textarea type="text" id="book_case_long_description_input"
-                                           class="long_desc_textarea form-control different-control w-100" th:field="*{longDesc}"
-                                           th:value="${product.getLongDesc()}" maxlength="255" rows="3"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="255" rows="3"
                                               placeholder="Long Description" required="required"></textarea>
                                 </div>
                             </div>
