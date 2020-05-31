@@ -853,7 +853,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" id="compare_products" th:value="${'22'}"
+                                            <div title="Compare products" id="compare_products" th:value="${'38'}"
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -1165,9 +1165,9 @@
     });
     $('#compare_products').click(function (event) {
 
-        var second = "22";
+        var second = "38";
         var ret = {
-            type: "review",
+            type: "compare",
         };
         console.log(second);
         event.preventDefault();
