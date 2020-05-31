@@ -1762,14 +1762,15 @@ section {
 }
 
 .review-product-name {
-    max-width: 250px !important;
+    max-width: 150px !important;
+    width: 150px !important;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .review-product-name a {
-    font-size: 18px;
+    font-size: 17px;
     color: #4a4a4a !important;
     font-weight: 500;
     text-overflow: ellipsis;
@@ -1784,7 +1785,8 @@ section {
     font-size: 14px;
     font-weight: 400;
     color: #4a4a4a;
-    max-width: 250px !important;
+    max-width: 150px !important;
+    width: 150px !important;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -1875,7 +1877,5 @@ section {
 }
 
 .vertical_center {
-    display: flex;
-    align-items: center;
     justify-content: center;
 }
