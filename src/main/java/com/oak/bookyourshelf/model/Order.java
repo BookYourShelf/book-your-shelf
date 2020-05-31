@@ -22,7 +22,7 @@ public class Order {
         PENDING
     }
 
-    private enum PaymentStatus{
+    public enum PaymentStatus{
         PENDING,
         PROCESSED,
         COMPLETED,
@@ -34,7 +34,7 @@ public class Order {
         CANCELLED
     }
 
-    private enum PaymentOption{
+    public enum PaymentOption{
         CREDIT_CARD,
         PAYPAL,
         TRANSFERRING_MONEY_PTT
@@ -53,15 +53,18 @@ public class Order {
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
+    private String shippingMethod;
+    private String totalAmount;
+    private String subTotal;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
     @Enumerated(EnumType.STRING)
-    private PaymentOption paymentOption;
+    PaymentOption paymentOption;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    PaymentStatus paymentStatus;
 
     public float getTotalAmountOfShipping(){
 
@@ -162,4 +165,16 @@ public class Order {
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    public String getShippingMethod() { return shippingMethod; }
+
+    public void setShippingMethod(String shippingMethod) { this.shippingMethod = shippingMethod; }
+
+    public String getTotalAmount() { return totalAmount; }
+
+    public void setTotalAmount(String totalAmount) { this.totalAmount = totalAmount; }
+
+    public String getSubTotal() { return subTotal; }
+
+    public void setSubTotal(String subTotal) { this.subTotal = subTotal; }
 }
