@@ -109,7 +109,7 @@ public class AdminPanelCampaignController {
                campaign.setCategories(newCategoryList);
            }
        }
-        
+
         adminPanelCampaignService.save(campaign);
 
 
