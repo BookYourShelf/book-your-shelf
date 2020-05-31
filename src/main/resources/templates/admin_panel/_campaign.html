@@ -281,7 +281,7 @@
         var category;
         var subctgry;
         var productType =$('#category_product_type option:selected').val();
-        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK" || productType === "E_BOOK_READER"){
+        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
             category = $('#new_campaign_categories').val();
             var x = document.getElementById("new_campaign_subcategories");
             var subcategory = [];
@@ -310,7 +310,8 @@
             endDate: $('#campaign_end_date').val(),
             productType: productType,
             subctgry: subctgry,
-            category: category
+            category: category,
+            ptype: productType
         };
 
         if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date",
@@ -374,7 +375,7 @@
     }
 
     $('#category_product_type').change(function(event) {
-        if($(this).val() === "BOOK" || $(this).val() === "E_BOOK_READER" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+        if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
             $.getJSON("/admin-panel/campaign/category", {
                 category: $(this).val(),
                 ajax: 'true'
