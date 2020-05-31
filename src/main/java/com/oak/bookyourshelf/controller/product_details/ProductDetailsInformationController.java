@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.controller.product_details;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.Globals;
+import com.oak.bookyourshelf.controller.admin_panel.AdminPanelProductController;
 import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
@@ -97,10 +98,10 @@ public class ProductDetailsInformationController {
         // Add lists to product
         ObjectMapper mapper = new ObjectMapper();
         Map<String, ArrayList<String>> map = mapper.readValue(lists, Map.class);
-        newProduct.setPublishers(map.get("publishers"));
-        newProduct.setTranslators(map.get("translators"));
-        newProduct.setAuthors(map.get("authors"));
-        newProduct.setKeywords(map.get("keywords"));
+        newProduct.setPublishers(AdminPanelProductController.trimList(map.get("publishers")));
+        newProduct.setTranslators(AdminPanelProductController.trimList(map.get("translators")));
+        newProduct.setAuthors(AdminPanelProductController.trimList(map.get("authors")));
+        newProduct.setKeywords(AdminPanelProductController.trimList(map.get("keywords")));
 
         Product barcodeDb = productDetailsInformationService.getByBarcode(newProduct.getBarcode());
         if (barcodeDb != null && oldProduct.getProductId() != barcodeDb.getProductId()) {

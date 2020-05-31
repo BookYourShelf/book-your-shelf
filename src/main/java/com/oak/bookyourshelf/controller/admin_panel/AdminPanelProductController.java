@@ -112,7 +112,7 @@ public class AdminPanelProductController {
         return ResponseEntity.ok("");
     }
 
-    public List<String> trimList(List<String> list) {
+    public static List<String> trimList(List<String> list) {
         List<String> trimmedList = list.stream().map(String::trim).collect(Collectors.toList());
         trimmedList.removeIf(s -> s.equals(""));
         return trimmedList;
