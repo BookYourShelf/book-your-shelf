@@ -32,10 +32,7 @@ public abstract class Product {
     @ElementCollection
     private List<Integer> buyerUserIds;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @ElementCollection

@@ -38,10 +38,7 @@ public class User {
     private String phoneNumber;
     private Boolean receiveMessage = false;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @OneToMany(
@@ -79,7 +76,8 @@ public class User {
     )
     private List<Order> orders;
 
-    public User() {}
+    public User() {
+    }
 
     // FUNCTIONS
 

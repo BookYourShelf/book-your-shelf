@@ -2,13 +2,13 @@ package com.oak.bookyourshelf.controller.user_details;
 
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.User;
+import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsReviewService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -17,10 +17,14 @@ public class UserDetailsReviewController {
 
     final UserDetailsReviewService userDetailsReviewService;
     final UserDetailsInformationService userDetailsInformationService;
+    final ProductDetailsInformationService productDetailsInformationService;
 
-    public UserDetailsReviewController(UserDetailsReviewService userDetailsReviewService, UserDetailsInformationService userDetailsInformationService) {
+    public UserDetailsReviewController(UserDetailsReviewService userDetailsReviewService,
+                                       UserDetailsInformationService userDetailsInformationService,
+                                       ProductDetailsInformationService productDetailsInformationService) {
         this.userDetailsReviewService = userDetailsReviewService;
         this.userDetailsInformationService = userDetailsInformationService;
+        this.productDetailsInformationService = productDetailsInformationService;
     }
 
     @RequestMapping(value = "/user-details/review", method = RequestMethod.GET)
@@ -32,6 +36,14 @@ public class UserDetailsReviewController {
 
         model.addAttribute("user", user);
         model.addAttribute("reviews", user.getReviews());
+        model.addAttribute("productService", productDetailsInformationService);
         return "user_details/_review";
+    }
+
+    @RequestMapping(value = "/user-details/review/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> deleteReview(@PathVariable int id, @RequestParam int reviewId) {
+        userDetailsReviewService.delete(reviewId);
+        return ResponseEntity.ok("");
     }
 }

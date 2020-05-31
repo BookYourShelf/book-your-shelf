@@ -1,16 +1,14 @@
 package com.oak.bookyourshelf.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reviewId;
 
     private int productId;
@@ -22,7 +20,29 @@ public class Review {
     private int scoreOutOf5;
     private Date uploadDate;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<User> user;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Product> product;
+
     // GETTER & SETTER
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
 
     public String getUserSurname() {
         return userSurname;
