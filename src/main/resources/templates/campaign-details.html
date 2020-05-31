@@ -151,7 +151,12 @@
                                 <div class="col-lg-9">
                                     <!-- Category -->
                                     <div class="tab-content-text">
-                                        <h th:text="${campaign.getCategoryName()}"></h>
+                                        <div th:if="${campaign.getCategories().size()>0}">
+                                            <td th:text="${campaign.getCategoryName()}"></td>
+                                        </div>
+                                        <div th:unless="${campaign.getCategories().size()>0}">
+                                            <div>-</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -218,9 +223,9 @@
                         <div class="billingAddress">
                             <div class="checkout_form_container">
                                 <form th:object="${campaign}" th:action="@{/campaign-details}" id="campaign_update_form" class="checkout_form"  method="post">
-
+                                    <div class="row">
                                     <!-- Name -->
-                                    <div>
+                                    <div class="col-md-6">
                                         <div class="login-text p-b-10" style="color: black;">
                                             Campaign Name
                                         </div>
@@ -231,7 +236,6 @@
                                                placeholder="Campaign Name" required="required">
                                     </div>
 
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
                                                 Discount Rate
@@ -242,6 +246,10 @@
                                                    th:value="${campaign.getRate()}"
                                                    placeholder="Discount Rate" required="required">
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
                                                 Category
