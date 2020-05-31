@@ -7,6 +7,7 @@ import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.ReviewService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelProductService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
+import com.oak.bookyourshelf.service.user_details.UserDetailsReviewService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,16 +25,18 @@ public class ProductController {
     final AuthService authService;
     final AdminPanelProductService adminPanelProductService;
     final ReviewService reviewService;
+    final UserDetailsReviewService userDetailsReviewService;
 
     public ProductController(ProductService productService, ProfileInformationService profileInformationService,
                              @Qualifier("customUserDetailsService") AuthService authService,
                              AdminPanelProductService adminPanelProductService,
-                             ReviewService reviewService) {
+                             ReviewService reviewService, UserDetailsReviewService userDetailsReviewService) {
         this.productService = productService;
         this.profileInformationService = profileInformationService;
         this.authService = authService;
         this.adminPanelProductService = adminPanelProductService;
         this.reviewService = reviewService;
+        this.userDetailsReviewService = userDetailsReviewService;
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
@@ -48,7 +51,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> addProductToList(@RequestParam String type, @PathVariable int id, Review review) {
+    public ResponseEntity<String> addProductToList(@RequestParam String type, @PathVariable int id, Review review, int reviewId) {
 
         UserDetails userDetails = authService.getUserDetails();
         Product product = productService.get(id);
@@ -81,7 +84,7 @@ public class ProductController {
                 case "reminder":
                     return ResponseEntity.ok("");
 
-                case "review":
+                case "add_review":
                     java.util.Date utilDate = new java.util.Date();
                     java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                     review.setUploadDate(sqlDate);
@@ -95,6 +98,10 @@ public class ProductController {
                     product.increaseStarNum(review.getScoreOutOf5() - 1);
                     reviewService.save(review);
 
+                    return ResponseEntity.ok("");
+
+                case "delete_review":
+                    userDetailsReviewService.delete(reviewId);
                     return ResponseEntity.ok("");
             }
 
