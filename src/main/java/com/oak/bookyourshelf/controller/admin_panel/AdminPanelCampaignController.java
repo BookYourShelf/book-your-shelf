@@ -74,29 +74,44 @@ public class AdminPanelCampaignController {
            Category newCategory = adminPanelCategoryService.getByName(category);
 
            newCategoryList.add(newCategory);
-           String[] subcategory = subctgry.split("-");
-           List<String> subcategories = Arrays.asList(subcategory);
+           if(subctgry.equals(""))
+           {
+               for (Campaign i : sameType) {
+                   Category campaignCategory =i.getCategories().get(0);
+                   if(campaignCategory.getName().equals(category)) {
 
-           for (Campaign i : sameType) {
-               Category campaignCategory =i.getCategories().get(0);
-               if(campaignCategory.getName().equals(category)) {
-                   for (String s : subcategories) {
-                       for(Subcategory sub : i.getSubcategories())
-                           if (sub.getName().equals(s)) {
-                               return ResponseEntity.badRequest().body("There is a campaign in " + s +" subcategory . Please change your selection");
-                           }
+                       return ResponseEntity.badRequest().body("There is a campaign in " + category +" subcategory . Please change your selection");
+
+                       }
+                   }
+               campaign.setCategories(newCategoryList);
+               }
+           else{
+               String[] subcategory = subctgry.split("-");
+               List<String> subcategories = Arrays.asList(subcategory);
+
+               for (Campaign i : sameType) {
+                   Category campaignCategory =i.getCategories().get(0);
+                   if(campaignCategory.getName().equals(category)) {
+                       for (String s : subcategories) {
+                           for(Subcategory sub : i.getSubcategories())
+                               if (sub.getName().equals(s)) {
+                                   return ResponseEntity.badRequest().body("There is a campaign in " + s +" subcategory . Please change your selection");
+                               }
+                       }
                    }
                }
+
+
+               for (String s : subcategories) {
+                   Subcategory newSubcategory = adminPanelCategoryService.getSubcategory(newCategory,s);
+                   newSubcategories.add(newSubcategory);
+               }
+
+               campaign.setSubcategories(newSubcategories);
+               campaign.setCategories(newCategoryList);
            }
 
-
-           for (String s : subcategories) {
-               Subcategory newSubcategory = adminPanelCategoryService.getSubcategory(newCategory,s);
-               newSubcategories.add(newSubcategory);
-           }
-
-           campaign.setSubcategories(newSubcategories);
-           campaign.setCategories(newCategoryList);
        }
 
         else
