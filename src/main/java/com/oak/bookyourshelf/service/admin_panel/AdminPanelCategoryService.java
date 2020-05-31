@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,16 @@ public class AdminPanelCategoryService {
 
     public List<Category> getAllByName(String name) {
         return adminPanelCategoryRepository.findAllByName(name);
+    }
+
+    public Subcategory getSubcategory(Category category,String name){
+       for (Subcategory s : category.getSubcategories())
+       {
+           if(s.getName().equals(name))
+           {
+           return s;}
+       }
+       return null;
     }
 
     public void delete(int id) {
