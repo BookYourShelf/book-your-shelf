@@ -239,7 +239,12 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getSubcategory()}"></h>
+                                <div th:unless="${product.getSubcategory() != null}">
+                                    <div>-</div>
+                                </div>
+                                <div th:if="${product.getSubcategory() != null}">
+                                    <h th:text="${product.getSubcategory()}"></h>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -331,7 +336,7 @@
                                     <div th:if="${product.getPublishers().size() > 0}">
                                         <tr>
                                             <h><span th:each="a, iterStat : ${product.getPublishers()}"
-                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
                                         </tr>
                                     </div>
                                 </div>
@@ -1006,7 +1011,6 @@
                                            min=0>
                                 </div>
 
-                                <!-- TODO-->
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
@@ -1022,7 +1026,6 @@
                                     </select>
                                 </div>
 
-                                <!-- TODO -->
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Subcategory
@@ -1031,10 +1034,7 @@
                                             th:value="${product.getSubcategory()}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                        <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                                th:value="${category.getName()}"
-                                                th:text="${category.getName()}">category
-                                        </option>
+                                         <option value="">SELECT</option>
                                     </select>
                                 </div>
                             </div>
@@ -1296,7 +1296,6 @@
                                     </select>
                                 </div>
 
-                                <!-- TODO-->
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Subcategory
@@ -1305,10 +1304,7 @@
                                             class="dropdown_item_select checkout_input" th:field="*{subcategory}"
                                             th:value="${product.getSubcategory()}"
                                             required="required">
-                                        <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
-                                                th:value="${category.getName()}"
-                                                th:text="${category.getName()}">category
-                                        </option>
+                                         <option value="">SELECT</option>
                                     </select>
                                 </div>
                             </div>
@@ -1509,7 +1505,6 @@
                                     </select>
                                 </div>
 
-                                <!-- TODO-->
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
                                         Subcategory
@@ -1518,10 +1513,7 @@
                                             class="dropdown_item_select checkout_input" th:field="*{subcategory}"
                                             th:value="${product.getSubcategory()}"
                                             required="required">
-                                        <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
-                                                th:value="${category.getName()}"
-                                                th:text="${category.getName()}">category
-                                        </option>
+                                         <option value="">SELECT</option>
                                     </select>
                                 </div>
                             </div>
@@ -2625,6 +2617,25 @@
             })
         }
     });
+
+    $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function (event) {
+        $.getJSON("/product-details/information/subcategory/" + productId, {
+            category: $(this).val(),
+            ajax: 'true'
+        }, function (data) {
+            buildSubcategoriesDropdown(data, event.target.id.replace("category", "subcategory"));
+        });
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        var html = '<option value="">SELECT</option>';
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option>';
+        $('#' + subcategoryName).html(html);
+    }
 
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
