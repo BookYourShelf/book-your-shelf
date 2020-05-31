@@ -210,14 +210,14 @@
             name: name
         };
 
-        $.post("/category-details/subcategory/" + categoryId, ret, function (data) {
+        $.post("/subcategory-details/subcategory/" + categoryId, ret, function (data) {
             iziToast.show({
                 title: 'Success',
                 message: 'Subcategory ' + name + ' added successfully to ' + categoryName + ' category.',
                 position: 'topRight',
                 color: 'green'
             });
-            window.location.href = "/category-details/" + categoryId + "#subcategory";
+            window.location.href = "/subcategory-details/" + categoryId + "#subcategory";
             setTimeout(function () {
                 history.pushState(null, null, ' ');
             }, 100);

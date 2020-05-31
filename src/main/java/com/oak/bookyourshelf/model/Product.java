@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,10 +32,7 @@ public abstract class Product {
     @ElementCollection
     private List<Integer> buyerUserIds;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @ManyToMany(
@@ -50,7 +48,13 @@ public abstract class Product {
     @ElementCollection
     private List<byte[]> images;
 
+    private static DecimalFormat df = new DecimalFormat("0.00");
+
     // FUNCTIONS
+
+    public void increaseStarNum(int star) {
+        this.totalStarNum.set(star, this.totalStarNum.get(star) + 1);
+    }
 
     public void addReview(Review review) {
         this.reviews.add(review);
@@ -60,14 +64,20 @@ public abstract class Product {
         return images.get(0);
     }
 
-    public float getScoreOutOf5() {        // calculate score of the product
+    public double getScoreOutOf5() {        // calculate score of the product
         float total = 0;
 
         for (int i = 0; i < 5; i++) {
             total += (i + 1) * totalStarNum.get(i);
         }
 
-        return total / 5;
+        int starNum = getStarNum();
+
+        if (starNum == 0) {
+            return 0;
+        } else {
+            return Math.round(total / getStarNum() * 10) / 10.0;
+        }
     }
 
     public int getStarNum() {

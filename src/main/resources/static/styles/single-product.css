@@ -4600,13 +4600,16 @@ a {
 
 .review_item .media .media-body {
     vertical-align: middle;
-    align-self: center
+    align-self: center;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .review_item .media .media-body h4 {
     font-size: 16px;
     color: #222;
-    margin-bottom: 4px
+    margin-bottom: 4px;
+    word-wrap: break-word;
 }
 
 .review_item .media .media-body i {
@@ -4641,7 +4644,8 @@ a {
 
 .review_item p {
     padding-top: 10px;
-    margin-bottom: 0px
+    margin-bottom: 0px;
+    word-wrap: break-word;
 }
 
 .review_item.reply {

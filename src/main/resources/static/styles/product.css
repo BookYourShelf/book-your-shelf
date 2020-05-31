@@ -1124,9 +1124,8 @@ section {
 }
 
 .product_text p {
-    font-size: 14px;
-    font-weight: 300;
-    color: #969696;
+    font-size: 16px;
+    color: #4a4a4a;
     line-height: 1.75;
 }
 
@@ -2117,5 +2116,21 @@ section {
 }
 
 .review_star {
-    color:#fbd600;
+    color: #fbd600;
+}
+
+.summary_star {
+    color: #4a4a4a;
+}
+
+.review_star_numbers {
+    padding-left: 15px;
+}
+
+.product_summary_title {
+    float: left;
+    margin-right: 5px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
 }
