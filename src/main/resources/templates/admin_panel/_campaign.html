@@ -46,7 +46,7 @@
                     <div class="row">
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="login-text p-b-10" style="color: black;">
                                 Product Type
                             </div>
@@ -61,29 +61,24 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <div class="login-text p-b-10" style="color: black;">
-                                Category
+                    </div>
+                    <div class="row" id="category_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_category">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
                             </div>
-                            <select name="campaign_update_categories"
-                                    id="new_campaign_categories" class="dropdown_item_select checkout_input"
-                                    required="required" >
-                                <option value="">SELECT</option>
-
-                            </select>
                         </div>
-
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12"  >
-
-                            <div id="deneme">
-                                <div class="login-text p-b-10" style="color: black;display: none" id="title" >
+                    <div class="row" id="subcategory_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_subcategory">
+                                <div class="login-text p-b-10" style="color: black;">
                                     Subcategory
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -282,30 +277,40 @@
 <script>
 
     $('#new_campaign_button').click(function (event) {
-        console.log("dfsdf")
-        var x = document.getElementById("new_campaign_subcategories");
-        var category = [];
-        for (var i = 0; i < x.options.length; i++) {
-            if (x.options[i].selected === true) {
-                category.push(x.options[i].value);
+        console.log("dfsdf");
+        var category;
+        var subctgry;
+        var productType =$('#category_product_type option:selected').val();
+        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK" || productType === "E_BOOK_READER"){
+            category = $('#new_campaign_categories').val();
+            var x = document.getElementById("new_campaign_subcategories");
+            var subcategory = [];
+            for (var i = 0; i < x.options.length; i++) {
+                if (x.options[i].selected === true) {
+                    subcategory.push(x.options[i].value);
+                }
+            }
+            subctgry = String(subcategory[0]);
+            for (var j = 1; j < subcategory.length; j++) {
+                subctgry += ("-");
+                subctgry += (String(subcategory[j]));
             }
         }
-        console.log(category.length);
-        var ctg = String(category[0]);
-        for (var j = 1; j < category.length; j++) {
-            ctg += ("-");
-            ctg += (String(category[j]));
+        else{
+            subctgry = "" ;
+            category = "" ;
         }
-        console.log(ctg);
+        console.log(subctgry);
+        console.log(category);
         var ret = {
 
             rate: $('#new_campaign_rate').val(),
             name: $('#new_campaign_name').val(),
             startDate: $('#campaign_start_date').val(),
             endDate: $('#campaign_end_date').val(),
-            productType: $('#category_product_type option:selected').val(),
-            ctg: ctg
-
+            productType: productType,
+            subctgry: subctgry,
+            category: category
         };
 
         if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date",
@@ -333,57 +338,73 @@
             })
         }
     });
-    $('#new_campaign_categories').change(function(event) {
-        $.getJSON("/admin-panel/campaign/subcategory", {
-            category : $(this).val(),
-            ajax : 'true'
-        }, function(data) {
-            buildSubcategoriesDropdown(data, "new_campaign_subcategories");
-        });
+    $(document).on('change', '#new_campaign_categories', function(event) {
+        if($(this).val() !== "SELECT") {
+            $.getJSON("/admin-panel/campaign/subcategory", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildSubcategoriesDropdown(data, "new_campaign_subcategories");
+            });
+        }
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
-        var counter = 1;
+        var div_id = 'subcategory_dynamicdiv';
+        if(document.getElementById(div_id)) {
+            // delete div
+            document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+        }
+
         var newdiv = document.createElement('div');
-        newdiv.id='dynamicdiv' + counter;
-        var html = '<select id="new_campaign_subcategories" class=\"checkedValues\" multiple=\"multiple\">';
+        newdiv.id = div_id;
+        var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
         var len = data.length;
         for(var i = 0; i < len; i++) {
             html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
         }
         html += '</option></select>';
         newdiv.innerHTML += html;
-        document.getElementById("title").style.display="block"
-        document.getElementById("deneme").appendChild(newdiv);
-        console.log(html);
-        counter++;
+        document.getElementById("subcategory_row").style.display="block";
+        document.getElementById("dynamic_subcategory").appendChild(newdiv);
 
-        $(newdiv).find('.checkedValues').multiselect({
+        $(newdiv).find('.subcategory').multiselect({
             includeSelectAllOption: true
         });  // call
-
     }
 
     $('#category_product_type').change(function(event) {
-        $.getJSON("/admin-panel/campaign/category", {
-            category : $(this).val(),
-            ajax : 'true'
-        }, function(data) {
-            buildCategoriesDropdown(data, "new_campaign_categories");
-        });
+        if($(this).val() === "BOOK" || $(this).val() === "E_BOOK_READER" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+            $.getJSON("/admin-panel/campaign/category", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildCategoriesDropdown(data, "new_campaign_categories");
+            });
+        }
     });
 
     function buildCategoriesDropdown(data, categoryName) {
-        var html = '<option value="">SELECT</option>';
+        var div_id = 'category_dynamicdiv';
+        if(document.getElementById(div_id)) {
+            // delete div
+            document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
+            document.getElementById("subcategory_row").style.display="none";
+        }
+
+        var newdiv = document.createElement('div');
+        newdiv.id = div_id;
+        var html = '<select id=\"new_campaign_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
         for(var i = 0; i < len; i++) {
             html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
         }
-        html += '</option>';
-        $('#' + categoryName).html(html);
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        document.getElementById("category_row").style.display = "block"
+        document.getElementById("dynamic_category").appendChild(newdiv);
     }
-
 
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
