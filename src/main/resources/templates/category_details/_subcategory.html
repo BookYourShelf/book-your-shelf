@@ -94,30 +94,32 @@
                 <tr th:each="subcategory: ${allSubcategories}">
 
                     <!-- User -->
-                    <div class="product">
+                    <div class="address-element-padding">
                         <a th:href="@{'/subcategory-details/' + ${subcategory.id}}">
-                            <div class="product_content">
-                                <div class="row order - row collapsible">
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${subcategory.id}"></td>
+                            <div class="category-element">
+                                <div class="product_content">
+                                    <div class="row order - row collapsible">
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text">
+                                                <td th:text="${subcategory.id}"></td>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${subcategory.name}"></td>
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text">
+                                                <td th:text="${subcategory.name}"></td>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${subcategory.itemNum}"></td>
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text">
+                                                <td th:text="${subcategory.itemNum}"></td>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${subcategory.subcategories.size()}"></td>
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text">
+                                                <td th:text="${subcategory.subcategories.size()}"></td>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
