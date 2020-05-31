@@ -80,7 +80,7 @@ public class AdminPanelCampaignController {
                    Category campaignCategory =i.getCategories().get(0);
                    if(campaignCategory.getName().equals(category)) {
 
-                       return ResponseEntity.badRequest().body("There is a campaign in " + category +" subcategory . Please change your selection");
+                       return ResponseEntity.badRequest().body("There is a campaign in " + category +" category . Please change your selection");
 
                        }
                    }
