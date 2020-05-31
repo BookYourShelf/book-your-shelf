@@ -613,35 +613,36 @@
                                     <div class="review_box">
                                         <h4>Add a Review</h4>
                                         <div sec:authorize="isAuthenticated()">
-                                            <fieldset class="rating">
-                                                <input class="scoreOutOf5" type="radio" id="star5" name="rating"
-                                                       value="5"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star5"
-                                                    title="Excellent - 5 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star4" name="rating"
-                                                       value="4"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star4"
-                                                    title="Very good - 4 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star3" name="rating"
-                                                       value="3"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star3"
-                                                    title="Good - 3 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star2" name="rating"
-                                                       value="2"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star2"
-                                                    title="Bad - 2 stars"></label>
-                                                <input class="scoreOutOf5" type="radio" id="star1" name="rating"
-                                                       value="1"/><label
-                                                    class="full review-star-cursor"
-                                                    for="star1"
-                                                    title="Very bad- 1 star"></label>
-                                            </fieldset>
-                                            <br>
                                             <form method="post" class="form-contact form-review mt-3">
+
+                                                <fieldset class="rating">
+                                                    <input class="scoreOutOf5" type="radio" id="star5" name="rating"
+                                                           value="5" required="required"><label
+                                                        class="full review-star-cursor"
+                                                        for="star5"
+                                                        title="Excellent - 5 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star4" name="rating"
+                                                           value="4"><label
+                                                        class="full review-star-cursor"
+                                                        for="star4"
+                                                        title="Very good - 4 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star3" name="rating"
+                                                           value="3"><label
+                                                        class="full review-star-cursor"
+                                                        for="star3"
+                                                        title="Good - 3 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star2" name="rating"
+                                                           value="2"><label
+                                                        class="full review-star-cursor"
+                                                        for="star2"
+                                                        title="Bad - 2 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star1" name="rating"
+                                                           value="1"><label
+                                                        class="full review-star-cursor"
+                                                        for="star1"
+                                                        title="Very bad- 1 star"></label>
+                                                </fieldset>
+                                                <br>
                                                 <div class="form-group">
                                                     <input class="form-control" name="subject" type="text"
                                                            id="review_title"

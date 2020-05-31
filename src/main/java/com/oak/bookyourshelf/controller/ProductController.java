@@ -89,6 +89,11 @@ public class ProductController {
                         return ResponseEntity.badRequest().body("You already reviewed this product.");
 
                     } else {
+
+                        if (review.getScoreOutOf5() == 0) {
+                            return ResponseEntity.badRequest().body("You must rate product to add review.");
+                        }
+
                         java.util.Date utilDate = new java.util.Date();
                         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                         review.setUploadDate(sqlDate);
