@@ -1104,8 +1104,8 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Translators
                                     </div>
-                                    <input type="text" id="book_translator_input" th:field="*{publishedYear}"
-                                           th:value="${product.getPublishedYear()}"
+                                    <input type="text" id="book_translator_input" th:field="*{translators}"
+                                           th:value="${product.getTranslators()}"
                                            class="checkout_input form-control"
                                            placeholder="Translators (Separate with comma)"
                                            required="required">
