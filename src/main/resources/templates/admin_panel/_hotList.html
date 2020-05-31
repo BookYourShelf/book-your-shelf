@@ -68,9 +68,9 @@
                                     class="dropdown_item_select checkout_input"
                                     require="required" th:field="${hotList.hotListType}">
                                 <option value="">Select Hot List Type</option>
-                                <option value="">Best Sellers</option>
-                                <option value="">New Releases</option>
-                                <option value="">Our Picks For You</option>
+                                <option value="BEST_SELLERS">Best Sellers</option>
+                                <option value="NEW_RELEASES">New Releases</option>
+                                <option value="OUR_PICKS_FOR_YOU">Our Picks For You</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -168,19 +168,23 @@
 <div>
     <div class="row order - row ">
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">ID</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Category</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Hot List Type</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Number of Products</div>
         </div>
     </div>
@@ -194,20 +198,34 @@
                     <div class="category-element">
                         <div class="product_content">
                             <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${hotList.getId()}"></td>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Literature, Novel</div>
+                                 <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <td th:text="${hotList.getProductType()}"></td>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <div th:if="${hotList.getCategories().size()>0}">
+                                            <td th:text="${hotList.getCategoryName()}"></td>
+                                            </div>
+                                            <div th:unless="${hotList.getCategories().size()>0}">
+                                                <div>-</div>
+                                            </div>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Best Sellers</div>
+                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <td th:text="${hotList.getHotListType()}"></td>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${hotList.getProductNum()}"></td>
                                     </div>
@@ -320,8 +338,7 @@
             subctgry = "" ;
             category = "" ;
         }
-        console.log(subctgry);
-        console.log(category);
+
         var ret = {
 
             productNum: $('#new_hot_list_product_number').val(),
@@ -330,6 +347,7 @@
             productType: productType,
             startTime: $('#new_hot_list_start_time').val(),
             endTime: $('#new_hot_list_end_time').val(),
+            hotListType:$('#new_hot_list_type option:selected').val(),
             subctgry:subctgry,
             category:category,
             ptype:productType
