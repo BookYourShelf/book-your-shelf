@@ -226,7 +226,7 @@
 
                                                             <label class="radio_container">
                                                                 <input type="radio" id="billing_address_choice_1"
-                                                                       th:value="${address.getAddressId()}" name="billing_address_choice" class="payment_radio">
+                                                                       th:value="${address.getAddressId()}" name="billing_address_choice" class="payment_radio" required="required">
                                                                 <span class="radio_mark"></span>
                                                                 <span class="registered-address-title">
                                                                     <td th:text="${address.getAddressTitle()}"></td>
@@ -466,7 +466,7 @@
                                                 <select name="delivery_address_title"
                                                         id="delivery_address_title"
                                                         class="dropdown_item_select checkout_input"
-                                                        require="required">
+                                                        required="required">
                                                     <option value="">SELECT</option>
                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                             th:value="${address_title}"
@@ -599,7 +599,7 @@
                                                         <div class="col-md-9 registered-address-title">
                                                             <label class="radio_container">
                                                                 <input type="radio" th:value="${address.getAddressId()}" id="delivery_address_choice_1"
-                                                                       name="delivery_address_choice" class="payment_radio">
+                                                                       name="delivery_address_choice" class="payment_radio" required>
                                                                 <span class="radio_mark"></span>
                                                                 <span class="registered-address-title">
                                                                     <td th:text="${address.getAddressTitle()}"></td>
@@ -798,11 +798,17 @@
                                 <ul class="cart_extra_total_list">
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
-                                        <div class="cart_extra_total_value ml-auto">₺29.90</div>
+                                        <div class="cart_extra_total_value ml-auto"><td th:text="${order.getSubTotal()} + '₺'"></td>
+                                        </div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping</div>
-                                        <div class="cart_extra_total_value ml-auto">Free</div>
+                                        <div th:if="${order.getShippingMethod() == '0'}" class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">Free</div>
+                                        </div>
+                                        <div th:unless="${order.getShippingMethod() == '0'}" class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">7.99</div>
+                                        </div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
@@ -810,7 +816,7 @@
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
-                                        <div class="cart_extra_total_value ml-auto relativer">₺20.00</div>
+                                        <div class="cart_extra_total_value ml-auto relativer"><td th:text="${order.getTotalAmount()} + '₺'"></td></div>
                                     </li>
                                 </ul>
                                 <div class="payment_options">
@@ -819,7 +825,7 @@
                                         <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
                                             <label class="radio_container">
                                                 <input type="radio" id="cargo_radio_1" name="cargo_radio"
-                                                       class="payment_radio" value="Aras Kargo" checked ="checked">
+                                                       class="payment_radio" value="Aras Cargo" checked ="checked" required>
                                                 <span class="radio_mark"></span>
                                                 <span class="radio_text">Aras Kargo</span>
                                             </label>
