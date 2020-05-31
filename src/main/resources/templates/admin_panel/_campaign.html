@@ -44,8 +44,6 @@
                     </div>
                     </div>
                     <div class="row">
-
-
                         <div class="col-md-12">
                             <div class="login-text p-b-10" style="color: black;">
                                 Product Type
@@ -200,11 +198,17 @@
                                         <td th:text="${campaign.getProductType()}"></td>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
-                                        <td th:text="${campaign.getCategoryName()}"></td>
+
+                                    <div class="col-lg-2 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                             <div th:if="${campaign.getCategories().size()>0}">
+                                            <td th:text="${campaign.getCategoryName()}"></td>
+                                            </div>
+                                            <div th:unless="${campaign.getCategories().size()>0}">
+                                                <div>-</div>
+                                            </div>
                                     </div>
-                                </div>
+                                 </div>
 
                             </div>
                         </div>
@@ -293,18 +297,24 @@
         var subctgry;
         var productType =$('#category_product_type option:selected').val();
         if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
+
             category = $('#new_campaign_categories').val();
-            var x = document.getElementById("new_campaign_subcategories");
-            var subcategory = [];
-            for (var i = 0; i < x.options.length; i++) {
-                if (x.options[i].selected === true) {
-                    subcategory.push(x.options[i].value);
+            if(document.getElementById("new_campaign_subcategories") !== null) {
+                var x = document.getElementById("new_campaign_subcategories");
+                var subcategory = [];
+                for (var i = 0; i < x.options.length; i++) {
+                    if (x.options[i].selected === true) {
+                        subcategory.push(x.options[i].value);
+                    }
+                }
+                subctgry = String(subcategory[0]);
+                for (var j = 1; j < subcategory.length; j++) {
+                    subctgry += ("-");
+                    subctgry += (String(subcategory[j]));
                 }
             }
-            subctgry = String(subcategory[0]);
-            for (var j = 1; j < subcategory.length; j++) {
-                subctgry += ("-");
-                subctgry += (String(subcategory[j]));
+            else{
+                subctgry="";
             }
         }
         else{
@@ -362,27 +372,29 @@
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
-        var div_id = 'subcategory_dynamicdiv';
-        if(document.getElementById(div_id)) {
-            // delete div
-            document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
-        }
+        if(data.length >0) {
+            var div_id = 'subcategory_dynamicdiv';
+            if (document.getElementById(div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+            }
 
-        var newdiv = document.createElement('div');
-        newdiv.id = div_id;
-        var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
-        var len = data.length;
-        for(var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
-        }
-        html += '</option></select>';
-        newdiv.innerHTML += html;
-        document.getElementById("subcategory_row").style.display="block";
-        document.getElementById("dynamic_subcategory").appendChild(newdiv);
+            var newdiv = document.createElement('div');
+            newdiv.id = div_id;
+            var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            }
+            html += '</option></select>';
+            newdiv.innerHTML += html;
+            document.getElementById("subcategory_row").style.display = "block";
+            document.getElementById("dynamic_subcategory").appendChild(newdiv);
 
-        $(newdiv).find('.subcategory').multiselect({
-            includeSelectAllOption: true
-        });  // call
+            $(newdiv).find('.subcategory').multiselect({
+                includeSelectAllOption: true
+            });  // call
+        }
     }
 
     $('#category_product_type').change(function(event) {
