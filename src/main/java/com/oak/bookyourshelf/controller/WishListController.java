@@ -49,11 +49,19 @@ public class WishListController {
 
         if (button.equals("add_to_shopping_cart")) {
             Product product = wishListService.get(productID);
-            user.getWishList().remove(product);
-            profileInformationService.save(user);
-            user.getShoppingCart().add(product);
-            profileInformationService.save(user);
-
+            if(!user.getShoppingCart().contains(product)) {
+                if (product.getStock() > 0) {
+                    user.getWishList().remove(product);
+                    profileInformationService.save(user);
+                    user.getShoppingCart().add(product);
+                    profileInformationService.save(user);
+                } else {
+                    return ResponseEntity.badRequest().body("Product out of stock.");
+                }
+            } else {
+                user.getWishList().remove(product);
+                profileInformationService.save(user);
+            }
         } else if (button.equals("delete_product")) {
             Product product = wishListService.get(productID);
             user.getWishList().remove(product);
