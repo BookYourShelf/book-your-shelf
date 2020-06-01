@@ -64,6 +64,7 @@
                                     </div>
 
                                     <input type="text" id="billing_address_name"
+                                           th:value="${user.getName()}"
                                            class="checkout_input form-control"
                                            pattern="^[a-zA-Z ]+$" placeholder="Name" required="required">
                                 </div>
@@ -74,6 +75,7 @@
                                     </div>
 
                                     <input type="text" id="billing_address_surname"
+                                           th:value="${user.getSurname()}"
                                            class="checkout_input form-control"
                                            pattern="^[a-zA-Z ]+$" placeholder="Surname"
                                            required="required">
@@ -126,7 +128,7 @@
                                     </div>
 
                                     <input type="number" id="billing_address_zip_code"
-                                           class="checkout_input form-control"
+                                           placeholder="Zip Code" class="checkout_input form-control"
                                            required="required">
                                 </div>
                             </div>
@@ -324,7 +326,7 @@
                                                     <input type="number"
                                                            th:id="'billing_address_update_zip_code' + ${address.getAddressId()}"
                                                            th:value="${address.getZipCode()}"
-                                                           class="checkout_input form-control"
+                                                           placeholder="Zip Code" class="checkout_input form-control"
                                                            required="required">
                                                 </div>
                                             </div>
@@ -436,6 +438,7 @@
                                     </div>
 
                                     <input type="text" id="delivery_address_name"
+                                           th:value="${user.getName()}"
                                            class="checkout_input form-control"
                                            placeholder="Name" required="required" pattern="^[a-zA-Z ]+$">
                                 </div>
@@ -446,6 +449,7 @@
                                     </div>
 
                                     <input type="text" id="delivery_address_surname"
+                                           th:value="${user.getSurname()}"
                                            class="checkout_input form-control"
                                            placeholder="Surname"
                                            required="required" pattern="^[a-zA-Z ]+$">
@@ -498,7 +502,7 @@
                                     </div>
 
                                     <input type="number" id="delivery_address_zip_code"
-                                           class="checkout_input form-control"
+                                           placeholder="Zip Code" class="checkout_input form-control"
                                            required="required">
                                 </div>
                             </div>
@@ -696,7 +700,7 @@
                                                     <input type="number"
                                                            th:id="'delivery_address_update_zip_code' + ${address.getAddressId()}"
                                                            th:value="${address.getZipCode()}"
-                                                           class="checkout_input form-control" required="required">
+                                                           placeholder="Zip Code" class="checkout_input form-control" required="required">
                                                 </div>
                                             </div>
 
@@ -718,7 +722,7 @@
                                                     Phone
                                                     Number
                                                 </div>
-                                                <input type="tel"
+                                                <input type="text"
                                                        th:id="'delivery_address_update_phone' + ${address.getAddressId()}"
                                                        th:value="${address.getPhoneNumber()}"
                                                        class="checkout_input form-control phone_mask"
@@ -747,7 +751,6 @@
         </div>
     </div>
 </div>
-
 <script th:inline="javascript">
     /*<![CDATA[*/
 
@@ -763,8 +766,6 @@
         var fullAddress = $('#billing_address_update_open_address_2_id' + addressId).val();
         var addressTitle = $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#billing_address_update_phone' + addressId).val();
-        var userId = /*[[${user.getUserId()}]]*/ 'default';
-        var user = /*[[${user}]]*/ 'default';
 
 
         var ret = {
@@ -778,8 +779,6 @@
             fullAddress: fullAddress,
             addressTitle: addressTitle,
             phoneNumber: phoneNumber,
-            userId: userId,
-            user: user,
             addressId: addressId
 
         };
@@ -846,8 +845,7 @@
         var fullAddress = $('#delivery_open_address').val();
         var addressTitle = $('#delivery_address_title').val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#delivery_address_phone').val();
-        var userId = /*[[${user.getUserId()}]]*/ 'default';
-        var user = /*[[${user}]]*/ 'default';
+
 
         var ret = {
 
@@ -860,9 +858,8 @@
             zipCode: zipCode,
             fullAddress: fullAddress,
             addressTitle: addressTitle,
-            phoneNumber: phoneNumber,
-            userId: userId,
-            user: user
+            phoneNumber: phoneNumber
+
 
         };
 
@@ -907,8 +904,7 @@
         var fullAddress = $('#billing_open_address').val();
         var addressTitle = $('#billing_address_title').val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#billing_address_phone').val();
-        var userId = /*[[${user.getUserId()}]]*/ 'default';
-        var user = /*[[${user}]]*/ 'default';
+
 
         var ret = {
 
@@ -921,12 +917,9 @@
             zipCode: zipCode,
             fullAddress: fullAddress,
             phoneNumber: phoneNumber,
-            addressTitle: addressTitle,
-            userId: userId,
-            user: user
+            addressTitle: addressTitle
 
         };
-
 
         if (button === "add_billing_address") {
             if (validation_check(["billing_address_name", "billing_address_surname", "billing_open_address", "billing_address_neighborhood",
@@ -969,8 +962,7 @@
         var fullAddress = $('#delivery_address_update_open_address_id' + addressId).val();
         var addressTitle = $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#delivery_address_update_phone' + addressId).val();
-        var userId = /*[[${user.getUserId()}]]*/ 'default';
-        var user = /*[[${user}]]*/ 'default';
+
 
 
         var ret = {
@@ -985,9 +977,7 @@
             fullAddress: fullAddress,
             addressTitle: addressTitle,
             phoneNumber: phoneNumber,
-            userId: userId,
-            addressId: addressId,
-            user: user
+            addressId: addressId
 
         };
 

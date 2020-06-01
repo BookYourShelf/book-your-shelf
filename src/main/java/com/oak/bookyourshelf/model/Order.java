@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Order {
         PENDING
     }
 
-    private enum PaymentStatus{
+    public enum PaymentStatus{
         PENDING,
         PROCESSED,
         COMPLETED,
@@ -34,10 +35,15 @@ public class Order {
         CANCELLED
     }
 
-    private enum PaymentOption{
+    public enum PaymentOption{
         CREDIT_CARD,
         PAYPAL,
         TRANSFERRING_MONEY_PTT
+    }
+
+    public enum OrderStatus{
+        PENDING,
+        CONFIRMED
     }
 
     @Id
@@ -47,21 +53,35 @@ public class Order {
     @ElementCollection
     private List<Integer> productId;
 
+    @ElementCollection
+    private List<Float> discountRate;
+
+    @ElementCollection
+    private List<Integer> quantity;
+
+
     private int userId;
     private String userName;
-    private Date orderDate;
+    private Timestamp orderDate;
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
+    private String shippingMethod;
+    private float totalAmount;
+    private float subTotal;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
     @Enumerated(EnumType.STRING)
-    private PaymentOption paymentOption;
+    PaymentOption paymentOption;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    PaymentStatus paymentStatus;
+
+    @Enumerated(EnumType.STRING)
+    OrderStatus orderStatus;
+
 
     public float getTotalAmountOfShipping(){
 
@@ -107,11 +127,11 @@ public class Order {
         this.userName = userName;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -162,4 +182,28 @@ public class Order {
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    public String getShippingMethod() { return shippingMethod; }
+
+    public void setShippingMethod(String shippingMethod) { this.shippingMethod = shippingMethod; }
+
+    public Float getTotalAmount() { return totalAmount; }
+
+    public void setTotalAmount(Float totalAmount) { this.totalAmount = totalAmount; }
+
+    public Float getSubTotal() { return subTotal; }
+
+    public void setSubTotal(Float subTotal) { this.subTotal = subTotal; }
+
+    public OrderStatus getOrderStatus() { return orderStatus; }
+
+    public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
+
+    public List<Float> getDiscountRate() { return discountRate; }
+
+    public void setDiscountRate(List<Float> discountRate) { this.discountRate = discountRate; }
+
+    public List<Integer> getQuantity() { return quantity; }
+
+    public void setQuantity(List<Integer> quantity) { this.quantity = quantity; }
 }

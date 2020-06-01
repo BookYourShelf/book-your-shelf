@@ -28,12 +28,24 @@ public abstract class Product {
     private String shortDesc;
     private String longDesc;
     private String barcode;
+    private int quantity;
+    private float quantityPrice;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<User> onWishList;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<User> onShoppingCart;
 
     @ElementCollection
     private List<byte[]> images;
@@ -150,6 +162,14 @@ public abstract class Product {
         return images;
     }
 
+    public List<User> getOnWishList() {
+        return onWishList;
+    }
+
+    public void setOnWishList(List<User> onWishList) {
+        this.onWishList = onWishList;
+    }
+
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -209,4 +229,16 @@ public abstract class Product {
     public void setImages(List<byte[]> images) {
         this.images = images;
     }
+
+    public List<User> getOnShoppingCart() { return onShoppingCart; }
+
+    public void setOnShoppingCart(List<User> onShoppingCart) { this.onShoppingCart = onShoppingCart; }
+
+    public int getQuantity() { return quantity; }
+
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public float getQuantityPrice() { return quantityPrice; }
+
+    public void setQuantityPrice(float quantityPrice) { this.quantityPrice = quantityPrice; }
 }
