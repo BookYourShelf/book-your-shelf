@@ -46,7 +46,7 @@ public class CheckoutController {
         System.out.println(order.getTotalAmount());
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
-        model.addAttribute("order",order);
+        model.addAttribute("order", order);
         model.addAttribute("user", user);
         model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
         model.addAttribute("allBillingAddress", user.getBillingAddresses());
@@ -89,12 +89,7 @@ public class CheckoutController {
             user.getDeliveryAddresses().remove(toBeDeleted);
             profileAddressService.delete(address.getAddressId());
         } else {
-
-
-            System.out.println(cargo.get());
-            System.out.println(billing_address.get());
-            System.out.println(delivery_address.get());
-
+            
             order.setShippingCompany(cargo.get());
             order.setBillingAddress(billing_address.get().toString());
             order.setCustomerAddress(delivery_address.get().toString());
