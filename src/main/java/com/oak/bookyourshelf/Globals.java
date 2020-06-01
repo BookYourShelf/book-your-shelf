@@ -55,6 +55,25 @@ public class Globals {
 
     static void traverseSubcategories(Subcategory subcategory, ArrayList<Subcategory> subcategories) {
         List<Subcategory> inSubcategory = subcategory.getSubcategories();
+        subcategories.add(subcategory);
+        if (subcategory.getSubcategories().size() != 0) {
+            for (Subcategory sub : inSubcategory) {
+                traverseSubcategories(sub, subcategories);
+            }
+        }
+    }
+
+    public static ArrayList<Subcategory> getAllSubcategories(Category category) {
+        ArrayList<Subcategory> subcategories = new ArrayList<>();
+        List<Subcategory> inCategory = category.getSubcategories();
+        for (Subcategory sub : inCategory) {
+            traverseSubcategories(sub, subcategories);
+        }
+        return subcategories;
+    }
+
+    static void traverseChildSubcategories(Subcategory subcategory, ArrayList<Subcategory> subcategories) {
+        List<Subcategory> inSubcategory = subcategory.getSubcategories();
         if (subcategory.getSubcategories().size() == 0) {
             subcategories.add(subcategory);
         } else {
@@ -64,7 +83,7 @@ public class Globals {
         }
     }
 
-    public static ArrayList<Subcategory> getAllSubcategories(Category category) {
+    public static ArrayList<Subcategory> getAllChildSubcategories(Category category) {
         ArrayList<Subcategory> subcategories = new ArrayList<>();
         List<Subcategory> inCategory = category.getSubcategories();
         for (Subcategory sub : inCategory) {
