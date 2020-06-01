@@ -1,5 +1,7 @@
 package com.oak.bookyourshelf.repository.admin_panel;
 
+import com.oak.bookyourshelf.model.Campaign;
+import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.HotList;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,4 +15,7 @@ public interface AdminPanelHotListRepository extends CrudRepository<HotList, Int
 
     @Query("SELECT t from HotList t where t.hotListType = ?1")
     List<HotList> findAllByHotListType(String name);
+
+    @Query("SELECT t from HotList t where t.productType = ?1")
+    List<HotList> findAllByProductType(Category.ProductType name);
 }

@@ -39,17 +39,15 @@ public class CampaignDetailsController {
         System.out.println("update");
         switch (button) {
             case "update_campaign":
-                campaign.setCategories(newCampaign.getCategories());
+
                 campaign.setRate(newCampaign.getRate());
                 campaign.setEndDate(newCampaign.getEndDate());
                 campaign.setName(newCampaign.getName());
                 campaign.setStartDate(newCampaign.getStartDate());
-                campaign.setProductType(newCampaign.getProductType());
-
                 campaign.setId(id);
                 campaignDetailsService.save(campaign);
                 return ResponseEntity.ok("");
-            case "delete_hotList":
+            case "delete_campaign":
                 campaignDetailsService.delete(id);
                 return ResponseEntity.ok("");
         }

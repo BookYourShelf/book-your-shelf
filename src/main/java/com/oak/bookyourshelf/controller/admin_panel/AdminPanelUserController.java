@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.controller.admin_panel;
 
+import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelUserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,21 +26,10 @@ public class AdminPanelUserController {
     @RequestMapping(value = "/admin-panel/user", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
                       @RequestParam("size") Optional<Integer> size, Model model) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
 
-        Page<User> userPage = adminPanelUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 
-        model.addAttribute("userPage", userPage);
+        Globals.getPageNumbers(page, size, (List) adminPanelUserService.listAllCustomers(), model, "userPage");
 
-        int totalPages = userPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-        model.addAttribute("currentPage", currentPage);
         return "admin_panel/_user";
     }
 

@@ -16,11 +16,14 @@ public class Campaign {
     private String startDate;
     private String endDate;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(
+            cascade = CascadeType.ALL)
     private List<Category> categories;
+
+
+    @ManyToMany(
+            cascade = CascadeType.ALL)
+    private List<Subcategory> subcategories;
 
     private Category.ProductType productType;
 
@@ -81,5 +84,17 @@ public class Campaign {
     public void setProductType(Category.ProductType productType) {
         this.productType = productType;
     }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+
+    public void addSubcategory(Subcategory subcategory){this.getSubcategories().add(subcategory);}
+
+    public String getCategoryName(){return this.getCategories().get(0).getName();}
 
 }

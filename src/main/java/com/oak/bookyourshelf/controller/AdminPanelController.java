@@ -24,18 +24,8 @@ public class AdminPanelController {
 
     @RequestMapping(value = "/admin-panel",method = RequestMethod.GET)
     public String showAdminPanelPage(Model model) {
-        int currentPage = 1;
-        int pageSize = 3;
-        Page<User> userPage = adminPanelUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-        model.addAttribute("userPage", userPage);
 
-        int totalPages = userPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+
 
         return "admin-panel";
     }

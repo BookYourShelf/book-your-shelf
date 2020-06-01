@@ -22,9 +22,9 @@
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form action="#" id="new_hot_list_form" class="checkout_form">
+                <form  id="new_hot_list_form" class="checkout_form" th:object="${hotList}" method="post">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="login-text p-b-10" style="color: black;">
                                 Product Type
                             </div>
@@ -40,21 +40,22 @@
                             </select>
                         </div>
                         <div id="thumb0" style="display: none" onclick="productType()"></div>
-                        <div class="col-md-6">
-                            <!-- Category -->
-                            <div>
+                    </div>
+                    <div class="row" id="category_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_category">
                                 <div class="login-text p-b-10" style="color: black;">
                                     Category
                                 </div>
-                                <select name="new_hot_list_categories" class="dropdown_item_select checkout_input"
-                                        id="new_hot_list_categories"
-                                        require="required">
-                                    <option value="">SELECT</option>
-                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                            th:value="${category.getName()}"
-                                            th:text="${category.getName()}">category
-                                    </option>
-                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="subcategory_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_subcategory">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,10 +68,9 @@
                                     class="dropdown_item_select checkout_input"
                                     require="required" th:field="${hotList.hotListType}">
                                 <option value="">Select Hot List Type</option>
-                                <option th:each="htype : ${T(com.oak.bookyourshelf.model.HotList.HotListType).values()}"
-                                        th:value="${htype}"
-                                        th:text="#{${'hotListType.' + htype}}">productType
-                                </option>
+                                <option value="BEST_SELLERS">Best Sellers</option>
+                                <option value="NEW_RELEASES">New Releases</option>
+                                <option value="OUR_PICKS_FOR_YOU">Our Picks For You</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -168,19 +168,23 @@
 <div>
     <div class="row order - row ">
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">ID</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Category</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Hot List Type</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Number of Products</div>
         </div>
     </div>
@@ -194,20 +198,34 @@
                     <div class="category-element">
                         <div class="product_content">
                             <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${hotList.getId()}"></td>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Literature, Novel</div>
+                                 <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <td th:text="${hotList.getProductType()}"></td>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <div th:if="${hotList.getCategories().size()>0}">
+                                            <td th:text="${hotList.getCategoryName()}"></td>
+                                            </div>
+                                            <div th:unless="${hotList.getCategories().size()>0}">
+                                                <div>-</div>
+                                            </div>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">Best Sellers</div>
+                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <td th:text="${hotList.getHotListType()}"></td>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${hotList.getProductNum()}"></td>
                                     </div>
@@ -231,9 +249,9 @@
 
                 <!-- Previous button -->
                     <li th:style="${currentPage == 1} ? 'display:none'">
-                        <a th:href="@{/admin-hotListPage#hotList(size=${hotListPage.size}, page=${currentPage - 1})}"
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
-                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                            <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
                     </li>
 
@@ -246,17 +264,18 @@
                         </a>
                     </li>
 
-                    <li th:if="${currentPage - 3 > 1}"
-                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
 
                 <!-- Pages -->
                     <li th:if="${hotListPage.totalPages > 2}"
                         th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , hotListPage.totalPages > 2 + currentPage ? currentPage + 2 : hotListPage.totalPages - 1, 1)}"
                         th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${i})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
 
-                    <li th:if="${currentPage + 3 < hotListPage.totalPages}"
-                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage + 3 < hotListPage.totalPages}" class="pagination_dots">...</li>
 
                 <!-- Last page -->
                     <li th:if="${hotListPage.totalPages > 1}"
@@ -271,7 +290,7 @@
                     <li th:style="${currentPage == hotListPage.totalPages} ? 'display:none'">
                         <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${currentPage + 1})}"
                            aria-label="Next" title="Next Page" rel="tooltip">
-                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                            <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
                     </li>
 
@@ -290,17 +309,52 @@
 <script>
 
     $('#new_hotList_button').click(function (event) {
+        var category;
+        var subctgry;
+        var productType =$('#category_product_type option:selected').val();
+
+        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
+
+            category = $('#new_hot_list_categories').val();
+            if(document.getElementById("new_hotList_subcategories") !== null) {
+                var x = document.getElementById("new_hotList_subcategories");
+                var subcategory = [];
+                for (var i = 0; i < x.options.length; i++) {
+                    if (x.options[i].selected === true) {
+                        subcategory.push(x.options[i].value);
+                    }
+                }
+                subctgry = String(subcategory[0]);
+                for (var j = 1; j < subcategory.length; j++) {
+                    subctgry += ("-");
+                    subctgry += (String(subcategory[j]));
+                }
+            }
+            else{
+                subctgry="";
+            }
+        }
+        else{
+            subctgry = "" ;
+            category = "" ;
+        }
+
         var ret = {
 
             productNum: $('#new_hot_list_product_number').val(),
             startDate: $('#new_hot_list_start_date').val(),
             endDate: $('#new_hot_list_end_date').val(),
-            productType: $('#category_product_type option:selected').val(),
+            productType: productType,
             startTime: $('#new_hot_list_start_time').val(),
             endTime: $('#new_hot_list_end_time').val(),
+            hotListType:$('#new_hot_list_type option:selected').val(),
+            subctgry:subctgry,
+            category:category,
+            ptype:productType
 
 
         };
+
 
         if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date"
         ])) {
@@ -328,6 +382,78 @@
         }
     });
 
+    $(document).on('change', '#new_hot_list_categories', function(event) {
+        if($(this).val() !== "SELECT") {
+            $.getJSON("/admin-panel/hotList/subcategory", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildSubcategoriesDropdown(data, "new_hot_list_subcategories");
+            });
+        }
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        if(data.length >0) {
+            var div_id = 'subcategory_dynamicdiv';
+            if (document.getElementById(div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+            }
+
+            var newdiv = document.createElement('div');
+            newdiv.id = div_id;
+            var html = '<select id="new_hotList_subcategories" class=\"subcategory\" multiple=\"multiple\">';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            }
+            html += '</option></select>';
+            newdiv.innerHTML += html;
+            document.getElementById("subcategory_row").style.display = "block";
+            document.getElementById("dynamic_subcategory").appendChild(newdiv);
+
+            $(newdiv).find('.subcategory').multiselect({
+                includeSelectAllOption: true
+            });  // call
+
+        }
+
+    }
+
+    $('#category_product_type').change(function(event) {
+        if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+            $.getJSON("/admin-panel/hotList/category", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildCategoriesDropdown(data, "new_hot_list_categories");
+            });
+        }
+    });
+
+    function buildCategoriesDropdown(data, categoryName) {
+        var div_id = 'category_dynamicdiv';
+        if(document.getElementById(div_id)) {
+            // delete div
+            document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
+            document.getElementById("subcategory_row").style.display="none";
+        }
+
+        var newdiv = document.createElement('div');
+        newdiv.id = div_id;
+        var html = '<select id=\"new_hot_list_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
+        var len = data.length;
+
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        document.getElementById("category_row").style.display = "block"
+        document.getElementById("dynamic_category").appendChild(newdiv);
+    }
+
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
             if (!document.getElementById(arr[i]).checkValidity()) {
@@ -337,21 +463,7 @@
         return true;
     }
 </script>
-<script>
-    function productType() {
-        var pType = $('#category_product_type option:selected').val();
-        var x = document.getElementById("new_hot_list_categories");
-        var option = document.createElement("option");
-        if (pType === "BOOK") {
 
-            option.text = "Kiwi";
-            x.add(option);
-        } else {
-            option.text = "Banana";
-            x.add(option);
-        }
-    }
-</script>
 
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>

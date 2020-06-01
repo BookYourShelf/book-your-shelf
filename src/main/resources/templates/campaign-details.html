@@ -46,10 +46,10 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="admin-panel.html">Panel</a></li>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/admin-panel}">Panel</a></li>
                                 <!-- TODO Name -->
-                                <li style="color: #fbaa1d">Literature Day</li>
+                                <li style="color: #fbaa1d" th:text="${campaign.getName()}"></li>
                             </ul>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                     <div class="row">
                                         <!-- ID -->
                                         <div class="col-lg-11 tab-content-text">
-                                            1
+                                            <h th:text="${campaign.getId()}"></h>
                                         </div>
                                         <!-- Buttons -->
                                         <div class="col-lg-1">
@@ -85,9 +85,13 @@
                                                         style="font-size: 25px; padding-right: 10px"
                                                         class="fa fa-pencil"></i></a>
                                                 <!-- Delete button -->
-                                                <a href="#" class="trans_200" data-toggle="collapse"><i
+                                                <button type="submit" value="&#xf014;"
+                                                        class="trans_200 fa product_text"
+                                                        id="delete_campaign"
                                                         style="font-size: 25px; color: #4a4a4a"
-                                                        class="fa product_text">&#xf014;</i></a>
+                                                        data-toggle="collapse">
+                                                    &#xf014;
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +107,7 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        Literature Day
+                                        <h th:text="${campaign.getName()}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +121,22 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        %10
+                                        %<h th:text="${campaign.getRate()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Type -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Product Type
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Category -->
+                                    <div class="tab-content-text">
+                                        <h th:text="${campaign.getProductType()}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -132,8 +151,38 @@
                                 <div class="col-lg-9">
                                     <!-- Category -->
                                     <div class="tab-content-text">
-                                        Literature
+                                        <div th:if="${campaign.getCategories().size()>0}">
+                                            <td th:text="${campaign.getCategoryName()}"></td>
+                                        </div>
+                                        <div th:unless="${campaign.getCategories().size()>0}">
+                                            <div>-</div>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <!-- Subcategory -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Subcategory
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Subcategory -->
+                                    <div class="tab-content-text">
+                                        <div th:if="${campaign.getSubcategories() != null}">
+                                            <div th:unless="${campaign.getSubcategories().size() > 0}">
+                                                <div>-</div>
+                                            </div>
+                                            <div th:if="${campaign.getSubcategories().size() > 0}">
+                                                <tr th:each="subcategory: ${campaign.getSubcategories()}">
+                                                    <h th:text="${subcategory.getName()}"></h><br>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
 
@@ -146,7 +195,7 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text date">
-                                        28/03/2020
+                                        <h th:text="${campaign.getStartDate()}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +209,7 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text date">
-                                        30/03/2020
+                                        <h th:text="${campaign.getEndDate()}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -173,42 +222,32 @@
                     <div class="address-container">
                         <div class="billingAddress">
                             <div class="checkout_form_container">
-                                <form action="#" id="campaign_update_form" class="checkout_form">
-
+                                <form th:object="${campaign}" th:action="@{/campaign-details}" id="campaign_update_form" class="checkout_form"  method="post">
+                                    <div class="row">
                                     <!-- Name -->
-                                    <div>
+                                    <div class="col-md-6">
                                         <div class="login-text p-b-10" style="color: black;">
                                             Campaign Name
                                         </div>
 
                                         <input type="text" id="campaign_update_name"
-                                               class="checkout_input form-control" value="Literature Day"
+                                               class="checkout_input form-control" th:field="${campaign.name}"
+                                               th:value="${campaign.getName()}"
                                                placeholder="Campaign Name" required="required">
                                     </div>
 
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
                                                 Discount Rate
                                             </div>
-                                            <input type="text" id="campaign_update_rate" value="10"
+                                            <input type="text" id="campaign_update_rate"
                                                    class="checkout_input form-control discount-rate"
+                                                   th:field="${campaign.rate}"
+                                                   th:value="${campaign.getRate()}"
                                                    placeholder="Discount Rate" required="required">
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="login-text p-b-10" style="color: black;">
-                                                Category
-                                            </div>
-                                            <select name="campaign_update_categories" class="checkout_input"
-                                                    id="campaign_update_categories" multiple="multiple"
-                                                    require="required">
-                                                <option selected value="literature">Literature</option>
-                                                <option value="novel">Novel</option>
-                                                <option value="poet">Poet</option>
-                                                <option value="comicon">Comicon</option>
-                                            </select>
-                                        </div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -216,7 +255,8 @@
                                                 Campaign Start Date
                                             </div>
                                             <input type="text" id="campaign_update_start_date"
-                                                   class="checkout_input form-control date" value="28/03/2020"
+                                                   class="checkout_input form-control date" th:field="${campaign.startDate}"
+                                                   th:value="${campaign.getStartDate()}"
                                                    placeholder="dd/mm/yyyy">
                                         </div>
                                         <div class="col-md-6">
@@ -224,7 +264,8 @@
                                                 Campaign End Date
                                             </div>
                                             <input type="text" id="campaign_update_end_date"
-                                                   class="checkout_input form-control date" value="30/03/2020"
+                                                   class="checkout_input form-control date" th:field="${campaign.endDate}"
+                                                   th:value="${campaign.getEndDate()}"
                                                    placeholder="dd/mm/yyyy">
                                         </div>
                                     </div>
@@ -232,7 +273,7 @@
                                     <div><!--ERROR--></div>
 
                                     <!-- Button -->
-                                    <div class="login_button trans_200"><a href="#">Update</a></div>
+                                    <input name=submit id="update_campaign" type="submit" value="UPDATE" class="login_button trans_200">
                                 </form>
                             </div>
                         </div>
@@ -249,28 +290,122 @@
     </div>
 </div>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap-4.1.2/popper.js"></script>
-<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="plugins/greensock/TweenMax.min.js"></script>
-<script src="plugins/greensock/TimelineMax.min.js"></script>
-<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="plugins/greensock/animation.gsap.min.js"></script>
-<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/progressbar/progressbar.min.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/classy-nav.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/active.js"></script>
-<script src="js/checkout.js"></script>
-<script src="js/login.js"></script>
-<script src="js/input-mask.js"></script>
-<script src="js/jquery.mask.js"></script>
-<script src="js/checkbox-dropdown.js"></script>
-<script src="js/bootstrap-multiselect.js"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var campaignId = /*[[${campaign.getId()}]]*/ 'default';
+
+    $('#update_campaign, #delete_campaign').click(function (event) {
+        var button = $(this).attr("id");
+        var name= $('#campaign_update_name').val();
+        var rate= $('#campaign_update_rate').val();
+        var startDate= $('#campaign_update_start_date').val();
+        var endDate= $('#campaign_update_end_date').val();
+
+
+
+        var ret = {
+
+            button: button,
+            rate: rate,
+            name: name,
+            startDate: startDate,
+            endDate: endDate,
+
+        };
+
+        console.log(ret)
+
+        if (button === "update_campaign") {
+            if (
+                (validation_check(['campaign_update_name', 'campaign_update_rate', 'campaign_update_start_date' , 'campaign_update_end_date']))) {
+                event.preventDefault();
+                $.post("/campaign-details/" + campaignId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Campaign updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/campaign-details/" + campaignId ;
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/campaign-details/" + campaignId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Campaign deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#campaign";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/campaign-details/" + campaignId ;
+
+        }
+
+
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
 
 </body>
 </html>

@@ -40,7 +40,7 @@ public class HotListDetailsController {
         System.out.println("update");
         switch (button) {
             case "update_hotList":
-                hotList.setCategories(newHotList.getCategories());
+
                 hotList.setHotListType(newHotList.getHotListType());
                 hotList.setEndDate(newHotList.getEndDate());
                 hotList.setEndTime(newHotList.getEndTime());
