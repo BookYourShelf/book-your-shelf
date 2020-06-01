@@ -16,17 +16,13 @@ public class Campaign {
     private String startDate;
     private String endDate;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(
+            cascade = CascadeType.ALL)
     private List<Category> categories;
 
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(
+            cascade = CascadeType.ALL)
     private List<Subcategory> subcategories;
 
     private Category.ProductType productType;
