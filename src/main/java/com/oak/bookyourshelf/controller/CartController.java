@@ -82,21 +82,12 @@ public class CartController {
 
         } else {
 
-            //Todo this gives null exception
 
             List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
-            for(Integer p : productIds){
-                System.out.println(p);
-            }
             order.setProductId(productIds);
-            order.setTotalAmount(totalAmount.get());
-            order.setSubTotal(subTotal.get());
+            order.setTotalAmount(Float.parseFloat(totalAmount.get()));
+            order.setSubTotal(Float.parseFloat(subTotal.get()));
             order.setShippingMethod(shipping.get());
-
-            System.out.println(shipping.get());
-            System.out.println(totalAmount.get());
-            System.out.println(subTotal.get());
-
 
 
         }
