@@ -19,6 +19,9 @@ public class Subcategory {
     )
     private List<Subcategory> subcategories;
 
+    @ManyToMany(cascade = CascadeType.ALL )
+    private List<Book> books;
+
     // GETTER & SETTER
 
     public int getId() {
@@ -51,5 +54,13 @@ public class Subcategory {
 
     public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
