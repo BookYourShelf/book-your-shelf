@@ -60,7 +60,7 @@ public class AdminPanelCampaignController {
     @RequestMapping(value = "/admin-panel/campaign/subcategory", method = RequestMethod.GET)
     @ResponseBody
     public List<Subcategory> findAllSubcategories(@RequestParam String category) {
-        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+        return Globals.getAllChildSubcategories(adminPanelCategoryService.getByName(category));
     }
 
     @RequestMapping(value = "/admin-panel/campaign", method = RequestMethod.POST)

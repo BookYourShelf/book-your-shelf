@@ -66,7 +66,7 @@ public class AdminPanelHotListController {
     @RequestMapping(value = "/admin-panel/hotList/subcategory", method = RequestMethod.GET)
     @ResponseBody
     public List<Subcategory> findAllSubcategories(@RequestParam String category) {
-        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+        return Globals.getAllChildSubcategories(adminPanelCategoryService.getByName(category));
     }
 
 
