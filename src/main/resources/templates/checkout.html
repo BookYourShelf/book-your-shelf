@@ -217,7 +217,7 @@
                         <div>
                             <ul>
                                 <span th:unless="${#lists.isEmpty(allBillingAddress)}">
-                                    <tr th:each="address : ${allBillingAddress}">
+                                    <tr th:each="address , iStat : ${allBillingAddress}">
                                         <div class="address-element-padding">
                                             <div class="billingAddress">
                                                 <div class="product_content">
@@ -226,7 +226,7 @@
 
                                                             <label class="radio_container">
                                                                 <input type="radio" id="billing_address_choice_1"
-                                                                       th:value="${address.getAddressId()}" name="billing_address_choice" class="payment_radio" required="required">
+                                                                       th:value="${address.getAddressId()}" name="billing_address_choice" class="payment_radio" checked="checked">
                                                                 <span class="radio_mark"></span>
                                                                 <span class="registered-address-title">
                                                                     <td th:text="${address.getAddressTitle()}"></td>
@@ -599,7 +599,7 @@
                                                         <div class="col-md-9 registered-address-title">
                                                             <label class="radio_container">
                                                                 <input type="radio" th:value="${address.getAddressId()}" id="delivery_address_choice_1"
-                                                                       name="delivery_address_choice" class="payment_radio" required>
+                                                                       name="delivery_address_choice" class="payment_radio" checked="checked">
                                                                 <span class="radio_mark"></span>
                                                                 <span class="registered-address-title">
                                                                     <td th:text="${address.getAddressTitle()}"></td>

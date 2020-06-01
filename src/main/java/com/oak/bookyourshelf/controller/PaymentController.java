@@ -4,7 +4,6 @@ import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.CartService;
 import com.oak.bookyourshelf.service.PaymentService;
-import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -81,13 +80,16 @@ public class PaymentController {
         payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
         payment.setPayerId(user.getUserId());
         payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
-        order.setOrderDate(new java.sql.Date(System.currentTimeMillis()));
+        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
         order.setUserName(user.getName());
         order.setUserId(user.getUserId());
         order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
+        order.setOrderStatus(Order.OrderStatus.PENDING);
+        user.getOrders().add(order);
         productModification(user);
         paymentService.save(payment);
         cartService.save(order);
+        profileInformationService.save(user);
         order = null;
     }
 

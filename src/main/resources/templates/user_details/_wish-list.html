@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<span th:if="${wishListPage.totalPages > 0}">
 <div class="row product-container-padding">
     <div class="col">
         <div class="cart_container">
@@ -10,58 +14,66 @@
                 </ul>
             </div>
 
+
             <!-- Cart Items -->
             <div class="cart_items">
                 <ul class="cart_items_list">
+                    <span th:unless="${#lists.isEmpty(wishListProducts)}">
+                        <tr th:each="product : ${wishListProducts}">
+                            <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+                                <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                    <a th:href="'/product/' + ${product.getProductId()}">
+                                        <div>
+                                            <div class="product_image"><img
+                                                    src="images/seker_portakali.jpg" alt=""
+                                                    class="product_image_img"></div>
+                                        </div>
+                                        <div class="product_name_container">
+                                            <div class="cart-product-name"><a th:href="'/product/' + ${product.getProductId()}">
+                                                <td th:text="${product.getProductName()}"></td></a>
+                                            </div>
 
-                    <!-- Cart Item 1 -->
-                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                        <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                            <a href="product.html">
-                                <div>
-                                    <div class="product_image"><img
-                                            src="images/seker_portakali.jpg" alt=""
-                                            class="product_image_img"></div>
+                                             <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                                 <div class="product_text">
+                                                     <div th:each="authors : ${product.getAuthors()}">
+                                                         <td th:text="${authors}"></td>
+                                                     </div>
+                                                 </div>
+                                             </span>
+                                            <!-- Case Brand -->
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                                <div class="product_text">
+                                                    <td th:text="${product.getCaseBrand()}"></td>
+                                                </div>
+                                            </span>
+                                            <!-- Tablet Brand -->
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                                <div class="product_text">
+                                                    <td th:text="${product.getReaderBrand()}"></td>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="product_name_container">
-                                    <div class="cart-product-name"><a href="product.html">My
-                                        Sweet Orange Tree</a></div>
-                                    <div class="cart-product-text">José Mauro de Vasconcelos
+                                <div class="cart_product_price product_text">
+                                    <div th:if="${product.isOnDiscount()}">
+                                        <div class="align-items-start justify-content-start">
+                                            <!-- when no sale delete -->
+                                            <div class="cart_sale_price"><b><td th:text="${product.getDiscountRate() + '%' + 'off'}"></td></b></div>
+                                            <div class="cart_sale_price">
+                                                <del><td th:text="${product.getPrice()}"></td></del>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <span>Price:</span> <span style="display:block" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate() + '₺'}"></span>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="cart_product_price product_text">
-                            <div class="align-items-start justify-content-start">
-                                <!-- when no sale delete -->
-                                <div class="cart_sale_price"><b>%40 off</b></div>
-                                <div class="cart_sale_price">
-                                    <del>₺15.99</del>
-                                </div>
-                            </div>
-                            <span>Price: </span>₺17.86
-                        </div>
-                    </li>
-
-                    <!-- Cart Item 2 -->
-                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                        <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                            <a href="product.html">
-                                <div>
-                                    <div class="product_image"><img
-                                            src="images/otomatik_portakal.jpg" alt=""
-                                            class="product_image_img"></div>
-                                </div>
-                                <div class="product_name_container">
-                                    <div class="cart-product-name"><a href="product.html">A
-                                        Clockwork Orange</a></div>
-                                    <div class="cart-product-text">Anthony Burgess</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="cart_product_price product_text"><span>Price: </span>₺9.60
-                        </div>
-                    </li>
+                            </li>
+                        </tr>
+                    </span>
+                    <!-- No Wish List -->
+                    <span th:if="${#lists.isEmpty(wishListProducts)}">
+                        <div class="warning-text">There are no Products.</div>
+                    </span>
                 </ul>
             </div>
 
@@ -78,11 +90,63 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/user-details#wish-list(size=${wishListPage.size}, page=${currentPage - 1})}"
+                       aria-label="Previous" title="Previous Page"
+                       rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${wishListPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/user-details#wish-list(size=${wishListPage.size}, page=${1})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${wishListPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                                                                , wishListPage.totalPages > 2 + currentPage ? currentPage + 2 : wishListPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/user-details#wish-list(size=${wishListPage.size}, page=${i})}"
+                       th:text="${i}" th:title="${'Page '+ i}"
+                       style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < wishListPage.totalPages}"
+                    class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                <li th:if="${wishListPage.totalPages > 1}"
+                    th:class="${currentPage == wishListPage.totalPages} ? 'active'">
+                    <a th:href="@{/user-details#wish-list(size=${wishListPage.size}, page=${wishListPage.totalPages})}"
+                       th:text="${wishListPage.totalPages}"
+                       style="color: #fbaa1d;"
+                       th:title="${'Page '+ wishListPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == wishListPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/user-details#wish-list(size=${wishListPage.size}, page=${currentPage + 1})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+</span>
+<span th:unless="${wishListPage.totalPages >0}">
+    <div class="warning-text">There are no products yet.</div>
+</span>
+</html>

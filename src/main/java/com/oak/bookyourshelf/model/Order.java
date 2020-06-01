@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -40,6 +41,11 @@ public class Order {
         TRANSFERRING_MONEY_PTT
     }
 
+    public enum OrderStatus{
+        PENDING,
+        CONFIRMED
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
@@ -49,7 +55,7 @@ public class Order {
 
     private int userId;
     private String userName;
-    private Date orderDate;
+    private Timestamp orderDate;
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
@@ -65,6 +71,10 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     PaymentStatus paymentStatus;
+
+    @Enumerated(EnumType.STRING)
+    OrderStatus orderStatus;
+
 
     public float getTotalAmountOfShipping(){
 
@@ -110,11 +120,11 @@ public class Order {
         this.userName = userName;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -177,4 +187,8 @@ public class Order {
     public String getSubTotal() { return subTotal; }
 
     public void setSubTotal(String subTotal) { this.subTotal = subTotal; }
+
+    public OrderStatus getOrderStatus() { return orderStatus; }
+
+    public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
 }
