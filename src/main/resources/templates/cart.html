@@ -86,9 +86,9 @@
                                                             <!-- Author -->
                                                             <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
                                                                 <div class="product_text">
-                                                                    <div th:each="authors : ${product.getAuthors()}">
-                                                                        <td th:text="${authors}"></td>
-                                                                    </div>
+                                                                    <span th:each="authors, iterStat : ${product.getAuthors()}"
+                                                                          th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}" style="display:inline">
+                                                                    </span>
                                                                 </div>
                                                             </span>
                                                             <!-- Case Brand -->
