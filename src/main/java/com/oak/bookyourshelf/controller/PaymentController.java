@@ -60,19 +60,21 @@ public class PaymentController {
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_CREDIT_CARD);
             order.setPaymentOption(Order.PaymentOption.CREDIT_CARD);
             payment(payment, user);
-            return ResponseEntity.ok("");
+
 
         } else if (button.equals("PayPal")) {
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_PAYPAL);
             order.setPaymentOption(Order.PaymentOption.PAYPAL);
             payment(payment, user);
-            return ResponseEntity.ok("");
+
 
         } else {
-            order.setPaymentStatus(Order.PaymentStatus.FAILED);
+            payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_BANK_TRANSFER);
+            order.setPaymentOption(Order.PaymentOption.TRANSFERRING_MONEY_PTT);
             payment(payment, user);
-            return ResponseEntity.badRequest().body("Payment Failed");
         }
+
+        return ResponseEntity.ok("");
     }
 
 
@@ -97,9 +99,11 @@ public class PaymentController {
         List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
         for (Integer productID : productIds) {
             Product product = productDetailsInformationService.get(productID);
-            product.increaseSalesNum();
-            product.getBuyerUserIds().add(user.getUserId());
-            product.setStock(product.getStock() - 1);
+            if(!product.getBuyerUserIds().contains(user.getUserId())){
+                product.getBuyerUserIds().add(user.getUserId());
+            }
+           // product.increaseSalesNum();
+           // product.setStock(product.getStock() - 1);
             productDetailsInformationService.save(product);
         }
 
