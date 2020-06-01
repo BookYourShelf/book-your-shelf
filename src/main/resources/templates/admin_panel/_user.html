@@ -95,7 +95,7 @@
                     <li th:style="${currentPage == 1} ? 'display:none'">
                         <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
-                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                           <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
                     </li>
 
@@ -107,29 +107,32 @@
                         </a>
                     </li>
 
-                    <li th:if="${currentPage - 3 > 1}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
 
                 <!-- Pages -->
-                    <li th:if="${userPage.totalPages > 2}"
-                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                     <li th:if="${userPage.totalPages > 2}"
+                         th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , userPage.totalPages > 2 + currentPage ? currentPage + 2 : userPage.totalPages - 1, 1)}"
-                        th:class="${currentPage == i} ? 'active'">
+                         th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${i})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
 
-                    <li th:if="${currentPage + 3 < userPage.totalPages}" style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
-
+                    <li th:if="${currentPage + 3 < userPage.totalPages}" class="pagination_dots">...</li>
                 <!-- Last page -->
                     <li th:if="${userPage.totalPages > 1}"
                         th:class="${currentPage == userPage.totalPages} ? 'active'">
                         <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${userPage.totalPages})}"
-                           th:text="${userPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ userPage.totalPages}">
+                           th:text="${userPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ userPage.totalPages}">
                         </a>
                     </li>
 
                 <!-- Next button -->
                     <li th:style="${currentPage == userPage.totalPages} ? 'display:none'">
                         <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage + 1})}"
-                            aria-label="Next" title="Next Page" rel="tooltip">
-                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
                     </li>
 

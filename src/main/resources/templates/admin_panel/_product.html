@@ -1525,8 +1525,8 @@
             height: $('#book_height_input').val(),
             width: $('#book_width_input').val(),
             depth: $('#book_depth_input').val(),
-            category: $('#book_category_input').val(),
-            subcategory: $('#book_subcategory_input').val(),
+            category_name: $('#book_category_input').val(),
+            subcategory_name: $('#book_subcategory_input').val(),
             images: JSON.stringify(image_arr('book_cover_image', 'book_product_images')),
             lists: JSON.stringify({
                 publishers: $('#book_publisher_input').val().split(','),
@@ -1581,8 +1581,8 @@
             pageNum: $('#ebook_page_number_input').val(),
             fileSize: $('#ebook_filesize_input').val(),
             fileFormat: $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"),
-            category: $('#ebook_category_input').val(),
-            subcategory: $('#ebook_subcategory_input').val(),
+            category_name: $('#ebook_category_input').val(),
+            subcategory_name: $('#ebook_subcategory_input').val(),
             images: image_arr('ebook_cover_image', 'ebook_product_images'),
             lists: JSON.stringify({
                 publishers: $('#ebook_publisher_input').val().split(','),
@@ -1635,8 +1635,8 @@
             longDesc: $('#audiobook_long_description_input').val(),
             lengthInMinutes: $('#audiobook_length_input').val(),
             narratedBy: $('#audiobook_narrator_input').val(),
-            category: $('#audiobook_category_select').val(),
-            subcategory: $('#audiobook_subcategory_select').val(),
+            category_name: $('#audiobook_category_select').val(),
+            subcategory_name: $('#audiobook_subcategory_select').val(),
             images: image_arr('audiobook_cover_image', 'audiobook_product_images'),
             lists: JSON.stringify({
                 publishers: $('#audiobook_publisher_input').val().split(','),

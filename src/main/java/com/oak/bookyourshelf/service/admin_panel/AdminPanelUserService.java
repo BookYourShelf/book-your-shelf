@@ -39,23 +39,5 @@ public class AdminPanelUserService {
         adminPanelUserRepository.save(user);
     }
 
-    public Page<User> findPaginated(Pageable pageable) {
-        List users = (List) adminPanelUserRepository.findAllCustomers();
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<User> list;
 
-        if (users.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, users.size());
-            list = users.subList(startItem, toIndex);
-        }
-
-        Page<User> userPage
-                = new PageImpl<User>(list, PageRequest.of(currentPage, pageSize), users.size());
-
-        return userPage;
-    }
 }

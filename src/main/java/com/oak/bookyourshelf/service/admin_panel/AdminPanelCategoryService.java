@@ -1,10 +1,12 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +49,25 @@ public class AdminPanelCategoryService {
 
     public List<Category> getAllByName(String name) {
         return adminPanelCategoryRepository.findAllByName(name);
+    }
+
+    static Subcategory traverseSubcategories(Subcategory subcategory, String name) {
+        if (subcategory.getName().equals(name)) {
+            return subcategory;
+        } else {
+            for (Subcategory sub : subcategory.getSubcategories()) {
+                traverseSubcategories(sub, name);
+            }
+        }
+        return null;
+    }
+
+    public Subcategory getSubcategory(Category category, String name){
+        for (Subcategory s : category.getSubcategories())
+        {
+            return traverseSubcategories(s, name);
+        }
+        return null;
     }
 
     public void delete(int id) {

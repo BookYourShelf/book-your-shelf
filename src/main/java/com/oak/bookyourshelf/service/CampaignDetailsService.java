@@ -29,6 +29,8 @@ public class CampaignDetailsService {
     }
 
     public void delete(int id) {
+        campaignDetailsRepository.removeAllCampaignCategories(id);
+        campaignDetailsRepository.removeAllCampaignSubcategories(id);
         campaignDetailsRepository.deleteById(id);
     }
 

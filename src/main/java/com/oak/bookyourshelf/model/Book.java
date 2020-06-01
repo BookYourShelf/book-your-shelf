@@ -9,8 +9,12 @@ public abstract class Book extends Product {
     private int publishedYear;
     private String language;
     private String isbn;
-    private String category;
-    private String subcategory;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Category> category;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Subcategory> subcategory;
 
     @ElementCollection
     private List<String> publishers;
@@ -26,19 +30,19 @@ public abstract class Book extends Product {
 
     // GETTER & SETTER
 
-    public String getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
 
-    public String getSubcategory() {
+    public List<Subcategory> getSubcategory() {
         return subcategory;
     }
 
-    public void setSubcategory(String subcategory) {
+    public void setSubcategory(List<Subcategory> subcategory) {
         this.subcategory = subcategory;
     }
 

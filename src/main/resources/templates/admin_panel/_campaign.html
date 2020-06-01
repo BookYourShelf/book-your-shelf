@@ -22,9 +22,9 @@
         <div class="billingAddress">
             <div class="checkout_form_container">
                 <form id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
-
+                    <div class="row">
                     <!-- Name -->
-                    <div>
+                    <div class="col-md-6">
                         <div class="login-text p-b-10" style="color: black;">
                             Campaign Name
                         </div>
@@ -34,18 +34,17 @@
                                placeholder="Campaign Name" required="required"
                                pattern="[A-Za-z]+" title="Campaign name cannot have digits.">
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="login-text p-b-10" style="color: black;">
-                                Discount Rate
-                            </div>
-                            <input type="text" id="new_campaign_rate"
-                                   class="checkout_input form-control discount-rate"
-                                   placeholder="Discount Rate" required="required">
+                    <div class="col-md-6">
+                        <div class="login-text p-b-10" style="color: black;">
+                            Discount Rate
                         </div>
-
-                        <div class="col-md-6">
+                        <input type="text" id="new_campaign_rate"
+                               class="checkout_input form-control discount-rate"
+                               placeholder="Discount Rate" required="required">
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="login-text p-b-10" style="color: black;">
                                 Product Type
                             </div>
@@ -60,22 +59,24 @@
                                 </option>
                             </select>
                         </div>
-
+                    </div>
+                    <div class="row" id="category_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_category">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="subcategory_row" style="display: none">
                         <div class="col-md-12">
-                        <div class="login-text p-b-10" style="color: black;">
-                            Category
-                        </div>
-                        <select name="campaign_update_categories"
-                                id="new_campaign_categories" multiple="multiple"
-                                require="required">
-                            <option value="literature">Literature</option>
-                            <option value="novel">Novel</option>
-                            <option value="poet">Poet</option>
-                            <option value="comicon">Comicon</option>
-                        </select>
+                            <div id="dynamic_subcategory">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -144,18 +145,23 @@
 <div>
     <div class="row order - row ">
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">ID</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Campaign Name</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Discount Rate</div>
         </div>
-        <div class="col-lg-3 col-md-3 col-xs-6">
+
+        <div class="col-lg-2 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-xs-6">
             <div class="profile-order-title">Category</div>
         </div>
     </div>
@@ -169,29 +175,41 @@
                 <a th:href="@{'/campaign-details/' + ${campaign.id}}">
                     <div class="category-element">
                         <div class="product_content">
-                            <div class="row order - row collapsible">
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                            <div class="row order - row collapsible" >
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getId()}"></td>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getName()}"></td>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">%
                                         <td th:text="${campaign.getRate()}"></td>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="col-lg-2 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
-                                        <td th:text="${campaign.getId()}"></td>
+                                        <td th:text="${campaign.getProductType()}"></td>
                                     </div>
                                 </div>
+
+                                    <div class="col-lg-2 col-md-3 col-xs-6">
+                                        <div class="profile-order-text">
+                                             <div th:if="${campaign.getCategories().size()>0}">
+                                            <td th:text="${campaign.getCategoryName()}"></td>
+                                            </div>
+                                            <div th:unless="${campaign.getCategories().size()>0}">
+                                                <div>-</div>
+                                            </div>
+                                    </div>
+                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -217,7 +235,7 @@
                     <li th:style="${currentPage == 1} ? 'display:none'">
                         <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
-                            <i class="fa fa-angle-left" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                            <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
                     </li>
 
@@ -230,17 +248,18 @@
                         </a>
                     </li>
 
-                    <li th:if="${currentPage - 3 > 1}"
-                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                   <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
 
                 <!-- Pages -->
-                    <li th:if="${campaignPage.totalPages > 2}"
-                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                     <li th:if="${campaignPage.totalPages > 2}"
+                         th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
-                        th:class="${currentPage == i} ? 'active'">
+                         th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${i})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
 
-                    <li th:if="${currentPage + 3 < campaignPage.totalPages}"
-                        style="color: #fbaa1d; pointer-events:none; background-color: transparent;">...</li>
+                    <li th:if="${currentPage + 3 < campaignPage.totalPages}" class="pagination_dots">...</li>
 
                 <!-- Last page -->
                     <li th:if="${campaignPage.totalPages > 1}"
@@ -255,7 +274,7 @@
                     <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
                         <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1})}"
                            aria-label="Next" title="Next Page" rel="tooltip">
-                            <i class="fa fa-angle-right" style="font-size:24px; color: #fbaa1d; font-weight: bold;"></i>
+                            <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
                     </li>
 
@@ -273,15 +292,47 @@
 <script>
 
     $('#new_campaign_button').click(function (event) {
+        console.log("dfsdf");
+        var category;
+        var subctgry;
+        var productType =$('#category_product_type option:selected').val();
+        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
+
+            category = $('#new_campaign_categories').val();
+            if(document.getElementById("new_campaign_subcategories") !== null) {
+                var x = document.getElementById("new_campaign_subcategories");
+                var subcategory = [];
+                for (var i = 0; i < x.options.length; i++) {
+                    if (x.options[i].selected === true) {
+                        subcategory.push(x.options[i].value);
+                    }
+                }
+                subctgry = String(subcategory[0]);
+                for (var j = 1; j < subcategory.length; j++) {
+                    subctgry += ("-");
+                    subctgry += (String(subcategory[j]));
+                }
+            }
+            else{
+                subctgry="";
+            }
+        }
+        else{
+            subctgry = "" ;
+            category = "" ;
+        }
+        console.log(subctgry);
+        console.log(category);
         var ret = {
 
             rate: $('#new_campaign_rate').val(),
             name: $('#new_campaign_name').val(),
             startDate: $('#campaign_start_date').val(),
             endDate: $('#campaign_end_date').val(),
-            categories: $('#new_campaign_categories option:selected').val(),
-            productType: $('#category_product_type option:selected').val()
-
+            productType: productType,
+            subctgry: subctgry,
+            category: category,
+            ptype: productType
         };
 
         if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date",
@@ -309,6 +360,75 @@
             })
         }
     });
+    $(document).on('change', '#new_campaign_categories', function(event) {
+        if($(this).val() !== "SELECT") {
+            $.getJSON("/admin-panel/campaign/subcategory", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildSubcategoriesDropdown(data, "new_campaign_subcategories");
+            });
+        }
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        if(data.length >0) {
+            var div_id = 'subcategory_dynamicdiv';
+            if (document.getElementById(div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+            }
+
+            var newdiv = document.createElement('div');
+            newdiv.id = div_id;
+            var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            }
+            html += '</option></select>';
+            newdiv.innerHTML += html;
+            document.getElementById("subcategory_row").style.display = "block";
+            document.getElementById("dynamic_subcategory").appendChild(newdiv);
+
+            $(newdiv).find('.subcategory').multiselect({
+                includeSelectAllOption: true
+            });  // call
+        }
+    }
+
+    $('#category_product_type').change(function(event) {
+        if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+            $.getJSON("/admin-panel/campaign/category", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildCategoriesDropdown(data, "new_campaign_categories");
+            });
+        }
+    });
+
+    function buildCategoriesDropdown(data, categoryName) {
+        var div_id = 'category_dynamicdiv';
+        if(document.getElementById(div_id)) {
+            // delete div
+            document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
+            document.getElementById("subcategory_row").style.display="none";
+        }
+
+        var newdiv = document.createElement('div');
+        newdiv.id = div_id;
+        var html = '<select id=\"new_campaign_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
+        var len = data.length;
+
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        }
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        document.getElementById("category_row").style.display = "block"
+        document.getElementById("dynamic_category").appendChild(newdiv);
+    }
 
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
@@ -319,6 +439,7 @@
         return true;
     }
 </script>
+
 
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
