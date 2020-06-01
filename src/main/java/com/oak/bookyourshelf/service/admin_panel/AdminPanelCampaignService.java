@@ -3,6 +3,8 @@ package com.oak.bookyourshelf.service.admin_panel;
 
 import com.oak.bookyourshelf.model.Campaign;
 import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Product;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCampaignRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -49,6 +52,30 @@ public class AdminPanelCampaignService {
 
     public List<Campaign> findAllByProductType(Category.ProductType type) {
         return adminPanelCampaignRepository.findAllByProductType(type);
+    }
+
+    public Set<Product> createProductSet(List<Subcategory> subcategories)
+    {
+        Set<Product> allProducts = Collections.emptySet();
+        for(Subcategory sub :subcategories)
+        {
+            for(Product p:sub.getBooks())
+            {
+                allProducts.add(p);
+            }
+        }
+        return allProducts;
+    }
+
+
+    public void setProductsRate(Set<Product> allProducts,int rate)
+    {
+        for(Product p :allProducts)
+        {
+            p.setOnDiscount(true);
+            p.setDiscountRate((float)rate);
+        }
+
     }
 
 }
