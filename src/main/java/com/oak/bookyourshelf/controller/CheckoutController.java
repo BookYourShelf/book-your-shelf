@@ -89,7 +89,7 @@ public class CheckoutController {
             user.getDeliveryAddresses().remove(toBeDeleted);
             profileAddressService.delete(address.getAddressId());
         } else {
-            
+
             order.setShippingCompany(cargo.get());
             order.setBillingAddress(billing_address.get().toString());
             order.setCustomerAddress(delivery_address.get().toString());
