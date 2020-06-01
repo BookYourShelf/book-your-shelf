@@ -53,6 +53,13 @@ public class Order {
     @ElementCollection
     private List<Integer> productId;
 
+    @ElementCollection
+    private List<Float> discountRate;
+
+    @ElementCollection
+    private List<Integer> quantity;
+
+
     private int userId;
     private String userName;
     private Timestamp orderDate;
@@ -191,4 +198,12 @@ public class Order {
     public OrderStatus getOrderStatus() { return orderStatus; }
 
     public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
+
+    public List<Float> getDiscountRate() { return discountRate; }
+
+    public void setDiscountRate(List<Float> discountRate) { this.discountRate = discountRate; }
+
+    public List<Integer> getQuantity() { return quantity; }
+
+    public void setQuantity(List<Integer> quantity) { this.quantity = quantity; }
 }
