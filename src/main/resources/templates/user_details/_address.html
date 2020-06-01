@@ -63,6 +63,7 @@
                                     </div>
 
                                     <input type="text" id="billing_address_name"
+                                           th:value="${user.getName()}"
                                            class="checkout_input form-control"
                                            placeholder="Name" pattern="^[a-zA-Z ]+$" required="required">
                                 </div>
@@ -73,6 +74,7 @@
                                     </div>
 
                                     <input type="text" id="billing_address_surname"
+                                           th:value="${user.getSurname()}"
                                            class="checkout_input form-control"
                                            placeholder="Surname" pattern="^[a-zA-Z ]+$" required="required">
                                 </div>
@@ -124,7 +126,7 @@
                                     </div>
 
                                     <input type="number" id="billing_address_zip_code"
-                                           class="checkout_input form-control" required="required">
+                                           placeholder="Zip Code" class="checkout_input form-control" required="required">
 
                                 </div>
                             </div>
@@ -146,7 +148,7 @@
                                 </div>
                                 <input type="text" id="billing_address_phone"
                                        class="checkout_input form-control phone_mask"
-                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
+                                       placeholder="(XXX) XXX XX XX" required="required" pattern="{.15}">
                             </div>
 
                             <div><!--ERROR--></div>
@@ -306,7 +308,7 @@
                                                     <input type="number"
                                                            th:id="'billing_address_update_zip_code' + ${address.getAddressId()}"
                                                            th:value="${address.getZipCode()}"
-                                                           class="checkout_input form-control" required="required">
+                                                           placeholder="Zip Code" class="checkout_input form-control" required="required">
                                                 </div>
                                             </div>
                                             <!-- Address -->
@@ -413,6 +415,7 @@
                                     </div>
 
                                     <input type="text" id="delivery_address_name"
+                                           th:value="${user.getName()}"
                                            class="checkout_input form-control"
                                            placeholder="Name" pattern="^[a-zA-Z ]+$" required="required">
                                 </div>
@@ -424,6 +427,7 @@
 
                                     <input type="text" id="delivery_address_surname"
                                            class="checkout_input form-control"
+                                           th:value="${user.getSurname()}"
                                            placeholder="Surname" pattern="^[a-zA-Z ]+$"
                                            required="required">
                                 </div>
@@ -475,7 +479,7 @@
                                     </div>
 
                                     <input type="number" id="delivery_address_zip_code"
-                                           class="checkout_input form-control" required="required">
+                                           placeholder="Zip Code" class="checkout_input form-control" required="required">
 
                                 </div>
                             </div>
@@ -659,7 +663,7 @@
                                                         <input type="number"
                                                                th:id="'delivery_address_update_zip_code' + ${address.getAddressId()}"
                                                                th:value="${address.getZipCode()}"
-                                                               class="checkout_input form-control" required="required">
+                                                               placeholder="Zip Code" class="checkout_input form-control" required="required">
                                                     </div>
                                                 </div>
                                                 <!-- Address -->

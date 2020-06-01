@@ -71,18 +71,18 @@
                                 <div class="tab-pane fade show active" id="nav-tab-card">
                                     <p class="alert alert-success d-none">Some text success or error</p>
                                     <br>
-                                    <form role="form" action="#" th:action="@{pay}" th:object="${creditCard}" method="post">
+                                    <form role="form" action="#"  method="post">
                                         <div class="form-group">
                                             <label>Full Name On the Card</label>
-                                            <input type="text" class="checkout_input form-control" name="name"
-                                                   required="" th:field="*{fullName}">
+                                            <input id="name" type="text" class="checkout_input form-control" name="name"
+                                                   required="required" pattern="^[a-zA-Z ]+$">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Card Number</label>
                                             <div class="input-group">
-                                                <input type="text" class="checkout_input form-control credit-card"
-                                                       name="card-number" required="" th:field="*{cardNumber}">
+                                                <input id="credit_number" type="text" class="checkout_input form-control credit-card"
+                                                       name="card-number" required="required" >
                                                 <div class="input-group-append">
                                                         <span class="input-group-text text-muted">
                                                             <i class="fa fa-cc-visa"></i>   <i
@@ -98,41 +98,41 @@
                                             <div class="input-group">
                                                 <select name="billing_address_title" id="expiration-month"
                                                         class="dropdown_item_select checkout_input form-control"
-                                                        require="">
+                                                        required ="required">
                                                     <option>MONTH</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
                                                 </select>
 
                                                 <select name="billing_address_title" id="expiration-year"
                                                         class="dropdown_item_select checkout_input form-control"
-                                                        require="">
+                                                        required="required">
                                                     <option>YEAR</option>
-                                                    <option>2020</option>
-                                                    <option>2021</option>
-                                                    <option>2022</option>
-                                                    <option>2023</option>
-                                                    <option>2024</option>
-                                                    <option>2025</option>
-                                                    <option>2026</option>
-                                                    <option>2027</option>
-                                                    <option>2028</option>
-                                                    <option>2029</option>
-                                                    <option>2030</option>
-                                                    <option>2031</option>
-                                                    <option>2032</option>
-                                                    <option>2033</option>
-                                                    <option>2034</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                    <option value="2034">2034</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -141,21 +141,24 @@
                                             <label data-toggle="tooltip" title=""
                                                    data-original-title="3-digit number on the back side of the card.">CVV
                                                 <i class="fa fa-question-circle"></i></label>
-                                            <input type="text" class="checkout_input form-control cvv"
-                                                   required="" th:field="*{cvv}">
+                                            <input id="cvv" type="number" class="checkout_input form-control cvv"
+                                                   required="required">
                                         </div>
 
-                                        <input type="submit" value="Confirm" class="checkout_button trans_200">
+                                        <input type="submit" style="cursor:pointer" id="ConfirmCreditCard" value="Confirm" class="checkout_button trans_200">
                                     </form>
+
                                 </div>
 
                                 <div class="tab-pane fade" id="nav-tab-paypal">
-                                    <div class="checkout_button trans_200"><a target="_blank"
+                                    <div class="checkout_button trans_200"><a id="PayPal" name="PayPal" target="_blank"
                                                                               href="https://www.paypal.com/tr/signin">
                                         Login my Paypal</a></div>
                                     <br>
-                                    <p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <p><strong>Note:</strong> Your payment will be processed from your PayPal account.Please visit
+                                        <a href="https://www.paypal.me" target="_blank" style="text-decoration: none; color:#fbaa1d;
+                                                background:#FFFFFF">
+                                        PayPal's official website</a> for more information.</p>
                                 </div>
                                 <div class="tab-pane fade" id="nav-tab-bank">
                                     <br>
@@ -171,9 +174,8 @@
                                         <dt>IBAN:</dt>
                                         <dd> 1234 1234 1234 1234</dd>
                                     </dl>
-                                    <p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing
-                                        elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <p><strong>Note:</strong> Your payment will be processed from the account information provided
+                                        above.Please contact your service provider for more information. </p>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +207,79 @@
 <script src="js/active.js"></script>
 <script src="js/input-mask.js"></script>
 <script src="js/jquery.mask.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#ConfirmCreditCard').click(function (event) {
+
+        var button = $(this).attr("id");
+        var fullName = $('#name').val();
+        var cardNumber = $('#credit_number').val();
+        var expMonth = $('#expiration-month').val();
+        var expYear = $('#expiration-year').val();
+        var cvv = $('#cvv').val();
+
+        var ret = {
+
+            button : button,
+            fullName : fullName,
+            cardNumber : cardNumber,
+            expMonth : expMonth,
+            expYear : expYear,
+            cvv : cvv
+        };
+
+        if(button === "ConfirmCreditCard"){
+            if(validation_check(["name","credit_number","expiration-month","expiration-year","cvv"])) {
+                event.preventDefault();
+                $.post("/payment", ret, function (data) {
+                    window.location.href = "/thank-you";
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+    $('#PayPal').click(function (event){
+
+        var button = $(this).attr("name");
+        var ret = {
+            button: button
+        };
+        event.preventDefault();
+        $.post("/payment", ret, function (data) {
+            window.location.href= "https://www.paypal.com/tr/signin";
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
+
+
+
+    function validation_check(arr){
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /*]]>*/
+</script>
+
+
+
 </body>
 
 </html>

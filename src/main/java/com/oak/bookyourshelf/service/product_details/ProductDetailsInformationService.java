@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.service.product_details;
 
 import com.oak.bookyourshelf.model.Product;
+import com.oak.bookyourshelf.repository.UserRepository;
 import com.oak.bookyourshelf.repository.product_details.ProductDetailsInformationRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +9,12 @@ import org.springframework.stereotype.Service;
 public class ProductDetailsInformationService {
 
     final ProductDetailsInformationRepository productDetailsInformationRepository;
+    final UserRepository userRepository;
 
-    public ProductDetailsInformationService(ProductDetailsInformationRepository productDetailsInformationRepository) {
+    public ProductDetailsInformationService(ProductDetailsInformationRepository productDetailsInformationRepository,
+                                            UserRepository userRepository) {
         this.productDetailsInformationRepository = productDetailsInformationRepository;
+        this.userRepository = userRepository;
     }
 
     public Product get(int id) {
@@ -30,6 +34,8 @@ public class ProductDetailsInformationService {
     }
 
     public void deleteProduct(int id) {
+        userRepository.removeAllWishlistByProductId(id);
+        userRepository.removeAllShoppingCartProductId(id);
         productDetailsInformationRepository.deleteById(id);
     }
 }
