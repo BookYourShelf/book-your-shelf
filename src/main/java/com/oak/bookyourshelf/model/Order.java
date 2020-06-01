@@ -60,8 +60,8 @@ public class Order {
     private String billingAddress;
     private String shippingCompany;
     private String shippingMethod;
-    private String totalAmount;
-    private String subTotal;
+    private float totalAmount;
+    private float subTotal;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
@@ -180,13 +180,13 @@ public class Order {
 
     public void setShippingMethod(String shippingMethod) { this.shippingMethod = shippingMethod; }
 
-    public String getTotalAmount() { return totalAmount; }
+    public Float getTotalAmount() { return totalAmount; }
 
-    public void setTotalAmount(String totalAmount) { this.totalAmount = totalAmount; }
+    public void setTotalAmount(Float totalAmount) { this.totalAmount = totalAmount; }
 
-    public String getSubTotal() { return subTotal; }
+    public Float getSubTotal() { return subTotal; }
 
-    public void setSubTotal(String subTotal) { this.subTotal = subTotal; }
+    public void setSubTotal(Float subTotal) { this.subTotal = subTotal; }
 
     public OrderStatus getOrderStatus() { return orderStatus; }
 
