@@ -51,10 +51,19 @@ public class AdminPanelProductController {
                                               ElectronicBookReader electronicBookReader,
                                               ElectronicBookReaderCase electronicBookReaderCase,
                                               PhysicalBookCase physicalBookCase,
-                                              @RequestParam("lists") String lists) throws JsonProcessingException {
+                                              @RequestParam("lists") String lists,
+                                              @RequestParam("category_name") String category_name,
+                                              @RequestParam("subcategory_name") String subcategory_name) throws JsonProcessingException {
+
 
         switch (productType) {
             case "book":
+                Category category = adminPanelCategoryService.getByName(category_name);
+                Subcategory subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                physicalBook.setCategory(new ArrayList<Category>());
+                physicalBook.getCategory().add(category);
+                physicalBook.setSubcategory(new ArrayList<Subcategory>());
+                physicalBook.getSubcategory().add(subcategory);
                 return bookBarcodeAndISBNCheck(physicalBook, lists);
             case "ebook":
                 return bookBarcodeAndISBNCheck(electronicBook, lists);
