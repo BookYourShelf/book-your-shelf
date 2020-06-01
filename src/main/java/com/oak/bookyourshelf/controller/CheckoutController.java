@@ -90,9 +90,14 @@ public class CheckoutController {
             profileAddressService.delete(address.getAddressId());
         } else {
 
-            order.setShippingCompany(cargo.get());
-            order.setBillingAddress(billing_address.get().toString());
-            order.setCustomerAddress(delivery_address.get().toString());
+            if(billing_address.isPresent() && delivery_address.isPresent()){
+                order.setShippingCompany(cargo.get());
+                order.setBillingAddress(billing_address.get().toString());
+                order.setCustomerAddress(delivery_address.get().toString());
+                return ResponseEntity.ok("");
+            }
+
+                return ResponseEntity.badRequest().body("Delivery address and Billing address have to be selected.");
 
         }
 
