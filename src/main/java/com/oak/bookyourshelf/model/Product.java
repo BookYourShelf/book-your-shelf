@@ -28,6 +28,8 @@ public abstract class Product {
     private String shortDesc;
     private String longDesc;
     private String barcode;
+    private int quantity;
+    private float quantityPrice;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
@@ -231,4 +233,12 @@ public abstract class Product {
     public List<User> getOnShoppingCart() { return onShoppingCart; }
 
     public void setOnShoppingCart(List<User> onShoppingCart) { this.onShoppingCart = onShoppingCart; }
+
+    public int getQuantity() { return quantity; }
+
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public float getQuantityPrice() { return quantityPrice; }
+
+    public void setQuantityPrice(float quantityPrice) { this.quantityPrice = quantityPrice; }
 }
