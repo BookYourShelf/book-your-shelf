@@ -54,20 +54,34 @@ public class AdminPanelProductController {
                                               @RequestParam("lists") String lists,
                                               @RequestParam("category_name") String category_name,
                                               @RequestParam("subcategory_name") String subcategory_name) throws JsonProcessingException {
+        Category category;
+        Subcategory subcategory;
 
 
         switch (productType) {
             case "book":
-                Category category = adminPanelCategoryService.getByName(category_name);
-                Subcategory subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                category = adminPanelCategoryService.getByName(category_name);
+                subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
                 physicalBook.setCategory(new ArrayList<Category>());
                 physicalBook.getCategory().add(category);
                 physicalBook.setSubcategory(new ArrayList<Subcategory>());
                 physicalBook.getSubcategory().add(subcategory);
                 return bookBarcodeAndISBNCheck(physicalBook, lists);
             case "ebook":
+                category = adminPanelCategoryService.getByName(category_name);
+                subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                physicalBook.setCategory(new ArrayList<Category>());
+                physicalBook.getCategory().add(category);
+                physicalBook.setSubcategory(new ArrayList<Subcategory>());
+                physicalBook.getSubcategory().add(subcategory);
                 return bookBarcodeAndISBNCheck(electronicBook, lists);
             case "audio_book":
+                category = adminPanelCategoryService.getByName(category_name);
+                subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                physicalBook.setCategory(new ArrayList<Category>());
+                physicalBook.getCategory().add(category);
+                physicalBook.setSubcategory(new ArrayList<Subcategory>());
+                physicalBook.getSubcategory().add(subcategory);
                 return bookBarcodeAndISBNCheck(audioBook, lists);
             case "ebook_reader":
                 return productBarcodeCheck(electronicBookReader);
