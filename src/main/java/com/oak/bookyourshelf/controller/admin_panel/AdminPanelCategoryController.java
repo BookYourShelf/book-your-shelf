@@ -65,12 +65,6 @@ public class AdminPanelCategoryController {
                 return categories.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK).collect(Collectors.toList());
             case "audio-book":
                 return categories.stream().filter(p -> p.getProductType() == Category.ProductType.AUDIO_BOOK).collect(Collectors.toList());
-            case "e-book-reader":
-                return categories.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK_READER).collect(Collectors.toList());
-            case "e-book-reader-case":
-                return categories.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK_READER_CASE).collect(Collectors.toList());
-            case "book-case":
-                return categories.stream().filter(p -> p.getProductType() == Category.ProductType.BOOK_CASE).collect(Collectors.toList());
             default:
                 return categories;
         }

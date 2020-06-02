@@ -15,6 +15,59 @@
     </a>
 </div>
 
+
+<!-- Category form -->
+<div id="new_category" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form id="new_category_form" class="checkout_form" th:object="${category}" method="post">
+
+                    <!-- Product Type -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Product Type
+                        </div>
+
+                        <select name="product_type" id="category_product_type"
+                                class="dropdown_item_select checkout_input"
+                                required="required" th:field="*{productType}">
+                            <option value="">Select Product Type</option>
+                            <option th:each="category : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
+                                    th:value="${category}"
+                                    th:text="#{${'category.' + category}}">productType
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Name -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Category Name
+                        </div>
+
+                        <input type="text" id="new_category_name"
+                               class="checkout_input form-control"
+                               placeholder="Category Name" required="required" th:field="*{name}"
+                               pattern="[A-Za-z]+" title="Category name cannot have digits.">
+                    </div>
+
+                    <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+
+                    <!-- Button -->
+                    <input id="add_category_button" type="submit" value="Add category" class="login_button trans_200">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Sort and filter categories -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -97,76 +150,10 @@
                    th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
                 </a>
             </li>
-            <li class="item_filter_btn">
-                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
-                   th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
-                </a>
-            </li>
-            <li class="item_filter_btn">
-                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
-                   th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
-                </a>
-            </li>
-            <li class="item_filter_btn">
-                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
-                   th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
-                </a>
-            </li>
         </ul>
     </div>
 </div>
 
-<!-- Category form -->
-<div id="new_category" class="collapse">
-
-    <div class="address-container">
-        <div class="billingAddress">
-            <div class="checkout_form_container">
-                <form id="new_category_form" class="checkout_form" th:object="${category}" method="post">
-
-                    <!-- Product Type -->
-                    <div>
-                        <div class="login-text p-b-10" style="color: black;">
-                            Product Type
-                        </div>
-
-                        <select name="product_type" id="category_product_type"
-                                class="dropdown_item_select checkout_input"
-                                required="required" th:field="*{productType}">
-                            <option value="">Select Product Type</option>
-                            <option th:each="category : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
-                                    th:value="${category}"
-                                    th:text="#{${'category.' + category}}">productType
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Name -->
-                    <div>
-                        <div class="login-text p-b-10" style="color: black;">
-                            Category Name
-                        </div>
-
-                        <input type="text" id="new_category_name"
-                               class="checkout_input form-control"
-                               placeholder="Category Name" required="required" th:field="*{name}"
-                               pattern="[A-Za-z]+" title="Category name cannot have digits.">
-                    </div>
-
-                    <div style="color: red;" th:if="${#fields.hasErrors('*')}">
-                        <ul>
-                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-                        </ul>
-                    </div>
-
-                    <!-- Button -->
-                    <input id="add_category_button" type="submit" value="Add category" class="login_button trans_200">
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <span th:if="${categoryPage.totalPages > 0}">
 
