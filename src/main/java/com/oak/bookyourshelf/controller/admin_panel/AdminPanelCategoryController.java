@@ -27,7 +27,7 @@ public class AdminPanelCategoryController {
                       @RequestParam("sort") Optional<String> sort, Model model) {
 
         String currentSort = sort.orElse("ID-asc");
-        Globals.getPageNumbers(page, size, adminPanelCategoryService.sortProducts(currentSort), model, "categoryPage");
+        Globals.getPageNumbers(page, size, adminPanelCategoryService.sortCategories(currentSort), model, "categoryPage");
         Category category = new Category();
         model.addAttribute("category", category);
         model.addAttribute("allCategories", adminPanelCategoryService.listAll());

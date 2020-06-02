@@ -73,7 +73,7 @@ public class AdminPanelCategoryService {
         adminPanelCategoryRepository.deleteById(id);
     }
 
-    public List<Category> sortProducts(String sortType) {
+    public List<Category> sortCategories(String sortType) {
         switch (sortType) {
             case "ID-desc":
                 return adminPanelCategoryRepository.findAllByOrderByIdDesc();
