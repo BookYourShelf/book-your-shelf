@@ -1,10 +1,7 @@
 package com.oak.bookyourshelf.controller.admin_panel;
 
 import com.oak.bookyourshelf.Globals;
-import com.oak.bookyourshelf.model.Campaign;
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.Subcategory;
-import com.oak.bookyourshelf.model.User;
+import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCampaignService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import org.springframework.data.domain.Page;
@@ -30,14 +27,22 @@ public class AdminPanelCampaignController {
 
     @RequestMapping(value = "/admin-panel/campaign", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort,
+                      @RequestParam("filter") Optional<String> filter, Model model) {
 
-        Globals.getPageNumbers(page, size, (List) adminPanelCampaignService.listAll(), model, "campaignPage");
+
+        String currentSort = sort.orElse("ID-asc");
+        String currentFilter = filter.orElse("all");
+        Globals.getPageNumbers(page, size, filterCampaigns(adminPanelCampaignService.sortCampaigns(currentSort), currentFilter),
+                model, "campaignPage");
 
         Campaign campaign = new Campaign();
         model.addAttribute("campaign", campaign);
         model.addAttribute("allCampaigns", adminPanelCampaignService.listAll());
         model.addAttribute("categoryService", adminPanelCategoryService);
+        model.addAttribute("sort", currentSort);
+        model.addAttribute("filter", currentFilter);
 
         return "admin_panel/_campaign";
     }
@@ -146,5 +151,25 @@ public class AdminPanelCampaignController {
         return ResponseEntity.ok("");
 
 
+    }
+
+    public List<Campaign> filterCampaigns(List<Campaign> campaigns , String productType)
+    {
+        switch (productType) {
+            case "book":
+                return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.BOOK).collect(Collectors.toList());
+            case "e-book":
+                return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK).collect(Collectors.toList());
+            case "audio-book":
+                return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.AUDIO_BOOK).collect(Collectors.toList());
+            case "e-book-reader":
+                return campaigns.stream().filter(p ->p.getProductType() == Category.ProductType.E_BOOK_READER).collect(Collectors.toList());
+            case "e-book-reader-case":
+                return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK_READER_CASE).collect(Collectors.toList());
+            case "book-case":
+                return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.BOOK_CASE).collect(Collectors.toList());
+            default:
+                return campaigns;
+        }
     }
 }

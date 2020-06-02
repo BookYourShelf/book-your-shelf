@@ -123,4 +123,39 @@ public class AdminPanelCampaignService {
             return true;
     }
 
+    public List<Campaign> sortCampaigns(String sortType)
+    {
+        switch (sortType) {
+            case "ID-desc":
+                return adminPanelCampaignRepository.findAllByOrderByIdDesc();
+
+            case "ID-asc":
+                return adminPanelCampaignRepository.findAllByOrderByIdAsc();
+
+            case "Name-desc":
+                return adminPanelCampaignRepository.findAllByOrderByNameDesc();
+
+            case "Name-asc":
+                return adminPanelCampaignRepository.findAllByOrderByNameAsc();
+
+            case "Rate-desc":
+                return adminPanelCampaignRepository.findAllByOrderByRateDesc();
+
+            case "Rate-asc":
+                return adminPanelCampaignRepository.findAllByOrderByRateAsc();
+
+            case "Product-Type-desc":
+                return adminPanelCampaignRepository.findAllByOrderByProductTypeDesc();
+
+            case "Product-Type-asc":
+                return adminPanelCampaignRepository.findAllByOrderByProductTypeAsc();
+
+            default:        // id
+                return adminPanelCampaignRepository.findAllByOrderByIdAsc();
+
+
+        }
+
+        }
+
 }

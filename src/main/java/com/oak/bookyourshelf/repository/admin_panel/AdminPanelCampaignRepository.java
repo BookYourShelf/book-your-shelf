@@ -16,4 +16,24 @@ public interface AdminPanelCampaignRepository extends CrudRepository<Campaign, I
 
     @Query("SELECT t from Campaign t where t.productType = ?1")
     List<Campaign> findAllByProductType(Category.ProductType name);
+
+    List<Campaign> findAllByOrderByIdAsc();
+
+    List<Campaign> findAllByOrderByIdDesc();
+
+    List<Campaign> findAllByOrderByRateAsc();
+
+    List<Campaign> findAllByOrderByRateDesc();
+
+    List<Campaign> findAllByOrderByNameAsc();
+
+    List<Campaign> findAllByOrderByNameDesc();
+
+    List<Campaign> findAllByOrderByProductTypeAsc();
+
+    List<Campaign> findAllByOrderByProductTypeDesc();
+
+
+
+
 }
