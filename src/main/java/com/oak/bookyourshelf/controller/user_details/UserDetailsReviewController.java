@@ -28,15 +28,20 @@ public class UserDetailsReviewController {
     }
 
     @RequestMapping(value = "/user-details/review", method = RequestMethod.GET)
-    public String tab(@RequestParam("id") int id, @RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
-        User user = userDetailsInformationService.get(id);
+    public String tab(@RequestParam("id") int id,
+                      @RequestParam("page") Optional<Integer> page,
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort, Model model) {
 
-        Globals.getPageNumbers(page, size, user.getReviews(), model, "reviewPage");
+        User user = userDetailsInformationService.get(id);
+        String currentSort = sort.orElse("date");
+        Globals.getPageNumbers(page, size, userDetailsReviewService.sortReviews(currentSort, user.getUserId()),
+                model, "reviewPage");
 
         model.addAttribute("user", user);
         model.addAttribute("reviews", user.getReviews());
         model.addAttribute("productService", productDetailsInformationService);
+        model.addAttribute("sort", currentSort);
         return "user_details/_review";
     }
 
