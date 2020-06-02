@@ -56,7 +56,7 @@ public class AdminPanelCategoryService {
             return subcategory;
         } else {
             for (Subcategory sub : subcategory.getSubcategories()) {
-                traverseSubcategories(sub, name);
+               return traverseSubcategories(sub, name);
             }
         }
         return null;
@@ -65,7 +65,9 @@ public class AdminPanelCategoryService {
     public Subcategory getSubcategory(Category category, String name){
         for (Subcategory s : category.getSubcategories())
         {
-            return traverseSubcategories(s, name);
+            if(traverseSubcategories(s, name) != null)
+            { return traverseSubcategories(s, name);}
+
         }
         return null;
     }
