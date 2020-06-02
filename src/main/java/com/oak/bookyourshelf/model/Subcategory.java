@@ -12,6 +12,8 @@ public class Subcategory {
 
     private int itemNum;
     private String name;
+    private boolean inCampaign=false;
+    private boolean inHotList=false;
 
     @OneToMany(
         cascade = CascadeType.ALL,
@@ -62,5 +64,21 @@ public class Subcategory {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public boolean isInCampaign() {
+        return inCampaign;
+    }
+
+    public void setInCampaign(boolean inCampaign) {
+        this.inCampaign = inCampaign;
+    }
+
+    public boolean isInHotList() {
+        return inHotList;
+    }
+
+    public void setInHotList(boolean inHotList) {
+        this.inHotList = inHotList;
     }
 }
