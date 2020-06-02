@@ -82,7 +82,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/user-details/cart" th:href="@{#cart}">Shopping
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/user-details/cart(size=(${#request.getParameter('size')} ?: '2'),id=${user.getUserId()}, page=(${#request.getParameter('page')} ?: '1'))}"
+                            th:href="@{#cart}">Shopping
                             Cart</a>
                     </li>
 
