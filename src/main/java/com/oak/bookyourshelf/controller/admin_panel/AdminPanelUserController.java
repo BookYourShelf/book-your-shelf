@@ -25,11 +25,12 @@ public class AdminPanelUserController {
 
     @RequestMapping(value = "/admin-panel/user", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort, Model model) {
 
-
-        Globals.getPageNumbers(page, size, (List) adminPanelUserService.listAllCustomers(), model, "userPage");
-
+        String currentSort = sort.orElse("ID-asc");
+        Globals.getPageNumbers(page, size, adminPanelUserService.sortUsers(currentSort), model, "userPage");
+        model.addAttribute("sort", currentSort);
         return "admin_panel/_user";
     }
 

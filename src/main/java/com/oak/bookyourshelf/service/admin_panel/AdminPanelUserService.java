@@ -39,5 +39,37 @@ public class AdminPanelUserService {
         adminPanelUserRepository.save(user);
     }
 
+    public List<User> sortUsers(String sortType)
+    {
+        switch (sortType) {
+            case "ID-desc":
+                return adminPanelUserRepository.findAllByOrderByUserIdDesc();
+
+            case "ID-asc":
+                return adminPanelUserRepository.findAllByOrderByUserIdAsc();
+
+            case "Name-desc":
+                return adminPanelUserRepository.findAllByOrderByNameDesc();
+
+            case "Name-asc":
+                return adminPanelUserRepository.findAllByOrderByNameAsc();
+
+            case "Surname-desc":
+                return adminPanelUserRepository.findAllByOrderBySurnameDesc();
+
+            case "Surname-asc":
+                return adminPanelUserRepository.findAllByOrderBySurnameAsc();
+
+            case "Email-desc":
+                return adminPanelUserRepository.findAllByOrderByEmailDesc();
+
+            case "Email-asc":
+                return adminPanelUserRepository.findAllByOrderByEmailAsc();
+            default:        // id
+                return adminPanelUserRepository.findAllByOrderByUserIdAsc();
+
+        }
+    }
+
 
 }
