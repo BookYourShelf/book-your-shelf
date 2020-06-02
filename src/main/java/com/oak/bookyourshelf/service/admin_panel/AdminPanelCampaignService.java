@@ -59,6 +59,7 @@ public class AdminPanelCampaignService {
         Set<Product> allProducts = Collections.emptySet();
         for(Subcategory sub :subcategories)
         {
+            sub.setInCampaign(true);
             for(Product p:sub.getBooks())
             {
                 allProducts.add(p);
