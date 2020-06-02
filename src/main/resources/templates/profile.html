@@ -63,7 +63,8 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '3'),
                                                                 page=(${#request.getParameter('page')} ?: '1'),
-                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'))}"
+                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#order}">My Orders</a>
                     </li>
 
@@ -76,7 +77,8 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '3'),
                                                                 page=(${#request.getParameter('page')} ?: '1'),
-                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'))}"
+                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#review}">My Reviews</a>
                     </li>
                 </ul>

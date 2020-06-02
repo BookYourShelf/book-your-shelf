@@ -13,56 +13,80 @@
         <ul>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'date-desc'},
+                                                filter=${filter})}"
                    th:text="'Decreasing by Date'"
                    th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'date-asc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'date-asc'},
+                                                filter=${filter})}"
                    th:text="'Increasing by Date'"
                    th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'title-asc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'title-asc'},
+                                                filter=${filter})}"
                    th:text="'Review Title A - Z'"
                    th:style="${sort == 'title-asc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'title-desc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'title-desc'},
+                                                filter=${filter})}"
                    th:text="'Review Title Z - A'"
                    th:style="${sort == 'title-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'content-asc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'content-asc'},
+                                                filter=${filter})}"
                    th:text="'Review Content A - Z'"
                    th:style="${sort == 'content-asc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'content-desc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'content-desc'},
+                                                filter=${filter})}"
                    th:text="'Review Content Z - A'"
                    th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'rate-desc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'rate-desc'},
+                                                filter=${filter})}"
                    th:text="'Decreasing by Rate'"
                    th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
-                <a th:href="@{/profile/review(sort=${'rate-asc'}, size=${reviewPage.size}, page=${1})}"
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'rate-asc'},
+                                                filter=${filter})}"
                    th:text="'Increasing by Rate'"
                    th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
                 </a>
@@ -72,12 +96,58 @@
     </div>
 
     <div class="products_dropdown product_dropdown_filter">
-        <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
-                                                               aria-hidden="true"></i></div>
-        <ul style="">
-            <li class="item_filter_btn" data-filter="*">All</li>
-            <li class="item_filter_btn" data-filter=".commented">Commented</li>
-            <li class="item_filter_btn" data-filter=".uncommented">Uncommented</li>
+        <div class="isotope_filter_text"><span>Rating Filter</span><i class="fa fa-caret-down"
+                                                                      aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                filter=${'all'})}"
+                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                filter=${'1'})}"
+                   th:text="'1 Star'" th:style="${filter == '1'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                filter=${'2'})}"
+                   th:text="'2 Star'" th:style="${filter == '2'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                filter=${'3'})}"
+                   th:text="'3 Star'" th:style="${filter == '3'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                filter=${'4'})}"
+                   th:text="'4 Star'" th:style="${filter == '4'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                filter=${'5'})}"
+                   th:text="'5 Star'" th:style="${filter == '5'} ? 'color:#1f5b70'">
+                </a>
+            </li>
         </ul>
     </div>
 </div>
@@ -187,7 +257,10 @@
             <ul class="d-flex flex-row align-items-start justify-content-center">
                 <!-- Previous button -->
                 <li th:style="${currentPage == 1} ? 'display:none'">
-                    <a th:href="@{/profile/review(sort=${sort}, size=${reviewPage.size}, page=${currentPage - 1})}"
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${currentPage - 1},
+                                                    sort=${sort},
+                                                    filter=${filter})}"
                        aria-label="Previous" title="Previous Page"
                        rel="tooltip">
                         <i class="pagination_arrow fa fa-angle-left"></i>
@@ -197,7 +270,10 @@
                 <!-- First page -->
                 <li th:if="${reviewPage.totalPages > 0}"
                     th:class="${currentPage == 1} ? 'active'">
-                    <a th:href="@{/profile#review(sort=${sort}, size=${reviewPage.size}, page=${1})}"
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${1},
+                                                    sort=${sort},
+                                                    filter=${filter})}"
                        th:title="${'Page '+ 1}"
                        th:text="${1}" style="color: #fbaa1d;">
                     </a>
@@ -210,7 +286,10 @@
                     th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                     , reviewPage.totalPages > 2 + currentPage ? currentPage + 2 : reviewPage.totalPages - 1, 1)}"
                     th:class="${currentPage == i} ? 'active'">
-                    <a th:href="@{/profile#review(sort=${sort}, size=${reviewPage.size}, page=${i})}"
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${i},
+                                                    sort=${sort},
+                                                    filter=${filter})}"
                        th:text="${i}" th:title="${'Page '+ i}"
                        style="color: #fbaa1d;"></a>
                 </li>
@@ -221,7 +300,10 @@
                 <!-- Last page -->
                 <li th:if="${reviewPage.totalPages > 1}"
                     th:class="${currentPage == reviewPage.totalPages} ? 'active'">
-                    <a th:href="@{/profile#review(sort=${sort}, size=${reviewPage.size}, page=${reviewPage.totalPages})}"
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${reviewPage.totalPages},
+                                                    sort=${sort},
+                                                    filter=${filter})}"
                        th:text="${reviewPage.totalPages}"
                        style="color: #fbaa1d;"
                        th:title="${'Page '+ reviewPage.totalPages}">
@@ -230,7 +312,10 @@
 
                 <!-- Next button -->
                 <li th:style="${currentPage == reviewPage.totalPages} ? 'display:none'">
-                    <a th:href="@{/profile#review(sort=${sort}, size=${reviewPage.size}, page=${currentPage + 1})}"
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${currentPage + 1},
+                                                    sort=${sort},
+                                                    filter=${filter})}"
                        aria-label="Next" title="Next Page" rel="tooltip">
                         <i class="pagination_arrow fa fa-angle-right"></i>
                     </a>
@@ -257,7 +342,7 @@
 
         if (confirm('Are you sure you want to delete?')) {
             event.preventDefault();
-            $.post("/profile/review/", ret, function (data) {
+            $.post("/profile#review/", ret, function (data) {
                 iziToast.show({
                     title: 'Success',
                     message: 'Review deleted successfully.',
