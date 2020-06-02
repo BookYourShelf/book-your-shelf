@@ -9,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class SubcategoryDetailsSubcategoryController {
@@ -27,14 +25,18 @@ public class SubcategoryDetailsSubcategoryController {
     @RequestMapping(value = "/subcategory-details/subcategory/{id}", method = RequestMethod.GET)
     public String showAdminPanelPage(@RequestParam("page") Optional<Integer> page,
                                      @RequestParam("size") Optional<Integer> size,
+                                     @RequestParam("sort") Optional<String> sort,
                                      Model model, @PathVariable int id) {
+        String currentSort = sort.orElse("ID-asc");
         Subcategory subcategory = subcategoryDetailsInformationService.get(id);
         model.addAttribute("subcategoriesBreadcrumbs", new ArrayList<>()); // Add session breadcrumbs
         model.addAttribute("categoryBreadcrumb", subcategory);
-        Globals.getPageNumbers(page, size, (List) subcategory.getSubcategories(), model, "subcategoryPage");
         List<Subcategory> subcategories = subcategory.getSubcategories();
+        sortSubcategories(subcategories, currentSort);
+        Globals.getPageNumbers(page, size, subcategories, model, "subcategoryPage");
         model.addAttribute("allSubcategories", subcategories);
-        model.addAttribute("category", subcategory);
+        model.addAttribute("subcategory", subcategory);
+        model.addAttribute("sort", currentSort);
 
         return "subcategory_details/_subcategory";
     }
@@ -49,5 +51,47 @@ public class SubcategoryDetailsSubcategoryController {
         subcategoryDetailsInformationService.save(subcategory);
 
         return ResponseEntity.ok("");
+    }
+
+    private void sortSubcategories(List<Subcategory> subcategories, String sort) {
+        switch (sort) {
+            case "ID-desc":
+                subcategories.sort(Comparator.comparingInt(Subcategory::getId).reversed());
+                break;
+
+            case "ID-asc":
+                subcategories.sort(Comparator.comparingInt(Subcategory::getId));
+                break;
+
+            case "name-desc":
+                subcategories.sort(Comparator.comparing(Subcategory::getName).reversed());
+                break;
+
+            case "name-asc":
+                subcategories.sort(Comparator.comparing(Subcategory::getName));
+                break;
+
+            case "total-desc":
+                subcategories.sort(Comparator.comparingInt(o -> o.getBooks().size()));
+                Collections.reverse(subcategories);
+                break;
+
+            case "total-asc":
+                subcategories.sort(Comparator.comparingInt(o -> o.getBooks().size()));
+                break;
+
+            case "subcategory-desc":
+                subcategories.sort(Comparator.comparingInt(o -> o.getSubcategories().size()));
+                Collections.reverse(subcategories);
+                break;
+
+            case "subcategory-asc":
+                subcategories.sort(Comparator.comparingInt(o -> o.getSubcategories().size()));
+                break;
+
+            default:
+                subcategories.sort(Comparator.comparingInt(Subcategory::getId).reversed());
+                break;
+        }
     }
 }

@@ -226,7 +226,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getCategory()}"></h>
+                                <h th:text="${product.getCategory().getName()}"></h>
                             </div>
                         </div>
                     </div>
@@ -243,7 +243,7 @@
                                     <div>-</div>
                                 </div>
                                 <div th:if="${product.getSubcategory() != null}">
-                                    <h th:text="${product.getSubcategory()}"></h>
+                                    <h th:text="${product.getSubcategory().get(0).getName()}"></h>
                                 </div>
                             </div>
                         </div>
@@ -1015,8 +1015,7 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
                                     </div>
-                                    <select name="category" id="book_category_input" th:field="*{category}"
-                                            th:value="${product.getCategory()}"
+                                    <select name="category" id="book_category_input"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
                                         <option th:each="category : ${categoryService.getAllByCategory('Book')}"
@@ -1030,11 +1029,12 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Subcategory
                                     </div>
-                                    <select name="subcategory" id="book_subcategory_input" th:field="*{subcategory}"
-                                            th:value="${product.getSubcategory()}"
+                                    <select name="subcategory" id="book_subcategory_input"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                         <option value="">SELECT</option>
+                                         <option th:each="subcategory : ${categoryService.getAllSubcategoriesName(product.getCategory())}"
+                                                 th:value="${subcategory}"
+                                                 th:text="${subcategory}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -2268,8 +2268,8 @@
             height: $('#book_height_input').val(),
             width: $('#book_width_input').val(),
             depth: $('#book_depth_input').val(),
-            category: $('#book_category_input').val(),
-            subcategory: $('#book_subcategory_input').val(),
+            category_name: $('#book_category_input').val(),
+            subcategory_name: $('#book_subcategory_input').val(),
             lists: JSON.stringify({
                 publishers: $('#book_publisher_input').val().split(','),
                 translators: $('#book_translator_input').val().split(','),
@@ -2325,8 +2325,8 @@
             pageNum: $('#ebook_page_number_input').val(),
             fileSize: $('#ebook_filesize_input').val(),
             fileFormat: $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"),
-            category: $('#ebook_category_input').val(),
-            subcategory: $('#ebook_subcategory_input').val(),
+            category_name: $('#ebook_category_input').val(),
+            subcategory_name: $('#ebook_subcategory_input').val(),
             lists: JSON.stringify({
                 publishers: $('#ebook_publisher_input').val().split(','),
                 translators: $('#ebook_translator_input').val().split(','),
@@ -2380,8 +2380,8 @@
             longDesc: $('#audiobook_long_description_input').val(),
             lengthInMinutes: $('#audiobook_length_input').val(),
             narratedBy: $('#audiobook_narrator_input').val(),
-            category: $('#audiobook_category_select').val(),
-            subcategory: $('#audiobook_subcategory_select').val(),
+            category_name: $('#audiobook_category_select').val(),
+            subcategory_name: $('#audiobook_subcategory_select').val(),
             lists: JSON.stringify({
                 publishers: $('#audiobook_publisher_input').val().split(','),
                 translators: $('#audiobook_translator_input').val().split(','),
@@ -2450,6 +2450,8 @@
             cellular: $('#ebook_reader_cellular_select').val(),
             backLight: $('#ebook_reader_backlight_select').val(),
             warmBackLight: $('#ebook_reader_warm_backlight_select').val(),
+            category_name: "",
+            subcategory_name: "",
             lists: JSON.stringify({})
         };
 
@@ -2504,6 +2506,8 @@
             caseHeight: $('#ebook_reader_case_height_input').val(),
             caseWidth: $('#ebook_reader_case_width_input').val(),
             caseDepth: $('#ebook_reader_case_depth_input').val(),
+            category_name: "",
+            subcategory_name: "",
             lists: JSON.stringify({})
         };
 
@@ -2553,6 +2557,8 @@
             maxBookDepth: $('#book_case_max_depth_input').val(),
             shortDesc: $('#book_case_short_description_input').val(),
             longDesc: $('#book_case_long_description_input').val(),
+            category_name: "",
+            subcategory_name: "",
             lists: JSON.stringify({})
         };
 
@@ -2588,6 +2594,8 @@
         var ret = {
             productType: "none",
             buttonType: "delete",
+            category_name: "",
+            subcategory_name: "",
             productId: productId,
             lists: JSON.stringify({})
         };
@@ -2631,7 +2639,7 @@
         var html = '<option value="">SELECT</option>';
         var len = data.length;
         for (var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
         }
         html += '</option>';
         $('#' + subcategoryName).html(html);
