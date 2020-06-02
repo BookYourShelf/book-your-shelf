@@ -53,15 +53,53 @@
             <div class="isotope_sorting_text"><span>Sort</span><i
                     class="fa fa-caret-down" aria-hidden="true"></i></div>
             <ul>
-                <li class="item_sorting_btn"
-                    data-isotope-option='{ "sortBy": "original-order" }'>ID
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'ID-desc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Decreasing by ID'"
+                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                    </a>
                 </li>
-                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
-                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "product-num" }'>
-                    Total Product
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'ID-asc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Increasing by ID'"
+                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                    </a>
                 </li>
-                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
-                    Total Subcategory
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'name-asc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'A - Z'"
+                       th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'name-desc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Z - A'"
+                       th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'total-desc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Decreasing by Total'"
+                       th:style="${sort == 'total-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'total-asc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Increasing by Total'"
+                       th:style="${sort == 'total-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'subcategory-desc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Decreasing by Subcategory'"
+                       th:style="${sort == 'subcategory-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/category-details/{id}#subcategory(id=${category.getId()}, sort=${'subcategory-asc'}, size=${subcategoryPage.size}, page=${1})}"
+                       th:text="'Increasing by Subcategory'"
+                       th:style="${sort == 'subcategory-asc'} ? 'color:#1f5b70'">
+                    </a>
                 </li>
             </ul>
         </div>
