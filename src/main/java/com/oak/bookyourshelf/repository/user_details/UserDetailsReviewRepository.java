@@ -38,4 +38,20 @@ public interface UserDetailsReviewRepository extends CrudRepository<Review, Inte
     List<Review> findByUserIdOrderByScoreOutOf5Desc(int userId);
 
     List<Review> findByUserIdOrderByScoreOutOf5Asc(int userId);
+
+    List<Review> findByProductIdOrderByUploadDateDesc(int productId);
+
+    List<Review> findByProductIdOrderByUploadDateAsc(int productId);
+
+    List<Review> findByProductIdOrderByReviewTitleDesc(int productId);
+
+    List<Review> findByProductIdOrderByReviewTitleAsc(int productId);
+
+    List<Review> findByProductIdOrderByReviewContentDesc(int productId);
+
+    List<Review> findByProductIdOrderByReviewContentAsc(int productId);
+
+    List<Review> findByProductIdOrderByScoreOutOf5Desc(int productId);
+
+    List<Review> findByProductIdOrderByScoreOutOf5Asc(int productId);
 }

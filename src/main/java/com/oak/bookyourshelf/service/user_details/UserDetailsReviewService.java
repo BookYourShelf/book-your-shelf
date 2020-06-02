@@ -34,7 +34,7 @@ public class UserDetailsReviewService {
         userDetailsReviewRepository.save(review);
     }
 
-    public List<Review> sortReviews(String sortType, int userId) {
+    public List<Review> sortReviewsOfUser(String sortType, int userId) {
         switch (sortType) {
             case "date-asc":
                 return userDetailsReviewRepository.findByUserIdOrderByUploadDateAsc(userId);
@@ -59,6 +59,34 @@ public class UserDetailsReviewService {
 
             default:        // date-desc
                 return userDetailsReviewRepository.findByUserIdOrderByUploadDateDesc(userId);
+        }
+    }
+
+    public List<Review> sortReviewsOfProduct(String sortType, int productId) {
+        switch (sortType) {
+            case "date-asc":
+                return userDetailsReviewRepository.findByProductIdOrderByUploadDateAsc(productId);
+
+            case "title-desc":
+                return userDetailsReviewRepository.findByProductIdOrderByReviewTitleDesc(productId);
+
+            case "title-asc":
+                return userDetailsReviewRepository.findByProductIdOrderByReviewTitleAsc(productId);
+
+            case "content-desc":
+                return userDetailsReviewRepository.findByProductIdOrderByReviewContentDesc(productId);
+
+            case "content-asc":
+                return userDetailsReviewRepository.findByProductIdOrderByReviewContentAsc(productId);
+
+            case "rate-desc":
+                return userDetailsReviewRepository.findByProductIdOrderByScoreOutOf5Desc(productId);
+
+            case "rate-asc":
+                return userDetailsReviewRepository.findByProductIdOrderByScoreOutOf5Asc(productId);
+
+            default:        // date-desc
+                return userDetailsReviewRepository.findByProductIdOrderByUploadDateDesc(productId);
         }
     }
 }

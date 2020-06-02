@@ -39,7 +39,7 @@ public class UserDetailsReviewController {
         User user = userDetailsInformationService.get(id);
         String currentSort = sort.orElse("date");
         String currentFilter = filter.orElse("all");
-        Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviews(currentSort, user.getUserId()), currentFilter),
+        Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfUser(currentSort, user.getUserId()), currentFilter),
                 model, "reviewPage");
 
         model.addAttribute("user", user);
