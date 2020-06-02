@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,7 @@ public class Category {
     )
     private List<Subcategory> subcategories;
 
-    @ManyToMany(cascade = CascadeType.ALL )
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Book> books;
 
     // GETTER & SETTER
@@ -77,8 +78,21 @@ public class Category {
         this.subcategories = subcategories;
     }
 
+    private void traverseSubcategories(Subcategory subcategory, List<Book> bookList) {
+        bookList.addAll(subcategory.getBooks());
+        for (Subcategory sub : subcategory.getSubcategories()) {
+            bookList.addAll(sub.getBooks());
+            traverseSubcategories(sub, bookList);
+        }
+    }
+
     public List<Book> getBooks() {
-        return books;
+        List<Book> bookList = new ArrayList<>(books);
+        for (Subcategory sub : this.subcategories) {
+            traverseSubcategories(sub, bookList);
+        }
+
+        return bookList;
     }
 
     public void setBooks(List<Book> books) {
