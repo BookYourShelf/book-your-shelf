@@ -70,7 +70,9 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '3'),
+                                                                     page=(${#request.getParameter('page')} ?: '1'),
+                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
                            th:href="@{#category}">Categories</a>
                     </li>
 
