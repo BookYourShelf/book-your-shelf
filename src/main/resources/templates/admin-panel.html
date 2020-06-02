@@ -72,7 +72,8 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '3'),
                                                                      page=(${#request.getParameter('page')} ?: '1'),
-                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
+                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
+                                                                     filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#category}">Categories</a>
                     </li>
 
