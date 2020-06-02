@@ -39,7 +39,7 @@ public class ProductDetailsInformationController {
 
     @RequestMapping(value = "/product-details/information/subcategory/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
+    public List<String> findAllSubcategories(@RequestParam String category) {
         return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
     }
 
