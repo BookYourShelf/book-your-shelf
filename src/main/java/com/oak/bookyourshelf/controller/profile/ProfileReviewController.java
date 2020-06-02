@@ -33,15 +33,19 @@ public class ProfileReviewController {
 
     @RequestMapping(value = "/profile/review", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort, Model model) {
 
         UserDetails userDetails = authService.getUserDetails();
+        String currentSort = sort.orElse("date");
         if (userDetails != null) {
             User user = profileInformationService.getByEmail(userDetails.getUsername());
-            Globals.getPageNumbers(page, size, user.getReviews(), model, "reviewPage");
+            Globals.getPageNumbers(page, size, profileReviewService.sortReviews(currentSort, user.getUserId()),
+                    model, "reviewPage");
             model.addAttribute("user", user);
             model.addAttribute("reviews", user.getReviews());
             model.addAttribute("productService", productDetailsInformationService);
+            model.addAttribute("sort", currentSort);
             return "profile/_review";
         }
         return "/";
