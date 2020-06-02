@@ -59,7 +59,6 @@ public class AdminPanelCampaignService {
         Set<Product> allProducts = Collections.emptySet();
         for(Subcategory sub :subcategories)
         {
-            sub.setInCampaign(true);
             for(Product p:sub.getBooks())
             {
                 allProducts.add(p);
@@ -77,6 +76,51 @@ public class AdminPanelCampaignService {
             p.setDiscountRate((float)rate);
         }
 
+    }
+
+    public boolean isDateValid(List<String> date)
+    {
+        int day = Integer.parseInt(date.get(0));
+        int month = Integer.parseInt(date.get(1));
+        int year = Integer.parseInt(date.get(2));
+
+        if(!(day >0 && day <31))
+            return false;
+        if(!(month>0 && month<13))
+            return false;
+        if(!(year>=2020))
+            return false;
+        return true;
+    }
+
+    public boolean isDateCorrect(List<String> endDate , List<String> startDate)
+    {
+        int startDay = Integer.parseInt(startDate.get(0));
+        int startMonth = Integer.parseInt(startDate.get(1));
+        int startYear = Integer.parseInt(startDate.get(2));
+
+        int endDay = Integer.parseInt(endDate.get(0));
+        int endMonth = Integer.parseInt(endDate.get(1));
+        int endYear = Integer.parseInt(endDate.get(2));
+
+        if(endYear<startDay)
+            return false;
+        else if(endYear == startYear)
+        {
+            if(endMonth<startMonth)
+                return false;
+            else if(endMonth == startMonth)
+            {
+                if(endDay<startDay)
+                    return false;
+                else
+                    return true;
+            }
+            else
+                return true;
+        }
+        else
+            return true;
     }
 
 }
