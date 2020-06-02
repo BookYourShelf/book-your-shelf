@@ -12,7 +12,7 @@
         $('.date').mask("00/00/0000", {placeholder: "dd/mm/yyyy"});
         $('.credit-card').mask("0000 0000 0000 0000", {placeholder: "____ ____ ____ ____"});
         $('.cvv').mask("000", {placeholder: "___"});
-        $('.discount-rate').mask("000");
+        $('.discount-rate').mask("00");
         $('.isbn').mask("000-0-000-00000-0");
         $('.fallback').mask("00r00r0000", {
             translation: {
