@@ -31,13 +31,17 @@ public class AdminPanelProductController {
     @RequestMapping(value = "/admin-panel/product", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
                       @RequestParam("size") Optional<Integer> size,
-                      @RequestParam("sort") Optional<String> sort, Model model) {
+                      @RequestParam("sort") Optional<String> sort,
+                      @RequestParam("filter") Optional<String> filter, Model model) {
 
         String currentSort = sort.orElse("date");
-        Globals.getPageNumbers(page, size, adminPanelProductService.sortProducts(currentSort), model, "productPage");
+        String currentFilter = filter.orElse("all");
+        Globals.getPageNumbers(page, size, filterProducts(adminPanelProductService.sortProducts(currentSort), currentFilter),
+                model, "productPage");
         model.addAttribute("allProducts", adminPanelProductService.listAll());
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
+        model.addAttribute("filter", currentFilter);
         return "admin_panel/_product";
     }
 
@@ -142,5 +146,24 @@ public class AdminPanelProductController {
         List<String> trimmedList = list.stream().map(String::trim).collect(Collectors.toList());
         trimmedList.removeIf(s -> s.equals(""));
         return trimmedList;
+    }
+
+    public List<Product> filterProducts(List<Product> products, String productType) {
+        switch (productType) {
+            case "book":
+                return products.stream().filter(p -> p instanceof PhysicalBook).collect(Collectors.toList());
+            case "e-book":
+                return products.stream().filter(p -> p instanceof ElectronicBook).collect(Collectors.toList());
+            case "audio-book":
+                return products.stream().filter(p -> p instanceof AudioBook).collect(Collectors.toList());
+            case "e-book-reader":
+                return products.stream().filter(p -> p instanceof ElectronicBookReader).collect(Collectors.toList());
+            case "e-book-reader-case":
+                return products.stream().filter(p -> p instanceof ElectronicBookReaderCase).collect(Collectors.toList());
+            case "book-case":
+                return products.stream().filter(p -> p instanceof PhysicalBookCase).collect(Collectors.toList());
+            default:
+                return products;
+        }
     }
 }

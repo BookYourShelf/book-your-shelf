@@ -67,7 +67,8 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/admin-panel/product(size=(${#request.getParameter('size')} ?: '3'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
-                                                                    sort=(${#request.getParameter('sort')} ?: 'date-desc'))}"
+                                                                    sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#product}">Products</a>
                     </li>
 
