@@ -52,22 +52,22 @@
                 <div class="row">
                     <div class="col">
                         <div class="cart_container">
-
+                            <span th:unless="${#lists.isEmpty(wishListProducts)}">
                             <!-- Cart Bar -->
-                            <div class="cart_bar">
-                                <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                    <li class="mr-auto">Product</li>
-                                    <li>Price</li>
-                                    <li>Stock</li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
+                                <div class="cart_bar">
+                                    <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+                                        <li class="mr-auto">Product</li>
+                                        <li>Price</li>
+                                        <li>Stock</li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </div>
 
-                            <!-- Cart Items -->
-                            <div class="cart_items">
-                                <ul class="cart_items_list">
-                                    <span th:unless="${#lists.isEmpty(wishListProducts)}">
+                                <!-- Cart Items -->
+                                <div class="cart_items">
+                                    <ul class="cart_items_list">
+
                                         <tr th:each="product : ${wishListProducts}">
                                             <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
                                                 <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
@@ -135,13 +135,13 @@
                                                 </a></div>
                                             </li>
                                         </tr>
-                                    </span>
-                                    <!-- No Wish List -->
-                                    <span th:if="${#lists.isEmpty(wishListProducts)}">
-                                        <div class="warning-text">There are no Products.</div>
-                                    </span>
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
+                            </span>
+                            <!-- No Wish List -->
+                            <span th:if="${#lists.isEmpty(wishListProducts)}">
+                                <div class="warning-text">There are no Products.</div>
+                            </span>
                             <!-- Cart Buttons -->
                             <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
                                 <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
