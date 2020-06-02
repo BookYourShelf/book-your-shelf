@@ -73,11 +73,45 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveCategory(@RequestParam String category, String subctgry, String ptype , HotList hotList) {
+    public ResponseEntity<String> saveCategory(@RequestParam String category, String subctgry, String ptype ,String htype, HotList hotList) {
         System.out.println("post method");
         List<HotList> sameType =adminPanelHotListService.findAllByProductType(hotList.getProductType());
         List<Category> newCategoryList = new ArrayList<>();
         List<Subcategory> newSubcategories = new ArrayList<Subcategory>();
+
+        String[] start = hotList.getStartDate().split("/");
+        String[] end = hotList.getEndDate().split("/");
+        String[] start_time = hotList.getStartTime().split(":");
+        String[] end_time = hotList.getEndTime().split(":");
+
+        List<String> startTime=Arrays.asList(start_time);
+        List<String> endTime = Arrays.asList(end_time);
+        List<String> startDate =Arrays.asList(start);
+        List<String> endDate = Arrays.asList(end);
+
+        if( !adminPanelHotListService.isDateValid(startDate))
+            return ResponseEntity.badRequest().body("Start date is not valid");
+        if(!adminPanelHotListService.isDateValid(endDate))
+            return ResponseEntity.badRequest().body("End date is not valid");
+        if(adminPanelHotListService.isDateValid(startDate) && adminPanelHotListService.isDateValid(endDate))
+        {
+            if(!adminPanelHotListService.isDateCorrect(endDate,startDate))
+                return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
+            else{
+                if(!adminPanelHotListService.isTimeValid(startTime))
+                    return ResponseEntity.badRequest().body("Start time is not valid");
+                if(!adminPanelHotListService.isTimeValid(endTime))
+                    return ResponseEntity.badRequest().body("End time is not valid");
+                if(startDate.get(0).equals(endDate.get(0)) && startDate.get(1).equals(endDate.get(1)) && startDate.get(2).equals(endDate.get(2)))
+                {
+                    if(!adminPanelHotListService.isTimeCorrect(startTime,endTime))
+                        return ResponseEntity.badRequest().body("If dates are the same , end time can not be smaller than start time");
+                }
+            }
+        }
+
+
+
         if(ptype.equals("BOOK") || ptype.equals("E_BOOK") || ptype.equals("AUDIO_BOOK"))
         {
             Category newCategory = adminPanelCategoryService.getByName(category);
@@ -100,22 +134,20 @@ public class AdminPanelHotListController {
                 String[] subcategory = subctgry.split("-");
                 List<String> subcategories = Arrays.asList(subcategory);
 
+                for (String s : subcategories) {
+                    Subcategory newSubcategory = adminPanelCategoryService.getSubcategory(newCategory,s);
+                    if(newCategory != null){
+                        newSubcategories.add(newSubcategory);}
+                }
+
                 for (HotList i : sameType) {
                     Category hotListCategory =i.getCategories().get(0);
                     if(hotListCategory.getName().equals(category)) {
-                        for (String s : subcategories) {
-                            for(Subcategory sub : i.getSubcategories())
-                                if (sub.getName().equals(s)) {
-                                    return ResponseEntity.badRequest().body("There is a hot list in " + s +" subcategory . Please change your selection");
-                                }
+                        for (Subcategory s : newSubcategories) {
+                            if(s.isInHotList())
+                                return ResponseEntity.badRequest().body("There is a hot list in " + s.getName() +" subcategory . Please change your selection");
                         }
                     }
-                }
-
-
-                for (String s : subcategories) {
-                    Subcategory newSubcategory = adminPanelCategoryService.getSubcategory(newCategory,s);
-                    newSubcategories.add(newSubcategory);
                 }
 
                 hotList.setSubcategories(newSubcategories);
@@ -133,7 +165,7 @@ public class AdminPanelHotListController {
                 hotList.setCategories(newCategoryList);
             }
         }
-
+        /*adminPanelHotListService.setProductByType(hotList,htype,adminPanelHotListService.createProductSet(newSubcategories));*/
         adminPanelHotListService.save(hotList);
 
 
