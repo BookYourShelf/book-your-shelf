@@ -28,6 +28,9 @@ public class HotListDetailsService {
     }
 
     public void delete(int id) {
+        hotListDetailsRepository.removeAllHotListCategories(id);
+        hotListDetailsRepository.removeAllHotListSubcategories(id);
+        hotListDetailsRepository.removeAllHotListProducts(id);
         hotListDetailsRepository.deleteById(id);
     }
 
