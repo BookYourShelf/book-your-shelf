@@ -69,6 +69,25 @@ public class AdminPanelCampaignController {
         List<Campaign> sameType = adminPanelCampaignService.findAllByProductType(campaign.getProductType());
         List<Category> newCategoryList = new ArrayList<>();
         List<Subcategory> newSubcategories = new ArrayList<>();
+
+        String[] start = campaign.getStartDate().split("/");
+        String[] end = campaign.getEndDate().split("/");
+        List<String> startDate =Arrays.asList(start);
+        List<String> endDate = Arrays.asList(end);
+
+        if( !adminPanelCampaignService.isDateValid(startDate))
+            return ResponseEntity.badRequest().body("Start date is not valid");
+        else if(!adminPanelCampaignService.isDateValid(endDate))
+            return ResponseEntity.badRequest().body("End date is not valid");
+        else
+        {
+            if(!adminPanelCampaignService.isDateCorrect(endDate,startDate))
+                return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
+        }
+
+
+
+
         if (ptype.equals("BOOK") || ptype.equals("E_BOOK") || ptype.equals("AUDIO_BOOK")) {
             Category newCategory = adminPanelCategoryService.getByName(category);
 
@@ -100,6 +119,8 @@ public class AdminPanelCampaignController {
                         for (Subcategory s : newSubcategories) {
                             if (s.isInCampaign())
                                 return ResponseEntity.badRequest().body("There is a campaign in " + s.getName() + " subcategory . Please change your selection");
+                            else
+                                s.setInCampaign(true);
                         }
                     }
                 }

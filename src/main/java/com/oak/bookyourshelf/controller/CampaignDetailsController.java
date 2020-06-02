@@ -1,23 +1,28 @@
 package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.Campaign;
-import com.oak.bookyourshelf.model.HotList;
 import com.oak.bookyourshelf.service.CampaignDetailsService;
+import com.oak.bookyourshelf.service.admin_panel.AdminPanelCampaignService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class CampaignDetailsController {
 
     final CampaignDetailsService campaignDetailsService;
     final AdminPanelCategoryService adminPanelCategoryService;
+    final AdminPanelCampaignService adminPanelCampaignService;
 
-    public CampaignDetailsController(CampaignDetailsService campaignDetailsService, AdminPanelCategoryService adminPanelCategoryService) {
+    public CampaignDetailsController(CampaignDetailsService campaignDetailsService, AdminPanelCategoryService adminPanelCategoryService, AdminPanelCampaignService adminPanelCampaignService) {
         this.campaignDetailsService = campaignDetailsService;
         this.adminPanelCategoryService = adminPanelCategoryService;
+        this.adminPanelCampaignService = adminPanelCampaignService;
     }
 
     @RequestMapping("/campaign-details/{id}")
@@ -39,6 +44,21 @@ public class CampaignDetailsController {
         System.out.println("update");
         switch (button) {
             case "update_campaign":
+
+                String[] start = newCampaign.getStartDate().split("/");
+                String[] end = newCampaign.getEndDate().split("/");
+                List<String> startDate = Arrays.asList(start);
+                List<String> endDate = Arrays.asList(end);
+
+                if( !adminPanelCampaignService.isDateValid(startDate))
+                    return ResponseEntity.badRequest().body("Start date is not valid");
+                else if(!adminPanelCampaignService.isDateValid(endDate))
+                    return ResponseEntity.badRequest().body("End date is not valid");
+                else
+                {
+                    if(!adminPanelCampaignService.isDateCorrect(endDate,startDate))
+                        return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
+                }
 
                 campaign.setRate(newCampaign.getRate());
                 campaign.setEndDate(newCampaign.getEndDate());
