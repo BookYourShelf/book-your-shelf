@@ -69,13 +69,16 @@
                 <ul class="nav nav-tabs justify-content-center" id="siteTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text"
-                           th:data-url="'/subcategory-details/information/' + ${subcategory.getId()}"
+                           th:attr="data-url=@{/subcategory-details/information/{id}(id=(${subcategory.getId()}))}"
                            th:href="@{#information}">Information</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:data-url="'/subcategory-details/subcategory/' + ${subcategory.getId()}"
+                           th:attr="data-url=@{/subcategory-details/subcategory/{id}(size=(${#request.getParameter('size')} ?: '3'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'date,desc'),
+                                                                    id=(${subcategory.getId()}))}"
                            th:href="@{#subcategory}">Subcategories</a>
                     </li>
                 </ul>

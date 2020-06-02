@@ -21,7 +21,7 @@ public class Subcategory {
     )
     private List<Subcategory> subcategories;
 
-    @ManyToMany(cascade = CascadeType.ALL )
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Book> books;
 
     // GETTER & SETTER

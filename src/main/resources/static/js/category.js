@@ -139,41 +139,6 @@ $(document).ready(function () {
     */
 
     function initIsotope() {
-        var sortingButtons = $('.item_sorting_btn');
-        if ($('.orderDetailBox').length) {
-            var grid = $('.orderDetailBox').isotope({
-                itemSelector: '.product_content',
-                percentPosition: true,
-                masonry:
-                    {
-                        verticalOrder: true
-                    },
-                getSortData:
-                    {
-                        name: '.category-name',
-                        itemNum: '.category-itemNum',
-                        subcategory: '.category-subcategory-size'
-                    }
-            });
-
-            sortingButtons.each(function () {
-                $(this).on('click', function () {
-                    var parent = $(this).parent().parent().find('.isotope_sorting_text span');
-                    parent.text($(this).text());
-                    var option = $(this).attr('data-isotope-option');
-                    option = JSON.parse(option);
-                    grid.isotope(option);
-                });
-            });
-
-            // Filtering
-            $('.item_filter_btn').on('click', function () {
-                var parent = $(this).parent().parent().find('.isotope_filter_text span');
-                parent.text($(this).text());
-                var filterValue = $(this).attr('data-filter');
-                grid.isotope({filter: filterValue});
-            });
-        }
     }
 
 });
