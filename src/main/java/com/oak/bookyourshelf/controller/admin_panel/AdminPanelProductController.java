@@ -47,8 +47,9 @@ public class AdminPanelProductController {
 
     @RequestMapping(value = "/admin-panel/product/subcategory", method = RequestMethod.GET)
     @ResponseBody
-    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
-        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+    public List<String> findAllSubcategories(@RequestParam String category) {
+        List<String> subcategories = Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
+        return subcategories;
     }
 
     @RequestMapping(value = "/admin-panel/product", method = RequestMethod.POST)
@@ -73,7 +74,7 @@ public class AdminPanelProductController {
                 physicalBook.getCategory().add(category);
                 physicalBook.setSubcategory(new ArrayList<Subcategory>());
                 physicalBook.getSubcategory().add(subcategory);
-                return bookBarcodeAndISBNCheck(physicalBook, lists);
+                return bookBarcodeAndISBNCheck(physicalBook, lists, category, subcategory);
             case "ebook":
                 category = adminPanelCategoryService.getByName(category_name);
                 subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
@@ -81,7 +82,7 @@ public class AdminPanelProductController {
                 physicalBook.getCategory().add(category);
                 physicalBook.setSubcategory(new ArrayList<Subcategory>());
                 physicalBook.getSubcategory().add(subcategory);
-                return bookBarcodeAndISBNCheck(electronicBook, lists);
+                return bookBarcodeAndISBNCheck(electronicBook, lists, category, subcategory);
             case "audio_book":
                 category = adminPanelCategoryService.getByName(category_name);
                 subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
@@ -89,7 +90,7 @@ public class AdminPanelProductController {
                 physicalBook.getCategory().add(category);
                 physicalBook.setSubcategory(new ArrayList<Subcategory>());
                 physicalBook.getSubcategory().add(subcategory);
-                return bookBarcodeAndISBNCheck(audioBook, lists);
+                return bookBarcodeAndISBNCheck(audioBook, lists, category, subcategory);
             case "ebook_reader":
                 return productBarcodeCheck(electronicBookReader);
             case "ebook_reader_case":
@@ -115,7 +116,7 @@ public class AdminPanelProductController {
         return ResponseEntity.ok("");
     }
 
-    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book product, String lists) throws JsonProcessingException {
+    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book product, String lists, Category category, Subcategory subcategory) throws JsonProcessingException {
 
         // Add lists to product
         ObjectMapper mapper = new ObjectMapper();
@@ -138,6 +139,8 @@ public class AdminPanelProductController {
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         product.setUploadDate(sqlDate);
+        category.getBooks().add(product);
+        subcategory.getBooks().add(product);
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
     }

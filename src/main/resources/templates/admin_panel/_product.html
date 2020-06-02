@@ -1986,8 +1986,8 @@
     function buildSubcategoriesDropdown(data, subcategoryName) {
         var html = '<option value="">SELECT</option>';
         var len = data.length;
-        for (var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+        for(var i = 0; i < len; i++) {
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
         }
         html += '</option>';
         $('#' + subcategoryName).html(html);
