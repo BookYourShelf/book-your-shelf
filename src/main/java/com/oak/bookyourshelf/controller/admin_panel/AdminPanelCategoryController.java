@@ -23,9 +23,11 @@ public class AdminPanelCategoryController {
 
     @RequestMapping(value = "/admin-panel/category", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort, Model model) {
 
-        Globals.getPageNumbers(page, size, (List) adminPanelCategoryService.listAll(), model, "categoryPage");
+        String currentSort = sort.orElse("ID-asc");
+        Globals.getPageNumbers(page, size, adminPanelCategoryService.sortProducts(currentSort), model, "categoryPage");
         Category category = new Category();
         model.addAttribute("category", category);
         model.addAttribute("allCategories", adminPanelCategoryService.listAll());
