@@ -33,13 +33,21 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort,
+                      @RequestParam("filter") Optional<String> filter, Model model) {
 
-        Globals.getPageNumbers(page, size, (List) adminPanelHotListService.listAll(), model, "hotListPage");
+
+        String currentSort = sort.orElse("ID-asc");
+        String currentFilter = filter.orElse("all");
+        Globals.getPageNumbers(page, size, filterHotLists(adminPanelHotListService.sortHotlists(currentSort), currentFilter),
+                model, "hotListPage");
 
         HotList hotList = new HotList();
         model.addAttribute("hotList", hotList);
         model.addAttribute("categoryService", adminPanelCategoryService);
+        model.addAttribute("sort", currentSort);
+        model.addAttribute("filter", currentFilter);
 
 
         return "admin_panel/_hotList";
@@ -171,5 +179,26 @@ public class AdminPanelHotListController {
 
         return ResponseEntity.ok("");
 
+    }
+
+
+    public List<HotList> filterHotLists(List<HotList> hotLists , String productType)
+    {
+        switch (productType) {
+            case "book":
+                return hotLists.stream().filter(p -> p.getProductType() == Category.ProductType.BOOK).collect(Collectors.toList());
+            case "e-book":
+                return hotLists.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK).collect(Collectors.toList());
+            case "audio-book":
+                return hotLists.stream().filter(p -> p.getProductType() == Category.ProductType.AUDIO_BOOK).collect(Collectors.toList());
+            case "e-book-reader":
+                return hotLists.stream().filter(p ->p.getProductType() == Category.ProductType.E_BOOK_READER).collect(Collectors.toList());
+            case "e-book-reader-case":
+                return hotLists.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK_READER_CASE).collect(Collectors.toList());
+            case "book-case":
+                return hotLists.stream().filter(p -> p.getProductType() == Category.ProductType.BOOK_CASE).collect(Collectors.toList());
+            default:
+                return hotLists;
+        }
     }
 }

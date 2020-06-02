@@ -173,6 +173,40 @@ public class AdminPanelHotListService {
     }
 
 
+    public List<HotList> sortHotlists(String sortType)
+    {
+        switch (sortType) {
+
+            case "ID-desc":
+                return adminPanelHotListRepository.findAllByOrderByIdDesc();
+
+            case "ID-asc":
+                return adminPanelHotListRepository.findAllByOrderByIdAsc();
+
+            case "Product-Num-desc":
+                return adminPanelHotListRepository.findAllByOrderByProductNumDesc();
+
+            case "Product-Num-asc":
+                return adminPanelHotListRepository.findAllByOrderByProductNumAsc();
+
+            case "Product-Type-desc":
+                return adminPanelHotListRepository.findAllByOrderByProductTypeDesc();
+
+            case "Product-Type-asc":
+                return adminPanelHotListRepository.findAllByOrderByProductTypeAsc();
+
+            case "Hot-List-Type-desc":
+                return adminPanelHotListRepository.findAllByOrderByHotListTypeDesc();
+
+            case "Hot-List-Type-asc":
+                return adminPanelHotListRepository.findAllByOrderByHotListTypeAsc();
+
+            default:        // id
+                return adminPanelHotListRepository.findAllByOrderByIdDesc();
+        }
+    }
+
+
 
 
 }
