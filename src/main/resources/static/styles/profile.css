@@ -1718,6 +1718,19 @@ section {
 
 .product_dropdown_sorting {
     position: relative;
+    width: 170px;
+    border-radius: 5px;
+    border: 1px #b3b3b3 solid;
+}
+
+.isotope_sorting_text {
+    text-align: center;
+    cursor: pointer;
+}
+
+.isotope_filter_text {
+    text-align: center;
+    cursor: pointer;
 }
 
 .isotope_filter_text span,
