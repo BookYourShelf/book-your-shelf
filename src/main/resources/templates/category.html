@@ -3,25 +3,25 @@
 
 <head>
     <!-- TODO category name -->
-    <title>Category | Book Your Shelf</title>
+    <title th:text="${category.getName()}"> | Book Your Shelf</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon  -->
-    <link rel="icon" href="images/logo/book_your_shelf_tab.png">
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="styles/category.css">
-    <link rel="stylesheet" type="text/css" href="styles/category_responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/core-style.css">
-    <link rel="stylesheet" type="text/css" href="styles/util.css">
-    <link rel="stylesheet" type="text/css" href="styles/nouislider.min.css">
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/category.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/category_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/nouislider.min.css}">
 </head>
 
 <body>
@@ -40,8 +40,8 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="category.html">Book</a></li>
+                                <li><a th:href="index.html">Home</a></li>
+                                <li><a th:href="'/category/' + ${category.getName()}">Book</a></li>
                                 <li style="color: #fbaa1d">Literature</li>
                             </ul>
                         </div>
@@ -107,93 +107,28 @@
                         <div class="product">
                             <div class="subcategory_text">
                                 <ul>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Roman</label>
-                                        </span>
-                                            <span class="float_right">1934</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Poetry</label>
-                                        </span>
-                                            <span class="float_right">1049</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Biography</label>
-                                        </span>
-                                            <span class="float_right">943</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Narrative</label>
-                                        </span>
-                                            <span class="float_right">650</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Epic</label>
-                                        </span>
-                                            <span class="float_right">632</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Interview</label>
-                                        </span>
-                                            <span class="float_right">546</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Monthly Magazine</label>
-                                        </span>
-                                            <span class="float_right">347</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">History</label>
-                                        </span>
-                                            <span class="float_right">203</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Almanac</label>
-                                        </span>
-                                            <span class="float_right">198</span>
-                                        </a>
-                                    </li>
-                                    <li class="subcategory_li">
-                                        <a class="clearfix" href="category.html">
-                                        <span class="float_left">
-                                            <label class="expand_element_text">Letter</label>
-                                        </span>
-                                            <span class="float_right">156</span>
-                                        </a>
-                                    </li>
+                                    <span th:unless="${#lists.isEmpty(category.getSubcategories())}">
+                                        <li class="subcategory_li"
+                                            th:each="subcategory : ${category.getSubcategories()}">
+                                            <a class="clearfix" th:href="'/subcategory/' + ${subcategory.getId()}">
+                                            <span class="float_left">
+                                                <label class="expand_element_text"
+                                                       th:text="${subcategory.getName()}"></label>
+                                            </span>
+                                                <span class="float_right"
+                                                      th:text="${subcategory.getBooks().size()}"></span>
+                                            </a>
+                                        </li>
+                                    </span>
                                 </ul>
                             </div>
                         </div>
 
+                        <!-- Language -->
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible"><a href="#">Language</a></div>
+                                <div class="sidebar_title collapsible"><a
+                                        th:href="'/category/' + ${category.getName()}">Language</a></div>
                                 <div class="sidebar_text">
                                     <form id="langaugeform">
                                         <div class="inline sidebar_expand">
@@ -260,7 +195,8 @@
 
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible "><a href="#">Media Type</a></div>
+                                <div class="sidebar_title collapsible "><a
+                                        th:href="'/category/' + ${category.getName()}">Media Type</a></div>
                                 <div class="sidebar_text">
                                     <form id="mediaform">
                                         <div class="inline sidebar_expand">
@@ -306,7 +242,8 @@
                         </div>
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible "><a href="#">Publisher</a></div>
+                                <div class="sidebar_title collapsible "><a
+                                        th:href="'/category/' + ${category.getName()}">Publisher</a></div>
                                 <div class="sidebar_text">
                                     <form id="publisherform">
                                         <div class="inline sidebar_expand">
@@ -354,7 +291,8 @@
                         </div>
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible"><a href="#">Author</a></div>
+                                <div class="sidebar_title collapsible"><a
+                                        th:href="'/category/' + ${category.getName()}">Author</a></div>
                                 <div class="sidebar_text">
                                     <form id="authorform">
                                         <div class="inline sidebar_expand">
@@ -400,7 +338,8 @@
                         </div>
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible "><a href="#">Stars</a></div>
+                                <div class="sidebar_title collapsible "><a
+                                        th:href="'/category/' + ${category.getName()}">Stars</a></div>
                                 <div class="sidebar_text">
                                     <form id="starform">
                                         <div class="inline sidebar_expand">
@@ -507,7 +446,8 @@
                         </div>
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible "><a href="#">Price</a></div>
+                                <div class="sidebar_title collapsible "><a
+                                        th:href="'/category/' + ${category.getName()}">Price</a></div>
                                 <div class="sidebar_text">
                                     <div class="wrapper">
                                         <fieldset class="filter-price">
@@ -538,13 +478,13 @@
 
                     <div class="col-md-8 col-lg-9 order-md-last">
                         <div class="row">
-
                             <!-- Product -->
-                            <div class="col-xl-4 col-md-6">
+                            <div class="col-xl-4 col-md-6" th:each="book : ${categoryBooks.content}">
                                 <div class="product">
                                     <div class="product_image_showcase">
-                                        <a href="product.html">
-                                            <img src="images/hayvan_ciftligi.jpg" alt="" class="product_image_img">
+                                        <a th:href="'/product/' + ${book.getProductId()}">
+                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
+                                                 class="product_image_img"> <!-- TODO: Handle images -->
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -557,13 +497,23 @@
                                                 <i class="fa fa-star-o" style="color:#4a4a4a"></i>
                                             </div>
                                             <div>
-                                                <div class="product_name"><a href="product.html">Animal Farm</a>
+                                                <div class="product_name"><a
+                                                        th:href="'/product/' + ${book.getProductId()}"
+                                                        th:text="${book.getProductName()}"></a>
                                                 </div>
-                                                <div class="product_text">George Orwell</div>
+                                                <div class="product_text">
+                                                    <div th:if="${book.getAuthors() != null}">
+                                                        <div th:if="${book.getAuthors().size() > 0}">
+                                                            <p><span th:each="a, iterStat : ${book.getAuthors()}"
+                                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="product_info d-flex flex-row align-items-start justify-content-start">
                                                 <div class="sale_price">
-                                                    <del>₺15.99</del>
+                                                    <del th:text="'₺' + ${book.getPrice()}"></del>
                                                 </div>
                                                 <div class="ml-auto text-right">
                                                     <div class="sale_price"><b>%40</b></div>
@@ -577,7 +527,8 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -585,299 +536,8 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="col-xl-4 col-md-6">
-                                <div class="product">
-                                    <div class="product_image_showcase">
-                                        <a href="product.html">
-                                            <img src="images/sineklerin_tanrisi.jpg" alt="" class="product_image_img">
-                                        </a>
-                                    </div>
-                                    <div class="product_content">
-
-                                        <div class="product_info align-items-center justify-content-center">
-                                            <div style="text-align:center;">
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            </div>
-                                            <div>
-                                                <div class="product_name"><a href="product.html">Lord of the
-                                                    Flies</a></div>
-                                                <div class="product_text">William Golding</div>
-                                            </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div class="sale_price">
-                                                    <del>₺11.99</del>
-                                                </div>
-                                                <div class="ml-auto text-right">
-                                                    <div class="sale_price"><b>%40</b></div>
-                                                </div>
-                                            </div>
-                                            <div class="product_price">₺9<span>.60</span></div>
-                                        </div>
-
-                                        <div class="product_buttons">
-                                            <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div title="Add to shopping cart"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="col-xl-4 col-md-6">
-                                <div class="product">
-                                    <div class="product_image_showcase">
-                                        <a href="product.html">
-                                            <img src="images/seker_portakali.jpg" alt="" class="product_image_img">
-                                        </a>
-                                    </div>
-                                    <div class="product_content">
-
-                                        <div class="product_info align-items-center justify-content-center">
-                                            <div style="text-align:center;">
-                                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            </div>
-                                            <div>
-                                                <div class="product_name"><a href="product.html">My Sweet Orange
-                                                    Tree</a>
-                                                </div>
-                                                <div class="product_text">José Mauro de Vasconcelos</div>
-                                            </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div class="sale_price">
-                                                    <del></del>
-                                                </div>
-                                                <div class="ml-auto text-right">
-                                                    <div class="sale_price"><b>&nbsp;</b></div>
-                                                </div>
-                                            </div>
-                                            <div class="product_price">₺17<span>.86</span></div>
-                                        </div>
-
-                                        <div class="product_buttons">
-                                            <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div title="Add to shopping cart"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="col-xl-4 col-md-6">
-
-                                <div class="product">
-                                    <div class="product_image_showcase">
-                                        <a href="product.html">
-                                            <img src="images/otomatik_portakal.jpg" alt="" class="product_image_img">
-                                        </a>
-                                    </div>
-                                    <div class="product_content">
-
-                                        <div class="product_info align-items-center justify-content-center">
-                                            <div style="text-align:center;">
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            </div>
-                                            <div>
-                                                <div class="product_name"><a href="product.html">A Clockwork Orange</a>
-                                                </div>
-                                                <div class="product_text">Anthony Burgess</div>
-                                            </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div class="sale_price">
-                                                    <del></del>
-                                                </div>
-                                                <div class="ml-auto text-right">
-                                                    <div class="sale_price"><b>&nbsp;</b></div>
-                                                </div>
-                                            </div>
-                                            <div class="product_price">₺9<span>.60</span></div>
-                                        </div>
-
-                                        <div class="product_buttons">
-                                            <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div title="Add to shopping cart"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="col-xl-4 col-md-6">
-                                <div class="product">
-                                    <div class="product_image_showcase">
-                                        <a href="product.html">
-                                            <img src="images/kurk_mantolu.jpg" alt="" class="product_image_img">
-                                        </a>
-                                    </div>
-                                    <div class="product_content">
-
-                                        <div class="product_info align-items-center justify-content-center">
-                                            <div style="text-align:center;">
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            </div>
-
-                                            <div>
-                                                <div class="product_name"><a href="product.html">Kürk Mantolu
-                                                    Madonna</a></div>
-                                                <div class="product_text">Sabahattin Ali</div>
-                                            </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div class="sale_price">
-                                                    <del>₺11.99</del>
-                                                </div>
-                                                <div class="ml-auto text-right">
-                                                    <div class="sale_price"><b>%50</b></div>
-                                                </div>
-                                            </div>
-                                            <div class="product_price">₺9<span>.50</span></div>
-                                        </div>
-
-                                        <div class="product_buttons">
-                                            <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div title="Add to shopping cart"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="col-xl-4 col-md-6">
-                                <div class="product">
-                                    <div class="product_image_showcase">
-                                        <a href="product.html">
-                                            <img src="images/donusum.jpg" alt="" class="product_image_img">
-                                        </a>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_info align-items-center justify-content-center">
-                                            <div style="text-align:center;">
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-
-                                            </div>
-                                            <div>
-                                                <div class="product_name"><a href="product.html">Metamorphosis</a></div>
-                                                <div class="product_text">Franz Kafka</div>
-                                            </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div class="sale_price">
-                                                    <del>₺7.99</del>
-                                                </div>
-                                                <div class="ml-auto text-right">
-                                                    <div class="sale_price"><b>%50</b></div>
-                                                </div>
-                                            </div>
-                                            <div class="product_price">₺3<span>.60</span></div>
-                                        </div>
-
-                                        <div class="product_buttons">
-                                            <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/heart_2.svg" class="svg" alt="">
-                                                            <div>+</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div title="Add to shopping cart"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img src="images/cart.svg" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -888,18 +548,77 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row page_nav_row">
                             <div class="col">
                                 <div class="page_nav">
                                     <ul class="d-flex flex-row align-items-start justify-content-center">
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#" style="color: #fbaa1d">2</a></li>
-                                        <li><a href="#" style="color: #fbaa1d">3</a></li>
-                                        <li><a href="#" style="color: #fbaa1d">4</a></li>
+                                        <!-- Previous button -->
+                                        <li th:style="${currentPage == 1} ? 'display:none'">
+                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${currentPage - 1})}"
+                                               aria-label="Previous" title="Previous Page" rel="tooltip">
+                                                <i class="pagination_arrow fa fa-angle-left"></i>
+                                            </a>
+                                        </li>
+
+                                        <!-- First page -->
+                                        <li th:if="${categoryBooks.totalPages > 0}"
+                                            th:class="${currentPage == 1} ? 'active'">
+                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${1})}"
+                                               th:title="${'Page '+ 1}"
+                                               th:text="${1}" style="color: #fbaa1d;">
+                                            </a>
+                                        </li>
+
+                                        <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                                        <!-- Pages -->
+                                        <li th:if="${categoryBooks.totalPages > 2}"
+                                            th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , categoryBooks.totalPages > 2 + currentPage ? currentPage + 2 : categoryBooks.totalPages - 1, 1)}"
+                                            th:class="${currentPage == i} ? 'active'">
+                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${i})}"
+                                               th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                                        </li>
+
+                                        <li th:if="${currentPage + 3 < categoryBooks.totalPages}"
+                                            class="pagination_dots">...
+                                        </li>
+
+                                        <!-- Last page -->
+                                        <li th:if="${categoryBooks.totalPages > 1}"
+                                            th:class="${currentPage == categoryBooks.totalPages} ? 'active'">
+                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${categoryBooks.totalPages})}"
+                                               th:text="${categoryBooks.totalPages}" style="color: #fbaa1d;"
+                                               th:title="${'Page '+ categoryBooks.totalPages}">
+                                            </a>
+                                        </li>
+
+                                        <!-- Next button -->
+                                        <li th:style="${currentPage == categoryBooks.totalPages} ? 'display:none'">
+                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${currentPage + 1})}"
+                                               aria-label="Next" title="Next Page" rel="tooltip">
+                                                <i class="pagination_arrow fa fa-angle-right"></i>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+
+                        <!--                        <div class="row page_nav_row">                    NAVIGATION -->
+                        <!--                            <div class="col">-->
+                        <!--                                <div class="page_nav">-->
+                        <!--                                    <ul class="d-flex flex-row align-items-start justify-content-center">-->
+                        <!--                                        <li class="active"><a th:href="#">1</a></li>-->
+                        <!--                                        <li><a th:href="#" style="color: #fbaa1d">2</a></li>-->
+                        <!--                                        <li><a th:href="#" style="color: #fbaa1d">3</a></li>-->
+                        <!--                                        <li><a th:href="#" style="color: #fbaa1d">4</a></li>-->
+                        <!--                                    </ul>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
                     </div>
                 </div>
             </div>
@@ -908,7 +627,7 @@
         <!-- Search fail - No book -->
         <div class="search_fail" style="display: none">
             <br>
-            <img src="images/search-fail.png">
+            <img th:src="@{/static/images/search-fail.png}">
             <div>
                 <br>
                 <b class="category-name">No products were found according to your search criteria.</b>
@@ -984,25 +703,25 @@
     };
 </script>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap-4.1.2/popper.js"></script>
-<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="plugins/greensock/TweenMax.min.js"></script>
-<script src="plugins/greensock/TimelineMax.min.js"></script>
-<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="plugins/greensock/animation.gsap.min.js"></script>
-<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/progressbar/progressbar.min.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
-<script src="plugins/Isotope/fitcolumns.js"></script>
-<script src="js/classy-nav.min.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/category.js"></script>
-<script src="js/active.js"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/static/plugins/Isotope/fitcolumns.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/category.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
 
 </body>
 </html>
