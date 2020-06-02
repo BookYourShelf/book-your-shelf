@@ -27,15 +27,15 @@ public class UserDetailsSearchController {
 
 
     @RequestMapping(value = "/user-details/search", method = RequestMethod.GET)
-    public String tab(@RequestParam("id") int id, @RequestParam("size") Optional<Integer> size,
-                      @RequestParam("page") Optional<Integer> page,  Model model) {
+    public String tab(@RequestParam("id") int id,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,
+                       @RequestParam("sort") Optional<String> sort, Model model) {
 
         User user = userDetailsSearchService.get(id);
+        String currentSort = sort.orElse("Total-Search-desc");
 
-        List<String> keys = new ArrayList<>(user.getSearchHistory().keySet());
-        System.out.println("jbk");
-        Globals.getPageNumbers(page, size, (List) keys, model, "keyPage");
 
+        Globals.getPageNumbers(page, size, userDetailsSearchService.sortSearchKey(currentSort,user), model, "keyPage");
+        model.addAttribute("sort", currentSort);
         model.addAttribute("user", user);
         return "user_details/_search";
     }

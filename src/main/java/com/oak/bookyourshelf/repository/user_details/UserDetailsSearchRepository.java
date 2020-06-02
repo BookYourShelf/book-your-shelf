@@ -13,4 +13,6 @@ public interface UserDetailsSearchRepository extends CrudRepository<User, Intege
     @Query("SELECT userId FROM User  WHERE role =0")
     List<Integer> findAllIds();
 
+
+
 }
