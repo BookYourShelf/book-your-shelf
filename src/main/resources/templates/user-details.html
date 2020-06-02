@@ -73,17 +73,19 @@
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/user-details/order(size=(${#request.getParameter('size')} ?: '2'),
-                                                                            id= ${user.getUserId()},
-                                                                            page=(${#request.getParameter('page')} ?: '1'))}"
+                                                                    id= ${user.getUserId()},
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#order}">Orders</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/user-details/review(size=(${#request.getParameter('size')} ?: '2'),
-                                                                            id= ${user.getUserId()},
-                                                                            page=(${#request.getParameter('page')} ?: '1'),
-                                                                            sort=(${#request.getParameter('sort')} ?: 'date-desc'))}"
+                                                                    id= ${user.getUserId()},
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#review}">Reviews</a>
                     </li>
 
