@@ -63,8 +63,7 @@ public class AdminPanelCategoryService {
     }
 
     public Subcategory getSubcategory(Category category, String name){
-        for (Subcategory s : category.getSubcategories())
-        {
+        for (Subcategory s : category.getSubcategories()) {
             return traverseSubcategories(s, name);
         }
         return null;
@@ -72,5 +71,36 @@ public class AdminPanelCategoryService {
 
     public void delete(int id) {
         adminPanelCategoryRepository.deleteById(id);
+    }
+
+    public List<Category> sortProducts(String sortType) {
+        switch (sortType) {
+            case "ID-desc":
+                return adminPanelCategoryRepository.findAllByOrderByIdDesc();
+
+            case "ID-asc":
+                return adminPanelCategoryRepository.findAllByOrderByIdAsc();
+
+            case "name-desc":
+                return adminPanelCategoryRepository.findAllByOrderByNameDesc();
+
+            case "name-asc":
+                return adminPanelCategoryRepository.findAllByOrderByNameAsc();
+
+            case "total-desc":
+                return adminPanelCategoryRepository.findAllByOrderByBooksDesc();
+
+            case "total-asc":
+                return adminPanelCategoryRepository.findAllByOrderByBooksAsc();
+
+            case "subcategory-desc":
+                return adminPanelCategoryRepository.findAllByOrderBySubcategoriesDesc();
+
+            case "subcategory-asc":
+                return adminPanelCategoryRepository.findAllByOrderBySubcategoriesAsc();
+
+            default:
+                return adminPanelCategoryRepository.findAllByOrderByIdAsc();
+        }
     }
 }
