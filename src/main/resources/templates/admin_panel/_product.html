@@ -1349,17 +1349,72 @@
             <div class="isotope_sorting_text"><span>Sort</span><i
                     class="fa fa-caret-down" aria-hidden="true"></i></div>
             <ul>
-                <li class="item_sorting_btn"
-                    data-isotope-option='{ "sortBy": "original-order" }'>ID
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'ID-desc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Decreasing by ID'"
+                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                    </a>
                 </li>
-                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Product
-                    Name
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'ID-asc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Increasing by ID'"
+                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                    </a>
                 </li>
-                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "sub-num" }'>
-                    Category
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'name-asc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'A - Z'"
+                       th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                    </a>
                 </li>
-                <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "stock" }'>
-                    Stock
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'name-desc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Z - A'"
+                       th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'price-desc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Decreasing by Price'"
+                       th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'price-asc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Increasing by Price'"
+                       th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'barcode-desc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Decreasing by Barcode'"
+                       th:style="${sort == 'barcode-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'barcode-asc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Increasing by Barcode'"
+                       th:style="${sort == 'barcode-asc'} ? 'color:#000000'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'stock-desc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Decreasing by Stock'"
+                       th:style="${sort == 'stock-desc'} ? 'color:#000000'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'stock-asc'})}" th:text="'Increasing by Stock'"
+                       th:style="${sort == 'stock-asc'} ? 'color:#000000'">
+                    </a>
                 </li>
             </ul>
         </div>
@@ -1450,7 +1505,7 @@
                 <ul class="d-flex flex-row align-items-start justify-content-center">
                     <!-- Previous button -->
                     <li th:style="${currentPage == 1} ? 'display:none'">
-                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${currentPage - 1})}"
+                        <a th:href="@{/admin-panel#product(sort=${sort}, size=${productPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
                             <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
@@ -1459,7 +1514,8 @@
                     <!-- First page -->
                     <li th:if="${productPage.totalPages > 0}"
                         th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                        <a th:href="@{/admin-panel#product(sort=${sort}, size=${productPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
                            th:text="${1}" style="color: #fbaa1d;">
                         </a>
                     </li>
@@ -1471,7 +1527,7 @@
                         th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , productPage.totalPages > 2 + currentPage ? currentPage + 2 : productPage.totalPages - 1, 1)}"
                         th:class="${currentPage == i} ? 'active'">
-                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${i})}"
+                        <a th:href="@{/admin-panel#product(sort=${sort}, size=${productPage.size}, page=${i})}"
                            th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
                     </li>
 
@@ -1480,15 +1536,16 @@
                     <!-- Last page -->
                     <li th:if="${productPage.totalPages > 1}"
                         th:class="${currentPage == productPage.totalPages} ? 'active'">
-                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${productPage.totalPages})}"
-                           th:text="${productPage.totalPages}" style="color: #fbaa1d;" th:title="${'Page '+ productPage.totalPages}">
+                        <a th:href="@{/admin-panel#product(sort=${sort}, size=${productPage.size}, page=${productPage.totalPages})}"
+                           th:text="${productPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ productPage.totalPages}">
                         </a>
                     </li>
 
                     <!-- Next button -->
                     <li th:style="${currentPage == productPage.totalPages} ? 'display:none'">
-                        <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${currentPage + 1})}"
-                            aria-label="Next" title="Next Page" rel="tooltip">
+                        <a th:href="@{/admin-panel#product(sort=${sort}, size=${productPage.size}, page=${currentPage + 1})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
                             <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
                     </li>
@@ -1843,11 +1900,11 @@
         }
     });
 
-    $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function(event) {
+    $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function (event) {
         $.getJSON("/admin-panel/product/subcategory", {
-            category : $(this).val(),
-            ajax : 'true'
-        }, function(data) {
+            category: $(this).val(),
+            ajax: 'true'
+        }, function (data) {
             buildSubcategoriesDropdown(data, event.target.id.replace("category", "subcategory"));
         });
     });
@@ -1855,7 +1912,7 @@
     function buildSubcategoriesDropdown(data, subcategoryName) {
         var html = '<option value="">SELECT</option>';
         var len = data.length;
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
         }
         html += '</option>';

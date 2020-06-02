@@ -30,11 +30,14 @@ public class AdminPanelProductController {
 
     @RequestMapping(value = "/admin-panel/product", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort, Model model) {
 
-        Globals.getPageNumbers(page, size, (List) adminPanelProductService.listAll(), model, "productPage");
+        String currentSort = sort.orElse("date");
+        Globals.getPageNumbers(page, size, adminPanelProductService.sortProducts(currentSort), model, "productPage");
         model.addAttribute("allProducts", adminPanelProductService.listAll());
         model.addAttribute("categoryService", adminPanelCategoryService);
+        model.addAttribute("sort", currentSort);
         return "admin_panel/_product";
     }
 
