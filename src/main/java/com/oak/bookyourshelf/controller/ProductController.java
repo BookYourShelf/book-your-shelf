@@ -99,9 +99,6 @@ public class ProductController {
                         review.setUploadDate(sqlDate);
 
                         review.setUserId(user.getUserId());
-                        review.setUserName(user.getName());
-                        review.setUserSurname(user.getSurname());
-
                         user.addReview(review);
                         product.addReview(review);
                         product.increaseStarNum(review.getScoreOutOf5() - 1);
