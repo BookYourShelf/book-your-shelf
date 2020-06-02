@@ -226,7 +226,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getCategory().get(0).getName()}"></h>
+                                <h th:text="${product.getCategory().getName()}"></h>
                             </div>
                         </div>
                     </div>
@@ -1032,7 +1032,7 @@
                                     <select name="subcategory" id="book_subcategory_input"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                         <option th:each="subcategory : ${categoryService.getAllSubcategoriesName(product.getCategory().get(0))}"
+                                         <option th:each="subcategory : ${categoryService.getAllSubcategoriesName(product.getCategory())}"
                                                  th:value="${subcategory}"
                                                  th:text="${subcategory}"></option>
                                     </select>
@@ -2594,6 +2594,8 @@
         var ret = {
             productType: "none",
             buttonType: "delete",
+            category_name: "",
+            subcategory_name: "",
             productId: productId,
             lists: JSON.stringify({})
         };
