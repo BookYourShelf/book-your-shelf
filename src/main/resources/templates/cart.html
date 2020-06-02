@@ -51,23 +51,23 @@
                 <div class="row">
                     <div class="col">
                         <div class="cart_container">
+                            <span th:unless="${#lists.isEmpty(cartProducts)}">
+                                 <!-- Cart Bar -->
+                                <div class="cart_bar">
+                                    <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+                                        <li class="mr-auto">Product</li>
+                                        <li>Price</li>
+                                        <li>Quantity</li>
+                                        <li>Total</li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </div>
 
-                            <!-- Cart Bar -->
-                            <div class="cart_bar">
-                                <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                    <li class="mr-auto">Product</li>
-                                    <li>Price</li>
-                                    <li>Quantity</li>
-                                    <li>Total</li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
+                                <!-- Cart Items -->
+                                <div class="cart_items">
+                                    <ul class="cart_items_list">
 
-                            <!-- Cart Items -->
-                            <div class="cart_items">
-                                <ul class="cart_items_list">
-                                    <span th:unless="${#lists.isEmpty(cartProducts)}">
                                         <tr th:each="product : ${cartProducts}">
                                             <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
                                                 <div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
@@ -124,11 +124,11 @@
                                                         </div>
 
                                                         <span class="product_text product_num" th:id="'quantity' + ${product.getProductId()}">
-                                                            <span th:if="${product.getQuantity() == 0}" style="display:inline">
+                                                            <span th:if="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display:inline">
                                                                 <td th:text="${'1'}"></td>
                                                             </span>
-                                                            <span th:unless="${product.getQuantity() == 0}" style="display:inline">
-                                                                <td th:text="${product.getQuantity()}"></td>
+                                                            <span th:unless="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display:inline">
+                                                                <td th:text="${product.getProductQuantity().get(product.getProductId())}"></td>
                                                             </span>
                                                         </span>
 
@@ -137,15 +137,16 @@
                                                     </div>
                                                 </div>
                                                 <div id="product-price" class="product_total product_text"><span>Total: </span>
-                                                    <span th:if="${product.getQuantityPrice() == 0}" style="display: inline">
+                                                    <span th:if="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display: block">
 
-                                                        <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate()}"></span>
+                                                        <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:with="result=${product.getPrice()}, discount =${product.getPrice() * product.getDiscountRate()}, total = ${result - discount}" th:text="${#numbers.formatDecimal(total,0,2)}"></span>
                                                         <span style="display:inline">₺</span>
 
                                                     </span>
-                                                    <span th:unless="${product.getQuantityPrice() == 0}" style="display:inline">
+                                                    <span th:unless="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display:block">
 
-                                                       <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:text="${product.getQuantityPrice()}"></span>
+                                                       <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:with="result=${product.getPrice() - (product.getPrice() * product.getDiscountRate())} , quantity =${product.getProductQuantity().get(product.getProductId())},
+                                                                                       total=${result*quantity}" th:text="${#numbers.formatDecimal(total,0,2)}"></span>
                                                         <span style="display:inline">₺</span>
                                                     </span>
 
@@ -160,12 +161,13 @@
                                                 </a></div>
                                             </li>
                                         </tr>
-                                    </span>
-                                    <span th:if="${#lists.isEmpty(cartProducts)}">
-                                        <div class="warning-text">There are no Products.</div>
-                                    </span>
-                                </ul>
-                            </div>
+
+                                    </ul>
+                                </div>
+                            </span>
+                            <span th:if="${#lists.isEmpty(cartProducts)}">
+                                <div class="warning-text">There are no Products.</div>
+                            </span>
 
                             <!-- Cart Buttons -->
                             <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
@@ -235,10 +237,10 @@
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
                                         <div id="sub-total" style="display:inline" class="cart_extra_total_value ml-auto result"> </div>
-                                        <span style="display:inline">₺</span>
+                                        <span id="sub-currency" style="display:inline"></span>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="cart_extra_total_title">Shipping</div>
+                                        <div class="cart_extra_total_title">Shipping Method</div>
                                         <div id="shipping_text" class="cart_extra_total_value ml-auto result">Free</div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
@@ -248,12 +250,12 @@
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
                                         <div id="final_result" style="display:inline" class="cart_extra_total_value ml-auto relativer"> </div>
-                                        <span style="display:inline" class="cart_extra_total_value relativer">₺</span>
+                                        <span id="final-currency" style="display:inline" class="cart_extra_total_value relativer"></span>
 
                                     </li>
                                 </ul>
-                                <div  type="submit" class="checkout_button trans_200"><a id="checkout" href="#">proceed to checkout</a>
-                                </div>
+                                <input type="submit" id="checkout" style="cursor:pointer" class="checkout_button trans_200" value="PROCEED TO CHECKOUT">
+
                             </div>
                         </div>
                     </div>
@@ -372,14 +374,12 @@
 
         $('#checkout').click(function (event){
             var button = $(this).attr("id");
-            var subTotal = $('#sub-total').text();
             var totalAmount = $('#final_result').text();
             var coupon = $('#coupon').text();
             var shipping = $("input[name='shipping_radio']:checked").val();
 
             var ret = {
                 button: button,
-                subTotal: subTotal,
                 totalAmount: totalAmount,
                 coupon: coupon,
                 shipping: shipping
@@ -457,6 +457,7 @@
         $('.total').each(function () {
             sum += +$(this).text() || 0;
             $("#sub-total").text(parseFloat(sum).toFixed(2));
+            $("#sub-currency").text('₺');
         });
 
         $('.total').on('DOMSubtreeModified',function() {
@@ -464,6 +465,7 @@
             $('.total').each(function () {
                 sum += +$(this).text() || 0;
                 $("#sub-total").text(parseFloat(sum).toFixed(2));
+                $("#sub-currency").text('₺');
             });
         });
 
@@ -479,13 +481,19 @@
 
         var ship = $('input[name="shipping_radio"]:checked').val();
         var total = parseFloat(document.getElementById("sub-total").textContent) + parseFloat(ship);
-        $("#final_result").text(total.toFixed(2));
+        if( isNaN(total.toFixed(2))){
+        } else {
+            $("#final_result").text(total.toFixed(2));
+            $("#final-currency").text('₺');
+        }
+
 
         $('#shipping_text, #sub-total').on('DOMSubtreeModified',function() {
             var sum = 0;
             $('.result').each(function () {
                 sum += +$(this).text() || 0;
                 $("#final_result").text(parseFloat(sum).toFixed(2));
+                $("#final-currency").text('₺');
             });
         });
 

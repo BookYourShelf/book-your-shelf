@@ -42,8 +42,6 @@ public class CheckoutController {
 
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     public String showCheckout(Model model) {
-
-        System.out.println(order.getTotalAmount());
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
         model.addAttribute("order", order);

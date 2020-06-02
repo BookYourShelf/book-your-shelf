@@ -53,6 +53,11 @@ public class WishListController {
                 if (product.getStock() > 0) {
                     user.getWishList().remove(product);
                     profileInformationService.save(user);
+
+                    product.getProductQuantity().put(product.getProductId(),1);
+                    wishListService.save(product);
+
+
                     user.getShoppingCart().add(product);
                     profileInformationService.save(user);
                 } else {
@@ -61,6 +66,8 @@ public class WishListController {
             } else {
                 user.getWishList().remove(product);
                 profileInformationService.save(user);
+                product.getProductQuantity().put(product.getProductId(),product.getProductQuantity().get(product.getProductId())+1);
+                wishListService.save(product);
             }
         } else if (button.equals("delete_product")) {
             Product product = wishListService.get(productID);

@@ -798,40 +798,46 @@
                                 <ul class="cart_extra_total_list">
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
-                                        <div class="cart_extra_total_value ml-auto"><td th:text="${order.getSubTotal()} + '₺'"></td>
+                                        <div class="cart_extra_total_value ml-auto">
+                                            <div th:if="${order.getShippingMethod() == 'Free'}">
+                                                <td th:text="${order.getTotalAmount()} + '₺'"></td>
+                                            </div>
+                                            <div th:unless="${order.getShippingMethod() == 'Free'}">
+                                                <td th:text="${#numbers.formatDecimal(order.getTotalAmount() - 7.99,0,2)} + '₺'"></td>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Method</div>
-                                        <div th:if="${order.getShippingMethod() == '0'}" class="cart_extra_total_value ml-auto">
+                                        <div th:if="${order.getShippingMethod() == 'Free'}" class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto">Free</div>
                                         </div>
-                                        <div th:unless="${order.getShippingMethod() == '0'}" class="cart_extra_total_value ml-auto">
+                                        <div th:unless="${order.getShippingMethod() == 'Free'}" class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto">7.99</div>
                                         </div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Price</div>
                                         <div th:if="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto">
-                                            <div class="cart_extra_total_value ml-auto">6.99</div>
+                                            <div class="cart_extra_total_value ml-auto">Free</div>
                                         </div>
                                         <div th:unless="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto">
-                                            <div class="cart_extra_total_value ml-auto">Free</div>
+                                            <div class="cart_extra_total_value ml-auto">6.99₺</div>
                                         </div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div class="cart_extra_total_value ml-auto">- ₺9.90</div>
+                                        <div class="cart_extra_total_value ml-auto">0.00</div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
-                                        <div th:if="${order.getTotalAmount() > 100}">
+                                        <div th:if="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto relativer">
                                         <div class="cart_extra_total_value ml-auto relativer">
-                                            <td th:text="${#numbers.formatDecimal(order.getTotalAmount() + 6.99,0,2)} + '₺'"></td>
+                                            <td th:text="${order.getTotalAmount()} + '₺'"></td>
                                         </div>
                                         </div>
                                         <div th:unless="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto relativer">
-                                            <td th:text="${order.getTotalAmount()} + '₺'"></td>
+                                            <td th:text="${#numbers.formatDecimal(order.getTotalAmount() + 6.99,0,2)} + '₺'"></td>
                                         </div>
                                     </li>
                                 </ul>

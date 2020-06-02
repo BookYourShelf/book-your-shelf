@@ -58,6 +58,7 @@ public class PaymentController {
         if (button.equals("ConfirmCreditCard")) {
             System.out.println("In credit card");
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_CREDIT_CARD);
+            System.out.println(Order.PaymentOption.CREDIT_CARD);
             order.setPaymentOption(Order.PaymentOption.CREDIT_CARD);
             payment(payment, user);
 
@@ -82,30 +83,32 @@ public class PaymentController {
         payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
         payment.setPayerId(user.getUserId());
         payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
+
         order.setOrderDate(new Timestamp(System.currentTimeMillis()));
         order.setUserName(user.getName());
         order.setUserId(user.getUserId());
-        order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
+        order.setPaymentStatus(Order.PaymentStatus.PENDING);
         order.setOrderStatus(Order.OrderStatus.PENDING);
-        user.getOrders().add(order);
         productModification(user);
-        paymentService.save(payment);
         cartService.save(order);
+        user.getOrders().add(order);
+        user.getShoppingCart().clear();
+        paymentService.save(payment);
         profileInformationService.save(user);
-        order = null;
+        //Problem section
+        CartController.order = new Order();
+
     }
 
     public void productModification(User user) {
         List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
         for (Integer productID : productIds) {
             Product product = productDetailsInformationService.get(productID);
-            if(!product.getBuyerUserIds().contains(user.getUserId())){
-                product.getBuyerUserIds().add(user.getUserId());
-            }
-           // product.increaseSalesNum();
-           // product.setStock(product.getStock() - 1);
-            productDetailsInformationService.save(product);
-        }
 
+            if (!product.getBuyerUserIds().contains(user.getUserId())) {
+                product.getBuyerUserIds().add(user.getUserId());
+                productDetailsInformationService.save(product);
+            }
+        }
     }
 }

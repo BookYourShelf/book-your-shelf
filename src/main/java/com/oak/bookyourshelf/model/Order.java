@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "orders")
@@ -53,12 +54,6 @@ public class Order {
     @ElementCollection
     private List<Integer> productId;
 
-    @ElementCollection
-    private List<Float> discountRate;
-
-    @ElementCollection
-    private List<Integer> quantity;
-
 
     private int userId;
     private String userName;
@@ -68,7 +63,11 @@ public class Order {
     private String shippingCompany;
     private String shippingMethod;
     private float totalAmount;
-    private float subTotal;
+
+    @ElementCollection
+    @Column(name = "discount")
+    @CollectionTable(name="product_discount_mapping",joinColumns = @JoinColumn(name="productId"))
+    Map<Integer,Float> productDiscount;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
@@ -191,19 +190,11 @@ public class Order {
 
     public void setTotalAmount(Float totalAmount) { this.totalAmount = totalAmount; }
 
-    public Float getSubTotal() { return subTotal; }
-
-    public void setSubTotal(Float subTotal) { this.subTotal = subTotal; }
-
     public OrderStatus getOrderStatus() { return orderStatus; }
 
     public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
 
-    public List<Float> getDiscountRate() { return discountRate; }
+    public Map<Integer, Float> getProductDiscount() { return productDiscount; }
 
-    public void setDiscountRate(List<Float> discountRate) { this.discountRate = discountRate; }
-
-    public List<Integer> getQuantity() { return quantity; }
-
-    public void setQuantity(List<Integer> quantity) { this.quantity = quantity; }
+    public void setProductDiscount(Map<Integer, Float> productDiscount) { this.productDiscount = productDiscount; }
 }

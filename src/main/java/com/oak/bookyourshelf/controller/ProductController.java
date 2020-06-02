@@ -6,6 +6,7 @@ import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.ReviewService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelProductService;
+import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsReviewService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,17 +27,20 @@ public class ProductController {
     final AdminPanelProductService adminPanelProductService;
     final ReviewService reviewService;
     final UserDetailsReviewService userDetailsReviewService;
+    final ProductDetailsInformationService productDetailsInformationService;
 
     public ProductController(ProductService productService, ProfileInformationService profileInformationService,
                              @Qualifier("customUserDetailsService") AuthService authService,
                              AdminPanelProductService adminPanelProductService,
-                             ReviewService reviewService, UserDetailsReviewService userDetailsReviewService) {
+                             ReviewService reviewService, UserDetailsReviewService userDetailsReviewService,
+                             ProductDetailsInformationService productDetailsInformationService) {
         this.productService = productService;
         this.profileInformationService = profileInformationService;
         this.authService = authService;
         this.adminPanelProductService = adminPanelProductService;
         this.reviewService = reviewService;
         this.userDetailsReviewService = userDetailsReviewService;
+        this.productDetailsInformationService = productDetailsInformationService;
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
@@ -71,13 +75,18 @@ public class ProductController {
                 case "cart":
                     if (!user.getShoppingCart().contains(product)) {
                         if (product.getStock() > 0) {
+                            product.getProductQuantity().put(product.getProductId(),1);
                             user.addToCart(product);
+                            productDetailsInformationService.save(product);
                             profileInformationService.save(user);
                             return ResponseEntity.ok("");
                         } else {
                             return ResponseEntity.badRequest().body("There is no stock.");
                         }
                     }
+
+                    product.getProductQuantity().put(product.getProductId(),product.getProductQuantity().get(product.getProductId())+1);
+                    productDetailsInformationService.save(product);
                     // already in cart
                     return ResponseEntity.ok("");
 
