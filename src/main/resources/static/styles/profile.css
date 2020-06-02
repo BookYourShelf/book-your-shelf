@@ -1652,10 +1652,6 @@ section {
     padding-bottom: 5px;
 }
 
-.products_dropdown {
-    cursor: pointer;
-}
-
 .products_dropdown i {
     margin-left: 9px;
     font-size: 14px;
@@ -1676,27 +1672,31 @@ section {
     top: 100%;
     visibility: hidden;
     opacity: 0;
-    width: 135px;
+    width: 170px;
     z-index: 111111;
     background: #f6f8fa;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 13px;
     padding-bottom: 15px;
+    margin-top: 1px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
     -ms-transition: all 200ms ease;
     -o-transition: all 200ms ease;
     transition: all 200ms ease;
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .products_dropdown ul li:not(:last-child) {
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 }
 
-.products_dropdown ul li {
-    font-size: 14px;
+.products_dropdown ul li a {
+    font-size: 13px;
     font-weight: 400;
     color: #bcbcbc;
     -webkit-transition: all 200ms ease;
@@ -1704,9 +1704,10 @@ section {
     -ms-transition: all 200ms ease;
     -o-transition: all 200ms ease;
     transition: all 200ms ease;
+    cursor: pointer;
 }
 
-.products_dropdown ul li:hover {
+.products_dropdown ul li a:hover {
     color: #000000;
 }
 
