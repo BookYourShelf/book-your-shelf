@@ -110,60 +110,134 @@
         </div>
     </div>
 </div>
-<span th:if="${campaignPage.totalPages>0}">
+
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
                 class="fa fa-caret-down" aria-hidden="true"></i></div>
         <ul>
-            <li class="item_sorting_btn"
-                data-isotope-option='{ "sortBy": "original-order" }'>ID
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Campaign
-                Name
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "rate" }'>
-                Discount Rate
-            </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "category" }'>
-                Category
-            </li>
+            <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1},sort=${'ID-desc'},filter=${filter})}"
+                       th:text="'Decreasing by ID'"
+                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1},sort=${'ID-asc'},filter=${filter})}"
+                       th:text="'Increasing by ID'"
+                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1},sort=${'Rate-desc'},filter=${filter})}"
+                       th:text="'Decreasing by Rate'"
+                       th:style="${sort == 'Rate-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1}, sort=${'Rate-asc'},filter=${filter})}"
+                       th:text="'Increasing by Rate'"
+                       th:style="${sort == 'Rate-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1},sort=${'Product-Type-asc'},filter=${filter})}"
+                       th:text="'Product Type (A - Z)'"
+                       th:style="${sort == 'Product-Type-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1}, sort=${'Product-Type-desc'},filter=${filter})}"
+                       th:text="'Product Type (Z - A)'"
+                       th:style="${sort == 'Product-Type-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1} ,sort=${'Name-asc'},filter=${filter})}"
+                       th:text="'Name(A - Z)'"
+                       th:style="${sort == 'Name-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                 <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1} ,sort=${'Name-dsc'},filter=${filter})}"
+                       th:text="'Name (Z - A)'"
+                       th:style="${sort == 'Name-dsc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
         </ul>
     </div>
-    <div class="products_dropdown text-right product_dropdown_filter">
-        <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
-                                                               aria-hidden="true"></i></div>
-        <ul>
-            <li class="item_filter_btn" data-filter="*">All</li>
-            <li class="item_filter_btn" data-filter=".ongoing">Ongoing</li>
-            <li class="item_filter_btn" data-filter=".ended">Ended</li>
-        </ul>
-    </div>
+     <div class="products_dropdown product_dropdown_filter">
+            <div class="isotope_filter_text"><span>Campaign Filter</span><i class="fa fa-caret-down"
+                                                                            aria-hidden="true"></i>
+            </div>
+            <ul>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
+                       th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
+                       th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
+                       th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
+                       th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
+                       th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
+                       th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
+                       th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+            </ul>
+        </div>
 </div>
+<span th:if="${campaignPage.totalPages>0}">
 <br>
 <div>
     <div class="row order - row ">
 
-        <div class="col-lg-2 col-md-3 col-xs-6">
+        <div class="col-lg-3 col-md-3 col-xs-6">
             <div class="profile-order-title">ID</div>
         </div>
 
-        <div class="col-lg-2 col-md-3 col-xs-6">
+        <div class="col-lg-3 col-md-3 col-xs-6">
             <div class="profile-order-title">Campaign Name</div>
         </div>
 
-        <div class="col-lg-2 col-md-3 col-xs-6">
+        <div class="col-lg-3 col-md-3 col-xs-6">
             <div class="profile-order-title">Discount Rate</div>
         </div>
 
-        <div class="col-lg-2 col-md-3 col-xs-6">
+        <div class="col-lg-3 col-md-3 col-xs-6">
             <div class="profile-order-title">Product Type</div>
         </div>
 
-        <div class="col-lg-2 col-md-3 col-xs-6">
-            <div class="profile-order-title">Category</div>
-        </div>
     </div>
     <br>
     <div class="container">
@@ -173,41 +247,32 @@
             <!-- Category -->
             <div class="address-element-padding">
                 <a th:href="@{'/campaign-details/' + ${campaign.id}}">
-                    <div class="category-element">
+                    <div class="category-element col-md-auto">
                         <div class="product_content">
                             <div class="row order - row collapsible" >
-                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getId()}"></td>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getName()}"></td>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">%
                                         <td th:text="${campaign.getRate()}"></td>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getProductType()}"></td>
                                     </div>
                                 </div>
 
-                                    <div class="col-lg-2 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                             <div th:if="${campaign.getCategories().size()>0}">
-                                            <td th:text="${campaign.getCategoryName()}"></td>
-                                            </div>
-                                            <div th:unless="${campaign.getCategories().size()>0}">
-                                                <div>-</div>
-                                            </div>
-                                    </div>
                                  </div>
 
                             </div>
@@ -233,7 +298,8 @@
 
                 <!-- Previous button -->
                     <li th:style="${currentPage == 1} ? 'display:none'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1})}"
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1},sort=${sort},
+                                                            filter=${filter})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
                             <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
@@ -242,7 +308,8 @@
                 <!-- First page -->
                     <li th:if="${campaignPage.totalPages > 0}"
                         th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1})}"
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1},sort=${sort},
+                                                            filter=${filter})}"
                            th:title="${'Page '+ 1}"
                            th:text="${1}" style="color: #fbaa1d;">
                         </a>
@@ -255,7 +322,8 @@
                          th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
                          th:class="${currentPage == i} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${i})}"
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${i},sort=${sort},
+                                                            filter=${filter})}"
                            th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
                     </li>
 
@@ -264,7 +332,8 @@
                 <!-- Last page -->
                     <li th:if="${campaignPage.totalPages > 1}"
                         th:class="${currentPage == campaignPage.totalPages} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages})}"
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages},sort=${sort},
+                                                            filter=${filter})}"
                            th:text="${campaignPage.totalPages}" style="color: #fbaa1d;"
                            th:title="${'Page '+ campaignPage.totalPages}">
                         </a>
@@ -272,7 +341,8 @@
 
                 <!-- Next button -->
                     <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1})}"
+                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1},sort=${sort},
+                                                            filter=${filter})}"
                            aria-label="Next" title="Next Page" rel="tooltip">
                             <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>
