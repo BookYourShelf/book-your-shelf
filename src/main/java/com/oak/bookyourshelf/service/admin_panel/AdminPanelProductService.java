@@ -33,6 +33,9 @@ public class AdminPanelProductService {
 
     public List<Product> sortProducts(String sortType) {
         switch (sortType) {
+            case "date-asc":
+                return adminPanelProductRepository.findAllByOrderByUploadDateAsc();
+
             case "ID-desc":
                 return adminPanelProductRepository.findAllByOrderByProductIdDesc();
 
@@ -63,7 +66,7 @@ public class AdminPanelProductService {
             case "stock-asc":
                 return adminPanelProductRepository.findAllByOrderByStockAsc();
 
-            default:        // date
+            default:        // date-desc
                 return adminPanelProductRepository.findAllByOrderByUploadDateDesc();
         }
     }

@@ -1350,6 +1350,20 @@
                     class="fa fa-caret-down" aria-hidden="true"></i></div>
             <ul>
                 <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'date-desc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Decreasing by Date'"
+                       th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#product(sort=${'date-asc'}, size=${productPage.size}, page=${1})}"
+                       th:text="'Increasing by Date'"
+                       th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#product(sort=${'ID-desc'}, size=${productPage.size}, page=${1})}"
                        th:text="'Decreasing by ID'"
                        th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
@@ -1390,6 +1404,7 @@
                        th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
+
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#product(sort=${'barcode-desc'}, size=${productPage.size}, page=${1})}"
                        th:text="'Decreasing by Barcode'"
@@ -1400,20 +1415,20 @@
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#product(sort=${'barcode-asc'}, size=${productPage.size}, page=${1})}"
                        th:text="'Increasing by Barcode'"
-                       th:style="${sort == 'barcode-asc'} ? 'color:#000000'">
+                       th:style="${sort == 'barcode-asc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#product(sort=${'stock-desc'}, size=${productPage.size}, page=${1})}"
                        th:text="'Decreasing by Stock'"
-                       th:style="${sort == 'stock-desc'} ? 'color:#000000'">
+                       th:style="${sort == 'stock-desc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#product(sort=${'stock-asc'})}" th:text="'Increasing by Stock'"
-                       th:style="${sort == 'stock-asc'} ? 'color:#000000'">
+                       th:style="${sort == 'stock-asc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
             </ul>

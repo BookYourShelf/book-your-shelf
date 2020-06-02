@@ -16,6 +16,8 @@ public interface AdminPanelProductRepository extends CrudRepository<Product, Int
 
     List<Product> findAllByOrderByUploadDateDesc();
 
+    List<Product> findAllByOrderByUploadDateAsc();
+
     List<Product> findAllByOrderByProductIdDesc();
 
     List<Product> findAllByOrderByProductIdAsc();
