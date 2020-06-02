@@ -51,19 +51,41 @@ public class ProductDetailsInformationController {
                                                 ElectronicBookReader electronicBookReader,
                                                 ElectronicBookReaderCase electronicBookReaderCase,
                                                 PhysicalBookCase physicalBookCase,
-                                                @RequestParam("lists") String lists) throws JsonProcessingException {
+                                                @RequestParam("lists") String lists,
+                                                @RequestParam("category_name") String category_name,
+                                                @RequestParam("subcategory_name") String subcategory_name) throws JsonProcessingException {
 
         Product product = productDetailsInformationService.get(id);
+        Category category;
+        Subcategory subcategory;
 
         switch (buttonType) {
             case "update":
                 switch (productType) {
                     case "book":
-                        return bookBarcodeAndISBNCheck(physicalBook, lists, product);
+                        category = adminPanelCategoryService.getByName(category_name);
+                        subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                        physicalBook.setCategory(new ArrayList<Category>());
+                        physicalBook.getCategory().add(category);
+                        physicalBook.setSubcategory(new ArrayList<Subcategory>());
+                        physicalBook.getSubcategory().add(subcategory);
+                        return bookBarcodeAndISBNCheck(physicalBook, lists, product, category, subcategory);
                     case "ebook":
-                        return bookBarcodeAndISBNCheck(electronicBook, lists, product);
+                        category = adminPanelCategoryService.getByName(category_name);
+                        subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                        physicalBook.setCategory(new ArrayList<Category>());
+                        physicalBook.getCategory().add(category);
+                        physicalBook.setSubcategory(new ArrayList<Subcategory>());
+                        physicalBook.getSubcategory().add(subcategory);
+                        return bookBarcodeAndISBNCheck(electronicBook, lists, product, category, subcategory);
                     case "audio_book":
-                        return bookBarcodeAndISBNCheck(audioBook, lists, product);
+                        category = adminPanelCategoryService.getByName(category_name);
+                        subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
+                        physicalBook.setCategory(new ArrayList<Category>());
+                        physicalBook.getCategory().add(category);
+                        physicalBook.setSubcategory(new ArrayList<Subcategory>());
+                        physicalBook.getSubcategory().add(subcategory);
+                        return bookBarcodeAndISBNCheck(audioBook, lists, product, category, subcategory);
                     case "ebook_reader":
                         return productBarcodeCheck(electronicBookReader, product);
                     case "ebook_reader_case":
@@ -92,7 +114,7 @@ public class ProductDetailsInformationController {
         return ResponseEntity.ok("");
     }
 
-    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book newProduct, String lists, Product oldProduct)
+    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book newProduct, String lists, Product oldProduct, Category category, Subcategory subcategory)
             throws JsonProcessingException {
 
         // Add lists to product
