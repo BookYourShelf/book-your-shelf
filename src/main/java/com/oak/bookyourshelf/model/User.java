@@ -68,7 +68,7 @@ public class User {
     @ElementCollection
     private Map<String, Integer> searchHistory;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
 
     public User() {

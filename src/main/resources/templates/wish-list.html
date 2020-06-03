@@ -52,28 +52,28 @@
                 <div class="row">
                     <div class="col">
                         <div class="cart_container">
-
+                            <span th:unless="${#lists.isEmpty(wishListProducts)}">
                             <!-- Cart Bar -->
-                            <div class="cart_bar">
-                                <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                    <li class="mr-auto">Product</li>
-                                    <li>Price</li>
-                                    <li>Stock</li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
+                                <div class="cart_bar">
+                                    <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+                                        <li class="mr-auto">Product</li>
+                                        <li>Price</li>
+                                        <li>Stock</li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </div>
 
-                            <!-- Cart Items -->
-                            <div class="cart_items">
-                                <ul class="cart_items_list">
-                                    <span th:unless="${#lists.isEmpty(wishListProducts)}">
+                                <!-- Cart Items -->
+                                <div class="cart_items">
+                                    <ul class="cart_items_list">
+
                                         <tr th:each="product : ${wishListProducts}">
                                             <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
                                                 <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                                     <a th:href="'/product/' + ${product.getProductId()}">
                                                         <div>
-                                                            <div class="product_image"><img src="images/hayvan_ciftligi.jpg"
+                                                            <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
                                                                                             alt="" class="product_image_img">
                                                             </div>
                                                         </div>
@@ -135,23 +135,23 @@
                                                 </a></div>
                                             </li>
                                         </tr>
-                                    </span>
-                                    <!-- No Wish List -->
-                                    <span th:if="${#lists.isEmpty(wishListProducts)}">
-                                        <div class="warning-text">There are no Products.</div>
-                                    </span>
-                                </ul>
-                            </div>
-                            <!-- Cart Buttons -->
-                            <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
-                                <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                    <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_wish_list">clear wish
-                                        list</a></div>
-                                    <div class="button button_continue trans_200"><a href="/">continue
-                                        shopping</a></div>
+                                    </ul>
                                 </div>
-                            </div>
 
+                                <!-- Cart Buttons -->
+                                <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+                                    <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                        <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_wish_list">clear wish
+                                            list</a></div>
+                                        <div class="button button_continue trans_200"><a href="/">continue
+                                            shopping</a></div>
+                                    </div>
+                                </div>
+                            </span>
+                            <!-- No Wish List -->
+                            <span th:if="${#lists.isEmpty(wishListProducts)}">
+                                <div class="warning-text">There are no Products.</div>
+                            </span>
                             <!-- Out of stock warning -->
                             <div class="out-of-stock" style="display: none">This product is out of stock.</div>
                         </div>

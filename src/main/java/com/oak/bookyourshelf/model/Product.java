@@ -3,9 +3,7 @@ package com.oak.bookyourshelf.model;
 import javax.persistence.*;
 import java.sql.Date;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public abstract class Product {
@@ -28,8 +26,12 @@ public abstract class Product {
     private String shortDesc;
     private String longDesc;
     private String barcode;
-    private int quantity;
-    private float quantityPrice;
+
+
+    @ElementCollection
+    @Column(name = "quantities")
+    @CollectionTable(name="product_quantity_mapping",joinColumns = @JoinColumn(name="productId"))
+    Map<Integer,Integer> productQuantity;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
@@ -99,6 +101,7 @@ public abstract class Product {
     public void increaseSalesNum() {
         salesNum++;
     }
+
 
     // GETTER & SETTER
 
@@ -234,13 +237,11 @@ public abstract class Product {
 
     public void setOnShoppingCart(List<User> onShoppingCart) { this.onShoppingCart = onShoppingCart; }
 
-    public int getQuantity() { return quantity; }
+    public Map<Integer, Integer> getProductQuantity() { return productQuantity; }
 
-    public void setQuantity(int quantity) { this.quantity = quantity; }
-
-    public float getQuantityPrice() { return quantityPrice; }
-
-    public void setQuantityPrice(float quantityPrice) { this.quantityPrice = quantityPrice; }
 
     public abstract Object getProductTypeName();
+
+    public void setProductQuantity(Map<Integer, Integer> productQuantity) { this.productQuantity = productQuantity; }
+
 }
