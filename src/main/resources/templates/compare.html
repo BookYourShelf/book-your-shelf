@@ -62,9 +62,17 @@
                         <thead>
                         <tr>
                             <th style="width: 20.0%">
+                                <span th:if="${mainProduct.getProductTypeName() == comparedProduct.getProductTypeName()}">
                                 <div th:text="${mainProduct.getProductTypeName()}">
-
                                 </div>
+
+                                </span>
+                                <span th:unless="${mainProduct.getProductTypeName() == comparedProduct.getProductTypeName()}">
+                                <div th:text="${mainProduct.getProductTypeName() + '  vs  ' + comparedProduct.getProductTypeName()}">
+                                </div>
+
+                                </span>
+
                             </th>
                             <th style="width: 40.0%">
                                 <div>
@@ -129,7 +137,7 @@
                         </tr>
 
 
-                        <span th:if="${mainProduct.getProductTypeName() == 'Book' || mainProduct.getProductTypeName() == 'E-Book' || mainProduct.getProductTypeName() == 'Audio Book'}">
+                        <span th:if="${(mainProduct.getProductTypeName() == 'Book' && comparedProduct.getProductTypeName() == 'Book') || (mainProduct.getProductTypeName() == 'E-Book' && comparedProduct.getProductTypeName() == 'E-Book')|| (mainProduct.getProductTypeName() == 'Audio Book' && comparedProduct.getProductTypeName() == 'Audio Book')}">
                         <tr>
                             <th scope="row">Author</th>
                            <td th:text="${compareProductService.createString(mainProduct.getAuthors())}"></td>
@@ -204,7 +212,7 @@
                         </tr>
 
 
-                        <span th:if="${mainProduct.getProductTypeName() == 'Book'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'Book' && comparedProduct.getProductTypeName() == 'Book' }">
                         <tr>
                             <th scope="row">Media Type</th>
                             <td th:text="${mainProduct.getMediaType()}"></td>
@@ -241,7 +249,7 @@
                             <td th:text="${comparedProduct.getHeight()}"></td>
                         </tr>
                         </span>
-                        <span th:if="${mainProduct.getProductTypeName() == 'Audio Book'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'Audio Book' && comparedProduct.getProductTypeName() == 'Audio Book'}">
                              <tr>
                                 <th scope="row">Length</th>
                                 <td th:text="${mainProduct.getLengthInMinutes() + ' minutes'}"></td>
@@ -254,7 +262,7 @@
                             </tr>
                         </span>
 
-                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book' && comparedProduct.getProductTypeName() == 'E-Book'}">
                             <tr>
                                 <th scope="row">Page Number</th>
 
@@ -274,7 +282,7 @@
 
                         </span>
                         </span>
-                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader' && comparedProduct.getProductTypeName() == 'E-Book Reader'}">
                              <tr>
                                 <th scope="row">Color</th>
                                 <td th:text="${mainProduct.getReaderColor()}"></td>
@@ -457,7 +465,7 @@
                             </tr>
 
                         </span>
-                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case' || mainProduct.getProductTypeName() == 'Book Case'}">
+                        <span th:if="${(mainProduct.getProductTypeName() == 'E-Book Reader Case' && comparedProduct.getProductTypeName() == 'E-Book Reader Case' ) || (mainProduct.getProductTypeName() == 'Book Case' && comparedProduct.getProductTypeName() == 'Book Case')}">
                             <tr>
                                 <th scope="row">Color</th>
                                 <td th:text="${mainProduct.getCaseColor()}"></td>
@@ -483,7 +491,7 @@
                                 <td th:text="${mainProduct.getCaseWidth() + ' mm'}"></td>
                                 <td th:text="${comparedProduct.getCaseWidth() + ' mm'}"></td>
                             </tr>
-                             <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case'}">
+                             <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case'&& comparedProduct.getProductTypeName() == 'E-Book Reader Case'}">
                                   <tr>
                                 <th scope="row">Reader Brand</th>
                                 <td th:text="${mainProduct.getReaderBrand()}"></td>
@@ -500,7 +508,7 @@
                                 <td th:text="${comparedProduct.getCaseDepth()}"></td>
                             </tr>
                              </span>
-                            <span th:if="${mainProduct.getProductTypeName() == 'Book Case'}">
+                            <span th:if="${mainProduct.getProductTypeName() == 'Book Case' && comparedProduct.getProductTypeName() == 'Book Case'}">
 
                             <tr>
                                 <th scope="row">Maximum Book Depth</th>
