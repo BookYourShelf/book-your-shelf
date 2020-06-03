@@ -673,176 +673,176 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <span th:if="${reviewPage.totalPages > 0}">
 
                                         <!-- Sort orders -->
-                                        <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
-                                            <div class="products_dropdown product_dropdown_sorting">
-                                                <div class="isotope_sorting_text"><span>Sort</span><i
-                                                        class="fa fa-caret-down" aria-hidden="true"></i></div>
-                                                <ul>
+                                    <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+                                        <div class="products_dropdown product_dropdown_sorting">
+                                            <div class="isotope_sorting_text"><span>Sort</span><i
+                                                    class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                            <ul>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'date-desc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Decreasing by Date'"
-                                                           th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'date-desc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Decreasing by Date'"
+                                                       th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'date-asc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Increasing by Date'"
-                                                           th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'date-asc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Increasing by Date'"
+                                                       th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'title-asc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Review Title A - Z'"
-                                                           th:style="${sort == 'title-asc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'title-asc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Review Title A - Z'"
+                                                       th:style="${sort == 'title-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'title-desc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Review Title Z - A'"
-                                                           th:style="${sort == 'title-desc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'title-desc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Review Title Z - A'"
+                                                       th:style="${sort == 'title-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'content-asc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Review Content A - Z'"
-                                                           th:style="${sort == 'content-asc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'content-asc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Review Content A - Z'"
+                                                       th:style="${sort == 'content-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'content-desc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Review Content Z - A'"
-                                                           th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'content-desc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Review Content Z - A'"
+                                                       th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'rate-desc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Decreasing by Rate'"
-                                                           th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'rate-desc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Decreasing by Rate'"
+                                                       th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                    <li class="item_sorting_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${'rate-asc'},
-                                                                                                filter=${filter})}"
-                                                           th:text="'Increasing by Rate'"
-                                                           th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'rate-asc'},
+                                                                                            filter=${filter})}"
+                                                       th:text="'Increasing by Rate'"
+                                                       th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
 
-                                                </ul>
-                                            </div>
-
-                                            <div class="products_dropdown product_dropdown_filter">
-                                                <div class="isotope_filter_text"><span>Rating Filter</span><i
-                                                        class="fa fa-caret-down"
-                                                        aria-hidden="true"></i>
-                                                </div>
-                                                <ul>
-                                                    <li class="item_filter_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${sort},
-                                                                                                filter=${'all'})}"
-                                                           th:text="'All'"
-                                                           th:style="${filter == 'all'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
-                                                    <li class="item_filter_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${sort},
-                                                                                                filter=${'1'})}"
-                                                           th:text="'1 Star'"
-                                                           th:style="${filter == '1'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
-                                                    <li class="item_filter_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${sort},
-                                                                                                filter=${'2'})}"
-                                                           th:text="'2 Star'"
-                                                           th:style="${filter == '2'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
-                                                    <li class="item_filter_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${sort},
-                                                                                                filter=${'3'})}"
-                                                           th:text="'3 Star'"
-                                                           th:style="${filter == '3'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
-                                                    <li class="item_filter_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${sort},
-                                                                                                filter=${'4'})}"
-                                                           th:text="'4 Star'"
-                                                           th:style="${filter == '4'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
-                                                    <li class="item_filter_btn">
-                                                        <a th:href="@{/product/{id}#information(id=${product.getProductId()},
-                                                                                                size=${reviewPage.size},
-                                                                                                page=${1},
-                                                                                                sort=${sort},
-                                                                                                filter=${'5'})}"
-                                                           th:text="'5 Star'"
-                                                           th:style="${filter == '5'} ? 'color:#1f5b70'">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            </ul>
                                         </div>
 
+                                        <div class="products_dropdown product_dropdown_filter">
+                                            <div class="isotope_filter_text"><span>Rating Filter</span><i
+                                                    class="fa fa-caret-down"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <ul>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            filter=${'all'})}"
+                                                       th:text="'All'"
+                                                       th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            filter=${'1'})}"
+                                                       th:text="'1 Star'"
+                                                       th:style="${filter == '1'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            filter=${'2'})}"
+                                                       th:text="'2 Star'"
+                                                       th:style="${filter == '2'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            filter=${'3'})}"
+                                                       th:text="'3 Star'"
+                                                       th:style="${filter == '3'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            filter=${'4'})}"
+                                                       th:text="'4 Star'"
+                                                       th:style="${filter == '4'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            filter=${'5'})}"
+                                                       th:text="'5 Star'"
+                                                       th:style="${filter == '5'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <span th:if="${reviewPage.totalPages > 0}">
                                         <br>
                                         <div class="review_list">
                                             <tr th:each="review: ${reviewPage.content}">
