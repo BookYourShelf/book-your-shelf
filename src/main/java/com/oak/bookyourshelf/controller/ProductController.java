@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.controller;
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
+import com.oak.bookyourshelf.service.CompareProductsService;
 import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.ReviewService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelProductService;
@@ -30,12 +31,13 @@ public class ProductController {
     final ReviewService reviewService;
     final UserDetailsReviewService userDetailsReviewService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final CompareProductsService compareProductsService;
 
     public ProductController(ProductService productService, ProfileInformationService profileInformationService,
                              @Qualifier("customUserDetailsService") AuthService authService,
                              AdminPanelProductService adminPanelProductService,
                              ReviewService reviewService, UserDetailsReviewService userDetailsReviewService,
-                             ProductDetailsInformationService productDetailsInformationService) {
+                             ProductDetailsInformationService productDetailsInformationService, CompareProductsService compareProductsService) {
         this.productService = productService;
         this.profileInformationService = profileInformationService;
         this.authService = authService;
@@ -43,6 +45,7 @@ public class ProductController {
         this.reviewService = reviewService;
         this.userDetailsReviewService = userDetailsReviewService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.compareProductsService = compareProductsService;
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
@@ -60,6 +63,8 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
+        model.addAttribute("similarProducts",productService.createOurPicsForYou(product));
+        model.addAttribute("compareProductsService",compareProductsService);
         return "product";
     }
 
