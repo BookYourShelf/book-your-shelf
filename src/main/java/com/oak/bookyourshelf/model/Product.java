@@ -241,4 +241,6 @@ public abstract class Product {
     public float getQuantityPrice() { return quantityPrice; }
 
     public void setQuantityPrice(float quantityPrice) { this.quantityPrice = quantityPrice; }
+
+    public abstract Object getProductTypeName();
 }
