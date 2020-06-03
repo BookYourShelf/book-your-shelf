@@ -990,6 +990,7 @@
                     </div>
                 </div>
             </section>
+            <span th:if="${similarProducts.size()>0}">
             <!--================End Product Description Area =================-->
 
             <div class="products" style="padding-top: 0">
@@ -1001,50 +1002,93 @@
                     </div>
 
                     <div class="row products_row">
-
+                        <tr th:each="similarProduct: ${similarProducts}">
                         <!-- Product -->
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a th:href="@{/product}"><img
+                                <div class="product_image_showcase"><a th:href="@{'/product/' + ${similarProduct.productId}}"><img
                                         th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
-                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+
                                         </div>
 
                                         <div>
-                                            <div class="our_picks_product_name"><a th:href="@{/product}">Animal Farm</a>
+                                            <div class="our_picks_product_name" id="similar_product_name" th:value="${similarProduct.getProductName()}"><a th:href="@{'/product/' + ${similarProduct.productId}}"><h th:text="${similarProduct.getProductName()}"></h></a>
                                             </div>
-                                            <div class="our_picks_product_text">George Orwell</div>
+                                            <div class="our_picks_product_text">
+                                                <span th:if="${similarProduct.getProductTypeName() == 'Book' || similarProduct.getProductTypeName() == 'E-Book' || similarProduct.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_text">
+                                                <div th:text="${compareProductsService.createString(similarProduct.getAuthors())}"></div>
+                                            </div>
+                                        </span>
+                                                <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader'}">
+                                            <div class="product_text">
+                                                <div th:text="${similarProduct.getReaderBrand()}"></div>
+                                            </div>
+                                        </span>
+                                                <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader Case' || similarProduct.getProductTypeName() == 'Book Case'}">
+                                            <div class="product_text">
+                                                <div th:text="${similarProduct.getCaseBrand()}"></div>
+                                            </div>
+                                        </span>
+                                            </div>
                                         </div>
                                         <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                            <div class="sale_price">
-                                                <del>₺15.99</del>
+
+                                            <span th:if="${similarProduct.isOnDiscount()}">
+                                             <div class="sale_price">
+                                                 <del><div th:text="${similarProduct.getPrice()} + ' ₺'" }></div></del>
                                             </div>
                                             <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>%40</b></div>
+                                                <div class="sale_price"><b>
+                                                    <div th:text="${'%' + #numbers.formatDecimal(similarProduct.getDiscountRate() * 100, 0, 0)}"></div>
+                                                </b></div>
                                             </div>
+                                            <div class=class="product_price_recommended">
+                                                <div th:text="${compareProductsService.calculateNetPrice(similarProduct)} + ' ₺'"
+                                                     }></div></div>
+
+                                           </span>
+                                            <span th:unless="${similarProduct.isOnDiscount()}">
+                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                    <div class="sale_price">
+                                                        <del></del>
+                                                    </div>
+                                                    <div class="ml-auto text-right">
+                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                    </div>
+                                                </div>
+                                                <div class="product_price">
+                                                    <div th:text="${similarProduct.getPrice()} + ' ₺'"}></div></div>
+                                            </span>
+
                                         </div>
-                                        <div class="product_price_recommended">₺11<span>.99</span></div>
-                                    </div>
 
                                     <div class="our_picks_product_buttons product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list"
+                                            <div title="Add to wish list" id="add_to_wish_list"  th:value="${similarProduct.getProductId()}"
                                                  class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
+                                                <div >
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Add to shopping cart"
+                                            <div title="Add to shopping cart" id="add_to_cart"  th:value="${similarProduct.getProductId()}"
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
@@ -1068,213 +1112,13 @@
                             </div>
                         </div>
 
-                        <!-- Product -->
-                        <div class="col-xl-3 col-md-3">
-
-                            <div class="product">
-
-                                <div class="product_image_showcase"><a th:href="@{/product}"><img
-                                        th:src="@{/static/images/sineklerin_tanrisi.jpg}" alt=""
-                                        class="product_image_img"></a></div>
-                                <div class="product_content">
-
-                                    <div class="product_info align-items-center justify-content-center">
-                                        <div style="text-align:center;">
-                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        </div>
-                                        <div>
-                                            <div class="our_picks_product_name"><a th:href="@{/product}">Lord of the
-                                                Flies</a>
-                                            </div>
-                                            <div class="our_picks_product_text">William Golding</div>
-                                        </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                            <div class="sale_price">
-                                                <del>₺11.99</del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>%40</b></div>
-                                            </div>
-                                        </div>
-                                        <div class="product_price_recommended">₺9<span>.60</span></div>
-                                    </div>
-
-                                    <div class="our_picks_product_buttons product_buttons">
-                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list"
-                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
-                                                        <div>+</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div title="Add to shopping cart"
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt=""
-                                                              title="Add to shopping cart">
-                                                        <div>+</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div title="Compare products" id="compare_products_2" type="button"
-                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
-
-
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                        </tr>
 
-                        <!-- Product -->
-                        <div class="col-xl-3 col-md-3">
-                            <div class="product">
-                                <div class="product_image_showcase"><a th:href="@{/product}"><img
-                                        th:src="@{/static/images/seker_portakali.jpg}" alt=""
-                                        class="product_image_img"></a></div>
-                                <div class="product_content">
-
-                                    <div class="product_info align-items-center justify-content-center">
-                                        <div style="text-align:center;">
-                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        </div>
-                                        <div>
-                                            <div class="our_picks_product_name"><a th:href="@{/product}">My Sweet Orange
-                                                Tree</a></div>
-                                            <div class="our_picks_product_text">José Mauro de Vasconcelos</div>
-                                        </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                            <div class="sale_price">
-                                                <del></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>&nbsp;</b></div>
-                                            </div>
-                                        </div>
-                                        <div class="product_price_recommended">₺17<span>.86</span></div>
-                                    </div>
-
-                                    <div class="our_picks_product_buttons product_buttons">
-                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list"
-                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
-                                                        <div>+</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div title="Add to shopping cart"
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
-                                                        <div>+</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div title="Compare products" id="compare_products_3" type="button"
-                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
-
-
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product -->
-                        <div class="col-xl-3 col-md-3">
-                            <div class="product">
-                                <div class="product_image_showcase">
-                                    <a th:href="@{/product}">
-                                        <img th:src="@{/static/images/otomatik_portakal.jpg}" alt=""
-                                             class="product_image_img">
-                                    </a>
-                                </div>
-                                <div class="product_content">
-
-                                    <div class="our_picks_product_buttons product_info align-items-center justify-content-center">
-                                        <div style="text-align:center;">
-                                            <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                            <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                        </div>
-                                        <div>
-                                            <div class="our_picks_product_name"><a th:href="@{/product}">A Clockwork
-                                                Orange</a></div>
-                                            <div class="our_picks_product_text">Anthony Burgess</div>
-                                        </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                            <div class="sale_price">
-                                                <del></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>&nbsp;</b></div>
-                                            </div>
-                                        </div>
-                                        <div class="product_price_recommended">₺9<span>.60</span></div>
-                                    </div>
-
-                                    <div class="our_picks_product_buttons product_buttons">
-                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list"
-                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
-                                                        <div>+</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div title="Add to shopping cart"
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
-                                                        <div>+</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div title="Compare products" id="compare_products_4" type="button"
-                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
-
-
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div>
-                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+            </span>
 
             <!-- Footer -->
             <footer class="footer" th:insert="fragments/footer.html"></footer>
@@ -1339,11 +1183,74 @@
         })
     });
 
+    $('#add_to_wish_list').click(function (event) {
+
+        var ret = {
+            type: "wish-list",
+            id: $('#add_to_wish_list').val(),
+        };
+        var nameOfProduct = $('#similar_product_name').val();
+        console.log(nameOfProduct);
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: nameOfProduct + ' added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
     $('#add_cart').click(function (event) {
 
         var ret = {
             type: "cart",
             id: productID
+        };
+        var nameOfProduct = $('#similar_product_name').val();
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: nameOfProduct + ' added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('#add_to_cart').click(function (event) {
+
+        var ret = {
+            type: "cart",
+            id: $('#add_to_cart').val()
         };
 
         event.preventDefault();
