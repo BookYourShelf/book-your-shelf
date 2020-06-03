@@ -1,5 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <br>
 <br>
+
+<span th:if="${orderPage.totalPages > 0}">
 <div>
     <!-- Sort orders -->
     <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
@@ -52,308 +57,213 @@
     </div>
     <br>
     <div class="row">
-
-        <div class="col">
-            <div class="profile-order-title">Order Date</div>
+        <div class="col-lg-2">
+            <div class="profile-order-title">Order Time</div>
         </div>
 
-        <div class="col">
-            <div class="profile-order-title">Order Code</div>
-        </div>
-
-        <div class="col">
+        <div class="col-lg-2">
             <div class="profile-order-title">Total Price</div>
         </div>
 
-        <div class="col">
+        <div class="col-lg-2">
+            <div class="profile-order-title">Payment Option</div>
+        </div>
+
+        <div class="col-lg-2">
             <div class="profile-order-title">Payment Status</div>
         </div>
-        <div class="col">
-            <div class="profile-order-title">Order Status</div>
+
+        <div class="col-lg-2">
+            <div class="profile-order-title">Shipping Company</div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="profile-order-title">Delivery Status</div>
         </div>
     </div>
     <br>
     <div class="container">
         <div class="orderDetailBox">
+            <tr th:each="order: ${orderPage.content}">
 
-            <!-- Order -->
-            <div class="product">
-                <a href="#order1" class="trans_200" data-toggle="collapse">
-                    <div class="product_content">
-                        <div class="row">
-                            <div class="col">
-                                <div class="profile-order-text">
-                                    <div class="date">04.04.2020</div>
-                                    <div class="time">14:30</div>
+                <!-- Order -->
+                <div class="product">
+                    <a th:href="'#order-' + ${order.getOrderId()}" class="trans_200" data-toggle="collapse">
+                        <div class="product_content">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="profile-order-text">
+                                        <div class="date"
+                                             th:text="${#dates.format(order.getOrderDate(), 'dd-MM-yyyy')}"></div>
+                                        <div class="time"
+                                             th:text="${#dates.format(order.getOrderDate(), 'hh:mm')}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="profile-order-text"
+                                         th:text="'₺' + ${#numbers.formatDecimal(order.getTotalAmount(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="profile-order-text"
+                                         th:text="#{${'payment_option.' + order.getPaymentOption()}}"></div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="profile-order-text"
+                                         th:text="#{${'payment_status.' + order.getPaymentStatus()}}"></div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="profile-order-text" th:text="${order.getShippingCompany()}"></div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="profile-order-text"
+                                         th:text="#{${'delivery_status.' + order.getDeliveryStatus()}}"></div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="profile-order-text">XHSHFJ276</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">₺89.90</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">Pending</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">Pending</div>
-                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <div id="order1" class="collapse">
-                <div class="cart_container">
-                    <div class="product profile-order-expand-box">
+                <div th:id="'order-' + ${order.getOrderId()}" class="collapse">
+                    <div class="cart_container">
+                        <div class="product profile-order-expand-box">
 
-                        <!-- Cart Items -->
-                        <div class="cart_items">
-                            <ul class="cart_items_list">
+                            <!-- Cart Items -->
+                            <div class="cart_items">
+                                <ul class="cart_items_list">
+                                    <!-- Cart Item -->
+                                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start"
+                                        th:each="productId: ${order.getProductId()}">
+                                        <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                            <a th:href="@{'/product/' + ${productId}}">
+                                                <div>
+                                                    <div class="product_image"><img
+                                                            src="images/hayvan_ciftligi.jpg" alt=""
+                                                            class="product_image_img"></div>
+                                                </div>
+                                                <div class="product_name_container">
+                                                    <div class="cart-product-name">
+                                                        <a th:href="@{'/product/' + ${productId}}"
+                                                           th:text="${productService.get(productId).getProductName()}">
+                                                        </a>
+                                                    </div>
 
-                                <!-- Cart Item 1 -->
-                                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                        <a href="product.html">
-                                            <div>
-                                                <div class="product_image"><img
-                                                        src="images/hayvan_ciftligi.jpg" alt=""
-                                                        class="product_image_img"></div>
-                                            </div>
-                                            <div class="product_name_container">
-                                                <div class="cart-product-name"><a
-                                                        href="product.html">Hayvan
-                                                    CiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligiCiftligi</a>
-                                                </div>
-                                                <div class="cart-product-text">George Orwell
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="product_total product_text"><span>Total: </span>₺11.99
-                                    </div>
-                                </li>
+                                                    <!-- Book, E-Book, Audio Book -->
+                                                    <span th:if="${productService.get(productId).getProductTypeName() == 'Book' ||
+                                                                productService.get(productId).getProductTypeName() == 'E-Book' ||
+                                                                productService.get(productId).getProductTypeName() == 'Audio Book'}">
+                                                        <div class="cart-product-text">
+                                                            <span th:each="a, iterStat : ${productService.get(productId).getAuthors()}"
+                                                                  th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
+                                                        </div>
+                                                    </span>
 
-                                <!-- Cart Item 2 -->
-                                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                        <a href="product.html">
-                                            <div>
-                                                <div class="product_image"><img
-                                                        src="images/sineklerin_tanrisi.jpg"
-                                                        alt=""
-                                                        class="product_image_img">
+                                                    <!-- E-Book Reader -->
+                                                    <span th:if="${productService.get(productId).getProductTypeName() == 'E-Book Reader'}">
+                                                        <div class="cart-product-text"
+                                                             th:text="${productService.get(productId).getReaderBrand()}">
+                                                        </div>
+                                                    </span>
+
+                                                    <!-- E-Book Reader Case, Book Case -->
+                                                    <span th:if="${productService.get(productId).getProductTypeName() == 'E-Book Reader Case' ||
+                                                                productService.get(productId).getProductTypeName() == 'Book Case'}">
+                                                        <div class="cart-product-text"
+                                                             th:text="${productService.get(productId).getCaseBrand()}">
+                                                        </div>
+                                                    </span>
+
                                                 </div>
-                                            </div>
-                                            <div class="product_name_container">
-                                                <div class="cart-product-name"><a
-                                                        href="product.html">Sineklerin
-                                                    Tanrısı</a></div>
-                                                <div class="cart-product-text">William Golding
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="product_total product_text"><span>Total: </span>₺9.60
-                                    </div>
-                                </li>
-                            </ul>
+                                            </a>
+                                        </div>
+
+                                        <!-- TODO Price-Count-Discount -->
+                                        <div class="product_total product_text"
+                                             th:text="'₺' + ${#numbers.formatDecimal(productService.get(productId).getPrice(), 0, 'COMMA', 2, 'POINT')}"><span>Total: </span>₺11.99
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Order -->
-            <div class="product">
-                <a href="#order2" class="trans_200" data-toggle="collapse">
-                    <div class="product_content">
-                        <div class="row">
-                            <div class="col">
-                                <div class="profile-order-text">
-                                    <div class="date">30.03.2020</div>
-                                    <div class="time">11:20</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">AVS33FG76</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">₺29.49</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">Completed</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">Delivered</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div id="order2" class="collapse">
-                <div class="cart_container">
-                    <div class="product profile-order-expand-box">
-
-                        <!-- Cart Items -->
-                        <div class="cart_items">
-                            <ul class="cart_items_list">
-
-                                <!-- Cart Item 1 -->
-                                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                        <a href="product.html">
-                                            <div>
-                                                <div class="product_image"><img
-                                                        src="images/hayvan_ciftligi.jpg" alt=""
-                                                        class="product_image_img"></div>
-                                            </div>
-                                            <div class="product_name_container">
-                                                <div class="cart-product-name"><a
-                                                        href="product.html">Animal Farm</a>
-                                                </div>
-                                                <div class="cart-product-text">George Orwell
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="product_total product_text"><span>Total: </span>₺11.99
-                                    </div>
-                                </li>
-
-                                <!-- Cart Item 2 -->
-                                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                        <a href="product.html">
-                                            <div>
-                                                <div class="product_image"><img
-                                                        src="images/sineklerin_tanrisi.jpg"
-                                                        alt=""
-                                                        class="product_image_img">
-                                                </div>
-                                            </div>
-                                            <div class="product_name_container">
-                                                <div class="cart-product-name"><a
-                                                        href="product.html">Lord of the
-                                                    Flies</a></div>
-                                                <div class="cart-product-text">William Golding
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="product_total product_text"><span>Total: </span>₺9.60
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Order -->
-            <div class="product">
-                <a href="#order3" class="trans_200" data-toggle="collapse">
-                    <div class="product_content">
-                        <div class="row">
-                            <div class="col">
-                                <div class="profile-order-text">
-                                    <div class="date">12.03.2020</div>
-                                    <div class="time">19:03</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">SH5FJL276</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">₺59.60</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">Completed</div>
-                            </div>
-                            <div class="col">
-                                <div class="profile-order-text">Failed Attempt</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div id="order3" class="collapse">
-                <div class="cart_container">
-                    <div class="product profile-order-expand-box">
-
-                        <!-- Cart Items -->
-                        <div class="cart_items">
-                            <ul class="cart_items_list">
-
-                                <!-- Cart Item 1 -->
-                                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                        <a href="product.html">
-                                            <div>
-                                                <div class="product_image"><img
-                                                        src="images/hayvan_ciftligi.jpg" alt=""
-                                                        class="product_image_img"></div>
-                                            </div>
-                                            <div class="product_name_container">
-                                                <div class="cart-product-name"><a
-                                                        href="product.html">Hayvan
-                                                    Ciftligi</a></div>
-                                                <div class="cart-product-text">George Orwell
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="product_total product_text"><span>Total: </span>₺11.99
-                                    </div>
-                                </li>
-
-                                <!-- Cart Item 2 -->
-                                <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div class="d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                        <a href="product.html">
-                                            <div>
-                                                <div class="product_image"><img
-                                                        src="images/sineklerin_tanrisi.jpg"
-                                                        alt=""
-                                                        class="product_image_img">
-                                                </div>
-                                            </div>
-                                            <div class="product_name_container">
-                                                <div class="cart-product-name"><a
-                                                        href="product.html">Sineklerin
-                                                    Tanrisi</a></div>
-                                                <div class="cart-product-text">William Golding
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="product_total product_text"><span>Total: </span>₺9.60
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </tr>
         </div>
     </div>
 </div>
-
-<!-- No product -->
-<div class="warning-text" style="display: none">There are no orders.</div>
+</span>
 
 <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/profile/order(size=${orderPage.size}, page=${currentPage - 1})}"
+                       aria-label="Previous" title="Previous Page"
+                       rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${orderPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/profile/order(size=${orderPage.size}, page=${1})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${orderPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , orderPage.totalPages > 2 + currentPage ? currentPage + 2 : orderPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/profile/order(size=${orderPage.size}, page=${i})}"
+                       th:text="${i}" th:title="${'Page '+ i}"
+                       style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < orderPage.totalPages}"
+                    class="pagination_dots">...
+                </li>
+
+                <!-- Last page -->
+                <li th:if="${orderPage.totalPages > 1}"
+                    th:class="${currentPage == orderPage.totalPages} ? 'active'">
+                    <a th:href="@{/profile/order(size=${orderPage.size}, page=${orderPage.totalPages})}"
+                       th:text="${orderPage.totalPages}"
+                       style="color: #fbaa1d;"
+                       th:title="${'Page '+ orderPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == orderPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/profile/order(size=${orderPage.size}, page=${currentPage + 1})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
-                    
+
+</span>
+
+<!-- No orders -->
+<span th:unless="${orderPage.totalPages > 0}">
+    <div class="warning-text">There are no orders.</div>
+</span>
+
+
+</html>
