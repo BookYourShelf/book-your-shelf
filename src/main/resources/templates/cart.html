@@ -242,10 +242,11 @@
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Method</div>
                                         <div id="shipping_text" class="cart_extra_total_value ml-auto result">Free</div>
+                                        <span id="shipping-currency" style="display:inline"></span>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div id="coupon" class="cart_extra_total_value ml-auto result">0.00</div>
+                                        <div id="coupon" class="cart_extra_total_value ml-auto">0.00₺</div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
@@ -472,6 +473,7 @@
         $('input[name="shipping_radio"]').on('change', function(){
             if ($(this).val()=='7.99') {
                 $("#shipping_text").text("7.99");
+                $("#shipping-currency").text('₺');
 
             } else  {
 
