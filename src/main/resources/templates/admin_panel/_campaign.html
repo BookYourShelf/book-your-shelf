@@ -87,7 +87,7 @@
                             </div>
                             <input type="text" id="campaign_start_date"
                                    class="checkout_input form-control date"
-                                   placeholder="dd/mm/yyyy">
+                                   placeholder="dd/mm/yyyy" required="required">
                         </div>
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
@@ -95,7 +95,7 @@
                             </div>
                             <input type="text" id="campaign_end_date"
                                    class="checkout_input form-control date"
-                                   placeholder="dd/mm/yyyy">
+                                   placeholder="dd/mm/yyyy" required="required">
                         </div>
                     </div>
 
@@ -480,7 +480,9 @@
 
     function buildCategoriesDropdown(data, categoryName) {
         var div_id = 'category_dynamicdiv';
+        console.log(document.getElementById(div_id));
         if(document.getElementById(div_id)) {
+            console.log("remove");
             // delete div
             document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
             document.getElementById("subcategory_row").style.display="none";
