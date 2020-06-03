@@ -343,14 +343,14 @@
 
         if (confirm('Are you sure you want to delete?')) {
             event.preventDefault();
-            $.post("/profile#review/", ret, function (data) {
+            $.post("/profile/review", ret, function (data) {
                 iziToast.show({
                     title: 'Success',
                     message: 'Review deleted successfully.',
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/profile#review";
+                window.location.href = "/profilreview";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
