@@ -5,10 +5,7 @@ import com.oak.bookyourshelf.model.HotList;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelHotListRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.oak.bookyourshelf.repository.admin_panel.AdminPanelProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +15,13 @@ import java.util.*;
 @Transactional
 public class AdminPanelHotListService {
     final AdminPanelHotListRepository adminPanelHotListRepository;
+    final AdminPanelProductRepository adminPanelProductRepository;
 
-    public AdminPanelHotListService(AdminPanelHotListRepository adminPanelHotListRepository) {
+
+    public AdminPanelHotListService(AdminPanelHotListRepository adminPanelHotListRepository, AdminPanelProductRepository adminPanelProductRepository) {
         this.adminPanelHotListRepository = adminPanelHotListRepository;
+
+        this.adminPanelProductRepository = adminPanelProductRepository;
     }
 
     public Iterable<HotList> listAll() {
@@ -66,26 +67,40 @@ public class AdminPanelHotListService {
         return allProducts;
     }
 
-    public void setProductByType(HotList hotList,String hotListType,Set<Product> products)
+    public void setProductByType(HotList hotList,Set<Product> products)
     {
-        List<Product> allProducts;
-        allProducts = new ArrayList<>(products);
-        if(hotListType.equals("BEST_SELLERS"))
+        List<Product> allProducts=new ArrayList<Product>();
+        List<Integer> productIds =new ArrayList<Integer>();
+        for(Product p:products)
         {
-            allProducts.sort(Comparator.comparing(Product::getSalesNum));
+            productIds.add(p.getProductId());
         }
-        if(hotList.getProductNum()<=allProducts.size()) {
-            List<Product> result = new ArrayList<>();
-            int elementNum = allProducts.size() - 1;
-            for (int i = 0; i < hotList.getProductNum(); ++i) {
-                result.add(allProducts.get(elementNum));
-                elementNum--;
+        if(hotList.getHotListType() == HotList.HotListType.BEST_SELLERS)
+        {
+            allProducts.addAll(adminPanelProductRepository.findAllByOrderBySalesNumDesc());
+        }
+        else if(hotList.getHotListType() == HotList.HotListType.NEW_RELEASES)
+        {
+            allProducts.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
+        }
+        List<Product> result = new ArrayList<>();
+        if(hotList.getProductNum()<=products.size()) {
+
+            int elementNum = 0;
+            for(Product p : allProducts)
+            {
+                if((productIds.contains(p.getProductId())) && elementNum<hotList.getProductNum())
+                {
+                    result.add(p);
+                    elementNum++;
+                }
             }
             hotList.setProducts(result);
         }
         else
         {
-            hotList.setProducts(allProducts);
+            List<Product> all = new ArrayList<Product>(products);
+            hotList.setProducts(all);
             hotList.setProductNum(allProducts.size());
         }
 
