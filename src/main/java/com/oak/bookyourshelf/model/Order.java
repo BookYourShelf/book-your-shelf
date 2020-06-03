@@ -1,7 +1,6 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ public class Order {
     private static final float MIN_SHIPPING = 100f;
     private static final float SHIPPING_PRICE = 6.99f;
 
-    private enum DeliveryStatus{
+    public enum DeliveryStatus {
         INFO_RECEIVED,
         IN_TRANSIT,
         OUT_FOR_DELIVERY,
@@ -21,10 +20,11 @@ public class Order {
         DELIVERED,
         EXCEPTION,
         EXPIRED,
-        PENDING
+        PENDING,
+        CANCELED
     }
 
-    public enum PaymentStatus{
+    public enum PaymentStatus {
         PENDING,
         PROCESSED,
         COMPLETED,
@@ -36,15 +36,16 @@ public class Order {
         CANCELLED
     }
 
-    public enum PaymentOption{
+    public enum PaymentOption {
         CREDIT_CARD,
         PAYPAL,
         TRANSFERRING_MONEY_PTT
     }
 
-    public enum OrderStatus{
+    public enum OrderStatus {
         PENDING,
-        CONFIRMED
+        CONFIRMED,
+        CANCELED
     }
 
     @Id
@@ -82,11 +83,11 @@ public class Order {
     OrderStatus orderStatus;
 
 
-    public float getTotalAmountOfShipping(){
+    public float getTotalAmountOfShipping() {
 
         float totalAmount = 0;
         /* TODO: find sum of products */
-        if (totalAmount < MIN_SHIPPING){
+        if (totalAmount < MIN_SHIPPING) {
             totalAmount += SHIPPING_PRICE;
         }
         return totalAmount;
@@ -182,19 +183,32 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getShippingMethod() { return shippingMethod; }
+    public String getShippingMethod() {
+        return shippingMethod;
+    }
 
-    public void setShippingMethod(String shippingMethod) { this.shippingMethod = shippingMethod; }
+    public void setShippingMethod(String shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
 
-    public Float getTotalAmount() { return totalAmount; }
+    public Float getTotalAmount() {
+        return totalAmount;
+    }
 
-    public void setTotalAmount(Float totalAmount) { this.totalAmount = totalAmount; }
+    public void setTotalAmount(Float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
     public OrderStatus getOrderStatus() { return orderStatus; }
 
-    public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public Map<Integer, Float> getProductDiscount() { return productDiscount; }
 
     public void setProductDiscount(Map<Integer, Float> productDiscount) { this.productDiscount = productDiscount; }
+
+
+
 }

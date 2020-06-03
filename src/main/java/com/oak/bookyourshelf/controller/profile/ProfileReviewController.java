@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.controller.profile;
 
 import com.oak.bookyourshelf.Globals;
+import com.oak.bookyourshelf.model.Review;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProfileReviewController {
@@ -33,15 +36,24 @@ public class ProfileReviewController {
 
     @RequestMapping(value = "/profile/review", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort,
+                      @RequestParam("filter") Optional<String> filter, Model model) {
 
         UserDetails userDetails = authService.getUserDetails();
+        String currentSort = sort.orElse("date");
+        String currentFilter = filter.orElse("all");
+
         if (userDetails != null) {
             User user = profileInformationService.getByEmail(userDetails.getUsername());
-            Globals.getPageNumbers(page, size, user.getReviews(), model, "reviewPage");
+            Globals.getPageNumbers(page, size, filterReview(profileReviewService.sortReviews(currentSort, user.getUserId()), currentFilter),
+                    model, "reviewPage");
+
             model.addAttribute("user", user);
             model.addAttribute("reviews", user.getReviews());
             model.addAttribute("productService", productDetailsInformationService);
+            model.addAttribute("sort", currentSort);
+            model.addAttribute("filter", currentFilter);
             return "profile/_review";
         }
         return "/";
@@ -52,5 +64,22 @@ public class ProfileReviewController {
     public ResponseEntity<String> deleteReview(@RequestParam int reviewId) {
         profileReviewService.delete(reviewId);
         return ResponseEntity.ok("");
+    }
+
+    public List<Review> filterReview(List<Review> reviews, String rate) {
+        switch (rate) {
+            case "1":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 1).collect(Collectors.toList());
+            case "2":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 2).collect(Collectors.toList());
+            case "3":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 3).collect(Collectors.toList());
+            case "4":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 4).collect(Collectors.toList());
+            case "5":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 5).collect(Collectors.toList());
+            default:
+                return reviews;
+        }
     }
 }
