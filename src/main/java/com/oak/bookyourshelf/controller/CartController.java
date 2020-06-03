@@ -106,11 +106,13 @@ public class CartController {
                 return ResponseEntity.badRequest().body("Please add products to shopping cart.");
             }
 
-            for (Order o : user.getOrders()) {
-                if (order.getPaymentStatus() == null) {
+           for (Order o : user.getOrders()) {
+               if (o.getPaymentStatus() == null) {
+
                     ResponseEntity.badRequest(); // TODO: There is another order ongoing. Handle that
                 }
             }
+
             order.setUserId(user.getUserId());
             user.getOrders().add(order);
             profileInformationService.save(user);
