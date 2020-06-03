@@ -32,8 +32,7 @@ public class CartController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
-    public static Order order = new Order();
-
+    
 
     public CartController(CartService cartService, @Qualifier("customUserDetailsService") AuthService authService,
                           ProfileInformationService profileInformationService,
@@ -56,9 +55,8 @@ public class CartController {
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     public ResponseEntity<String> showCartList(@RequestParam String button, @RequestParam Optional<Integer> productID,
-                                               @RequestParam Optional<String> subTotal, @RequestParam Optional<String> totalAmount,
-                                               @RequestParam Optional<String> shipping, @RequestParam Optional<String> coupon,
-                                               @RequestParam Optional<Integer> quantity, @RequestParam Optional<Float> quantityPrice) {
+                                               @RequestParam Optional<String> totalAmount, @RequestParam Optional<String> shipping,
+                                               @RequestParam Optional<String> coupon, @RequestParam Optional<Integer> quantity) {
 
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
@@ -86,19 +84,21 @@ public class CartController {
             profileInformationService.save(user);
 
         } else if (button.equals("checkout")) {
+            Order order = new Order();
 
             if (!user.getShoppingCart().isEmpty()) {
                 if (checkStock(user.getShoppingCart())) {
-                    //Todo add product quantity
+
                     List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
-                    List<Float> discountRates = user.getShoppingCart().stream().map(Product::getDiscountRate).collect(Collectors.toList());
-                    List<Integer> quantities = user.getShoppingCart().stream().map(Product::getQuantity).collect(Collectors.toList());
                     order.setProductId(productIds);
-                    order.setDiscountRate(discountRates);
-                    order.setQuantity(quantities);
                     order.setTotalAmount(Float.parseFloat(totalAmount.get()));
-                    order.setSubTotal(Float.parseFloat(subTotal.get()));
-                    order.setShippingMethod(shipping.get());
+                    productDiscountMap(user.getShoppingCart(), order); // discount Map Saver
+                    if (shipping.get().equals("0")) {
+                        order.setShippingMethod("Free");
+                    } else {
+                        order.setShippingMethod("Next day delivery");
+                    }
+
                 } else {
                     return ResponseEntity.badRequest().body("Shopping cart product out of stock.");
                 }
@@ -106,14 +106,26 @@ public class CartController {
                 return ResponseEntity.badRequest().body("Please add products to shopping cart.");
             }
 
+           for (Order o : user.getOrders()) {
+               if (o.getPaymentStatus() == null) {
+
+                    ResponseEntity.badRequest(); // TODO: There is another order ongoing. Handle that
+                }
+            }
+
+            order.setUserId(user.getUserId());
+            user.getOrders().add(order);
+            profileInformationService.save(user);
+
         } else if (button.equals("qty_add")) {
             Product product = productDetailsInformationService.get(productID.get());
-            quantity(product, quantity.get(), quantityPrice.get());
-
+            product.getProductQuantity().put(product.getProductId(), quantity.get());
+            productDetailsInformationService.save(product);
 
         } else {
             Product product = productDetailsInformationService.get(productID.get());
-            quantity(product, quantity.get(), quantityPrice.get());
+            product.getProductQuantity().put(product.getProductId(), quantity.get());
+            productDetailsInformationService.save(product);
 
         }
         return ResponseEntity.ok("");
@@ -121,16 +133,26 @@ public class CartController {
 
     public boolean checkStock(List<Product> cart) {
         for (Product p : cart) {
-            if (p.getStock() == 0) {
+            System.out.println(p.getProductQuantity().get(p.getProductId()));
+            System.out.println(p.getStock());
+            if (p.getStock() != 0) {
+                if (p.getStock() >= p.getProductQuantity().get(p.getProductId())) {
+                    return true;
+                }
                 return false;
             }
         }
-        return true;
+        return false;
     }
 
-    public void quantity(Product product, int quantity, float price) {
-        product.setQuantity(quantity);
-        product.setQuantityPrice(price);
-        productDetailsInformationService.save(product);
+    public void productDiscountMap(List<Product> shoppingCart, Order order) {
+        for (Product p : shoppingCart) {
+            if (p.getDiscountRate() != 0) {
+                order.getProductDiscount().clear(); // Map Set to Zero
+                order.getProductDiscount().put(p.getProductId(), p.getDiscountRate());
+            }
+        }
     }
+
+
 }

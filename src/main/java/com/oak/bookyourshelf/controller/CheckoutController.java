@@ -28,7 +28,7 @@ public class CheckoutController {
     final ProfileInformationService profileInformationService;
     final AuthService authService;
     final ProfileAddressService profileAddressService;
-    Order order = CartController.order;
+    Order order;
 
 
     public CheckoutController(CheckoutService checkoutService, @Qualifier("customUserDetailsService") AuthService authService,
@@ -42,10 +42,13 @@ public class CheckoutController {
 
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
     public String showCheckout(Model model) {
-
-        System.out.println(order.getTotalAmount());
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
+        for (Order o : user.getOrders()) {
+            if (o.getPaymentStatus() == null) {
+                order = o;
+            }
+        }
         model.addAttribute("order", order);
         model.addAttribute("user", user);
         model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
@@ -88,22 +91,29 @@ public class CheckoutController {
             Address toBeDeleted = findAddress(user.getDeliveryAddresses(), address.getAddressId());
             user.getDeliveryAddresses().remove(toBeDeleted);
             profileAddressService.delete(address.getAddressId());
-        } else {
-
-            if(billing_address.isPresent() && delivery_address.isPresent()){
+        }
+        else {
+            if (billing_address.isPresent() && delivery_address.isPresent()) {
                 order.setShippingCompany(cargo.get());
                 order.setBillingAddress(billing_address.get().toString());
                 order.setCustomerAddress(delivery_address.get().toString());
-                return ResponseEntity.ok("");
-            }
+
+                // Save updated order
+                List<Order> orders = user.getOrders();
+                for (int i = 0; i < orders.size(); i++) {
+                    if (orders.get(i).getOrderId() == order.getOrderId()) {
+                        orders.set(i, order);
+
+                    }
+                }
+                profileInformationService.save(user);
+
+            } else{
 
                 return ResponseEntity.badRequest().body("Delivery address and Billing address have to be selected.");
-
+            }
         }
-
-
         return ResponseEntity.ok("");
-
     }
 
     public Address findAddress(List<Address> addressList, int Id) {

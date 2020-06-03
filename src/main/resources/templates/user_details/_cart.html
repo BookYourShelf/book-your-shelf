@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<span th:if="${cartPage.totalPages > 0}">
 <div class="row product-container-padding">
     <div class="col">
         <div class="cart_container">
@@ -15,61 +19,62 @@
             <!-- Cart Items -->
             <div class="cart_items">
                 <ul class="cart_items_list">
-
-                    <!-- Cart Item 1 -->
-                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                        <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                            <a href="product.html">
-                                <div>
-                                    <div class="product_image"><img
-                                            src="images/hayvan_ciftligi.jpg" alt=""
-                                            class="product_image_img"></div>
-                                </div>
-                                <div class="product_name_container">
-                                    <div class="shopping-cart-product-name"><a
-                                            href="product.html">Animal Farm</a></div>
-                                    <div class="shopping-cart-product-text">George Orwell</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="cart_product_price product_text">
-                            <div class="align-items-start justify-content-start">
-                                <!-- when no sale delete -->
-                                <div class="cart_sale_price"><b>%40 off</b></div>
-                                <div class="cart_sale_price">
-                                    <del>₺15.99</del>
-                                </div>
+                    <tr th:each="product : ${cartPage}">
+                        <!-- Cart Item 1 -->
+                        <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+                            <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                <a th:href="'/product/' + ${product.getProductId()}">
+                                    <div>
+                                        <div class="product_image"><img
+                                                th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
+                                                class="product_image_img"></div>
+                                    </div>
+                                    <div class="product_name_container">
+                                        <div class="shopping-cart-product-name"><a
+                                                th:href="'/product/' + ${product.getProductId()}">
+                                            <td th:text="${product.getProductName()}"></td></a></div>
+                                        <!-- Author -->
+                                        <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="shopping-cart-product-text">
+                                                <span th:each="authors, iterStat : ${product.getAuthors()}"
+                                                      th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}" style="display:inline">
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <!-- Case Brand -->
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <div class="shopping-cart-product-text">
+                                                <td th:text="${product.getCaseBrand()}"></td>
+                                            </div>
+                                        </span>
+                                        <!-- Tablet Brand -->
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                            <div class="shopping-cart-product-text">
+                                                <td th:text="${product.getReaderBrand()}"></td>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </a>
                             </div>
-                            <span>Price: </span>₺11.99
-                        </div>
-                        <div class="product_total product_text">1</div>
-                        <div class="product_total product_text"><span>Total: </span>₺11.99</div>
-                    </li>
-
-                    <!-- Cart Item 2 -->
-                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                        <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                            <a href="product.html">
-                                <div>
-                                    <div class="product_image"><img
-                                            src="images/sineklerin_tanrisi.jpg" alt=""
-                                            class="product_image_img"></div>
-                                </div>
-                                <div class="product_name_container">
-                                    <div class="shopping-cart-product-name"><a
-                                            href="product.html">Lord of the
-                                        Flies</a></div>
-                                    <div class="shopping-cart-product-text">William Golding
+                            <div class="cart_product_price product_text">
+                                <div th:if="${product.isOnDiscount()}">
+                                    <div class="align-items-start justify-content-start">
+                                        <!-- when no sale delete -->
+                                        <div class="cart_sale_price"><b><td th:text="${product.getDiscountRate() + '%' + 'off'}"></td></b></div>
+                                        <div class="cart_sale_price">
+                                            <del><td th:text="${product.getPrice()}"></td></del>
+                                        </div>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="cart_product_price product_text">
-                            <span>Price: </span>₺9.60
-                        </div>
-                        <div class="product_total product_text">1</div>
-                        <div class="product_total product_text"><span>Total: </span>₺9.60</div>
-                    </li>
+                                 <span>Price:</span> <span style="display:block" th:text="${#numbers.formatDecimal(product.getPrice() - product.getPrice() * product.getDiscountRate(),0,2)} + '₺'"></span>
+                            </div>
+                            <div class="product_total product_text"><td th:text="${product.getProductQuantity().get(product.getProductId())}"></td></div>
+                            <div class="product_total product_text"><span>Total: </span>
+                                <span style="display:inline" th:with="result=${product.getPrice() - (product.getPrice() * product.getDiscountRate())} , quantity =${product.getProductQuantity().get(product.getProductId())},
+                                                                                       total=${result*quantity}" th:text="${total + '₺'}"></span>
+                            </div>
+                        </li>
+                    </tr>
                 </ul>
             </div>
 
@@ -88,11 +93,62 @@
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#" style="color: #fbaa1d;">2</a></li>
-                <li><a href="#" style="color: #fbaa1d;">3</a></li>
-                <li><a href="#" style="color: #fbaa1d;">4</a></li>
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/user-details/{id}#cart(id=${user.getUserId()}, size=${cartPage.size}, page=${currentPage - 1})}"
+                       aria-label="Previous" title="Previous Page"
+                       rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${cartPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/user-details/{id}#cart(id=${user.getUserId()},size=${cartPage.size}, page=${1})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${cartPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                                                                , cartPage.totalPages > 2 + currentPage ? currentPage + 2 : cartPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/user-details/{id}#cart(id=${user.getUserId()},size=${cartPage.size}, page=${i})}"
+                       th:text="${i}" th:title="${'Page '+ i}"
+                       style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < cartPage.totalPages}"
+                    class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                <li th:if="${cartPage.totalPages > 1}"
+                    th:class="${currentPage == cartPage.totalPages} ? 'active'">
+                    <a th:href="@{/user-details/{id}#cart(id=${user.getUserId()},size=${cartPage.size}, page=${cartPage.totalPages})}"
+                       th:text="${cartPage.totalPages}"
+                       style="color: #fbaa1d;"
+                       th:title="${'Page '+ cartPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == cartPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/user-details/{id}#cart(id=${user.getUserId()},size=${cartPage.size}, page=${currentPage + 1})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+</span>
+<span th:unless="${cartPage.totalPages >0}">
+    <div class="warning-text">There are no products yet.</div>
+</span>
+</html>
