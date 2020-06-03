@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.Globals;
-import com.oak.bookyourshelf.model.Order;
-import com.oak.bookyourshelf.model.Product;
+import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelPendingOrderService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminPanelPendingOrderController {
@@ -38,7 +38,10 @@ public class AdminPanelPendingOrderController {
 
     @RequestMapping(value = "/admin-panel/pending-order", method = RequestMethod.GET)
     public String tab(@RequestParam("page") Optional<Integer> page,
-                      @RequestParam("size") Optional<Integer> size, Model model) {
+                      @RequestParam("size") Optional<Integer> size,
+                      @RequestParam("sort") Optional<String> sort,
+                      @RequestParam("optionFilter") Optional<String> paymentOptionFilter,
+                      @RequestParam("statusFilter") Optional<String> paymentStatusFilter, Model model) {
 
 //        Order order = adminPanelPendingOrderService.get(1);
 //        List<Integer> productIds = order.getProductId();
@@ -51,10 +54,18 @@ public class AdminPanelPendingOrderController {
 //        order.setProductId(productIds);
 //        adminPanelPendingOrderService.save(order);
 
-        Globals.getPageNumbers(page, size, adminPanelPendingOrderService.getPendingOrders(Order.OrderStatus.PENDING),
+        String currentSort = sort.orElse("date");
+        String optionFilter = paymentOptionFilter.orElse("all");
+        String statusFilter = paymentStatusFilter.orElse("all");
+        Globals.getPageNumbers(page, size,
+                filterOrdersByPaymentOption(filterOrdersByPaymentStatus(adminPanelPendingOrderService.sortOrders(currentSort, Order.OrderStatus.PENDING), statusFilter), optionFilter),
                 model, "orderPage");
+
         model.addAttribute("profileInformationService", profileInformationService);
         model.addAttribute("productService", productDetailsInformationService);
+        model.addAttribute("sort", currentSort);
+        model.addAttribute("optionFilter", optionFilter);
+        model.addAttribute("statusFilter", statusFilter);
 
         return "admin_panel/_pending-order";
     }
@@ -119,5 +130,43 @@ public class AdminPanelPendingOrderController {
         }
 
         adminPanelPendingOrderService.save(order);
+    }
+
+    public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {
+        switch (paymentOption) {
+            case "card":
+                return orders.stream().filter(p -> p.getPaymentOption() == Order.PaymentOption.CREDIT_CARD).collect(Collectors.toList());
+            case "paypal":
+                return orders.stream().filter(p -> p.getPaymentOption() == Order.PaymentOption.PAYPAL).collect(Collectors.toList());
+            case "ptt":
+                return orders.stream().filter(p -> p.getPaymentOption() == Order.PaymentOption.TRANSFERRING_MONEY_PTT).collect(Collectors.toList());
+            default:
+                return orders;
+        }
+    }
+
+    public List<Order> filterOrdersByPaymentStatus(List<Order> orders, String paymentStatus) {
+        switch (paymentStatus) {
+            case "pending":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.PENDING).collect(Collectors.toList());
+            case "processed":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.PROCESSED).collect(Collectors.toList());
+            case "completed":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.COMPLETED).collect(Collectors.toList());
+            case "refunded":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.REFUNDED).collect(Collectors.toList());
+            case "failed":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.FAILED).collect(Collectors.toList());
+            case "expired":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.EXPIRED).collect(Collectors.toList());
+            case "revoked":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.REVOKED).collect(Collectors.toList());
+            case "pre":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.PREAPPROVED).collect(Collectors.toList());
+            case "canceled":
+                return orders.stream().filter(p -> p.getPaymentStatus() == Order.PaymentStatus.CANCELLED).collect(Collectors.toList());
+            default:
+                return orders;
+        }
     }
 }

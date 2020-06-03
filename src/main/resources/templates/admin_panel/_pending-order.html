@@ -1,23 +1,246 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<span th:if="${orderPage.totalPages > 0}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
                 class="fa fa-caret-down" aria-hidden="true"></i></div>
         <ul>
-            <li class="item_sorting_btn"
-                data-isotope-option='{ "sortBy": "original-order" }'>Date
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'time-desc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Decreasing by Order Time'"
+                   th:style="${sort == 'time-desc'} ? 'color:#1f5b70'">
+                </a>
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "price" }'>Price</li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>User Name
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'time-asc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Increasing by Order Time'"
+                   th:style="${sort == 'time-asc'} ? 'color:#1f5b70'">
+                </a>
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "id" }'>User ID</li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'ID-desc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Decreasing by User ID'"
+                   th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'ID-asc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Increasing by User ID'"
+                   th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'price-desc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Decreasing by Total Price'"
+                   th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'price-asc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Increasing by Total Price'"
+                   th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'company-asc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'A - Z Shipping Company'"
+                   th:style="${sort == 'company-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${'company-desc'},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Z - A Shipping Company'"
+                   th:style="${sort == 'company-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Payment Option Filter</span><i class="fa fa-caret-down"
+                                                                              aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${'all'},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${'card'},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'Credit Card'" th:style="${filter == 'card'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${'paypal'},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'PayPal'" th:style="${filter == 'paypal'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${'ptt'},
+                                                            statusFilter=${statusFilter})}"
+                   th:text="'via PTT'" th:style="${filter == 'ptt'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Payment Status Filter</span><i class="fa fa-caret-down"
+                                                                              aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'all'})}"
+                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'pending'})}"
+                   th:text="'Pending'" th:style="${filter == 'pending'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'processed'})}"
+                   th:text="'Processed'" th:style="${filter == 'processed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'completed'})}"
+                   th:text="'Completed'" th:style="${filter == 'completed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'refunded'})}"
+                   th:text="'Refunded'" th:style="${filter == 'refunded'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'failed'})}"
+                   th:text="'Failed'" th:style="${filter == 'failed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'expired'})}"
+                   th:text="'Expired'" th:style="${filter == 'expired'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'revoked'})}"
+                   th:text="'Revoked'" th:style="${filter == 'revoked'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'pre'})}"
+                   th:text="'Pre-approved'" th:style="${filter == 'pre'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            optionFilter=${optionFilter},
+                                                            statusFilter=${'canceled'})}"
+                   th:text="'Canceled'" th:style="${filter == 'canceled'} ? 'color:#1f5b70'">
+                </a>
+            </li>
         </ul>
     </div>
 </div>
+
+<span th:if="${orderPage.totalPages > 0}">
 
 <br>
 
@@ -203,7 +426,11 @@
             <ul class="d-flex flex-row align-items-start justify-content-center">
                 <!-- Previous button -->
                 <li th:style="${currentPage == 1} ? 'display:none'">
-                    <a th:href="@{/admin-panel/#order(size=${orderPage.size}, page=${currentPage - 1})}"
+                    <a th:href="@{/admin-panel/#order(size=${orderPage.size},
+                                                        page=${currentPage - 1},
+                                                        sort=${sort},
+                                                        optionFilter=${optionFilter},
+                                                        statusFilter=${statusFilter})}"
                        aria-label="Previous" title="Previous Page"
                        rel="tooltip">
                         <i class="pagination_arrow fa fa-angle-left"></i>
@@ -213,7 +440,11 @@
                 <!-- First page -->
                 <li th:if="${orderPage.totalPages > 0}"
                     th:class="${currentPage == 1} ? 'active'">
-                    <a th:href="@{/admin-panel/#order(size=${orderPage.size}, page=${1})}"
+                    <a th:href="@{/admin-panel/#order(size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        optionFilter=${optionFilter},
+                                                        statusFilter=${statusFilter})}"
                        th:title="${'Page '+ 1}"
                        th:text="${1}" style="color: #fbaa1d;">
                     </a>
@@ -226,7 +457,11 @@
                     th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                     , orderPage.totalPages > 2 + currentPage ? currentPage + 2 : orderPage.totalPages - 1, 1)}"
                     th:class="${currentPage == i} ? 'active'">
-                    <a th:href="@{/admin-panel#order(size=${orderPage.size}, page=${i})}"
+                    <a th:href="@{/admin-panel#order(size=${orderPage.size},
+                                                        page=${i},
+                                                        sort=${sort},
+                                                        optionFilter=${optionFilter},
+                                                        statusFilter=${statusFilter})}"
                        th:text="${i}" th:title="${'Page '+ i}"
                        style="color: #fbaa1d;"></a>
                 </li>
@@ -238,7 +473,11 @@
                 <!-- Last page -->
                 <li th:if="${orderPage.totalPages > 1}"
                     th:class="${currentPage == orderPage.totalPages} ? 'active'">
-                    <a th:href="@{/admin-panel#order(size=${orderPage.size}, page=${orderPage.totalPages})}"
+                    <a th:href="@{/admin-panel#order(size=${orderPage.size},
+                                                        page=${orderPage.totalPages},
+                                                        sort=${sort},
+                                                        optionFilter=${optionFilter},
+                                                        statusFilter=${statusFilter})}"
                        th:text="${orderPage.totalPages}"
                        style="color: #fbaa1d;"
                        th:title="${'Page '+ orderPage.totalPages}">
@@ -247,7 +486,11 @@
 
                 <!-- Next button -->
                 <li th:style="${currentPage == orderPage.totalPages} ? 'display:none'">
-                    <a th:href="@{/admin-panel#order(size=${orderPage.size}, page=${currentPage + 1})}"
+                    <a th:href="@{/admin-panel#order(size=${orderPage.size},
+                                                        page=${currentPage + 1},
+                                                        sort=${sort},
+                                                        optionFilter=${optionFilter},
+                                                        statusFilter=${statusFilter})}"
                        aria-label="Next" title="Next Page" rel="tooltip">
                         <i class="pagination_arrow fa fa-angle-right"></i>
                     </a>
