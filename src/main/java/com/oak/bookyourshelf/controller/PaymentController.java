@@ -28,6 +28,7 @@ public class PaymentController {
     final AuthService authService;
     final CartService cartService;
     final ProductDetailsInformationService productDetailsInformationService;
+    Order order;
 
     public PaymentController(PaymentService paymentService, @Qualifier("customUserDetailsService") AuthService authService,
                              ProfileInformationService profileInformationService, CartService cartService,
@@ -52,7 +53,6 @@ public class PaymentController {
         Payment payment = new Payment();
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
-        Order order = new Order();
         for (Order o : user.getOrders()) {
             if (o.getPaymentStatus() == null) {
                 order = o;
@@ -88,19 +88,30 @@ public class PaymentController {
         payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
         payment.setPayerId(user.getUserId());
         payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
-
         order.setOrderDate(new Timestamp(System.currentTimeMillis()));
         order.setUserName(user.getName());
         order.setUserId(user.getUserId());
-        order.setPaymentStatus(Order.PaymentStatus.PENDING);
         order.setOrderStatus(Order.OrderStatus.PENDING);
         productModification(user);
-        cartService.save(order);
-        user.getOrders().add(order);
-        user.getShoppingCart().clear();
         paymentService.save(payment);
-        profileInformationService.save(user);
         //Problem section
+        List<Order> orders = user.getOrders();
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getOrderId() == order.getOrderId()) {
+                orders.set(i, order);
+
+            }
+        }
+        profileInformationService.save(user);
+
+        if(order.getPaymentOption().toString().equals("PAYPAL") ||
+                order.getPaymentOption().toString().equals("TRANSFERRING_MONEY_PTT") ){
+            order.setPaymentStatus(Order.PaymentStatus.PENDING);
+            cartService.save(order);
+            user.getOrders().add(order);
+            user.getShoppingCart().clear();
+            profileInformationService.save(user);
+        }
 
     }
 
