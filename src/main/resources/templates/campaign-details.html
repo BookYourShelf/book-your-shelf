@@ -257,7 +257,7 @@
                                             <input type="text" id="campaign_update_start_date"
                                                    class="checkout_input form-control date" th:field="${campaign.startDate}"
                                                    th:value="${campaign.getStartDate()}"
-                                                   placeholder="dd/mm/yyyy">
+                                                   placeholder="dd/mm/yyyy" required="required">
                                         </div>
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
@@ -266,7 +266,7 @@
                                             <input type="text" id="campaign_update_end_date"
                                                    class="checkout_input form-control date" th:field="${campaign.endDate}"
                                                    th:value="${campaign.getEndDate()}"
-                                                   placeholder="dd/mm/yyyy">
+                                                   placeholder="dd/mm/yyyy" required="required">
                                         </div>
                                     </div>
 
