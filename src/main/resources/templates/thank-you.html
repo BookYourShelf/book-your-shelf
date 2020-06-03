@@ -37,6 +37,31 @@
                         <span class="icon-check_circle display-3 text-success"></span>
                         <h2 class="display-3 text-black">Thank you!</h2>
                         <p class="lead mb-5">Your order was successfully completed.</p>
+                        <p class="lead mb-5"> Our Book Your Shelf application is certified with Payment Card Industry Data Security Standards (PCI DSS).
+                                              We assure you that your credit card information will be kept confidential and will not be leaked by any means.
+                                              For more information please refer to our <a href="/privacy_policy" target="_blank" style="text-decoration: none; color:#fbaa1d;
+                                               background:#FFFFFF"> Privacy Policy</a></p>
+                        <p class="lead mb-5">
+                            <h3>Shipping Information</h3>
+                            <div>
+                                <span>Name: </span><span><td th:text="${user.getName()}"></td></span>
+                            </div>
+                            <div>
+                                <span>Surname: </span><span><td th:text="${user.getSurname()}"></td></span>
+                            </div>
+                            <div>
+                                <span>Shipping Company: </span><span><td th:text="${order.getShippingCompany()}"></td></span>
+                            </div>
+                            <div>
+                                <span>Shipping Method: </span><span><td th:text="${order.getShippingMethod()}"></td></span>
+                            </div>
+                            <div>
+                                <span>Shipping Price: </span>
+                                    <span th:if="${order.getTotalAmount() > 100}"><td th:text="${'Free'}"></td></span>
+                                    <span th:unless="${order.getTotalAmount() > 100}"><td th:text="${'6.99'}"></td></span>
+                            </div>
+                            Order will be delivered in the next 3 working days.
+                        </p>
                         <div class="checkout_button trans_200"><a href="/">Back to shop</a></div>
                     </div>
                     <div class="col-md-3 text-center"></div>

@@ -17,4 +17,6 @@ public class CartService {
         cartRepository.save(order);
     }
 
+    public void deleteOrder(int i){ cartRepository.deleteById(i);}
+
 }
