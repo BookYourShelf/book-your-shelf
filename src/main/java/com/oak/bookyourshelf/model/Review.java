@@ -13,8 +13,6 @@ public class Review {
 
     private int productId;
     private int userId;
-    private String userName;
-    private String userSurname;
     private String reviewTitle;
     private String reviewContent;
     private int scoreOutOf5;
@@ -44,14 +42,6 @@ public class Review {
         this.product = product;
     }
 
-    public String getUserSurname() {
-        return userSurname;
-    }
-
-    public void setUserSurname(String userSurname) {
-        this.userSurname = userSurname;
-    }
-
     public int getReviewId() {
         return reviewId;
     }
@@ -74,14 +64,6 @@ public class Review {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getReviewTitle() {

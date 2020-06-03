@@ -61,21 +61,28 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '3'),
+                                                                page=(${#request.getParameter('page')} ?: '1'),
+                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#order}">My Orders</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/profile/address" th:href="@{#address}">My
-                            Addresses</a>
+                        <a class="nav-link profile-navbar-text" data-url="/profile/address"
+                           th:href="@{#address}">My Addresses</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '3'),
+                                                                page=(${#request.getParameter('page')} ?: '1'),
+                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#review}">My Reviews</a>
                     </li>
                 </ul>
+
                 <div class="tab-content" id="myTabContent">
 
                     <div class="tab-pane active" id="information"></div>

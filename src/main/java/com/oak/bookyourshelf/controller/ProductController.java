@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
@@ -41,11 +43,19 @@ public class ProductController {
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
     public String showProductPage(@RequestParam("page") Optional<Integer> page,
-                                  @RequestParam("size") Optional<Integer> size, Model model, @PathVariable int id) {
+                                  @RequestParam("size") Optional<Integer> size,
+                                  @RequestParam("sort") Optional<String> sort,
+                                  @RequestParam("filter") Optional<String> filter, Model model, @PathVariable int id) {
 
         Product product = productService.get(id);
-        Globals.getPageNumbers(page, size, product.getReviews(), model, "reviewPage");
+        String currentSort = sort.orElse("date-desc");
+        String currentFilter = filter.orElse("all");
+        Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()), currentFilter),
+                model, "reviewPage");
+
         model.addAttribute("product", product);
+        model.addAttribute("sort", currentSort);
+        model.addAttribute("filter", currentFilter);
         return "product";
     }
 
@@ -99,9 +109,6 @@ public class ProductController {
                         review.setUploadDate(sqlDate);
 
                         review.setUserId(user.getUserId());
-                        review.setUserName(user.getName());
-                        review.setUserSurname(user.getSurname());
-
                         user.addReview(review);
                         product.addReview(review);
                         product.increaseStarNum(review.getScoreOutOf5() - 1);
@@ -121,5 +128,22 @@ public class ProductController {
         }
 
         return ResponseEntity.badRequest().body("An error occurred.");
+    }
+
+    public List<Review> filterReview(List<Review> reviews, String rate) {
+        switch (rate) {
+            case "1":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 1).collect(Collectors.toList());
+            case "2":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 2).collect(Collectors.toList());
+            case "3":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 3).collect(Collectors.toList());
+            case "4":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 4).collect(Collectors.toList());
+            case "5":
+                return reviews.stream().filter(p -> p.getScoreOutOf5() == 5).collect(Collectors.toList());
+            default:
+                return reviews;
+        }
     }
 }
