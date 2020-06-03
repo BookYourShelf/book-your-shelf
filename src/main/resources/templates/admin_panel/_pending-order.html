@@ -108,7 +108,7 @@
                                                             sort=${sort},
                                                             optionFilter=${'all'},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                   th:text="'All'" th:style="${optionFilter == 'all'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -117,7 +117,7 @@
                                                             sort=${sort},
                                                             optionFilter=${'card'},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'Credit Card'" th:style="${filter == 'card'} ? 'color:#1f5b70'">
+                   th:text="'Credit Card'" th:style="${optionFilter == 'card'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -126,7 +126,7 @@
                                                             sort=${sort},
                                                             optionFilter=${'paypal'},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'PayPal'" th:style="${filter == 'paypal'} ? 'color:#1f5b70'">
+                   th:text="'PayPal'" th:style="${optionFilter == 'paypal'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -135,7 +135,7 @@
                                                             sort=${sort},
                                                             optionFilter=${'ptt'},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'via PTT'" th:style="${filter == 'ptt'} ? 'color:#1f5b70'">
+                   th:text="'via PTT'" th:style="${optionFilter == 'ptt'} ? 'color:#1f5b70'">
                 </a>
             </li>
         </ul>
@@ -152,7 +152,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'all'})}"
-                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                   th:text="'All'" th:style="${statusFilter == 'all'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -161,7 +161,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'pending'})}"
-                   th:text="'Pending'" th:style="${filter == 'pending'} ? 'color:#1f5b70'">
+                   th:text="'Pending'" th:style="${statusFilter == 'pending'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -170,7 +170,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'processed'})}"
-                   th:text="'Processed'" th:style="${filter == 'processed'} ? 'color:#1f5b70'">
+                   th:text="'Processed'" th:style="${statusFilter == 'processed'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -179,7 +179,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'completed'})}"
-                   th:text="'Completed'" th:style="${filter == 'completed'} ? 'color:#1f5b70'">
+                   th:text="'Completed'" th:style="${statusFilter == 'completed'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -188,7 +188,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'refunded'})}"
-                   th:text="'Refunded'" th:style="${filter == 'refunded'} ? 'color:#1f5b70'">
+                   th:text="'Refunded'" th:style="${statusFilter == 'refunded'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -197,7 +197,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'failed'})}"
-                   th:text="'Failed'" th:style="${filter == 'failed'} ? 'color:#1f5b70'">
+                   th:text="'Failed'" th:style="${statusFilter == 'failed'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -206,7 +206,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'expired'})}"
-                   th:text="'Expired'" th:style="${filter == 'expired'} ? 'color:#1f5b70'">
+                   th:text="'Expired'" th:style="${statusFilter == 'expired'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -215,7 +215,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'revoked'})}"
-                   th:text="'Revoked'" th:style="${filter == 'revoked'} ? 'color:#1f5b70'">
+                   th:text="'Revoked'" th:style="${statusFilter == 'revoked'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -224,7 +224,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'pre'})}"
-                   th:text="'Pre-approved'" th:style="${filter == 'pre'} ? 'color:#1f5b70'">
+                   th:text="'Pre-approved'" th:style="${statusFilter == 'pre'} ? 'color:#1f5b70'">
                 </a>
             </li>
             <li class="item_filter_btn">
@@ -233,7 +233,7 @@
                                                             sort=${sort},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${'canceled'})}"
-                   th:text="'Canceled'" th:style="${filter == 'canceled'} ? 'color:#1f5b70'">
+                   th:text="'Canceled'" th:style="${statusFilter == 'canceled'} ? 'color:#1f5b70'">
                 </a>
             </li>
         </ul>
