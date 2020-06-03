@@ -66,7 +66,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" th:attr="data-url=@{/admin-panel/product(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/product(size=(${#request.getParameter('size')} ?: '3'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#product}">Products</a>
                     </li>
 
@@ -80,11 +84,12 @@
                     </li>
 
                     <li class="nav-item">
+
                         <a class="nav-link profile-navbar-text" th:attr="data-url=@{/admin-panel/hotList(size=(${#request.getParameter('size')} ?: '3'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-asc'),
-                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}" th:href="@{#hotList}">Hot
-                            Lists</a>
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#hotList}">Hot Lists</a>
                     </li>
 
                     <li class="nav-item">
@@ -97,12 +102,12 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/admin-panel/order"
-                           th:href="@{#order}">Orders</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/admin-panel/pending-order"
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/pending-order(size=(${#request.getParameter('size')} ?: '3'),
+                                                                            page=(${#request.getParameter('page')} ?: '1'),
+                                                                            sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                            optionFilter=(${#request.getParameter('filter')} ?: 'all'),
+                                                                            statusFilter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#pending-order}">Pending Orders</a>
                     </li>
 
@@ -133,9 +138,6 @@
 
                     <!-- Product -->
                     <div class="tab-pane" id="product"></div>
-
-                    <!-- Order -->
-                    <div class="tab-pane" id="order"></div>
 
                     <!-- Pending Order -->
                     <div class="tab-pane" id="pending-order"></div>

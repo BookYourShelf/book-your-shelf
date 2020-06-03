@@ -46,7 +46,6 @@
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
                                 <li><a th:href="@{/admin-panel}">Panel</a></li>
-                                <!-- TODO Name -->
                                 <li style="color: #fbaa1d" th:text="${user.getName() + ' ' + user.getSurname()}"></li>
                                 <a th:href="@{'/user-details#information'}"></a>
                             </ul>
@@ -72,12 +71,21 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/user-details/order" th:href="@{#order}">Orders</a>
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/user-details/order(size=(${#request.getParameter('size')} ?: '2'),
+                                                                    id= ${user.getUserId()},
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#order}">Orders</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/user-details/review(size=(${#request.getParameter('size')} ?: '2'),id= ${user.getUserId()}, page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:attr="data-url=@{/user-details/review(size=(${#request.getParameter('size')} ?: '2'),
+                                                                    id= ${user.getUserId()},
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#review}">Reviews</a>
                     </li>
 

@@ -5,6 +5,8 @@ import com.oak.bookyourshelf.repository.profile.ProfileReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ProfileReviewService {
@@ -30,5 +32,33 @@ public class ProfileReviewService {
 
     public void save(Review review) {
         profileReviewRepository.save(review);
+    }
+
+    public List<Review> sortReviews(String sortType, int userId) {
+        switch (sortType) {
+            case "date-asc":
+                return profileReviewRepository.findByUserIdOrderByUploadDateAsc(userId);
+
+            case "title-desc":
+                return profileReviewRepository.findByUserIdOrderByReviewTitleDesc(userId);
+
+            case "title-asc":
+                return profileReviewRepository.findByUserIdOrderByReviewTitleAsc(userId);
+
+            case "content-desc":
+                return profileReviewRepository.findByUserIdOrderByReviewContentDesc(userId);
+
+            case "content-asc":
+                return profileReviewRepository.findByUserIdOrderByReviewContentAsc(userId);
+
+            case "rate-desc":
+                return profileReviewRepository.findByUserIdOrderByScoreOutOf5Desc(userId);
+
+            case "rate-asc":
+                return profileReviewRepository.findByUserIdOrderByScoreOutOf5Asc(userId);
+
+            default:        // date-desc
+                return profileReviewRepository.findByUserIdOrderByUploadDateDesc(userId);
+        }
     }
 }

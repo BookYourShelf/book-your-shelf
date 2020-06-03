@@ -1,5 +1,18 @@
 .product_dropdown_sorting {
     position: relative;
+    width: 170px;
+    border-radius: 5px;
+    border: 1px #b3b3b3 solid;
+}
+
+.isotope_sorting_text {
+    text-align: center;
+    cursor: pointer;
+}
+
+.isotope_filter_text {
+    text-align: center;
+    cursor: pointer;
 }
 
 .isotope_filter_text span,
@@ -10,8 +23,11 @@
 }
 
 .product_dropdown_filter {
-    width: 130px;
     position: relative;
+    width: 170px;
+    border-radius: 5px;
+    border: 1px #b3b3b3 solid;
+    margin-left: 10px;
 }
 
 .page_nav_row {
