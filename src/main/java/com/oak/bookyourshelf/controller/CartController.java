@@ -32,8 +32,7 @@ public class CartController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
-    public static Order order = new Order();
-
+    
 
     public CartController(CartService cartService, @Qualifier("customUserDetailsService") AuthService authService,
                           ProfileInformationService profileInformationService,
@@ -85,6 +84,7 @@ public class CartController {
             profileInformationService.save(user);
 
         } else if (button.equals("checkout")) {
+            Order order = new Order();
 
             if (!user.getShoppingCart().isEmpty()) {
                 if (checkStock(user.getShoppingCart())) {
@@ -92,7 +92,7 @@ public class CartController {
                     List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
                     order.setProductId(productIds);
                     order.setTotalAmount(Float.parseFloat(totalAmount.get()));
-                    productDiscountMap(user.getShoppingCart()); // discount Map Saver
+                    productDiscountMap(user.getShoppingCart(), order); // discount Map Saver
                     if (shipping.get().equals("0")) {
                         order.setShippingMethod("Free");
                     } else {
@@ -105,6 +105,15 @@ public class CartController {
             } else {
                 return ResponseEntity.badRequest().body("Please add products to shopping cart.");
             }
+
+            for (Order o : user.getOrders()) {
+                if (order.getPaymentStatus() == null) {
+                    ResponseEntity.badRequest(); // TODO: There is another order ongoing. Handle that
+                }
+            }
+            order.setUserId(user.getUserId());
+            user.getOrders().add(order);
+            profileInformationService.save(user);
 
         } else if (button.equals("qty_add")) {
             Product product = productDetailsInformationService.get(productID.get());
@@ -134,7 +143,7 @@ public class CartController {
         return false;
     }
 
-    public void productDiscountMap(List<Product> shoppingCart) {
+    public void productDiscountMap(List<Product> shoppingCart, Order order) {
         for (Product p : shoppingCart) {
             if (p.getDiscountRate() != 0) {
                 order.getProductDiscount().clear(); // Map Set to Zero

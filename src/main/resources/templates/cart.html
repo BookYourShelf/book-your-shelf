@@ -73,7 +73,7 @@
                                                 <div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                                     <a th:href="'/product/' + ${product.getProductId()}">
                                                         <div>
-                                                            <div class="product_image"><img src="images/hayvan_ciftligi.jpg"
+                                                            <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
                                                                                             alt="" class="product_image_img">
                                                             </div>
                                                         </div>
@@ -164,20 +164,20 @@
 
                                     </ul>
                                 </div>
+
+                                <!-- Cart Buttons -->
+                                <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+                                    <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                        <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_cart">clear cart</a>
+                                        </div>
+                                        <div class="button button_continue trans_200"><a href="/">continue
+                                            shopping</a></div>
+                                    </div>
+                                </div>
                             </span>
                             <span th:if="${#lists.isEmpty(cartProducts)}">
                                 <div class="warning-text">There are no Products.</div>
                             </span>
-
-                            <!-- Cart Buttons -->
-                            <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
-                                <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                    <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_cart">clear cart</a>
-                                    </div>
-                                    <div class="button button_continue trans_200"><a href="/">continue
-                                        shopping</a></div>
-                                </div>
-                            </div>
 
                             <!-- Out of stock warning -->
                             <div class="out-of-stock" style="display: none">One or more products are out of stock.</div>
@@ -236,8 +236,8 @@
                                 <ul class="cart_extra_total_list">
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
-                                        <div id="sub-total" style="display:inline" class="cart_extra_total_value ml-auto result"> </div>
-                                        <span id="sub-currency" style="display:inline"></span>
+                                        <div id="sub-total" style="display:inline" class="cart_extra_total_value ml-auto result">0.00</div>
+                                        <span id="sub-currency" style="display:inline">₺</span>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Method</div>
@@ -245,12 +245,12 @@
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div id="coupon" class="cart_extra_total_value ml-auto result">0.0</div>
+                                        <div id="coupon" class="cart_extra_total_value ml-auto result">0.00</div>
                                     </li>
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
-                                        <div id="final_result" style="display:inline" class="cart_extra_total_value ml-auto relativer"> </div>
-                                        <span id="final-currency" style="display:inline" class="cart_extra_total_value relativer"></span>
+                                        <div id="final_result" style="display:inline" class="cart_extra_total_value ml-auto relativer">0.00</div>
+                                        <span id="final-currency" style="display:inline" class="cart_extra_total_value relativer">₺</span>
 
                                     </li>
                                 </ul>

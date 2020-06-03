@@ -28,7 +28,6 @@ public class PaymentController {
     final AuthService authService;
     final CartService cartService;
     final ProductDetailsInformationService productDetailsInformationService;
-    Order order = CartController.order;
 
     public PaymentController(PaymentService paymentService, @Qualifier("customUserDetailsService") AuthService authService,
                              ProfileInformationService profileInformationService, CartService cartService,
@@ -53,6 +52,12 @@ public class PaymentController {
         Payment payment = new Payment();
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
+        Order order = new Order();
+        for (Order o : user.getOrders()) {
+            if (o.getPaymentStatus() == null) {
+                order = o;
+            }
+        }
 
 
         if (button.equals("ConfirmCreditCard")) {
@@ -60,26 +65,26 @@ public class PaymentController {
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_CREDIT_CARD);
             System.out.println(Order.PaymentOption.CREDIT_CARD);
             order.setPaymentOption(Order.PaymentOption.CREDIT_CARD);
-            payment(payment, user);
+            payment(payment, user, order);
 
 
         } else if (button.equals("PayPal")) {
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_PAYPAL);
             order.setPaymentOption(Order.PaymentOption.PAYPAL);
-            payment(payment, user);
+            payment(payment, user, order);
 
 
         } else {
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_BANK_TRANSFER);
             order.setPaymentOption(Order.PaymentOption.TRANSFERRING_MONEY_PTT);
-            payment(payment, user);
+            payment(payment, user, order);
         }
 
         return ResponseEntity.ok("");
     }
 
 
-    public void payment(Payment payment, User user) {
+    public void payment(Payment payment, User user, Order order) {
         payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
         payment.setPayerId(user.getUserId());
         payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
@@ -96,7 +101,6 @@ public class PaymentController {
         paymentService.save(payment);
         profileInformationService.save(user);
         //Problem section
-        CartController.order = new Order();
 
     }
 

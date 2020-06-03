@@ -137,21 +137,21 @@
                                         </tr>
                                     </ul>
                                 </div>
+
+                                <!-- Cart Buttons -->
+                                <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+                                    <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                        <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_wish_list">clear wish
+                                            list</a></div>
+                                        <div class="button button_continue trans_200"><a href="/">continue
+                                            shopping</a></div>
+                                    </div>
+                                </div>
                             </span>
                             <!-- No Wish List -->
                             <span th:if="${#lists.isEmpty(wishListProducts)}">
                                 <div class="warning-text">There are no Products.</div>
                             </span>
-                            <!-- Cart Buttons -->
-                            <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
-                                <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                    <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_wish_list">clear wish
-                                        list</a></div>
-                                    <div class="button button_continue trans_200"><a href="/">continue
-                                        shopping</a></div>
-                                </div>
-                            </div>
-
                             <!-- Out of stock warning -->
                             <div class="out-of-stock" style="display: none">This product is out of stock.</div>
                         </div>
