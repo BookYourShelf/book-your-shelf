@@ -92,26 +92,28 @@ public class CheckoutController {
             user.getDeliveryAddresses().remove(toBeDeleted);
             profileAddressService.delete(address.getAddressId());
         }
+        else {
+            if (billing_address.isPresent() && delivery_address.isPresent()) {
+                order.setShippingCompany(cargo.get());
+                order.setBillingAddress(billing_address.get().toString());
+                order.setCustomerAddress(delivery_address.get().toString());
 
-        if (billing_address.isPresent() && delivery_address.isPresent()) {
-            order.setShippingCompany(cargo.get());
-            order.setBillingAddress(billing_address.get().toString());
-            order.setCustomerAddress(delivery_address.get().toString());
+                // Save updated order
+                List<Order> orders = user.getOrders();
+                for (int i = 0; i < orders.size(); i++) {
+                    if (orders.get(i).getOrderId() == order.getOrderId()) {
+                        orders.set(i, order);
 
-            // Save updated order
-            List<Order> orders = user.getOrders();
-            for (int i = 0; i < orders.size(); i++) {
-                if (orders.get(i).getOrderId() == order.getOrderId()) {
-                    orders.set(i, order);
+                    }
                 }
+                profileInformationService.save(user);
+
+            } else{
+
+                return ResponseEntity.badRequest().body("Delivery address and Billing address have to be selected.");
             }
-
-            profileInformationService.save(user);
-
-            return ResponseEntity.ok("");
         }
-
-        return ResponseEntity.badRequest().body("Delivery address and Billing address have to be selected.");
+        return ResponseEntity.ok("");
     }
 
     public Address findAddress(List<Address> addressList, int Id) {
