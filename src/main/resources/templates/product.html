@@ -1052,8 +1052,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" onclick="location.href='compare.html'"
-                                                 class="our_picks_product_button_last our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div title="Compare products" id="compare_products" type="button"
+                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
+
+
+                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
                                                     </div>
@@ -1119,7 +1122,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" id="compare_products" th:value="${'38'}"
+                                            <div title="Compare products" id="compare_products_2" type="button"
+                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
+
+
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -1182,7 +1188,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" onclick="location.href='compare.html'"
+                                            <div title="Compare products" id="compare_products_3" type="button"
+                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
+
+
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -1248,7 +1257,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products"
+                                            <div title="Compare products" id="compare_products_4" type="button"
+                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
+
+
                                                  class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -1433,20 +1445,7 @@
             })
         }
     });
-    $('#compare_products').click(function (event) {
 
-        var second = "38";
-        var ret = {
-            type: "compare",
-        };
-        console.log(second);
-        event.preventDefault();
-        $.get("/compare/" + productID + "/" + second, ret, function (data) {
-
-
-        })
-
-    });
 
     $('.delete_review').click(function (event) {
         var ret = {
