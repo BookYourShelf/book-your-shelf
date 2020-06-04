@@ -2,7 +2,6 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.util.*;
 
 @Entity
@@ -27,32 +26,14 @@ public abstract class Product {
     private String longDesc;
     private String barcode;
 
-
-    @ElementCollection
-    @Column(name = "quantities")
-    @CollectionTable(name="product_quantity_mapping",joinColumns = @JoinColumn(name="productId"))
-    Map<Integer,Integer> productQuantity;
-
     @ElementCollection
     private List<Integer> buyerUserIds;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL
-    )
-    private List<User> onWishList;
-
-    @ManyToMany(
-            cascade = CascadeType.ALL
-    )
-    private List<User> onShoppingCart;
-
     @ElementCollection
     private List<byte[]> images;
-
-    private static DecimalFormat df = new DecimalFormat("0.00");
 
     // FUNCTIONS
 
@@ -101,7 +82,6 @@ public abstract class Product {
     public void increaseSalesNum() {
         salesNum++;
     }
-
 
     // GETTER & SETTER
 
@@ -165,14 +145,6 @@ public abstract class Product {
         return images;
     }
 
-    public List<User> getOnWishList() {
-        return onWishList;
-    }
-
-    public void setOnWishList(List<User> onWishList) {
-        this.onWishList = onWishList;
-    }
-
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -232,12 +204,4 @@ public abstract class Product {
     public void setImages(List<byte[]> images) {
         this.images = images;
     }
-
-    public List<User> getOnShoppingCart() { return onShoppingCart; }
-
-    public void setOnShoppingCart(List<User> onShoppingCart) { this.onShoppingCart = onShoppingCart; }
-
-    public Map<Integer, Integer> getProductQuantity() { return productQuantity; }
-
-    public void setProductQuantity(Map<Integer, Integer> productQuantity) { this.productQuantity = productQuantity; }
 }
