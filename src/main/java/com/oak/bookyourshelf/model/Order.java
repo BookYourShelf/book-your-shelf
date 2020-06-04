@@ -3,7 +3,6 @@ package com.oak.bookyourshelf.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "orders")
@@ -48,6 +47,11 @@ public class Order {
         CANCELED
     }
 
+    public enum ShippingMethod {
+        FREE,
+        NEXT_DAY_DELIVERY
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
@@ -55,32 +59,28 @@ public class Order {
     @ElementCollection
     private List<Integer> productId;
 
-
     private int userId;
     private String userName;
     private Timestamp orderDate;
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
-    private String shippingMethod;
     private float totalAmount;
 
-    @ElementCollection
-    @Column(name = "discount")
-    @CollectionTable(name="product_discount_mapping",joinColumns = @JoinColumn(name="productId"))
-    Map<Integer,Float> productDiscount;
+    @Enumerated(EnumType.STRING)
+    private ShippingMethod shippingMethod;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
     @Enumerated(EnumType.STRING)
-    PaymentOption paymentOption;
+    private PaymentOption paymentOption;
 
     @Enumerated(EnumType.STRING)
-    PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus;
 
     @Enumerated(EnumType.STRING)
-    OrderStatus orderStatus;
+    private OrderStatus orderStatus;
 
 
     public float getTotalAmountOfShipping() {
@@ -183,11 +183,11 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getShippingMethod() {
+    public ShippingMethod getShippingMethod() {
         return shippingMethod;
     }
 
-    public void setShippingMethod(String shippingMethod) {
+    public void setShippingMethod(ShippingMethod shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
 
@@ -199,16 +199,11 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public OrderStatus getOrderStatus() { return orderStatus; }
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
-
-    public Map<Integer, Float> getProductDiscount() { return productDiscount; }
-
-    public void setProductDiscount(Map<Integer, Float> productDiscount) { this.productDiscount = productDiscount; }
-
-
-
 }
