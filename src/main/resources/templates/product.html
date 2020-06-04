@@ -674,7 +674,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
 
-                                        <!-- Sort orders -->
+                                    <!-- Sort orders -->
                                     <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
                                         <div class="products_dropdown product_dropdown_sorting">
                                             <div class="isotope_sorting_text"><span>Sort</span><i
@@ -1006,7 +1006,8 @@
                         <!-- Product -->
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a th:href="@{'/product/' + ${similarProduct.productId}}"><img
+                                <div class="product_image_showcase"><a
+                                        th:href="@{'/product/' + ${similarProduct.productId}}"><img
                                         th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
@@ -1027,7 +1028,9 @@
                                         </div>
 
                                         <div>
-                                            <div class="our_picks_product_name" id="similar_product_name" th:value="${similarProduct.getProductName()}"><a th:href="@{'/product/' + ${similarProduct.productId}}"><h th:text="${similarProduct.getProductName()}"></h></a>
+                                            <div class=" our_picks_product_name"><a
+                                                    th:href="@{'/product/' + ${similarProduct.productId}}"><h
+                                                    th:text="${similarProduct.getProductName()}"></h></a>
                                             </div>
                                             <div class="our_picks_product_text">
                                                 <span th:if="${similarProduct.getProductTypeName() == 'Book' || similarProduct.getProductTypeName() == 'E-Book' || similarProduct.getProductTypeName() == 'Audio Book'}">
@@ -1073,34 +1076,38 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${similarProduct.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${similarProduct.getPrice()} + ' ₺'" }></div></div>
                                             </span>
 
                                         </div>
 
                                     <div class="our_picks_product_buttons product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list" id="add_to_wish_list"  th:value="${similarProduct.getProductId()}"
-                                                 class="our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                <div >
+                                            <div title="Add to wish list"
+                                                 class="add_to_wish_list our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_to_wish_list" th:value="${similarProduct.getProductName()}"
+                                                 th:id="${similarProduct.getProductId()}">
+                                                <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Add to shopping cart" id="add_to_cart"  th:value="${similarProduct.getProductId()}"
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div title="Add to shopping cart"
+                                                 class="add_to_cart our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_to_cart" th:id="${similarProduct.getProductId()}"
+                                                 th:value="${similarProduct.getProductName()}"
+                                            >
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Compare products" id="compare_products" type="button"
-                                                 th:onclick="|window.location.href='@{/compare(id1=(${'26'}),id2=(${'27'}))}'|"
+                                            <div title="Compare products"
+                                                 class=" compare our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                  name="compare" th:id="${similarProduct.getProductId()}" type="button" >
 
-
-                                                 class="our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
                                                     </div>
@@ -1183,19 +1190,20 @@
         })
     });
 
-    $('#add_to_wish_list').click(function (event) {
+    $('.add_to_wish_list').click(function (event) {
+        var id = $(this).attr("id");
+        var name = $(this).attr("value");
 
         var ret = {
             type: "wish-list",
-            id: $('#add_to_wish_list').val(),
+            id: id
         };
-        var nameOfProduct = $('#similar_product_name').val();
-        console.log(nameOfProduct);
+
         event.preventDefault();
-        $.post("/product/" + productID, ret, function (data) {
+        $.post("/product/" + id, ret, function (data) {
             iziToast.show({
                 title: 'Success',
-                message: nameOfProduct + ' added to wish list successfully.',
+                message: name + ' added to wish list successfully.',
                 position: 'topRight',
                 color: 'green'
             });
@@ -1213,6 +1221,13 @@
                 });
             }
         })
+    });
+
+    $('.compare').click(function (event) {
+        var id = $(this).attr("id");
+
+        window.location.href="/compare/" + productID + "/" + id ;
+
     });
 
     $('#add_cart').click(function (event) {
@@ -1221,12 +1236,12 @@
             type: "cart",
             id: productID
         };
-        var nameOfProduct = $('#similar_product_name').val();
+
         event.preventDefault();
         $.post("/product/" + productID, ret, function (data) {
             iziToast.show({
                 title: 'Success',
-                message: nameOfProduct + ' added to shopping cart successfully.',
+                message: productName + ' added to shopping cart successfully.',
                 position: 'topRight',
                 color: 'green'
             });
@@ -1246,18 +1261,20 @@
         })
     });
 
-    $('#add_to_cart').click(function (event) {
+    $('.add_to_cart').click(function (event) {
+        var id = $(this).attr("id");
+        var name = $(this).attr("value");
 
         var ret = {
             type: "cart",
-            id: $('#add_to_cart').val()
+            id: id
         };
 
         event.preventDefault();
-        $.post("/product/" + productID, ret, function (data) {
+        $.post("/product/" + id, ret, function (data) {
             iziToast.show({
                 title: 'Success',
-                message: productName + ' added to shopping cart successfully.',
+                message: name + ' added to shopping cart successfully.',
                 position: 'topRight',
                 color: 'green'
             });
