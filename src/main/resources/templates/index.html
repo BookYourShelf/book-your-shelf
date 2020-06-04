@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
 
 <body>
@@ -484,16 +485,16 @@
 
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list" id="add_wish_list_new" th:value="${product.getProductId()}"
-                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div title="Add to wish list" class="add_wish_list_new product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_new" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Add to shopping cart" id="add_cart_new" th:value="${product.getProductId()}"
-                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div title="Add to shopping cart" class="add_cart_new product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_new" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -588,16 +589,16 @@
 
                                         <div class="product_buttons">
                                             <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list" id="add_wish_list_new_more" th:value="${product.getProductId()}"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div title="Add to wish list" class="add_wish_list_new_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_wish_list_new_more" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                     <div>
                                                         <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div title="Add to shopping cart" id="add_cart_new_more"  th:value="${product.getProductId()}"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div title="Add to shopping cart"  class="add_cart_new_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_cart_new_more"  th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                     <div>
                                                         <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
@@ -712,16 +713,16 @@
 
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list" id="add_wish_list_best" th:value="${product.getProductId()}"
-                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div title="Add to wish list"  class="add_wish_list_best product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_best" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Add to shopping cart" id="add_cart_best"  th:value="${product.getProductId()}"
-                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div title="Add to shopping cart"  class="add_cart_best product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_best"  th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -818,16 +819,16 @@
 
                                         <div class="product_buttons">
                                             <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list" id="add_wish_list_best_more" th:value="${product.getProductId()}"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div title="Add to wish list"  class="add_wish_list_best_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_wish_list_best_more" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                     <div>
                                                         <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div title="Add to shopping cart" id="add_cart_best_more" th:value="${product.getProductId()}"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div title="Add to shopping cart"  class="add_cart_best_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_cart_best_more" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
                                                     <div>
                                                         <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                             <div>+</div>
@@ -877,6 +878,7 @@
 <script th:src="@{/static/js/classy-nav.min.js}"></script>
 <script th:src="@{/static/js/custom.js}"></script>
 <script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
 
 <script>
 
@@ -891,29 +893,31 @@
         document.getElementById("load_best").remove();
     });
 
-    $('#add_wish_list_new , #add_wish_list_new_more ,#add_wish_list_best , #add_wish_list_best_more').click(function (event) {
-        var button = $(this).attr("id");
+    $('.add_wish_list_new , .add_wish_list_new_more ,.add_wish_list_best , .add_wish_list_best_more').click(function (event) {
+        var button = $(this).attr("name");
+        var name= $(this).attr("value");
+        console.log(button);
         var productID;
         if(button === "add_wish_list_new")
-            productID= document.getElementById("add_wish_list_new").getAttribute('value');
+            productID= $(this).attr("id");
         else if(button === "add_wish_list_new_more")
-            productID= document.getElementById("add_wish_list_new_more").getAttribute('value');
+            productID= $(this).attr("id");
         else if(button === "add_wish_list_best")
-            productID= document.getElementById("add_wish_list_best").getAttribute('value');
+            productID= $(this).attr("id");
         else if(button=== "add_wish_list_best_more")
-            productID= document.getElementById("add_wish_list_best_more").getAttribute('value');
-        console.log(productID);
-        console.log("sss")
+            productID= $(this).attr("id");
+
         var ret = {
             type: "wish-list",
             id: productID
         };
-
+        console.log(productID);
+        console.log(name);
         event.preventDefault();
-        $.post("/" + productID, ret, function (data) {
+        $.post("/index/" + productID, ret, function (data) {
             iziToast.show({
                 title: 'Success',
-                message: "productName" + ' added to wish list successfully.',
+                message: name + ' added to wish list successfully.',
                 position: 'topRight',
                 color: 'green'
             });
@@ -933,29 +937,30 @@
         })
     });
 
-    $('#add_cart_new , #add_cart_new_more ,#add_cart_best , #add_cart_best_more').click(function (event) {
-        var button = $(this).attr("id");
+    $('.add_cart_new , .add_cart_new_more ,.add_cart_best , .add_cart_best_more').click(function (event) {
+        var button = $(this).attr("name");
+        var name= $(this).attr("value");
+        console.log(button);
         var productID;
         if(button === "add_cart_new")
-            productID= document.getElementById("add_cart_new").getAttribute('value');
+            productID= $(this).attr("id");
         else if(button === "add_cart_new_more")
-            productID= document.getElementById("add_cart_new_more").getAttribute('value');
+            productID= $(this).attr("id");
         else if(button === "add_cart_best")
-            productID= document.getElementById("add_cart_best").getAttribute('value');
+            productID= $(this).attr("id");
         else if(button=== "add_cart_best_more")
-            productID= document.getElementById("add_cart_best_more").getAttribute('value');
-        console.log(productID);
-        console.log("sss")
+            productID= $(this).attr("id");
+
         var ret = {
             type: "cart",
             id: productID
         };
 
         event.preventDefault();
-        $.post("/" + productID, ret, function (data) {
+        $.post("/index/" + productID, ret, function (data) {
             iziToast.show({
                 title: 'Success',
-                message: "productName" + ' added to wish list successfully.',
+                message: name + ' added to shopping cart successfully.',
                 position: 'topRight',
                 color: 'green'
             });
