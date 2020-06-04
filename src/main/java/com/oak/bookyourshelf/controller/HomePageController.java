@@ -69,7 +69,7 @@ public class HomePageController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/index/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> addProductToList(@RequestParam String type, @PathVariable int id) {
 
