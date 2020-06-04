@@ -38,8 +38,8 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li style="color: #fbaa1d">Your Wishlist</li>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li style="color: #fbaa1d">Your Wish List</li>
                             </ul>
                         </div>
                     </div>
@@ -49,119 +49,145 @@
 
         <div class="cart_section">
             <div class="container">
+
+                <span th:unless="${#lists.isEmpty(wishListProducts)}">
                 <div class="row">
                     <div class="col">
                         <div class="cart_container">
-                            <span th:unless="${#lists.isEmpty(wishListProducts)}">
                             <!-- Cart Bar -->
-                                <div class="cart_bar">
-                                    <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                        <li class="mr-auto">Product</li>
-                                        <li>Price</li>
-                                        <li>Stock</li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </div>
+                            <div class="cart_bar">
+                                <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+                                    <li class="mr-auto">Product</li>
+                                    <li>Price</li>
+                                    <li>Stock</li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
 
-                                <!-- Cart Items -->
-                                <div class="cart_items">
-                                    <ul class="cart_items_list">
+                            <!-- Cart Items -->
+                            <div class="cart_items">
+                                <ul class="cart_items_list">
 
-                                        <tr th:each="product : ${wishListProducts}">
-                                            <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                                <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                                    <a th:href="'/product/' + ${product.getProductId()}">
-                                                        <div>
-                                                            <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
-                                                                                            alt="" class="product_image_img">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="product_name_container">
-                                                            <div class="product_name"><a th:href="'/product/' + ${product.getProductId()}">
-                                                                <td th:text="${product.getProductName()}"></td></a>
-                                                            </div>
-                                                            <!-- Author -->
-                                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
-                                                                <div class="product_text">
-                                                                    <span th:each="authors, iterStat : ${product.getAuthors()}"
-                                                                        th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}" style="display:inline">
-                                                                    </span>
-                                                                </div>
-                                                            </span>
-                                                            <!-- Case Brand -->
-                                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
-                                                                <div class="product_text">
-                                                                    <td th:text="${product.getCaseBrand()}"></td>
-                                                                </div>
-                                                            </span>
-                                                            <!-- Tablet Brand -->
-                                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
-                                                                <div class="product_text">
-                                                                    <td th:text="${product.getReaderBrand()}"></td>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="product_total product_text">
-                                                    <div th:if="${product.isOnDiscount()}">
-                                                        <div class="align-items-start justify-content-start">
-                                                        <!-- when no sale delete -->
-                                                            <div class="sale_price"><b><td th:text="${product.getDiscountRate() + '% ' + 'off'}"></td></b></div>
-                                                            <div class="sale_price">
-                                                                <del><td th:text="${product.getPrice() + '₺'}"></td></del>
-                                                            </div>
+                                    <tr th:each="product : ${wishListProducts}">
+                                        <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+                                            <div class="product_box d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                                <a th:href="@{'/product/' + ${product.getProductId()}}">
+                                                    <div>
+                                                        <div class="product_image">
+                                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}"
+                                                                 alt="" class="product_image_img">
                                                         </div>
                                                     </div>
-                                                    <span>Price:</span> <span style="display:block" th:text="${#numbers.formatDecimal(product.getPrice() - product.getPrice() * product.getDiscountRate(),0,2)} + '₺'"></span>
-                                                </div>
-                                                <div th:if="${product.getStock() == 0}">
-                                                    <div><i style="font-size:30px"
-                                                            class="fa fa-close product_text product_stock"></i></div>
-                                                </div>
-                                                <div th:unless="${product.getStock() == 0}">
-                                                    <div><i style="font-size:30px"
-                                                            class="fa fa-check product_text product_stock"></i></div>
-                                                </div>
-                                                <div class="product_total product_text"><a href="/cart" title="Add to cart">
-                                                    <button th:id="${product.getProductId()}" name="add_to_shopping_cart" class="wish_to_shopping" style="font-size:30px"><i
-                                                            class="fa fa-shopping-cart product_text"></i></button>
-                                                </a></div>
-                                                <div class="product_total product_text"><a href="#"
-                                                                                           title="Remove from wish list">
-                                                    <button th:id="${product.getProductId()}" name="delete_product" style="font-size:30px" class="fa product_text wish_product_delete">&#xf014;</button>
-                                                </a></div>
-                                            </li>
-                                        </tr>
-                                    </ul>
-                                </div>
 
-                                <!-- Cart Buttons -->
-                                <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
-                                    <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                        <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_wish_list">clear wish
-                                            list</a></div>
-                                        <div class="button button_continue trans_200"><a href="/">continue
-                                            shopping</a></div>
-                                    </div>
+                                                    <div class="product_name_container">
+                                                        <div class="product_name">
+                                                            <a th:href="@{'/product/' + ${product.getProductId()}}"
+                                                               th:text="${product.getProductName()}">
+                                                            </a>
+                                                        </div>
+                                                        <!-- Author -->
+                                                        <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                                            <div class="product_text">
+                                                                <span th:each="authors, iterStat : ${product.getAuthors()}"
+                                                                      th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}"
+                                                                      style="display:inline">
+                                                                </span>
+                                                            </div>
+                                                        </span>
+                                                        <!-- Case Brand -->
+                                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                                            <div class="product_text">
+                                                                <td th:text="${product.getCaseBrand()}"></td>
+                                                            </div>
+                                                        </span>
+                                                        <!-- Tablet Brand -->
+                                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                                            <div class="product_text">
+                                                                <td th:text="${product.getReaderBrand()}"></td>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="product_total product_text">
+                                                <div th:if="${product.isOnDiscount()}">
+                                                    <div class="align-items-start justify-content-start">
+                                                    <!-- when no sale delete -->
+                                                        <div class="sale_price"><b><td
+                                                                th:text="${product.getDiscountRate() + '% ' + 'off'}"></td></b></div>
+                                                        <div class="sale_price">
+                                                            <del><td th:text="${product.getPrice() + '₺'}"></td></del>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span>Price:</span>
+                                                <span style="display:block"
+                                                      th:text="${'₺' + #numbers.formatDecimal(product.getPrice() - product.getPrice() * product.getDiscountRate(),0,2)}"></span>
+                                            </div>
+                                            <div th:if="${product.getStock() <= 0}">
+                                                <div><i style="font-size:30px"
+                                                        class="fa fa-close product_text product_stock"></i></div>
+                                            </div>
+                                            <div th:unless="${product.getStock() <= 0}">
+                                                <div><i style="font-size:30px"
+                                                        class="fa fa-check product_text product_stock"></i></div>
+                                            </div>
+                                            <div class="product_total product_text"><a th:href="@{/cart}"
+                                                                                       title="Add to cart">
+                                                <button th:id="${product.getProductId()}" name="add_to_shopping_cart"
+                                                        class="wish_to_shopping" style="font-size:30px"><i
+                                                        class="fa fa-shopping-cart product_text"></i></button>
+                                            </a></div>
+                                            <div class="product_total product_text"><a href=""
+                                                                                       title="Remove from wish list">
+                                                <button th:id="${product.getProductId()}" name="delete_product"
+                                                        style="font-size:30px"
+                                                        class="fa product_text wish_product_delete">&#xf014;</button>
+                                            </a></div>
+                                        </li>
+                                    </tr>
+                                </ul>
+                            </div>
+
+                            <!-- Cart Buttons -->
+                            <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+                                <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                    <div class="button button_clear trans_200"><a id="clear_list" href=""
+                                                                                  class="clear_wish_list">clear wish
+                                        list</a></div>
+                                    <div class="button button_continue trans_200"><a th:href="@{/}">continue
+                                        shopping</a></div>
                                 </div>
-                            </span>
-                            <!-- No Wish List -->
-                            <span th:if="${#lists.isEmpty(wishListProducts)}">
-                                <div class="warning-text">There are no Products.</div>
-                            </span>
+                            </div>
+
                             <!-- Out of stock warning -->
                             <div class="out-of-stock" style="display: none">This product is out of stock.</div>
                         </div>
                     </div>
                 </div>
+                </span>
+
+                <!-- No Wish List -->
+                <span th:if="${#lists.isEmpty(wishListProducts)}">
+                    <div class="warning-text">There are no products in your wish list.</div>
+                    <div class="how-about">How about a tour on our bookshelf?</div>
+                    <div style="text-align: center">
+                        <img th:src="@{/static/images/wish-list.png}">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <a th:href="@{/}" type="submit" style="cursor:pointer"
+                               class="checkout_button trans_200">START SHOPPING
+                            </a>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </span>
+
             </div>
         </div>
-
-        <!-- No product -->
-        <div class="warning-text" style="display:none;">There are no products in your wish list.</div>
 
         <!-- Footer -->
         <footer class="footer" th:insert="fragments/footer.html"></footer>
@@ -188,7 +214,7 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $('.wish_to_shopping').click(function (event){
+    $('.wish_to_shopping').click(function (event) {
 
         var button = $(this).attr("name");
         var productID = $(this).attr("id");
@@ -199,7 +225,7 @@
         };
         event.preventDefault();
         $.post("/wish-list", ret, function (data) {
-            window.location.href= "/cart";
+            window.location.href = "/cart";
         }).fail(function (data) {
             iziToast.show({
                 title: 'Fail',
@@ -210,7 +236,7 @@
         })
     });
 
-    $('#clear_list').click(function (event){
+    $('#clear_list').click(function (event) {
 
         var button = $(this).attr("id");
         var productID = 0;
@@ -222,7 +248,7 @@
 
         if (confirm('Are you sure you want to clear list?')) {
             event.preventDefault();
-            $.post("/wish-list" , ret , function (data) {
+            $.post("/wish-list", ret, function (data) {
                 iziToast.show({
                     title: 'Success',
                     message: 'Wish list cleared successfully',
@@ -244,7 +270,7 @@
         } else window.location.href = "wish-list";
     });
 
-    $('.wish_product_delete').click(function (event){
+    $('.wish_product_delete').click(function (event) {
 
         var button = $(this).attr("name");
         var productID = $(this).attr("id");
@@ -256,7 +282,7 @@
 
         if (confirm('Are you sure you want to delete?')) {
             event.preventDefault();
-            $.post("/wish-list" , ret , function (data) {
+            $.post("/wish-list", ret, function (data) {
                 iziToast.show({
                     title: 'Success',
                     message: 'Product deleted successfully',
