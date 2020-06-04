@@ -20,9 +20,9 @@ public class CompareProductsController {
         this.compareProductsService = compareProductsService;
     }
 
-    @RequestMapping(value = "/compare", method = RequestMethod.GET)
-    public String compareProducts(@RequestParam("id1") int id1,
-                                  @RequestParam("id2") int id2, Model model) {
+    @RequestMapping(value = "/compare/{id1}/{id2}", method = RequestMethod.GET)
+    public String compareProducts(@PathVariable("id1") int id1,
+                                  @PathVariable("id2") int id2, Model model) {
 
         System.out.println(id1);
         System.out.println(id2);
