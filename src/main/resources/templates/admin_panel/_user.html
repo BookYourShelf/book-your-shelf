@@ -8,63 +8,62 @@
         <div class="isotope_sorting_text"><span>Sort</span><i
                 class="fa fa-caret-down" aria-hidden="true"></i></div>
         <ul>
-             <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'ID-desc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Decreasing by ID'"
-                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'ID-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Decreasing by ID'"
+                   th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'ID-asc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Increasing by ID'"
-                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'ID-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Increasing by ID'"
+                   th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
 
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Name-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Name (A - Z)'"
+                   th:style="${sort == 'Name-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'Name-asc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Name (A - Z)'"
-                       th:style="${sort == 'Name-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Name-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Name (Z - A)'"
+                   th:style="${sort == 'Name-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'Name-desc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Name (Z - A)'"
-                       th:style="${sort == 'Name-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Surname-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Surname (A - Z)'"
+                   th:style="${sort == 'Surname-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'Surname-asc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Surname (A - Z)'"
-                       th:style="${sort == 'Surname-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Surname-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Surname (Z - A)'"
+                   th:style="${sort == 'Surname-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'Surname-desc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Surname (Z - A)'"
-                       th:style="${sort == 'Surname-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Email-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Email (A - Z)'"
+                   th:style="${sort == 'Email-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'Email-asc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Email (A - Z)'"
-                       th:style="${sort == 'Email-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#user(sort=${'Email-desc'}, size=${userPage.size}, page=${1})}"
-                       th:text="'Email (Z - A)'"
-                       th:style="${sort == 'Email-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Email-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Email (Z - A)'"
+                   th:style="${sort == 'Email-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
 
         </ul>
@@ -154,7 +153,8 @@
                 <!-- First page -->
                     <li th:if="${userPage.totalPages > 0}"
                         th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
                            th:text="${1}" style="color: #fbaa1d;">
                         </a>
                     </li>
