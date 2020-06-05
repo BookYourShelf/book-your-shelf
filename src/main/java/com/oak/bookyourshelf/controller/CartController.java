@@ -1,12 +1,11 @@
 package com.oak.bookyourshelf.controller;
 
+import com.oak.bookyourshelf.model.CartItem;
 import com.oak.bookyourshelf.model.Order;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.User;
-import com.oak.bookyourshelf.repository.CartRepository;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.CartService;
-import com.oak.bookyourshelf.service.ProductService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,16 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Controller
 public class CartController {
@@ -32,9 +29,9 @@ public class CartController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
-    
 
-    public CartController(CartService cartService, @Qualifier("customUserDetailsService") AuthService authService,
+    public CartController(CartService cartService,
+                          @Qualifier("customUserDetailsService") AuthService authService,
                           ProfileInformationService profileInformationService,
                           ProductDetailsInformationService productDetailsInformationService) {
         this.cartService = cartService;
@@ -43,116 +40,133 @@ public class CartController {
         this.productDetailsInformationService = productDetailsInformationService;
     }
 
-
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String showCart(Model model) {
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
-        model.addAttribute("cartProducts", user.getShoppingCart());
+        model.addAttribute("cartItems", user.getShoppingCart());
         return "/cart";
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
-    public ResponseEntity<String> showCartList(@RequestParam String button, @RequestParam Optional<Integer> productID,
-                                               @RequestParam Optional<String> totalAmount, @RequestParam Optional<String> shipping,
-                                               @RequestParam Optional<String> coupon, @RequestParam Optional<Integer> quantity) {
+    @ResponseBody
+    public ResponseEntity<String> showCartList(@RequestParam String button, Integer productID, String totalAmount,
+                                               String shipping, String coupon, Integer quantity) {
 
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
 
-        if (button.equals("add_to_wish_list")) {
-            Product product = productDetailsInformationService.get(productID.get());
+        switch (button) {
+            case "add_to_wish_list": {
+                Product product = productDetailsInformationService.get(productID);
 
-            if (!user.getWishList().contains(product)) {
-                user.getShoppingCart().remove(product);
+                if (!containsProduct(user.getWishList(), productID)) {
+                    deleteCartItemFromCart(user.getShoppingCart(), productID);
+                    profileInformationService.save(user);
+                    user.getWishList().add(product);
+
+                } else {
+                    deleteCartItemFromCart(user.getShoppingCart(), productID);
+                }
+
                 profileInformationService.save(user);
-                user.getWishList().add(product);
-                profileInformationService.save(user);
-            } else {
-                user.getShoppingCart().remove(product);
-                profileInformationService.save(user);
+                break;
             }
+            case "delete_product": {
+                deleteCartItemFromCart(user.getShoppingCart(), productID);
+                profileInformationService.save(user);
+                break;
+            }
+            case "clear_list":
+                user.getShoppingCart().clear();
+                profileInformationService.save(user);
+                break;
 
-        } else if (button.equals("delete_product")) {
-            Product product = productDetailsInformationService.get(productID.get());
-            user.getShoppingCart().remove(product);
-            profileInformationService.save(user);
+            case "checkout":
+                removeUnpayedOrder(user.getOrders());
+                Order order = new Order();
 
-        } else if (button.equals("clear_list")) {
-            user.getShoppingCart().clear();
-            profileInformationService.save(user);
+                if (!user.getShoppingCart().isEmpty()) {
+                    Product underStocked = getUnderStockedProduct(user.getShoppingCart());
 
-        } else if (button.equals("checkout")) {
-            Order order = new Order();
+                    if (underStocked == null) {
+                        order.setProductId(getProductIdsOfCartItems(user.getShoppingCart()));
+                        order.setTotalAmount(Float.parseFloat(totalAmount));
+                        setOrderProductsDiscounts(user.getShoppingCart());
 
-            if (!user.getShoppingCart().isEmpty()) {
-                if (checkStock(user.getShoppingCart())) {
+                        if (shipping.equals("0")) {
+                            order.setShippingMethod(Order.ShippingMethod.FREE);
+                        } else {
+                            order.setShippingMethod(Order.ShippingMethod.NEXT_DAY_DELIVERY);
+                        }
 
-                    List<Integer> productIds = user.getShoppingCart().stream().map(Product::getProductId).collect(Collectors.toList());
-                    order.setProductId(productIds);
-                    order.setTotalAmount(Float.parseFloat(totalAmount.get()));
-                    productDiscountMap(user.getShoppingCart(), order); // discount Map Saver
-                    if (shipping.get().equals("0")) {
-                        order.setShippingMethod("Free");
+                        order.setUserId(user.getUserId());
+                        user.getOrders().add(order);
+                        profileInformationService.save(user);
+                        break;
+
                     } else {
-                        order.setShippingMethod("Next day delivery");
+                        return ResponseEntity.badRequest().body(underStocked.getProductName() + " out of stock.");
                     }
 
                 } else {
-                    return ResponseEntity.badRequest().body("Shopping cart product out of stock.");
+                    return ResponseEntity.badRequest().body("Please add products to the shopping cart.");
                 }
-            } else {
-                return ResponseEntity.badRequest().body("Please add products to shopping cart.");
-            }
 
-           for (Order o : user.getOrders()) {
-               if (o.getPaymentStatus() == null) {
-
-                    ResponseEntity.badRequest(); // TODO: There is another order ongoing. Handle that
+            case "qty_add":
+            case "qty_sub":
+                for (CartItem c : user.getShoppingCart()) {
+                    if (c.getProduct().getProductId() == productID) {
+                        c.setQuantity(quantity);
+                    }
                 }
-            }
+                profileInformationService.save(user);
+                break;
 
-            order.setUserId(user.getUserId());
-            user.getOrders().add(order);
-            profileInformationService.save(user);
-
-        } else if (button.equals("qty_add")) {
-            Product product = productDetailsInformationService.get(productID.get());
-            product.getProductQuantity().put(product.getProductId(), quantity.get());
-            productDetailsInformationService.save(product);
-
-        } else {
-            Product product = productDetailsInformationService.get(productID.get());
-            product.getProductQuantity().put(product.getProductId(), quantity.get());
-            productDetailsInformationService.save(product);
-
+            default:
+                return ResponseEntity.badRequest().body("An error occurred.");
         }
         return ResponseEntity.ok("");
     }
 
-    public boolean checkStock(List<Product> cart) {
-        for (Product p : cart) {
-            System.out.println(p.getProductQuantity().get(p.getProductId()));
-            System.out.println(p.getStock());
-            if (p.getStock() != 0) {
-                if (p.getStock() >= p.getProductQuantity().get(p.getProductId())) {
-                    return true;
-                }
-                return false;
+    public Product getUnderStockedProduct(Set<CartItem> cart) {
+        for (CartItem c : cart) {
+            if (productDetailsInformationService.get(c.getProduct().getProductId()).getStock() < c.getQuantity()) {
+                return productDetailsInformationService.get(c.getProduct().getProductId());
+            }
+        }
+        return null;
+    }
+
+    public void setOrderProductsDiscounts(Set<CartItem> cart) {
+        for (CartItem c : cart) {
+            c.setDiscountRate(productDetailsInformationService.get(c.getProduct().getProductId()).getDiscountRate());
+        }
+    }
+
+    public void deleteCartItemFromCart(Set<CartItem> set, int productId) {
+        set.removeIf(c -> c.getProduct().getProductId() == productId);
+    }
+
+    public boolean containsProduct(Set<Product> set, int productId) {
+        for (Product p : set) {
+            if (p.getProductId() == productId) {
+                return true;
             }
         }
         return false;
     }
 
-    public void productDiscountMap(List<Product> shoppingCart, Order order) {
-        for (Product p : shoppingCart) {
-            if (p.getDiscountRate() != 0) {
-                order.getProductDiscount().clear(); // Map Set to Zero
-                order.getProductDiscount().put(p.getProductId(), p.getDiscountRate());
-            }
+    public List<Integer> getProductIdsOfCartItems(Set<CartItem> cart) {
+        List<Integer> productIds = new ArrayList<Integer>();
+        for (CartItem c : cart) {
+            productIds.add(c.getProduct().getProductId());
         }
+        return productIds;
     }
 
-
+    public void removeUnpayedOrder(List<Order> orders) {
+        orders.removeIf(o -> o.getPaymentStatus() == null);
+    }
 }

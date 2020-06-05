@@ -36,7 +36,7 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a th:href="@{/}">Home</a></li>
                                 <li style="color: #fbaa1d">Your Cart</li>
                             </ul>
                         </div>
@@ -48,136 +48,175 @@
         <!-- Cart -->
         <div class="cart_section">
             <div class="container">
+
+                <span th:unless="${#lists.isEmpty(cartItems)}">
                 <div class="row">
                     <div class="col">
                         <div class="cart_container">
-                            <span th:unless="${#lists.isEmpty(cartProducts)}">
-                                 <!-- Cart Bar -->
-                                <div class="cart_bar">
-                                    <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                        <li class="mr-auto">Product</li>
-                                        <li>Price</li>
-                                        <li>Quantity</li>
-                                        <li>Total</li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </div>
+                             <!-- Cart Bar -->
+                            <div class="cart_bar">
+                                <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+                                    <li class="mr-auto">Product</li>
+                                    <li>Price</li>
+                                    <li>Quantity</li>
+                                    <li>Total</li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
 
-                                <!-- Cart Items -->
-                                <div class="cart_items">
-                                    <ul class="cart_items_list">
+                            <!-- Cart Items -->
+                            <div class="cart_items">
+                                <ul class="cart_items_list">
 
-                                        <tr th:each="product : ${cartProducts}">
-                                            <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                                <div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
-                                                    <a th:href="'/product/' + ${product.getProductId()}">
-                                                        <div>
-                                                            <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
-                                                                                            alt="" class="product_image_img">
-                                                            </div>
-                                                        </div>
-                                                        <div class="product_name_container">
-                                                            <div class="product_name">
-                                                                <a th:href="'/product/' + ${product.getProductId()}">
-                                                                    <td th:text="${product.getProductName()}"></td>
-                                                                </a>
-                                                            </div>
-                                                            <!-- Author -->
-                                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
-                                                                <div class="product_text">
-                                                                    <span th:each="authors, iterStat : ${product.getAuthors()}"
-                                                                          th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}" style="display:inline">
-                                                                    </span>
-                                                                </div>
-                                                            </span>
-                                                            <!-- Case Brand -->
-                                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
-                                                                <div class="product_text">
-                                                                    <td th:text="${product.getCaseBrand()}"></td>
-                                                                </div>
-                                                            </span>
-                                                            <!-- Tablet Brand -->
-                                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
-                                                                <div class="product_text">
-                                                                    <td th:text="${product.getReaderBrand()}"></td>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="product_price product_text">
-                                                    <div th:if="${product.isOnDiscount()}" >
-                                                        <div class="align-items-start justify-content-start">
-                                                            <!-- when no sale delete -->
-                                                            <div class="sale_price"><b><td th:text="${product.getDiscountRate() + '%' + 'off'}"></td></b></div>
-                                                            <div class="sale_price">
-                                                                <del><td th:text="${product.getPrice() + '₺'}"></td></del>
-                                                            </div>
+                                    <tr th:each="cartItem : ${cartItems}">
+                                        <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+                                            <div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                                <a th:href="'/product/' + ${cartItem.getProduct().getProductId()}">
+                                                    <div>
+                                                        <div class="product_image">
+                                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}"
+                                                                 alt="" class="product_image_img">
                                                         </div>
                                                     </div>
-                                                    <span>Price:</span> <span th:id="'trying' + ${product.getProductId()}" style="display:inline" th:text="${product.getPrice() - product.getPrice() * product.getDiscountRate()}"></span><span style="display:inline">₺</span>
-                                                </div>
-                                                <div class="product_quantity_container quantities">
-                                                    <div class="product_quantity ml-lg-auto mr-lg-auto text-center relativer">
-                                                        <div th:id="${product.getProductId()}" name="qty_sub" class="qty_sub qty_button trans_200 text-center" >-
+                                                    <div class="product_name_container">
+                                                        <div class="product_name">
+                                                            <a th:href="'/product/' + ${cartItem.getProduct().getProductId()}">
+                                                                <td th:text="${cartItem.getProduct().getProductName()}"></td>
+                                                            </a>
                                                         </div>
-
-                                                        <span class="product_text product_num" th:id="'quantity' + ${product.getProductId()}">
-                                                            <span th:if="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display:inline">
-                                                                <td th:text="${'1'}"></td>
-                                                            </span>
-                                                            <span th:unless="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display:inline">
-                                                                <td th:text="${product.getProductQuantity().get(product.getProductId())}"></td>
-                                                            </span>
+                                                        <!-- Author -->
+                                                        <span th:if="${cartItem.getProduct().getProductTypeName() == 'Book' ||
+                                                                        cartItem.getProduct().getProductTypeName() == 'E-Book' ||
+                                                                        cartItem.getProduct().getProductTypeName() == 'Audio Book'}">
+                                                            <div class="product_text">
+                                                                <span th:each="authors, iterStat : ${cartItem.getProduct().getAuthors()}"
+                                                                      th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}"
+                                                                      style="display:inline">
+                                                                </span>
+                                                            </div>
                                                         </span>
-
-                                                        <div th:id="${product.getProductId()}" name="qty_add" class="qty_add qty_button trans_200 text-center" >+
+                                                        <!-- Case Brand -->
+                                                        <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader Case' ||
+                                                                        cartItem.getProduct().getProductTypeName() == 'Book Case'}">
+                                                            <div class="product_text">
+                                                                <td th:text="${cartItem.getProduct().getCaseBrand()}"></td>
+                                                            </div>
+                                                        </span>
+                                                        <!-- Tablet Brand -->
+                                                        <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader'}">
+                                                            <div class="product_text">
+                                                                <td th:text="${cartItem.getProduct().getReaderBrand()}"></td>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="product_price product_text">
+                                                <div th:if="${cartItem.getProduct().isOnDiscount()}">
+                                                    <div class="align-items-start justify-content-start">
+                                                        <!-- when no sale delete TODO % -->
+                                                        <div class="sale_price">
+                                                            <b th:text="${cartItem.getProduct().getDiscountRate() + '%' + 'off'}"></b>
+                                                        </div>
+                                                        <div class="sale_price">
+                                                            <del th:text="${'₺' + cartItem.getProduct().getPrice()}"></del>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="product-price" class="product_total product_text"><span>Total: </span>
-                                                    <span th:if="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display: block">
 
-                                                        <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:with="result=${product.getPrice()}, discount =${product.getPrice() * product.getDiscountRate()}, total = ${result - discount}" th:text="${#numbers.formatDecimal(total,0,2)}"></span>
-                                                        <span style="display:inline">₺</span>
+                                                <span>Price:</span>
+                                                <!-- TODO check -->
+                                                <span style="display:inline">₺</span>
+                                                <span th:id="'trying' + ${cartItem.getProduct().getProductId()}"
+                                                      style="display:inline"
+                                                      th:text="${#numbers.formatDecimal(
+                                                    cartItem.getProduct().getPrice() - cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate(),
+                                                    0, 2)}">
+                                                </span>
+                                            </div>
 
-                                                    </span>
-                                                    <span th:unless="${product.getProductQuantity().get(product.getProductId()) == 1}" style="display:block">
-
-                                                       <span th:id="'second-try' + ${product.getProductId()}" class="total" style="display:inline" th:with="result=${product.getPrice() - (product.getPrice() * product.getDiscountRate())} , quantity =${product.getProductQuantity().get(product.getProductId())},
-                                                                                       total=${result*quantity}" th:text="${#numbers.formatDecimal(total,0,2)}"></span>
-                                                        <span style="display:inline">₺</span>
-                                                    </span>
-
-                                                </div>
-                                                <div th:id="${product.getProductId()}" name="add_to_wish_list" class="product_total product_text to_wish_list"><a href="/cart"
-                                                                                                                                                                  title="Add to wish list">
-                                                    <button style="font-size:30px"><i class="fa fa-heart product_text"></i>
+                                            <div class="product_quantity_container quantities">
+                                                <div class="product_quantity ml-lg-auto mr-lg-auto text-center relativer">
+                                                    <button th:id="${cartItem.getProduct().getProductId()}"
+                                                            name="qty_sub"
+                                                            class="qty_sub qty_button trans_200 text-center">-
                                                     </button>
-                                                </a></div>
-                                                <div th:id="${product.getProductId()}" name="delete_product" class="product_total product_text delete_product"><a href="#" title="Remove from cart">
-                                                    <button style="font-size:30px" class="fa product_text">&#xf014;</button>
-                                                </a></div>
-                                            </li>
-                                        </tr>
 
-                                    </ul>
-                                </div>
+                                                    <span class="product_text product_num"
+                                                          th:id="'quantity' + ${cartItem.getProduct().getProductId()}">
+                                                        <span th:if="${cartItem.getQuantity() == 1}"
+                                                              style="display:inline">
+                                                            <td th:text="${'1'}"></td>
+                                                        </span>
+                                                        <span th:unless="${cartItem.getQuantity() == 1}"
+                                                              style="display:inline">
+                                                            <td th:text="${cartItem.getQuantity()}"></td>
+                                                        </span>
+                                                    </span>
 
-                                <!-- Cart Buttons -->
-                                <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
-                                    <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                        <div class="button button_clear trans_200"><a href="#" id="clear_list" class="clear_cart">clear cart</a>
-                                        </div>
-                                        <div class="button button_continue trans_200"><a href="/">continue
-                                            shopping</a></div>
+                                                    <button th:id="${cartItem.getProduct().getProductId()}"
+                                                            name="qty_add"
+                                                            class="qty_add qty_button trans_200 text-center">+
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div id="product-price"
+                                                 class="product_total product_text"><span>Total: </span>
+                                                <span th:if="${cartItem.getQuantity() == 1}" style="display: block">
+                                                    <!-- TODO -->
+                                                    <span style="display:inline">₺</span>
+                                                    <span th:id="'second-try' + ${cartItem.getProduct().getProductId()}"
+                                                          class="total" style="display:inline"
+                                                          th:with="result=${cartItem.getProduct().getPrice()},
+                                                          discount =${cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate()}, total = ${result - discount}"
+                                                          th:text="${#numbers.formatDecimal(total,0,2)}"></span>
+                                                </span>
+
+                                                <span th:unless="${cartItem.getQuantity() == 1}" style="display:block">
+                                                    <!-- TODO -->
+                                                    <span style="display:inline">₺</span>
+                                                    <span th:id="'second-try' + ${cartItem.getProduct().getProductId()}"
+                                                          class="total" style="display:inline"
+                                                          th:with="result=${cartItem.getProduct().getPrice() - (cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate())} ,
+                                                         quantity =${cartItem.getQuantity()}, total=${result*quantity}"
+                                                          th:text="${#numbers.formatDecimal(total,0,2)}"></span>
+                                                </span>
+                                            </div>
+
+                                            <div th:id="${cartItem.getProduct().getProductId()}" name="add_to_wish_list"
+                                                 class="product_total product_text to_wish_list">
+                                                <a th:href="@{/cart}" title="Add to wish list">
+                                                    <button style="font-size:30px">
+                                                        <i class="fa fa-heart product_text"></i>
+                                                    </button>
+                                                </a>
+                                            </div>
+
+                                            <div th:id="${cartItem.getProduct().getProductId()}" name="delete_product"
+                                                 class="product_total product_text delete_product">
+                                                <a href="#" title="Remove from cart">
+                                                    <button style="font-size:30px"
+                                                            class="fa product_text">&#xf014;</button>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </tr>
+                                </ul>
+                            </div>
+
+                            <!-- Cart Buttons -->
+                            <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+                                <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                    <div class="button button_clear trans_200">
+                                        <a href="#" id="clear_list" class="clear_cart">clear cart</a>
+                                    </div>
+                                    <div class="button button_continue trans_200">
+                                        <a href="/">continue shopping</a>
                                     </div>
                                 </div>
-                            </span>
-                            <span th:if="${#lists.isEmpty(cartProducts)}">
-                                <div class="warning-text">There are no Products.</div>
-                            </span>
+                            </div>
 
                             <!-- Out of stock warning -->
                             <div class="out-of-stock" style="display: none">One or more products are out of stock.</div>
@@ -193,7 +232,7 @@
                                     Enter the code of your discount coupon.
                                 </div>
                                 <div class="coupon_form_container relativer">
-                                    <form action="#" id="coupon_form" class="coupon_form">
+                                    <form id="coupon_form" class="coupon_form">
                                         <input type="text" style="width: calc(100% - 120px);height: 44px;"
                                                class="checkout_input form-control" title="Enter your coupon code.">
                                         <button class="coupon_button"><a href="">apply</a></button>
@@ -208,21 +247,21 @@
                                     <ul>
                                         <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
                                             <label class="radio_container">
-                                                <input type="radio" id="radio_1" name="shipping_radio"
-                                                       class="shipping_radio" value="7.99">
-                                                <span class="radio_mark"></span>
-                                                <span class="radio_text">Next day delivery</span>
-                                            </label>
-                                            <div class="shipping_price ml-auto">7.99₺</div>
-                                        </li>
-                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
-                                            <label class="radio_container">
                                                 <input type="radio" id="radio_2" name="shipping_radio"
                                                        class="shipping_radio" value="0" checked>
                                                 <span class="radio_mark"></span>
                                                 <span class="radio_text">Standard delivery</span>
                                             </label>
                                             <div class="shipping_price ml-auto">Free</div>
+                                        </li>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="radio_1" name="shipping_radio"
+                                                       class="shipping_radio" value="7.99">
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">Next day delivery</span>
+                                            </label>
+                                            <div class="shipping_price ml-auto">₺7.99</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -236,159 +275,122 @@
                                 <ul class="cart_extra_total_list">
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
-                                        <div id="sub-total" style="display:inline" class="cart_extra_total_value ml-auto result">0.00</div>
-                                        <span id="sub-currency" style="display:inline">₺</span>
+                                        <span id="sub-currency" style="display:inline"
+                                              class="cart_extra_total_value ml-auto result">₺</span>
+                                        <div id="sub-total" style="display:inline"
+                                             class="cart_extra_total_value result">0.00
+                                        </div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Method</div>
-                                        <div id="shipping_text" class="cart_extra_total_value ml-auto result">Free</div>
-                                        <span id="shipping-currency" style="display:inline"></span>
+                                        <span id="shipping-currency" style="visibility: hidden"
+                                              class="cart_extra_total_value ml-auto result">₺</span>
+                                        <div id="shipping_text" class="cart_extra_total_value result">Free</div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div id="coupon" class="cart_extra_total_value ml-auto">0.00₺</div>
+                                        <div id="coupon" class="cart_extra_total_value ml-auto">- ₺0.00</div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
-                                        <div id="final_result" style="display:inline" class="cart_extra_total_value ml-auto relativer">0.00</div>
-                                        <span id="final-currency" style="display:inline" class="cart_extra_total_value relativer">₺</span>
-
+                                        <span id="final-currency" style="display:inline"
+                                              class="cart_extra_total_value ml-auto relativer">₺</span>
+                                        <div id="final_result" style="display:inline"
+                                             class="cart_extra_total_value relativer">0.00
+                                        </div>
                                     </li>
                                 </ul>
-                                <input type="submit" id="checkout" style="cursor:pointer" class="checkout_button trans_200" value="PROCEED TO CHECKOUT">
-
+                                <input type="submit" id="checkout" style="cursor:pointer"
+                                       class="checkout_button trans_200" value="PROCEED TO CHECKOUT">
                             </div>
                         </div>
                     </div>
                 </div>
+                </span>
+
+                <span th:if="${#lists.isEmpty(cartItems)}">
+                    <div class="warning-text">There are no products in your shopping cart.</div>
+                    <div class="how-about">How about a tour on our bookshelf?</div>
+                    <div style="text-align: center">
+                        <img th:src="@{/static/images/shopping-cart.png}">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <a th:href="@{/}" type="submit" style="cursor:pointer"
+                               class="checkout_button trans_200">START SHOPPING
+                            </a>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </span>
+
             </div>
         </div>
-            <!-- No product -->
-            <div class="warning-text" style="display: none">There are no products in your shopping cart.</div>
 
-            <!-- Footer -->
-            <footer class="footer" th:insert="fragments/footer.html"></footer>
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
     </div>
 </div>
 
-    <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
-    <script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
-    <script th:src="@{/static/js/plugins.js}"></script>
-    <script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
-    <script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
-    <script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
-    <script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
-    <script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
-    <script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
-    <script th:src="@{/static/plugins/easing/easing.js}"></script>
-    <script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
-    <script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
-    <script th:src="@{/static/js/classy-nav.min.js}"></script>
-    <script th:src="@{/static/js/custom.js}"></script>
-    <script th:src="@{/static/js/active.js}"></script>
-    <script th:src="@{/static/js/iziToast.min.js}"></script>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        $('.to_wish_list').click(function (event){
+<script th:inline="javascript">
+    /*<![CDATA[*/
 
-            var button = $(this).attr("name");
-            var productID = $(this).attr("id");
+    $('.to_wish_list').click(function (event) {
 
-            var ret = {
-                button: button,
-                productID: productID
-            };
+        var ret = {
+            button: $(this).attr("name"),
+            productID: $(this).attr("id")
+        };
+
+        event.preventDefault();
+        $.post("/cart", ret, function (data) {
+            window.location.href = "/wish-list";
+        })
+    });
+
+    $('#clear_list').click(function (event) {
+
+        var ret = {
+            button: $(this).attr("id"),
+        };
+
+        if (confirm('Are you sure you want to clear list?')) {
             event.preventDefault();
             $.post("/cart", ret, function (data) {
-                window.location.href= "/wish-list";
-            })
-        });
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Shopping cart cleared successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
 
-        $('#clear_list').click(function (event){
+                window.location.href = "cart";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
 
-            var button = $(this).attr("id");
-
-            var ret = {
-                button: button,
-
-            };
-
-            if (confirm('Are you sure you want to clear list?')) {
-                event.preventDefault();
-                $.post("/cart" , ret , function (data) {
-                    iziToast.show({
-                        title: 'Success',
-                        message: 'Shopping cart cleared successfully',
-                        position: 'topRight',
-                        color: 'green'
-                    });
-                    window.location.href = "cart";
-                    setTimeout(function () {
-                        history.pushState(null, null, ' ');
-                    }, 100);
-                }).fail(function (data) {
-                    iziToast.show({
-                        title: 'Fail',
-                        message: data.responseText,
-                        position: 'topRight',
-                        color: 'red'
-                    });
-                })
-            } else window.location.href = "cart";
-        });
-
-        $('.delete_product').click(function (event){
-
-            var button = $(this).attr("name");
-            var productID = $(this).attr("id");
-
-            var ret = {
-                button: button,
-                productID: productID
-            };
-
-            if (confirm('Are you sure you want to delete?')) {
-                event.preventDefault();
-                $.post("/cart" , ret , function (data) {
-                    iziToast.show({
-                        title: 'Success',
-                        message: 'Product deleted from shopping cart.',
-                        position: 'topRight',
-                        color: 'green'
-                    });
-                    window.location.href = "cart";
-                    setTimeout(function () {
-                        history.pushState(null, null, ' ');
-                    }, 100);
-                }).fail(function (data) {
-                    iziToast.show({
-                        title: 'Fail',
-                        message: data.responseText,
-                        position: 'topRight',
-                        color: 'red'
-                    });
-                })
-            } else window.location.href = "cart";
-        });
-
-        $('#checkout').click(function (event){
-            var button = $(this).attr("id");
-            var totalAmount = $('#final_result').text();
-            var coupon = $('#coupon').text();
-            var shipping = $("input[name='shipping_radio']:checked").val();
-
-            var ret = {
-                button: button,
-                totalAmount: totalAmount,
-                coupon: coupon,
-                shipping: shipping
-            };
-
-            event.preventDefault();
-            $.post("/cart" , ret , function (data) {
-                window.location.href = "/checkout";
             }).fail(function (data) {
                 iziToast.show({
                     title: 'Fail',
@@ -397,108 +399,165 @@
                     color: 'red'
                 });
             })
-        });
 
-        /*]]>*/
-    </script>
+        } else {
+            window.location.href = "cart";
+        }
+    });
 
+    $('.delete_product').click(function (event) {
 
-    <script>
+        var ret = {
+            button: $(this).attr("name"),
+            productID: $(this).attr("id")
+        };
 
-        $('.qty_add').click(function () {
-            var productID = $(this).attr("id");
-            var button = $(this).attr("name");
-            var p= $('#trying' + productID).text();
-            var value = parseInt(document.getElementById('quantity' + productID).textContent, 10);
-            value = isNaN(value) ? 0 : value;
-            value++;
-            document.getElementById('quantity'+ productID).textContent = value;
-            var quantity = value;
-            var  quantityPrice = (p * value).toFixed(2);
-            document.getElementById('second-try' + productID).textContent = (p * value).toFixed(2);
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/cart", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Product deleted from shopping cart.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "cart";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
 
-            var ret = {
-                productID : productID,
-                button: button,
-                quantity: quantity,
-                quantityPrice: quantityPrice
-            };
-
-            $.post("/cart" , ret , function (data) {
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
             })
 
-        });
+        } else {
+            window.location.href = "cart";
+        }
+    });
 
-        $('.qty_sub').click(function () {
-            var productID = $(this).attr("id");
-            var button = $(this).attr("name");
-            var p= $('#trying' + productID).text();
-            var value = parseInt(document.getElementById('quantity'+ productID).textContent, 10);
-            value = isNaN(value) ? 0 : value;
-            value <= 1 ? value = 2 : '';
-            value--;
-            document.getElementById('quantity'+ productID).textContent = value;
-            var quantity = value;
-            var  quantityPrice = (p * value).toFixed(2);
-            document.getElementById('second-try' + productID).textContent =(p * value).toFixed(2);
+    $('#checkout').click(function (event) {
 
-            var ret = {
-                productID : productID,
-                button: button,
-                quantity: quantity,
-                quantityPrice: quantityPrice
-            };
+        var ret = {
+            button: $(this).attr("id"),
+            totalAmount: $('#final_result').text(),
+            coupon: $('#coupon').text(),
+            shipping: $("input[name='shipping_radio']:checked").val()
+        };
 
-            $.post("/cart" , ret , function (data) {
-            })
-        });
+        event.preventDefault();
+        $.post("/cart", ret, function (data) {
+            window.location.href = "/checkout";
 
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
 
+    /*]]>*/
+</script>
+
+<script>
+
+    $('.qty_add').click(function () {
+        var productID = $(this).attr("id");
+        var price = $('#trying' + productID).text();
+        var value = parseInt(document.getElementById('quantity' + productID).textContent, 10);
+
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById('quantity' + productID).textContent = value;
+        document.getElementById('second-try' + productID).textContent = (price * value).toFixed(2);
+
+        var ret = {
+            productID: productID,
+            button: $(this).attr("name"),
+            quantity: value,
+            quantityPrice: (price * value).toFixed(2)
+        };
+
+        $.post("/cart", ret, function (data) {
+        })
+
+    });
+
+    $('.qty_sub').click(function () {
+        var productID = $(this).attr("id");
+        var price = $('#trying' + productID).text();
+        var value = parseInt(document.getElementById('quantity' + productID).textContent, 10);
+
+        value = isNaN(value) ? 0 : value;
+        value <= 1 ? value = 2 : '';
+        value--;
+        document.getElementById('quantity' + productID).textContent = value;
+        document.getElementById('second-try' + productID).textContent = (price * value).toFixed(2);
+
+        var ret = {
+            productID: productID,
+            button: $(this).attr("name"),
+            quantity: value,
+            quantityPrice: (price * value).toFixed(2)
+        };
+
+        $.post("/cart", ret, function (data) {
+        })
+
+    });
+
+    var sum = 0;
+    $('.total').each(function () {
+        sum += +$(this).text() || 0;
+        $("#sub-total").text(parseFloat(sum).toFixed(2));
+        $("#sub-currency").text('₺');
+    });
+
+    $('.total').on('DOMSubtreeModified', function () {
         var sum = 0;
         $('.total').each(function () {
             sum += +$(this).text() || 0;
             $("#sub-total").text(parseFloat(sum).toFixed(2));
             $("#sub-currency").text('₺');
         });
+    });
 
-        $('.total').on('DOMSubtreeModified',function() {
-            var sum = 0;
-            $('.total').each(function () {
-                sum += +$(this).text() || 0;
-                $("#sub-total").text(parseFloat(sum).toFixed(2));
-                $("#sub-currency").text('₺');
-            });
-        });
-
-        $('input[name="shipping_radio"]').on('change', function(){
-            if ($(this).val()=='7.99') {
-                $("#shipping_text").text("7.99");
-                $("#shipping-currency").text('₺');
-
-            } else  {
-
-                $("#shipping_text").text("Free");
-            }
-        });
-
-        var ship = $('input[name="shipping_radio"]:checked').val();
-        var total = parseFloat(document.getElementById("sub-total").textContent) + parseFloat(ship);
-        if( isNaN(total.toFixed(2))){
-        } else {
-            $("#final_result").text(total.toFixed(2));
+    $('#shipping_text, #sub-total').on('DOMSubtreeModified', function () {
+        var sum = 0;
+        $('.result').each(function () {
+            sum += +$(this).text() || 0;
+            $("#final_result").text(parseFloat(sum).toFixed(2));
             $("#final-currency").text('₺');
-        }
-
-
-        $('#shipping_text, #sub-total').on('DOMSubtreeModified',function() {
-            var sum = 0;
-            $('.result').each(function () {
-                sum += +$(this).text() || 0;
-                $("#final_result").text(parseFloat(sum).toFixed(2));
-                $("#final-currency").text('₺');
-            });
         });
+    });
 
-    </script>
+    $('input[name="shipping_radio"]').on('change', function () {
+
+        if ($(this).val() === '7.99') {
+            $("#shipping_text").text("7.99");
+            document.getElementById("shipping-currency").style.visibility = "visible";
+
+        } else {
+            $("#shipping_text").text("Free");
+            document.getElementById("shipping-currency").style.visibility = "hidden";
+        }
+    });
+
+
+    var ship = $('input[name="shipping_radio"]:checked').val();
+    var total = parseFloat(document.getElementById("sub-total").textContent) + parseFloat(ship);
+    if (!isNaN(total.toFixed(2))) {
+        $("#final_result").text(total.toFixed(2));
+        $("#final-currency").text('₺');
+    }
+
+</script>
 </body>
 </html>
