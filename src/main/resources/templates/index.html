@@ -184,7 +184,8 @@
                     <tr th:each="product: ${ourpicks}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a th:href="@{'/product/' + ${product.productId}}"><img
+                                <div class="product_image_showcase"><a
+                                        th:href="@{'/product/' + ${product.productId}}"><img
                                         th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
@@ -249,7 +250,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
                                         </div>
 
@@ -288,7 +289,8 @@
 
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
-                                    <div class="product_image_showcase"><a th:href="@{'/product/' + ${product.productId}}"><img
+                                    <div class="product_image_showcase"><a
+                                            th:href="@{'/product/' + ${product.productId}}"><img
                                             th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                             class="product_image_img"></a></div>
                                     <div class="product_content">
@@ -353,7 +355,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
                                             </div>
 
@@ -364,7 +366,8 @@
                                                 <div title="Add to wish list"
                                                      class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -372,7 +375,8 @@
                                                 <div title="Add to shopping cart"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
-                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -412,7 +416,8 @@
                     <tr th:each="product: ${newProducts}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a th:href="@{'/product/' + ${product.productId}}"><img
+                                <div class="product_image_showcase"><a
+                                        th:href="@{'/product/' + ${product.productId}}"><img
                                         th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                         class="product_image_img"></a></div>
                                 <div class="product_content">
@@ -432,7 +437,8 @@
                                         </div>
 
                                         <div>
-                                            <div class="product_name" id="new_name" th:value="${product.getProductName()}"><a
+                                            <div class="product_name" id="new_name"
+                                                 th:value="${product.getProductName()}"><a
                                                     th:href="@{'/product/' + ${product.productId}}">
                                                 <h th:text="${product.getProductName()}"></h>
                                             </a></div>
@@ -477,7 +483,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
                                         </div>
 
@@ -485,16 +491,20 @@
 
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list" class="add_wish_list_new product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="add_wish_list_new" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                            <div title="Add to wish list"
+                                                 class="add_wish_list_new product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_new" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Add to shopping cart" class="add_cart_new product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="add_cart_new" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                            <div title="Add to shopping cart"
+                                                 class="add_cart_new product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_new" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -510,13 +520,14 @@
                     </tr>
                 </div>
 
-                    <div id="more_new_releases" style="display:none;">
-                        <div class="row products_row">
+                <div id="more_new_releases" style="display:none;">
+                    <div class="row products_row">
                         <tr th:each="product: ${moreNewProducts}">
 
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
-                                    <div class="product_image_showcase"><a th:href="@{'/product/' + ${product.productId}}"><img
+                                    <div class="product_image_showcase"><a
+                                            th:href="@{'/product/' + ${product.productId}}"><img
                                             th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
                                             class="product_image_img"></a></div>
                                     <div class="product_content">
@@ -536,7 +547,8 @@
                                             </div>
 
                                             <div>
-                                                <div class="product_name"  id="new_name_more" th:value="${product.getProductName()}"><a
+                                                <div class="product_name" id="new_name_more"
+                                                     th:value="${product.getProductName()}"><a
                                                         th:href="@{'/product/' + ${product.productId}}">
                                                     <h th:text="${product.getProductName()}"></h>
                                                 </a></div>
@@ -581,7 +593,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
                                             </div>
 
@@ -589,18 +601,24 @@
 
                                         <div class="product_buttons">
                                             <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list" class="add_wish_list_new_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
-                                                     name="add_wish_list_new_more" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                                <div title="Add to wish list"
+                                                     class="add_wish_list_new_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_wish_list_new_more" th:id="${product.getProductId()}"
+                                                     th:value="${product.getProductName()}">
                                                     <div>
-                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div title="Add to shopping cart"  class="add_cart_new_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
-                                                     name="add_cart_new_more"  th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                                <div title="Add to shopping cart"
+                                                     class="add_cart_new_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_cart_new_more" th:id="${product.getProductId()}"
+                                                     th:value="${product.getProductName()}">
                                                     <div>
-                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -704,7 +722,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
 
                                         </div>
@@ -713,16 +731,20 @@
 
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                            <div title="Add to wish list"  class="add_wish_list_best product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="add_wish_list_best" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                            <div title="Add to wish list"
+                                                 class="add_wish_list_best product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_best" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div title="Add to shopping cart"  class="add_cart_best product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="add_cart_best"  th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                            <div title="Add to shopping cart"
+                                                 class="add_cart_best product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_best" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -738,8 +760,8 @@
                     </tr>
                 </div>
 
-                    <div id="more_best_seller" style="display:none;">
-                        <div class="row products_row">
+                <div id="more_best_seller" style="display:none;">
+                    <div class="row products_row">
                         <tr th:each="product: ${moreBestSeller}">
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
@@ -810,7 +832,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'"}></div></div>
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
 
                                             </div>
@@ -819,18 +841,24 @@
 
                                         <div class="product_buttons">
                                             <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"  class="add_wish_list_best_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
-                                                     name="add_wish_list_best_more" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                                <div title="Add to wish list"
+                                                     class="add_wish_list_best_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_wish_list_best_more" th:id="${product.getProductId()}"
+                                                     th:value="${product.getProductName()}">
                                                     <div>
-                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div title="Add to shopping cart"  class="add_cart_best_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
-                                                     name="add_cart_best_more" th:id="${product.getProductId()}" th:value="${product.getProductName()}">
+                                                <div title="Add to shopping cart"
+                                                     class="add_cart_best_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                     name="add_cart_best_more" th:id="${product.getProductId()}"
+                                                     th:value="${product.getProductName()}">
                                                     <div>
-                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                                  alt="">
                                                             <div>+</div>
                                                         </div>
                                                     </div>
@@ -842,7 +870,6 @@
                             </div>
 
                         </tr>
-
 
 
                     </div>
@@ -895,17 +922,17 @@
 
     $('.add_wish_list_new , .add_wish_list_new_more ,.add_wish_list_best , .add_wish_list_best_more').click(function (event) {
         var button = $(this).attr("name");
-        var name= $(this).attr("value");
+        var name = $(this).attr("value");
         console.log(button);
         var productID;
-        if(button === "add_wish_list_new")
-            productID= $(this).attr("id");
-        else if(button === "add_wish_list_new_more")
-            productID= $(this).attr("id");
-        else if(button === "add_wish_list_best")
-            productID= $(this).attr("id");
-        else if(button=== "add_wish_list_best_more")
-            productID= $(this).attr("id");
+        if (button === "add_wish_list_new")
+            productID = $(this).attr("id");
+        else if (button === "add_wish_list_new_more")
+            productID = $(this).attr("id");
+        else if (button === "add_wish_list_best")
+            productID = $(this).attr("id");
+        else if (button === "add_wish_list_best_more")
+            productID = $(this).attr("id");
 
         var ret = {
             type: "wish-list",
@@ -939,17 +966,17 @@
 
     $('.add_cart_new , .add_cart_new_more ,.add_cart_best , .add_cart_best_more').click(function (event) {
         var button = $(this).attr("name");
-        var name= $(this).attr("value");
+        var name = $(this).attr("value");
         console.log(button);
         var productID;
-        if(button === "add_cart_new")
-            productID= $(this).attr("id");
-        else if(button === "add_cart_new_more")
-            productID= $(this).attr("id");
-        else if(button === "add_cart_best")
-            productID= $(this).attr("id");
-        else if(button=== "add_cart_best_more")
-            productID= $(this).attr("id");
+        if (button === "add_cart_new")
+            productID = $(this).attr("id");
+        else if (button === "add_cart_new_more")
+            productID = $(this).attr("id");
+        else if (button === "add_cart_best")
+            productID = $(this).attr("id");
+        else if (button === "add_cart_best_more")
+            productID = $(this).attr("id");
 
         var ret = {
             type: "cart",
