@@ -60,33 +60,15 @@
                         <div class="product_image_slider_container">
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_2.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_3.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_4.jpg}"/>
+                                    <li th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"/>
                                     </li>
                                 </ul>
                             </div>
                             <div id="carousel" class="flexslider">
                                 <ul class="slides">
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_2.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_3.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_4.jpg}"/>
+                                    <li th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"/>
                                     </li>
                                 </ul>
                             </div>

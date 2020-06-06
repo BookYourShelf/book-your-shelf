@@ -276,7 +276,8 @@
                                 <label for="book_cover_image" class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="book_cover_image" onchange="updatePhoto(this.id);" accept="image/*"
+                                <input id="book_cover_image" class="book_upload_cover_image"
+                                       onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
                                 <div id="book_cover_image_list"></div>
@@ -286,7 +287,8 @@
                                 <label for="book_product_images" class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
-                                <input multiple id="book_product_images" accept="image/*"
+                                <input multiple id="book_product_images" class="book_upload_product_images"
+                                       accept="image/*"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -488,7 +490,8 @@
                                 <label for="ebook_cover_image" class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="ebook_cover_image" onchange="updatePhoto(this.id);" accept="image/*"
+                                <input id="ebook_cover_image" class="ebook_upload_cover_image"
+                                       onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
                                 <div id="e-book-cover-photo-list"></div>
@@ -499,7 +502,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
-                                <input multiple id="ebook_product_images"
+                                <input multiple id="ebook_product_images" class="ebook_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -689,7 +692,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="audiobook_cover_image" accept="image/*"
+                                <input id="audiobook_cover_image" accept="image/*" class="audiobook_upload_cover_image"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
 
@@ -702,7 +705,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
-                                <input multiple id="audiobook_product_images"
+                                <input multiple id="audiobook_product_images" class="audiobook_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -1000,7 +1003,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="ebook_reader_cover_image"
+                                <input id="ebook_reader_cover_image" class="ebook_reader_upload_cover_image"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
@@ -1013,6 +1016,7 @@
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
                                 <input multiple id="ebook_reader_product_images"
+                                       class="ebook_reader_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -1165,7 +1169,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="ebook_reader_case_cover_image"
+                                <input id="ebook_reader_case_cover_image" class="ebook_reader_case_upload_cover_image"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
@@ -1177,6 +1181,7 @@
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
                                 <input multiple id="ebook_reader_case_product_images"
+                                       class="ebook_reader_case_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -1313,7 +1318,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="book_case_cover_image" accept="image/*"
+                                <input id="book_case_cover_image" accept="image/*" class="book_case_upload_cover_image"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
@@ -1324,7 +1329,7 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
-                                <input multiple id="book_case_product_images"
+                                <input multiple id="book_case_product_images" class="book_case_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/*"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -1636,36 +1641,44 @@
 
 <script>
 
+    // var token = $("meta[name='_csrf']").attr("content");
+    // var header = $("meta[name='_csrf_header']").attr("content");
+
     $('#new_book').click(function (event) {
-        var ret = {
-            productType: "book",
-            productName: $('#book_product_name_input').val(),
-            barcode: $('#book_barcode_input').val(),
-            stock: $('#book_stock_input').val(),
-            price: $('#book_price_input').val(),
-            publishedYear: $('#book_published_year_input').val(),
-            language: $('#book_language_input').val(),
-            isbn: $('#book_isbn_input').val(),
-            shortDesc: $('#book_short_description_input').val(),
-            longDesc: $('#book_long_description_input').val(),
-            mediaType: $('#book_media_type_select').val().toUpperCase().split(" ").join("_"),
-            paperType: $('#book_paper_type_select').val().toUpperCase().split(" ").join("_"),
-            bindingType: $('#book_binding_type_select').val().toUpperCase().split(" ").join("_"),
-            pageNum: $('#book_page_number_input').val(),
-            editionNum: $('#book_edition_number_input').val(),
-            height: $('#book_height_input').val(),
-            width: $('#book_width_input').val(),
-            depth: $('#book_depth_input').val(),
-            category_name: $('#book_category_input').val(),
-            subcategory_name: $('#book_subcategory_input').val(),
-            images: JSON.stringify(image_arr('book_cover_image', 'book_product_images')),
-            lists: JSON.stringify({
-                publishers: $('#book_publisher_input').val().split(','),
-                translators: $('#book_translator_input').val().split(','),
-                authors: $('#book_authors_input').val().split(','),
-                keywords: $('#book_keywords_input').val().split(','),
-            }),
-        };
+        var retForm = new FormData();
+        retForm.append("productType", "book");
+        retForm.append("productName", $('#book_product_name_input').val());
+        retForm.append("barcode", $('#book_barcode_input').val());
+        retForm.append("stock", $('#book_stock_input').val());
+        retForm.append("price", $('#book_price_input').val());
+        retForm.append("publishedYear", $('#book_published_year_input').val());
+        retForm.append("language", $('#book_language_input').val());
+        retForm.append("isbn", $('#book_isbn_input').val());
+        retForm.append("shortDesc", $('#book_short_description_input').val());
+        retForm.append("longDesc", $('#book_long_description_input').val());
+        retForm.append("mediaType", $('#book_media_type_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("paperType", $('#book_paper_type_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("bindingType", $('#book_binding_type_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("pageNum", $('#book_page_number_input').val());
+        retForm.append("editionNum", $('#book_edition_number_input').val());
+        retForm.append("height", $('#book_height_input').val());
+        retForm.append("width", $('#book_width_input').val());
+        retForm.append("depth", $('#book_depth_input').val());
+        retForm.append("category_name", $('#book_category_input').val());
+        retForm.append("subcategory_name", $('#book_subcategory_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#book_publisher_input').val().split(','),
+            translators: $('#book_translator_input').val().split(','),
+            authors: $('#book_authors_input').val().split(','),
+            keywords: $('#book_keywords_input').val().split(','),
+        }));
+        retForm.append("coverImage", $('.book_upload_cover_image')[0].files[0]);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.book_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
 
         if (validation_check(["book_product_name_input", "book_barcode_input", "book_stock_input", "book_price_input",
             "book_published_year_input", "book_language_input", "book_translator_input", "book_authors_input", "book_isbn_input",
@@ -1674,54 +1687,71 @@
             "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image",
             "book_category_input"])) {
             event.preventDefault();
-            $.post("/admin-panel/product", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Book added successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#product";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Book added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
         }
     });
 
     $('#new_ebook').click(function (event) {
-        var ret = {
-            productType: "ebook",
-            productName: $('#ebook_product_name_input').val(),
-            barcode: $('#ebook_product_barcode_input').val(),
-            stock: $('#ebook_stock_input').val(),
-            price: $('#ebook_price_input').val(),
-            publishedYear: $('#ebook_published_year_input').val(),
-            language: $('#ebook_language_input').val(),
-            isbn: $('#ebook_isbn_input').val(),
-            shortDesc: $('#ebook_short_description_input').val(),
-            longDesc: $('#ebook_long_description_input').val(),
-            pageNum: $('#ebook_page_number_input').val(),
-            fileSize: $('#ebook_filesize_input').val(),
-            fileFormat: $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"),
-            category_name: $('#ebook_category_input').val(),
-            subcategory_name: $('#ebook_subcategory_input').val(),
-            images: image_arr('ebook_cover_image', 'ebook_product_images'),
-            lists: JSON.stringify({
-                publishers: $('#ebook_publisher_input').val().split(','),
-                translators: $('#ebook_translator_input').val().split(','),
-                authors: $('#ebook_authors_input').val().split(','),
-                keywords: $('#ebook_keywords_input').val().split(',')
-            }),
-        };
+        var retForm = new FormData();
+        retForm.append("productType", "ebook");
+        retForm.append("productName", $('#ebook_product_name_input').val());
+        retForm.append("barcode", $('#ebook_barcode_input').val());
+        retForm.append("stock", $('#ebook_stock_input').val());
+        retForm.append("price", $('#ebook_price_input').val());
+        retForm.append("publishedYear", $('#ebook_published_year_input').val());
+        retForm.append("language", $('#ebook_language_input').val());
+        retForm.append("isbn", $('#ebook_isbn_input').val());
+        retForm.append("shortDesc", $('#ebook_short_description_input').val());
+        retForm.append("longDesc", $('#ebook_long_description_input').val());
+        retForm.append("pageNum", $('#ebook_page_number_input').val());
+        retForm.append("category_name", $('#ebook_category_input').val());
+        retForm.append("subcategory_name", $('#ebook_subcategory_input').val());
+        retForm.append("fileSize", $('#ebook_subcategory_input').val());
+        retForm.append("fileFormat", $('#ebook_subcategory_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#ebook_publisher_input').val().split(','),
+            translators: $('#ebook_translator_input').val().split(','),
+            authors: $('#book_authors_input').val().split(','),
+            keywords: $('#ebook_keywords_input').val().split(','),
+        }));
+        retForm.append("coverImage", $('.ebook_upload_cover_image')[0].files[0]);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.ebook_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
 
         if (validation_check(["ebook_product_name_input", "ebook_product_barcode_input", "ebook_stock_input", "ebook_price_input",
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
@@ -1729,53 +1759,70 @@
             "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image",
             "ebook_category_input"])) {
             event.preventDefault();
-            $.post("/admin-panel/product", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'E-book added successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#product";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'E-Book added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
         }
     });
 
     $('#new_audio_book').click(function (event) {
-        var ret = {
-            productType: "audio_book",
-            productName: $('#audiobook_product_name_input').val(),
-            barcode: $('#audiobook_barcode_input').val(),
-            stock: $('#audiobook_stock_input').val(),
-            price: $('#audiobook_price_input').val(),
-            publishedYear: $('#audiobook_published_year_input').val(),
-            language: $('#audiobook_language_input').val(),
-            isbn: $('#audiobook_isbn_input').val(),
-            shortDesc: $('#audiobook_short_description_input').val(),
-            longDesc: $('#audiobook_long_description_input').val(),
-            lengthInMinutes: $('#audiobook_length_input').val(),
-            narratedBy: $('#audiobook_narrator_input').val(),
-            category_name: $('#audiobook_category_select').val(),
-            subcategory_name: $('#audiobook_subcategory_select').val(),
-            images: image_arr('audiobook_cover_image', 'audiobook_product_images'),
-            lists: JSON.stringify({
-                publishers: $('#audiobook_publisher_input').val().split(','),
-                translators: $('#audiobook_translator_input').val().split(','),
-                authors: $('#audiobook_authors_input').val().split(','),
-                keywords: $('#audiobook_keywords_input').val().split(','),
-            }),
-        };
+        var retForm = new FormData();
+        retForm.append("productType", "audio_book");
+        retForm.append("productName", $('#audiobook_product_name_input').val());
+        retForm.append("barcode", $('#audiobook_barcode_input').val());
+        retForm.append("stock", $('#audiobook_stock_input').val());
+        retForm.append("price", $('#audiobook_price_input').val());
+        retForm.append("publishedYear", $('#audiobook_published_year_input').val());
+        retForm.append("language", $('#audiobook_language_input').val());
+        retForm.append("isbn", $('#audiobook_isbn_input').val());
+        retForm.append("shortDesc", $('#audiobook_short_description_input').val());
+        retForm.append("longDesc", $('#audiobook_long_description_input').val());
+        retForm.append("category_name", $('#audiobook_category_input').val());
+        retForm.append("subcategory_name", $('#audiobook_subcategory_input').val());
+        retForm.append("lengthInMinutes", $('#audiobook_length_input').val());
+        retForm.append("narratedBy", $('#audiobook_narrator_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#audiobook_publisher_input').val().split(','),
+            translators: $('#audiobook_translator_input').val().split(','),
+            authors: $('#audiobook_authors_input').val().split(','),
+            keywords: $('#audiobook_keywords_input').val().split(','),
+        }));
+        retForm.append("coverImage", $('.audiobook_upload_cover_image')[0].files[0]);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.audiobook_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
 
         if (validation_check(["audiobook_product_name_input", "audiobook_barcode_input", "audiobook_stock_input", "audiobook_price_input",
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
@@ -1783,63 +1830,87 @@
             "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
             "audiobook_cover_image", "audiobook_category_select"])) {
             event.preventDefault();
-            $.post("/admin-panel/product", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Audio book added successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#product";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Audio book added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
         }
     });
 
     $('#new_ebook_reader').click(function (event) {
-        var ret = {
-            productType: "ebook_reader",
-            productName: $('#ebook_reader_product_name_input').val(),
-            barcode: $('#ebook_reader_barcode_input').val(),
-            stock: $('#ebook_reader_stock_input').val(),
-            price: $('#ebook_reader_price_input').val(),
-            shortDesc: $('#ebook_reader_short_description_input').val(),
-            longDesc: $('#ebook_reader_long_description_input').val(),
-            readerBrand: $('#ebook_reader_brand_input').val(),
-            readerModel: $('#ebook_reader_model_input').val(),
-            readerColor: $('#ebook_reader_color_input').val(),
-            technicalSpecifications: $('#ebook_reader_specification_input').val(),
-            weight: $('#ebook_reader_weight_input').val(),
-            width: $('#ebook_reader_width_input').val(),
-            height: $('#ebook_reader_height_input').val(),
-            depth: $('#ebook_reader_depth_input').val(),
-            screenSize: $('#ebook_reader_screen_size_input').val(),
-            batteryLife: $('#ebook_reader_battery_life_input').val(),
-            resolution: $('#ebook_reader_resolution_input').val(),
-            ram: $('#ebook_reader_ram_input').val(),
-            glareFreeScreen: $('#ebook_reader_glare_select').val(),
-            waterProof: $('#ebook_reader_water_proof_select').val(),
-            autoAdjustingLight: $('#ebook_reader_auto_adjusting_light_select').val(),
-            buttons: $('#ebook_reader_buttons_select').val(),
-            wifi: $('#ebook_reader_wifi_select').val(),
-            cellular: $('#ebook_reader_cellular_select').val(),
-            backLight: $('#ebook_reader_backlight_select').val(),
-            warmBackLight: $('#ebook_reader_warm_backlight_select').val(),
-            images: image_arr('ebook_reader_cover_image', 'ebook_reader_product_images'),
-            category_name: "",
-            subcategory_name: "",
-            lists: JSON.stringify({})
-        };
+        var retForm = new FormData();
+        retForm.append("productType", "ebook_reader");
+        retForm.append("productName", $('#ebook_reader_product_name_input').val());
+        retForm.append("barcode", $('#ebook_reader_barcode_input').val());
+        retForm.append("stock", $('#ebook_reader_stock_input').val());
+        retForm.append("price", $('#ebook_reader_price_input').val());
+        retForm.append("shortDesc", $('#ebook_reader_short_description_input').val());
+        retForm.append("longDesc", $('#ebook_reader_long_description_input').val());
+        retForm.append("category_name", "");
+        retForm.append("subcategory_name", "");
+        retForm.append("lengthInMinutes", $('#ebook_reader_length_input').val());
+        retForm.append("narratedBy", $('#ebook_reader_narrator_input').val());
+        retForm.append("readerBrand", $('#ebook_reader_brand_input').val());
+        retForm.append("readerModel", $('#ebook_reader_model_input').val());
+        retForm.append("readerColor", $('#ebook_reader_color_input').val());
+        retForm.append("technicalSpecifications", $('#ebook_reader_specification_input').val());
+        retForm.append("weight", $('#ebook_reader_weight_input').val());
+        retForm.append("width", $('#ebook_reader_width_input').val());
+        retForm.append("height", $('#ebook_reader_height_input').val());
+        retForm.append("depth", $('#ebook_reader_depth_input').val());
+        retForm.append("screenSize", $('#ebook_reader_screen_size_input').val());
+        retForm.append("batteryLife", $('#ebook_reader_battery_life_input').val());
+        retForm.append("resolution", $('#ebook_reader_resolution_input').val());
+        retForm.append("ram", $('#ebook_reader_ram_input').val());
+        retForm.append("glareFreeScreen", $('#ebook_reader_glare_select').val());
+        retForm.append("waterProof", $('#ebook_reader_water_proof_select').val());
+        retForm.append("autoAdjustingLight", $('#ebook_reader_auto_adjusting_light_select').val());
+        retForm.append("buttons", $('#ebook_reader_buttons_select').val());
+        retForm.append("wifi", $('#ebook_reader_wifi_select').val());
+        retForm.append("cellular", $('#ebook_reader_cellular_select').val());
+        retForm.append("backLight", $('#ebook_reader_backlight_select').val());
+        retForm.append("warmBackLight", $('#ebook_reader_warm_backlight_select').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#ebook_reader_publisher_input').val().split(','),
+            translators: $('#ebook_reader_translator_input').val().split(','),
+            authors: $('#ebook_reader_authors_input').val().split(','),
+            keywords: $('#ebook_reader_keywords_input').val().split(','),
+        }));
+        retForm.append("coverImage", $('.ebook_reader_upload_cover_image')[0].files[0]);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.ebook_reader_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
 
         if (validation_check(["ebook_reader_product_name_input", "ebook_reader_barcode_input", "ebook_reader_stock_input",
             "ebook_reader_price_input", "ebook_reader_short_description_input", "ebook_reader_long_description_input",
@@ -1850,51 +1921,73 @@
             "ebook_reader_buttons_select", "ebook_reader_wifi_select", "ebook_reader_cellular_select", "ebook_reader_backlight_select",
             "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"])) {
             event.preventDefault();
-            $.post("/admin-panel/product", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'E-book reader added successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#product";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'E-book reader added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
         }
     });
 
     $('#new_ebook_reader_case').click(function (event) {
-        var ret = {
-            productType: "ebook_reader_case",
-            productName: $('#ebook_reader_case_product_name_input').val(),
-            barcode: $('#ebook_reader_case_barcode_input').val(),
-            stock: $('#ebook_reader_case_stock_input').val(),
-            price: $('#ebook_reader_case_price_input').val(),
-            caseBrand: $('#ebook_reader_case_brand_input').val(),
-            caseModel: $('#ebook_reader_case_model_input').val(),
-            caseColor: $('#ebook_reader_case_color_input').val(),
-            readerBrand: $('#ebook_reader_case_reader_brand_input').val(),
-            readerModel: $('#ebook_reader_case_reader_model_input').val(),
-            shortDesc: $('#ebook_reader_case_short_description_input').val(),
-            longDesc: $('#ebook_reader_case_long_description_input').val(),
-            caseHeight: $('#ebook_reader_case_height_input').val(),
-            caseWidth: $('#ebook_reader_case_width_input').val(),
-            caseDepth: $('#ebook_reader_case_depth_input').val(),
-            images: image_arr('ebook_reader_case_cover_image', 'ebook_reader_case_product_images'),
-            category_name: "",
-            subcategory_name: "",
-            lists: JSON.stringify({})
-        };
+        var retForm = new FormData();
+        retForm.append("productType", "ebook_reader_case");
+        retForm.append("productName", $('#ebook_reader_case_product_name_input').val());
+        retForm.append("barcode", $('#ebook_reader_case_barcode_input').val());
+        retForm.append("stock", $('#ebook_reader_case_stock_input').val());
+        retForm.append("price", $('#ebook_reader_case_price_input').val());
+        retForm.append("shortDesc", $('#ebook_reader_case_short_description_input').val());
+        retForm.append("longDesc", $('#ebook_reader_case_long_description_input').val());
+        retForm.append("category_name", "");
+        retForm.append("subcategory_name", "");
+        retForm.append("readerBrand", $('#ebook_reader_case_reader_brand_input').val());
+        retForm.append("readerModel", $('#ebook_reader_case_reader_model_input').val());
+        retForm.append("caseBrand", $('#ebook_reader_case_brand_input').val());
+        retForm.append("caseModel", $('#ebook_reader_case_model_input').val());
+        retForm.append("caseColor", $('#ebook_reader_case_color_input').val());
+        retForm.append("caseWidth", $('#ebook_reader_case_width_input').val());
+        retForm.append("caseHeight", $('#ebook_reader_case_height_input').val());
+        retForm.append("caseDepth", $('#ebook_reader_case_depth_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#ebook_reader_case_publisher_input').val().split(','),
+            translators: $('#ebook_reader_case_translator_input').val().split(','),
+            authors: $('#ebook_reader_case_authors_input').val().split(','),
+            keywords: $('#ebook_reader_case_keywords_input').val().split(','),
+        }));
+        retForm.append("coverImage", $('.ebook_reader_case_upload_cover_image')[0].files[0]);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.ebook_reader_case_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
 
         if (validation_check(["ebook_reader_case_product_name_input", "ebook_reader_case_barcode_input", "ebook_reader_case_stock_input",
             "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
@@ -1902,75 +1995,109 @@
             "ebook_reader_case_long_description_input", "ebook_reader_case_height_input", "ebook_reader_case_width_input",
             "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"])) {
             event.preventDefault();
-            $.post("/admin-panel/product", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'E-book reader case added successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#product";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'E-book reader case added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
         }
     });
 
     $('#new_book_case').click(function (event) {
-        var ret = {
-            productType: "book_case",
-            productName: $('#book_case_product_name_input').val(),
-            barcode: $('#book_case_barcode_input').val(),
-            stock: $('#book_case_stock_input').val(),
-            price: $('#book_case_price_input').val(),
-            caseBrand: $('#book_case_brand_input').val(),
-            caseModel: $('#book_case_model_input').val(),
-            caseColor: $('#book_case_color_input').val(),
-            caseWidth: $('#book_case_case_width_input').val(),
-            caseHeight: $('#book_case_case_height_input').val(),
-            maxBookDepth: $('#book_case_max_depth_input').val(),
-            shortDesc: $('#book_case_short_description_input').val(),
-            longDesc: $('#book_case_long_description_input').val(),
-            images: image_arr('book_case_cover_image', 'book_case_product_images'), // TODO
-            category_name: "",
-            subcategory_name: "",
-            lists: JSON.stringify({})
-        };
+        var retForm = new FormData();
+        retForm.append("productType", "book_case");
+        retForm.append("productName", $('#book_case_product_name_input').val());
+        retForm.append("barcode", $('#book_case_barcode_input').val());
+        retForm.append("stock", $('#book_case_stock_input').val());
+        retForm.append("price", $('#book_case_price_input').val());
+        retForm.append("shortDesc", $('#book_case_short_description_input').val());
+        retForm.append("longDesc", $('#book_case_long_description_input').val());
+        retForm.append("category_name", "");
+        retForm.append("subcategory_name", "");
+        retForm.append("caseBrand", $('#book_case_brand_input').val());
+        retForm.append("caseModel", $('#book_case_model_input').val());
+        retForm.append("caseColor", $('#book_case_color_input').val());
+        retForm.append("caseWidth", $('#book_case_width_input').val());
+        retForm.append("caseHeight", $('#book_case_height_input').val());
+        retForm.append("caseDepth", $('#book_case_depth_input').val());
+        retForm.append("maxBookDepth", $('#book_case_max_depth_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#book_case_publisher_input').val().split(','),
+            translators: $('#book_case_translator_input').val().split(','),
+            authors: $('#book_case_authors_input').val().split(','),
+            keywords: $('#book_case_keywords_input').val().split(','),
+        }));
+        retForm.append("coverImage", $('.book_case_upload_cover_image')[0].files[0]);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.book_case_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
 
         if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
             "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
             "book_case_case_width_input", "book_case_case_height_input", "book_case_short_description_input",
             "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"])) {
             event.preventDefault();
-            $.post("/admin-panel/product", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Book case added successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#product";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Book case added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
         }
     });
 

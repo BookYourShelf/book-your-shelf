@@ -32,8 +32,18 @@ public abstract class Product {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    @ElementCollection
-    private List<byte[]> images;
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<User> onWishList;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<User> onShoppingCart;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Image> images;
 
     // FUNCTIONS
 
@@ -45,7 +55,7 @@ public abstract class Product {
         this.reviews.add(review);
     }
 
-    public byte[] getCoverImage() {     // cover image of the product is the first image in images
+    public Image getCoverImage() {     // cover image of the product is the first image in images
         return images.get(0);
     }
 
@@ -141,7 +151,7 @@ public abstract class Product {
         return reviews;
     }
 
-    public List<byte[]> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
@@ -201,7 +211,7 @@ public abstract class Product {
         this.reviews = reviews;
     }
 
-    public void setImages(List<byte[]> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 }

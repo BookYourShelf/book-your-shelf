@@ -1,13 +1,11 @@
 package com.oak.bookyourshelf;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Image;
 import com.oak.bookyourshelf.model.Subcategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -90,5 +88,14 @@ public class Globals {
             traverseChildSubcategories(sub, subcategories);
         }
         return subcategories;
+    }
+
+    public static List<String> encodeAllImages(List<Image> images) {
+        List<String> ret = new ArrayList<>();
+
+        for (Image img : images) {
+            ret.add(Base64.getEncoder().encodeToString(img.getImage()));
+        }
+        return ret;
     }
 }
