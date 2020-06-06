@@ -29,6 +29,22 @@ public class Address {
 
     // GETTER & SETTER
 
+    @Override
+    public String toString() {
+        return "Address{" +
+                "address_id=" + addressId +
+                ", address_title=" + addressTitle +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", town='" + town + '\'' +
+                ", zip_code=" + zipCode +
+                ", full_address='" + fullAddress + '\'' +
+                ", phone_number='" + phoneNumber + '\'' +
+                '}';
+    }
+
     public int getAddressId() {
         return addressId;
     }
@@ -101,7 +117,11 @@ public class Address {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getTown() { return town; }
+    public String getTown() {
+        return town;
+    }
 
-    public void setTown(String town) { this.town = town; }
+    public void setTown(String town) {
+        this.town = town;
+    }
 }
