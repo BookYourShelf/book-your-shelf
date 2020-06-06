@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +55,7 @@ public class AdminPanelProductController {
         return subcategories;
     }
 
-    @RequestMapping(value = "/admin-panel/product", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin-panel/product", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     @ResponseBody
     public ResponseEntity<String> saveProduct(@RequestParam String productType, PhysicalBook physicalBook,
                                               ElectronicBook electronicBook, AudioBook audioBook,
@@ -61,10 +64,28 @@ public class AdminPanelProductController {
                                               PhysicalBookCase physicalBookCase,
                                               @RequestParam("lists") String lists,
                                               @RequestParam("category_name") String category_name,
-                                              @RequestParam("subcategory_name") String subcategory_name) throws JsonProcessingException {
+                                              @RequestParam("subcategory_name") String subcategory_name,
+                                              @RequestParam("coverImage") MultipartFile coverImage,
+                                              @RequestParam("productImages") MultipartFile[] productImages) throws IOException {
         Category category;
         Subcategory subcategory;
+        System.out.println(productType);
+        System.out.println(productImages.length);
+        List<Image> images = new ArrayList<>();
 
+        if (!coverImage.isEmpty()) {
+            FileInputStream coverImageStream = (FileInputStream) coverImage.getInputStream();
+            Image img = new Image();
+            img.setImage(coverImageStream.readAllBytes());
+            images.add(img);
+        }
+
+        for (MultipartFile file : productImages) {
+            FileInputStream productImageStream = (FileInputStream) file.getInputStream();
+            Image img = new Image();
+            img.setImage(productImageStream.readAllBytes());
+            images.add(img);
+        }
 
         switch (productType) {
             case "book":
@@ -74,22 +95,25 @@ public class AdminPanelProductController {
                 physicalBook.getCategory().add(category);
                 physicalBook.setSubcategory(new ArrayList<Subcategory>());
                 physicalBook.getSubcategory().add(subcategory);
+                physicalBook.setImages(images);
                 return bookBarcodeAndISBNCheck(physicalBook, lists, category, subcategory);
             case "ebook":
                 category = adminPanelCategoryService.getByName(category_name);
                 subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                physicalBook.setCategory(new ArrayList<Category>());
-                physicalBook.getCategory().add(category);
-                physicalBook.setSubcategory(new ArrayList<Subcategory>());
-                physicalBook.getSubcategory().add(subcategory);
+                electronicBook.setCategory(new ArrayList<Category>());
+                electronicBook.getCategory().add(category);
+                electronicBook.setSubcategory(new ArrayList<Subcategory>());
+                electronicBook.getSubcategory().add(subcategory);
+                electronicBook.setImages(images);
                 return bookBarcodeAndISBNCheck(electronicBook, lists, category, subcategory);
             case "audio_book":
                 category = adminPanelCategoryService.getByName(category_name);
                 subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                physicalBook.setCategory(new ArrayList<Category>());
-                physicalBook.getCategory().add(category);
-                physicalBook.setSubcategory(new ArrayList<Subcategory>());
-                physicalBook.getSubcategory().add(subcategory);
+                audioBook.setCategory(new ArrayList<Category>());
+                audioBook.getCategory().add(category);
+                audioBook.setSubcategory(new ArrayList<Subcategory>());
+                audioBook.getSubcategory().add(subcategory);
+                audioBook.setImages(images);
                 return bookBarcodeAndISBNCheck(audioBook, lists, category, subcategory);
             case "ebook_reader":
                 return productBarcodeCheck(electronicBookReader);
