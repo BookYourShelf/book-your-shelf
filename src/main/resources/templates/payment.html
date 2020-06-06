@@ -35,12 +35,12 @@
         <div class="container">
             <div class="row products_bar_row">
                 <div class="col">
-                    <div
-                            class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/cart}">Your Cart</a></li>
+                                <li><a th:href="@{/checkout}">Checkout</a></li>
                                 <li style="color: #fbaa1d">Payment</li>
                             </ul>
                         </div>
@@ -54,16 +54,16 @@
             <div class="row">
                 <aside class="col-md-1"></aside>
                 <aside class="col-md-10">
-                    <article class="card">
-                        <div class="card-body p-5">
+                    <article class="billing">
+                        <div class="card-body">
                             <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
-                                <li class="nav-item col-md-4 p-all-0">
+                                <li class="nav-item col-md-4 p-all-0 payment_option_li">
                                     <a class="nav-link active accent-color" data-toggle="pill" href="#nav-tab-card">
                                         <i class="tab_icons fa fa-credit-card"></i> Bank-Credit-PTT Card</a></li>
-                                <li class="nav-item col-md-4 p-all-0">
+                                <li class="nav-item col-md-4 p-all-0 payment_option_li">
                                     <a class="nav-link accent-color" data-toggle="pill" href="#nav-tab-paypal">
                                         <i class="tab_icons fa fa-paypal"></i> PayPal</a></li>
-                                <li class="nav-item col-md-4 p-all-0">
+                                <li class="nav-item col-md-4 p-all-0 payment_option_li">
                                     <a class="nav-link accent-color" data-toggle="pill" href="#nav-tab-bank">
                                         <i class="tab_icons fa fa-university"></i> Bank Transfer</a></li>
                             </ul>
@@ -72,22 +72,25 @@
                                 <div class="tab-pane fade show active" id="nav-tab-card">
                                     <p class="alert alert-success d-none">Some text success or error</p>
                                     <br>
-                                    <form role="form" action="#"  method="post">
+                                    <form role="form" action="#" method="post">
                                         <div class="form-group">
                                             <label>Full Name On the Card</label>
                                             <input id="name" type="text" class="checkout_input form-control" name="name"
-                                                   required="required" pattern="^[a-zA-Z]{3,}(\s)[a-zA-Z]{3,}$">
+                                                   required="required" pattern="^[a-zA-Z]{3,}((\s)[a-zA-Z]{3,})+"
+                                                   placeholder="Name Surname">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Card Number</label>
                                             <div class="input-group">
-                                                <input id="credit_number" type="text" class="checkout_input form-control credit-card"
-                                                       name="card-number"  patteren=".{19}" minlength="19" required="required">
+                                                <input id="credit_number" type="text"
+                                                       class="checkout_input form-control credit-card"
+                                                       name="card-number" pattern=".{19}"
+                                                       required="required">
                                                 <div class="input-group-append">
                                                         <span class="input-group-text text-muted">
-                                                            <i class="fa fa-cc-visa"></i>   <i
-                                                                class="fa fa-cc-amex"></i>
+                                                            <i class="fa fa-cc-visa" style="padding-right: 2px"></i>
+                                                            <i class="fa fa-cc-amex" style="padding-right: 2px"></i>
                                                             <i class="fa fa-cc-mastercard"></i>
                                                         </span>
                                                 </div>
@@ -98,8 +101,8 @@
                                             <label><span class="hidden-xs">Expiration Date</span> </label>
                                             <div class="input-group">
                                                 <select name="billing_address_title" id="expiration-month"
-                                                        class="dropdown_item_select checkout_input form-control"
-                                                        required ="required">
+                                                        class="dropdown_item_select checkout_input form-control payment_select"
+                                                        required="required">
                                                     <option value="">MONTH</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -116,7 +119,7 @@
                                                 </select>
 
                                                 <select name="billing_address_title" id="expiration-year"
-                                                        class="dropdown_item_select checkout_input form-control"
+                                                        class="dropdown_item_select checkout_input form-control payment_select"
                                                         required="required">
                                                     <option value="">YEAR</option>
                                                     <option value="2020">2020</option>
@@ -143,10 +146,11 @@
                                                    data-original-title="3-digit number on the back side of the card.">CVV
                                                 <i class="fa fa-question-circle"></i></label>
                                             <input id="cvv" type="text" class="checkout_input form-control cvv"
-                                                   pattern="^[0-9]{3}$" required="required" >
+                                                   pattern="^[0-9]{3}$" required="required">
                                         </div>
 
-                                        <input type="submit" style="cursor:pointer" id="ConfirmCreditCard" value="Confirm" class="checkout_button trans_200">
+                                        <input type="submit" style="cursor:pointer" id="ConfirmCreditCard"
+                                               value="Confirm" class="checkout_button trans_200">
                                     </form>
 
                                 </div>
@@ -156,16 +160,18 @@
                                                                               href="https://www.paypal.com/tr/signin">
                                         Login my Paypal</a></div>
                                     <br>
-                                    <p><strong>Note:</strong> Your payment will be processed from your PayPal account.Please visit
-                                        <a href="https://www.paypal.me" target="_blank" style="text-decoration: none; color:#fbaa1d;
-                                                background:#FFFFFF">
-                                        PayPal's official website</a> for more information.</p>
+                                    <p><strong>Note:</strong> Your payment will be processed from your PayPal
+                                        account. Please visit
+                                        <a href="https://www.paypal.me" target="_blank"
+                                           style="text-decoration: none; color:#fbaa1d;">
+                                            PayPal's official website</a> for more information.</p>
                                 </div>
+
                                 <div class="tab-pane fade" id="nav-tab-bank">
                                     <br>
                                     <dl class="param">
                                         <dt>Bank:</dt>
-                                        <dd> THE WORLD BANK</dd>
+                                        <dd> THE OAK BANK</dd>
                                     </dl>
                                     <dl class="param">
                                         <dt>Account Number:</dt>
@@ -175,8 +181,9 @@
                                         <dt>IBAN:</dt>
                                         <dd> 1234 1234 1234 1234</dd>
                                     </dl>
-                                    <p><strong>Note:</strong> Your payment will be processed from the account information provided
-                                        above.Please contact your service provider for more information. </p>
+                                    <p><strong>Note:</strong> Your payment will be processed from the account
+                                        information provided
+                                        above. Please contact your service provider for more information. </p>
                                 </div>
                             </div>
                         </div>
@@ -213,26 +220,19 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $('#ConfirmCreditCard').click(function (event) {
-
         var button = $(this).attr("id");
-        var fullName = $('#name').val();
-        var cardNumber = $('#credit_number').val();
-        var expMonth = $('#expiration-month').val();
-        var expYear = $('#expiration-year').val();
-        var cvv = $('#cvv').val();
 
         var ret = {
-
-            button : button,
-            fullName : fullName,
-            cardNumber : cardNumber,
-            expMonth : expMonth,
-            expYear : expYear,
-            cvv : cvv
+            button: button,
+            fullName: $('#name').val(),
+            cardNumber: $('#credit_number').val(),
+            expMonth: $('#expiration-month').val(),
+            expYear: $('#expiration-year').val(),
+            cvv: $('#cvv').val()
         };
 
-        if(button === "ConfirmCreditCard"){
-            if(validation_check(["name","credit_number","expiration-month","expiration-year","cvv"])) {
+        if (button === "ConfirmCreditCard") {
+            if (validation_check(["name", "credit_number", "expiration-month", "expiration-year", "cvv"])) {
                 event.preventDefault();
                 $.post("/payment", ret, function (data) {
                     window.location.href = "/thank-you";
@@ -248,28 +248,7 @@
         }
     });
 
-    $('#PayPal').click(function (event){
-
-        var button = $(this).attr("name");
-        var ret = {
-            button: button
-        };
-        event.preventDefault();
-        $.post("/payment", ret, function (data) {
-            window.location.href= "https://www.paypal.com/tr/signin";
-        }).fail(function (data) {
-            iziToast.show({
-                title: 'Fail',
-                message: data.responseText,
-                position: 'topRight',
-                color: 'red'
-            });
-        })
-    });
-
-
-
-    function validation_check(arr){
+    function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
             if (!document.getElementById(arr[i]).checkValidity()) {
                 return false;
@@ -277,10 +256,9 @@
         }
         return true;
     }
+
     /*]]>*/
 </script>
-
-
 
 </body>
 
