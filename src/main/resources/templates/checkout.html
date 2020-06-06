@@ -37,7 +37,7 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a th:href="@{/}">Home</a></li>
                                 <li style="color: #fbaa1d">Checkout</li>
                             </ul>
                         </div>
@@ -94,11 +94,12 @@
 
                                                 <select name="billing_address_title" id="billing_address_title"
                                                         class="dropdown_item_select checkout_input"
-                                                        require="required">
+                                                        required="required">
                                                     <option value="">SELECT</option>
                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                             th:value="${address_title}"
-                                                            th:text="#{${'address_title.' + address_title}}">addressTitle
+                                                            th:text="#{${'address_title.' + address_title}}">
+                                                        addressTitle
                                                     </option>
                                                 </select>
                                             </div>
@@ -114,7 +115,8 @@
                                                     <input type="text" id="billing_address_name"
                                                            th:value="${user.getName()}"
                                                            class="checkout_input form-control"
-                                                           pattern="^[a-zA-Z ]+$" placeholder="Name" required="required">
+                                                           pattern="^[a-zA-Z ]+$" placeholder="Name"
+                                                           required="required">
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <!-- Surname -->
@@ -125,7 +127,8 @@
                                                     <input type="text" id="billing_address_surname"
                                                            th:value="${user.getSurname()}"
                                                            class="checkout_input form-control"
-                                                           pattern="^[a-zA-Z ]+$" placeholder="Surname" required="required">
+                                                           pattern="^[a-zA-Z ]+$" placeholder="Surname"
+                                                           required="required">
                                                 </div>
                                             </div>
 
@@ -138,7 +141,7 @@
                                                 <select name="billing_address_country"
                                                         id="billing_address_country"
                                                         class="dropdown_item_select checkout_input"
-                                                        required ="required">
+                                                        required="required">
                                                 </select>
                                             </div>
 
@@ -152,7 +155,7 @@
                                                 <select name="billing_address_city"
                                                         id="billing_address_city"
                                                         class="dropdown_item_select checkout_input"
-                                                        required ="required">
+                                                        required="required">
                                                 </select>
 
                                             </div>
@@ -166,7 +169,7 @@
                                                     </div>
 
                                                     <input type="text" id="billing_address_neighborhood"
-                                                           placeholder= "Town" class="checkout_input form-control"
+                                                           placeholder="Town" class="checkout_input form-control"
                                                            required="required" pattern="^[a-zA-Z ]+$">
                                                 </div>
                                                 <div class="col-lg-6">
@@ -198,13 +201,15 @@
                                                 </div>
                                                 <input type="text" id="billing_address_phone"
                                                        class="checkout_input form-control phone_mask"
-                                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
+                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                       pattern=".{15}">
                                             </div>
 
                                             <div><!--ERROR--></div>
 
                                             <!-- Button -->
-                                            <input name=submit id="add_billing_address" type="submit" value="ADD ADDRESS"
+                                            <input name=submit id="add_billing_address" type="submit"
+                                                   value="ADD ADDRESS"
                                                    class="login_button trans_200">
 
                                         </form>
@@ -226,7 +231,9 @@
 
                                                             <label class="radio_container">
                                                                 <input type="radio" id="billing_address_choice_1"
-                                                                       th:value="${address.getAddressId()}" name="billing_address_choice" class="payment_radio">
+                                                                       th:value="${address.getAddressId()}"
+                                                                       name="billing_address_choice"
+                                                                       class="payment_radio">
                                                                 <span class="radio_mark"></span>
                                                                 <span class="registered-address-title">
                                                                     <td th:text="${address.getAddressTitle()}"></td>
@@ -237,8 +244,10 @@
                                                         <div class="col-md-3">
                                                             <a th:href="'#billing_address_update' + ${address.getAddressId()}"
                                                                th:id="${address.getAddressId()}"
-                                                               class="trans_200 update_address_icon" data-toggle="collapse"><i style="font-size: 25px; color: #fbaa1d"
-                                                                                                                               class="fa fa-pencil"></i></a>
+                                                               class="trans_200 update_address_icon"
+                                                               data-toggle="collapse"><i
+                                                                    style="font-size: 25px; color: #fbaa1d"
+                                                                    class="fa fa-pencil"></i></a>
                                                         </div>
                                                     </li>
                                                     <li class="row">
@@ -251,7 +260,8 @@
                                                             <a href="#" class="trans_200 delete_billing_address"
                                                                th:id="${address.getAddressId()}"
                                                                name="delete_billing_address" data-toggle="collapse">
-                                                                <i style="font-size: 25px; color: #4a4a4a" class="fa product_text">&#xf014;</i></a>
+                                                                <i style="font-size: 25px; color: #4a4a4a"
+                                                                   class="fa product_text">&#xf014;</i></a>
                                                         </div>
                                                     </li>
                                                     <li class="row">
@@ -265,12 +275,14 @@
                                         </div>
 
                                         <!-- Update address form -->
-                                        <div th:id="'billing_address_update' + ${address.getAddressId()}" class="collapse">
+                                        <div th:id="'billing_address_update' + ${address.getAddressId()}"
+                                             class="collapse">
 
                                             <div class="address-container">
                                                 <div class="billingAddress">
                                                     <div class="checkout_form_container">
-                                                        <form action="#" id="billing_address_update_form" class="checkout_form" method="post">
+                                                        <form action="#" id="billing_address_update_form"
+                                                              class="checkout_form" method="post">
 
                                                             <!-- Address Title -->
                                                             <div>
@@ -295,19 +307,22 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <!-- Name -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Name
                                                                     </div>
 
                                                                     <input type="text"
-                                                                           th:id= "'billing_address_update_name' + ${address.getAddressId()}"
+                                                                           th:id="'billing_address_update_name' + ${address.getAddressId()}"
                                                                            th:value="${address.getName()}"
                                                                            class="checkout_input form-control"
-                                                                           placeholder="Name" pattern="^[a-zA-Z ]+$" required="required">
+                                                                           placeholder="Name" pattern="^[a-zA-Z ]+$"
+                                                                           required="required">
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <!-- Surname -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Surname
                                                                     </div>
 
@@ -330,7 +345,7 @@
                                                                         th:id="'billing_address_update_country' + ${address.getAddressId()}"
                                                                         th:value="${address.getCountry()}"
                                                                         class="dropdown_item_select checkout_input"
-                                                                        require="required">
+                                                                        required="required">
                                                                 </select>
                                                             </div>
 
@@ -345,7 +360,7 @@
                                                                         th:id="'billing_address_update_city' + ${address.getAddressId()}"
                                                                         th:value="${address.getCity()}"
                                                                         class="dropdown_item_select checkout_input"
-                                                                        required ="required">
+                                                                        required="required">
                                                                 </select>
 
                                                             </div>
@@ -354,11 +369,13 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <!-- Neighborhood -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Town
                                                                     </div>
 
-                                                                    <input type="text" th:id="'billing_address_update_neighborhood' + ${address.getAddressId()}"
+                                                                    <input type="text"
+                                                                           th:id="'billing_address_update_neighborhood' + ${address.getAddressId()}"
                                                                            th:value="${address.getTown()}"
                                                                            pattern="^[a-zA-Z ]+$"
                                                                            class="checkout_input form-control"
@@ -366,13 +383,16 @@
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <!-- Zipcode -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Zip Code
                                                                     </div>
 
-                                                                    <input type="number" th:id="'billing_address_update_zip_code' + ${address.getAddressId()}"
+                                                                    <input type="number"
+                                                                           th:id="'billing_address_update_zip_code' + ${address.getAddressId()}"
                                                                            th:value="${address.getZipCode()}"
-                                                                           class="checkout_input form-control" placeholder="Zip code"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Zip code"
                                                                            required="required">
                                                                 </div>
                                                             </div>
@@ -382,7 +402,8 @@
                                                                 <div class="login-text p-b-10" style="color: black;">
                                                                     Address
                                                                 </div>
-                                                                <input type="text" th:id="'billing_address_update_open_address_1_id' + ${address.getAddressId()}"
+                                                                <input type="text"
+                                                                       th:id="'billing_address_update_open_address_1_id' + ${address.getAddressId()}"
                                                                        th:value="${address.getFullAddress()}"
                                                                        class="checkout_input form-control"
                                                                        placeholder="Full Address" required="required">
@@ -393,19 +414,21 @@
                                                                 <div class="login-text p-b-10" style="color: black;">Phone
                                                                     Number
                                                                 </div>
-                                                                <input type="text" th:id="'billing_address_update_phone' + ${address.getAddressId()}"
+                                                                <input type="text"
+                                                                       th:id="'billing_address_update_phone' + ${address.getAddressId()}"
                                                                        th:value="${address.getPhoneNumber()}"
                                                                        class="checkout_input form-control phone_mask"
-                                                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
+                                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                                       pattern=".{15}">
                                                             </div>
 
                                                             <div><!--ERROR--></div>
 
                                                             <!-- Button -->
-                                                             <input name="update_billing_address" th:id="${address.getAddressId()}"
+                                                             <input name="update_billing_address"
+                                                                    th:id="${address.getAddressId()}"
                                                                     type="submit" value="UPDATE"
                                                                     class="login_button trans_200 update_billing_address">
-
                                                         </form>
                                                     </div>
                                                 </div>
@@ -415,7 +438,7 @@
                                 </span>
                                 <!-- No Billing  Address -->
                                 <span th:if="${#lists.isEmpty(allBillingAddress)}">
-                                    <div class="warning-text">There are no Billing Addresses.</div>
+                                    <div class="warning-text">There are no billing addresses.</div>
                                 </span>
                             </ul>
                         </div>
@@ -470,7 +493,8 @@
                                                     <option value="">SELECT</option>
                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                             th:value="${address_title}"
-                                                            th:text="#{${'address_title.' + address_title}}">addressTitle
+                                                            th:text="#{${'address_title.' + address_title}}">
+                                                        addressTitle
                                                     </option>
                                                 </select>
                                             </div>
@@ -486,7 +510,8 @@
                                                     <input type="text" id="delivery_address_name"
                                                            th:value="${user.getName()}"
                                                            class="checkout_input form-control"
-                                                           placeholder="Name" required="required" pattern="^[a-zA-Z ]+$">
+                                                           placeholder="Name" required="required"
+                                                           pattern="^[a-zA-Z ]+$">
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <!-- Surname -->
@@ -511,7 +536,7 @@
                                                 <select name="delivery_address_country"
                                                         id="delivery_address_country"
                                                         class="dropdown_item_select checkout_input"
-                                                        required ="required">
+                                                        required="required">
                                                 </select>
                                             </div>
 
@@ -525,7 +550,7 @@
                                                 <select name="delivery_address_city"
                                                         id="delivery_address_city"
                                                         class="dropdown_item_select checkout_input"
-                                                        required ="required">
+                                                        required="required">
                                                 </select>
                                             </div>
 
@@ -570,7 +595,8 @@
                                                 </div>
                                                 <input type="text" id="delivery_address_phone"
                                                        class="checkout_input form-control phone_mask"
-                                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
+                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                       pattern=".{15}">
                                             </div>
 
                                             <div><!--ERROR--></div>
@@ -598,8 +624,10 @@
                                                     <li class="row">
                                                         <div class="col-md-9 registered-address-title">
                                                             <label class="radio_container">
-                                                                <input type="radio" th:value="${address.getAddressId()}" id="delivery_address_choice_1"
-                                                                       name="delivery_address_choice" class="payment_radio">
+                                                                <input type="radio" th:value="${address.getAddressId()}"
+                                                                       id="delivery_address_choice_1"
+                                                                       name="delivery_address_choice"
+                                                                       class="payment_radio">
                                                                 <span class="radio_mark"></span>
                                                                 <span class="registered-address-title">
                                                                     <td th:text="${address.getAddressTitle()}"></td>
@@ -622,7 +650,8 @@
                                                             <td th:text="${address.getZipCode()}"></td>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <a href="#" class="trans_200 delete_delivery_address" data-toggle="collapse" name="delete_delivery_address"
+                                                            <a href="#" class="trans_200 delete_delivery_address"
+                                                               data-toggle="collapse" name="delete_delivery_address"
                                                                th:id="${address.getAddressId()}"><i
                                                                     style="font-size: 25px; color: #4a4a4a"
                                                                     class="fa product_text">&#xf014;</i></a>
@@ -639,7 +668,8 @@
                                         </div>
 
                                         <!-- Update address form -->
-                                        <div th:id ="'delivery_address_update' + ${address.getAddressId()}" class="collapse">
+                                        <div th:id="'delivery_address_update' + ${address.getAddressId()}"
+                                             class="collapse">
 
                                             <div class="address-container">
                                                 <div class="billingAddress">
@@ -657,7 +687,7 @@
                                                                         name="delivery_address_update_title"
                                                                         th:value="${address.getAddressTitle()}"
                                                                         class="dropdown_item_select checkout_input"
-                                                                        required ="required">
+                                                                        required="required">
                                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
                                                                             th:value="${address_title}"
                                                                             th:text="#{${'address_title.' + address_title}}"
@@ -670,24 +700,30 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <!-- Name -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Name
                                                                     </div>
 
-                                                                    <input type="text" th:id="'delivery_address_update_name' + ${address.getAddressId()}"
+                                                                    <input type="text"
+                                                                           th:id="'delivery_address_update_name' + ${address.getAddressId()}"
                                                                            th:value="${address.getName()}"
                                                                            class="checkout_input form-control"
-                                                                           pattern="^[a-zA-Z ]+$" placeholder="Name" required="required">
+                                                                           pattern="^[a-zA-Z ]+$" placeholder="Name"
+                                                                           required="required">
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <!-- Surname -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Surname
                                                                     </div>
 
-                                                                    <input type="text" th:id="'delivery_address_update_surname' + ${address.getAddressId()}"
+                                                                    <input type="text"
+                                                                           th:id="'delivery_address_update_surname' + ${address.getAddressId()}"
                                                                            th:value="${address.getSurname()}"
-                                                                           class="checkout_input form-control" pattern="^[a-zA-Z ]+$" placeholder="Surname"
+                                                                           class="checkout_input form-control"
+                                                                           pattern="^[a-zA-Z ]+$" placeholder="Surname"
                                                                            required="required">
                                                                 </div>
                                                             </div>
@@ -702,12 +738,12 @@
                                                                         th:id="'delivery_address_update_country' + ${address.getAddressId()}"
                                                                         th:value="${address.getCountry()}"
                                                                         class="dropdown_item_select checkout_input"
-                                                                        required ="required">
+                                                                        required="required">
                                                                 </select>
                                                             </div>
 
                                                             <!-- City Province -->
-                                                            <div >
+                                                            <div>
                                                                 <!-- City -->
                                                                 <div class="login-text p-b-10" style="color: black;">
                                                                     City
@@ -725,24 +761,30 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <!-- Neighborhood -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Town
                                                                     </div>
 
-                                                                    <input type="text" th:id="'delivery_address_update_neighborhood' + ${address.getAddressId()}"
+                                                                    <input type="text"
+                                                                           th:id="'delivery_address_update_neighborhood' + ${address.getAddressId()}"
                                                                            th:value="${address.getTown()}"
-                                                                           class="checkout_input form-control" placeholder="Town"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Town"
                                                                            required="required">
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <!-- Zipcode -->
-                                                                    <div class="login-text p-b-10" style="color: black;">
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
                                                                         Zip Code
                                                                     </div>
 
-                                                                    <input type="number" th:id="'delivery_address_update_zip_code' + ${address.getAddressId()}"
+                                                                    <input type="number"
+                                                                           th:id="'delivery_address_update_zip_code' + ${address.getAddressId()}"
                                                                            th:value="${address.getZipCode()}"
-                                                                           class="checkout_input form-control" placeholder="Zip Code"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Zip Code"
                                                                            required="required">
                                                                 </div>
                                                             </div>
@@ -752,7 +794,8 @@
                                                                 <div class="login-text p-b-10" style="color: black;">
                                                                     Address
                                                                 </div>
-                                                                <input type="text" th:id="'delivery_address_update_open_address_id' + ${address.getAddressId()}"
+                                                                <input type="text"
+                                                                       th:id="'delivery_address_update_open_address_id' + ${address.getAddressId()}"
                                                                        th:value="${address.getFullAddress()}"
                                                                        class="checkout_input form-control"
                                                                        placeholder="Full Address" required="required">
@@ -763,17 +806,21 @@
                                                                 <div class="login-text p-b-10" style="color: black;">Phone
                                                                     Number
                                                                 </div>
-                                                                <input type="text" th:id="'delivery_address_update_phone' + ${address.getAddressId()}"
+                                                                <input type="text"
+                                                                       th:id="'delivery_address_update_phone' + ${address.getAddressId()}"
                                                                        th:value="${address.getPhoneNumber()}"
                                                                        class="checkout_input form-control phone_mask"
-                                                                       placeholder="(XXX) XXX XX XX" required="required" pattern=".{15}">
+                                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                                       pattern=".{15}">
                                                             </div>
 
                                                             <div><!--ERROR--></div>
 
                                                             <!-- Button -->
-                                                            <input name="update_delivery_address" th:id="${address.getAddressId()}" type="submit"
-                                                                   value="UPDATE" class="login_button trans_200 update_delivery_address">
+                                                            <input name="update_delivery_address"
+                                                                   th:id="${address.getAddressId()}" type="submit"
+                                                                   value="UPDATE"
+                                                                   class="login_button trans_200 update_delivery_address">
 
                                                         </form>
                                                     </div>
@@ -784,7 +831,7 @@
                                 </span>
                                 <!-- No Delivery Address -->
                                 <span th:if="${#lists.isEmpty(allDeliveryAddress)}">
-                                    <div class="warning-text">There are no Delivery Addresses.</div>
+                                    <div class="warning-text">There are no delivery addresses.</div>
                                 </span>
                             </ul>
                         </div>
@@ -799,55 +846,59 @@
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Subtotal</div>
                                         <div class="cart_extra_total_value ml-auto">
-                                            <div th:if="${order.getShippingMethod() == 'Free'}">
-                                                <td th:text="${order.getTotalAmount()} + '₺'"></td>
-                                            </div>
-                                            <div th:unless="${order.getShippingMethod() == 'Free'}">
-                                                <td th:text="${#numbers.formatDecimal(order.getTotalAmount() - 7.99,0,2)} + '₺'"></td>
+                                            <div>
+                                                <td th:text="${'₺' + #numbers.formatDecimal(order.getSubTotalAmount(), 0, 2)}"></td>
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Method</div>
-                                        <div th:if="${order.getShippingMethod() == 'Free'}" class="cart_extra_total_value ml-auto">
+                                        <div th:if="${order.getShippingMethod() == T(com.oak.bookyourshelf.model.Order.ShippingMethod).FREE}"
+                                             class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto">Free</div>
                                         </div>
-                                        <div th:unless="${order.getShippingMethod() == 'Free'}" class="cart_extra_total_value ml-auto">
-                                            <div class="cart_extra_total_value ml-auto">7.99₺</div>
+                                        <div th:unless="${order.getShippingMethod() == T(com.oak.bookyourshelf.model.Order.ShippingMethod).FREE}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">₺7.99</div>
                                         </div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Shipping Price</div>
-                                        <div th:if="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto">
+                                        <div th:if="${order.getSubTotalAmount() >= 100}"
+                                             class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto">Free</div>
                                         </div>
-                                        <div th:unless="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto">
-                                            <div class="cart_extra_total_value ml-auto">6.99₺</div>
+                                        <div th:unless="${order.getSubTotalAmount() >= 100}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">₺6.99</div>
                                         </div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div class="cart_extra_total_value ml-auto">0.00₺</div>
+                                        <div class="cart_extra_total_value ml-auto">- ₺0.00</div>
                                     </li>
+
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title relativer">Total</div>
-                                        <div th:if="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto relativer">
                                         <div class="cart_extra_total_value ml-auto relativer">
-                                            <td th:text="${order.getTotalAmount()} + '₺'"></td>
-                                        </div>
-                                        </div>
-                                        <div th:unless="${order.getTotalAmount() > 100}" class="cart_extra_total_value ml-auto relativer">
-                                            <td th:text="${#numbers.formatDecimal(order.getTotalAmount() + 6.99,0,2)} + '₺'"></td>
+                                            <div class="cart_extra_total_value ml-auto relativer"
+                                                 th:text="${'₺' + #numbers.formatDecimal(order.getTotalAmount(), 0, 2)}">
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
+
                                 <div class="payment_options">
                                     <div class="checkout_title">Cargo</div>
                                     <ul>
                                         <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
                                             <label class="radio_container">
                                                 <input type="radio" id="cargo_radio_1" name="cargo_radio"
-                                                       class="payment_radio" value="Aras Cargo" checked ="checked" required>
+                                                       class="payment_radio" value="Aras Cargo" checked="checked"
+                                                       required>
                                                 <span class="radio_mark"></span>
                                                 <span class="radio_text">Aras Cargo</span>
                                             </label>
@@ -895,9 +946,11 @@
                                     </ul>
                                 </div>
                                 <div class="cart_text">
-                                    <p>No changes can be made to the billing information after ordering.</p>
+                                    <p>No changes can be made to the billing and delivery information after
+                                        ordering.</p>
                                 </div>
-                                <div class="checkout_button trans_200"><a id="payment" href="/payment">proceed to payment</a>
+                                <div class="checkout_button trans_200">
+                                    <a id="payment" th:href="@{/payment}">proceed to payment</a>
                                 </div>
                             </div>
                         </div>
@@ -933,9 +986,7 @@
 <script th:src="@{/static/js/input-mask.js}"></script>
 <script th:src="@{/static/js/countries.js}"></script>
 
-
 <script th:inline="javascript">
-
 
     $('.update_address_icon').click(function () {
         var ID = $(this).attr("id");
@@ -947,41 +998,25 @@
         populateCountries("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
     });
 
-
     populateCountries("billing_address_country", "billing_address_city");
-    populateCountries("delivery_address_country","delivery_address_city");
-
+    populateCountries("delivery_address_country", "delivery_address_city");
 
 
     $('#add_delivery_address').click(function (event) {
         var button = $(this).attr("id");
-        var name = $('#delivery_address_name').val();
-        var surname = $('#delivery_address_surname').val();
-        var country = $('#delivery_address_country').val();
-        var city = $('#delivery_address_city').val();
-        var town = $('#delivery_address_neighborhood').val();
-        var zipCode = $('#delivery_address_zip_code').val();
-        var fullAddress = $('#delivery_open_address').val();
-        var addressTitle = $('#delivery_address_title').val().toUpperCase().split(" ").join("_");
-        var phoneNumber = $('#delivery_address_phone').val();
-
-
 
         var ret = {
-
             button: button,
-            name: name,
-            surname: surname,
-            country: country,
-            city: city,
-            town: town,
-            zipCode: zipCode,
-            fullAddress: fullAddress,
-            addressTitle: addressTitle,
-            phoneNumber: phoneNumber,
-
+            name: $('#delivery_address_name').val(),
+            surname: $('#delivery_address_surname').val(),
+            country: $('#delivery_address_country').val(),
+            city: $('#delivery_address_city').val(),
+            town: $('#delivery_address_neighborhood').val(),
+            zipCode: $('#delivery_address_zip_code').val(),
+            fullAddress: $('#delivery_open_address').val(),
+            addressTitle: $('#delivery_address_title').val().toUpperCase().split(" ").join("_"),
+            phoneNumber: $('#delivery_address_phone').val(),
         };
-
 
         if (button === "add_delivery_address") {
             if (validation_check(["delivery_address_name", "delivery_address_surname", "delivery_open_address", "delivery_address_neighborhood",
@@ -1011,37 +1046,23 @@
         }
     });
 
-    $('.update_delivery_address,.delete_delivery_address').click(function (event) {
+    $('.update_delivery_address, .delete_delivery_address').click(function (event) {
         var addressId = $(this).attr("id");
         var button = $(this).attr("name");
-        var name = $('#delivery_address_update_name' + addressId).val();
-        var surname = $('#delivery_address_update_surname' + addressId).val();
-        var country = $('#delivery_address_update_country' + addressId).children("option:selected").text();
-        var city = $('#delivery_address_update_city' + addressId).children("option:selected").text();
-        var town = $('#delivery_address_update_neighborhood' + addressId).val();
-        var zipCode = $('#delivery_address_update_zip_code' + addressId).val();
-        var fullAddress = $('#delivery_address_update_open_address_id' + addressId).val();
-        var addressTitle = $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
-        var phoneNumber = $('#delivery_address_update_phone' + addressId).val();
-
 
         var ret = {
-
             button: button,
-            name: name,
-            surname: surname,
-            country: country,
-            city: city,
-            town: town,
-            zipCode: zipCode,
-            fullAddress: fullAddress,
-            addressTitle: addressTitle,
-            phoneNumber: phoneNumber,
+            name: $('#delivery_address_update_name' + addressId).val(),
+            surname: $('#delivery_address_update_surname' + addressId).val(),
+            country: $('#delivery_address_update_country' + addressId).children("option:selected").text(),
+            city: $('#delivery_address_update_city' + addressId).children("option:selected").text(),
+            town: $('#delivery_address_update_neighborhood' + addressId).val(),
+            zipCode: $('#delivery_address_update_zip_code' + addressId).val(),
+            fullAddress: $('#delivery_address_update_open_address_id' + addressId).val(),
+            addressTitle: $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_"),
+            phoneNumber: $('#delivery_address_update_phone' + addressId).val(),
             addressId: addressId
-
-
         };
-
 
         if (button === "update_delivery_address") {
             if (validation_check(["delivery_address_update_name" + addressId, "delivery_address_update_surname" + addressId, "delivery_address_update_country" + addressId, "delivery_address_update_city" + addressId,
@@ -1068,7 +1089,7 @@
                     });
                 })
             }
-        } else if(button === "delete_delivery_address"){
+        } else if (button === "delete_delivery_address") {
             if (confirm('Are you sure you want to delete?')) {
                 event.preventDefault();
                 $.post("/checkout", ret, function (data) {
@@ -1090,39 +1111,25 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "checkout";
+            }
         }
     });
 
     $('#add_billing_address').click(function (event) {
         var button = $(this).attr("id");
-        var name = $('#billing_address_name').val();
-        var surname = $('#billing_address_surname').val();
-        var country = $('#billing_address_country').val();
-        var city = $('#billing_address_city').val();
-        var town = $('#billing_address_neighborhood').val();
-        var zipCode = $('#billing_address_zip_code').val();
-        var fullAddress = $('#billing_open_address').val();
-        var addressTitle = $('#billing_address_title').val().toUpperCase().split(" ").join("_");
-        var phoneNumber = $('#billing_address_phone').val();
-
 
         var ret = {
-
             button: button,
-            name: name,
-            surname: surname,
-            country: country,
-            city: city,
-            town: town,
-            zipCode: zipCode,
-            fullAddress: fullAddress,
-            phoneNumber: phoneNumber,
-            addressTitle: addressTitle
-
-
+            name: $('#billing_address_name').val(),
+            surname: $('#billing_address_surname').val(),
+            country: $('#billing_address_country').val(),
+            city: $('#billing_address_city').val(),
+            town: $('#billing_address_neighborhood').val(),
+            zipCode: $('#billing_address_zip_code').val(),
+            fullAddress: $('#billing_open_address').val(),
+            phoneNumber: $('#billing_address_phone').val(),
+            addressTitle: $('#billing_address_title').val().toUpperCase().split(" ").join("_")
         };
-
 
         if (button === "add_billing_address") {
             if (validation_check(["billing_address_name", "billing_address_surname", "billing_open_address", "billing_address_neighborhood",
@@ -1152,40 +1159,28 @@
         }
     });
 
-
-    $('.update_billing_address,.delete_billing_address').click(function (event) {
+    $('.update_billing_address, .delete_billing_address').click(function (event) {
         var addressId = $(this).attr("id");
         var button = $(this).attr("name");
-        var name = $('#billing_address_update_name' + addressId).val();
-        var surname = $('#billing_address_update_surname' + addressId).val();
-        var country = $('#billing_address_update_country' + addressId).children("option:selected").val();
-        var city = $('#billing_address_update_city' + addressId).children("option:selected").val();
-        var town = $('#billing_address_update_neighborhood' + addressId).val();
-        var zipCode = $('#billing_address_update_zip_code' + addressId).val();
-        var fullAddress = $('#billing_address_update_open_address_1_id' + addressId).val();
-        var addressTitle = $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
-        var phoneNumber = $('#billing_address_update_phone' + addressId).val();
-
-
 
         var ret = {
             button: button,
-            name: name,
-            surname: surname,
-            country: country,
-            city: city,
-            town: town,
-            zipCode: zipCode,
-            fullAddress: fullAddress,
-            addressTitle: addressTitle,
-            phoneNumber: phoneNumber,
+            name: $('#billing_address_update_name' + addressId).val(),
+            surname: $('#billing_address_update_surname' + addressId).val(),
+            country: $('#billing_address_update_country' + addressId).children("option:selected").val(),
+            city: $('#billing_address_update_city' + addressId).children("option:selected").val(),
+            town: $('#billing_address_update_neighborhood' + addressId).val(),
+            zipCode: $('#billing_address_update_zip_code' + addressId).val(),
+            fullAddress: $('#billing_address_update_open_address_1_id' + addressId).val(),
+            addressTitle: $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_"),
+            phoneNumber: $('#billing_address_update_phone' + addressId).val(),
             addressId: addressId
         };
 
         if (button === "update_billing_address") {
-            if(validation_check(["billing_address_update_name" + addressId,"billing_address_update_surname" + addressId,"billing_address_update_country" + addressId,
-                "billing_address_update_city" + addressId,"billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId,"billing_address_update_open_address_1_id" + addressId,"billing_address_update_title" + addressId,
-                "billing_address_update_phone" + addressId])){
+            if (validation_check(["billing_address_update_name" + addressId, "billing_address_update_surname" + addressId, "billing_address_update_country" + addressId,
+                "billing_address_update_city" + addressId, "billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId, "billing_address_update_open_address_1_id" + addressId, "billing_address_update_title" + addressId,
+                "billing_address_update_phone" + addressId])) {
                 event.preventDefault();
                 $.post("/checkout", ret, function (data) {
                     iziToast.show({
@@ -1206,10 +1201,11 @@
                         color: 'red'
                     });
                 })
-            } } else if(button === "delete_billing_address"){
+            }
+        } else if (button === "delete_billing_address") {
             if (confirm('Are you sure you want to delete?')) {
                 event.preventDefault();
-                $.post("/checkout" , ret, function (data) {
+                $.post("/checkout", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address deleted successfully',
@@ -1228,28 +1224,23 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "checkout";
+            }
         }
-
     });
 
     $('#payment').click(function (event) {
 
-        var cargo = $("input[name='cargo_radio']:checked").val();
-        var billing_address = $("input[name='billing_address_choice']:checked").val();
-        var delivery_address = $("input[name='delivery_address_choice']:checked").val();
-        var button = $(this).attr("id");
-
         var ret = {
-            cargo: cargo,
-            billing_address: billing_address,
-            delivery_address: delivery_address,
-            button: button
+            cargo: $("input[name='cargo_radio']:checked").val(),
+            billing_address: $("input[name='billing_address_choice']:checked").val(),
+            delivery_address: $("input[name='delivery_address_choice']:checked").val(),
+            button: $(this).attr("id")
         };
 
         event.preventDefault();
         $.post("/checkout", ret, function (data) {
-            window.location.href="/payment";
+            window.location.href = "/payment";
+
         }).fail(function (data) {
             iziToast.show({
                 title: 'Fail',
@@ -1270,10 +1261,6 @@
     }
 
 </script>
-
-
-
-
 
 </body>
 </html>
