@@ -10,6 +10,7 @@ public class Order {
 
     private static final float MIN_SHIPPING = 100f;
     private static final float SHIPPING_PRICE = 6.99f;
+    private static final float NEXT_DAY_DEL_PRICE = 7.99f;
 
     public enum DeliveryStatus {
         INFO_RECEIVED,
@@ -32,7 +33,8 @@ public class Order {
         EXPIRED,
         REVOKED,
         PREAPPROVED,
-        CANCELLED
+        CANCELLED,
+        NULL
     }
 
     public enum PaymentOption {
@@ -56,8 +58,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
 
-    @ElementCollection
-    private List<Integer> productId;
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<CartItem> products;
 
     private int userId;
     private String userName;
@@ -65,6 +69,7 @@ public class Order {
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
+    private float subTotalAmount;
     private float totalAmount;
 
     @Enumerated(EnumType.STRING)
@@ -82,18 +87,37 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    // FUNCTIONS
 
-    public float getTotalAmountOfShipping() {
-
-        float totalAmount = 0;
-        /* TODO: find sum of products */
+    public float calculateTotalAmount() {
+        float totalAmount = this.subTotalAmount;
         if (totalAmount < MIN_SHIPPING) {
             totalAmount += SHIPPING_PRICE;
+        }
+
+        if (this.shippingMethod == ShippingMethod.NEXT_DAY_DELIVERY) {
+            totalAmount += NEXT_DAY_DEL_PRICE;
         }
         return totalAmount;
     }
 
     // GETTER & SETTER
+
+    public float getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public float getSubTotalAmount() {
+        return subTotalAmount;
+    }
+
+    public void setSubTotalAmount(float subTotalAmount) {
+        this.subTotalAmount = subTotalAmount;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -103,12 +127,12 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public List<Integer> getProductId() {
-        return productId;
+    public List<CartItem> getProducts() {
+        return products;
     }
 
-    public void setProductId(List<Integer> productId) {
-        this.productId = productId;
+    public void setProducts(List<CartItem> products) {
+        this.products = products;
     }
 
     public int getUserId() {
@@ -189,14 +213,6 @@ public class Order {
 
     public void setShippingMethod(ShippingMethod shippingMethod) {
         this.shippingMethod = shippingMethod;
-    }
-
-    public Float getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Float totalAmount) {
-        this.totalAmount = totalAmount;
     }
 
     public OrderStatus getOrderStatus() {
