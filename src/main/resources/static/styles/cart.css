@@ -67,7 +67,7 @@ p a {
     display: inline;
     position: relative;
     color: inherit;
-    border-bottom: solid 1px #ffa07f;
+    border-bottom: solid 1px;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
     -ms-transition: all 200ms ease;
@@ -101,7 +101,6 @@ p a:active {
 
 p a:hover {
     color: #FFFFFF;
-    background: #ffa07f;
 }
 
 p a:hover::after {

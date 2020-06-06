@@ -44,3 +44,14 @@
 .tab_icons {
     color: inherit!important;
 }
+
+.payment_select {
+    line-height: 1.5!important;
+    height: 52px!important;
+}
+
+.payment_option_li {
+    background-color: #fff;
+    border: 1px solid #eeee;
+    border-radius: .25rem;
+}
