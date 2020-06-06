@@ -51,7 +51,7 @@ public class CartController {
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> showCartList(@RequestParam String button, Integer productID, String totalAmount,
+    public ResponseEntity<String> showCartList(@RequestParam String button, Integer productID, String subTotal,
                                                String shipping, String coupon, Integer quantity) {
 
         UserDetails userDetails = authService.getUserDetails();
@@ -84,15 +84,21 @@ public class CartController {
                 break;
 
             case "checkout":
-                removeUnpayedOrder(user.getOrders());
-                Order order = new Order();
+                Order order = getUnpayedOrder(user.getOrders());
+                boolean alreadyExist = true;
+
+                if (order == null) {
+                    order = new Order();
+                    alreadyExist = false;
+                }
 
                 if (!user.getShoppingCart().isEmpty()) {
                     Product underStocked = getUnderStockedProduct(user.getShoppingCart());
 
                     if (underStocked == null) {
-                        order.setProductId(getProductIdsOfCartItems(user.getShoppingCart()));
-                        order.setTotalAmount(Float.parseFloat(totalAmount));
+                        order.setProducts(new ArrayList<>(user.getShoppingCart()));
+                        order.setSubTotalAmount(Float.parseFloat(subTotal));
+                        order.setPaymentStatus(Order.PaymentStatus.NULL);
                         setOrderProductsDiscounts(user.getShoppingCart());
 
                         if (shipping.equals("0")) {
@@ -101,8 +107,14 @@ public class CartController {
                             order.setShippingMethod(Order.ShippingMethod.NEXT_DAY_DELIVERY);
                         }
 
+                        // After setting subtotal and shipping method set total amount
+                        order.setTotalAmount(order.calculateTotalAmount());
                         order.setUserId(user.getUserId());
-                        user.getOrders().add(order);
+
+                        if (!alreadyExist) {
+                            user.getOrders().add(order);
+                        }
+
                         profileInformationService.save(user);
                         break;
 
@@ -158,15 +170,12 @@ public class CartController {
         return false;
     }
 
-    public List<Integer> getProductIdsOfCartItems(Set<CartItem> cart) {
-        List<Integer> productIds = new ArrayList<Integer>();
-        for (CartItem c : cart) {
-            productIds.add(c.getProduct().getProductId());
+    public Order getUnpayedOrder(List<Order> orders) {
+        for (Order o : orders) {
+            if (o.getPaymentStatus() == Order.PaymentStatus.NULL) {
+                return o;
+            }
         }
-        return productIds;
-    }
-
-    public void removeUnpayedOrder(List<Order> orders) {
-        orders.removeIf(o -> o.getPaymentStatus() == null);
+        return null;
     }
 }
