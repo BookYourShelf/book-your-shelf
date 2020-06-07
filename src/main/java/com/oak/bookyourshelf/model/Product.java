@@ -49,8 +49,8 @@ public abstract class Product {
     )
     private List<User> onShoppingCart;
 
-    @ElementCollection
-    private List<byte[]> images;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Image> images;
 
     private static DecimalFormat df = new DecimalFormat("0.00");
 
@@ -64,7 +64,7 @@ public abstract class Product {
         this.reviews.add(review);
     }
 
-    public byte[] getCoverImage() {     // cover image of the product is the first image in images
+    public Image getCoverImage() {     // cover image of the product is the first image in images
         return images.get(0);
     }
 
@@ -161,7 +161,7 @@ public abstract class Product {
         return reviews;
     }
 
-    public List<byte[]> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
@@ -229,7 +229,7 @@ public abstract class Product {
         this.reviews = reviews;
     }
 
-    public void setImages(List<byte[]> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 

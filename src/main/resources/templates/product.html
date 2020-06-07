@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
@@ -60,33 +61,15 @@
                         <div class="product_image_slider_container">
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_2.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_3.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_4.jpg}"/>
+                                    <li th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"/>
                                     </li>
                                 </ul>
                             </div>
                             <div id="carousel" class="flexslider">
                                 <ul class="slides">
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_2.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_3.jpg}"/>
-                                    </li>
-                                    <li>
-                                        <img th:src="@{/static/images/hayvan_ciftligi_4.jpg}"/>
+                                    <li th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"/>
                                     </li>
                                 </ul>
                             </div>
@@ -674,7 +657,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
 
-                                    <!-- Sort orders -->
+                                        <!-- Sort orders -->
                                     <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
                                         <div class="products_dropdown product_dropdown_sorting">
                                             <div class="isotope_sorting_text"><span>Sort</span><i
@@ -1106,7 +1089,7 @@
                                             </div>
                                             <div title="Compare products"
                                                  class=" compare our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
-                                                  name="compare" th:id="${similarProduct.getProductId()}" type="button" >
+                                                 name="compare" th:id="${similarProduct.getProductId()}" type="button" >
 
                                                 <div>
                                                     <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
@@ -1126,7 +1109,6 @@
                 </div>
             </div>
             </span>
-
             <!-- Footer -->
             <footer class="footer" th:insert="fragments/footer.html"></footer>
         </div>
@@ -1190,46 +1172,6 @@
         })
     });
 
-    $('.add_to_wish_list').click(function (event) {
-        var id = $(this).attr("id");
-        var name = $(this).attr("value");
-
-        var ret = {
-            type: "wish-list",
-            id: id
-        };
-
-        event.preventDefault();
-        $.post("/product/" + id, ret, function (data) {
-            iziToast.show({
-                title: 'Success',
-                message: name + ' added to wish list successfully.',
-                position: 'topRight',
-                color: 'green'
-            });
-
-        }).fail(function (data) {
-
-            if (data.responseText === "") {
-                window.location.href = "/login";
-            } else {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            }
-        })
-    });
-
-    $('.compare').click(function (event) {
-        var id = $(this).attr("id");
-
-        window.location.href="/compare/" + productID + "/" + id ;
-
-    });
-
     $('#add_cart').click(function (event) {
 
         var ret = {
@@ -1242,39 +1184,6 @@
             iziToast.show({
                 title: 'Success',
                 message: productName + ' added to shopping cart successfully.',
-                position: 'topRight',
-                color: 'green'
-            });
-
-        }).fail(function (data) {
-
-            if (data.responseText === "") {
-                window.location.href = "/login";
-            } else {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            }
-        })
-    });
-
-    $('.add_to_cart').click(function (event) {
-        var id = $(this).attr("id");
-        var name = $(this).attr("value");
-
-        var ret = {
-            type: "cart",
-            id: id
-        };
-
-        event.preventDefault();
-        $.post("/product/" + id, ret, function (data) {
-            iziToast.show({
-                title: 'Success',
-                message: name + ' added to shopping cart successfully.',
                 position: 'topRight',
                 color: 'green'
             });
@@ -1369,7 +1278,20 @@
             })
         }
     });
+    $('#compare_products').click(function (event) {
 
+        var second = "38";
+        var ret = {
+            type: "compare",
+        };
+        console.log(second);
+        event.preventDefault();
+        $.get("/compare/" + productID + "/" + second, ret, function (data) {
+
+
+        })
+
+    });
 
     $('.delete_review').click(function (event) {
         var ret = {
@@ -1406,6 +1328,79 @@
                 }
             })
         }
+    });
+
+    $('.add_to_wish_list').click(function (event) {
+        var id = $(this).attr("id");
+        var name = $(this).attr("value");
+
+        var ret = {
+            type: "wish-list",
+            id: id
+        };
+
+        event.preventDefault();
+        $.post("/product/" + id, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: name + ' added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.compare').click(function (event) {
+        var id = $(this).attr("id");
+
+        window.location.href="/compare/" + productID + "/" + id ;
+
+    });
+
+    $('.add_to_cart').click(function (event) {
+        var id = $(this).attr("id");
+        var name = $(this).attr("value");
+
+        var ret = {
+            type: "cart",
+            id: id
+        };
+
+        event.preventDefault();
+        $.post("/product/" + id, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: name + ' added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
     });
 
     function validation_check(arr) {

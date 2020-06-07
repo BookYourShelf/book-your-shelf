@@ -55,6 +55,7 @@ public class ProductController {
                                   @RequestParam("filter") Optional<String> filter, Model model, @PathVariable int id) {
 
         Product product = productService.get(id);
+        List<Image> imageList = product.getImages();
         String currentSort = sort.orElse("date-desc");
         String currentFilter = filter.orElse("all");
         Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()), currentFilter),
@@ -63,8 +64,12 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
+
+        model.addAttribute("images", Globals.encodeAllImages(imageList));
+
         model.addAttribute("similarProducts",productService.createOurPicsForYou(product));
         model.addAttribute("compareProductsService",compareProductsService);
+
         return "product";
     }
 
