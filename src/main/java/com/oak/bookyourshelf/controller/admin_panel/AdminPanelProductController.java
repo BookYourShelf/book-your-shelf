@@ -64,13 +64,17 @@ public class AdminPanelProductController {
                                               @RequestParam("lists") String lists,
                                               @RequestParam("category_name") String category_name,
                                               @RequestParam("subcategory_name") String subcategory_name,
-                                              @RequestParam("coverImage") MultipartFile coverImage,
-                                              @RequestParam("productImages") MultipartFile[] productImages) throws IOException {
+                                              @RequestParam(value = "coverImage", required = false) MultipartFile coverImage,
+                                              @RequestParam(value = "productImages", required = false) MultipartFile[] productImages) throws IOException {
         Category category;
         Subcategory subcategory;
-        System.out.println(productType);
-        System.out.println(productImages.length);
         List<Image> images = new ArrayList<>();
+
+        if (coverImage == null) {
+            return ResponseEntity.badRequest().body("A cover image must be uploaded.");
+        } else if (productImages.length > 10) {
+            return ResponseEntity.badRequest().body("At most 10 product images can be uploaded.");
+        }
 
         if (!coverImage.isEmpty()) {
             FileInputStream coverImageStream = (FileInputStream) coverImage.getInputStream();
