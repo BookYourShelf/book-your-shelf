@@ -2,6 +2,8 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
@@ -20,7 +22,7 @@ public abstract class Product {
     private float price;
     private float discountRate;
     private boolean onDiscount;
-    private Date uploadDate;
+    private Timestamp uploadDate;
     private String productName;
     private String shortDesc;
     private String longDesc;
@@ -123,7 +125,7 @@ public abstract class Product {
         return onDiscount;
     }
 
-    public Date getUploadDate() {
+    public Timestamp getUploadDate() {
         return uploadDate;
     }
 
@@ -183,7 +185,7 @@ public abstract class Product {
         this.onDiscount = onSale;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
     }
 

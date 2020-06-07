@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -136,9 +137,7 @@ public class AdminPanelProductController {
             return ResponseEntity.badRequest().body("Product with given barcode already exists.");
         }
 
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        product.setUploadDate(sqlDate);
+        product.setUploadDate(new Timestamp(System.currentTimeMillis()));
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
     }
@@ -163,9 +162,7 @@ public class AdminPanelProductController {
             return ResponseEntity.badRequest().body("Product with given ISBN already exists.");
         }
 
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        product.setUploadDate(sqlDate);
+        product.setUploadDate(new Timestamp(System.currentTimeMillis()));
         category.getBooks().add(product);
         subcategory.getBooks().add(product);
         adminPanelProductService.save(product);
