@@ -37,6 +37,7 @@ public class UserDetailsSearchController {
         Globals.getPageNumbers(page, size, userDetailsSearchService.sortSearchKey(currentSort,user), model, "keyPage");
         model.addAttribute("sort", currentSort);
         model.addAttribute("user", user);
+        model.addAttribute("totalSearchValues",user.getSearchHistory().isEmpty());
         return "user_details/_search";
     }
 

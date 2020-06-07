@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
+<span th:if="${totalSearchValues == false}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -40,6 +40,7 @@
            </ul>
     </div>
 </div>
+    </span>
 
 <br>
 <span th:if="${keyPage.totalPages>0}">
@@ -121,6 +122,9 @@
 </span>
 
 <span th:unless="${keyPage.totalPages >0}">
-<div class="warning-text">There are no search values yet.</div>
+<div class="warning-text">There are no users.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
 </span>
 </html>
