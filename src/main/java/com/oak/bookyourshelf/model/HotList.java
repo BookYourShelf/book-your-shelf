@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class HotList {
 
-    private enum HotListType {
+    public enum HotListType {
         BEST_SELLERS,
         NEW_RELEASES;
     }
