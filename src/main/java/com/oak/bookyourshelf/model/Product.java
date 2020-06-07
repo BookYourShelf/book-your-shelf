@@ -1,8 +1,6 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -59,6 +57,10 @@ public abstract class Product {
 
     public Image getCoverImage() {     // cover image of the product is the first image in images
         return images.get(0);
+    }
+
+    public String getEncodedCoverImage() {
+        return Base64.getEncoder().encodeToString(images.get(0).getImage());
     }
 
     public double getScoreOutOf5() {        // calculate score of the product
