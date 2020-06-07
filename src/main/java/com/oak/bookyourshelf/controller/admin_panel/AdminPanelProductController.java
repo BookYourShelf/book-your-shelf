@@ -41,7 +41,7 @@ public class AdminPanelProductController {
         String currentSort = sort.orElse("date");
         String currentFilter = filter.orElse("all");
         Globals.getPageNumbers(page, size, filterProducts(adminPanelProductService.sortProducts(currentSort), currentFilter), model, "productPage");
-        model.addAttribute("allProducts", adminPanelProductService.listAll());
+        model.addAttribute("productListEmpty", ((List) adminPanelProductService.listAll()).isEmpty());
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
