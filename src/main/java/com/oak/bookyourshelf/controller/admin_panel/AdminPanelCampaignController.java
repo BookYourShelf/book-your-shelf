@@ -39,7 +39,7 @@ public class AdminPanelCampaignController {
 
         Campaign campaign = new Campaign();
         model.addAttribute("campaign", campaign);
-        model.addAttribute("allCampaigns", adminPanelCampaignService.listAll());
+        model.addAttribute("campaignListEmpty", ((List)adminPanelCampaignService.listAll()).isEmpty());
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
@@ -64,8 +64,8 @@ public class AdminPanelCampaignController {
 
     @RequestMapping(value = "/admin-panel/campaign/subcategory", method = RequestMethod.GET)
     @ResponseBody
-    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
-        return Globals.getAllChildSubcategories(adminPanelCategoryService.getByName(category));
+    public List<String> findAllSubcategories(@RequestParam String category) {
+        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
     }
 
     @RequestMapping(value = "/admin-panel/campaign", method = RequestMethod.POST)

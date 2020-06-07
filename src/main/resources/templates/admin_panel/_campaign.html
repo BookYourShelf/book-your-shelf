@@ -111,6 +111,8 @@
     </div>
 </div>
 
+<span th:if="${campaignListEmpty == false}">
+
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -217,6 +219,7 @@
             </ul>
         </div>
 </div>
+    </span>
 <span th:if="${campaignPage.totalPages>0}">
 <br>
 <div>
@@ -454,7 +457,7 @@
             var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
             var len = data.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+                html += '<option value="' + data[i]+ '">' + data[i] + '</option>';
             }
             html += '</option></select>';
             newdiv.innerHTML += html;
