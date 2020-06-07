@@ -277,7 +277,7 @@
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
                                 <input id="book_cover_image" class="book_upload_cover_image"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
                                 <div id="book_cover_image_list"></div>
@@ -288,7 +288,7 @@
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
                                 <input multiple id="book_product_images" class="book_upload_product_images"
-                                       accept="image/*"
+                                       accept="image/x-png"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
@@ -491,10 +491,10 @@
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
                                 <input id="ebook_cover_image" class="ebook_upload_cover_image"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
-                                <div id="e-book-cover-photo-list"></div>
+                                <div id="ebook_cover_image_list"></div>
                             </div>
 
                             <div class="col-md-4">
@@ -503,7 +503,7 @@
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
                                 <input multiple id="ebook_product_images" class="ebook_upload_product_images"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
                                 <div id="ebook_product_images_list"></div>
@@ -692,7 +692,8 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="audiobook_cover_image" accept="image/*" class="audiobook_upload_cover_image"
+                                <input id="audiobook_cover_image" accept="image/x-png"
+                                       class="audiobook_upload_cover_image"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
 
@@ -706,7 +707,7 @@
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
                                 <input multiple id="audiobook_product_images" class="audiobook_upload_product_images"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
                                 <div id="audiobook_product_images_list"></div>
@@ -1004,7 +1005,7 @@
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
                                 <input id="ebook_reader_cover_image" class="ebook_reader_upload_cover_image"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
                                 <div id="ebook_reader_cover_image_list"></div>
@@ -1017,7 +1018,7 @@
                                 </label>
                                 <input multiple id="ebook_reader_product_images"
                                        class="ebook_reader_upload_product_images"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
                                 <div id="ebook_reader_product_images_list"></div>
@@ -1170,7 +1171,7 @@
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
                                 <input id="ebook_reader_case_cover_image" class="ebook_reader_case_upload_cover_image"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
                                 <div id="ebook_reader_case_cover_image_list"></div>
@@ -1182,7 +1183,7 @@
                                 </label>
                                 <input multiple id="ebook_reader_case_product_images"
                                        class="ebook_reader_case_upload_product_images"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
                                 <div id="ebook_reader_case_product_images_list"></div>
@@ -1318,7 +1319,8 @@
                                        class="choose_file_label trans_200">
                                     <a class="choose_file_button">Upload Cover Image</a>
                                 </label>
-                                <input id="book_case_cover_image" accept="image/*" class="book_case_upload_cover_image"
+                                <input id="book_case_cover_image" accept="image/x-png"
+                                       class="book_case_upload_cover_image"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected file:</p>
@@ -1330,7 +1332,7 @@
                                     <a class="choose_file_button">Upload Product Images</a>
                                 </label>
                                 <input multiple id="book_case_product_images" class="book_case_upload_product_images"
-                                       onchange="updatePhoto(this.id);" accept="image/*"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
                                 <p>Selected files:</p>
                                 <div id="book_case_product_images_list"></div>
@@ -1348,141 +1350,144 @@
 </div>
 
 <!-- Sort orders -->
-<span th:if="${productPage.totalPages > 0}">
-    <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
-        <div class="products_dropdown product_dropdown_sorting">
-            <div class="isotope_sorting_text"><span>Sort</span><i
-                    class="fa fa-caret-down" aria-hidden="true"></i></div>
-            <ul>
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'date-desc'}, filter=${filter})}"
-                       th:text="'Decreasing by Date'"
-                       th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+<span th:if="${allProducts.size() > 0}">
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'date-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Date'"
+                   th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'date-asc'}, filter=${filter})}"
-                       th:text="'Increasing by Date'"
-                       th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'date-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Date'"
+                   th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'ID-desc'}, filter=${filter})}"
-                       th:text="'Decreasing by ID'"
-                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'ID-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by ID'"
+                   th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'ID-asc'}, filter=${filter})}"
-                       th:text="'Increasing by ID'"
-                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'ID-asc'}, filter=${filter})}"
+                   th:text="'Increasing by ID'"
+                   th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'name-asc'}, filter=${filter})}"
-                       th:text="'A - Z'"
-                       th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'name-asc'}, filter=${filter})}"
+                   th:text="'A - Z'"
+                   th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'name-desc'}, filter=${filter})}"
-                       th:text="'Z - A'"
-                       th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'name-desc'}, filter=${filter})}"
+                   th:text="'Z - A'"
+                   th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'price-desc'}, filter=${filter})}"
-                       th:text="'Decreasing by Price'"
-                       th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'price-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Price'"
+                   th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'price-asc'}, filter=${filter})}"
-                       th:text="'Increasing by Price'"
-                       th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'price-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Price'"
+                   th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'barcode-desc'}, filter=${filter})}"
-                       th:text="'Decreasing by Barcode'"
-                       th:style="${sort == 'barcode-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'barcode-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Barcode'"
+                   th:style="${sort == 'barcode-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'barcode-asc'}, filter=${filter})}"
-                       th:text="'Increasing by Barcode'"
-                       th:style="${sort == 'barcode-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'barcode-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Barcode'"
+                   th:style="${sort == 'barcode-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'stock-desc'}, filter=${filter})}"
-                       th:text="'Decreasing by Stock'"
-                       th:style="${sort == 'stock-desc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'stock-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Stock'"
+                   th:style="${sort == 'stock-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
 
-                <li class="item_sorting_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'stock-asc'}, filter=${filter})}"
-                       th:text="'Increasing by Stock'"
-                       th:style="${sort == 'stock-asc'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="products_dropdown product_dropdown_filter">
-            <div class="isotope_filter_text"><span>Product Filter</span><i class="fa fa-caret-down"
-                                                                           aria-hidden="true"></i>
-            </div>
-            <ul>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
-                       th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
-                       th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
-                       th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
-                       th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
-                       th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
-                       th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-                <li class="item_filter_btn">
-                    <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
-                       th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'stock-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Stock'"
+                   th:style="${sort == 'stock-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
     </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Product Filter</span><i class="fa fa-caret-down"
+                                                                       aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
+                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
+                   th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
+                   th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
+                   th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
+                   th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
+                   th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
+                   th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</span>
+
+<span th:if="${productPage.totalPages > 0}">
 
     <br>
 
@@ -1637,10 +1642,12 @@
 <!-- No product -->
 <span th:unless="${productPage.totalPages > 0}">
     <div class="warning-text">There are no products.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
 </span>
 
 <script>
-
     // var token = $("meta[name='_csrf']").attr("content");
     // var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -1736,12 +1743,12 @@
         retForm.append("pageNum", $('#ebook_page_number_input').val());
         retForm.append("category_name", $('#ebook_category_input').val());
         retForm.append("subcategory_name", $('#ebook_subcategory_input').val());
-        retForm.append("fileSize", $('#ebook_subcategory_input').val());
-        retForm.append("fileFormat", $('#ebook_subcategory_input').val());
+        retForm.append("fileSize", $('#ebook_filesize_input').val());
+        retForm.append("fileFormat", $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"));
         retForm.append("lists", JSON.stringify({
             publishers: $('#ebook_publisher_input').val().split(','),
             translators: $('#ebook_translator_input').val().split(','),
-            authors: $('#book_authors_input').val().split(','),
+            authors: $('#ebook_authors_input').val().split(','),
             keywords: $('#ebook_keywords_input').val().split(','),
         }));
         retForm.append("coverImage", $('.ebook_upload_cover_image')[0].files[0]);
@@ -1751,7 +1758,6 @@
         for (var i = 0; i < productImages.length; i++) {
             retForm.append('productImages', productImages[i]);
         }
-
 
         if (validation_check(["ebook_product_name_input", "ebook_product_barcode_input", "ebook_stock_input", "ebook_price_input",
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
@@ -1823,7 +1829,6 @@
             retForm.append('productImages', productImages[i]);
         }
 
-
         if (validation_check(["audiobook_product_name_input", "audiobook_barcode_input", "audiobook_stock_input", "audiobook_price_input",
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
             "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
@@ -1875,8 +1880,6 @@
         retForm.append("longDesc", $('#ebook_reader_long_description_input').val());
         retForm.append("category_name", "");
         retForm.append("subcategory_name", "");
-        retForm.append("lengthInMinutes", $('#ebook_reader_length_input').val());
-        retForm.append("narratedBy", $('#ebook_reader_narrator_input').val());
         retForm.append("readerBrand", $('#ebook_reader_brand_input').val());
         retForm.append("readerModel", $('#ebook_reader_model_input').val());
         retForm.append("readerColor", $('#ebook_reader_color_input').val());
@@ -1897,12 +1900,7 @@
         retForm.append("cellular", $('#ebook_reader_cellular_select').val());
         retForm.append("backLight", $('#ebook_reader_backlight_select').val());
         retForm.append("warmBackLight", $('#ebook_reader_warm_backlight_select').val());
-        retForm.append("lists", JSON.stringify({
-            publishers: $('#ebook_reader_publisher_input').val().split(','),
-            translators: $('#ebook_reader_translator_input').val().split(','),
-            authors: $('#ebook_reader_authors_input').val().split(','),
-            keywords: $('#ebook_reader_keywords_input').val().split(','),
-        }));
+        retForm.append("lists", JSON.stringify({}));
         retForm.append("coverImage", $('.ebook_reader_upload_cover_image')[0].files[0]);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_reader_upload_product_images')[0].files;
@@ -1910,7 +1908,6 @@
         for (var i = 0; i < productImages.length; i++) {
             retForm.append('productImages', productImages[i]);
         }
-
 
         if (validation_check(["ebook_reader_product_name_input", "ebook_reader_barcode_input", "ebook_reader_stock_input",
             "ebook_reader_price_input", "ebook_reader_short_description_input", "ebook_reader_long_description_input",
@@ -1974,12 +1971,7 @@
         retForm.append("caseWidth", $('#ebook_reader_case_width_input').val());
         retForm.append("caseHeight", $('#ebook_reader_case_height_input').val());
         retForm.append("caseDepth", $('#ebook_reader_case_depth_input').val());
-        retForm.append("lists", JSON.stringify({
-            publishers: $('#ebook_reader_case_publisher_input').val().split(','),
-            translators: $('#ebook_reader_case_translator_input').val().split(','),
-            authors: $('#ebook_reader_case_authors_input').val().split(','),
-            keywords: $('#ebook_reader_case_keywords_input').val().split(','),
-        }));
+        retForm.append("lists", JSON.stringify({}));
         retForm.append("coverImage", $('.ebook_reader_case_upload_cover_image')[0].files[0]);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_reader_case_upload_product_images')[0].files;
@@ -1987,7 +1979,6 @@
         for (var i = 0; i < productImages.length; i++) {
             retForm.append('productImages', productImages[i]);
         }
-
 
         if (validation_check(["ebook_reader_case_product_name_input", "ebook_reader_case_barcode_input", "ebook_reader_case_stock_input",
             "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
@@ -2045,14 +2036,8 @@
         retForm.append("caseColor", $('#book_case_color_input').val());
         retForm.append("caseWidth", $('#book_case_width_input').val());
         retForm.append("caseHeight", $('#book_case_height_input').val());
-        retForm.append("caseDepth", $('#book_case_depth_input').val());
         retForm.append("maxBookDepth", $('#book_case_max_depth_input').val());
-        retForm.append("lists", JSON.stringify({
-            publishers: $('#book_case_publisher_input').val().split(','),
-            translators: $('#book_case_translator_input').val().split(','),
-            authors: $('#book_case_authors_input').val().split(','),
-            keywords: $('#book_case_keywords_input').val().split(','),
-        }));
+        retForm.append("lists", JSON.stringify({}));
         retForm.append("coverImage", $('.book_case_upload_cover_image')[0].files[0]);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.book_case_upload_product_images')[0].files;
@@ -2060,7 +2045,6 @@
         for (var i = 0; i < productImages.length; i++) {
             retForm.append('productImages', productImages[i]);
         }
-
 
         if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
             "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
@@ -2113,7 +2097,7 @@
     function buildSubcategoriesDropdown(data, subcategoryName) {
         var html = '<option value="">SELECT</option>';
         var len = data.length;
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             html += '<option value="' + data[i] + '">' + data[i] + '</option>';
         }
         html += '</option>';
@@ -2127,18 +2111,6 @@
             }
         }
         return true;
-    }
-
-    function image_arr(cover, product) {
-
-        var images = {};
-        images[0] = $('#' + cover).prop('files')[0];
-        var product_images = $('#' + product)[0].files;
-
-        for (var i = 0; i < product_images.length; i++) {
-            images[i + 1] = product_images[i]
-        }
-        return images;
     }
 </script>
 <script th:src="@{/static/js/admin-panel.js}"></script>
