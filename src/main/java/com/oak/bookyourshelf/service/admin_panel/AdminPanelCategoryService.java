@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
+import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCategoryRepository;
@@ -72,7 +73,42 @@ public class AdminPanelCategoryService {
         return null;
     }
 
+    public ArrayList<String> getAllSubcategoriesName(Category category) {
+        return Globals.getAllSubcategories(category);
+    }
+
     public void delete(int id) {
         adminPanelCategoryRepository.deleteById(id);
+    }
+
+    public List<Category> sortCategories(String sortType) {
+        switch (sortType) {
+            case "ID-desc":
+                return adminPanelCategoryRepository.findAllByOrderByIdDesc();
+
+            case "ID-asc":
+                return adminPanelCategoryRepository.findAllByOrderByIdAsc();
+
+            case "name-desc":
+                return adminPanelCategoryRepository.findAllByOrderByNameDesc();
+
+            case "name-asc":
+                return adminPanelCategoryRepository.findAllByOrderByNameAsc();
+
+            case "total-desc":
+                return adminPanelCategoryRepository.findAllByOrderByBooksDesc();
+
+            case "total-asc":
+                return adminPanelCategoryRepository.findAllByOrderByBooksAsc();
+
+            case "subcategory-desc":
+                return adminPanelCategoryRepository.findAllByOrderBySubcategoriesDesc();
+
+            case "subcategory-asc":
+                return adminPanelCategoryRepository.findAllByOrderBySubcategoriesAsc();
+
+            default:
+                return adminPanelCategoryRepository.findAllByOrderByIdAsc();
+        }
     }
 }
