@@ -1,5 +1,6 @@
 package com.oak.bookyourshelf.controller;
 
+import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.CartItem;
 import com.oak.bookyourshelf.model.Order;
 import com.oak.bookyourshelf.model.Product;
@@ -99,6 +100,7 @@ public class CartController {
                         order.setProducts(new ArrayList<>(user.getShoppingCart()));
                         order.setSubTotalAmount(Float.parseFloat(subTotal));
                         order.setPaymentStatus(Order.PaymentStatus.NULL);
+                        order.setOrderCode(generateAndCheckOrderCode());
                         setOrderProductsDiscounts(user.getShoppingCart());
 
                         if (shipping.equals("0")) {
@@ -177,5 +179,18 @@ public class CartController {
             }
         }
         return null;
+    }
+
+    public String generateAndCheckOrderCode() {
+        boolean uniqueCode = false;
+        String generatedCode = null;
+
+        while (!uniqueCode) {
+            generatedCode = Globals.generateOrderCode();
+            if (cartService.findByOrderCode(generatedCode) == null) {
+                uniqueCode = true;
+            }
+        }
+        return generatedCode;
     }
 }
