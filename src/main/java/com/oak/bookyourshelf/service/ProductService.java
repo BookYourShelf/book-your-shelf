@@ -73,29 +73,33 @@ public class ProductService {
         List<Product> sameType = filterProducts(allProducts, (String) product.getProductTypeName());
         System.out.println(product.getProductTypeName());
         sameType.remove(product);
-        if (product.getProductTypeName().equals("Book") || product.getProductTypeName().equals("E-Book") || product.getProductTypeName().equals("Audio Book")) {
-            Book b = (Book) product;
-            List<Book> books = new ArrayList<>();
-            for (Product p : sameType) {
-                books.add((Book) p);
-            }
-            List<Book> sameCategory = findProductsSameCategory(b.getCategory(), books);
-            if (sameCategory.size() < 4)
-                return sameType.subList(0, 4);
-
-            else {
-                List<Book> sameSubcategory = findProductsSameSubcategory(b.getSubcategory(), books);
-                if (sameSubcategory.size() < 4)
-                    return sameCategory.subList(0, 4);
-                else
-                    return sameSubcategory.subList(0, 4);
-
-            }
+        if (sameType.size() == 0) {
+            return null;
         } else {
-            if (sameType.size() < 4)
-                return allProducts.subList(0, 4);
-            else
-                return sameType.subList(0, 4);
+            if (product.getProductTypeName().equals("Book") || product.getProductTypeName().equals("E-Book") || product.getProductTypeName().equals("Audio Book")) {
+                Book b = (Book) product;
+                List<Book> books = new ArrayList<>();
+                for (Product p : sameType) {
+                    books.add((Book) p);
+                }
+                List<Book> sameCategory = findProductsSameCategory(b.getCategory(), books);
+                if (sameCategory.size() < 4)
+                    return sameType.subList(0, 4);
+
+                else {
+                    List<Book> sameSubcategory = findProductsSameSubcategory(b.getSubcategory(), books);
+                    if (sameSubcategory.size() < 4)
+                        return sameCategory.subList(0, 4);
+                    else
+                        return sameSubcategory.subList(0, 4);
+
+                }
+            } else {
+                if (sameType.size() < 4)
+                    return allProducts.subList(0, 4);
+                else
+                    return sameType.subList(0, 4);
+            }
         }
     }
 }
