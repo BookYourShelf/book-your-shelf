@@ -69,6 +69,7 @@ public class Order {
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
+    private String orderCode;
     private float subTotalAmount;
     private float totalAmount;
 
@@ -89,6 +90,14 @@ public class Order {
 
     // FUNCTIONS
 
+    public int getTotalNumberOfProducts() {
+        int total = 0;
+        for (CartItem c : products) {
+            total += c.getQuantity();
+        }
+        return total;
+    }
+
     public float calculateTotalAmount() {
         float totalAmount = this.subTotalAmount;
         if (totalAmount < MIN_SHIPPING) {
@@ -102,6 +111,14 @@ public class Order {
     }
 
     // GETTER & SETTER
+
+    public String getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
 
     public float getTotalAmount() {
         return totalAmount;
