@@ -48,6 +48,7 @@ public class AdminPanelHotListController {
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
+        model.addAttribute("hotListListEmpty",((List)adminPanelHotListService.listAll()).isEmpty());
 
 
         return "admin_panel/_hotList";
