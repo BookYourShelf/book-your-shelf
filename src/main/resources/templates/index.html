@@ -169,8 +169,7 @@
         </div>
 
 
-
-<span th:if="${ourPicks_1.size()>0}">
+        <span th:if="${ourPicks_1.size()>0}">
 
             <div class="products">
             <div class="container">
@@ -187,9 +186,9 @@
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img
-                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                        class="product_image_img"></a></div>
+                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                             class="product_image_img"
+                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a></div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -293,9 +292,9 @@
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img
-                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                        class="product_image_img"></a></div>
+                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                             class="product_image_img"
+                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a></div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -399,9 +398,9 @@
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img
-                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                        class="product_image_img"></a></div>
+                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                             class="product_image_img"
+                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a></div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -522,9 +521,10 @@
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img
-                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                        class="product_image_img"></a></div>
+                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                             class="product_image_img"
+                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -632,9 +632,10 @@
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
                                     <div class="product_image_showcase"><a
-                                            th:href="@{'/product/' + ${product.productId}}"><img
-                                            th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                            class="product_image_img"></a></div>
+                                            th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                                 class="product_image_img"
+                                                                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                    </div>
                                     <div class="product_content">
                                         <div class="product_info align-items-center justify-content-center">
                                             <div style="text-align:center;">
@@ -740,7 +741,8 @@
                 </div>
                 <div class="row load_more_row" id="load_new">
                     <div class="col">
-                        <input type="submit" class="button load_more ml-auto mr-auto" style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
+                        <input type="submit" class="button load_more ml-auto mr-auto"
+                               style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
                                id="load_more_new_releases">
                     </div>
                 </div>
@@ -755,14 +757,15 @@
                     </div>
                 </div>
 
-                        <div class="row products_row">
+                <div class="row products_row">
                     <tr th:each="product: ${bestSeller}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img
-                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                        class="product_image_img"></a></div>
+                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                             class="product_image_img"
+                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -862,11 +865,7 @@
                         </div>
 
                     </tr>
-                        </div>
-
-
-
-
+                </div>
 
 
                 <div id="more_best_seller" style="display:none;">
@@ -875,9 +874,10 @@
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
                                     <div class="product_image_showcase"><a
-                                            th:href="@{'/product/' + ${product.productId}}"><img
-                                            th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                            class="product_image_img"></a></div>
+                                            th:href="@{'/product/' + ${product.productId}}"><img alt=""
+                                                                                                 class="product_image_img"
+                                                                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                    </div>
                                     <div class="product_content">
                                         <div class="product_info align-items-center justify-content-center">
                                             <div style="text-align:center;">
@@ -986,7 +986,8 @@
 
                 <div class="row load_more_row" id="load_best">
                     <div class="col">
-                        <input type="submit" class="button load_more ml-auto mr-auto" style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
+                        <input type="submit" class="button load_more ml-auto mr-auto"
+                               style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
                                id="load_more_best_seller">
                     </div>
                 </div>
@@ -1029,12 +1030,16 @@
     function showDivs(n) {
         var i;
         var x = document.getElementsByClassName("mySlides");
-        if (n > x.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = x.length}
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
         for (i = 0; i < x.length; i++) {
             x[i].style.display = "none";
         }
-        x[slideIndex-1].style.display = "block";
+        x[slideIndex - 1].style.display = "block";
     }
 </script>
 

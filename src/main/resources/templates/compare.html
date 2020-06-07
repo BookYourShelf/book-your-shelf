@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!-- TODO name -->
@@ -76,16 +76,16 @@
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
-                                                                    alt="" class="product_image_img">
+                                    <div class="product_image"><img alt="" class="product_image_img"
+                                                                    th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/>
                                     </div>
                                 </div>
                                 <h th:text="${mainProduct.getProductName()}"></h>
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image"><img th:src="@{/static/images/sineklerin_tanrisi.jpg}"
-                                                                    alt="" class="product_image_img">
+                                    <div class="product_image"><img alt="" class="product_image_img"
+                                                                    th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/>
                                     </div>
                                 </div>
                                 <h th:text="${comparedProduct.getProductName()}"></h>
@@ -552,7 +552,7 @@
                             <td>
                                 <div th:switch="${mainProduct.isOnDiscount()}">
                                     <div th:case="True">
-                                       <h  th:text="${'%' + #numbers.formatDecimal(mainProduct.getDiscountRate() * 100, 0, 0)}"></h>
+                                        <h th:text="${'%' + #numbers.formatDecimal(mainProduct.getDiscountRate() * 100, 0, 0)}"></h>
                                     </div>
                                     <h th:case="*">-</h>
                                 </div>
@@ -560,7 +560,7 @@
                             <td>
                                 <div th:switch="${comparedProduct.isOnDiscount()}">
                                     <div th:case="True">
-                                        <h  th:text="${'%' + #numbers.formatDecimal(comparedProduct.getDiscountRate() * 100, 0, 0)}"></h>
+                                        <h th:text="${'%' + #numbers.formatDecimal(comparedProduct.getDiscountRate() * 100, 0, 0)}"></h>
                                     </div>
                                     <h th:case="*">-</h>
                                 </div>
