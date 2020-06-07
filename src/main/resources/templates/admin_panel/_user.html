@@ -3,6 +3,8 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<span th:if="${userListEmpty == false}">
+
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
@@ -69,6 +71,7 @@
         </ul>
     </div>
 </div>
+    </span>
 
 <br>
 <span th:if="${userPage.totalPages > 0}">
