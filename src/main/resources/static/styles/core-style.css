@@ -2536,6 +2536,14 @@ img {
     text-align: center;
     font-size: 18px;
     color: #4a4a4a;
+    font-weight: bold;
+}
+
+.how-about {
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 17px;
+    color: #4a4a4a;
 }
 
 .out-of-stock {

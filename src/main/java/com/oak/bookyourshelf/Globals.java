@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 public class Globals {
 
     public static int PAGINATION = 3;
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final int ORDER_CODE_LENGTH = 8;
 
     public static void getPageNumbers(Optional<Integer> page, Optional<Integer> size, List objects, Model model, String attrName) {
         int currentPage = page.orElse(1);
@@ -49,7 +51,6 @@ public class Globals {
 
         return objectPage;
     }
-
 
     static void traverseSubcategories(Subcategory subcategory, ArrayList<String> subcategories) {
         List<Subcategory> inSubcategory = subcategory.getSubcategories();
@@ -97,5 +98,15 @@ public class Globals {
             ret.add(Base64.getEncoder().encodeToString(img.getImage()));
         }
         return ret;
+    }
+
+    public static String generateOrderCode() {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < ORDER_CODE_LENGTH; i++) {
+            int char_idx = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(char_idx));
+        }
+        return builder.toString();
     }
 }

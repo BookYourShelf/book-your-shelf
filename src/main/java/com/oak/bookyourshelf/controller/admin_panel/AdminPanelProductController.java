@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +40,8 @@ public class AdminPanelProductController {
 
         String currentSort = sort.orElse("date");
         String currentFilter = filter.orElse("all");
-        Globals.getPageNumbers(page, size, filterProducts(adminPanelProductService.sortProducts(currentSort), currentFilter),
-                model, "productPage");
-        model.addAttribute("allProducts", adminPanelProductService.listAll());
+        Globals.getPageNumbers(page, size, filterProducts(adminPanelProductService.sortProducts(currentSort), currentFilter), model, "productPage");
+        model.addAttribute("productListEmpty", ((List) adminPanelProductService.listAll()).isEmpty());
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
@@ -65,13 +65,17 @@ public class AdminPanelProductController {
                                               @RequestParam("lists") String lists,
                                               @RequestParam("category_name") String category_name,
                                               @RequestParam("subcategory_name") String subcategory_name,
-                                              @RequestParam("coverImage") MultipartFile coverImage,
-                                              @RequestParam("productImages") MultipartFile[] productImages) throws IOException {
+                                              @RequestParam(value = "coverImage", required = false) MultipartFile coverImage,
+                                              @RequestParam(value = "productImages", required = false) MultipartFile[] productImages) throws IOException {
         Category category;
         Subcategory subcategory;
-        System.out.println(productType);
-        System.out.println(productImages.length);
         List<Image> images = new ArrayList<>();
+
+        if (coverImage == null) {
+            return ResponseEntity.badRequest().body("A cover image must be uploaded.");
+        } else if (productImages.length > 10) {
+            return ResponseEntity.badRequest().body("At most 10 product images can be uploaded.");
+        }
 
         if (!coverImage.isEmpty()) {
             FileInputStream coverImageStream = (FileInputStream) coverImage.getInputStream();
@@ -133,9 +137,7 @@ public class AdminPanelProductController {
             return ResponseEntity.badRequest().body("Product with given barcode already exists.");
         }
 
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        product.setUploadDate(sqlDate);
+        product.setUploadDate(new Timestamp(System.currentTimeMillis()));
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
     }
@@ -160,9 +162,7 @@ public class AdminPanelProductController {
             return ResponseEntity.badRequest().body("Product with given ISBN already exists.");
         }
 
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        product.setUploadDate(sqlDate);
+        product.setUploadDate(new Timestamp(System.currentTimeMillis()));
         category.getBooks().add(product);
         subcategory.getBooks().add(product);
         adminPanelProductService.save(product);
