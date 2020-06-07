@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -31,10 +32,12 @@ public class ProductController {
     final UserDetailsReviewService userDetailsReviewService;
     final ProductDetailsInformationService productDetailsInformationService;
 
-    public ProductController(ProductService productService, ProfileInformationService profileInformationService,
+    public ProductController(ProductService productService,
+                             ProfileInformationService profileInformationService,
                              @Qualifier("customUserDetailsService") AuthService authService,
                              AdminPanelProductService adminPanelProductService,
-                             ReviewService reviewService, UserDetailsReviewService userDetailsReviewService,
+                             ReviewService reviewService,
+                             UserDetailsReviewService userDetailsReviewService,
                              ProductDetailsInformationService productDetailsInformationService) {
         this.productService = productService;
         this.profileInformationService = profileInformationService;
@@ -77,7 +80,7 @@ public class ProductController {
 
             switch (type) {
                 case "wish-list":
-                    if (!user.getWishList().contains(product)) {
+                    if (!containsProduct(user.getWishList(), product.getProductId())) {
                         user.addToWishList(product);
                         profileInformationService.save(user);
                     }
@@ -85,22 +88,23 @@ public class ProductController {
                     return ResponseEntity.ok("");
 
                 case "cart":
-                    if (!user.getShoppingCart().contains(product)) {
+                    if (!containsCartItem(user.getShoppingCart(), product.getProductId())) {
                         if (product.getStock() > 0) {
-                            product.getProductQuantity().put(product.getProductId(),1);
-                            user.addToCart(product);
-                            productDetailsInformationService.save(product);
+                            CartItem cartItem = new CartItem();
+                            cartItem.setProduct(product);
+                            cartItem.setQuantity(1);
+                            user.addToCart(cartItem);
                             profileInformationService.save(user);
                             return ResponseEntity.ok("");
+
                         } else {
                             return ResponseEntity.badRequest().body("There is no stock.");
                         }
+                    } else {
+                        // already in cart, quantity updated, save user
+                        profileInformationService.save(user);
+                        return ResponseEntity.ok("");
                     }
-
-                    product.getProductQuantity().put(product.getProductId(),product.getProductQuantity().get(product.getProductId())+1);
-                    productDetailsInformationService.save(product);
-                    // already in cart
-                    return ResponseEntity.ok("");
 
                 case "reminder":
                     return ResponseEntity.ok("");
@@ -110,7 +114,6 @@ public class ProductController {
                         return ResponseEntity.badRequest().body("You already reviewed this product.");
 
                     } else {
-
                         if (review.getScoreOutOf5() == 0) {
                             return ResponseEntity.badRequest().body("You must rate product to add review.");
                         }
@@ -156,5 +159,24 @@ public class ProductController {
             default:
                 return reviews;
         }
+    }
+
+    public boolean containsCartItem(Set<CartItem> set, int productId) {
+        for (CartItem c: set) {
+            if(c.getProduct().getProductId() == productId) {
+                c.setQuantity(c.getQuantity() + 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsProduct(Set<Product> set, int productId) {
+        for (Product p: set) {
+            if(p.getProductId() == productId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

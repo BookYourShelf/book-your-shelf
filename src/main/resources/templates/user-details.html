@@ -75,7 +75,10 @@
                            th:attr="data-url=@{/user-details/order(size=(${#request.getParameter('size')} ?: '2'),
                                                                     id= ${user.getUserId()},
                                                                     page=(${#request.getParameter('page')} ?: '1'),
-                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                                                                    sort=(${#request.getParameter('sort')} ?: 'time-desc'),
+                                                                    payOptFilter=(${#request.getParameter('payOptFilter')} ?: 'all'),
+                                                                    payStatFilter=(${#request.getParameter('payStatFilter')} ?: 'all'),
+                                                                    delStatFilter=(${#request.getParameter('delStatFilter')} ?: 'all'))}"
                            th:href="@{#order}">Orders</a>
                     </li>
 

@@ -1,8 +1,7 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.text.DecimalFormat;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
@@ -21,17 +20,11 @@ public abstract class Product {
     private float price;
     private float discountRate;
     private boolean onDiscount;
-    private Date uploadDate;
+    private Timestamp uploadDate;
     private String productName;
     private String shortDesc;
     private String longDesc;
     private String barcode;
-
-
-    @ElementCollection
-    @Column(name = "quantities")
-    @CollectionTable(name="product_quantity_mapping",joinColumns = @JoinColumn(name="productId"))
-    Map<Integer,Integer> productQuantity;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
@@ -52,8 +45,6 @@ public abstract class Product {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Image> images;
 
-    private static DecimalFormat df = new DecimalFormat("0.00");
-
     // FUNCTIONS
 
     public void increaseStarNum(int star) {
@@ -66,6 +57,10 @@ public abstract class Product {
 
     public Image getCoverImage() {     // cover image of the product is the first image in images
         return images.get(0);
+    }
+
+    public String getEncodedCoverImage() {
+        return Base64.getEncoder().encodeToString(images.get(0).getImage());
     }
 
     public double getScoreOutOf5() {        // calculate score of the product
@@ -102,7 +97,6 @@ public abstract class Product {
         salesNum++;
     }
 
-
     // GETTER & SETTER
 
     public int getProductId() {
@@ -133,7 +127,7 @@ public abstract class Product {
         return onDiscount;
     }
 
-    public Date getUploadDate() {
+    public Timestamp getUploadDate() {
         return uploadDate;
     }
 
@@ -165,14 +159,6 @@ public abstract class Product {
         return images;
     }
 
-    public List<User> getOnWishList() {
-        return onWishList;
-    }
-
-    public void setOnWishList(List<User> onWishList) {
-        this.onWishList = onWishList;
-    }
-
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -201,7 +187,7 @@ public abstract class Product {
         this.onDiscount = onSale;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
     }
 
@@ -232,12 +218,4 @@ public abstract class Product {
     public void setImages(List<Image> images) {
         this.images = images;
     }
-
-    public List<User> getOnShoppingCart() { return onShoppingCart; }
-
-    public void setOnShoppingCart(List<User> onShoppingCart) { this.onShoppingCart = onShoppingCart; }
-
-    public Map<Integer, Integer> getProductQuantity() { return productQuantity; }
-
-    public void setProductQuantity(Map<Integer, Integer> productQuantity) { this.productQuantity = productQuantity; }
 }

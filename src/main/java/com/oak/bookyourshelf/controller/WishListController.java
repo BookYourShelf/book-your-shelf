@@ -1,6 +1,6 @@
 package com.oak.bookyourshelf.controller;
 
-
+import com.oak.bookyourshelf.model.CartItem;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.service.AuthService;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import java.util.Set;
 
 @Controller
 public class WishListController {
@@ -23,7 +23,8 @@ public class WishListController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
 
-    public WishListController(WishListService wishListService, @Qualifier("customUserDetailsService") AuthService authService,
+    public WishListController(WishListService wishListService,
+                              @Qualifier("customUserDetailsService") AuthService authService,
                               ProfileInformationService profileInformationService) {
         this.wishListService = wishListService;
         this.authService = authService;
@@ -41,45 +42,60 @@ public class WishListController {
 
     @RequestMapping(value = "/wish-list", method = RequestMethod.POST)
     public ResponseEntity<String> showWishList(@RequestParam String button, @RequestParam int productID) {
-        System.out.println(productID);
-        System.out.println(button);
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
 
+        switch (button) {
+            case "add_to_shopping_cart":
+                Product product = wishListService.get(productID);
+                if (!containsCartItem(user.getShoppingCart(), productID)) {
+                    if (product.getStock() > 0) {
+                        deleteProductFromWishList(user.getWishList(), productID);
+                        CartItem cartItem = new CartItem();
+                        cartItem.setProduct(product);
+                        cartItem.setQuantity(1);
+                        user.addToCart(cartItem);
+                        profileInformationService.save(user);
+                        return ResponseEntity.ok("");
 
-        if (button.equals("add_to_shopping_cart")) {
-            Product product = wishListService.get(productID);
-            if(!user.getShoppingCart().contains(product)) {
-                if (product.getStock() > 0) {
-                    user.getWishList().remove(product);
-                    profileInformationService.save(user);
+                    } else {
+                        return ResponseEntity.badRequest().body("Product out of stock.");
+                    }
 
-                    product.getProductQuantity().put(product.getProductId(),1);
-                    wishListService.save(product);
-
-
-                    user.getShoppingCart().add(product);
-                    profileInformationService.save(user);
                 } else {
-                    return ResponseEntity.badRequest().body("Product out of stock.");
+                    deleteProductFromWishList(user.getWishList(), productID);
+                    // already in cart, quantity updated, save user
+                    profileInformationService.save(user);
+                    return ResponseEntity.ok("");
                 }
-            } else {
-                user.getWishList().remove(product);
+
+            case "delete_product":
+                deleteProductFromWishList(user.getWishList(), productID);
                 profileInformationService.save(user);
-                product.getProductQuantity().put(product.getProductId(),product.getProductQuantity().get(product.getProductId())+1);
-                wishListService.save(product);
-            }
-        } else if (button.equals("delete_product")) {
-            Product product = wishListService.get(productID);
-            user.getWishList().remove(product);
-            profileInformationService.save(user);
+                return ResponseEntity.ok("");
 
-        } else {
-            user.getWishList().clear();
-            profileInformationService.save(user);
+            case "clear_list":
+                user.getWishList().clear();
+                profileInformationService.save(user);
+                return ResponseEntity.ok("");
 
+            default:
+                return ResponseEntity.badRequest().body("An error occurred.");
         }
-        return ResponseEntity.ok("");
     }
 
+    public boolean containsCartItem(Set<CartItem> set, int productId) {
+        for (CartItem c : set) {
+            if (c.getProduct().getProductId() == productId) {
+                c.setQuantity(c.getQuantity() + 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // TODO return
+    public void deleteProductFromWishList(Set<Product> products, int productId) {
+        products.removeIf(p -> p.getProductId() == productId);
+    }
 }

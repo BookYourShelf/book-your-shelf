@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -53,15 +54,15 @@ public class User {
     )
     private List<Address> deliveryAddresses;
 
-    @OneToMany(
+    @ManyToMany(
             cascade = CascadeType.ALL
     )
-    private List<Product> shoppingCart;
+    private Set<CartItem> shoppingCart;
 
-    @OneToMany(
+    @ManyToMany(
             cascade = CascadeType.ALL
     )
-    private List<Product> wishList;
+    private Set<Product> wishList;
 
     private String password;
 
@@ -71,8 +72,7 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public User() {
-    }
+    public User() {}
 
     // FUNCTIONS
 
@@ -80,7 +80,7 @@ public class User {
         this.wishList.add(product);
     }
 
-    public void addToCart(Product product) {
+    public void addToCart(CartItem product) {
         this.shoppingCart.add(product);
     }
 
@@ -161,19 +161,19 @@ public class User {
         this.reviews = reviews;
     }
 
-    public List<Product> getShoppingCart() {
+    public Set<CartItem> getShoppingCart() {
         return shoppingCart;
     }
 
-    public void setShoppingCart(List<Product> shoppingCart) {
+    public void setShoppingCart(Set<CartItem> shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
 
-    public List<Product> getWishList() {
+    public Set<Product> getWishList() {
         return wishList;
     }
 
-    public void setWishList(List<Product> wishList) {
+    public void setWishList(Set<Product> wishList) {
         this.wishList = wishList;
     }
 

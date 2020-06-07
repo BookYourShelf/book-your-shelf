@@ -11,12 +11,19 @@ import javax.transaction.Transactional;
 public class CartService {
     final CartRepository cartRepository;
 
-    public CartService(CartRepository cartRepository){ this.cartRepository= cartRepository; }
+    public CartService(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+    }
 
     public void save(Order order) {
         cartRepository.save(order);
     }
 
-    public void deleteOrder(int i){ cartRepository.deleteById(i);}
+    public void deleteOrder(int i) {
+        cartRepository.deleteById(i);
+    }
 
+    public Order findByOrderCode(String orderCode) {
+        return cartRepository.findByOrderCode(orderCode);
+    }
 }

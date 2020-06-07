@@ -3,7 +3,6 @@ package com.oak.bookyourshelf.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "orders")
@@ -11,6 +10,7 @@ public class Order {
 
     private static final float MIN_SHIPPING = 100f;
     private static final float SHIPPING_PRICE = 6.99f;
+    private static final float NEXT_DAY_DEL_PRICE = 7.99f;
 
     public enum DeliveryStatus {
         INFO_RECEIVED,
@@ -33,7 +33,8 @@ public class Order {
         EXPIRED,
         REVOKED,
         PREAPPROVED,
-        CANCELLED
+        CANCELLED,
+        NULL
     }
 
     public enum PaymentOption {
@@ -48,13 +49,19 @@ public class Order {
         CANCELED
     }
 
+    public enum ShippingMethod {
+        FREE,
+        NEXT_DAY_DELIVERY
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
 
-    @ElementCollection
-    private List<Integer> productId;
-
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<CartItem> products;
 
     private int userId;
     private String userName;
@@ -62,38 +69,72 @@ public class Order {
     private String customerAddress;
     private String billingAddress;
     private String shippingCompany;
-    private String shippingMethod;
+    private String orderCode;
+    private float subTotalAmount;
     private float totalAmount;
 
-    @ElementCollection
-    @Column(name = "discount")
-    @CollectionTable(name="product_discount_mapping",joinColumns = @JoinColumn(name="productId"))
-    Map<Integer,Float> productDiscount;
+    @Enumerated(EnumType.STRING)
+    private ShippingMethod shippingMethod;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
     @Enumerated(EnumType.STRING)
-    PaymentOption paymentOption;
+    private PaymentOption paymentOption;
 
     @Enumerated(EnumType.STRING)
-    PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus;
 
     @Enumerated(EnumType.STRING)
-    OrderStatus orderStatus;
+    private OrderStatus orderStatus;
 
+    // FUNCTIONS
 
-    public float getTotalAmountOfShipping() {
+    public int getTotalNumberOfProducts() {
+        int total = 0;
+        for (CartItem c : products) {
+            total += c.getQuantity();
+        }
+        return total;
+    }
 
-        float totalAmount = 0;
-        /* TODO: find sum of products */
+    public float calculateTotalAmount() {
+        float totalAmount = this.subTotalAmount;
         if (totalAmount < MIN_SHIPPING) {
             totalAmount += SHIPPING_PRICE;
+        }
+
+        if (this.shippingMethod == ShippingMethod.NEXT_DAY_DELIVERY) {
+            totalAmount += NEXT_DAY_DEL_PRICE;
         }
         return totalAmount;
     }
 
     // GETTER & SETTER
+
+    public String getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public float getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public float getSubTotalAmount() {
+        return subTotalAmount;
+    }
+
+    public void setSubTotalAmount(float subTotalAmount) {
+        this.subTotalAmount = subTotalAmount;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -103,12 +144,12 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public List<Integer> getProductId() {
-        return productId;
+    public List<CartItem> getProducts() {
+        return products;
     }
 
-    public void setProductId(List<Integer> productId) {
-        this.productId = productId;
+    public void setProducts(List<CartItem> products) {
+        this.products = products;
     }
 
     public int getUserId() {
@@ -183,32 +224,19 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getShippingMethod() {
+    public ShippingMethod getShippingMethod() {
         return shippingMethod;
     }
 
-    public void setShippingMethod(String shippingMethod) {
+    public void setShippingMethod(ShippingMethod shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
 
-    public Float getTotalAmount() {
-        return totalAmount;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
-
-    public void setTotalAmount(Float totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public OrderStatus getOrderStatus() { return orderStatus; }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
-
-    public Map<Integer, Float> getProductDiscount() { return productDiscount; }
-
-    public void setProductDiscount(Map<Integer, Float> productDiscount) { this.productDiscount = productDiscount; }
-
-
-
 }
