@@ -504,6 +504,9 @@
 
 <!-- No orders -->
 <span th:unless="${orderPage.totalPages > 0}">
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
     <div class="warning-text">There are no orders.</div>
 </span>
 
