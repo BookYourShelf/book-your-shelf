@@ -1,6 +1,8 @@
 package com.oak.bookyourshelf.controller;
 
 
+import com.oak.bookyourshelf.Globals;
+import com.oak.bookyourshelf.model.Image;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.Review;
 import com.oak.bookyourshelf.model.User;
@@ -41,30 +43,61 @@ public class HomePageController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showUser(Model model ) {
+    public String showUser(Model model) {
 
         UserDetails userDetails = authService.getUserDetails();
         List<Product> ourPicksForYou = new ArrayList<>();
-        if(userDetails != null) {
-            model.addAttribute("bestSeller",homePageService.createBestSellerList(0,8));
-            model.addAttribute("newProducts",homePageService.createNewProductsList(0,8));
+        if (userDetails != null) {
+            /*List<Image> bestSellerImages= createImageList(homePageService.createBestSellerList(0,8));*/
+            model.addAttribute("bestSeller", homePageService.createBestSellerList(0, 8));
+            /*model.addAttribute("bestSellerImages", Globals.encodeAllImages(bestSellerImages));*/
 
-            model.addAttribute("moreBestSeller",homePageService.createBestSellerList(8,15));
-            model.addAttribute("moreNewProducts",homePageService.createNewProductsList(8,15));
+            /*List<Image> newReleasesImages= createImageList(homePageService.createNewProductsList(0,8));*/
+            model.addAttribute("newProducts", homePageService.createNewProductsList(0, 8));
+            /*model.addAttribute("newReleasesImages",Globals.encodeAllImages(newReleasesImages));*/
+
+            /*List<Image> moreBestSellerImages = createImageList(homePageService.createBestSellerList(8,15));*/
+            model.addAttribute("moreBestSeller", homePageService.createBestSellerList(8, 15));
+            /*model.addAttribute("moreBestSellerImages",Globals.encodeAllImages(moreBestSellerImages));*/
+
+            /*List<Image> moreNewReleasesImages = createImageList(homePageService.createNewProductsList(8,15));*/
+            model.addAttribute("moreNewProducts", homePageService.createNewProductsList(8, 15));
+            /*model.addAttribute("moreNewReleasesImages",Globals.encodeAllImages(moreNewReleasesImages));*/
+
+            /*List<Image> ourPicksImages_1 = createImageList(homePageService.createBestSellerList(0,4));*/
+            model.addAttribute("ourPicks_1", homePageService.createBestSellerList(0, 4));
+           /* model.addAttribute("ourPicksImages_1",Globals.encodeAllImages(ourPicksImages_1));*/
+
+            /*List<Image> ourPicksImages_2 = createImageList(homePageService.createBestSellerList(4,8));*/
+            model.addAttribute("ourPicks_2", homePageService.createBestSellerList(4, 8));
+           /* model.addAttribute("ourPicksImages_2",Globals.encodeAllImages(ourPicksImages_2));*/
+
+            /*List<Image> ourPicksImages_3 = createImageList(homePageService.createBestSellerList(8,12));*/
+            model.addAttribute("ourPicks_3", homePageService.createBestSellerList(8, 12));
+            /*model.addAttribute("ourPicksImages_3",Globals.encodeAllImages(ourPicksImages_3));*/
+
             model.addAttribute("user", profileInformationService.getByEmail(userDetails.getUsername()));
-            model.addAttribute("ourpicksforYou",ourPicksForYou);
-        }
-        else
-        {
-            model.addAttribute("bestSeller",homePageService.createBestSellerList(0,8));
-            model.addAttribute("newProducts",homePageService.createNewProductsList(0,8));
 
-            model.addAttribute("moreBestSeller",homePageService.createBestSellerList(8,15));
-            model.addAttribute("moreNewProducts",homePageService.createNewProductsList(8,15));
+        } else {
+           /* List<Image> bestSellerImages= createImageList(homePageService.createBestSellerList(0,8));*/
+            model.addAttribute("bestSeller", homePageService.createBestSellerList(0, 8));
+            /*model.addAttribute("bestSellerImages", Globals.encodeAllImages(bestSellerImages));*/
 
-            model.addAttribute("ourpicksforYou",ourPicksForYou);
+           /* List<Image> newReleasesImages= createImageList(homePageService.createNewProductsList(0,8));*/
+            model.addAttribute("newProducts", homePageService.createNewProductsList(0, 8));
+            /*model.addAttribute("newReleasesImages",Globals.encodeAllImages(newReleasesImages));*/
+
+           /* List<Image> moreBestSellerImages = createImageList(homePageService.createBestSellerList(8,15));*/
+            model.addAttribute("moreBestSeller", homePageService.createBestSellerList(8, 15));
+            /*model.addAttribute("moreBestSellerImages",Globals.encodeAllImages(moreBestSellerImages));*/
+
+           /* List<Image> moreNewReleasesImages = createImageList(homePageService.createNewProductsList(8,15));*/
+            model.addAttribute("moreNewProducts", homePageService.createNewProductsList(8, 15));
+           /* model.addAttribute("moreNewReleasesImages",Globals.encodeAllImages(moreNewReleasesImages));*/
+
+            model.addAttribute("ourPicks_1", ourPicksForYou);
         }
-        model.addAttribute("compareProductsService",compareProductsService);
+        model.addAttribute("compareProductsService", compareProductsService);
         return "/index";
     }
 
@@ -108,7 +141,7 @@ public class HomePageController {
 
 
             }
-        }else {
+        } else {
             // direct to login page
             return ResponseEntity.badRequest().body("");
         }
@@ -116,9 +149,16 @@ public class HomePageController {
         return ResponseEntity.badRequest().body("An error occurred.");
     }
 
+    public List<Image> createImageList( List<Product> products)
+    {
+        List<Image> images = new ArrayList<>();
+        for(Product p:products)
+        {
+            images.add(p.getCoverImage());
+        }
+        return images;
 
-
-
+    }
 
 
 }
