@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/w3-slider.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
 
@@ -168,8 +169,8 @@
         </div>
 
 
-        <span th:if="${ourpicksforYou.size() > 0}">
 
+<span th:if="${ourPicks_1.size()>0}">
 
             <div class="products">
             <div class="container">
@@ -178,10 +179,11 @@
                         <div class="section_title text-center">Our Picks For You</div>
                     </div>
                 </div>
-
+                <div class="w3-content w3-display-container">
+                    <div class="w3-display-container mySlides">
                 <div class="row products_row">
 
-                    <tr th:each="product: ${ourpicks}">
+                    <tr th:each="product: ${ourPicks_1}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
                                 <div class="product_image_showcase"><a
@@ -282,55 +284,56 @@
 
                     </tr>
                 </div>
+                    </div>
 
-                    <div id="more__our_picks" style="display:none;">
-                        <div class="row products_row">
-                        <tr th:each="product: ${moreOurPicks}">
+                                        <div class="w3-display-container mySlides">
+                <div class="row products_row">
 
-                            <div class="col-xl-3 col-md-3">
-                                <div class="product">
-                                    <div class="product_image_showcase"><a
-                                            th:href="@{'/product/' + ${product.productId}}"><img
-                                            th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
-                                            class="product_image_img"></a></div>
-                                    <div class="product_content">
-                                        <div class="product_info align-items-center justify-content-center">
-                                            <div style="text-align:center;">
-                                                <i class="summary_star fa"
-                                                   th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                                <i class="summary_star fa"
-                                                   th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                                <i class="summary_star fa"
-                                                   th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                                <i class="summary_star fa"
-                                                   th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                                <i class="summary_star fa"
-                                                   th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                    <tr th:each="product: ${ourPicks_2}">
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase"><a
+                                        th:href="@{'/product/' + ${product.productId}}"><img
+                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
+                                        class="product_image_img"></a></div>
+                                <div class="product_content">
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
 
-                                            </div>
+                                        </div>
 
-                                            <div>
-                                                <div class="product_name"><a
-                                                        th:href="@{'/product/' + ${product.productId}}">
-                                                    <h th:text="${product.getProductName()}"></h>
-                                                </a></div>
-                                                <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                        <div>
+                                            <div class="product_name"><a
+                                                    th:href="@{'/product/' + ${product.productId}}">
+                                                <h th:text="${product.getProductName()}"></h>
+                                            </a></div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
                                         </span>
-                                                <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                                <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
-                                            </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        </div>
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
                                            <span th:if="${product.isOnDiscount()}">
                                              <div class="sale_price">
                                                  <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
@@ -345,7 +348,7 @@
                                                      }></div></div>
 
                                            </span>
-                                                <span th:unless="${product.isOnDiscount()}">
+                                            <span th:unless="${product.isOnDiscount()}">
                                                 <div class="product_info d-flex flex-row align-items-start justify-content-start">
                                                     <div class="sale_price">
                                                         <del></del>
@@ -357,28 +360,25 @@
                                                 <div class="product_price">
                                                     <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
                                             </span>
-                                            </div>
-
                                         </div>
 
-                                        <div class="product_buttons">
-                                            <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                                <div title="Add to wish list"
-                                                     class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
-                                                                  alt="">
-                                                            <div>+</div>
-                                                        </div>
+                                    </div>
+
+                                    <div class="product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div>+</div>
                                                     </div>
                                                 </div>
-                                                <div title="Add to shopping cart"
-                                                     class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                                    <div>
-                                                        <div><img th:src="@{/static/images/cart.svg}" class="svg"
-                                                                  alt="">
-                                                            <div>+</div>
-                                                        </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -386,21 +386,126 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                        </tr>
+                    </tr>
+                </div>
+                    </div>
 
-                    </div>
+                <div class="w3-display-container mySlides">
+                <div class="row products_row">
+
+                    <tr th:each="product: ${ourPicks_3}">
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase"><a
+                                        th:href="@{'/product/' + ${product.productId}}"><img
+                                        th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
+                                        class="product_image_img"></a></div>
+                                <div class="product_content">
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                        </div>
+
+                                        <div>
+                                            <div class="product_name"><a
+                                                    th:href="@{'/product/' + ${product.productId}}">
+                                                <h th:text="${product.getProductName()}"></h>
+                                            </a></div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_text">
+                                                <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                            </div>
+                                        </span>
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                            <div class="product_text">
+                                                <div th:text="${product.getReaderBrand()}"></div>
+                                            </div>
+                                        </span>
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <div class="product_text">
+                                                <div th:text="${product.getCaseBrand()}"></div>
+                                            </div>
+                                        </span>
+                                        </div>
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                           <span th:if="${product.isOnDiscount()}">
+                                             <div class="sale_price">
+                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>
+                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
+                                                </b></div>
+                                            </div>
+                                            <div class=class="product_price_recommended">
+                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
+                                                     }></div></div>
+
+                                           </span>
+                                            <span th:unless="${product.isOnDiscount()}">
+                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                    <div class="sale_price">
+                                                        <del></del>
+                                                    </div>
+                                                    <div class="ml-auto text-right">
+                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                    </div>
+                                                </div>
+                                                <div class="product_price">
+                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
                 </div>
-                <div class="row load_more_row" id="load_our_picks">
-                    <div class="col">
-                        <input type="submit" class="button load_more ml-auto mr-auto" value="Load More"
-                               id="load_more_our_picks">
                     </div>
+                    <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+
                 </div>
+
             </div>
         </div>
 
-        </span>
+</span>
 
         <!-- Products -->
         <div class="products">
@@ -635,7 +740,7 @@
                 </div>
                 <div class="row load_more_row" id="load_new">
                     <div class="col">
-                        <input type="submit" class="button load_more ml-auto mr-auto" value="Load More"
+                        <input type="submit" class="button load_more ml-auto mr-auto" style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
                                id="load_more_new_releases">
                     </div>
                 </div>
@@ -650,8 +755,7 @@
                     </div>
                 </div>
 
-                <div class="row products_row">
-
+                        <div class="row products_row">
                     <tr th:each="product: ${bestSeller}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
@@ -758,7 +862,12 @@
                         </div>
 
                     </tr>
-                </div>
+                        </div>
+
+
+
+
+
 
                 <div id="more_best_seller" style="display:none;">
                     <div class="row products_row">
@@ -874,12 +983,14 @@
 
                     </div>
                 </div>
+
                 <div class="row load_more_row" id="load_best">
                     <div class="col">
-                        <input type="submit" class="button load_more ml-auto mr-auto" value="Load More"
+                        <input type="submit" class="button load_more ml-auto mr-auto" style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
                                id="load_more_best_seller">
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -906,6 +1017,27 @@
 <script th:src="@{/static/js/custom.js}"></script>
 <script th:src="@{/static/js/active.js}"></script>
 <script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex-1].style.display = "block";
+    }
+</script>
+
 
 <script>
 
