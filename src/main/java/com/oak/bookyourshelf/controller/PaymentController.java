@@ -82,7 +82,6 @@ public class PaymentController {
         order.setUserName(user.getName());
         order.setUserId(user.getUserId());
         order.setOrderStatus(Order.OrderStatus.PENDING);
-        order.setPaymentStatus(Order.PaymentStatus.PENDING);
         order.setDeliveryStatus(Order.DeliveryStatus.PENDING);
 
         productModification(user);
