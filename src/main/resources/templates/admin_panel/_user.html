@@ -2,25 +2,79 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<span th:if="${userPage.totalPages > 0}">
+
+<span th:if="${userListEmpty == false}">
+
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
                 class="fa fa-caret-down" aria-hidden="true"></i></div>
         <ul>
-            <li class="item_sorting_btn"
-                data-isotope-option='{ "sortBy": "original-order" }'>ID
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'ID-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Decreasing by ID'"
+                   th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                </a>
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name</li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "surname" }'>Surname
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'ID-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Increasing by ID'"
+                   th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                </a>
             </li>
-            <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "email" }'>E-Mail</li>
+
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Name-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Name (A - Z)'"
+                   th:style="${sort == 'Name-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Name-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Name (Z - A)'"
+                   th:style="${sort == 'Name-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Surname-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Surname (A - Z)'"
+                   th:style="${sort == 'Surname-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Surname-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Surname (Z - A)'"
+                   th:style="${sort == 'Surname-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Email-asc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Email (A - Z)'"
+                   th:style="${sort == 'Email-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#user(sort=${'Email-desc'}, size=${userPage.size}, page=${1})}"
+                   th:text="'Email (Z - A)'"
+                   th:style="${sort == 'Email-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+
         </ul>
     </div>
 </div>
+    </span>
 
 <br>
-
+<span th:if="${userPage.totalPages > 0}">
 
     <div class="row order - row ">
 
@@ -93,7 +147,7 @@
 
                 <!-- Previous button -->
                     <li th:style="${currentPage == 1} ? 'display:none'">
-                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage - 1})}"
+                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${currentPage - 1})}"
                            aria-label="Previous" title="Previous Page" rel="tooltip">
                            <i class="pagination_arrow fa fa-angle-left"></i>
                         </a>
@@ -102,7 +156,8 @@
                 <!-- First page -->
                     <li th:if="${userPage.totalPages > 0}"
                         th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${1})}" th:title="${'Page '+ 1}"
+                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
                            th:text="${1}" style="color: #fbaa1d;">
                         </a>
                     </li>
@@ -114,7 +169,7 @@
                          th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , userPage.totalPages > 2 + currentPage ? currentPage + 2 : userPage.totalPages - 1, 1)}"
                          th:class="${currentPage == i} ? 'active'">
-                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${i})}"
+                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${i})}"
                            th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
                     </li>
 
@@ -122,7 +177,7 @@
                 <!-- Last page -->
                     <li th:if="${userPage.totalPages > 1}"
                         th:class="${currentPage == userPage.totalPages} ? 'active'">
-                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${userPage.totalPages})}"
+                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${userPage.totalPages})}"
                            th:text="${userPage.totalPages}" style="color: #fbaa1d;"
                            th:title="${'Page '+ userPage.totalPages}">
                         </a>
@@ -130,7 +185,7 @@
 
                 <!-- Next button -->
                     <li th:style="${currentPage == userPage.totalPages} ? 'display:none'">
-                        <a th:href="@{/admin-panel#user(size=${userPage.size}, page=${currentPage + 1})}"
+                        <a th:href="@{/admin-panel#user(sort=${sort},size=${userPage.size}, page=${currentPage + 1})}"
                            aria-label="Next" title="Next Page" rel="tooltip">
                             <i class="pagination_arrow fa fa-angle-right"></i>
                         </a>

@@ -218,4 +218,8 @@ public abstract class Product {
     public void setImages(List<Image> images) {
         this.images = images;
     }
+
+    public abstract Object getProductTypeName();
+
+
 }

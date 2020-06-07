@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -56,25 +55,22 @@ public class AdminPanelCategoryService {
     static Subcategory traverseSubcategories(Subcategory subcategory, String name) {
         if (subcategory.getName().equals(name)) {
             return subcategory;
-        }
-        for (Subcategory sub : subcategory.getSubcategories()) {
-            traverseSubcategories(sub, name);
+        } else {
+            for (Subcategory sub : subcategory.getSubcategories()) {
+                return traverseSubcategories(sub, name);
+            }
         }
         return null;
     }
 
-    public Subcategory getSubcategory(Category category, String name) {
-        List<Subcategory> l = category.getSubcategories().stream().flatMap(elt -> elt.getSubcategories().stream())
-                .collect(Collectors.toList());
-        l.addAll(category.getSubcategories());
-        Subcategory ret = new Subcategory();
-        for (Subcategory sub : l) {
-            if (sub.getName().equals(name)) {
-                ret = sub;
-            }
+    public Subcategory getSubcategory(Category category, String name){
+        for (Subcategory s : category.getSubcategories())
+        {
+            if(traverseSubcategories(s, name) != null)
+            { return traverseSubcategories(s, name);}
+
         }
-        ;
-        return ret;
+        return null;
     }
 
     public ArrayList<String> getAllSubcategoriesName(Category category) {

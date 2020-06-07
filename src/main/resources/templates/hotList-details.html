@@ -255,21 +255,7 @@
 
 
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="login-text p-b-10" style="color: black;">
-                                                Hot List Type
-                                            </div>
-                                            <select name="update_hot_list_type" id="update_hot_list_type"
-                                                    th:field="${hotList.hotListType}"
-                                                    th:value="${hotList.getHotListType()}"
-                                                    class="dropdown_item_select checkout_input"
-                                                    require="required">
-                                                <option value="BEST_SELLERS">Best Sellers</option>
-                                                <option value="NEW_RELEASES">New Releases</option>
-                                                <option value="OUR_PICKS_FOR_YOU">Our Picks For You</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="login-text p-b-10" style="color: black;">
                                                 Number of Products
                                             </div>
@@ -377,7 +363,6 @@
     $('#update_hotList,#delete_hotList').click(function (event) {
         var button = $(this).attr("id");
         var productNum= $('#update_hot_list_product_number').val();
-        var hotListType= $('#update_hot_list_type').val();
         var startDate= $('#update_hot_list_start_date').val();
         var startTime= $('#update_hot_list_start_time').val();
         var endDate= $('#update_hot_list_end_date').val();
@@ -389,7 +374,6 @@
 
             button: button,
             productNum: productNum,
-            hotListType: hotListType,
             startDate: startDate,
             startTime: startTime,
             endDate: endDate,

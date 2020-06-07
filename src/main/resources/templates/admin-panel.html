@@ -63,7 +63,9 @@
                 <ul class="nav nav-tabs justify-content-center" id="siteTab">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/user(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:attr="data-url=@{/admin-panel/user(size=(${#request.getParameter('size')} ?: '3'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-asc'))}"
                            th:href="@{#user}">Users</a>
                     </li>
 
@@ -86,15 +88,20 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/hotList(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
-                           th:href="@{#hotList}">Hot
-                            Lists</a>
+
+                        <a class="nav-link profile-navbar-text" th:attr="data-url=@{/admin-panel/hotList(size=(${#request.getParameter('size')} ?: '3'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-asc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#hotList}">Hot Lists</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/campaign(size=(${#request.getParameter('size')} ?: '3'), page=(${#request.getParameter('page')} ?: '1'))}"
+                           th:attr="data-url=@{/admin-panel/campaign(size=(${#request.getParameter('size')} ?: '3'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-asc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
                            th:href="@{#campaign}">Campaigns</a>
                     </li>
 

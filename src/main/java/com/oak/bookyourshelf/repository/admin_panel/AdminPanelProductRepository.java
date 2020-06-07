@@ -37,4 +37,6 @@ public interface AdminPanelProductRepository extends CrudRepository<Product, Int
     List<Product> findAllByOrderByStockDesc();
 
     List<Product> findAllByOrderByStockAsc();
+
+    List<Product> findAllByOrderBySalesNumDesc();
 }

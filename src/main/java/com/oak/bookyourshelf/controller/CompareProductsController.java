@@ -1,7 +1,5 @@
 package com.oak.bookyourshelf.controller;
 
-
-import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.service.CompareProductsService;
 import org.springframework.stereotype.Controller;
@@ -11,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Optional;
+
 
 @Controller
 public class CompareProductsController {
@@ -23,17 +21,19 @@ public class CompareProductsController {
     }
 
     @RequestMapping(value = "/compare/{id1}/{id2}", method = RequestMethod.GET)
-    public String tab(@PathVariable int id1 , @PathVariable int id2, Model model) {
+    public String compareProducts(@PathVariable("id1") int id1,
+                                  @PathVariable("id2") int id2, Model model) {
 
         System.out.println(id1);
         System.out.println(id2);
-        Product p = compareProductsService.get(id1);
-        Product p2= compareProductsService.get(id2);
-        System.out.println(p.getProductName());
-        System.out.println(p2.getProductName());
-        model.addAttribute("mainProduct",p);
+
+        Product p1 = compareProductsService.get(id1);
+        Product p2 = compareProductsService.get(id2);
+        model.addAttribute("mainProduct",p1);
         model.addAttribute("comparedProduct",p2);
 
-        return "compare";
+        model.addAttribute("compareProductService",compareProductsService);
+
+        return "/compare";
     }
 }

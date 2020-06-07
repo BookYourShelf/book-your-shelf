@@ -3,14 +3,16 @@ package com.oak.bookyourshelf.service.user_details;
 
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.user_details.UserDetailsSearchRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.Collections.*;
+
 
 @Service
 @Transactional
@@ -51,7 +53,7 @@ public class UserDetailsSearchService {
         sortedKeys = new ArrayList(searchValues.keySet());
         Map<String,Integer> sortedMap=new HashMap<String, Integer>();
 
-        Collections.sort(sortedKeys);
+        sort(sortedKeys);
         String key = null;
         for(int i =0 ;i<sortedKeys.size();++i)
         {
@@ -60,24 +62,44 @@ public class UserDetailsSearchService {
         return sortedMap;
     }
 
-    public Page<String> findPaginated(Pageable pageable,User user) {
-        List<String> keys = new ArrayList<>(user.getSearchHistory().keySet());
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<String > list;
+    public List<String> sortSearchKey(String sortType , User user)
+    {
+        Map<String,Integer> before = new HashMap<String,Integer>(user.getSearchHistory());
+        ArrayList<String> values = new ArrayList<String>(before.keySet());
+        Map<String, Integer> map = new TreeMap<>();
+        List<String> result = new ArrayList<>();
 
-        if (keys.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, keys.size());
-            list = keys.subList(startItem, toIndex);
+        for(String s: before.keySet())
+        {
+            map.put(s, before.get(s));
         }
+        result=map.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
 
-        Page<String> searchPage
-                = new PageImpl<String>(list, PageRequest.of(currentPage, pageSize), keys.size());
 
-        return searchPage;
+        switch (sortType) {
+            case "Search-Value-desc":
+                values.sort(Collections.reverseOrder());
+                return values;
+
+            case "Search-Value-asc":
+                Collections.sort(values);
+                return values;
+
+            case "Total-Search-desc":
+
+                return result;
+
+            case "Total-Search-asc":
+                result.sort(Collections.reverseOrder());
+                return result;
+
+            default:        // total search
+               return result;
+
+        }
     }
 
 

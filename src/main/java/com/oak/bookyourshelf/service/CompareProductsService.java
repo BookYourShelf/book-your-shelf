@@ -5,6 +5,8 @@ import com.oak.bookyourshelf.repository.CompareProductsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -16,6 +18,24 @@ public class CompareProductsService {
     }
     public Product get(int id) {
         return compareProductsRepository.findById(id).get();
+    }
+
+    public String createString(List<String > elemetList)
+    {
+        String result=elemetList.get(0);
+        for(int i =1 ;i<elemetList.size();++i)
+        {
+            result += "-";
+            result += elemetList.get(i);
+        }
+        return result;
+
+    }
+
+    public float calculateNetPrice(Product p)
+    {
+        float rate = p.getDiscountRate()*100;
+        return (p.getPrice()*(100-rate)/100);
     }
 
 

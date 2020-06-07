@@ -8,10 +8,9 @@ import java.util.List;
 @Entity
 public class HotList {
 
-    private enum HotListType {
+    public enum HotListType {
         BEST_SELLERS,
-        NEW_RELEASES,
-        OUR_PICKS_FOR_YOU;
+        NEW_RELEASES;
     }
 
     @Id
@@ -21,17 +20,18 @@ public class HotList {
     @Enumerated(EnumType.STRING)
     private HotListType hotListType;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(
+            cascade = CascadeType.ALL)
     private List<Category> categories;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+
+    @ManyToMany(
+            cascade = CascadeType.ALL)
     private List<Subcategory> subcategories;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL)
+    private List<Product> products;
 
     private int productNum;
     private String startDate;
@@ -125,4 +125,12 @@ public class HotList {
     public void addSubcategory(Subcategory subcategory){this.getSubcategories().add(subcategory);}
 
     public String getCategoryName(){return this.getCategories().get(0).getName();}
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

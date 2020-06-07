@@ -43,7 +43,7 @@
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><<a th:href="@{'/product/' + ${mainProduct.productId}}">
+                                <li><a th:href="@{'/product/' + ${mainProduct.productId}}">
                                     <h th:text="${mainProduct.getProductName()}"></h>
                                 </a></li>
                                 <li style="color: #fbaa1d">Compare</li>
@@ -62,20 +62,30 @@
                         <thead>
                         <tr>
                             <th style="width: 20.0%">
-                            <td th:text="${mainProduct.getProductTypeName()}"></td>
+                                <span th:if="${mainProduct.getProductTypeName() == comparedProduct.getProductTypeName()}">
+                                <div th:text="${mainProduct.getProductTypeName()}">
+                                </div>
+
+                                </span>
+                                <span th:unless="${mainProduct.getProductTypeName() == comparedProduct.getProductTypeName()}">
+                                <div th:text="${mainProduct.getProductTypeName() + '  vs  ' + comparedProduct.getProductTypeName()}">
+                                </div>
+
+                                </span>
+
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image"><img th:src="@{/static/images/hayvan_ciftligi.jpg}"
-                                                                    alt="" class="product_image_img">
+                                    <div class="product_image"><img alt="" class="product_image_img"
+                                                                    th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/>
                                     </div>
                                 </div>
                                 <h th:text="${mainProduct.getProductName()}"></h>
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image"><img th:src="@{/static/images/sineklerin_tanrisi.jpg}"
-                                                                    alt="" class="product_image_img">
+                                    <div class="product_image"><img alt="" class="product_image_img"
+                                                                    th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/>
                                     </div>
                                 </div>
                                 <h th:text="${comparedProduct.getProductName()}"></h>
@@ -86,29 +96,52 @@
                         <tr>
                             <th scope="row">Stars</th>
                             <td>
-                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                2.5 out of (143)
+                                <i class="summary_star fa"
+                                   th:classappend="${mainProduct.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${mainProduct.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${mainProduct.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${mainProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${mainProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <div class="product_reviews">
+                                    <h th:text="${mainProduct.getScoreOutOf5()}"></h>
+                                    out of
+                                    <h th:text="${mainProduct.getStarNum()}"></h>
+                                </div>
                             </td>
                             <td>
-                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                3 out of (334)
+                                <i class="summary_star fa"
+                                   th:classappend="${comparedProduct.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${comparedProduct.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${comparedProduct.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${comparedProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <i class="summary_star fa"
+                                   th:classappend="${comparedProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                <div class="product_reviews">
+                                    <h th:text="${comparedProduct.getScoreOutOf5()}"></h>
+                                    out of
+                                    <h th:text="${comparedProduct.getStarNum()}"></h>
+                                </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Price</th>
+                            <td th:text="${'₺' + mainProduct.getPrice()}"></td>
+                            <td th:text="${'₺' + comparedProduct.getPrice()}"></td>
                         </tr>
 
 
-                        <span th:if="${mainProduct.getProductTypeName() == 'Book' || mainProduct.getProductTypeName() == 'E-Book' || mainProduct.getProductTypeName() == 'Audio Book'}">
+                        <span th:if="${(mainProduct.getProductTypeName() == 'Book' && comparedProduct.getProductTypeName() == 'Book') || (mainProduct.getProductTypeName() == 'E-Book' && comparedProduct.getProductTypeName() == 'E-Book')|| (mainProduct.getProductTypeName() == 'Audio Book' && comparedProduct.getProductTypeName() == 'Audio Book')}">
                         <tr>
                             <th scope="row">Author</th>
-                            <td>George Orwell</td>
-                            <td>William Golding</td>
+                           <td th:text="${compareProductService.createString(mainProduct.getAuthors())}"></td>
+                           <td th:text="${compareProductService.createString(comparedProduct.getAuthors())}"></td>
                         </tr>
 
                         <tr>
@@ -118,32 +151,50 @@
                         </tr>
                         <tr>
                             <th scope="row">Translator</th>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>
+                            <div th:if="${mainProduct.getTranslators() != null}">
+                                    <div th:unless="${mainProduct.getTranslators().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${mainProduct.getTranslators().size() > 0}">
+
+                                            <h th:text="${compareProductService.createString(mainProduct.getTranslators())}"></h>
+                                    </div>
+                                </div>
+                            </td>
+                             <td>
+                            <div th:if="${comparedProduct.getTranslators() != null}">
+                                    <div th:unless="${comparedProduct.getTranslators().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${comparedProduct.getTranslators().size() > 0}">
+
+                                            <h th:text="${compareProductService.createString(comparedProduct.getTranslators())}"></h>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Publisher</th>
-                            <td>
-                                <div th:if="${mainProduct.getPublishers() != null}">
+                             <td>
+                            <div th:if="${mainProduct.getPublishers() != null}">
                                     <div th:unless="${mainProduct.getPublishers().size() > 0}">
                                         <div>-</div>
                                     </div>
                                     <div th:if="${mainProduct.getPublishers().size() > 0}">
-                                        <th:block th:each="publisher: ${mainProduct.getPublishers()}">
-                                            <h th:text="${publisher}"></h><br>
-                                        </th:block>
+
+                                            <h th:text="${compareProductService.createString(mainProduct.getPublishers())}"></h>
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <div th:if="${comparedProduct.getPublishers() != null}">
+                             <td>
+                            <div th:if="${comparedProduct.getPublishers() != null}">
                                     <div th:unless="${comparedProduct.getPublishers().size() > 0}">
                                         <div>-</div>
                                     </div>
                                     <div th:if="${comparedProduct.getPublishers().size() > 0}">
-                                        <th:block th:each="publisher: ${comparedProduct.getPublishers()}">
-                                            <h th:text="${publisher}"></h><br>
-                                        </th:block>
+
+                                            <h th:text="${compareProductService.createString(comparedProduct.getPublishers())}"></h>
                                     </div>
                                 </div>
                             </td>
@@ -161,7 +212,7 @@
                         </tr>
 
 
-                        <span th:if="${mainProduct.getProductTypeName() == 'Book'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'Book' && comparedProduct.getProductTypeName() == 'Book' }">
                         <tr>
                             <th scope="row">Media Type</th>
                             <td th:text="${mainProduct.getMediaType()}"></td>
@@ -198,7 +249,7 @@
                             <td th:text="${comparedProduct.getHeight()}"></td>
                         </tr>
                         </span>
-                        <span th:if="${mainProduct.getProductTypeName() == 'Audio Book'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'Audio Book' && comparedProduct.getProductTypeName() == 'Audio Book'}">
                              <tr>
                                 <th scope="row">Length</th>
                                 <td th:text="${mainProduct.getLengthInMinutes() + ' minutes'}"></td>
@@ -211,7 +262,7 @@
                             </tr>
                         </span>
 
-                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book' && comparedProduct.getProductTypeName() == 'E-Book'}">
                             <tr>
                                 <th scope="row">Page Number</th>
 
@@ -231,7 +282,7 @@
 
                         </span>
                         </span>
-                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader'}">
+                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader' && comparedProduct.getProductTypeName() == 'E-Book Reader'}">
                              <tr>
                                 <th scope="row">Color</th>
                                 <td th:text="${mainProduct.getReaderColor()}"></td>
@@ -414,7 +465,7 @@
                             </tr>
 
                         </span>
-                        <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case' || mainProduct.getProductTypeName() == 'Book Case'}">
+                        <span th:if="${(mainProduct.getProductTypeName() == 'E-Book Reader Case' && comparedProduct.getProductTypeName() == 'E-Book Reader Case' ) || (mainProduct.getProductTypeName() == 'Book Case' && comparedProduct.getProductTypeName() == 'Book Case')}">
                             <tr>
                                 <th scope="row">Color</th>
                                 <td th:text="${mainProduct.getCaseColor()}"></td>
@@ -440,7 +491,7 @@
                                 <td th:text="${mainProduct.getCaseWidth() + ' mm'}"></td>
                                 <td th:text="${comparedProduct.getCaseWidth() + ' mm'}"></td>
                             </tr>
-                             <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case'}">
+                             <span th:if="${mainProduct.getProductTypeName() == 'E-Book Reader Case'&& comparedProduct.getProductTypeName() == 'E-Book Reader Case'}">
                                   <tr>
                                 <th scope="row">Reader Brand</th>
                                 <td th:text="${mainProduct.getReaderBrand()}"></td>
@@ -457,7 +508,7 @@
                                 <td th:text="${comparedProduct.getCaseDepth()}"></td>
                             </tr>
                              </span>
-                            <span th:if="${mainProduct.getProductTypeName() == 'Book Case'}">
+                            <span th:if="${mainProduct.getProductTypeName() == 'Book Case' && comparedProduct.getProductTypeName() == 'Book Case'}">
 
                             <tr>
                                 <th scope="row">Maximum Book Depth</th>
@@ -470,23 +521,50 @@
                         </span>
                         <tr>
                             <th scope="row">Short Description</th>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consequat lorem.
-                                Maecenas elementum at diam consequat bibendum.
-                            </td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consequat lorem.
-                                Maecenas elementum at diam consequat bibendum.
-                            </td>
+                            <td th:text="${mainProduct.getShortDesc()}"></td>
+                            <td th:text="${comparedProduct.getShortDesc()}"></td>
                         </tr>
 
                         <tr>
                             <th scope="row">Barcode</th>
-                            <td>869465164665</td>
-                            <td>869654646444</td>
+                            <td th:text="${mainProduct.getBarcode()}"></td>
+                            <td th:text="${comparedProduct.getBarcode()}"></td>
                         </tr>
+
                         <tr>
-                            <th scope="row">Price</th>
-                            <td>₺15.99</td>
-                            <td>₺17.99</td>
+                            <th scope="row">On Discount</th>
+                            <td>
+                                <div th:switch="${mainProduct.isOnDiscount()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </td>
+                            <td>
+                                <div th:switch="${comparedProduct.isOnDiscount()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">Discount Rate</th>
+                            <td>
+                                <div th:switch="${mainProduct.isOnDiscount()}">
+                                    <div th:case="True">
+                                        <h th:text="${'%' + #numbers.formatDecimal(mainProduct.getDiscountRate() * 100, 0, 0)}"></h>
+                                    </div>
+                                    <h th:case="*">-</h>
+                                </div>
+                            </td>
+                            <td>
+                                <div th:switch="${comparedProduct.isOnDiscount()}">
+                                    <div th:case="True">
+                                        <h th:text="${'%' + #numbers.formatDecimal(comparedProduct.getDiscountRate() * 100, 0, 0)}"></h>
+                                    </div>
+                                    <h th:case="*">-</h>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -518,6 +596,7 @@
 <script th:src="@{/static/js/active.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
 <script th:src="@{/static/js/jquery.mask.js}"></script>
+
 
 </body>
 </html>
