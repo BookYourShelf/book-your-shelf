@@ -248,6 +248,25 @@
         }
     });
 
+    $('#PayPal').click(function (event) {
+
+        var button = $(this).attr("name");
+        var ret = {
+            button: button
+        };
+        event.preventDefault();
+        $.post("/payment", ret, function (data) {
+
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
+
     function validation_check(arr) {
         for (var i = 0; i < arr.length; i++) {
             if (!document.getElementById(arr[i]).checkValidity()) {

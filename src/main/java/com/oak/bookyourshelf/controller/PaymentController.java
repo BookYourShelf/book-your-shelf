@@ -73,11 +73,6 @@ public class PaymentController {
             order.setPaymentOption(Order.PaymentOption.TRANSFERRING_MONEY_PTT);
         }
 
-        payment(payment, user, order);
-        return ResponseEntity.ok("");
-    }
-
-    public void payment(Payment payment, User user, Order order) {
         payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
         payment.setPayerId(user.getUserId());
         payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
@@ -99,8 +94,11 @@ public class PaymentController {
                 orders.set(i, order);
             }
         }
+
         profileInformationService.save(user);
+        return ResponseEntity.ok("");
     }
+
 
     public void productModification(User user) {
         for (CartItem cartItem : user.getShoppingCart()) {
