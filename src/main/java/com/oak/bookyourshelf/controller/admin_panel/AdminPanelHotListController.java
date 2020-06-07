@@ -173,7 +173,7 @@ public class AdminPanelHotListController {
                 hotList.setCategories(newCategoryList);
             }
         }
-        /*adminPanelHotListService.setProductByType(hotList,htype,adminPanelHotListService.createProductSet(newSubcategories));*/
+        /*adminPanelHotListService.setProductByType(hotList,adminPanelHotListService.createProductSet(newSubcategories));*/
         adminPanelHotListService.save(hotList);
 
 
