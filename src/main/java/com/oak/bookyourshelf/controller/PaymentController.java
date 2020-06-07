@@ -42,6 +42,19 @@ public class PaymentController {
 
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     public String showNewPaymentPage(Model model) {
+        UserDetails userDetails = authService.getUserDetails();
+        User user = profileInformationService.getByEmail(userDetails.getUsername());
+        for (Order o : user.getOrders()) {
+            if (o.getPaymentStatus() == Order.PaymentStatus.NULL) {
+                order = o;
+            }
+        }
+
+        // if order already payed
+        if (order == null) {
+            return "index";
+        }
+
         CreditCard creditCard = new CreditCard();
         model.addAttribute("creditCard", creditCard);
         return "payment";
@@ -53,12 +66,6 @@ public class PaymentController {
         Payment payment = new Payment();
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
-
-        for (Order o : user.getOrders()) {
-            if (o.getPaymentStatus() == Order.PaymentStatus.NULL) {
-                order = o;
-            }
-        }
 
         if (button.equals("ConfirmCreditCard")) {
             payment.setPaymentMethod(Payment.PaymentMethod.PAYMENT_METHOD_CREDIT_CARD);
@@ -95,6 +102,7 @@ public class PaymentController {
         }
 
         profileInformationService.save(user);
+        order = null;
         return ResponseEntity.ok("");
     }
 
