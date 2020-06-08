@@ -112,7 +112,7 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10 address-element-padding">
-        <input type="submit" value="Update product" class="login_button trans_200" id="update">
+        <input type="button" value="Update product" class="login_button trans_200" id="update">
     </div>
     <div class="col-md-1"></div>
 </div>
@@ -126,7 +126,8 @@
     $('#update').click(function (event) {
         var retForm = new FormData();
         retForm.append("type", "update");
-        retForm.append("coverImage", $('.upload_cover_image')[0].files[0]);
+        const coverImage = $('.upload_cover_image')[0].files[0]
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.upload_product_images')[0].files;
 
@@ -134,38 +135,41 @@
             retForm.append('productImages', productImages[i]);
         }
 
-        event.preventDefault();
-        $.ajax({
-            url: "/product-details/images/" + productId,
-            data: retForm,
-            // beforeSend: function(xhr) {
-            //     xhr.setRequestHeader(header, token);
-            // },
-            type: "POST",
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            success: function (result) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Images updated successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/product-details/" + productId + "#images";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
-            },
-            error: function (result) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: result.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            }
-        });
+        if (file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/product-details/images/" + productId,
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Images updated successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/product-details/" + productId + "#images";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+
     });
 
     $('.delete').click(function (event) {
@@ -199,6 +203,36 @@
             })
         }
     });
+
+    function file_size_check(coverImage, productImages) {
+
+        if (coverImage !== undefined && coverImage.size > 10000000) {
+            iziToast.show({
+                title: 'Fail',
+                message: "Cover image's maximum size can be 10MB.",
+                position: 'topRight',
+                color: 'red'
+            });
+            return false;
+        }
+
+        if (productImages === undefined) {
+            return true;
+        }
+
+        for (var i = 0; i < productImages.length; i++) {
+            if (productImages[i].size > 10000000) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: "Product image's maximum size can be 10MB.",
+                    position: 'topRight',
+                    color: 'red'
+                });
+                return false;
+            }
+        }
+        return true;
+    }
 
     /*]]>*/
 </script>
