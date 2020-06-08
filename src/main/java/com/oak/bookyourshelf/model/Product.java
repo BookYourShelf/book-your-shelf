@@ -1,5 +1,7 @@
 package com.oak.bookyourshelf.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.*;
@@ -22,9 +24,15 @@ public abstract class Product {
     private boolean onDiscount;
     private Timestamp uploadDate;
     private String productName;
-    private String shortDesc;
-    private String longDesc;
     private String barcode;
+
+    @Column(length = 1000)
+    @Length(min = 1, max = 1000)
+    private String shortDesc;
+
+    @Column(length = 5000)
+    @Length(min = 1, max = 5000)
+    private String longDesc;
 
     @ElementCollection
     private List<Integer> buyerUserIds;
