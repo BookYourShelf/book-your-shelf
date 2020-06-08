@@ -56,7 +56,7 @@
                 <div class="row">
 
                     <!-- Product Image -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="product_image_slider_container">
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
@@ -76,7 +76,7 @@
                     </div>
 
                     <!-- Product Info -->
-                    <div class="col-lg-8 product_col">
+                    <div class="col-lg-7 product_col" style="padding-bottom: 50px">
                         <div class="product_info">
                             <span class="product_name">
                                 <h th:text="${product.productName}"></h>
@@ -656,8 +656,10 @@
                             <div class="row">
                                 <div class="col-lg-12">
 
+                                    <span th:if="${reviewListEmpty == false}">
                                     <!-- Sort orders -->
-                                    <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+                                    <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto"
+                                         style="padding-top: 25px">
                                         <div class="products_dropdown product_dropdown_sorting">
                                             <div class="isotope_sorting_text"><span>Sort</span><i
                                                     class="fa fa-caret-down" aria-hidden="true"></i></div>
@@ -823,6 +825,7 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    </span>
 
                                     <span th:if="${reviewPage.totalPages > 0}">
                                         <br>
@@ -960,8 +963,13 @@
                                         </div>
                                     </span>
 
-                                    <!-- No reviews -->
+                                    <!-- Empty page -->
                                     <span th:unless="${reviewPage.totalPages > 0}">
+                                        <div class="warning-text">There are no reviews.</div>
+                                    </span>
+
+                                    <!-- No reviews -->
+                                    <span th:if="${reviewListEmpty == true}">
                                         <div class="warning-text">There are no reviews.
                                             Be the first to review!
                                         </div>
