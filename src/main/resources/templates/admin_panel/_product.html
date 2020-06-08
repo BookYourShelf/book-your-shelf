@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="login-text p-b-10" style="color: black;">
-                                    ISBN
+                                    ISBN (13 digits)
                                 </div>
                                 <input type="text" id="book_isbn_input" pattern=".{17}"
                                        class="checkout_input form-control isbn"
@@ -386,7 +386,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
-                                    ISBN
+                                    ISBN (13 digits)
                                 </div>
                                 <input type="text" id="ebook_isbn_input" pattern=".{17}"
                                        class="checkout_input form-control isbn"
@@ -1732,7 +1732,7 @@
         var retForm = new FormData();
         retForm.append("productType", "ebook");
         retForm.append("productName", $('#ebook_product_name_input').val());
-        retForm.append("barcode", $('#ebook_barcode_input').val());
+        retForm.append("barcode", $('#ebook_product_barcode_input').val());
         retForm.append("stock", $('#ebook_stock_input').val());
         retForm.append("price", $('#ebook_price_input').val());
         retForm.append("publishedYear", $('#ebook_published_year_input').val());
@@ -1811,8 +1811,8 @@
         retForm.append("isbn", $('#audiobook_isbn_input').val());
         retForm.append("shortDesc", $('#audiobook_short_description_input').val());
         retForm.append("longDesc", $('#audiobook_long_description_input').val());
-        retForm.append("category_name", $('#audiobook_category_input').val());
-        retForm.append("subcategory_name", $('#audiobook_subcategory_input').val());
+        retForm.append("category_name", $('#audiobook_category_select').val());
+        retForm.append("subcategory_name", $('#audiobook_subcategory_select').val());
         retForm.append("lengthInMinutes", $('#audiobook_length_input').val());
         retForm.append("narratedBy", $('#audiobook_narrator_input').val());
         retForm.append("lists", JSON.stringify({
@@ -2034,8 +2034,8 @@
         retForm.append("caseBrand", $('#book_case_brand_input').val());
         retForm.append("caseModel", $('#book_case_model_input').val());
         retForm.append("caseColor", $('#book_case_color_input').val());
-        retForm.append("caseWidth", $('#book_case_width_input').val());
-        retForm.append("caseHeight", $('#book_case_height_input').val());
+        retForm.append("caseWidth", $('#book_case_case_width_input').val());
+        retForm.append("caseHeight", $('#book_case_case_height_input').val());
         retForm.append("maxBookDepth", $('#book_case_max_depth_input').val());
         retForm.append("lists", JSON.stringify({}));
         retForm.append("coverImage", $('.book_case_upload_cover_image')[0].files[0]);

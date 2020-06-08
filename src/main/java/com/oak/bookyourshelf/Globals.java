@@ -109,4 +109,23 @@ public class Globals {
         }
         return builder.toString();
     }
+
+    public static void productDetailsTraverseSubcategories(Subcategory subcategory, ArrayList<Subcategory> subcategories) {
+        List<Subcategory> inSubcategory = subcategory.getSubcategories();
+        subcategories.add(subcategory);
+        if (subcategory.getSubcategories().size() != 0) {
+            for (Subcategory sub : inSubcategory) {
+                productDetailsTraverseSubcategories(sub, subcategories);
+            }
+        }
+    }
+
+    public static ArrayList<Subcategory> productDetailsGetAllSubcategories(Category category) {
+        ArrayList<Subcategory> subcategories = new ArrayList<>();
+        List<Subcategory> inCategory = category.getSubcategories();
+        for (Subcategory sub : inCategory) {
+            productDetailsTraverseSubcategories(sub, subcategories);
+        }
+        return subcategories;
+    }
 }

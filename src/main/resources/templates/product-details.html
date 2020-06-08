@@ -65,7 +65,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/product-details/images"
+                        <a class="nav-link profile-navbar-text"
+                           th:data-url="'/product-details/images/' + ${product.productId}"
                            th:href="@{#images}">Images</a>
                     </li>
                 </ul>

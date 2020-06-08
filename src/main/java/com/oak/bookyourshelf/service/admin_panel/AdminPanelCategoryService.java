@@ -63,18 +63,21 @@ public class AdminPanelCategoryService {
         return null;
     }
 
-    public Subcategory getSubcategory(Category category, String name){
-        for (Subcategory s : category.getSubcategories())
-        {
-            if(traverseSubcategories(s, name) != null)
-            { return traverseSubcategories(s, name);}
-
+    public Subcategory getSubcategory(Category category, String name) {
+        for (Subcategory s : category.getSubcategories()) {
+            if (traverseSubcategories(s, name) != null) {
+                return traverseSubcategories(s, name);
+            }
         }
         return null;
     }
 
     public ArrayList<String> getAllSubcategoriesName(Category category) {
         return Globals.getAllSubcategories(category);
+    }
+
+    public ArrayList<Subcategory> getAllSubcategories(Category category) {
+        return Globals.productDetailsGetAllSubcategories(category);
     }
 
     public void delete(int id) {

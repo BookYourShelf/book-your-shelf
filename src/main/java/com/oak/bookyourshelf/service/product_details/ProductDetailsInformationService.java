@@ -35,7 +35,8 @@ public class ProductDetailsInformationService {
 
     public void deleteProduct(int id) {
         userRepository.removeAllWishlistByProductId(id);
-        userRepository.removeAllShoppingCartProductId(id);
+        // TODO cart item
+//        userRepository.removeAllShoppingCartProductId(id);
         productDetailsInformationRepository.deleteById(id);
     }
 }

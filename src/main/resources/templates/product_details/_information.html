@@ -1015,11 +1015,11 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
                                     </div>
-                                    <select name="category" id="book_category_input"
+                                    <select name="category" id="book_category_input" th:field="*{category}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
                                         <option th:each="category : ${categoryService.getAllByCategory('Book')}"
-                                                th:value="${category.getName()}"
+                                                th:value="${category.getId()}"
                                                 th:text="${category.getName()}">category
                                     </option>
                                     </select>
@@ -1029,12 +1029,12 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Subcategory
                                     </div>
-                                    <select name="subcategory" id="book_subcategory_input"
+                                    <select name="subcategory" id="book_subcategory_input" th:field="*{subcategory}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                         <option th:each="subcategory : ${categoryService.getAllSubcategoriesName(product.getCategory().get(0))}"
-                                                 th:value="${subcategory}"
-                                                 th:text="${subcategory}"></option>
+                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
+                                                 th:value="${subcategory.getId()}"
+                                                 th:text="${subcategory.getName()}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -1050,7 +1050,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="login-text p-b-10" style="color: black;">
-                                        ISBN
+                                        ISBN (13 digits)
                                     </div>
                                     <input type="text" id="book_isbn_input" pattern=".{17}" th:field="*{isbn}"
                                            th:value="${product.getIsbn()}"
@@ -1285,11 +1285,11 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
                                     </div>
-                                    <select name="category" id="ebook_category_input"
+                                    <select name="category" id="ebook_category_input" th:field="*{category}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
                                         <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
-                                                th:value="${category.getName()}"
+                                                th:value="${category.getId()}"
                                                 th:text="${category.getName()}">category
                                     </option>
                                     </select>
@@ -1299,12 +1299,12 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Subcategory
                                     </div>
-                                    <select name="subcategory" id="ebook_subcategory_input"
+                                    <select name="subcategory" id="ebook_subcategory_input" th:field="*{subcategory}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                         <option th:each="subcategory : ${categoryService.getAllSubcategoriesName(product.getCategory().get(0))}"
-                                                 th:value="${subcategory}"
-                                                 th:text="${subcategory}"></option>
+                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
+                                                th:value="${subcategory.getId()}"
+                                                th:text="${subcategory.getName()}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -1330,7 +1330,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="login-text p-b-10" style="color: black;">
-                                        ISBN
+                                        ISBN (13 digits)
                                     </div>
                                     <input type="text" id="ebook_isbn_input" pattern=".{17}" th:field="*{isbn}"
                                            th:value="${product.getIsbn()}"
@@ -1494,11 +1494,11 @@
                                     <div class="login-text p-b-10" style="color: black;">
                                         Category
                                     </div>
-                                    <select name="category" id="audiobook_category_select"
+                                    <select name="category" id="audiobook_category_select" th:field="*{category}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
                                         <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
-                                                th:value="${category.getName()}"
+                                                th:value="${category.getId()}"
                                                 th:text="${category.getName()}">category
                                     </option>
                                     </select>
@@ -1509,11 +1509,12 @@
                                         Subcategory
                                     </div>
                                     <select name="subcategory" id="audiobook_subcategory_select"
+                                            th:field="*{subcategory}"
                                             class="dropdown_item_select checkout_input"
                                             required="required">
-                                         <option th:each="subcategory : ${categoryService.getAllSubcategoriesName(product.getCategory().get(0))}"
-                                                 th:value="${subcategory}"
-                                                 th:text="${subcategory}"></option>
+                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
+                                                th:value="${subcategory.getId()}"
+                                                th:text="${subcategory.getName()}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -2268,8 +2269,8 @@
             height: $('#book_height_input').val(),
             width: $('#book_width_input').val(),
             depth: $('#book_depth_input').val(),
-            category_name: $('#book_category_input').val(),
-            subcategory_name: $('#book_subcategory_input').val(),
+            category_name: $('#book_category_input option:selected').text(),
+            subcategory_name: $('#book_subcategory_input option:selected').text(),
             lists: JSON.stringify({
                 publishers: $('#book_publisher_input').val().split(','),
                 translators: $('#book_translator_input').val().split(','),
@@ -2292,7 +2293,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -2325,8 +2326,8 @@
             pageNum: $('#ebook_page_number_input').val(),
             fileSize: $('#ebook_filesize_input').val(),
             fileFormat: $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"),
-            category_name: $('#ebook_category_input').val(),
-            subcategory_name: $('#ebook_subcategory_input').val(),
+            category_name: $('#ebook_category_input option:selected').text(),
+            subcategory_name: $('#ebook_subcategory_input option:selected').text(),
             lists: JSON.stringify({
                 publishers: $('#ebook_publisher_input').val().split(','),
                 translators: $('#ebook_translator_input').val().split(','),
@@ -2348,7 +2349,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -2380,8 +2381,8 @@
             longDesc: $('#audiobook_long_description_input').val(),
             lengthInMinutes: $('#audiobook_length_input').val(),
             narratedBy: $('#audiobook_narrator_input').val(),
-            category_name: $('#audiobook_category_select').val(),
-            subcategory_name: $('#audiobook_subcategory_select').val(),
+            category_name: $('#audiobook_category_select option:selected').text(),
+            subcategory_name: $('#audiobook_subcategory_select option:selected').text(),
             lists: JSON.stringify({
                 publishers: $('#audiobook_publisher_input').val().split(','),
                 translators: $('#audiobook_translator_input').val().split(','),
@@ -2403,7 +2404,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -2471,7 +2472,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -2524,7 +2525,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -2574,7 +2575,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
@@ -2621,14 +2622,14 @@
                     position: 'topRight',
                     color: 'red'
                 });
-                window.location.href = "/product-details/" + productId + "#information";
+                window.location.href = "/product-details/" + productId;
             })
         }
     });
 
     $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function (event) {
         $.getJSON("/product-details/information/subcategory/" + productId, {
-            category: $(this).val(),
+            category: $("option:selected", this).text(),
             ajax: 'true'
         }, function (data) {
             buildSubcategoriesDropdown(data, event.target.id.replace("category", "subcategory"));
