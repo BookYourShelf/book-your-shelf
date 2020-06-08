@@ -1713,7 +1713,8 @@
             authors: $('#book_authors_input').val().split(','),
             keywords: $('#book_keywords_input').val().split(','),
         }));
-        retForm.append("coverImage", $('.book_upload_cover_image')[0].files[0]);
+        const coverImage = $('.book_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.book_upload_product_images')[0].files;
 
@@ -1726,7 +1727,7 @@
             "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
             "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
             "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image",
-            "book_category_input"]) && fileSizeCheck(retForm)) {
+            "book_category_input"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1785,7 +1786,8 @@
             authors: $('#ebook_authors_input').val().split(','),
             keywords: $('#ebook_keywords_input').val().split(','),
         }));
-        retForm.append("coverImage", $('.ebook_upload_cover_image')[0].files[0]);
+        const coverImage = $('.ebook_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_upload_product_images')[0].files;
 
@@ -1797,7 +1799,7 @@
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
             "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
             "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image",
-            "ebook_category_input"]) && fileSizeCheck(retForm)) {
+            "ebook_category_input"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1855,7 +1857,8 @@
             authors: $('#audiobook_authors_input').val().split(','),
             keywords: $('#audiobook_keywords_input').val().split(','),
         }));
-        retForm.append("coverImage", $('.audiobook_upload_cover_image')[0].files[0]);
+        const coverImage = $('.audiobook_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.audiobook_upload_product_images')[0].files;
 
@@ -1867,7 +1870,7 @@
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
             "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
             "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
-            "audiobook_cover_image", "audiobook_category_select"]) && fileSizeCheck(retForm)) {
+            "audiobook_cover_image", "audiobook_category_select"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1935,7 +1938,8 @@
         retForm.append("backLight", $('#ebook_reader_backlight_select').val());
         retForm.append("warmBackLight", $('#ebook_reader_warm_backlight_select').val());
         retForm.append("lists", JSON.stringify({}));
-        retForm.append("coverImage", $('.ebook_reader_upload_cover_image')[0].files[0]);
+        const coverImage = $('.ebook_reader_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_reader_upload_product_images')[0].files;
 
@@ -1950,7 +1954,7 @@
             "ebook_reader_screen_size_input", "ebook_reader_battery_life_input", "ebook_reader_resolution_input", "ebook_reader_ram_input",
             "ebook_reader_glare_select", "ebook_reader_water_proof_select", "ebook_reader_auto_adjusting_light_select",
             "ebook_reader_buttons_select", "ebook_reader_wifi_select", "ebook_reader_cellular_select", "ebook_reader_backlight_select",
-            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"]) && fileSizeCheck(retForm)) {
+            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2006,7 +2010,8 @@
         retForm.append("caseHeight", $('#ebook_reader_case_height_input').val());
         retForm.append("caseDepth", $('#ebook_reader_case_depth_input').val());
         retForm.append("lists", JSON.stringify({}));
-        retForm.append("coverImage", $('.ebook_reader_case_upload_cover_image')[0].files[0]);
+        const coverImage = $('.ebook_reader_case_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_reader_case_upload_product_images')[0].files;
 
@@ -2018,7 +2023,7 @@
             "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
             "ebook_reader_case_reader_brand_input", "ebook_reader_case_reader_model_input", "ebook_reader_case_short_description_input",
             "ebook_reader_case_long_description_input", "ebook_reader_case_height_input", "ebook_reader_case_width_input",
-            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"]) && fileSizeCheck(retForm)) {
+            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2072,7 +2077,8 @@
         retForm.append("caseHeight", $('#book_case_case_height_input').val());
         retForm.append("maxBookDepth", $('#book_case_max_depth_input').val());
         retForm.append("lists", JSON.stringify({}));
-        retForm.append("coverImage", $('.book_case_upload_cover_image')[0].files[0]);
+        const coverImage = $('.book_case_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.book_case_upload_product_images')[0].files;
 
@@ -2083,7 +2089,7 @@
         if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
             "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
             "book_case_case_width_input", "book_case_case_height_input", "book_case_short_description_input",
-            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"]) && fileSizeCheck(retForm)) {
+            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2147,8 +2153,9 @@
         return true;
     }
 
-    function fileSizeCheck(retForm) {
-        if (retForm.get("coverImage").size > 10000000) {
+    function file_size_check(coverImage, productImages) {
+
+        if (coverImage !== undefined && coverImage.size > 10000000) {
             iziToast.show({
                 title: 'Fail',
                 message: "Cover image's maximum size can be 10MB.",
@@ -2158,11 +2165,12 @@
             return false;
         }
 
-        if (retForm.get("productImages") == null) {
+        if (productImages === undefined) {
             return true;
         }
-        retForm.get("productImages").forEach(function (file) {
-            if (file.size > 10000000) {
+
+        for (var i = 0; i < productImages.length; i++) {
+            if (productImages[i].size > 10000000) {
                 iziToast.show({
                     title: 'Fail',
                     message: "Product image's maximum size can be 10MB.",
@@ -2171,7 +2179,7 @@
                 });
                 return false;
             }
-        });
+        }
         return true;
     }
 
