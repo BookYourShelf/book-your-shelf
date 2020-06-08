@@ -95,3 +95,19 @@
 .product-row {
     height: 100%;
 }
+
+.product_and_cover_image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product_and_cover_image_div {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+.product_images_pad {
+    padding-bottom: 40px;
+}
