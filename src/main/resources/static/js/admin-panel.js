@@ -27,7 +27,7 @@ function updatePhoto(inputId) {
     var output = document.getElementById(inputId.concat("_list"));
     var children = "";
     for (var i = 0; i < input.files.length; ++i) {
-        children += '<li>' + input.files.item(i).name + '</li>';
+        children += '<li style="padding-bottom: 6px">' + input.files.item(i).name + '</li>';
     }
     output.innerHTML = '<ul>' + children + '</ul>';
 }

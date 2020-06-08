@@ -120,10 +120,13 @@ public class AdminPanelProductController {
                 audioBook.setImages(images);
                 return bookBarcodeAndISBNCheck(audioBook, lists, category, subcategory);
             case "ebook_reader":
+                electronicBookReader.setImages(images);
                 return productBarcodeCheck(electronicBookReader);
             case "ebook_reader_case":
+                electronicBookReaderCase.setImages(images);
                 return productBarcodeCheck(electronicBookReaderCase);
             case "book_case":
+                physicalBookCase.setImages(images);
                 return productBarcodeCheck(physicalBookCase);
             default:
                 return ResponseEntity.badRequest().body("An error occurred.");

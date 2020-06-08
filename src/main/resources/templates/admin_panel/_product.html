@@ -32,7 +32,7 @@
                 </select>
                 <br><br>
                 <div id="book" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="login-text p-b-10" style="color: black;">
-                                    ISBN
+                                    ISBN (13 digits)
                                 </div>
                                 <input type="text" id="book_isbn_input" pattern=".{17}"
                                        class="checkout_input form-control isbn"
@@ -184,9 +184,9 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Short Description
                                 </div>
-                                <input type="text" id="book_short_description_input"
-                                       class="checkout_input form-control" maxlength="255"
-                                       placeholder="Short Description" required="required">
+                                <textarea type="text" id="book_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
                         <div class="row m-t-20">
@@ -194,8 +194,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Long Description
                                 </div>
-                                <textarea type="text" id="book_long_description_input" maxlength="255"
-                                          class="long_desc_textarea form-control different-control w-100" rows="3"
+                                <textarea type="text" id="book_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
                                           placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
@@ -279,8 +279,8 @@
                                 <input id="book_cover_image" class="book_upload_cover_image"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected file:</p>
-                                <div id="book_cover_image_list"></div>
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="book_cover_image_list" style="word-wrap: break-word;"></div>
                             </div>
 
                             <div class="col-md-4">
@@ -291,11 +291,11 @@
                                        accept="image/x-png"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected files:</p>
-                                <div id="book_product_images_list"></div>
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="book_product_images_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200" id="new_book">
+                                <input type="button" value="Add product" class="login_button trans_200" id="new_book">
                             </div>
                         </div>
                     </form>
@@ -303,7 +303,7 @@
 
                 <!-- ELECTRONIK BOOK -->
                 <div id="e-book" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -386,7 +386,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
-                                    ISBN
+                                    ISBN (13 digits)
                                 </div>
                                 <input type="text" id="ebook_isbn_input" pattern=".{17}"
                                        class="checkout_input form-control isbn"
@@ -436,9 +436,9 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Short Description
                                 </div>
-                                <input type="text" id="ebook_short_description_input"
-                                       class="checkout_input form-control" maxlength="255"
-                                       placeholder="Short Description" required="required">
+                                <textarea type="text" id="ebook_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
                         <div class="row m-t-20">
@@ -446,8 +446,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Long Description
                                 </div>
-                                <textarea type="text" id="ebook_long_description_input" maxlength="255"
-                                          class="long_desc_textarea form-control different-control w-100" rows="3"
+                                <textarea type="text" id="ebook_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
                                           placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
@@ -493,8 +493,8 @@
                                 <input id="ebook_cover_image" class="ebook_upload_cover_image"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected file:</p>
-                                <div id="ebook_cover_image_list"></div>
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="ebook_cover_image_list" style="word-wrap: break-word;"></div>
                             </div>
 
                             <div class="col-md-4">
@@ -505,11 +505,11 @@
                                 <input multiple id="ebook_product_images" class="ebook_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected files:</p>
-                                <div id="ebook_product_images_list"></div>
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="ebook_product_images_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200" id="new_ebook">
+                                <input type="button" value="Add product" class="login_button trans_200" id="new_ebook">
                             </div>
                         </div>
                     </form>
@@ -517,7 +517,7 @@
 
                 <!-- AUDIO BOOK -->
                 <div id="audiobook" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -650,9 +650,9 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Short Description
                                 </div>
-                                <input type="text" id="audiobook_short_description_input"
-                                       class="checkout_input form-control" maxlength="255"
-                                       placeholder="Short Description" required="required">
+                                <textarea type="text" id="audiobook_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
                         <div class="row m-t-20">
@@ -660,8 +660,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Long Description
                                 </div>
-                                <textarea type="text" id="audiobook_long_description_input" maxlength="255"
-                                          class="long_desc_textarea form-control different-control w-100" rows="3"
+                                <textarea type="text" id="audiobook_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
                                           placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
@@ -697,8 +697,8 @@
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
 
-                                <p>Selected file:</p>
-                                <div id="audiobook_cover_image_list"></div>
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="audiobook_cover_image_list" style="word-wrap: break-word;"></div>
                             </div>
 
                             <div class="col-md-4">
@@ -709,12 +709,12 @@
                                 <input multiple id="audiobook_product_images" class="audiobook_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected files:</p>
-                                <div id="audiobook_product_images_list"></div>
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="audiobook_product_images_list" style="word-wrap: break-word;"></div>
                             </div>
 
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_audio_book">
                             </div>
                         </div>
@@ -723,7 +723,7 @@
 
                 <!-- ELECTRONIC BOOK READER -->
                 <div id="e-book_reader" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -783,10 +783,9 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Short Description
                                 </div>
-
-                                <input type="text" id="ebook_reader_short_description_input"
-                                       class="checkout_input form-control" maxlength="255"
-                                       placeholder="Short Description" required="required">
+                                <textarea type="text" id="ebook_reader_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
                         <div class="row m-t-20">
@@ -794,8 +793,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Long Description
                                 </div>
-                                <textarea type="text" id="ebook_reader_long_description_input" maxlength="255"
-                                          class="long_desc_textarea form-control different-control w-100" rows="3"
+                                <textarea type="text" id="ebook_reader_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
                                           placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
@@ -1007,8 +1006,8 @@
                                 <input id="ebook_reader_cover_image" class="ebook_reader_upload_cover_image"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected file:</p>
-                                <div id="ebook_reader_cover_image_list"></div>
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="ebook_reader_cover_image_list" style="word-wrap: break-word;"></div>
                             </div>
 
                             <div class="col-md-4">
@@ -1020,11 +1019,11 @@
                                        class="ebook_reader_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected files:</p>
-                                <div id="ebook_reader_product_images_list"></div>
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="ebook_reader_product_images_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_ebook_reader">
                             </div>
                         </div>
@@ -1033,7 +1032,7 @@
 
                 <!-- ELECTRONIC BOOK READER CASE -->
                 <div id="e-book_reader_case" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -1119,10 +1118,9 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Short Description
                                 </div>
-                                <input type="text"
-                                       id="ebook_reader_case_short_description_input"
-                                       class="checkout_input form-control" maxlength="255"
-                                       placeholder="Short Description" required="required">
+                                <textarea type="text" id="ebook_reader_case_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
                         <div class="row m-t-20">
@@ -1130,8 +1128,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Long Description
                                 </div>
-                                <textarea type="text" id="ebook_reader_case_long_description_input" maxlength="255"
-                                          class="long_desc_textarea form-control different-control w-100" rows="3"
+                                <textarea type="text" id="ebook_reader_case_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
                                           placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
@@ -1173,8 +1171,8 @@
                                 <input id="ebook_reader_case_cover_image" class="ebook_reader_case_upload_cover_image"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected file:</p>
-                                <div id="ebook_reader_case_cover_image_list"></div>
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="ebook_reader_case_cover_image_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
                                 <label for="ebook_reader_case_product_images"
@@ -1185,11 +1183,11 @@
                                        class="ebook_reader_case_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected files:</p>
-                                <div id="ebook_reader_case_product_images_list"></div>
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="ebook_reader_case_product_images_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_ebook_reader_case">
                             </div>
                         </div>
@@ -1198,7 +1196,7 @@
 
                 <!-- Physical Book Case -->
                 <div id="book_case" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -1296,9 +1294,9 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Short Description
                                 </div>
-                                <input type="text" id="book_case_short_description_input"
-                                       class="checkout_input form-control" maxlength="255"
-                                       placeholder="Short Description" required="required">
+                                <textarea type="text" id="book_case_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
                         <div class="row m-t-20">
@@ -1306,8 +1304,8 @@
                                 <div class="login-text p-b-10" style="color: black;">
                                     Long Description
                                 </div>
-                                <textarea type="text" id="book_case_long_description_input" maxlength="255"
-                                          class="long_desc_textarea form-control different-control w-100" rows="3"
+                                <textarea type="text" id="book_case_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
                                           placeholder="Long Description" required="required"></textarea>
                             </div>
                         </div>
@@ -1323,8 +1321,8 @@
                                        class="book_case_upload_cover_image"
                                        onchange="updatePhoto(this.id);"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected file:</p>
-                                <div id="book_case_cover_image_list"></div>
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="book_case_cover_image_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
                                 <label for="book_case_product_images"
@@ -1334,11 +1332,11 @@
                                 <input multiple id="book_case_product_images" class="book_case_upload_product_images"
                                        onchange="updatePhoto(this.id);" accept="image/x-png"
                                        style="visibility:hidden;" type="file">
-                                <p>Selected files:</p>
-                                <div id="book_case_product_images_list"></div>
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="book_case_product_images_list" style="word-wrap: break-word;"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_book_case">
                             </div>
                         </div>
@@ -1648,6 +1646,42 @@
 </span>
 
 <script>
+
+    $(document).ready(function () {
+        var i;
+        const short_desc_ids = ['book_short_description_input', 'ebook_short_description_input',
+            'audiobook_short_description_input', 'ebook_reader_short_description_input',
+            'ebook_reader_case_short_description_input', 'book_case_short_description_input'];
+        const long_desc_ids = ['book_long_description_input', 'ebook_long_description_input',
+            'audiobook_long_description_input', 'ebook_reader_long_description_input',
+            'ebook_reader_case_long_description_input', 'book_case_long_description_input'];
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+        var textarea_inputs = document.querySelectorAll("textarea[type=text]");
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        for (i = 0; i < textarea_inputs.length; i++) {
+            if (short_desc_ids.includes(textarea_inputs[i].id)) {
+                textarea_inputs[i].setAttribute("maxlength", 1000);
+
+            } else if (long_desc_ids.includes(textarea_inputs[i].id)) {
+                textarea_inputs[i].setAttribute("maxlength", 5000);
+
+            } else {
+                textarea_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+            }
+        }
+    });
+
     // var token = $("meta[name='_csrf']").attr("content");
     // var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -1679,7 +1713,8 @@
             authors: $('#book_authors_input').val().split(','),
             keywords: $('#book_keywords_input').val().split(','),
         }));
-        retForm.append("coverImage", $('.book_upload_cover_image')[0].files[0]);
+        const coverImage = $('.book_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.book_upload_product_images')[0].files;
 
@@ -1692,7 +1727,7 @@
             "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
             "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
             "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image",
-            "book_category_input"])) {
+            "book_category_input"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1732,7 +1767,7 @@
         var retForm = new FormData();
         retForm.append("productType", "ebook");
         retForm.append("productName", $('#ebook_product_name_input').val());
-        retForm.append("barcode", $('#ebook_barcode_input').val());
+        retForm.append("barcode", $('#ebook_product_barcode_input').val());
         retForm.append("stock", $('#ebook_stock_input').val());
         retForm.append("price", $('#ebook_price_input').val());
         retForm.append("publishedYear", $('#ebook_published_year_input').val());
@@ -1751,7 +1786,8 @@
             authors: $('#ebook_authors_input').val().split(','),
             keywords: $('#ebook_keywords_input').val().split(','),
         }));
-        retForm.append("coverImage", $('.ebook_upload_cover_image')[0].files[0]);
+        const coverImage = $('.ebook_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_upload_product_images')[0].files;
 
@@ -1763,7 +1799,7 @@
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
             "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
             "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image",
-            "ebook_category_input"])) {
+            "ebook_category_input"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1811,8 +1847,8 @@
         retForm.append("isbn", $('#audiobook_isbn_input').val());
         retForm.append("shortDesc", $('#audiobook_short_description_input').val());
         retForm.append("longDesc", $('#audiobook_long_description_input').val());
-        retForm.append("category_name", $('#audiobook_category_input').val());
-        retForm.append("subcategory_name", $('#audiobook_subcategory_input').val());
+        retForm.append("category_name", $('#audiobook_category_select').val());
+        retForm.append("subcategory_name", $('#audiobook_subcategory_select').val());
         retForm.append("lengthInMinutes", $('#audiobook_length_input').val());
         retForm.append("narratedBy", $('#audiobook_narrator_input').val());
         retForm.append("lists", JSON.stringify({
@@ -1821,7 +1857,8 @@
             authors: $('#audiobook_authors_input').val().split(','),
             keywords: $('#audiobook_keywords_input').val().split(','),
         }));
-        retForm.append("coverImage", $('.audiobook_upload_cover_image')[0].files[0]);
+        const coverImage = $('.audiobook_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.audiobook_upload_product_images')[0].files;
 
@@ -1833,7 +1870,7 @@
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
             "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
             "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
-            "audiobook_cover_image", "audiobook_category_select"])) {
+            "audiobook_cover_image", "audiobook_category_select"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1901,7 +1938,8 @@
         retForm.append("backLight", $('#ebook_reader_backlight_select').val());
         retForm.append("warmBackLight", $('#ebook_reader_warm_backlight_select').val());
         retForm.append("lists", JSON.stringify({}));
-        retForm.append("coverImage", $('.ebook_reader_upload_cover_image')[0].files[0]);
+        const coverImage = $('.ebook_reader_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_reader_upload_product_images')[0].files;
 
@@ -1916,7 +1954,7 @@
             "ebook_reader_screen_size_input", "ebook_reader_battery_life_input", "ebook_reader_resolution_input", "ebook_reader_ram_input",
             "ebook_reader_glare_select", "ebook_reader_water_proof_select", "ebook_reader_auto_adjusting_light_select",
             "ebook_reader_buttons_select", "ebook_reader_wifi_select", "ebook_reader_cellular_select", "ebook_reader_backlight_select",
-            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"])) {
+            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1972,7 +2010,8 @@
         retForm.append("caseHeight", $('#ebook_reader_case_height_input').val());
         retForm.append("caseDepth", $('#ebook_reader_case_depth_input').val());
         retForm.append("lists", JSON.stringify({}));
-        retForm.append("coverImage", $('.ebook_reader_case_upload_cover_image')[0].files[0]);
+        const coverImage = $('.ebook_reader_case_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.ebook_reader_case_upload_product_images')[0].files;
 
@@ -1984,7 +2023,7 @@
             "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
             "ebook_reader_case_reader_brand_input", "ebook_reader_case_reader_model_input", "ebook_reader_case_short_description_input",
             "ebook_reader_case_long_description_input", "ebook_reader_case_height_input", "ebook_reader_case_width_input",
-            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"])) {
+            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2034,11 +2073,12 @@
         retForm.append("caseBrand", $('#book_case_brand_input').val());
         retForm.append("caseModel", $('#book_case_model_input').val());
         retForm.append("caseColor", $('#book_case_color_input').val());
-        retForm.append("caseWidth", $('#book_case_width_input').val());
-        retForm.append("caseHeight", $('#book_case_height_input').val());
+        retForm.append("caseWidth", $('#book_case_case_width_input').val());
+        retForm.append("caseHeight", $('#book_case_case_height_input').val());
         retForm.append("maxBookDepth", $('#book_case_max_depth_input').val());
         retForm.append("lists", JSON.stringify({}));
-        retForm.append("coverImage", $('.book_case_upload_cover_image')[0].files[0]);
+        const coverImage = $('.book_case_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.book_case_upload_product_images')[0].files;
 
@@ -2049,7 +2089,7 @@
         if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
             "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
             "book_case_case_width_input", "book_case_case_height_input", "book_case_short_description_input",
-            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"])) {
+            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"]) && file_size_check(coverImage, productImages)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2112,6 +2152,37 @@
         }
         return true;
     }
+
+    function file_size_check(coverImage, productImages) {
+
+        if (coverImage !== undefined && coverImage.size > 10000000) {
+            iziToast.show({
+                title: 'Fail',
+                message: "Cover image's maximum size can be 10MB.",
+                position: 'topRight',
+                color: 'red'
+            });
+            return false;
+        }
+
+        if (productImages === undefined) {
+            return true;
+        }
+
+        for (var i = 0; i < productImages.length; i++) {
+            if (productImages[i].size > 10000000) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: "Product image's maximum size can be 10MB.",
+                    position: 'topRight',
+                    color: 'red'
+                });
+                return false;
+            }
+        }
+        return true;
+    }
+
 </script>
 <script th:src="@{/static/js/admin-panel.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>

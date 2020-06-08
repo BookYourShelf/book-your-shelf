@@ -75,11 +75,29 @@ TODO Profile will be here
     transition: all 200ms ease;
 }
 
+.login_button[type=button] {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 44px;
+    text-transform: uppercase;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
 .login_button:hover {
     background: transparent;
 }
 
 .login_button:hover[type=submit] {
+    color: #fbaa1d;
+}
+
+.login_button:hover[type=button] {
     color: #fbaa1d;
 }
 
