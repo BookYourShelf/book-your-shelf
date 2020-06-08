@@ -32,7 +32,7 @@
                 </select>
                 <br><br>
                 <div id="book" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -295,7 +295,7 @@
                                 <div id="book_product_images_list"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200" id="new_book">
+                                <input type="button" value="Add product" class="login_button trans_200" id="new_book">
                             </div>
                         </div>
                     </form>
@@ -303,7 +303,7 @@
 
                 <!-- ELECTRONIK BOOK -->
                 <div id="e-book" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -509,7 +509,7 @@
                                 <div id="ebook_product_images_list"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200" id="new_ebook">
+                                <input type="button" value="Add product" class="login_button trans_200" id="new_ebook">
                             </div>
                         </div>
                     </form>
@@ -517,7 +517,7 @@
 
                 <!-- AUDIO BOOK -->
                 <div id="audiobook" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -714,7 +714,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_audio_book">
                             </div>
                         </div>
@@ -723,7 +723,7 @@
 
                 <!-- ELECTRONIC BOOK READER -->
                 <div id="e-book_reader" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -1023,7 +1023,7 @@
                                 <div id="ebook_reader_product_images_list"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_ebook_reader">
                             </div>
                         </div>
@@ -1032,7 +1032,7 @@
 
                 <!-- ELECTRONIC BOOK READER CASE -->
                 <div id="e-book_reader_case" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -1187,7 +1187,7 @@
                                 <div id="ebook_reader_case_product_images_list"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_ebook_reader_case">
                             </div>
                         </div>
@@ -1196,7 +1196,7 @@
 
                 <!-- Physical Book Case -->
                 <div id="book_case" class="d-none">
-                    <form method="post">
+                    <form>
                         <div class="row m-t-20">
                             <div class="col-md-4">
                                 <div class="login-text p-b-10" style="color: black;">
@@ -1336,7 +1336,7 @@
                                 <div id="book_case_product_images_list"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="submit" value="Add product" class="login_button trans_200"
+                                <input type="button" value="Add product" class="login_button trans_200"
                                        id="new_book_case">
                             </div>
                         </div>
@@ -1726,7 +1726,7 @@
             "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
             "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
             "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image",
-            "book_category_input"])) {
+            "book_category_input"]) && fileSizeCheck(retForm)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1797,7 +1797,7 @@
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
             "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
             "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image",
-            "ebook_category_input"])) {
+            "ebook_category_input"]) && fileSizeCheck(retForm)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1867,7 +1867,7 @@
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
             "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
             "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
-            "audiobook_cover_image", "audiobook_category_select"])) {
+            "audiobook_cover_image", "audiobook_category_select"]) && fileSizeCheck(retForm)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -1950,7 +1950,7 @@
             "ebook_reader_screen_size_input", "ebook_reader_battery_life_input", "ebook_reader_resolution_input", "ebook_reader_ram_input",
             "ebook_reader_glare_select", "ebook_reader_water_proof_select", "ebook_reader_auto_adjusting_light_select",
             "ebook_reader_buttons_select", "ebook_reader_wifi_select", "ebook_reader_cellular_select", "ebook_reader_backlight_select",
-            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"])) {
+            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"]) && fileSizeCheck(retForm)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2018,7 +2018,7 @@
             "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
             "ebook_reader_case_reader_brand_input", "ebook_reader_case_reader_model_input", "ebook_reader_case_short_description_input",
             "ebook_reader_case_long_description_input", "ebook_reader_case_height_input", "ebook_reader_case_width_input",
-            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"])) {
+            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"]) && fileSizeCheck(retForm)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2083,7 +2083,7 @@
         if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
             "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
             "book_case_case_width_input", "book_case_case_height_input", "book_case_short_description_input",
-            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"])) {
+            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"]) && fileSizeCheck(retForm)) {
             event.preventDefault();
             $.ajax({
                 url: "/admin-panel/product",
@@ -2146,6 +2146,35 @@
         }
         return true;
     }
+
+    function fileSizeCheck(retForm) {
+        if (retForm.get("coverImage").size > 10000000) {
+            iziToast.show({
+                title: 'Fail',
+                message: "Cover image's maximum size can be 10MB.",
+                position: 'topRight',
+                color: 'red'
+            });
+            return false;
+        }
+
+        if (retForm.get("productImages") == null) {
+            return true;
+        }
+        retForm.get("productImages").forEach(function (file) {
+            if (file.size > 10000000) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: "Product image's maximum size can be 10MB.",
+                    position: 'topRight',
+                    color: 'red'
+                });
+                return false;
+            }
+        });
+        return true;
+    }
+
 </script>
 <script th:src="@{/static/js/admin-panel.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
