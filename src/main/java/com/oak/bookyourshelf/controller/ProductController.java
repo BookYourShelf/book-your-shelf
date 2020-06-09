@@ -64,14 +64,13 @@ public class ProductController {
         Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()), currentFilter),
                 model, "reviewPage");
 
+        model.addAttribute("reviewListEmpty", (product.getReviews()).isEmpty());
         model.addAttribute("product", product);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
-
         model.addAttribute("images", Globals.encodeAllImages(imageList));
-
-        model.addAttribute("similarProducts",productService.createOurPicsForYou(product));
-        model.addAttribute("compareProductsService",compareProductsService);
+        model.addAttribute("similarProducts", productService.createOurPicsForYou(product));
+        model.addAttribute("compareProductsService", compareProductsService);
 
         return "product";
     }
@@ -170,8 +169,8 @@ public class ProductController {
     }
 
     public boolean containsCartItem(Set<CartItem> set, int productId) {
-        for (CartItem c: set) {
-            if(c.getProduct().getProductId() == productId) {
+        for (CartItem c : set) {
+            if (c.getProduct().getProductId() == productId) {
                 c.setQuantity(c.getQuantity() + 1);
                 return true;
             }
@@ -180,8 +179,8 @@ public class ProductController {
     }
 
     public boolean containsProduct(Set<Product> set, int productId) {
-        for (Product p: set) {
-            if(p.getProductId() == productId) {
+        for (Product p : set) {
+            if (p.getProductId() == productId) {
                 return true;
             }
         }

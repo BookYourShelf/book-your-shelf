@@ -12995,7 +12995,7 @@ iframe {
 
 .product_image_img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 330px;
     border-style: solid;
     border-color: #C0C0C0;
     border-width: 1px;
