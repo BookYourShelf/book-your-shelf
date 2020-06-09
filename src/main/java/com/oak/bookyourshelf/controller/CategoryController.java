@@ -28,6 +28,7 @@ public class CategoryController {
                                @RequestParam("size") Optional<Integer> size,
                                @RequestParam("sort") Optional<String> sort,
                                @RequestParam("languages") Optional<String> languages,
+                               @RequestParam("translators") Optional<String> translators,
                                @RequestParam("publishers") Optional<String> publishers,
                                @RequestParam("authors") Optional<String> authors,
                                @RequestParam("stars") Optional<String> stars,
@@ -39,6 +40,7 @@ public class CategoryController {
 
         // Parse parameters
         List<String> languageList = new ArrayList<>(Arrays.asList(languages.orElse("").split(",")));
+        List<String> translatorsList = new ArrayList<>(Arrays.asList(translators.orElse("").split(",")));
         List<String> publishersList = new ArrayList<>(Arrays.asList(publishers.orElse("").split(",")));
         List<String> authorList = new ArrayList<>(Arrays.asList(authors.orElse("").split(",")));
         List<String> starList = new ArrayList<>(Arrays.asList(stars.orElse("").split(",")));
@@ -81,10 +83,24 @@ public class CategoryController {
             booksLanguage.addAll(books);
         }
 
+        // Filter translators
+        List<Book> booksTranslator = new ArrayList<>();
+        if (!translatorsList.get(0).equals("")) {
+            for (Book book : booksLanguage) {
+                for (String language : translatorsList) {
+                    if (book.getTranslators().indexOf(language) != -1) {
+                        booksTranslator.add(book);
+                    }
+                }
+            }
+        } else {
+            booksTranslator.addAll(booksLanguage);
+        }
+
         // Filter publishers
         List<Book> booksPublisher = new ArrayList<>();
         if (!publishersList.get(0).equals("")) {
-            for (Book book : booksLanguage) {
+            for (Book book : booksTranslator) {
                 for (String publisher : publishersList) {
                     if (book.getPublishers().indexOf(publisher) != -1) {
                         booksPublisher.add(book);
@@ -92,7 +108,7 @@ public class CategoryController {
                 }
             }
         } else {
-            booksPublisher.addAll(booksLanguage);
+            booksPublisher.addAll(booksTranslator);
         }
 
         // Filter authors
@@ -153,6 +169,7 @@ public class CategoryController {
 
         // Find counts of languages, publishers and authors
         HashMap<String, Integer> languagesCount = new HashMap<>();
+        HashMap<String, Integer> translatorsCount = new HashMap<>();
         HashMap<String, Integer> publishersCount = new HashMap<>();
         HashMap<String, Integer> authorsCount = new HashMap<>();
         HashMap<String, Integer> starCount = new HashMap<>();
@@ -160,6 +177,11 @@ public class CategoryController {
         for (Book book : booksMax) {
             String lang = book.getLanguage();
             languagesCount.merge(lang, 1, Integer::sum);
+
+            for (String translator : book.getTranslators()) {
+                translatorsCount.merge(translator, 1, Integer::sum);
+            }
+
             for (String publisher : book.getPublishers()) {
                 publishersCount.merge(publisher, 1, Integer::sum);
             }
@@ -189,6 +211,7 @@ public class CategoryController {
         model.addAttribute("category", category);
         model.addAttribute("sort", currentSort);
         model.addAttribute("languages", languagesCount);
+        model.addAttribute("translators", translatorsCount);
         model.addAttribute("publishers", publishersCount);
         model.addAttribute("authors", authorsCount);
         model.addAttribute("stars", starCount);

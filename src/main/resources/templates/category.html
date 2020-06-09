@@ -121,53 +121,39 @@
                             </div>
                         </div>
 
-                        <!-- Media Type -->
-                        <!--                        <div class="product">-->
-                        <!--                            <div class="product_content">-->
-                        <!--                                <div class="sidebar_title collapsible "><a>Media Type</a></div>-->
-                        <!--                                <div class="sidebar_text">-->
-                        <!--                                    <form id="mediaform">-->
-                        <!--                                        <div class="inline sidebar_expand">-->
-                        <!--                                            <div class="expand_element">-->
-                        <!--                                                <div class="row">-->
-                        <!--                                                    <div class="col-lg-1">-->
-                        <!--                                                        <label class="checkbox_container">-->
-                        <!--                                                            <input style="display: none" type="checkbox" id="media1"-->
-                        <!--                                                                   name="Media1" value="Pocket_Size">-->
-                        <!--                                                            <span class="checkbox_mark"></span>-->
-                        <!--                                                        </label>-->
-                        <!--                                                    </div>-->
-                        <!--                                                    <label class="col-lg-9 expand_element_text" for="media1">-->
-                        <!--                                                        Pocket Size-->
-                        <!--                                                    </label>-->
-                        <!--                                                    <div class="col-lg-1">-->
-                        <!--                                                        <div class="number" style="float:right">1</div>-->
-                        <!--                                                    </div>-->
-                        <!--                                                </div>-->
-                        <!--                                            </div>-->
-
-                        <!--                                            <div class="expand_element">-->
-                        <!--                                                <div class="row">-->
-                        <!--                                                    <div class="col-lg-1">-->
-                        <!--                                                        <label class="checkbox_container">-->
-                        <!--                                                            <input style="display: none" type="checkbox" id="media2"-->
-                        <!--                                                                   name="Media2" value="Slim_cover">-->
-                        <!--                                                            <span class="checkbox_mark"></span>-->
-                        <!--                                                        </label>-->
-                        <!--                                                    </div>-->
-                        <!--                                                    <label class="col-lg-9 expand_element_text" for="media2">-->
-                        <!--                                                        Slim Cover-->
-                        <!--                                                    </label>-->
-                        <!--                                                    <div class="col-lg-1">-->
-                        <!--                                                        <div class="number" style="float:right">1</div>-->
-                        <!--                                                    </div>-->
-                        <!--                                                </div>-->
-                        <!--                                            </div>-->
-                        <!--                                        </div>-->
-                        <!--                                    </form>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
+                        <!-- Translator -->
+                        <div class="product">
+                            <div class="product_content">
+                                <div class="sidebar_title collapsible "><a>Translator</a></div>
+                                <div class="sidebar_text">
+                                    <form id="mediaform">
+                                        <div class="inline sidebar_expand" th:each="translator : ${translators}">
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   th:id="${translator.getKey()}"
+                                                                   name="Translator1"
+                                                                   th:value="${translator.getKey()}"
+                                                                   th:checked="${#lists.contains(translators.keySet(), translator.getKey())}">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           th:for="${translator.getKey()}"
+                                                           th:text="${translator.getKey()}"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             th:text="${translator.getValue()}"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Publisher -->
                         <div class="product">
@@ -817,10 +803,14 @@
         })
     });
 
+    // Filter products
     $("#category_filter_button").click(function (event) {
         var url = new URL(window.location.href.split('?')[0]);
         $('input[name = "languages1"]:checked').each(function () {
             url.searchParams.append('languages', $(this).val());
+        });
+        $('input[name = "Translator1"]:checked').each(function () {
+            url.searchParams.append('translators', $(this).val());
         });
         $('input[name = "pub1"]:checked').each(function () {
             url.searchParams.append('publishers', $(this).val());
@@ -869,12 +859,15 @@
 
     });
 
+    // Clear filter
     $("#category_clear_filter_button").click(function (event) {
         window.location.href = window.location.href.split('?')[0];
     });
 
+    // If no filters found, clear all checkboxes
     var currentUrl = new URL(window.location.href);
     if (currentUrl.searchParams.getAll("languages").length === 0 &&
+        currentUrl.searchParams.getAll("translators").length === 0 &&
         currentUrl.searchParams.getAll("publishers").length === 0 &&
         currentUrl.searchParams.getAll("authors").length === 0 &&
         currentUrl.searchParams.getAll("stars").length === 0 &&
