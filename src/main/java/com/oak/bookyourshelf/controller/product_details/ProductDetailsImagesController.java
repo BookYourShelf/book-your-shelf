@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Controller
@@ -56,14 +56,14 @@ public class ProductDetailsImagesController {
                 }
 
                 if (coverImage != null && !coverImage.isEmpty()) {
-                    FileInputStream coverImageStream = (FileInputStream) coverImage.getInputStream();
+                    InputStream coverImageStream = coverImage.getInputStream();
                     Image img = new Image();
                     img.setImage(coverImageStream.readAllBytes());
                     images.set(0, img);
                 }
 
                 for (MultipartFile file : productImages) {
-                    FileInputStream productImageStream = (FileInputStream) file.getInputStream();
+                    InputStream productImageStream = file.getInputStream();
                     Image img = new Image();
                     img.setImage(productImageStream.readAllBytes());
                     images.add(img);
