@@ -859,6 +859,25 @@
                                                                             &#xf014;
                                                                         </button>
                                                                     </div>
+
+                                                                    <div sec:authorize="isAuthenticated()">
+                                                                        <span th:if="${user.getRole() != 1 and
+                                                                                    review.getUserId() == user.getUserId()}">
+                                                                            <h5 class="date" style="float:left;"
+                                                                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+
+                                                                            <!-- Delete button -->
+                                                                            <button type="submit" value="&#xf014;"
+                                                                                    class="delete_review trans_200 fa"
+                                                                                    name="delete_review"
+                                                                                    th:id="${review.getReviewId()}"
+                                                                                    title="Delete this review"
+                                                                                    style="font-size: 24px; color: #4a4a4a; float: right"
+                                                                                    data-toggle="collapse">
+                                                                                &#xf014;
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
@@ -964,7 +983,7 @@
                                     </span>
 
                                     <!-- Empty page -->
-                                    <span th:unless="${reviewPage.totalPages > 0}">
+                                    <span th:unless="${reviewPage.totalPages > 0}" th:if="${reviewListEmpty == false}">
                                         <div class="warning-text">There are no reviews.</div>
                                     </span>
 
