@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/nouislider.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
@@ -55,83 +56,7 @@
         <div class="products">
             <div class="container">
                 <div class="row products_bar_row">
-                    <!-- Category name -->
-                    <div class="col-lg-6">
-                        <div><b class="category-name" th:text="${category.getName()}"></b></div>
-                        <!--                        <div style="display: none"><b class="category-name">Search results for </b>-->
-                        <!--                            <b class="category-name">"literature"</b>   &lt;!&ndash; TODO Search value will be here &ndash;&gt;-->
-                        <!--                        </div>-->
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
-                            <div class="products_bar_side d-flex flex-row align-items-center justify-content-start ml-lg-auto">
-                                <div class="products_dropdown product_dropdown_sorting">
-                                    <div class="isotope_sorting_text"><span>Sort</span><i
-                                            class="fa fa-caret-down" aria-hidden="true"></i></div>
-                                    <ul>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-desc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Decreasing by Date'"
-                                               th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-asc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Increasing by Date'"
-                                               th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-asc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'A - Z'"
-                                               th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-desc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Z - A'"
-                                               th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-desc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Decreasing by Price'"
-                                               th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-asc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Increasing by Price'"
-                                               th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-desc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Decreasing by Rate'"
-                                               th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                        <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-asc'}, size=${categoryBooks.size}, page=${1})}"
-                                               th:text="'Increasing by Rate'"
-                                               th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!--                                <div class="products_dropdown text-right product_dropdown_filter">-->
-                                <!--                                    <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"-->
-                                <!--                                                                                           aria-hidden="true"></i></div>-->
-                                <!--                                    <ul>-->
-                                <!--                                        <li class="item_filter_btn" data-filter="*">All</li>-->
-                                <!--                                        <li class="item_filter_btn" data-filter=".hot">Hot</li>-->
-                                <!--                                        <li class="item_filter_btn" data-filter=".new">New</li>-->
-                                <!--                                        <li class="item_filter_btn" data-filter=".sale">Sale</li>-->
-                                <!--                                    </ul>-->
-                                <!--                                </div>-->
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="row">
@@ -174,7 +99,8 @@
                                                         <label class="checkbox_container">
                                                             <input style="display: none" type="checkbox"
                                                                    th:id="${language.getKey()}"
-                                                                   name="languages1" value="English">
+                                                                   name="languages1" th:value="${language.getKey()}"
+                                                                   th:checked="${#lists.contains(languages.keySet(), language.getKey())}">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
@@ -260,7 +186,8 @@
                                                             <input style="display: none" type="checkbox"
                                                                    th:id="${publisher.getKey()}"
                                                                    name="pub1"
-                                                                   value="pub1">
+                                                                   th:value="${publisher.getKey()}"
+                                                                   th:checked="${#lists.contains(publishers.keySet(), publisher.getKey())}">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
@@ -293,7 +220,8 @@
                                                         <label class="checkbox_container">
                                                             <input style="display: none" type="checkbox"
                                                                    th:id="${author.getKey()}"
-                                                                   name="Author1" value="Author1">
+                                                                   name="Author1" th:value="${author.getKey()}"
+                                                                   th:checked="${#lists.contains(authors.keySet(), author.getKey())}">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
@@ -325,7 +253,7 @@
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star1" name="star1"
                                                            value="star1"
-                                                           th:checked="${#lists.contains(stars, &quot;5&quot;)}">
+                                                           th:checked="${#lists.contains(stars.keySet(), &quot;5&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star1" class="expand_element_star">
@@ -335,14 +263,15 @@
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
                                                 </label>
-                                                <span class="number" style="float:right;" ;>1345</span>
+                                                <span class="number" style="float:right;"
+                                                      th:text="${stars.get(&quot;5&quot;)}"></span>
                                             </div>
 
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star2" name="star2"
                                                            value="star2"
-                                                           th:checked="${#lists.contains(stars, &quot;4&quot;)}">
+                                                           th:checked="${#lists.contains(stars.keySet(), &quot;4&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star2" class="expand_element_star">
@@ -352,14 +281,15 @@
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star"></span>
                                                 </label>
-                                                <span class="number" style="float:right;">187</span>
+                                                <span class="number" style="float:right;"
+                                                      th:text="${stars.get(&quot;4&quot;)}"></span>
                                             </div>
 
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star3" name="star3"
                                                            value="star3"
-                                                           th:checked="${#lists.contains(stars, &quot;3&quot;)}">
+                                                           th:checked="${#lists.contains(stars.keySet(), &quot;3&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star3" class="expand_element_star">
@@ -369,14 +299,15 @@
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star"></span>
                                                 </label>
-                                                <span class="number" style="float:right;">615</span>
+                                                <span class="number" style="float:right;"
+                                                      th:text="${stars.get(&quot;3&quot;)}"></span>
                                             </div>
 
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star4" name="star4"
                                                            value="star4"
-                                                           th:checked="${#lists.contains(stars, &quot;2&quot;)}">
+                                                           th:checked="${#lists.contains(stars.keySet(), &quot;2&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star4" class="expand_element_star">
@@ -386,14 +317,15 @@
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star"></span>
                                                 </label>
-                                                <span class="number" style="float:right;">241</span>
+                                                <span class="number" style="float:right;"
+                                                      th:text="${stars.get(&quot;2&quot;)}"></span>
                                             </div>
 
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star5" name="star5"
                                                            value="star5"
-                                                           th:checked="${#lists.contains(stars, &quot;1&quot;)}">
+                                                           th:checked="${#lists.contains(stars.keySet(), &quot;1&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star5" class="expand_element_star">
@@ -403,14 +335,15 @@
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star"></span>
                                                 </label>
-                                                <span class="number" style="float:right;">56</span>
+                                                <span class="number" style="float:right;"
+                                                      th:text="${stars.get(&quot;1&quot;)}"></span>
                                             </div>
 
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star6" name="star6"
                                                            value="star6"
-                                                           th:checked="${#lists.contains(stars, &quot;0&quot;)}">
+                                                           th:checked="${#lists.contains(stars.keySet(), &quot;0&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star6" class="expand_element_star">
@@ -420,7 +353,8 @@
                                                     <span class="fa fa-star "></span>
                                                     <span class="fa fa-star"></span>
                                                 </label>
-                                                <span class="number" style="float:right;">7</span>
+                                                <span class="number" style="float:right;"
+                                                      th:text="${stars.get(&quot;0&quot;)}"></span>
                                             </div>
                                         </div>
                                     </form>
@@ -439,9 +373,9 @@
 
                                             <div class="price-field">
                                                 <input type="range" th:min="${minPrice}" th:max="${maxPrice}"
-                                                       th:value="${minPrice}" id="lower">
+                                                       th:value="${minPrice}" id="lower" name="min_price_input">
                                                 <input type="range" th:min="${minPrice}" th:max="${maxPrice}"
-                                                       th:value="${maxPrice}" id="upper">
+                                                       th:value="${maxPrice}" id="upper" name="max_price_input">
                                             </div>
                                             <div class="price-wrap">
                                                 <div class="price-container">
@@ -461,16 +395,93 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="button" value="Filter Products" class="login_button trans-200"
+                               id="category_filter_button">
+                        <br>
+                        <input type="button" value="Clear Filters" class="login_button trans-200"
+                               id="category_clear_filter_button">
                     </div>
 
-                    <div class="col-md-8 col-lg-9 order-md-last">
+                    <!-- Products -->
+                    <div class="col-md-8 col-lg-9 order-md-last" th:if="${categoryBooks.totalPages > 0}">
+                        <div class="col-lg-12">
+                            <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                                <div class="products_bar_side d-flex flex-row align-items-center justify-content-start ml-lg-auto">
+                                    <div class="products_dropdown product_dropdown_sorting">
+                                        <div class="isotope_sorting_text"><span>Sort</span><i
+                                                class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                        <ul>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Decreasing by Date'"
+                                                   th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Increasing by Date'"
+                                                   th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'A - Z'"
+                                                   th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Z - A'"
+                                                   th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Decreasing by Price'"
+                                                   th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Increasing by Price'"
+                                                   th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Decreasing by Rate'"
+                                                   th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                            <li class="item_sorting_btn">
+                                                <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                                   th:text="'Increasing by Rate'"
+                                                   th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--                                <div class="products_dropdown text-right product_dropdown_filter">-->
+                                    <!--                                    <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"-->
+                                    <!--                                                                                           aria-hidden="true"></i></div>-->
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li class="item_filter_btn" data-filter="*">All</li>-->
+                                    <!--                                        <li class="item_filter_btn" data-filter=".hot">Hot</li>-->
+                                    <!--                                        <li class="item_filter_btn" data-filter=".new">New</li>-->
+                                    <!--                                        <li class="item_filter_btn" data-filter=".sale">Sale</li>-->
+                                    <!--                                    </ul>-->
+                                    <!--                                </div>-->
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <!-- Product -->
                             <div class="col-xl-4 col-md-6" th:each="book : ${categoryBooks.content}">
                                 <div class="product">
                                     <div class="product_image_showcase">
                                         <a th:href="'/product/' + ${book.getProductId()}">
-                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}" alt=""
+                                            <img th:src="|data:image/png;base64,${book.getEncodedCoverImage()}|" alt=""
                                                  class="product_image_img"> <!-- TODO: Handle images -->
                                         </a>
                                     </div>
@@ -517,7 +528,10 @@
                                                         </span>    <!-- when no sale delete it -->
                                                         <div class="sale_price">
                                                         <span th:switch="${book.isOnDiscount()}">
-                                                            <del th:case="True">
+                                                            <del th:case="True">    <link rel="stylesheet"
+                                                                                          type="text/css"
+                                                                                          th:href="@{/static/styles/profile.css}">
+
                                                                 <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                             </del>
                                                             <div th:case="*">&nbsp;</div>
@@ -642,24 +656,18 @@
                         <!--                        </div>-->
 
                     </div>
+
+                    <!-- No products -->
+                    <div class="col-md-8 col-lg-9 order-md-last" th:unless="${categoryBooks.totalPages > 0}">
+                        <div class="warning-text">There are no products.</div>
+                        <div style="text-align: center; padding-bottom: 30px">
+                            <img th:src="@{/static/images/no_data.png}">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Search fail - No book -->
-        <div class="search_fail" style="display: none">
-            <br>
-            <img th:src="@{/static/images/search-fail.png}">
-            <div>
-                <br>
-                <b class="category-name">No products were found according to your search criteria.</b>
-            </div>
-            <div style="display: none">
-                <br>
-                <b class="category-name">No products here yet.</b>
-            </div>
-            <br>
-        </div>
 
         <!-- Footer -->
         <footer class="footer" th:insert="fragments/footer.html"></footer>
@@ -748,6 +756,8 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var productID = $('.product_cart').attr('id');
+    const categoryID = /*[[${category.getId()}]]*/ 'default';
+    const productType = /*[[${category.getProductType()}]]*/ 'default';
 
     $('.product_cart').click(function (event) {
 
@@ -812,6 +822,72 @@
             }
         })
     });
+
+    $("#category_filter_button").click(function (event) {
+        var url = new URL(window.location.href.split('?')[0]);
+        $('input[name = "languages1"]:checked').each(function () {
+            url.searchParams.append('languages', $(this).val());
+        });
+        $('input[name = "pub1"]:checked').each(function () {
+            url.searchParams.append('publishers', $(this).val());
+        });
+        $('input[name = "Author1"]:checked').each(function () {
+            url.searchParams.append('authors', $(this).val());
+        });
+        const star1 = $('input[name = "star1"]:checked'); // 5 stars
+        if (star1.length !== 0) {
+            url.searchParams.append('stars', 5);
+        }
+        const star2 = $('input[name = "star2"]:checked'); // 4 stars
+        if (star2.length !== 0) {
+            url.searchParams.append('stars', 4);
+        }
+        const star3 = $('input[name = "star3"]:checked'); // 3 stars
+        if (star3.length !== 0) {
+            url.searchParams.append('stars', 3);
+        }
+        const star4 = $('input[name = "star4"]:checked'); // 2 stars
+        if (star4.length !== 0) {
+            url.searchParams.append('stars', 2);
+        }
+        const star5 = $('input[name = "star5"]:checked'); // 1 stars
+        if (star5.length !== 0) {
+            url.searchParams.append('stars', 1);
+        }
+        const star6 = $('input[name = "star6"]:checked'); // 0 stars
+        if (star6.length !== 0) {
+            url.searchParams.append('stars', 0);
+        }
+        const minPrice = $('input[name = "min_price_input"]').val();
+        if (minPrice.length !== 0) {
+            url.searchParams.append('minPrice', minPrice);
+        }
+        const maxPrice = $('input[name = "max_price_input"]').val();
+        if (maxPrice.length !== 0) {
+            url.searchParams.append('maxPrice', maxPrice);
+        }
+
+
+        if (productType === "BOOK") {
+            window.location.href = url;
+        }
+
+
+    });
+
+    $("#category_clear_filter_button").click(function (event) {
+        window.location.href = window.location.href.split('?')[0];
+    });
+
+    var currentUrl = new URL(window.location.href);
+    if (currentUrl.searchParams.getAll("languages").length === 0 &&
+        currentUrl.searchParams.getAll("publishers").length === 0 &&
+        currentUrl.searchParams.getAll("authors").length === 0 &&
+        currentUrl.searchParams.getAll("stars").length === 0 &&
+        currentUrl.searchParams.getAll("minPrice").length === 0 &&
+        currentUrl.searchParams.getAll("maxPrice").length === 0) {
+        $('input:checkbox').prop('checked', false);
+    }
 
     /*]]>*/
 </script>
