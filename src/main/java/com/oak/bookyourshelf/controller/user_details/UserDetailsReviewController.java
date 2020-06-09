@@ -42,6 +42,7 @@ public class UserDetailsReviewController {
         Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfUser(currentSort, user.getUserId()), currentFilter),
                 model, "reviewPage");
 
+        model.addAttribute("reviewListEmpty", user.getReviews().isEmpty());
         model.addAttribute("user", user);
         model.addAttribute("reviews", user.getReviews());
         model.addAttribute("productService", productDetailsInformationService);
