@@ -64,6 +64,13 @@ public class ProductController {
         Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()), currentFilter),
                 model, "reviewPage");
 
+        UserDetails userDetails = authService.getUserDetails();
+
+        if (userDetails != null) {
+            User user = profileInformationService.getByEmail(userDetails.getUsername());
+            model.addAttribute("user", user);
+        }
+
         model.addAttribute("reviewListEmpty", (product.getReviews()).isEmpty());
         model.addAttribute("product", product);
         model.addAttribute("sort", currentSort);
