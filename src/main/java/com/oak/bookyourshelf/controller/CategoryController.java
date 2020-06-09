@@ -34,7 +34,10 @@ public class CategoryController {
                                @RequestParam("minPrice") Optional<String> minPrice,
                                @RequestParam("maxPrice") Optional<String> maxPrice,
                                Model model, @PathVariable int id) {
+
         String currentSort = sort.orElse("date-desc");
+
+        // Parse parameters
         List<String> languageList = new ArrayList<>(Arrays.asList(languages.orElse("").split(",")));
         List<String> publishersList = new ArrayList<>(Arrays.asList(publishers.orElse("").split(",")));
         List<String> authorList = new ArrayList<>(Arrays.asList(authors.orElse("").split(",")));
@@ -42,13 +45,74 @@ public class CategoryController {
         List<String> minPriceList = new ArrayList<>(Arrays.asList(minPrice.orElse("").split(",")));
         List<String> maxPriceList = new ArrayList<>(Arrays.asList(maxPrice.orElse("").split(",")));
 
-
+        // Get books and create return books object
         Category category = categoryService.get(id);
         List<Book> books = category.getBooks();
+        List<Book> booksRet = new ArrayList<>();
+
         sortBooks(books, currentSort);
         float minP = Float.MAX_VALUE;
         float maxP = -1;
 
+
+        // Filter languages
+        if (!languageList.get(0).equals("")) {
+            for (Book book : books) {
+                for (String language : languageList) {
+                    if (book.getLanguage() != null) {
+                        if (book.getLanguage().equals(language)) {
+                            if (booksRet.indexOf(book) == -1) {
+                                booksRet.add(book);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Filter publishers
+        if (!publishersList.get(0).equals("")) {
+            for (Book book : books) {
+                for (String publisher : publishersList) {
+                    if (book.getPublishers().indexOf(publisher) != -1) {
+                        if (booksRet.indexOf(book) == -1) {
+                            booksRet.add(book);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Filter authors
+        if (!authorList.get(0).equals("")) {
+            for (Book book : books) {
+                for (String author : authorList) {
+                    if (book.getAuthors().indexOf(author) != -1) {
+                        if (booksRet.indexOf(book) == -1) {
+                            booksRet.add(book);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Filter stars and create star counts
+
+        if (!starList.get(0).equals("")) {
+            for (Book book : books) {
+                for (String s : starList) {
+                    double star = Double.parseDouble(s);
+
+                    if (book.getScoreOutOf5() < star + 1 && book.getScoreOutOf5() >= star) {
+                        if (booksRet.indexOf(book) == -1) {
+                            booksRet.add(book);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Find min and max prices
         for (Book b : books) {
             float price = b.getPrice();
             if (price < minP) {
@@ -59,52 +123,7 @@ public class CategoryController {
             }
         }
 
-        if (!languageList.get(0).equals("")) {
-            books.removeIf(book -> languageList.indexOf(book.getLanguage()) == -1);
-        }
-
-        if (!publishersList.get(0).equals("")) {
-            Iterator<Book> bookIterator = books.iterator();
-            Iterator<String> publishersIterator = publishersList.iterator();
-            while (bookIterator.hasNext()) {
-                while (publishersIterator.hasNext()) {
-                    if (bookIterator.next().getPublishers().indexOf(publishersIterator.next()) == -1) {
-                        bookIterator.remove();
-                    }
-                }
-            }
-        }
-
-        if (!authorList.get(0).equals("")) {
-            Iterator<Book> bookIterator = books.iterator();
-            Iterator<String> authorsIterator = authorList.iterator();
-            while (bookIterator.hasNext()) {
-                while (authorsIterator.hasNext()) {
-                    if (bookIterator.next().getAuthors().indexOf(authorsIterator.next()) == -1) {
-                        bookIterator.remove();
-                    }
-                }
-            }
-        }
-
-        if (!starList.get(0).equals("")) {
-            Iterator<Book> bookIterator = books.iterator();
-            while (bookIterator.hasNext()) {
-                for (String s : starList) {
-                    boolean remove = true;
-                    double star = Double.parseDouble(s);
-                    Book book = bookIterator.next();
-                    if (book.getScoreOutOf5() < star + 1 &&
-                            book.getScoreOutOf5() >= star) {
-                        remove = false;
-                    }
-                    if (remove) {
-                        bookIterator.remove();
-                    }
-                }
-            }
-        }
-
+        // Set min and max values if parameters given
         if (!minPriceList.get(0).equals("")) {
             minP = Float.parseFloat(minPriceList.get(0));
         }
@@ -113,29 +132,60 @@ public class CategoryController {
             maxP = Float.parseFloat(maxPriceList.get(0));
         }
 
+        // No parameters
+        if (languageList.get(0).equals("") && publishersList.get(0).equals("") && authorList.get(0).equals("") &&
+                starList.get(0).equals("")) {
+            booksRet = books;
+        }
 
-        HashMap<String, Integer> languagesRet = new HashMap<>();
-        HashMap<String, Integer> publishersRet = new HashMap<>();
-        HashMap<String, Integer> authorsRet = new HashMap<>();
-        for (Book book : books) {
-            String lang = book.getLanguage();
-            languagesRet.merge(lang, 1, Integer::sum);
-            for (String publisher : book.getPublishers()) {
-                publishersRet.merge(publisher, 1, Integer::sum);
-            }
-
-            for (String author : book.getAuthors()) {
-                authorsRet.merge(author, 1, Integer::sum);
+        for (Book book : booksRet) {
+            if (book.getPrice() < minP || book.getPrice() > maxP) {
+                booksRet.remove(book);
             }
         }
 
-        Globals.getPageNumbers(page, size, books, model, "categoryBooks");
+
+        // Find counts of languages, publishers and authors
+        HashMap<String, Integer> languagesCount = new HashMap<>();
+        HashMap<String, Integer> publishersCount = new HashMap<>();
+        HashMap<String, Integer> authorsCount = new HashMap<>();
+        HashMap<String, Integer> starCount = new HashMap<>();
+
+        for (Book book : booksRet) {
+            String lang = book.getLanguage();
+            languagesCount.merge(lang, 1, Integer::sum);
+            for (String publisher : book.getPublishers()) {
+                publishersCount.merge(publisher, 1, Integer::sum);
+            }
+
+            for (String author : book.getAuthors()) {
+                authorsCount.merge(author, 1, Integer::sum);
+            }
+
+            if (starList.get(0).equals("")) {
+                starList.remove(0);
+                starList.add("0");
+                starList.add("1");
+                starList.add("2");
+                starList.add("3");
+                starList.add("4");
+                starList.add("5");
+            }
+            for (String s : starList) {
+                double star = Double.parseDouble(s);
+
+                if (book.getScoreOutOf5() < star + 1 && book.getScoreOutOf5() >= star) {
+                    starCount.merge(s, 1, Integer::sum);
+                }
+            }
+        }
+        Globals.getPageNumbers(page, size, booksRet, model, "categoryBooks");
         model.addAttribute("category", category);
         model.addAttribute("sort", currentSort);
-        model.addAttribute("languages", languagesRet);
-        model.addAttribute("publishers", publishersRet);
-        model.addAttribute("authors", authorsRet);
-        model.addAttribute("stars", starList);
+        model.addAttribute("languages", languagesCount);
+        model.addAttribute("publishers", publishersCount);
+        model.addAttribute("authors", authorsCount);
+        model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
         return "/category";
