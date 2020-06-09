@@ -16,12 +16,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/category.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/category_responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/nouislider.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
@@ -63,7 +63,7 @@
 
                     <!-- Sidebar -->
                     <div class="col-md-4 col-lg-3">
-
+                        <div><b class="category-name" th:text="${category.getName()}"></b></div>
                         <!-- Subcategories -->
                         <div class="product">
                             <div class="subcategory_text">
@@ -244,7 +244,7 @@
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible "><a
-                                        th:href="'/category/' + ${category.getId()}">Stars</a></div>
+                                        th:href="'/category/' + ${category.getId()}">Rate</a></div>
                                 <div class="sidebar_text">
                                     <form id="starform">
                                         <div class="inline sidebar_expand">
@@ -479,7 +479,7 @@
                             <!-- Product -->
                             <div class="col-xl-4 col-md-6" th:each="book : ${categoryBooks.content}">
                                 <div class="product">
-                                    <div class="product_image_showcase">
+                                    <div class="product_image_showcase vertical_center">
                                         <a th:href="'/product/' + ${book.getProductId()}">
                                             <img th:src="|data:image/png;base64,${book.getEncodedCoverImage()}|" alt=""
                                                  class="product_image_img"> <!-- TODO: Handle images -->
