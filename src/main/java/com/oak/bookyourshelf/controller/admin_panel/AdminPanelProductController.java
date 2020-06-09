@@ -12,8 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,14 +78,14 @@ public class AdminPanelProductController {
         }
 
         if (!coverImage.isEmpty()) {
-            FileInputStream coverImageStream = (FileInputStream) coverImage.getInputStream();
+            InputStream coverImageStream = coverImage.getInputStream();
             Image img = new Image();
             img.setImage(coverImageStream.readAllBytes());
             images.add(img);
         }
 
         for (MultipartFile file : productImages) {
-            FileInputStream productImageStream = (FileInputStream) file.getInputStream();
+            InputStream productImageStream = file.getInputStream();
             Image img = new Image();
             img.setImage(productImageStream.readAllBytes());
             images.add(img);
