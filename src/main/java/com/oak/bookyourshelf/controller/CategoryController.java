@@ -48,69 +48,11 @@ public class CategoryController {
         // Get books and create return books object
         Category category = categoryService.get(id);
         List<Book> books = category.getBooks();
-        List<Book> booksRet = new ArrayList<>();
+
 
         sortBooks(books, currentSort);
         float minP = Float.MAX_VALUE;
         float maxP = -1;
-
-
-        // Filter languages
-        if (!languageList.get(0).equals("")) {
-            for (Book book : books) {
-                for (String language : languageList) {
-                    if (book.getLanguage() != null) {
-                        if (book.getLanguage().equals(language)) {
-                            if (booksRet.indexOf(book) == -1) {
-                                booksRet.add(book);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Filter publishers
-        if (!publishersList.get(0).equals("")) {
-            for (Book book : books) {
-                for (String publisher : publishersList) {
-                    if (book.getPublishers().indexOf(publisher) != -1) {
-                        if (booksRet.indexOf(book) == -1) {
-                            booksRet.add(book);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Filter authors
-        if (!authorList.get(0).equals("")) {
-            for (Book book : books) {
-                for (String author : authorList) {
-                    if (book.getAuthors().indexOf(author) != -1) {
-                        if (booksRet.indexOf(book) == -1) {
-                            booksRet.add(book);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Filter stars and create star counts
-
-        if (!starList.get(0).equals("")) {
-            for (Book book : books) {
-                for (String s : starList) {
-                    double star = Double.parseDouble(s);
-
-                    if (book.getScoreOutOf5() < star + 1 && book.getScoreOutOf5() >= star) {
-                        if (booksRet.indexOf(book) == -1) {
-                            booksRet.add(book);
-                        }
-                    }
-                }
-            }
-        }
 
         // Find min and max prices
         for (Book b : books) {
@@ -123,25 +65,89 @@ public class CategoryController {
             }
         }
 
+        // Filter languages
+        List<Book> booksLanguage = new ArrayList<>();
+        if (!languageList.get(0).equals("")) {
+            for (Book book : books) {
+                for (String language : languageList) {
+                    if (book.getLanguage() != null) {
+                        if (book.getLanguage().equals(language)) {
+                            booksLanguage.add(book);
+                        }
+                    }
+                }
+            }
+        } else {
+            booksLanguage.addAll(books);
+        }
+
+        // Filter publishers
+        List<Book> booksPublisher = new ArrayList<>();
+        if (!publishersList.get(0).equals("")) {
+            for (Book book : booksLanguage) {
+                for (String publisher : publishersList) {
+                    if (book.getPublishers().indexOf(publisher) != -1) {
+                        booksPublisher.add(book);
+                    }
+                }
+            }
+        } else {
+            booksPublisher.addAll(booksLanguage);
+        }
+
+        // Filter authors
+        List<Book> booksAuthor = new ArrayList<>();
+        if (!authorList.get(0).equals("")) {
+            for (Book book : booksPublisher) {
+                for (String author : authorList) {
+                    if (book.getAuthors().indexOf(author) != -1) {
+                        booksAuthor.add(book);
+                    }
+                }
+            }
+        } else {
+            booksAuthor.addAll(booksPublisher);
+        }
+
+        // Filter stars and create star counts
+        List<Book> booksStar = new ArrayList<>();
+        if (!starList.get(0).equals("")) {
+            for (Book book : booksAuthor) {
+                for (String s : starList) {
+                    double star = Double.parseDouble(s);
+
+                    if (book.getScoreOutOf5() < star + 1 && book.getScoreOutOf5() >= star) {
+                        booksStar.add(book);
+                    }
+                }
+            }
+        } else {
+            booksStar.addAll(booksAuthor);
+        }
+
         // Set min and max values if parameters given
+        List<Book> booksMin = new ArrayList<>();
         if (!minPriceList.get(0).equals("")) {
             minP = Float.parseFloat(minPriceList.get(0));
+            for (Book book : booksAuthor) {
+                if (book.getPrice() >= minP) {
+                    booksMin.add(book);
+                }
+            }
+        } else {
+            booksMin.addAll(booksAuthor);
         }
 
+        List<Book> booksMax = new ArrayList<>();
         if (!maxPriceList.get(0).equals("")) {
             maxP = Float.parseFloat(maxPriceList.get(0));
-        }
-
-        // No parameters
-        if (languageList.get(0).equals("") && publishersList.get(0).equals("") && authorList.get(0).equals("") &&
-                starList.get(0).equals("")) {
-            booksRet = books;
-        }
-
-        for (Book book : booksRet) {
-            if (book.getPrice() < minP || book.getPrice() > maxP) {
-                booksRet.remove(book);
+            for (Book book : booksMin) {
+                if (book.getPrice() <= maxP) {
+                    booksMax.add(book);
+                }
             }
+        } else {
+            booksMax.addAll(booksMin);
         }
 
 
@@ -151,7 +157,7 @@ public class CategoryController {
         HashMap<String, Integer> authorsCount = new HashMap<>();
         HashMap<String, Integer> starCount = new HashMap<>();
 
-        for (Book book : booksRet) {
+        for (Book book : booksMax) {
             String lang = book.getLanguage();
             languagesCount.merge(lang, 1, Integer::sum);
             for (String publisher : book.getPublishers()) {
@@ -179,7 +185,7 @@ public class CategoryController {
                 }
             }
         }
-        Globals.getPageNumbers(page, size, booksRet, model, "categoryBooks");
+        Globals.getPageNumbers(page, size, booksMax, model, "categoryBooks");
         model.addAttribute("category", category);
         model.addAttribute("sort", currentSort);
         model.addAttribute("languages", languagesCount);
