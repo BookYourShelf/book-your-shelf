@@ -106,7 +106,7 @@
                                 <div class="sale_price">
                                     <span th:switch="${product.isOnDiscount()}">
                                         <del th:case="True">
-                                            <h th:text="${product.getPrice()}"></h> ₺
+                                            <h th:text="${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h> ₺
                                         </del>
                                     </span>
                                     </span>    <!-- when no sale delete it -->
@@ -980,9 +980,9 @@
                     </div>
                 </div>
             </section>
-            <span th:unless="${similarProducts == null}">
             <!--================End Product Description Area =================-->
 
+            <span th:unless="${similarProducts == null}">
             <div class="products" style="padding-top: 0">
                 <div class="container">
                     <div class="row">
@@ -996,9 +996,12 @@
                         <!-- Product -->
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${similarProduct.productId}}"><img
-                                        th:src="|data:image/png;base64,${similarProduct.getEncodedCoverImage()}|"/></a></div>
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${similarProduct.productId}}">
+                                        <img class="product_image_img"
+                                             th:src="|data:image/png;base64,${similarProduct.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -1012,72 +1015,70 @@
                                                th:classappend="${similarProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
                                             <i class="summary_star fa"
                                                th:classappend="${similarProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-
-
                                         </div>
 
                                         <div>
-                                            <div class=" our_picks_product_name"><a
-                                                    th:href="@{'/product/' + ${similarProduct.productId}}"><h
-                                                    th:text="${similarProduct.getProductName()}"></h></a>
+                                            <div class="our_picks_product_name">
+                                                <a th:href="@{'/product/' + ${similarProduct.productId}}"
+                                                   th:text="${similarProduct.getProductName()}"></a>
                                             </div>
-                                            <div class="our_picks_product_text">
-                                                <span th:if="${similarProduct.getProductTypeName() == 'Book' || similarProduct.getProductTypeName() == 'E-Book' || similarProduct.getProductTypeName() == 'Audio Book'}">
-                                            <div class="product_text">
-                                                <div th:text="${compareProductsService.createString(similarProduct.getAuthors())}"></div>
-                                            </div>
-                                        </span>
-                                                <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader'}">
-                                            <div class="product_text">
-                                                <div th:text="${similarProduct.getReaderBrand()}"></div>
-                                            </div>
-                                        </span>
-                                                <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader Case' || similarProduct.getProductTypeName() == 'Book Case'}">
-                                            <div class="product_text">
-                                                <div th:text="${similarProduct.getCaseBrand()}"></div>
-                                            </div>
-                                        </span>
-                                            </div>
-                                        </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
 
-                                            <span th:if="${similarProduct.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${similarProduct.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(similarProduct.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(similarProduct)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                            <span th:unless="${similarProduct.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                    <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
-                                                    </div>
-                                                </div>
-                                                <div class="product_price">
-                                                    <div th:text="${similarProduct.getPrice()} + ' ₺'" }></div></div>
+                                            <span th:if="${similarProduct.getProductTypeName() == 'Book' ||
+                                                            similarProduct.getProductTypeName() == 'E-Book' ||
+                                                            similarProduct.getProductTypeName() == 'Audio Book'}">
+                                                <div class="our_picks_product_text"
+                                                     th:text="${compareProductsService.createString(similarProduct.getAuthors())}"></div>
                                             </span>
 
+                                            <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader'}">
+                                                <div class="our_picks_product_text"
+                                                     th:text="${similarProduct.getReaderBrand()}"></div>
+                                            </span>
+
+                                            <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            similarProduct.getProductTypeName() == 'Book Case'}">
+                                                <div class="our_picks_product_text"
+                                                     th:text="${similarProduct.getCaseBrand()}"></div>
+                                            </span>
                                         </div>
 
+                                        <span th:if="${similarProduct.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(similarProduct.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price">
+                                                        <b th:text="${'%' + #numbers.formatDecimal(similarProduct.getDiscountRate() * 100, 0, 0)}"></b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(similarProduct)}"></div>
+                                        </span>
+
+                                        <span th:unless="${similarProduct.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(similarProduct.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
+                                    </div>
                                     <div class="our_picks_product_buttons product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
                                             <div title="Add to wish list"
                                                  class="add_to_wish_list our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="add_to_wish_list" th:value="${similarProduct.getProductName()}"
+                                                 name="add_to_wish_list"
+                                                 th:value="${similarProduct.getProductName()}"
                                                  th:id="${similarProduct.getProductId()}">
                                                 <div>
-                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                              alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
@@ -1085,20 +1086,20 @@
                                             <div title="Add to shopping cart"
                                                  class="add_to_cart our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
                                                  name="add_to_cart" th:id="${similarProduct.getProductId()}"
-                                                 th:value="${similarProduct.getProductName()}"
-                                            >
+                                                 th:value="${similarProduct.getProductName()}">
                                                 <div>
-                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                              alt="">
                                                         <div>+</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div title="Compare products"
-                                                 class=" compare our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="compare" th:id="${similarProduct.getProductId()}" type="button">
-
+                                                 class="compare our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="compare" th:id="${similarProduct.getProductId()}">
                                                 <div>
-                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg" alt="">
+                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg"
+                                                              alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1107,10 +1108,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        </div>
                         </tr>
-
                     </div>
                 </div>
             </div>
@@ -1284,6 +1282,7 @@
             })
         }
     });
+
     $('#compare_products').click(function (event) {
 
         var second = "38";
@@ -1293,10 +1292,7 @@
         console.log(second);
         event.preventDefault();
         $.get("/compare/" + productID + "/" + second, ret, function (data) {
-
-
         })
-
     });
 
     $('.delete_review').click(function (event) {
@@ -1371,9 +1367,7 @@
 
     $('.compare').click(function (event) {
         var id = $(this).attr("id");
-
         window.location.href = "/compare/" + productID + "/" + id;
-
     });
 
     $('.add_to_cart').click(function (event) {
