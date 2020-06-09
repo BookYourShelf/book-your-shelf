@@ -59,6 +59,10 @@ public abstract class Product {
         this.totalStarNum.set(star, this.totalStarNum.get(star) + 1);
     }
 
+    public void decreaseStarNum(int star) {
+        this.totalStarNum.set(star, this.totalStarNum.get(star) - 1);
+    }
+
     public void addReview(Review review) {
         this.reviews.add(review);
     }

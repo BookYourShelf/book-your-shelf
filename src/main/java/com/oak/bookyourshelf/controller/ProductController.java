@@ -146,6 +146,8 @@ public class ProductController {
                     }
 
                 case "delete_review":
+                    Review toBeDeleted = reviewService.get(reviewId);
+                    product.decreaseStarNum(toBeDeleted.getScoreOutOf5() - 1);
                     userDetailsReviewService.delete(reviewId);
                     return ResponseEntity.ok("");
             }

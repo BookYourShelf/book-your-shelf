@@ -878,7 +878,8 @@
                                                                             </button>
                                                                         </span>
 
-                                                                        <span th:if="${user.getRole() != 1}" th:unless="${review.getUserId() == user.getUserId()}">
+                                                                        <span th:if="${user.getRole() != 1}"
+                                                                              th:unless="${review.getUserId() == user.getUserId()}">
                                                                             <h5 class="review_date date"
                                                                                 th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
                                                                         </span>
