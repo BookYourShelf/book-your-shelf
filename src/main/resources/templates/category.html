@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/nouislider.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
 
 <body>
@@ -41,8 +42,8 @@
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="index.html">Home</a></li>
-                                <li><a th:href="'/category/' + ${category.getName()}">Book</a></li>
-                                <li style="color: #fbaa1d">Literature</li>
+                                <li th:text="#{${'category.' + category.getProductType()}}"></li>
+                                <li style="color: #fbaa1d" th:text="${category.getName()}"></li>
                             </ul>
                         </div>
                     </div>
@@ -56,10 +57,10 @@
                 <div class="row products_bar_row">
                     <!-- Category name -->
                     <div class="col-lg-6">
-                        <div><b class="category-name">Literature</b></div>
-                        <div style="display: none"><b class="category-name">Search results for </b>
-                            <b class="category-name">"literature"</b>   <!-- TODO Search value will be here -->
-                        </div>
+                        <div><b class="category-name" th:text="${category.getName()}"></b></div>
+                        <!--                        <div style="display: none"><b class="category-name">Search results for </b>-->
+                        <!--                            <b class="category-name">"literature"</b>   &lt;!&ndash; TODO Search value will be here &ndash;&gt;-->
+                        <!--                        </div>-->
                     </div>
                     <div class="col-lg-6">
                         <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
@@ -68,31 +69,66 @@
                                     <div class="isotope_sorting_text"><span>Sort</span><i
                                             class="fa fa-caret-down" aria-hidden="true"></i></div>
                                     <ul>
-                                        <li class="item_sorting_btn"
-                                            data-isotope-option='{ "sortBy": "date" }'>Date
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Decreasing by Date'"
+                                               th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                                            </a>
                                         </li>
-                                        <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "price" }'>Price
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Increasing by Date'"
+                                               th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                                            </a>
                                         </li>
-                                        <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>Name
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'A - Z'"
+                                               th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                                            </a>
                                         </li>
-                                        <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "decr-rate" }'>
-                                            Decreasing Rate
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Z - A'"
+                                               th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                                            </a>
                                         </li>
-                                        <li class="item_sorting_btn" data-isotope-option='{ "sortBy": "incr-rate" }'>
-                                            Increasing Rate
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Decreasing by Price'"
+                                               th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Increasing by Price'"
+                                               th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Decreasing by Rate'"
+                                               th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                               th:text="'Increasing by Rate'"
+                                               th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="products_dropdown text-right product_dropdown_filter">
-                                    <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"
-                                                                                           aria-hidden="true"></i></div>
-                                    <ul>
-                                        <li class="item_filter_btn" data-filter="*">All</li>
-                                        <li class="item_filter_btn" data-filter=".hot">Hot</li>
-                                        <li class="item_filter_btn" data-filter=".new">New</li>
-                                        <li class="item_filter_btn" data-filter=".sale">Sale</li>
-                                    </ul>
-                                </div>
+                                <!--                                <div class="products_dropdown text-right product_dropdown_filter">-->
+                                <!--                                    <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"-->
+                                <!--                                                                                           aria-hidden="true"></i></div>-->
+                                <!--                                    <ul>-->
+                                <!--                                        <li class="item_filter_btn" data-filter="*">All</li>-->
+                                <!--                                        <li class="item_filter_btn" data-filter=".hot">Hot</li>-->
+                                <!--                                        <li class="item_filter_btn" data-filter=".new">New</li>-->
+                                <!--                                        <li class="item_filter_btn" data-filter=".sale">Sale</li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -128,159 +164,112 @@
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible"><a
-                                        th:href="'/category/' + ${category.getName()}">Language</a></div>
+                                        th:href="'/category/' + ${category.getId()}">Language</a></div>
                                 <div class="sidebar_text">
                                     <form id="langaugeform">
-                                        <div class="inline sidebar_expand">
+                                        <div class="inline sidebar_expand" th:each="language : ${languages}">
                                             <div class="expand_element">
                                                 <div class="row">
                                                     <div class="col-lg-1">
                                                         <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="languages1"
+                                                            <input style="display: none" type="checkbox"
+                                                                   th:id="${language.getKey()}"
                                                                    name="languages1" value="English">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
-                                                    <label class="col-lg-9 expand_element_text" for="languages1">
-                                                        English
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           th:for="${language.getKey()}" th:text="${language.getKey()}">
+
                                                     </label>
                                                     <div class="col-lg-1">
-                                                        <div class="number expand_element_number" style="float:right">
-                                                            3723
+                                                        <div class="number expand_element_number" style="float:right"
+                                                             th:text="${language.getValue()}">
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="languages2"
-                                                                   name="languages2" value="Turkish">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text" for="languages2">
-                                                        Turkish
-                                                    </label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1345</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="languages3"
-                                                                   name="languages3" value="French">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text" for="languages3">
-                                                        French
-                                                    </label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right">634</div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="product">
-                            <div class="product_content">
-                                <div class="sidebar_title collapsible "><a
-                                        th:href="'/category/' + ${category.getName()}">Media Type</a></div>
-                                <div class="sidebar_text">
-                                    <form id="mediaform">
-                                        <div class="inline sidebar_expand">
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="media1"
-                                                                   name="Media1" value="Pocket_Size">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text" for="media1">
-                                                        Pocket Size
-                                                    </label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1</div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <!-- Media Type -->
+                        <!--                        <div class="product">-->
+                        <!--                            <div class="product_content">-->
+                        <!--                                <div class="sidebar_title collapsible "><a-->
+                        <!--                                        th:href="'/category/' + ${category.getId()}">Media Type</a></div>-->
+                        <!--                                <div class="sidebar_text">-->
+                        <!--                                    <form id="mediaform">-->
+                        <!--                                        <div class="inline sidebar_expand">-->
+                        <!--                                            <div class="expand_element">-->
+                        <!--                                                <div class="row">-->
+                        <!--                                                    <div class="col-lg-1">-->
+                        <!--                                                        <label class="checkbox_container">-->
+                        <!--                                                            <input style="display: none" type="checkbox" id="media1"-->
+                        <!--                                                                   name="Media1" value="Pocket_Size">-->
+                        <!--                                                            <span class="checkbox_mark"></span>-->
+                        <!--                                                        </label>-->
+                        <!--                                                    </div>-->
+                        <!--                                                    <label class="col-lg-9 expand_element_text" for="media1">-->
+                        <!--                                                        Pocket Size-->
+                        <!--                                                    </label>-->
+                        <!--                                                    <div class="col-lg-1">-->
+                        <!--                                                        <div class="number" style="float:right">1</div>-->
+                        <!--                                                    </div>-->
+                        <!--                                                </div>-->
+                        <!--                                            </div>-->
 
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="media2"
-                                                                   name="Media2" value="Slim_cover">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text" for="media2">
-                                                        Slim Cover
-                                                    </label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                                            <div class="expand_element">-->
+                        <!--                                                <div class="row">-->
+                        <!--                                                    <div class="col-lg-1">-->
+                        <!--                                                        <label class="checkbox_container">-->
+                        <!--                                                            <input style="display: none" type="checkbox" id="media2"-->
+                        <!--                                                                   name="Media2" value="Slim_cover">-->
+                        <!--                                                            <span class="checkbox_mark"></span>-->
+                        <!--                                                        </label>-->
+                        <!--                                                    </div>-->
+                        <!--                                                    <label class="col-lg-9 expand_element_text" for="media2">-->
+                        <!--                                                        Slim Cover-->
+                        <!--                                                    </label>-->
+                        <!--                                                    <div class="col-lg-1">-->
+                        <!--                                                        <div class="number" style="float:right">1</div>-->
+                        <!--                                                    </div>-->
+                        <!--                                                </div>-->
+                        <!--                                            </div>-->
+                        <!--                                        </div>-->
+                        <!--                                    </form>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
+                        <!-- Publisher -->
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible "><a
-                                        th:href="'/category/' + ${category.getName()}">Publisher</a></div>
+                                        th:href="'/category/' + ${category.getId()}">Publisher</a></div>
                                 <div class="sidebar_text">
                                     <form id="publisherform">
-                                        <div class="inline sidebar_expand">
+                                        <div class="inline sidebar_expand" th:each="publisher : ${publishers}">
                                             <div class="expand_element">
                                                 <div class="row">
                                                     <div class="col-lg-1">
                                                         <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="pub1"
+                                                            <input style="display: none" type="checkbox"
+                                                                   th:id="${publisher.getKey()}"
                                                                    name="pub1"
                                                                    value="pub1">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
-                                                    <label class="col-lg-9 expand_element_text" for="pub1">
-                                                        publisher A
-                                                    </label>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           th:for="${publisher.getKey()}"
+                                                           th:text="${publisher.getKey()}"></label>
                                                     <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="pub2"
-                                                                   name="pub2"
-                                                                   value="pub2">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text" for="pub2">
-                                                        publisher B
-                                                    </label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1</div>
+                                                        <div class="number" style="float:right"
+                                                             th:text="${publisher.getValue()}"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,45 +278,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Author -->
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible"><a
-                                        th:href="'/category/' + ${category.getName()}">Author</a></div>
+                                        th:href="'/category/' + ${category.getId()}">Author</a></div>
                                 <div class="sidebar_text">
                                     <form id="authorform">
-                                        <div class="inline sidebar_expand">
+                                        <div class="inline sidebar_expand" th:each="author : ${authors}">
                                             <div class="expand_element">
                                                 <div class="row">
                                                     <div class="col-lg-1">
                                                         <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="author1"
+                                                            <input style="display: none" type="checkbox"
+                                                                   th:id="${author.getKey()}"
                                                                    name="Author1" value="Author1">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
-                                                    <label class="col-lg-9 expand_element_text" for="author1">
-                                                        Author A
-                                                    </label>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           th:for="${author.getKey()}"
+                                                           th:text="${author.getKey()}"></label>
                                                     <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox" id="Author2"
-                                                                   name="Author2" value="Author2">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text" for="author2">
-                                                        Author B
-                                                    </label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right">1</div>
+                                                        <div class="number" style="float:right"
+                                                             th:text="${author.getValue()}"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,10 +311,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Stars -->
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible "><a
-                                        th:href="'/category/' + ${category.getName()}">Stars</a></div>
+                                        th:href="'/category/' + ${category.getId()}">Stars</a></div>
                                 <div class="sidebar_text">
                                     <form id="starform">
                                         <div class="inline sidebar_expand">
@@ -347,7 +324,8 @@
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star1" name="star1"
-                                                           value="star1">
+                                                           value="star1"
+                                                           th:checked="${#lists.contains(stars, &quot;5&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star1" class="expand_element_star">
@@ -363,7 +341,8 @@
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star2" name="star2"
-                                                           value="star2">
+                                                           value="star2"
+                                                           th:checked="${#lists.contains(stars, &quot;4&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star2" class="expand_element_star">
@@ -379,7 +358,8 @@
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star3" name="star3"
-                                                           value="star3">
+                                                           value="star3"
+                                                           th:checked="${#lists.contains(stars, &quot;3&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star3" class="expand_element_star">
@@ -395,7 +375,8 @@
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star4" name="star4"
-                                                           value="star4">
+                                                           value="star4"
+                                                           th:checked="${#lists.contains(stars, &quot;2&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star4" class="expand_element_star">
@@ -411,7 +392,8 @@
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star5" name="star5"
-                                                           value="star5">
+                                                           value="star5"
+                                                           th:checked="${#lists.contains(stars, &quot;1&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star5" class="expand_element_star">
@@ -427,7 +409,8 @@
                                             <div class="expand_element">
                                                 <label class="checkbox_container">
                                                     <input style="display: none" type="checkbox" id="star6" name="star6"
-                                                           value="star6">
+                                                           value="star6"
+                                                           th:checked="${#lists.contains(stars, &quot;0&quot;)}">
                                                     <span class="checkbox_mark"></span>
                                                 </label>
                                                 <label for="star6" class="expand_element_star">
@@ -444,17 +427,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Price -->
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible "><a
-                                        th:href="'/category/' + ${category.getName()}">Price</a></div>
+                                        th:href="'/category/' + ${category.getId()}">Price</a></div>
                                 <div class="sidebar_text">
                                     <div class="wrapper">
                                         <fieldset class="filter-price">
 
                                             <div class="price-field">
-                                                <input type="range" min="10" max="200" value="135" id="lower">
-                                                <input type="range" min="10" max="200" value="500" id="upper">
+                                                <input type="range" th:min="${minPrice}" th:max="${maxPrice}"
+                                                       th:value="${minPrice}" id="lower">
+                                                <input type="range" th:min="${minPrice}" th:max="${maxPrice}"
+                                                       th:value="${maxPrice}" id="upper">
                                             </div>
                                             <div class="price-wrap">
                                                 <div class="price-container">
@@ -490,11 +477,16 @@
                                     <div class="product_content">
                                         <div class="product_info align-items-center justify-content-center">
                                             <div style="text-align:center;">
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-half-full" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
-                                                <i class="fa fa-star-o" style="color:#4a4a4a"></i>
+                                                <i class="summary_star fa"
+                                                   th:classappend="${book.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${book.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                                <i class="summary_star fa"
+                                                   th:classappend="${book.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${book.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                                <i class="summary_star fa"
+                                                   th:classappend="${book.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${book.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                                <i class="summary_star fa"
+                                                   th:classappend="${book.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${book.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                                <i class="summary_star fa"
+                                                   th:classappend="${book.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${book.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
                                             </div>
                                             <div>
                                                 <div class="product_name"><a
@@ -512,14 +504,44 @@
                                                 </div>
                                             </div>
                                             <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div class="sale_price">
-                                                    <del th:text="'₺' + ${book.getPrice()}"></del>
+                                                <div th:if="${book.isOnDiscount()}"> <!-- In discount -->
+                                                    <!--                                                    <div class="sale_price">-->
+                                                    <!--                                                        <del th:text="'₺' + ${book.getPrice()}"></del>-->
+                                                    <!--                                                    </div>-->
+                                                    <div class="sale_price">
+                                                        <span th:switch="${book.isOnDiscount()}">
+                                                            <del th:case="True">
+                                                                <h th:text="${book.getPrice()}"></h> ₺
+                                                            </del>
+                                                        </span>
+                                                        </span>    <!-- when no sale delete it -->
+                                                        <div class="sale_price">
+                                                        <span th:switch="${book.isOnDiscount()}">
+                                                            <del th:case="True">
+                                                                <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                            </del>
+                                                            <div th:case="*">&nbsp;</div>
+                                                        </span>
+                                                        </div>  <!-- when no sale &nbsp; -->
+                                                    </div>
+                                                    <div class="ml-auto text-right">
+                                                        <div class="sale_price"><b
+                                                                th:text="'%' + ${book.getDiscountRate()}"></b></div>
+                                                        <!-- TODO: Test this -->
+                                                    </div>
                                                 </div>
-                                                <div class="ml-auto text-right">
-                                                    <div class="sale_price"><b>%40</b></div>
+                                                <div th:unless="${book.isOnDiscount()}"> <!-- Not In discount -->
+
                                                 </div>
                                             </div>
-                                            <div class="product_price">₺11<span>.99</span></div>
+                                            <div class="product_price"
+                                                 th:text="'₺' + ${#numbers.formatDecimal(book.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                            <!--                                            <div th:if="${book.isOnDiscount()}"> &lt;!&ndash; In discount &ndash;&gt;-->
+                                            <!--                                                <div class="product_price" th:text="'₺' + ${book.getDiscountPriceDecimal()}"><span th:text="'.' + ${book.getDiscountPriceFloating()}"></span></div>-->
+                                            <!--                                            </div>-->
+                                            <!--                                            <div th:unless="${book.isOnDiscount()}"> &lt;!&ndash; Not In discount &ndash;&gt;-->
+                                            <!--                                                <div class="product_price" th:text="'₺' + ${book.getPriceDecimal()}"><span th:text="${book.getPriceFloating()}">.</span></div>-->
+                                            <!--                                            </div>-->
                                         </div>
 
                                         <div class="product_buttons">
@@ -533,7 +555,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div title="Add to shopping cart"
+                                                <div title="Add to shopping cart" th:id="${book.getProductId()}"
                                                      class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                                     <div>
                                                         <div><img th:src="@{/static/images/cart.svg}" class="svg"
@@ -722,6 +744,77 @@
 <script th:src="@{/static/js/custom.js}"></script>
 <script th:src="@{/static/js/category.js}"></script>
 <script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var productID = $('.product_cart').attr('id');
+
+    $('.product_cart').click(function (event) {
+
+        var productID = $(this).attr('id'); // HTMLde wishliste id ekle
+
+        var ret = {
+            type: "cart",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: 'Added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.product_fav').click(function (event) {
+
+        var ret = {
+            type: "wish-list",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: 'Added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    /*]]>*/
+</script>
 
 </body>
 </html>
