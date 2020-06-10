@@ -8,7 +8,6 @@
     <meta name="description" content="Little Closet template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
@@ -53,7 +52,7 @@
 
         <section class="product_description_area">
             <div class="container">
-                <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <ul class="nav nav-tabs justify-content-center" id="siteTab">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text" data-url="/profile/information"
                            th:href="@{#information}">My Information</a>
@@ -63,8 +62,10 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '3'),
                                                                 page=(${#request.getParameter('page')} ?: '1'),
-                                                                sort=(${#request.getParameter('sort')} ?: 'date-desc'),
-                                                                filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                                                                sort=(${#request.getParameter('sort')} ?: 'time-desc'),
+                                                                payOptFilter=(${#request.getParameter('payOptFilter')} ?: 'all'),
+                                                                payStatFilter=(${#request.getParameter('payStatFilter')} ?: 'all'),
+                                                                delStatFilter=(${#request.getParameter('delStatFilter')} ?: 'all'))}"
                            th:href="@{#order}">My Orders</a>
                     </li>
 
@@ -78,7 +79,8 @@
                            th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '3'),
                                                                 page=(${#request.getParameter('page')} ?: '1'),
                                                                 sort=(${#request.getParameter('sort')} ?: 'date-desc'),
-                                                                filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                                                                ratingFilter=(${#request.getParameter('ratingFilter')} ?: 'all'),
+                                                                titleFilter=(${#request.getParameter('titleFilter')} ?: 'all'))}"
                            th:href="@{#review}">My Reviews</a>
                     </li>
                 </ul>

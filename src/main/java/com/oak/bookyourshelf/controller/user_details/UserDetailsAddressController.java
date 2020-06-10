@@ -36,7 +36,7 @@ public class UserDetailsAddressController {
 
     @RequestMapping(value = "/user-details/address/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> AddressUpdate(@RequestParam String button, @PathVariable int id, Address address) {
+    public ResponseEntity<String> updateAddress(@RequestParam String button, @PathVariable int id, Address address) {
 
         User user = userDetailsInformationService.get(id);
 

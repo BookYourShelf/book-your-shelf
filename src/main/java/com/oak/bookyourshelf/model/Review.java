@@ -1,7 +1,9 @@
 package com.oak.bookyourshelf.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -14,9 +16,13 @@ public class Review {
     private int productId;
     private int userId;
     private String reviewTitle;
+
+    @Column(length = 1000)
+    @Length(min = 1, max = 1000)
     private String reviewContent;
+
     private int scoreOutOf5;
-    private Date uploadDate;
+    private Timestamp uploadDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<User> user;
@@ -90,11 +96,11 @@ public class Review {
         this.scoreOutOf5 = scoreOutOf5;
     }
 
-    public Date getUploadDate() {
+    public Timestamp getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
     }
 }
