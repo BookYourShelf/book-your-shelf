@@ -934,6 +934,9 @@ section {
     margin-top: 1px;
     text-overflow: ellipsis;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
 
 .product_category a:hover {
@@ -1127,6 +1130,10 @@ section {
     font-size: 16px;
     color: #4a4a4a;
     line-height: 1.75;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
 
 .product_buttons {
@@ -2050,7 +2057,7 @@ section {
 }
 
 .review_date {
-    padding-bottom: 5px;
+    padding-bottom: 6px;
 }
 
 .review_star {
@@ -2173,4 +2180,22 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.descriptions {
+    font-size: 14px;
+    color: #787878;
+    font-weight: 400;
+    line-height: 2;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+
+.specification_table {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
