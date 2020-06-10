@@ -72,6 +72,9 @@ public class Order {
     private String orderCode;
     private float subTotalAmount;
     private float totalAmount;
+    private float couponPrice;
+
+
 
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
@@ -106,6 +109,10 @@ public class Order {
 
         if (this.shippingMethod == ShippingMethod.NEXT_DAY_DELIVERY) {
             totalAmount += NEXT_DAY_DEL_PRICE;
+        }
+
+        if(this.couponPrice != 0.0f){
+            totalAmount += this.couponPrice;
         }
         return totalAmount;
     }
@@ -239,4 +246,8 @@ public class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    public float getCouponPrice() { return couponPrice; }
+
+    public void setCouponPrice(float couponPrice) { this.couponPrice = couponPrice; }
 }

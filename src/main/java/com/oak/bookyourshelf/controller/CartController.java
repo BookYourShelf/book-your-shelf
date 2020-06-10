@@ -1,12 +1,10 @@
 package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.Globals;
-import com.oak.bookyourshelf.model.CartItem;
-import com.oak.bookyourshelf.model.Order;
-import com.oak.bookyourshelf.model.Product;
-import com.oak.bookyourshelf.model.User;
+import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.CartService;
+import com.oak.bookyourshelf.service.CouponDetailsService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,15 +28,18 @@ public class CartController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final CouponDetailsService couponDetailsService;
 
     public CartController(CartService cartService,
                           @Qualifier("customUserDetailsService") AuthService authService,
                           ProfileInformationService profileInformationService,
-                          ProductDetailsInformationService productDetailsInformationService) {
+                          ProductDetailsInformationService productDetailsInformationService,
+                          CouponDetailsService couponDetailsService) {
         this.cartService = cartService;
         this.authService = authService;
         this.profileInformationService = profileInformationService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.couponDetailsService = couponDetailsService;
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
@@ -47,6 +48,7 @@ public class CartController {
         User user = profileInformationService.getByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("cartItems", user.getShoppingCart());
+        model.addAttribute("coupons" , couponDetailsService.listAll());
         return "/cart";
     }
 
@@ -101,6 +103,8 @@ public class CartController {
                         order.setSubTotalAmount(Float.parseFloat(subTotal));
                         order.setPaymentStatus(Order.PaymentStatus.NULL);
                         order.setOrderCode(generateAndCheckOrderCode());
+                        order.setCouponPrice(Float.parseFloat(coupon));
+                        System.out.println(Float.parseFloat(coupon));
                         setOrderProductsDiscounts(user.getShoppingCart());
 
                         if (shipping.equals("0")) {

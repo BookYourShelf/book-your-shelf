@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +110,9 @@ public class ProductDetailsInformationController {
             return ResponseEntity.badRequest().body("Product with given barcode already exists.");
         }
 
+        remindProduct(newProduct, oldProduct);
+        productDetailsInformationService.save(oldProduct);
+
         newProduct = copyProduct(oldProduct, newProduct);
         productDetailsInformationService.save(newProduct);
         return ResponseEntity.ok("");
@@ -135,6 +139,9 @@ public class ProductDetailsInformationController {
             return ResponseEntity.badRequest().body("Product with given ISBN already exists.");
         }
 
+        remindProduct(newProduct, oldProduct);
+        productDetailsInformationService.save(oldProduct);
+
         newProduct = (Book) copyProduct(oldProduct, newProduct);
         productDetailsInformationService.save(newProduct);
         return ResponseEntity.ok("");
@@ -151,5 +158,14 @@ public class ProductDetailsInformationController {
         newProduct.setReviews(oldProduct.getReviews());
         newProduct.setImages(oldProduct.getImages());
         return newProduct;
+    }
+
+    public void remindProduct(Product newProduct,Product oldProduct){
+        if(newProduct.getStock() > 0 && oldProduct.getRemind().size() !=0){
+            for(RemindProduct r : oldProduct.getRemind()){
+                r.setProductAvailability(RemindProduct.ProductAvailability.AVAILABLE);
+                r.setAvailableTime(new Timestamp(System.currentTimeMillis()));
+            }
+        }
     }
 }

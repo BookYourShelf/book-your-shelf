@@ -75,8 +75,8 @@
                                                 <a th:href="'/product/' + ${cartItem.getProduct().getProductId()}">
                                                     <div>
                                                         <div class="product_image">
-                                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}"
-                                                                 alt="" class="product_image_img">
+                                                            <img th:src="|data:image/png;base64,${cartItem.getProduct().getEncodedCoverImage()}|"
+                                                                 alt="" class="product_image_img"/>
                                                         </div>
                                                     </div>
                                                     <div class="product_name_container">
@@ -233,14 +233,14 @@
                                 </div>
                                 <div class="coupon_form_container relativer">
                                     <form id="coupon_form" class="coupon_form">
-                                        <input type="text" style="width: calc(100% - 120px);height: 44px;"
+                                        <input type="text" id= "coupon_code" style="width: calc(100% - 120px);height: 44px;"
                                                class="checkout_input form-control" title="Enter your coupon code.">
-                                        <button class="coupon_button"><a href="">apply</a></button>
+                                        <input type="button" class="coupon_button" id = "coupon_submit" value="APPLY">
                                     </form>
                                 </div>
 
                                 <!-- Invalid coupon code. warning -->
-                                <div class="coupon_text">&nbsp;</div>
+                                <div id="invalid_coupon" class="coupon_text" style="color:red; font-weight: bold"></div>
 
                                 <div class="shipping">
                                     <div class="cart_extra_title">Shipping Method</div>
@@ -291,7 +291,9 @@
 
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div id="coupon" class="cart_extra_total_value ml-auto">- ₺0.00</div>
+                                         <span id="coupon-currency" style="display:inline"
+                                               class="cart_extra_total_value ml-auto result">-₺</span>
+                                        <div id="coupon" class="cart_extra_total_value result">0.00</div>
                                     </li>
 
                                     <li class="d-flex flex-row align-items-center justify-content-start">
@@ -356,6 +358,9 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
+
+    var theList = [[${coupons}]]
+
 
     $('.to_wish_list').click(function (event) {
 
@@ -442,10 +447,12 @@
 
     $('#checkout').click(function (event) {
 
+        var coupon = parseFloat($('#coupon').text()) * -1;
+
         var ret = {
             button: $(this).attr("id"),
             subTotal: $('#sub-total').text(),
-            coupon: $('#coupon').text(),
+            coupon: coupon,
             shipping: $("input[name='shipping_radio']:checked").val()
         };
 
@@ -462,6 +469,47 @@
             });
         })
     });
+
+    var codes=[];
+    $('#coupon_submit').click(function (event) {
+        var coupon = $("#coupon_code").val();
+        var subTotal = $('#sub-total').text();
+        console.log(coupon);
+        console.log(theList);
+
+
+        var found = false;
+        for (var i = 0; i < theList.length; i++) {
+            var item = theList[i];
+            if(item.couponCode === coupon) {
+                if (!codes.includes(coupon)) {
+                    console.log("true");
+                    console.log(item.discountRate);
+                    var total = (parseFloat(subTotal) * parseFloat(item.discountRate)) / 100;
+                    $("#coupon").text(parseFloat(total).toFixed(2));
+                    console.log(total);
+                    document.getElementById("coupon_form").reset();
+                    $("#invalid_coupon").text("");
+                    codes.push(coupon);
+                    console.log(codes);
+                    found = true;
+                }
+                else{
+                    found = true;
+                    document.getElementById("coupon_form").reset();
+                    $("#invalid_coupon").text("Coupon code already used.");
+                }
+            }
+        }
+        if(found === false){
+            document.getElementById("coupon_form").reset();
+            $("#invalid_coupon").text("Invalid coupon code.");
+        }
+
+
+        console.log(codes);
+    });
+
 
     /*]]>*/
 </script>
@@ -529,11 +577,12 @@
         });
     });
 
-    $('#shipping_text, #sub-total').on('DOMSubtreeModified', function () {
+    $('#shipping_text, #sub-total, #coupon').on('DOMSubtreeModified', function () {
         var sum = 0;
+        var coupon = parseFloat($("#coupon").text()) * 2 ;
         $('.result').each(function () {
             sum += +$(this).text() || 0;
-            $("#final_result").text(parseFloat(sum).toFixed(2));
+            $("#final_result").text(parseFloat(sum - coupon).toFixed(2));
             $("#final-currency").text('₺');
         });
     });

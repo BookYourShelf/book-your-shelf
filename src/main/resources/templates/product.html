@@ -203,7 +203,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div title="Add reminder" id="add_notif"
+                                        <div title="Add reminder" id="reminder"
                                              class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                             <div>
                                                 <div><img th:src="@{/static/images/notification.svg}" class="svg"
@@ -1207,7 +1207,7 @@
         })
     });
 
-    $('#add_reminder').click(function (event) {
+    $('#reminder').click(function (event) {
         <!-- TODO -->
         var ret = {
             type: "reminder",

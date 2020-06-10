@@ -75,8 +75,8 @@
                                                 <a th:href="@{'/product/' + ${product.getProductId()}}">
                                                     <div>
                                                         <div class="product_image">
-                                                            <img th:src="@{/static/images/hayvan_ciftligi.jpg}"
-                                                                 alt="" class="product_image_img">
+                                                            <img th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"
+                                                                 alt="" class="product_image_img"/>
                                                         </div>
                                                     </div>
 
