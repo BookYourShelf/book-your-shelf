@@ -7,8 +7,8 @@
                placeholder="Enter Subject" required="">
     </div>
     <div class="form-group" id="content">
-                                <textarea class="form-control different-control w-100" name="textarea"
-                                          id="textarea" cols="30" rows="5"
+                                <textarea type="text"  class="form-control different-control w-100" name="textarea"
+                                          id="textarea" cols="30" rows="4"
                                           placeholder="Enter Message" required=""></textarea>
     </div>
     <p>
@@ -69,6 +69,31 @@
             })
         }
     });
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+        var textarea_inputs = document.querySelectorAll("textarea[type=text]");
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        for (i = 0; i < textarea_inputs.length; i++) {
+
+            textarea_inputs[i].setAttribute("maxlength", 1000);
+
+        }
+    });
+
 
     function validation_check(arr){
         for (var i = 0; i < arr.length; i++) {

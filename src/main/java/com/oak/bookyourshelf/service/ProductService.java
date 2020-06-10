@@ -74,7 +74,10 @@ public class ProductService {
         System.out.println(product.getProductTypeName());
         sameType.remove(product);
         if (sameType.size() == 0) {
-            return null;
+            allProducts.remove(product);
+            if(allProducts.size()>4)
+                return allProducts.subList(0,4);
+            else return allProducts;
         } else {
             if (product.getProductTypeName().equals("Book") || product.getProductTypeName().equals("E-Book") || product.getProductTypeName().equals("Audio Book")) {
                 Book b = (Book) product;
@@ -84,19 +87,33 @@ public class ProductService {
                 }
                 List<Book> sameCategory = findProductsSameCategory(b.getCategory(), books);
                 if (sameCategory.size() < 4)
-                    return sameType.subList(0, 4);
+                {
+                    if(sameType.size()>4)
+                        return sameType.subList(0,4);
+                    else return sameType;
+                }
 
                 else {
                     List<Book> sameSubcategory = findProductsSameSubcategory(b.getSubcategory(), books);
                     if (sameSubcategory.size() < 4)
-                        return sameCategory.subList(0, 4);
+                    {
+                        if(sameCategory.size()>4)
+                            return sameCategory.subList(0,4);
+                        else return sameCategory;
+                    }
                     else
                         return sameSubcategory.subList(0, 4);
 
                 }
             } else {
                 if (sameType.size() < 4)
-                    return allProducts.subList(0, 4);
+                {
+                    allProducts.remove(product);
+                    if(allProducts.size()>4)
+                        return allProducts.subList(0,4);
+                    else return allProducts;
+                }
+
                 else
                     return sameType.subList(0, 4);
             }

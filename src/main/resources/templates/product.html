@@ -1007,7 +1007,7 @@
             </section>
             <!--================End Product Description Area =================-->
 
-            <span th:unless="${similarProducts == null}">
+            <span th:unless="${similarProducts.size() == 0}">
             <div class="products" style="padding-top: 0">
                 <div class="container">
                     <div class="row">
