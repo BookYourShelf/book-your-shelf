@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -138,10 +139,7 @@ public class ProductController {
                             return ResponseEntity.badRequest().body("You must rate product to add review.");
                         }
 
-                        java.util.Date utilDate = new java.util.Date();
-                        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-                        review.setUploadDate(sqlDate);
-
+                        review.setUploadDate(new Timestamp(System.currentTimeMillis()));
                         review.setUserId(user.getUserId());
                         user.addReview(review);
                         product.addReview(review);

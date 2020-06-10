@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Review {
     private String reviewTitle;
     private String reviewContent;
     private int scoreOutOf5;
-    private Date uploadDate;
+    private Timestamp uploadDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<User> user;
@@ -90,11 +91,11 @@ public class Review {
         this.scoreOutOf5 = scoreOutOf5;
     }
 
-    public Date getUploadDate() {
+    public Timestamp getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
     }
 }
