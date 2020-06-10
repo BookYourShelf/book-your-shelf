@@ -294,7 +294,7 @@ tr:nth-child(even) {
 }
 
 .review_date {
-    padding-bottom: 5px;
+    padding-bottom: 6px;
 }
 
 .review_star {
@@ -305,4 +305,12 @@ tr:nth-child(even) {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.review_product_image {
+    max-width: 67px;
+    max-height: 75px;
+    border-style: solid;
+    border-color: #C0C0C0;
+    border-width: 1px;
 }
