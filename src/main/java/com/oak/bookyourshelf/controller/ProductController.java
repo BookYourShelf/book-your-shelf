@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -114,8 +115,21 @@ public class ProductController {
                     }
 
                 case "reminder":
-                    return ResponseEntity.ok("");
+                    if(product.getStock() > 0){
 
+                        return ResponseEntity.badRequest().body("Product is available in stock .");
+
+                    } else{
+
+                        RemindProduct remindProduct = new RemindProduct();
+                        remindProduct.setProductId(product.getProductId());
+                        remindProduct.setRequestTime(new Timestamp(System.currentTimeMillis()));
+                        remindProduct.setProductAvailability(RemindProduct.ProductAvailability.PENDING);
+                        remindProduct.setUserId(user.getUserId());
+                        product.getRemind().add(remindProduct);
+                        productDetailsInformationService.save(product);
+                        return ResponseEntity.ok("");
+                    }
                 case "add_review":
                     if (reviewService.checkUserReviewsForProduct(user.getUserId(), id) != null) {
                         return ResponseEntity.badRequest().body("You already reviewed this product.");
