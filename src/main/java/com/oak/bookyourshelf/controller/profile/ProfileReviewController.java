@@ -44,23 +44,29 @@ public class ProfileReviewController {
     public String tab(@RequestParam("page") Optional<Integer> page,
                       @RequestParam("size") Optional<Integer> size,
                       @RequestParam("sort") Optional<String> sort,
-                      @RequestParam("filter") Optional<String> filter, Model model) {
+                      @RequestParam("ratingFilter") Optional<String> ratingFilter,
+                      @RequestParam("titleFilter") Optional<String> titleFilter, Model model) {
 
         UserDetails userDetails = authService.getUserDetails();
         String currentSort = sort.orElse("date");
-        String currentFilter = filter.orElse("all");
+        String curRatingFilter = ratingFilter.orElse("all");
+        String curTitleFilter = titleFilter.orElse("all");
 
         if (userDetails != null) {
             User user = profileInformationService.getByEmail(userDetails.getUsername());
-            Globals.getPageNumbers(page, size, filterReview(profileReviewService.sortReviews(currentSort, user.getUserId()), currentFilter),
-                    model, "reviewPage");
+            Globals.getPageNumbers(page, size, titleFilterReview(
+                    ratingFilterReview(
+                            profileReviewService.sortReviews(currentSort, user.getUserId()),
+                            curRatingFilter),
+                    curTitleFilter), model, "reviewPage");
 
             model.addAttribute("reviewListEmpty", user.getReviews().isEmpty());
             model.addAttribute("user", user);
             model.addAttribute("reviews", user.getReviews());
             model.addAttribute("productService", productDetailsInformationService);
             model.addAttribute("sort", currentSort);
-            model.addAttribute("filter", currentFilter);
+            model.addAttribute("ratingFilter", curRatingFilter);
+            model.addAttribute("titleFilter", curTitleFilter);
             return "profile/_review";
         }
         return "/";
@@ -76,18 +82,29 @@ public class ProfileReviewController {
         return ResponseEntity.ok("");
     }
 
-    public List<Review> filterReview(List<Review> reviews, String rate) {
+    public List<Review> ratingFilterReview(List<Review> reviews, String rate) {
         switch (rate) {
             case "1":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 1).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 1).collect(Collectors.toList());
             case "2":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 2).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 2).collect(Collectors.toList());
             case "3":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 3).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 3).collect(Collectors.toList());
             case "4":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 4).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 4).collect(Collectors.toList());
             case "5":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 5).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 5).collect(Collectors.toList());
+            default:
+                return reviews;
+        }
+    }
+
+    public List<Review> titleFilterReview(List<Review> reviews, String title) {
+        switch (title) {
+            case "titled":
+                return reviews.stream().filter(r -> r.getReviewTitle() != null).collect(Collectors.toList());
+            case "untitled":
+                return reviews.stream().filter(r -> r.getReviewTitle() == null).collect(Collectors.toList());
             default:
                 return reviews;
         }
