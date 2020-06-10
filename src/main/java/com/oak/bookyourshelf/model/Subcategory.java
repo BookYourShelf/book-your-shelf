@@ -6,18 +6,30 @@ import java.util.List;
 @Entity
 public class Subcategory {
 
+    public enum ProductType {
+        BOOK,
+        E_BOOK,
+        AUDIO_BOOK,
+        E_BOOK_READER,
+        E_BOOK_READER_CASE,
+        BOOK_CASE;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Enumerated(EnumType.STRING)
+    private Category.ProductType productType;
+
     private int itemNum;
     private String name;
-    private boolean inCampaign=false;
-    private boolean inHotList=false;
+    private boolean inCampaign = false;
+    private boolean inHotList = false;
 
     @OneToMany(
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Subcategory> subcategories;
 
@@ -80,5 +92,13 @@ public class Subcategory {
 
     public void setInHotList(boolean inHotList) {
         this.inHotList = inHotList;
+    }
+
+    public Category.ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(Category.ProductType productType) {
+        this.productType = productType;
     }
 }
