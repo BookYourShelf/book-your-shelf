@@ -38,7 +38,7 @@ public class AdminPanelHotListController {
                       @RequestParam("filter") Optional<String> filter, Model model) {
 
 
-        String currentSort = sort.orElse("ID-asc");
+        String currentSort = sort.orElse("ID-desc");
         String currentFilter = filter.orElse("all");
         Globals.getPageNumbers(page, size, filterHotLists(adminPanelHotListService.sortHotlists(currentSort), currentFilter),
                 model, "hotListPage");
