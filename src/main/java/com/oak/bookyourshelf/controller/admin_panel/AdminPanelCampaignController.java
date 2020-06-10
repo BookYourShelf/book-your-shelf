@@ -32,7 +32,7 @@ public class AdminPanelCampaignController {
                       @RequestParam("filter") Optional<String> filter, Model model) {
 
 
-        String currentSort = sort.orElse("ID-asc");
+        String currentSort = sort.orElse("ID-desc");
         String currentFilter = filter.orElse("all");
         Globals.getPageNumbers(page, size, filterCampaigns(adminPanelCampaignService.sortCampaigns(currentSort), currentFilter),
                 model, "campaignPage");
