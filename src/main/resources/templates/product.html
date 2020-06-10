@@ -600,8 +600,16 @@
                                     <div class="review_box">
                                         <h4>Add a Review</h4>
                                         <div sec:authorize="isAuthenticated()">
-                                            <form class="form-contact form-review mt-3">
+                                            <span th:if="${alreadyReviewed}">
+                                            <a style="color: #fbaa1d;">
+                                                <strong>
+                                                    You already reviewed this product.
+                                                </strong>
+                                            </a>
+                                            </span>
 
+                                            <span th:unless="${alreadyReviewed}">
+                                            <form class="form-contact form-review mt-3">
                                                 <fieldset class="rating">
                                                     <input class="scoreOutOf5" type="radio" id="star5" name="rating"
                                                            value="5" required="required"><label
@@ -646,7 +654,9 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                            </span>
                                         </div>
+
                                         <div sec:authorize="isAnonymous()" style="margin: 10px 0;">
                                             <a style="color: #fbaa1d;" th:href="@{/login}">
                                                 <strong>

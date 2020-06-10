@@ -75,6 +75,7 @@ public class ProductController {
         if (userDetails != null) {
             User user = profileInformationService.getByEmail(userDetails.getUsername());
             model.addAttribute("user", user);
+            model.addAttribute("alreadyReviewed", isAlreadyReviewed(user.getReviews(), product.getProductId()));
         }
 
         model.addAttribute("reviewListEmpty", (product.getReviews()).isEmpty());
@@ -205,6 +206,15 @@ public class ProductController {
     public boolean containsProduct(Set<Product> set, int productId) {
         for (Product p : set) {
             if (p.getProductId() == productId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAlreadyReviewed(List<Review> reviews, int productId) {
+        for (Review r : reviews) {
+            if (r.getProductId() == productId) {
                 return true;
             }
         }
