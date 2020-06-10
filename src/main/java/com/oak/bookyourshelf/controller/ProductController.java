@@ -184,9 +184,9 @@ public class ProductController {
     public List<Review> titleFilterReview(List<Review> reviews, String title) {
         switch (title) {
             case "titled":
-                return reviews.stream().filter(r -> r.getReviewTitle() != null).collect(Collectors.toList());
+                return reviews.stream().filter(r -> !r.getReviewTitle().equals("")).collect(Collectors.toList());
             case "untitled":
-                return reviews.stream().filter(r -> r.getReviewTitle() == null).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getReviewTitle().equals("")).collect(Collectors.toList());
             default:
                 return reviews;
         }
