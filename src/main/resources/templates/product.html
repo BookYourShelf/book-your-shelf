@@ -600,7 +600,7 @@
                                     <div class="review_box">
                                         <h4>Add a Review</h4>
                                         <div sec:authorize="isAuthenticated()">
-                                            <form method="post" class="form-contact form-review mt-3">
+                                            <form class="form-contact form-review mt-3">
 
                                                 <fieldset class="rating">
                                                     <input class="scoreOutOf5" type="radio" id="star5" name="rating"
@@ -1346,16 +1346,14 @@
         if (validation_check(["review_content"])) {
             event.preventDefault();
             $.post("/product/" + productID, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Review added for ' + productName + ' successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/product/" + productID + "#information";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
+                // iziToast.show({
+                //     title: 'Success',
+                //     message: 'Review added for ' + productName + ' successfully.',
+                //     position: 'topRight',
+                //     color: 'green'
+                // });
+                window.location.hash = '#information';
+                window.location.reload(true);
 
             }).fail(function (data) {
 
@@ -1374,18 +1372,6 @@
         }
     });
 
-    $('#compare_products').click(function (event) {
-
-        var second = "38";
-        var ret = {
-            type: "compare",
-        };
-        console.log(second);
-        event.preventDefault();
-        $.get("/compare/" + productID + "/" + second, ret, function (data) {
-        })
-    });
-
     $('.delete_review').click(function (event) {
         var ret = {
             type: "delete_review",
@@ -1396,16 +1382,14 @@
         if (confirm('Are you sure you want to delete?')) {
             event.preventDefault();
             $.post("/product/" + productID, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Review deleted successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/product/" + productID + "#information";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
+                // iziToast.show({
+                //     title: 'Success',
+                //     message: 'Review deleted successfully.',
+                //     position: 'topRight',
+                //     color: 'green'
+                // });
+                window.location.hash = '#information';
+                window.location.reload(true);
 
             }).fail(function (data) {
                 if (data.responseText === "") {
@@ -1456,11 +1440,6 @@
         })
     });
 
-    $('.compare').click(function (event) {
-        var id = $(this).attr("id");
-        window.location.href = "/compare/" + productID + "/" + id;
-    });
-
     $('.add_to_cart').click(function (event) {
         var id = $(this).attr("id");
         var name = $(this).attr("value");
@@ -1491,6 +1470,23 @@
                     color: 'red'
                 });
             }
+        })
+    });
+
+    $('.compare').click(function (event) {
+        var id = $(this).attr("id");
+        window.location.href = "/compare/" + productID + "/" + id;
+    });
+
+    $('#compare_products').click(function (event) {
+
+        var second = "38";
+        var ret = {
+            type: "compare",
+        };
+        console.log(second);
+        event.preventDefault();
+        $.get("/compare/" + productID + "/" + second, ret, function (data) {
         })
     });
 
