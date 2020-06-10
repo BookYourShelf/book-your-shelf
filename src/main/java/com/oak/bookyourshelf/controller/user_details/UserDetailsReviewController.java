@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.controller.user_details;
 
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.service.ReviewService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsReviewService;
@@ -20,13 +21,16 @@ public class UserDetailsReviewController {
     final UserDetailsReviewService userDetailsReviewService;
     final UserDetailsInformationService userDetailsInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final ReviewService reviewService;
 
     public UserDetailsReviewController(UserDetailsReviewService userDetailsReviewService,
                                        UserDetailsInformationService userDetailsInformationService,
-                                       ProductDetailsInformationService productDetailsInformationService) {
+                                       ProductDetailsInformationService productDetailsInformationService,
+                                       ReviewService reviewService) {
         this.userDetailsReviewService = userDetailsReviewService;
         this.userDetailsInformationService = userDetailsInformationService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.reviewService = reviewService;
     }
 
     @RequestMapping(value = "/user-details/review", method = RequestMethod.GET)
@@ -54,6 +58,9 @@ public class UserDetailsReviewController {
     @RequestMapping(value = "/user-details/review/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> deleteReview(@PathVariable int id, @RequestParam int reviewId) {
+        Review toBeDeleted = reviewService.get(reviewId);
+        Product product = productDetailsInformationService.get(toBeDeleted.getProductId());
+        product.decreaseStarNum(toBeDeleted.getScoreOutOf5() - 1);
         userDetailsReviewService.delete(reviewId);
         return ResponseEntity.ok("");
     }
