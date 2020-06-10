@@ -4,6 +4,7 @@
 <br>
 <br>
 
+<span th:if="${reviewListEmpty == false}">
 <!-- Sort orders -->
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
@@ -150,11 +151,10 @@
         </ul>
     </div>
 </div>
+</span>
 
 <span th:if="${reviewPage.totalPages > 0}">
-
 <br>
-
 <div class="review_list">
     <tr th:each="review: ${reviewPage.content}">
 
@@ -193,10 +193,9 @@
                             <div class="product-row d-flex">
                                 <a th:href="@{'/product/' + ${review.getProductId()}}">
                                     <div>
-                                        <!-- TODO -->
-                                        <div class="product_image"><img th:src="@{/static/images/seker_portakali.jpg}"
-                                                                        alt=""
-                                                                        class="product_image_img">
+                                        <div class="product_image vertical_center" style="padding-right: 4px">
+                                            <img class="review_product_image" alt="Product Cover Image"
+                                                 th:src="|data:image/png;base64,${productService.get(review.getProductId()).getEncodedCoverImage()}|"/>
                                         </div>
                                     </div>
                                     <div class="product_name_container">
@@ -328,9 +327,12 @@
 
 </span>
 
-<!-- No reviews -->
+<!-- No product -->
 <span th:unless="${reviewPage.totalPages > 0}">
     <div class="warning-text">There are no reviews.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
 </span>
 
 <script th:src="@{/static/js/input-mask.js}"></script>
