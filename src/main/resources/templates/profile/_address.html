@@ -91,7 +91,7 @@
                                 <select name="billing_address_country"
                                         id="billing_address_country"
                                         class="dropdown_item_select checkout_input"
-                                        required ="required">
+                                        required="required">
                                 </select>
                             </div>
 
@@ -182,13 +182,14 @@
                                             <a data-toggle="collapse" data-parent="#accordion"
                                                th:href="'#billing_address_update' + ${address.getAddressId()}"
                                                th:id="${address.getAddressId()}"
-                                               class="trans_200 update_address_icon" ><i
+                                               class="trans_200 update_address_icon"><i
                                                     style="font-size: 25px; padding-right: 10px"
                                                     class="fa fa-pencil"></i></a>
-                                            <a href="#" class="trans_200 delete_billing_address" data-toggle="collapse" name="delete_billing_address"
-                                                th:id="${address.getAddressId()}"><i
-                                                style="font-size: 25px; color: #4a4a4a"
-                                                class="fa product_text">&#xf014;</i></a>
+                                            <a href="#" class="trans_200 delete_billing_address" data-toggle="collapse"
+                                               name="delete_billing_address"
+                                               th:id="${address.getAddressId()}"><i
+                                                    style="font-size: 25px; color: #4a4a4a"
+                                                    class="fa product_text">&#xf014;</i></a>
                                         </div>
                                     </li>
                                     <li class="row">
@@ -249,10 +250,11 @@
                                                     </div>
 
                                                     <input type="text"
-                                                           th:id= "'billing_address_update_name' + ${address.getAddressId()}"
+                                                           th:id="'billing_address_update_name' + ${address.getAddressId()}"
                                                            th:value="${address.getName()}"
                                                            class="checkout_input form-control"
-                                                           placeholder="Name" pattern="^[a-zA-Z ]+$" required="required">
+                                                           placeholder="Name" pattern="^[a-zA-Z ]+$"
+                                                           required="required">
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <!-- Surname -->
@@ -285,7 +287,7 @@
                                             </div>
 
                                             <!-- City Province -->
-                                            <div >
+                                            <div>
                                                 <!-- City -->
                                                 <div class="login-text p-b-10"
                                                      style="color: black;">
@@ -336,7 +338,8 @@
                                                 <div class="login-text p-b-10" style="color: black;">
                                                     Address
                                                 </div>
-                                                <input type="text" th:id="'billing_address_update_open_address_2_id' + ${address.getAddressId()}"
+                                                <input type="text"
+                                                       th:id="'billing_address_update_open_address_2_id' + ${address.getAddressId()}"
                                                        th:value="${address.getFullAddress()}"
                                                        class="checkout_input form-control"
                                                        placeholder="Full Address" required="required">
@@ -348,7 +351,8 @@
                                                     Phone
                                                     Number
                                                 </div>
-                                                <input type="text" th:id="'billing_address_update_phone' + ${address.getAddressId()}"
+                                                <input type="text"
+                                                       th:id="'billing_address_update_phone' + ${address.getAddressId()}"
                                                        th:value="${address.getPhoneNumber()}"
                                                        class="checkout_input form-control phone_mask"
                                                        placeholder="(XXX) XXX XX XX" pattern=".{15}"
@@ -488,7 +492,7 @@
                                 <div class="col-lg-6">
                                     <!-- Neighborhood -->
                                     <div class="login-text p-b-10" style="color: black;">
-                                       Town
+                                        Town
                                     </div>
 
                                     <input type="text" id="delivery_address_neighborhood"
@@ -546,7 +550,7 @@
                 <span th:unless="${#lists.isEmpty(allDeliveryAddress)}">
                     <tr th:each="address : ${allDeliveryAddress}">
                         <!-- Registered address 1 -->
-                        <div class="address-element-padding" >
+                        <div class="address-element-padding">
                             <div class="billingAddress">
                                 <div class="product_content">
                                     <li class="row">
@@ -554,11 +558,14 @@
                                             <td th:text="${address.getAddressTitle()}"></td>
                                         </div>
                                         <div class="col-md-3">
-                                            <a data-toggle="collapse" th:href="'#delivery_address_update' + ${address.getAddressId()}"
+                                            <a data-toggle="collapse"
+                                               th:href="'#delivery_address_update' + ${address.getAddressId()}"
                                                th:id="${address.getAddressId()}" class="trans_200 address_icon">
-                                                <i style="font-size: 25px; padding-right: 10px" class="fa fa-pencil"></i>
+                                                <i style="font-size: 25px; padding-right: 10px"
+                                                   class="fa fa-pencil"></i>
                                             </a>
-                                            <a href="#" class="trans_200 delete_delivery_address" data-toggle="collapse" name="delete_delivery_address"
+                                            <a href="#" class="trans_200 delete_delivery_address" data-toggle="collapse"
+                                               name="delete_delivery_address"
                                                th:id="${address.getAddressId()}">
                                                 <i style="font-size: 25px; color: #4a4a4a" class="fa product_text">&#xf014;</i>
                                             </a>
@@ -587,7 +594,7 @@
                         </div>
 
                         <!-- Update address form -->
-                        <div th:id ="'delivery_address_update' + ${address.getAddressId()}" class="collapse">
+                        <div th:id="'delivery_address_update' + ${address.getAddressId()}" class="collapse">
                             <div class="address-container">
                                 <div class="billingAddress">
                                     <div class="checkout_form_container">
@@ -700,7 +707,8 @@
                                                     <input type="number"
                                                            th:id="'delivery_address_update_zip_code' + ${address.getAddressId()}"
                                                            th:value="${address.getZipCode()}"
-                                                           placeholder="Zip Code" class="checkout_input form-control" required="required">
+                                                           placeholder="Zip Code" class="checkout_input form-control"
+                                                           required="required">
                                                 </div>
                                             </div>
 
@@ -732,7 +740,8 @@
 
                                             <div><!--ERROR--></div>
                                             <!-- Button -->
-                                            <input name="update_delivery_address" th:id="${address.getAddressId()}" type="submit"
+                                            <input name="update_delivery_address" th:id="${address.getAddressId()}"
+                                                   type="submit"
                                                    value="UPDATE"
                                                    class="login_button trans_200 update_delivery_address">
 
@@ -751,9 +760,9 @@
         </div>
     </div>
 </div>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
-
     $('.update_billing_address,.delete_billing_address').click(function (event) {
         var addressId = $(this).attr("id");
         var button = $(this).attr("name");
@@ -767,7 +776,6 @@
         var addressTitle = $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#billing_address_update_phone' + addressId).val();
 
-
         var ret = {
             button: button,
             name: name,
@@ -780,13 +788,12 @@
             addressTitle: addressTitle,
             phoneNumber: phoneNumber,
             addressId: addressId
-
         };
 
         if (button === "update_billing_address") {
-            if(validation_check(["billing_address_update_name" + addressId,"billing_address_update_surname" + addressId,"billing_address_update_country" + addressId,
-                "billing_address_update_city" + addressId,"billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId,"billing_address_update_open_address_2_id" + addressId,"billing_address_update_title" + addressId,
-                "billing_address_update_phone" + addressId])){
+            if (validation_check(["billing_address_update_name" + addressId, "billing_address_update_surname" + addressId, "billing_address_update_country" + addressId,
+                "billing_address_update_city" + addressId, "billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId, "billing_address_update_open_address_2_id" + addressId, "billing_address_update_title" + addressId,
+                "billing_address_update_phone" + addressId])) {
                 event.preventDefault();
                 $.post("/profile/address", ret, function (data) {
                     iziToast.show({
@@ -795,7 +802,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/profile/#address";
+                    window.location.href = "/profile#address";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -807,17 +814,19 @@
                         color: 'red'
                     });
                 })
-            } } else if(button === "delete_billing_address"){
+            }
+
+        } else if (button === "delete_billing_address") {
             if (confirm('Are you sure you want to delete?')) {
                 event.preventDefault();
-                $.post("/profile/address" , ret, function (data) {
+                $.post("/profile/address", ret, function (data) {
                     iziToast.show({
                         title: 'Success',
                         message: 'Address deleted successfully',
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/profile/#address";
+                    window.location.href = "/profile#address";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -829,7 +838,9 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "/profile/#address";
+            } else {
+                window.location.href = "/profile#address";
+            }
         }
 
     });
@@ -846,9 +857,7 @@
         var addressTitle = $('#delivery_address_title').val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#delivery_address_phone').val();
 
-
         var ret = {
-
             button: button,
             name: name,
             surname: surname,
@@ -859,10 +868,7 @@
             fullAddress: fullAddress,
             addressTitle: addressTitle,
             phoneNumber: phoneNumber
-
-
         };
-
 
         if (button === "add_delivery_address") {
             if (validation_check(["delivery_address_name", "delivery_address_surname", "delivery_open_address", "delivery_address_neighborhood",
@@ -876,7 +882,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/profile/#address";
+                    window.location.href = "/profile#address";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -889,7 +895,6 @@
                     });
                 })
             }
-
         }
     });
 
@@ -905,9 +910,7 @@
         var addressTitle = $('#billing_address_title').val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#billing_address_phone').val();
 
-
         var ret = {
-
             button: button,
             name: name,
             surname: surname,
@@ -918,7 +921,6 @@
             fullAddress: fullAddress,
             phoneNumber: phoneNumber,
             addressTitle: addressTitle
-
         };
 
         if (button === "add_billing_address") {
@@ -933,7 +935,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/profile/#address";
+                    window.location.href = "/profile#address";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -949,7 +951,6 @@
         }
     });
 
-
     $('.update_delivery_address,.delete_delivery_address').click(function (event) {
         var addressId = $(this).attr("id");
         var button = $(this).attr("name");
@@ -963,10 +964,7 @@
         var addressTitle = $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_");
         var phoneNumber = $('#delivery_address_update_phone' + addressId).val();
 
-
-
         var ret = {
-
             button: button,
             name: name,
             surname: surname,
@@ -978,9 +976,7 @@
             addressTitle: addressTitle,
             phoneNumber: phoneNumber,
             addressId: addressId
-
         };
-
 
         if (button === "update_delivery_address") {
             if (validation_check(["delivery_address_update_name" + addressId, "delivery_address_update_surname" + addressId, "delivery_address_update_country" + addressId, "delivery_address_update_city" + addressId,
@@ -994,7 +990,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/profile/#address";
+                    window.location.href = "/profile#address";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -1007,7 +1003,8 @@
                     });
                 })
             }
-        } else if(button === "delete_delivery_address"){
+
+        } else if (button === "delete_delivery_address") {
             if (confirm('Are you sure you want to delete?')) {
                 event.preventDefault();
                 $.post("/profile/address", ret, function (data) {
@@ -1017,7 +1014,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/profile/#address";
+                    window.location.href = "/profile#address";
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -1029,9 +1026,10 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "/profile/#address";
+            } else {
+                window.location.href = "/profile#address";
+            }
         }
-
     });
     /*]]>*/
 </script>
@@ -1062,9 +1060,8 @@
         populateCountries("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
     });
 
-
     populateCountries("billing_address_country", "billing_address_city");
-    populateCountries("delivery_address_country","delivery_address_city");
+    populateCountries("delivery_address_country", "delivery_address_city");
 
 </script>
 
