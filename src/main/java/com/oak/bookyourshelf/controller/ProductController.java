@@ -55,14 +55,19 @@ public class ProductController {
     public String showProductPage(@RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size,
                                   @RequestParam("sort") Optional<String> sort,
-                                  @RequestParam("filter") Optional<String> filter, Model model, @PathVariable int id) {
+                                  @RequestParam("ratingFilter") Optional<String> ratingFilter,
+                                  @RequestParam("titleFilter") Optional<String> titleFilter, Model model, @PathVariable int id) {
 
         Product product = productService.get(id);
         List<Image> imageList = product.getImages();
         String currentSort = sort.orElse("date-desc");
-        String currentFilter = filter.orElse("all");
-        Globals.getPageNumbers(page, size, filterReview(userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()), currentFilter),
-                model, "reviewPage");
+        String curRatingFilter = ratingFilter.orElse("all");
+        String curTitleFilter = titleFilter.orElse("all");
+        Globals.getPageNumbers(page, size, titleFilterReview(
+                ratingFilterReview(
+                        userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()),
+                        curRatingFilter),
+                curTitleFilter), model, "reviewPage");
 
         UserDetails userDetails = authService.getUserDetails();
 
@@ -74,7 +79,8 @@ public class ProductController {
         model.addAttribute("reviewListEmpty", (product.getReviews()).isEmpty());
         model.addAttribute("product", product);
         model.addAttribute("sort", currentSort);
-        model.addAttribute("filter", currentFilter);
+        model.addAttribute("ratingFilter", curRatingFilter);
+        model.addAttribute("titleFilter", curTitleFilter);
         model.addAttribute("images", Globals.encodeAllImages(imageList));
         model.addAttribute("similarProducts", productService.createOurPicsForYou(product));
         model.addAttribute("compareProductsService", compareProductsService);
@@ -160,18 +166,29 @@ public class ProductController {
         return ResponseEntity.badRequest().body("An error occurred.");
     }
 
-    public List<Review> filterReview(List<Review> reviews, String rate) {
+    public List<Review> ratingFilterReview(List<Review> reviews, String rate) {
         switch (rate) {
             case "1":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 1).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 1).collect(Collectors.toList());
             case "2":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 2).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 2).collect(Collectors.toList());
             case "3":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 3).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 3).collect(Collectors.toList());
             case "4":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 4).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 4).collect(Collectors.toList());
             case "5":
-                return reviews.stream().filter(p -> p.getScoreOutOf5() == 5).collect(Collectors.toList());
+                return reviews.stream().filter(r -> r.getScoreOutOf5() == 5).collect(Collectors.toList());
+            default:
+                return reviews;
+        }
+    }
+
+    public List<Review> titleFilterReview(List<Review> reviews, String title) {
+        switch (title) {
+            case "titled":
+                return reviews.stream().filter(r -> r.getReviewTitle() != null).collect(Collectors.toList());
+            case "untitled":
+                return reviews.stream().filter(r -> r.getReviewTitle() == null).collect(Collectors.toList());
             default:
                 return reviews;
         }
