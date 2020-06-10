@@ -60,18 +60,22 @@
                         <div class="product_image_slider_container">
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
-                                    <li th:each="image : ${images}">
-                                        <img th:src="|data:image/png;base64,${image}|"/>
+                                    <li class="vertical_center" th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"
+                                             style="max-height: 700px; width: auto"/>
                                     </li>
                                 </ul>
                             </div>
+                            <span th:if="${#lists.size(images) > 1}">
                             <div id="carousel" class="flexslider">
                                 <ul class="slides">
                                     <li th:each="image : ${images}">
-                                        <img th:src="|data:image/png;base64,${image}|"/>
+                                        <img style="max-height: 200px; width: auto"
+                                             th:src="|data:image/png;base64,${image}|"/>
                                     </li>
                                 </ul>
                             </div>
+                            </span>
                         </div>
                     </div>
 
@@ -242,8 +246,9 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-                            <p th:text="${product.getShortDesc()}"></p>
-                            <p th:text="${product.getLongDesc()}"></p>
+                            <p class="descriptions" th:text="${product.getShortDesc()}"></p>
+                            <br>
+                            <p class="descriptions" th:text="${product.getLongDesc()}"></p>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="table-responsive">
