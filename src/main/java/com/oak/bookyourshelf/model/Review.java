@@ -1,7 +1,8 @@
 package com.oak.bookyourshelf.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -15,7 +16,11 @@ public class Review {
     private int productId;
     private int userId;
     private String reviewTitle;
+
+    @Column(length = 1000)
+    @Length(min = 1, max = 1000)
     private String reviewContent;
+
     private int scoreOutOf5;
     private Timestamp uploadDate;
 

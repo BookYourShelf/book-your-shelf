@@ -1242,6 +1242,12 @@
 <script th:src="@{/static/js/iziToast.min.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
+
+    $(document).ready(function () {
+        document.getElementById("review_title").setAttribute("maxlength", "255");
+        document.getElementById("review_content").setAttribute("maxlength", "1000");
+    });
+
     var productID = /*[[${product.getProductId()}]]*/ 'default';
     var productName = /*[[${product.getProductName()}]]*/ 'default';
     var scoreOutOf5 = 0;
