@@ -135,30 +135,30 @@
 
                         <!-- User -->
                         <div class="address-element-padding">
-                            <a th:href="@{'/subcategory-details/' + ${subcategory.id}}">
+                            <a th:href="@{'/subcategory-details/' + ${subcategory.getId()}}">
                                 <div class="category-element">
                                     <div class="product_content">
                                         <div class="row order - row collapsible">
                                             <div class="col-lg-3 col-md-3 col-xs-6">
                                                 <div class="profile-order-text">
-                                                    <td th:text="${subcategory.id}"></td>
+                                                    <td th:text="${subcategory.getId()}"></td>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-3 col-xs-6">
                                                 <div class="profile-order-text">
-                                                    <td th:text="${subcategory.name}"></td>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-3 col-md-3 col-xs-6">
-                                                <div class="profile-order-text">
-                                                    <td th:text="${subcategory.itemNum}"></td>
+                                                    <td th:text="${subcategory.getName()}"></td>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-3 col-md-3 col-xs-6">
                                                 <div class="profile-order-text">
-                                                    <td th:text="${subcategory.subcategories.size()}"></td>
+                                                    <td th:text="${subcategory.getBooks().size()}"></td>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                                <div class="profile-order-text">
+                                                    <td th:text="${subcategory.getSubcategories().size()}"></td>
                                                 </div>
                                             </div>
                                         </div>
