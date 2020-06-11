@@ -43,11 +43,14 @@ public class AdminPanelCouponController {
     @RequestMapping(value = "/admin-panel/coupon", method = RequestMethod.POST)
     public ResponseEntity<String> showCoupon(Coupon coupon) {
         Coupon coupons = new Coupon();
-        coupons.setCouponCode(coupon.getCouponCode());
-        coupons.setDiscountRate(coupon.getDiscountRate());
-        coupons.setUploadDate(new Timestamp(System.currentTimeMillis()));
-        adminPanelCouponService.save(coupons);
-
-        return ResponseEntity.ok("");
+        Coupon coup = adminPanelCouponService.findByCouponCode(coupon.getCouponCode());
+        if(coup == null){
+            coupons.setCouponCode(coupon.getCouponCode());
+            coupons.setDiscountRate(coupon.getDiscountRate());
+            coupons.setUploadDate(new Timestamp(System.currentTimeMillis()));
+            adminPanelCouponService.save(coupons);
+            return ResponseEntity.ok("");
+        }
+        return ResponseEntity.badRequest().body("Coupon code already exists. Please enter another code.");
     }
 }
