@@ -162,18 +162,20 @@
     <div>
         <div class="row order - row ">
 
-            <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="col-lg-2 col-md-2 col-xs-6">
                 <div class="profile-order-title">ID</div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-xs-6">
                 <div class="profile-order-title">Name</div>
             </div>
-
             <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Type</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-6">
                 <div class="profile-order-title">Total Product</div>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="col-lg-2 col-md-2 col-xs-6">
                 <div class="profile-order-title">Total Subcategory</div>
             </div>
         </div>
@@ -188,11 +190,12 @@
                             <div class="category-element">
                                 <div class="product_content">
                                     <div class="row order - row collapsible">
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
                                             <div class="profile-order-text">
                                                 <td class="category-id" th:text="${category.id}"></td>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-3 col-md-3 col-xs-6">
                                             <div class="profile-order-text">
                                                 <td class="category-name" th:text="${category.name}"></td>
@@ -201,11 +204,18 @@
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
                                             <div class="profile-order-text">
+                                                <td class="category-type"
+                                                    th:text="#{${'category.' + category.productType}}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
+                                            <div class="profile-order-text">
                                                 <td class="category-itemNum" th:text="${category.itemNum}"></td>
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
                                             <div class="profile-order-text">
                                                 <td class="category-subcategory-size"
                                                     th:text="${category.subcategories.size()}"></td>
