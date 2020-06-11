@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 import com.oak.bookyourshelf.Globals;
+import com.oak.bookyourshelf.dto.HeaderCategoryDTO;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCategoryRepository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,6 +36,10 @@ public class AdminPanelCategoryService {
                 return adminPanelCategoryRepository.getAllByCategory(Category.ProductType.values()[2]);
         }
         return null;
+    }
+
+    public List<HeaderCategoryDTO> getAllHeaderCategoryByCategory(String productType) {
+        return ((List<Category>) getAllByCategory(productType)).stream().map(HeaderCategoryDTO::new).collect(Collectors.toList());
     }
 
     public void save(Category category) {
