@@ -50,9 +50,12 @@
                                     </a>
                                 </li>
                                 <li th:if="${not #lists.isEmpty(path)}" th:each="p : ${path}">
-                                    <a
-                                            th:href="@{'/subcategory/{id}'(id=${subcategoryService.get(p).getId()})}"
-                                            th:text="${p.getName()}"></a>
+                                    <a th:if="${categoryID != null}"
+                                       th:href="@{'/subcategory/{id}'(id=${subcategoryService.get(p).getId()}, categoryID=${categoryID})}"
+                                       th:text="${p.getName()}"></a>
+                                    <a th:unless="${categoryID != null}"
+                                       th:href="@{'/subcategory/{id}'(id=${subcategoryService.get(p).getId()})}"
+                                       th:text="${p.getName()}"></a>
                                 </li>
                                 <li style="color: #fbaa1d" th:text="${subcategory.getName()}"></li>
                             </ul>
