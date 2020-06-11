@@ -888,7 +888,7 @@
                                              class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto">
                                                 <td th:text="${'-₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
-                                                order.getDiscountRate()/100, 0, 2)}"></td></div>
+                                                order.getDiscountRate(), 0, 2)}"></td></div>
                                         </div>
                                     </li>
 

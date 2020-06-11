@@ -73,7 +73,7 @@ public class Order {
     private float subTotalAmount;
     private float totalAmount;
     private String couponCode;
-    private int discountRate;
+    private float discountRate;
 
 
     @Enumerated(EnumType.STRING)
@@ -112,7 +112,7 @@ public class Order {
         }
 
         if(this.discountRate != 0){
-            totalAmount -= ( this.subTotalAmount * this.discountRate/100);
+            totalAmount -= ( this.subTotalAmount * this.discountRate);
         }
         return totalAmount;
     }
@@ -249,7 +249,7 @@ public class Order {
 
     public void setCouponCode(String couponCode) { this.couponCode = couponCode; }
 
-    public int getDiscountRate() { return discountRate; }
+    public float getDiscountRate() { return discountRate; }
 
-    public void setDiscountRate(int discountRate) { this.discountRate = discountRate; }
+    public void setDiscountRate(float discountRate) { this.discountRate = discountRate; }
 }

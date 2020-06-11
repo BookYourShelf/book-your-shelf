@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        <h th:text="${coupon.getDiscountRate() + '%'}"></h>
+                                        <h th:text="${'%' + #numbers.formatDecimal(coupon.getDiscountRate() * 100, 0, 0)}"></h>
                                     </div>
                                 </div>
                             </div>

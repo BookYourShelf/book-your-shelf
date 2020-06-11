@@ -13,7 +13,7 @@ public class Coupon {
 
     private Timestamp uploadDate;
     private String couponCode;
-    private int discountRate;
+    private float discountRate;
 
     @ElementCollection
     private List<Integer> userId;
@@ -30,9 +30,9 @@ public class Coupon {
 
     public void setCouponCode(String couponCode) { this.couponCode = couponCode; }
 
-    public int getDiscountRate() { return discountRate; }
+    public float getDiscountRate() { return discountRate; }
 
-    public void setDiscountRate(int discountRate) { this.discountRate = discountRate; }
+    public void setDiscountRate(float discountRate) { this.discountRate = discountRate; }
 
     public List<Integer> getUserId() { return userId; }
 

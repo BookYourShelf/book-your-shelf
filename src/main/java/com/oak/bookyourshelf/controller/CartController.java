@@ -56,7 +56,7 @@ public class CartController {
 
     @RequestMapping(value = "/cart/coupon", method = RequestMethod.GET)
     @ResponseBody
-    public int showCoupon(@RequestParam String coupon) {
+    public Number showCoupon(@RequestParam String coupon) {
         List<Coupon> couponList = (List<Coupon>) couponDetailsService.listAll();
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
@@ -76,7 +76,7 @@ public class CartController {
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> showCartList(@RequestParam String button, Integer productID, String subTotal,
-                                               String shipping, Integer discount, String codes, Integer quantity) {
+                                               String shipping, Float discount, String codes, Integer quantity) {
 
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());

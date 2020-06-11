@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
-                                Discount Rate
+                                Discount Rate (%)
                             </div>
                             <input type="text" id="coupon_rate" pattern="^[0-9]+$"
                                    class="checkout_input form-control discount-rate"
@@ -168,7 +168,7 @@
                                         <div class="col-lg-3 col-md-3 col-xs-6">
                                             <div class="profile-order-text">
                                                 <td class="category-itemNum"
-                                                    th:text="${coupon.getDiscountRate() + '%'}"></td>
+                                                    th:text="${'%' + #numbers.formatDecimal(coupon.getDiscountRate() * 100, 0, 0)}"></td>
                                             </div>
                                         </div>
 

@@ -485,7 +485,7 @@
             if(data != -1 && data != -2){
                 console.log(data);
                 $("#discount").val(data);
-                var total = (parseFloat(subTotal) * parseFloat(data)) / 100;
+                var total = (parseFloat(subTotal) * parseFloat(data));
                 $("#coupon").text(parseFloat(total).toFixed(2));
                 console.log(total);
                 $("#code").val(codes);
@@ -501,7 +501,7 @@
             } else if( data == -2) {
                 iziToast.show({
                     title: 'Fail',
-                    message: 'Coupon already used.',
+                    message: 'Coupon code already used.',
                     position: 'topRight',
                     color: 'red'
                 });

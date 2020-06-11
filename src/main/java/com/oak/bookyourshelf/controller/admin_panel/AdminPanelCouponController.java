@@ -46,7 +46,7 @@ public class AdminPanelCouponController {
         Coupon coup = adminPanelCouponService.findByCouponCode(coupon.getCouponCode());
         if(coup == null){
             coupons.setCouponCode(coupon.getCouponCode());
-            coupons.setDiscountRate(coupon.getDiscountRate());
+            coupons.setDiscountRate(coupon.getDiscountRate()/100);
             coupons.setUploadDate(new Timestamp(System.currentTimeMillis()));
             adminPanelCouponService.save(coupons);
             return ResponseEntity.ok("");
