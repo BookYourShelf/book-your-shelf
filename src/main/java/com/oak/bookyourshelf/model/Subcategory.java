@@ -29,7 +29,8 @@ public class Subcategory {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     private List<Subcategory> subcategories;
 
