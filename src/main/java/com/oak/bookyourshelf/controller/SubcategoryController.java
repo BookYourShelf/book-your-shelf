@@ -20,9 +20,11 @@ import java.util.*;
 public class SubcategoryController {
 
     final SubcategoryDetailsService subcategoryDetailsService;
+    final CategoryService categoryService;
 
-    public SubcategoryController(SubcategoryDetailsService subcategoryDetailsService) {
+    public SubcategoryController(SubcategoryDetailsService subcategoryDetailsService, CategoryService categoryService) {
         this.subcategoryDetailsService = subcategoryDetailsService;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping(value = "/subcategory/{id}", method = RequestMethod.GET)
@@ -37,6 +39,7 @@ public class SubcategoryController {
                                @RequestParam("stars") Optional<String> stars,
                                @RequestParam("minPrice") Optional<String> minPrice,
                                @RequestParam("maxPrice") Optional<String> maxPrice,
+                               @RequestParam("categoryID") Optional<String> categoryID,
                                Model model, @PathVariable int id) {
 
         String currentSort = sort.orElse("date-desc");
@@ -50,6 +53,7 @@ public class SubcategoryController {
         List<String> starList = new ArrayList<>(Arrays.asList(stars.orElse("").split(",")));
         List<String> minPriceList = new ArrayList<>(Arrays.asList(minPrice.orElse("").split(",")));
         List<String> maxPriceList = new ArrayList<>(Arrays.asList(maxPrice.orElse("").split(",")));
+        List<String> categoryIDList = new ArrayList<>(Arrays.asList(categoryID.orElse("").split(",")));
 
         // Get books and create return books object
         Subcategory subcategory = subcategoryDetailsService.get(id);
@@ -69,6 +73,16 @@ public class SubcategoryController {
             if (price > maxP) {
                 maxP = price;
             }
+        }
+
+        if (!categoryIDList.get(0).equals("") && categoryIDList.size() == 1) {
+            int cId = Integer.parseInt(categoryIDList.get(0));
+            Category category = categoryService.get(cId);
+            ArrayList<String> path = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
+            if (path.size() > 1) {
+                path.remove(path.size() - 1); // Remove last subcategory
+            }
+            model.addAttribute("path", path);
         }
 
         // Filter languages
@@ -228,6 +242,8 @@ public class SubcategoryController {
             }
         }
         Globals.getPageNumbers(page, size, booksMax, model, "subcategoryBooks");
+        model.addAttribute("categoryService", categoryService);
+        model.addAttribute("subcategoryService", subcategoryDetailsService);
         model.addAttribute("subcategory", subcategory);
         model.addAttribute("sort", currentSort);
         model.addAttribute("languages", languagesCount);
