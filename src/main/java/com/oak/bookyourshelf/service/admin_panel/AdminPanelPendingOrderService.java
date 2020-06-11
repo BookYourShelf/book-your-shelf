@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 import com.oak.bookyourshelf.model.Order;
+import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelPendingOrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,10 @@ public class AdminPanelPendingOrderService {
 
     public void save(Order order) {
         adminPanelPendingOrderRepository.save(order);
+    }
+
+    public Iterable<Order> listAll(Order.OrderStatus orderStatus) {
+        return adminPanelPendingOrderRepository.findByOrderStatus(orderStatus);
     }
 
     public List<Order> sortOrders(String sortType, Order.OrderStatus orderStatus) {

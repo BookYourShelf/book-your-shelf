@@ -252,11 +252,11 @@
         </div>
 
         <div class="col-lg-3">
-            <div class="profile-order-title">Order Time</div>
+            <div class="profile-order-title">Order Code</div>
         </div>
 
         <div class="col-lg-3">
-            <div class="profile-order-title">Total Price</div>
+            <div class="profile-order-title">Order Time</div>
         </div>
 
         <div class="col-lg-3">
@@ -281,17 +281,17 @@
                                 </div>
 
                                 <div class="col-lg-3">
+                                    <div class="profile-order-text"
+                                         th:text="${order.getOrderCode()}"></div>
+                                </div>
+
+                                <div class="col-lg-3">
                                     <div class="profile-order-text">
                                         <div class="date"
                                              th:text="${#dates.format(order.getOrderDate(), 'dd-MM-yyyy')}"></div>
                                         <div class="time"
                                              th:text="${#dates.format(order.getOrderDate(), 'HH:mm')}"></div>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="profile-order-text"
-                                         th:text="'₺' + ${#numbers.formatDecimal(order.getTotalAmount(), 0, 'COMMA', 2, 'POINT')}"></div>
                                 </div>
 
                                 <div class="col-lg-3">
@@ -668,33 +668,35 @@
     });
 
     $('.cancel').click(function (event) {
-        var ret = {
-            reply: "cancel",
-            orderId: $(this).attr("id").split("-")[1]
-        };
+        if (confirm('Are you sure you want to cancel the order?')) {
+            var ret = {
+                reply: "cancel",
+                orderId: $(this).attr("id").split("-")[1]
+            };
 
-        if (validation_check([])) {
-            event.preventDefault();
-            $.post("/admin-panel/pending-order", ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Order canceled successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/admin-panel#pending-order";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
+            if (validation_check([])) {
+                event.preventDefault();
+                $.post("/admin-panel/pending-order", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Order canceled successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#pending-order";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
 
-            }).fail(function (data) {
-                iziToast.show({
-                    title: 'Fail',
-                    message: data.responseText,
-                    position: 'topRight',
-                    color: 'red'
-                });
-            })
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
         }
     });
 

@@ -73,7 +73,6 @@ public class Order {
     private String couponCode;
     private float discountRate;
 
-
     @ElementCollection
     private List<String> deliveryAddress;
 
@@ -115,8 +114,8 @@ public class Order {
             totalAmount += NEXT_DAY_DEL_PRICE;
         }
 
-        if(this.discountRate != 0){
-            totalAmount -= ( this.subTotalAmount * this.discountRate);
+        if (this.discountRate != 0) {
+            totalAmount -= (this.subTotalAmount * this.discountRate);
         }
         return totalAmount;
     }
@@ -243,17 +242,27 @@ public class Order {
         this.shippingMethod = shippingMethod;
     }
 
-    public OrderStatus getOrderStatus() { return orderStatus; }
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public String getCouponCode() { return couponCode; }
+    public String getCouponCode() {
+        return couponCode;
+    }
 
-    public void setCouponCode(String couponCode) { this.couponCode = couponCode; }
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
 
-    public float getDiscountRate() { return discountRate; }
+    public float getDiscountRate() {
+        return discountRate;
+    }
 
-    public void setDiscountRate(float discountRate) { this.discountRate = discountRate; }
+    public void setDiscountRate(float discountRate) {
+        this.discountRate = discountRate;
+    }
 }
