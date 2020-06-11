@@ -311,11 +311,11 @@
                             <div class="cart_items">
                                 <div class="cart_bar" style="padding-top: 20px">
                                     <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                        <li class="mr-auto">Product</li>
-                                        <li style="text-align: center">Price</li>
-                                        <li style="text-align: center">Quantity</li>
-                                        <li style="text-align: center">Total</li>
-                                        <li></li>
+                                        <li class="mr-auto" style="padding-left: 20px">Product</li>
+                                        <li class="cart_item_li">Price</li>
+                                        <li class="cart_item_li">Quantity</li>
+                                        <li class="cart_item_li">Total</li>
+                                        <li class="cart_item_li"></li>
                                     </ul>
                                 </div>
 
@@ -328,7 +328,7 @@
                                             <a th:href="@{'/product/' + ${cartItem.getProduct().getProductId()}}">
                                                 <div>
                                                     <div class="product_image vertical_center"
-                                                         style="margin-left: 5px; margin-right: 10px">
+                                                         style="margin-left: 20px; margin-right: 10px">
                                                         <img class="review_product_image" alt="Product Cover Image"
                                                              th:src="|data:image/png;base64,${cartItem.getProduct().getEncodedCoverImage()}|"/>
                                                     </div>

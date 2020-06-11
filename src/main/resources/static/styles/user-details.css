@@ -98,7 +98,7 @@
 }
 
 .cart-product-name {
-    max-width: 800px !important;
+    max-width: 400px !important;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

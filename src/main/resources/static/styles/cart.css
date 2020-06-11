@@ -807,7 +807,7 @@ section {
 
 .cart_bar_list li {
     font-family: 'Open Sans', sans-serif;
-    width: 68px;
+    width: 100px;
     font-size: 16px;
     font-weight: 400;
     color: #000000;
@@ -842,7 +842,7 @@ section {
 }
 
 .cart_item > div:not(:first-child) {
-    width: 68px;
+    width: 100px;
 }
 
 .cart_item > div:not(:first-child):not(:last-child) {

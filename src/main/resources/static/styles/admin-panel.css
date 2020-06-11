@@ -151,3 +151,8 @@
     color: #4a4a4a;
     font-size: 18px;
 }
+
+.cart_item_li {
+    width: 100px;
+    text-align: center;
+}
