@@ -1,12 +1,10 @@
 package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.Globals;
-import com.oak.bookyourshelf.model.CartItem;
-import com.oak.bookyourshelf.model.Order;
-import com.oak.bookyourshelf.model.Product;
-import com.oak.bookyourshelf.model.User;
+import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.CartService;
+import com.oak.bookyourshelf.service.CouponDetailsService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 @Controller
 public class CartController {
 
@@ -30,15 +29,19 @@ public class CartController {
     final AuthService authService;
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final CouponDetailsService couponDetailsService;
+
 
     public CartController(CartService cartService,
                           @Qualifier("customUserDetailsService") AuthService authService,
                           ProfileInformationService profileInformationService,
-                          ProductDetailsInformationService productDetailsInformationService) {
+                          ProductDetailsInformationService productDetailsInformationService,
+                          CouponDetailsService couponDetailsService) {
         this.cartService = cartService;
         this.authService = authService;
         this.profileInformationService = profileInformationService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.couponDetailsService = couponDetailsService;
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
@@ -47,16 +50,37 @@ public class CartController {
         User user = profileInformationService.getByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("cartItems", user.getShoppingCart());
+        model.addAttribute("coupons", couponDetailsService.listAll());
         return "/cart";
+    }
+
+    @RequestMapping(value = "/cart/coupon", method = RequestMethod.GET)
+    @ResponseBody
+    public Number showCoupon(@RequestParam String coupon) {
+        List<Coupon> couponList = (List<Coupon>) couponDetailsService.listAll();
+        UserDetails userDetails = authService.getUserDetails();
+        User user = profileInformationService.getByEmail(userDetails.getUsername());
+
+        for (Coupon coup : couponList) {
+            if (coup.getCouponCode().equals(coupon)) {
+                if (!coup.getUserId().contains(user.getUserId())) {
+                    return coup.getDiscountRate();
+                } else {
+                    return -2;
+                }
+            }
+        }
+        return -1;
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> showCartList(@RequestParam String button, Integer productID, String subTotal,
-                                               String shipping, String coupon, Integer quantity) {
+                                               String shipping, Float discount, String codes, Integer quantity) {
 
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
+
 
         switch (button) {
             case "add_to_wish_list": {
@@ -93,6 +117,9 @@ public class CartController {
                     alreadyExist = false;
                 }
 
+                System.out.println(discount);
+                System.out.println(codes.length());
+
                 if (!user.getShoppingCart().isEmpty()) {
                     Product underStocked = getUnderStockedProduct(user.getShoppingCart());
 
@@ -107,6 +134,11 @@ public class CartController {
                             order.setShippingMethod(Order.ShippingMethod.FREE);
                         } else {
                             order.setShippingMethod(Order.ShippingMethod.NEXT_DAY_DELIVERY);
+                        }
+
+                        if (discount != null && codes != "") {
+                            order.setDiscountRate(discount);
+                            order.setCouponCode(codes);
                         }
 
                         // After setting subtotal and shipping method set total amount
@@ -194,4 +226,6 @@ public class CartController {
         }
         return generatedCode;
     }
+
+
 }
