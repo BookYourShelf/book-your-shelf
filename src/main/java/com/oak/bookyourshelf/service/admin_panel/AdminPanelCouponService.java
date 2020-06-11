@@ -24,6 +24,10 @@ public class AdminPanelCouponService {
         adminPanelCouponRepository.save(coupon);
     }
 
+    public Coupon findByCouponCode(String couponCode){ return  adminPanelCouponRepository.findByCouponCode(couponCode);}
+
+    public Coupon findById(int id) {return adminPanelCouponRepository.findById(id).get();}
+
     public List<Coupon> sortCoupon(String sortType)
     {
         switch (sortType) {
