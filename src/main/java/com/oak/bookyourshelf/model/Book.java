@@ -1,5 +1,7 @@
 package com.oak.bookyourshelf.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,9 +12,11 @@ public abstract class Book extends Product {
     private String language;
     private String isbn;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> category;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Subcategory> subcategory;
 
