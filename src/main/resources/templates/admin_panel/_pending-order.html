@@ -14,7 +14,7 @@
                                                             sort=${'time-desc'},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'Decreasing by Order Time'"
+                   th:text="'Decreasing by Time'"
                    th:style="${sort == 'time-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
@@ -25,7 +25,7 @@
                                                             sort=${'time-asc'},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'Increasing by Order Time'"
+                   th:text="'Increasing by Time'"
                    th:style="${sort == 'time-asc'} ? 'color:#1f5b70'">
                 </a>
             </li>
@@ -80,7 +80,7 @@
                                                             sort=${'company-asc'},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'A - Z Shipping Company'"
+                   th:text="'Shipping Company (A - Z)'"
                    th:style="${sort == 'company-asc'} ? 'color:#1f5b70'">
                 </a>
             </li>
@@ -91,7 +91,7 @@
                                                             sort=${'company-desc'},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${statusFilter})}"
-                   th:text="'Z - A Shipping Company'"
+                   th:text="'Shipping Company (Z - A)'"
                    th:style="${sort == 'company-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
@@ -630,6 +630,8 @@
     </div>
 </span>
 
+<script th:src="@{/static/js/input-mask.js}"></script>
+
 <script>
 
     $('.confirm').click(function (event) {
@@ -705,7 +707,5 @@
         return arr;
     }
 </script>
-
-<script th:src="@{/static/js/input-mask.js}"></script>
 
 </html>

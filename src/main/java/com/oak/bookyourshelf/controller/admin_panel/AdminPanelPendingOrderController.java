@@ -43,24 +43,14 @@ public class AdminPanelPendingOrderController {
                       @RequestParam("optionFilter") Optional<String> paymentOptionFilter,
                       @RequestParam("statusFilter") Optional<String> paymentStatusFilter, Model model) {
 
-//        Order order = adminPanelPendingOrderService.get(1);
-//        List<Integer> productIds = order.getProductId();
-//        productIds.add(7);
-//        productIds.add(12);
-//        productIds.add(13);
-//        productIds.add(39);
-//        productIds.add(20);
-//        productIds.add(40);
-//        order.setProductId(productIds);
-//        adminPanelPendingOrderService.save(order);
-
-        String currentSort = sort.orElse("date");
+        String currentSort = sort.orElse("time-desc");
         String optionFilter = paymentOptionFilter.orElse("all");
         String statusFilter = paymentStatusFilter.orElse("all");
-        Globals.getPageNumbers(page, size,
-                filterOrdersByPaymentOption(filterOrdersByPaymentStatus(adminPanelPendingOrderService.sortOrders(currentSort, Order.OrderStatus.PENDING), statusFilter), optionFilter),
-                model, "orderPage");
+        Globals.getPageNumbers(page, size, filterOrdersByPaymentOption(filterOrdersByPaymentStatus(
+                adminPanelPendingOrderService.sortOrders(currentSort, Order.OrderStatus.PENDING),
+                statusFilter), optionFilter), model, "orderPage");
 
+        model.addAttribute("orderListEmpty", ((List) adminPanelPendingOrderService.listAll(Order.OrderStatus.PENDING)).isEmpty());
         model.addAttribute("profileInformationService", profileInformationService);
         model.addAttribute("productService", productDetailsInformationService);
         model.addAttribute("sort", currentSort);
@@ -80,13 +70,13 @@ public class AdminPanelPendingOrderController {
             case "confirm":
                 List<Integer> productsIds = mapper.readValue(confirmedProducts, new TypeReference<List<Integer>>() {
                 });
-                Product outOfStockProduct = checkStock(productsIds);
+                Product outOfStockProduct = checkStock(order, productsIds);
 
                 if (outOfStockProduct != null) {
                     return ResponseEntity.badRequest().body(outOfStockProduct.getProductName() + " is out of stock.");
                 }
 
-                updateProducts(productsIds);
+                updateProducts(order, productsIds);
                 updateOrders(order, 1);
                 return ResponseEntity.ok("");
 
@@ -99,21 +89,21 @@ public class AdminPanelPendingOrderController {
         }
     }
 
-    public Product checkStock(List<Integer> productsIds) {
+    public Product checkStock(Order order, List<Integer> productsIds) {
         for (Integer id : productsIds) {
             Product product = productDetailsInformationService.get(id);
-            if (product.getStock() <= 0) {   // TODO quantity
+            if (product.getStock() < getQuantity(order.getProducts(), id)) {
                 return product;
             }
         }
         return null;
     }
 
-    public void updateProducts(List<Integer> productsIds) {
+    public void updateProducts(Order order, List<Integer> productsIds) {
         for (Integer id : productsIds) {
             Product product = productDetailsInformationService.get(id);
             product.increaseSalesNum();
-            product.setStock(product.getStock() - 1);   // TODO quantity
+            product.setStock(product.getStock() - getQuantity(order.getProducts(), id));
             productDetailsInformationService.save(product);
         }
     }
@@ -130,6 +120,15 @@ public class AdminPanelPendingOrderController {
         }
 
         adminPanelPendingOrderService.save(order);
+    }
+
+    public int getQuantity(List<CartItem> cartItems, int productId) {
+        for (CartItem c : cartItems) {
+            if (c.getProduct().getProductId() == productId) {
+                return c.getQuantity();
+            }
+        }
+        return 0;
     }
 
     public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {
