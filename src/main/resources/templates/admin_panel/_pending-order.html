@@ -59,24 +59,24 @@
             <li class="item_sorting_btn">
                 <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
                                                             page=${1},
-                                                            sort=${'code-desc'},
+                                                            sort=${'code-asc'},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${statusFilter},
                                                             couponFilter=${couponFilter})}"
-                   th:text="'Decreasing by Order Code'"
-                   th:style="${sort == 'code-desc'} ? 'color:#1f5b70'">
+                   th:text="'Order Code (A - Z)'"
+                   th:style="${sort == 'code-asc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
             <li class="item_sorting_btn">
                 <a th:href="@{/admin-panel#pending-order(size=${orderPage.size},
                                                             page=${1},
-                                                            sort=${'code-asc'},
+                                                            sort=${'code-desc'},
                                                             optionFilter=${optionFilter},
                                                             statusFilter=${statusFilter},
                                                             couponFilter=${couponFilter})}"
-                   th:text="'Increasing by Order Code'"
-                   th:style="${sort == 'code-asc'} ? 'color:#1f5b70'">
+                   th:text="'Order Code (Z - A)'"
+                   th:style="${sort == 'code-desc'} ? 'color:#1f5b70'">
                 </a>
             </li>
 
@@ -359,27 +359,24 @@
                             <div class="row order - row ">
 
                                 <div class="col-lg-3">
-                                    <div class="profile-order-text"
+                                    <div class="profile-order-text vertical_center"
                                          th:text="${order.getUserId() + ' - ' + profileInformationService.get(order.getUserId()).getName()
                                          + ' ' + profileInformationService.get(order.getUserId()).getSurname()}"></div>
                                 </div>
 
                                 <div class="col-lg-3">
-                                    <div class="profile-order-text"
+                                    <div class="profile-order-text vertical_center"
                                          th:text="${order.getOrderCode()}"></div>
                                 </div>
 
                                 <div class="col-lg-3">
-                                    <div class="profile-order-text">
-                                        <div class="date"
-                                             th:text="${#dates.format(order.getOrderDate(), 'dd-MM-yyyy')}"></div>
-                                        <div class="time"
-                                             th:text="${#dates.format(order.getOrderDate(), 'HH:mm')}"></div>
+                                    <div class="profile-order-text vertical_center">
+                                        <div th:text="${#dates.format(order.getOrderDate(), 'dd-MM-yyyy') + ' ' + #dates.format(order.getOrderDate(), 'HH:mm')}"></div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3">
-                                    <div class="profile-order-text"
+                                    <div class="profile-order-text vertical_center"
                                          th:text="#{${'payment_status.' + order.getPaymentStatus()}}"></div>
                                 </div>
                             </div>
@@ -494,6 +491,7 @@
 
                                 <div class="row aligned-row order_info_col">
                                     <div class="col-lg-6 cart_col cart_total order_info_col">
+                                        <br>
                                         <div class="order_info_title">Billing Address</div>
                                         <div class="order_address">
                                             <li class="row">
@@ -533,21 +531,28 @@
                                         </div>
 
                                         <div class="order_address">
-                                            <li class="row" style="padding-top: 0; padding-bottom: 5px">
+                                            <li class="row" style="padding-top: 0;">
                                                 <div class="order_summary_title">Payment Option: </div>
                                                 <div class="order_summary_content"
                                                      th:text="#{${'payment_option.' + order.getPaymentOption()}}"></div>
                                             </li>
-                                            <li class="row">
+                                            <li class="row" style="padding-top: 5px;">
                                                 <div class="order_summary_title">Shipping Company: </div>
                                                 <div class="order_summary_content"
                                                      th:text="${order.getShippingCompany()}"></div>
+                                            </li>
+                                            <li class="row" style="padding-top: 5px;"
+                                                th:if="${order.getCouponCode() != null}">
+                                                <div class="order_summary_title">Coupon Code: </div>
+                                                <div class="order_summary_content"
+                                                     th:text="${order.getCouponCode()}"></div>
                                             </li>
                                         </div>
                                     </div>
 
                                     <!-- Cart Total -->
                                     <div class="col-lg-6 cart_col cart_total order_info_col">
+                                        <br>
                                         <div class="order_info_title">Invoice Summary</div>
                                         <ul class="cart_extra_total_list">
                                             <li class="d-flex flex-row align-items-center justify-content-start">
@@ -583,10 +588,19 @@
                                                 </div>
                                             </li>
 
-                                            <!-- TODO -->
                                             <li class="d-flex flex-row align-items-center justify-content-start">
-                                                <div class="cart_extra_total_title" th:text="${'Coupon (-%25)'}"></div>
-                                                <div class="cart_extra_total_value ml-auto">- ₺0.00</div>
+                                                <div class="cart_extra_total_title"
+                                                     th:text="${'Coupon (-%' + #numbers.formatDecimal(order.getDiscountRate() * 100, 0, 0) + ')'}"></div>
+                                                <div th:if="${order.getDiscountRate() == 0}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto">- ₺0.00</div>
+                                                </div>
+                                                <div th:unless="${order.getDiscountRate() == 0}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto"
+                                                         th:text="${'- ₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
+                                                        order.getDiscountRate(), 0, 2)}"></div>
+                                                </div>
                                             </li>
 
                                             <li class="d-flex flex-row align-items-center justify-content-start">
