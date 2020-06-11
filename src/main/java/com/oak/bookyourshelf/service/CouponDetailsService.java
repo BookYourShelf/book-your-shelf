@@ -31,4 +31,8 @@ public class CouponDetailsService {
     public Iterable<Coupon> listAll() {
         return couponDetailsRepository.findAll();
     }
+
+    public Coupon getCouponByCode(String code) {
+        return couponDetailsRepository.findByCouponCode(code);
+    }
 }

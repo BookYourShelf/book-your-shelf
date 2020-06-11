@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 @Controller
 public class CartController {
 
@@ -30,7 +29,6 @@ public class CartController {
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
     final CouponDetailsService couponDetailsService;
-
 
     public CartController(CartService cartService,
                           @Qualifier("customUserDetailsService") AuthService authService,
@@ -57,20 +55,19 @@ public class CartController {
     @RequestMapping(value = "/cart/coupon", method = RequestMethod.GET)
     @ResponseBody
     public Number showCoupon(@RequestParam String coupon) {
-        List<Coupon> couponList = (List<Coupon>) couponDetailsService.listAll();
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
+        Coupon coup = couponDetailsService.getCouponByCode(coupon);
 
-        for (Coupon coup : couponList) {
-            if (coup.getCouponCode().equals(coupon)) {
-                if (!coup.getUserId().contains(user.getUserId())) {
-                    return coup.getDiscountRate();
-                } else {
-                    return -2;
-                }
-            }
+        if (coup == null) {
+            return -1;
         }
-        return -1;
+
+        if (!coup.getUserId().contains(user.getUserId())) {
+            return coup.getDiscountRate();
+        } else {
+            return -2;
+        }
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
@@ -80,7 +77,6 @@ public class CartController {
 
         UserDetails userDetails = authService.getUserDetails();
         User user = profileInformationService.getByEmail(userDetails.getUsername());
-
 
         switch (button) {
             case "add_to_wish_list": {
@@ -117,9 +113,6 @@ public class CartController {
                     alreadyExist = false;
                 }
 
-                System.out.println(discount);
-                System.out.println(codes.length());
-
                 if (!user.getShoppingCart().isEmpty()) {
                     Product underStocked = getUnderStockedProduct(user.getShoppingCart());
 
@@ -136,7 +129,7 @@ public class CartController {
                             order.setShippingMethod(Order.ShippingMethod.NEXT_DAY_DELIVERY);
                         }
 
-                        if (discount != null && codes != "") {
+                        if (discount != null && !codes.equals("")) {
                             order.setDiscountRate(discount);
                             order.setCouponCode(codes);
                         }
@@ -147,6 +140,8 @@ public class CartController {
 
                         if (!alreadyExist) {
                             user.getOrders().add(order);
+                        } else {
+                            cartService.save(order);
                         }
 
                         profileInformationService.save(user);
@@ -226,6 +221,4 @@ public class CartController {
         }
         return generatedCode;
     }
-
-
 }
