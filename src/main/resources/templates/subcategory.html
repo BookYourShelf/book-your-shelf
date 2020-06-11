@@ -42,8 +42,14 @@
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-                                <li><a th:href="index.html">Home</a></li>
-                                <!-- <li th:text="#{${'category.' + subcategory.getProductType()}}"></li> TODO: FIX BREADCRUMBS -->
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li th:text="#{${'category.' + subcategory.getProductType()}}"></li>
+                                <li th:if="${not #lists.isEmpty(path)}" th:each="p : ${path}">
+                                    <a th:if="${path.indexOf(p) == 0}"
+                                       th:href="@{'/category/{id}'(id=${categoryService.get(p).getId()})}"
+                                       th:text="${p}"></a>
+                                    <a th:unless="${path.indexOf(p) == 0}" th:text="${p}"></a>
+                                </li>
                                 <li style="color: #fbaa1d" th:text="${subcategory.getName()}"></li>
                             </ul>
                         </div>
@@ -71,7 +77,17 @@
                                     <span th:unless="${#lists.isEmpty(subcategory.getSubcategories())}">
                                         <li class="subcategory_li"
                                             th:each="subcategory : ${subcategory.getSubcategories()}">
-                                            <a class="clearfix" th:href="'/subcategory/' + ${subcategory.getId()}">
+                                            <a class="clearfix" th:if="${not #lists.isEmpty(path)}"
+                                               th:href="@{'/subcategory/{id}'(id=${subcategory.getId()}, categoryID=${categoryService.get(path.get(0)).getId()})}">
+                                            <span class="float_left">
+                                                <label class="expand_element_text"
+                                                       th:text="${subcategory.getName()}"></label>
+                                            </span>
+                                                <span class="float_right"
+                                                      th:text="${subcategory.getBooks().size()}"></span>
+                                            </a>
+                                            <a class="clearfix" th:if="${#lists.isEmpty(path)}"
+                                               th:href="@{'/subcategory/{id}'(id=${subcategory.getId()})}">
                                             <span class="float_left">
                                                 <label class="expand_element_text"
                                                        th:text="${subcategory.getName()}"></label>
