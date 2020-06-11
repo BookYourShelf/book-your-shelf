@@ -1,7 +1,6 @@
 package com.oak.bookyourshelf.repository.admin_panel;
 
 import com.oak.bookyourshelf.model.Coupon;
-import com.oak.bookyourshelf.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -27,5 +26,4 @@ public interface AdminPanelCouponRepository extends CrudRepository<Coupon, Integ
     List<Coupon> findAllByOrderByUploadDateAsc();
 
     List<Coupon> findAllByOrderByUploadDateDesc();
-
 }

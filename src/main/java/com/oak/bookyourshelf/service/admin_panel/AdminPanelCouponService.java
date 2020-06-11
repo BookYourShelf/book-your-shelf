@@ -1,8 +1,6 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
-
 import com.oak.bookyourshelf.model.Coupon;
-import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCouponRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,22 +12,27 @@ import java.util.List;
 public class AdminPanelCouponService {
     final AdminPanelCouponRepository adminPanelCouponRepository;
 
-    public AdminPanelCouponService(AdminPanelCouponRepository adminPanelCouponRepository){
+    public AdminPanelCouponService(AdminPanelCouponRepository adminPanelCouponRepository) {
         this.adminPanelCouponRepository = adminPanelCouponRepository;
     }
 
-    public Iterable<Coupon> listAll() {return adminPanelCouponRepository.findAll(); }
+    public Iterable<Coupon> listAll() {
+        return adminPanelCouponRepository.findAll();
+    }
 
     public void save(Coupon coupon) {
         adminPanelCouponRepository.save(coupon);
     }
 
-    public Coupon findByCouponCode(String couponCode){ return  adminPanelCouponRepository.findByCouponCode(couponCode);}
+    public Coupon findByCouponCode(String couponCode) {
+        return adminPanelCouponRepository.findByCouponCode(couponCode);
+    }
 
-    public Coupon findById(int id) {return adminPanelCouponRepository.findById(id).get();}
+    public Coupon findById(int id) {
+        return adminPanelCouponRepository.findById(id).get();
+    }
 
-    public List<Coupon> sortCoupon(String sortType)
-    {
+    public List<Coupon> sortCoupon(String sortType) {
         switch (sortType) {
             case "ID-desc":
                 return adminPanelCouponRepository.findAllByOrderByCouponIdDesc();
@@ -54,10 +57,9 @@ public class AdminPanelCouponService {
 
             case "DiscountRate-asc":
                 return adminPanelCouponRepository.findAllByOrderByDiscountRateAsc();
-            default:        // id
-                return adminPanelCouponRepository.findAllByOrderByCouponIdAsc();
 
+            default:        // id desc
+                return adminPanelCouponRepository.findAllByOrderByCouponIdDesc();
         }
     }
-
 }
