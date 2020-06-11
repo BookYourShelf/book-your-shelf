@@ -1,10 +1,8 @@
 package com.oak.bookyourshelf.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Coupon {
@@ -17,7 +15,8 @@ public class Coupon {
     private String couponCode;
     private int discountRate;
 
-   
+    @ElementCollection
+    private List<Integer> userId;
 
     public int getCouponId() { return couponId; }
 
@@ -34,4 +33,8 @@ public class Coupon {
     public int getDiscountRate() { return discountRate; }
 
     public void setDiscountRate(int discountRate) { this.discountRate = discountRate; }
+
+    public List<Integer> getUserId() { return userId; }
+
+    public void setUserId(List<Integer> userId) { this.userId = userId; }
 }
