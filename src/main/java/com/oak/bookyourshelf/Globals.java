@@ -129,12 +129,12 @@ public class Globals {
         return subcategories;
     }
 
-    public static ArrayList<String> traversePathBetweenSubcategories(Subcategory subcategory, Subcategory find) {
-        ArrayList<String> ret = new ArrayList<>();
-        ret.add(subcategory.getName());
+    public static ArrayList<Subcategory> traversePathBetweenSubcategories(Subcategory subcategory, Subcategory find) {
+        ArrayList<Subcategory> ret = new ArrayList<>();
+        ret.add(subcategory);
         for (Subcategory sub : subcategory.getSubcategories()) {
             if (sub.equals(find)) {
-                ret.add(sub.getName());
+                ret.add(sub);
             } else {
                 traversePathBetweenSubcategories(sub, find);
             }
@@ -146,12 +146,11 @@ public class Globals {
         return ret;
     }
 
-    public static ArrayList<String> findPathBetweenSubcategoryAndCategory(Category category, Subcategory subcategory) {
-        ArrayList<String> ret = new ArrayList<>();
-        ret.add(category.getName());
+    public static ArrayList<Subcategory> findPathBetweenSubcategoryAndCategory(Category category, Subcategory subcategory) {
+        ArrayList<Subcategory> ret = new ArrayList<>();
         for (Subcategory sub : category.getSubcategories()) {
             if (sub.equals(subcategory)) {
-                ret.add(sub.getName());
+                ret.add(sub);
             } else {
                 ret.addAll(traversePathBetweenSubcategories(sub, subcategory));
             }
