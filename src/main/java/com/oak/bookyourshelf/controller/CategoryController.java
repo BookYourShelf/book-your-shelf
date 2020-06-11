@@ -31,6 +31,7 @@ public class CategoryController {
                                @RequestParam("translators") Optional<String> translators,
                                @RequestParam("publishers") Optional<String> publishers,
                                @RequestParam("authors") Optional<String> authors,
+                               @RequestParam("discount") Optional<String> discount,
                                @RequestParam("stars") Optional<String> stars,
                                @RequestParam("minPrice") Optional<String> minPrice,
                                @RequestParam("maxPrice") Optional<String> maxPrice,
@@ -43,6 +44,7 @@ public class CategoryController {
         List<String> translatorsList = new ArrayList<>(Arrays.asList(translators.orElse("").split(",")));
         List<String> publishersList = new ArrayList<>(Arrays.asList(publishers.orElse("").split(",")));
         List<String> authorList = new ArrayList<>(Arrays.asList(authors.orElse("").split(",")));
+        List<String> discountList = new ArrayList<>(Arrays.asList(discount.orElse("").split(",")));
         List<String> starList = new ArrayList<>(Arrays.asList(stars.orElse("").split(",")));
         List<String> minPriceList = new ArrayList<>(Arrays.asList(minPrice.orElse("").split(",")));
         List<String> maxPriceList = new ArrayList<>(Arrays.asList(maxPrice.orElse("").split(",")));
@@ -125,10 +127,26 @@ public class CategoryController {
             booksAuthor.addAll(booksPublisher);
         }
 
+        // Filter discount
+        List<Book> booksDiscount = new ArrayList<>();
+        if (!discountList.get(0).equals("")) {
+            for (Book book : booksAuthor) {
+                for (String d : discountList) {
+                    if (d.equals("No Discount") && !book.isOnDiscount()) {
+                        booksDiscount.add(book);
+                    } else if (d.equals("Discount") && book.isOnDiscount()) {
+                        booksDiscount.add(book);
+                    }
+                }
+            }
+        } else {
+            booksDiscount.addAll(booksAuthor);
+        }
+
         // Filter stars and create star counts
         List<Book> booksStar = new ArrayList<>();
         if (!starList.get(0).equals("")) {
-            for (Book book : booksAuthor) {
+            for (Book book : booksDiscount) {
                 for (String s : starList) {
                     double star = Double.parseDouble(s);
 
@@ -138,20 +156,20 @@ public class CategoryController {
                 }
             }
         } else {
-            booksStar.addAll(booksAuthor);
+            booksStar.addAll(booksDiscount);
         }
 
         // Set min and max values if parameters given
         List<Book> booksMin = new ArrayList<>();
         if (!minPriceList.get(0).equals("")) {
             minP = Float.parseFloat(minPriceList.get(0));
-            for (Book book : booksAuthor) {
+            for (Book book : booksStar) {
                 if (book.getPrice() >= minP) {
                     booksMin.add(book);
                 }
             }
         } else {
-            booksMin.addAll(booksAuthor);
+            booksMin.addAll(booksStar);
         }
 
         List<Book> booksMax = new ArrayList<>();
