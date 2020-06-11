@@ -22,7 +22,7 @@
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form  id="new_hot_list_form" class="checkout_form" th:object="${hotList}" method="post">
+                <form id="new_hot_list_form" class="checkout_form" th:object="${hotList}" method="post">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="login-text p-b-10" style="color: black;">
@@ -198,7 +198,7 @@
     </div>
     <div class="products_dropdown product_dropdown_filter">
             <div class="isotope_filter_text"><span>Hot List Filter</span><i class="fa fa-caret-down"
-                                                                           aria-hidden="true"></i>
+                                                                            aria-hidden="true"></i>
             </div>
             <ul>
                 <li class="item_filter_btn">
@@ -275,24 +275,24 @@
                         <div class="product_content">
                             <div class="row order - row collapsible">
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${hotList.getId()}"></td>
                                     </div>
                                 </div>
                                  <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${hotList.getProductType()}"></td>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${hotList.getHotListType()}"></td>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${hotList.getProductNum()}"></td>
                                     </div>
                                 </div>
@@ -406,12 +406,12 @@
     $('#new_hotList_button').click(function (event) {
         var category;
         var subctgry;
-        var productType =$('#category_product_type option:selected').val();
+        var productType = $('#category_product_type option:selected').val();
 
-        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
+        if (productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK") {
 
             category = $('#new_hot_list_categories').val();
-            if(document.getElementById("new_hotList_subcategories") !== null) {
+            if (document.getElementById("new_hotList_subcategories") !== null) {
                 var x = document.getElementById("new_hotList_subcategories");
                 var subcategory = [];
                 for (var i = 0; i < x.options.length; i++) {
@@ -424,16 +424,14 @@
                     subctgry += ("-");
                     subctgry += (String(subcategory[j]));
                 }
+            } else {
+                subctgry = "";
             }
-            else{
-                subctgry="";
-            }
+        } else {
+            subctgry = "";
+            category = "";
         }
-        else{
-            subctgry = "" ;
-            category = "" ;
-        }
-        var hotListType =$('#new_hot_list_type option:selected').val();
+        var hotListType = $('#new_hot_list_type option:selected').val();
         var ret = {
 
             productNum: $('#new_hot_list_product_number').val(),
@@ -442,11 +440,11 @@
             productType: productType,
             startTime: $('#new_hot_list_start_time').val(),
             endTime: $('#new_hot_list_end_time').val(),
-            hotListType:hotListType,
-            subctgry:subctgry,
-            category:category,
-            ptype:productType,
-            htype:hotListType
+            hotListType: hotListType,
+            subctgry: subctgry,
+            category: category,
+            ptype: productType,
+            htype: hotListType
 
         };
 
@@ -477,8 +475,8 @@
         }
     });
 
-    $(document).on('change', '#new_hot_list_categories', function(event) {
-        if($(this).val() !== "SELECT") {
+    $(document).on('change', '#new_hot_list_categories', function (event) {
+        if ($(this).val() !== "SELECT") {
             $.getJSON("/admin-panel/hotList/subcategory", {
                 category: $(this).val(),
                 ajax: 'true'
@@ -489,7 +487,7 @@
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
-        if(data.length >0) {
+        if (data.length > 0) {
             var div_id = 'subcategory_dynamicdiv';
             if (document.getElementById(div_id)) {
                 // delete div
@@ -516,8 +514,8 @@
 
     }
 
-    $('#category_product_type').change(function(event) {
-        if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+    $('#category_product_type').change(function (event) {
+        if ($(this).val() === "BOOK" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK") {
             $.getJSON("/admin-panel/hotList/category", {
                 category: $(this).val(),
                 ajax: 'true'
@@ -529,10 +527,10 @@
 
     function buildCategoriesDropdown(data, categoryName) {
         var div_id = 'category_dynamicdiv';
-        if(document.getElementById(div_id)) {
+        if (document.getElementById(div_id)) {
             // delete div
             document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
-            document.getElementById("subcategory_row").style.display="none";
+            document.getElementById("subcategory_row").style.display = "none";
         }
 
         var newdiv = document.createElement('div');
@@ -540,7 +538,7 @@
         var html = '<select id=\"new_hot_list_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
         }
         html += '</option></select>';

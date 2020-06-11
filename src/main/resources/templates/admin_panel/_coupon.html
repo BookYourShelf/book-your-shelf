@@ -152,27 +152,27 @@
                                 <div class="product_content">
                                     <div class="row order - row collapsible">
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <td class="category-id"
                                                     th:text="${coupon.getCouponId()}"></td>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <td class="category-name"
                                                     th:text="${coupon.getCouponCode()}"></td>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <td class="category-itemNum"
                                                     th:text="${'%' + #numbers.formatDecimal(coupon.getDiscountRate() * 100, 0, 0)}"></td>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <div th:text="${#dates.format(coupon.getUploadDate(), 'dd/MM/yyyy') + ' ' + #dates.format(coupon.getUploadDate(), 'HH:mm')}"></div>
                                             </div>
                                         </div>

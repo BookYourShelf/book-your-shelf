@@ -71,9 +71,10 @@
         </ul>
     </div>
 </div>
-    </span>
+</span>
 
 <br>
+
 <span th:if="${userPage.totalPages > 0}">
 
     <div class="row order - row ">
@@ -98,47 +99,43 @@
     <div class="container">
         <div class="orderDetailBox">
 
-                <tr th:each="user: ${userPage.content}">
+            <tr th:each="user: ${userPage.content}">
 
-                    <!-- User -->
-                    <div class="product">
-                        <a th:href="@{'/user-details/' + ${user.userId}}">
-                            <div class="product_content">
-                                <div class="row order - row collapsible">
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${user.userId}"></td>
-                                        </div>
+                <!-- User -->
+                <div class="product">
+                    <a th:href="@{'/user-details/' + ${user.userId}}">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${user.userId}"></td>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${user.name}"></td>
-                                        </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${user.name}"></td>
                                     </div>
+                                </div>
 
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${user.surname}"></td>
-                                        </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${user.surname}"></td>
                                     </div>
+                                </div>
 
-                                    <div class="col-lg-3 col-md-3 col-xs-6">
-                                        <div class="profile-order-text">
-                                            <td th:text="${user.email}"></td>
-                                        </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${user.email}"></td>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                </div>
 
-                </tr>
-
-
+            </tr>
         </div>
     </div>
-
-
 
     <div class="row page_nav_row">
     <div class="col">
