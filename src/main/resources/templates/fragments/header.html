@@ -22,20 +22,8 @@
                 <ul>
                     <li><a href="#">Book</a>
                         <div class="megamenu">
-                            <ul class="single-mega cn-col-4">
+                            <ul class="single-mega cn-col-4 megamenu-book-category">
                                 <li class="title">Categories</li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Novel</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Children and Youth</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Science</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Comic Book</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Religion Sufism</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Course/Exam Books</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Philosophy</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Foreign Languages</a>
-                                </li>
                                 <li><a th:href="@{/category}" class="nav-bar-text-overflow"
                                        style="font-weight: bold">
                                     Book Cases
@@ -67,21 +55,8 @@
                     </li>
                     <li><a href="#">E-Book</a>
                         <div class="megamenu">
-                            <ul class="single-mega cn-col-4">
+                            <ul class="single-mega cn-col-4 megamenu-ebook-category">
                                 <li class="title">Categories</li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Fiction and
-                                    Literature</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Health and Care</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature and
-                                    Writing</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Life Style</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Sports and
-                                    Recreation</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Science Fiction and
-                                    Fantasy</a></li>
                             </ul>
                             <ul class="single-mega cn-col-4">
                                 <li class="title">Campaigns</li>
@@ -104,22 +79,8 @@
                     </li>
                     <li><a href="#">Audio Book</a>
                         <div class="megamenu">
-                            <ul class="single-mega cn-col-4">
+                            <ul class="single-mega cn-col-4 megamenu-audiobook-category">
                                 <li class="title">Categories</li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Mystery and
-                                    Suspicion</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Romance</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Literature</a></li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Children and Youth</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Cartoons and Comics</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Business and Finance</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Biography and Memory</a>
-                                </li>
-                                <li><a th:href="@{/category}" class="nav-bar-text-overflow">Romantic</a></li>
                             </ul>
                             <ul class="single-mega cn-col-4">
                                 <li class="title">Campaigns</li>
@@ -214,6 +175,37 @@
         </div>
     </div>
 </div>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script>
+    $.ajax({
+        url: "/header",
+        type: "GET",
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            console.log(result);
+            const bookCategories = result.bookCategories;
+            const ebookCategories = result.ebookCategories;
+            const audioBookCategories = result.audioBookCategories;
 
+            const bookCategoryElement = $('.megamenu-book-category');
+            const ebookCategoryElement = $('.megamenu-ebook-category');
+            const audiobookCategoryElement = $('.megamenu-audiobook-category');
+
+            bookCategories.forEach(function (entry) {
+                bookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            ebookCategories.forEach(function (entry) {
+                ebookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            audioBookCategories.forEach(function (entry) {
+                audiobookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+</script>
 
 </html>
