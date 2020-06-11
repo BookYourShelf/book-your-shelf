@@ -78,7 +78,8 @@
                                                                     sort=(${#request.getParameter('sort')} ?: 'time-desc'),
                                                                     payOptFilter=(${#request.getParameter('payOptFilter')} ?: 'all'),
                                                                     payStatFilter=(${#request.getParameter('payStatFilter')} ?: 'all'),
-                                                                    delStatFilter=(${#request.getParameter('delStatFilter')} ?: 'all'))}"
+                                                                    delStatFilter=(${#request.getParameter('delStatFilter')} ?: 'all'),
+                                                                    couponFilter=(${#request.getParameter('couponFilter')} ?: 'all'))}"
                            th:href="@{#order}">Orders</a>
                     </li>
 

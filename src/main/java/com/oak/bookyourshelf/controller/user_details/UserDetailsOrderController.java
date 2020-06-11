@@ -42,26 +42,31 @@ public class UserDetailsOrderController {
                       @RequestParam("sort") Optional<String> sort,
                       @RequestParam("payOptFilter") Optional<String> payOptFilter,
                       @RequestParam("payStatFilter") Optional<String> payStatFilter,
-                      @RequestParam("delStatFilter") Optional<String> delStatFilter, Model model) {
+                      @RequestParam("delStatFilter") Optional<String> delStatFilter,
+                      @RequestParam("couponFilter") Optional<String> couponFilter, Model model) {
 
         User user = userDetailsInformationService.get(id);
         String currentSort = sort.orElse("time-desc");
         String curPayOptFilter = payOptFilter.orElse("all");
         String curPayStatFilter = payStatFilter.orElse("all");
         String curDelStatFilter = delStatFilter.orElse("all");
-        Globals.getPageNumbers(page, size, filterOrdersByPaymentOption(
+        String curCouponFilter = couponFilter.orElse("all");
+        Globals.getPageNumbers(page, size, filterOrdersByCouponUsed(filterOrdersByPaymentOption(
                 filterOrdersByPaymentStatus(
                         filterOrdersByDeliveryStatus(
                                 userDetailsOrderService.sortOrders(currentSort, user.getUserId()), curDelStatFilter),
                         curPayStatFilter),
-                curPayOptFilter), model, "orderPage");
+                curPayOptFilter), curCouponFilter), model, "orderPage");
 
+        model.addAttribute("orderListEmpty", userDetailsOrderService.getAllOrdersOfUser(user.getUserId()).isEmpty());
         model.addAttribute("user", user);
         model.addAttribute("productService", productDetailsInformationService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("payOptFilter", curPayOptFilter);
         model.addAttribute("payStatFilter", curPayStatFilter);
         model.addAttribute("delStatFilter", curDelStatFilter);
+        model.addAttribute("couponFilter", curCouponFilter);
+
         return "user_details/_order";
     }
 
@@ -185,6 +190,17 @@ public class UserDetailsOrderController {
                 return orders.stream().filter(p -> p.getDeliveryStatus() == Order.DeliveryStatus.PENDING).collect(Collectors.toList());
             case "canceled":
                 return orders.stream().filter(p -> p.getDeliveryStatus() == Order.DeliveryStatus.CANCELED).collect(Collectors.toList());
+            default:
+                return orders;
+        }
+    }
+
+    public List<Order> filterOrdersByCouponUsed(List<com.oak.bookyourshelf.model.Order> orders, String couponUse) {
+        switch (couponUse) {
+            case "yes":
+                return orders.stream().filter(o -> o.getCouponCode() != null).collect(Collectors.toList());
+            case "no":
+                return orders.stream().filter(o -> o.getCouponCode() == null).collect(Collectors.toList());
             default:
                 return orders;
         }
