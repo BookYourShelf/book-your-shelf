@@ -71,7 +71,8 @@
                                     <span th:unless="${#lists.isEmpty(category.getSubcategories())}">
                                         <li class="subcategory_li"
                                             th:each="subcategory : ${category.getSubcategories()}">
-                                            <a class="clearfix" th:href="'/subcategory/' + ${subcategory.getId()}">
+                                            <a class="clearfix"
+                                               th:href="@{'/subcategory/{id}'(id=${subcategory.getId()}, categoryID=${category.getId()})}">
                                             <span class="float_left">
                                                 <label class="expand_element_text"
                                                        th:text="${subcategory.getName()}"></label>
