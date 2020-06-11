@@ -236,6 +236,8 @@
                                         <input type="text" id= "coupon_code" style="width: calc(100% - 120px);height: 44px;"
                                                class="checkout_input form-control" title="Enter your coupon code.">
                                         <input type="button" class="coupon_button" id = "coupon_submit" value="APPLY">
+                                        <input type="hidden" id="discount" name="discount" />
+                                        <input type="hidden" id="code" name="code" />
                                     </form>
                                 </div>
 
@@ -447,13 +449,13 @@
 
     $('#checkout').click(function (event) {
 
-        var coupon = parseFloat($('#coupon').text()) * -1;
 
         var ret = {
             button: $(this).attr("id"),
             subTotal: $('#sub-total').text(),
-            coupon: coupon,
-            shipping: $("input[name='shipping_radio']:checked").val()
+            shipping: $("input[name='shipping_radio']:checked").val(),
+            discount: $('#discount').val(),
+            codes:  $("#code").val()
         };
 
         event.preventDefault();
@@ -470,44 +472,42 @@
         })
     });
 
-    var codes=[];
+
     $('#coupon_submit').click(function (event) {
-        var coupon = $("#coupon_code").val();
         var subTotal = $('#sub-total').text();
-        console.log(coupon);
-        console.log(theList);
+        var codes = $("#coupon_code").val();
 
+        $.getJSON("/cart/coupon", {
+            coupon: $("#coupon_code").val(),
+            ajax: 'true'
+        }, function (data) {
+            console.log(data);
+            if(data != -1 && data != -2){
+                console.log(data);
+                $("#discount").val(data);
+                var total = (parseFloat(subTotal) * parseFloat(data)) / 100;
+                $("#coupon").text(parseFloat(total).toFixed(2));
+                console.log(total);
+                $("#code").val(codes);
+                document.getElementById("coupon_form").reset();
 
-        var found = false;
-        for (var i = 0; i < theList.length; i++) {
-            var item = theList[i];
-            if(item.couponCode === coupon) {
-                if (!codes.includes(coupon)) {
-                    console.log("true");
-                    console.log(item.discountRate);
-                    var total = (parseFloat(subTotal) * parseFloat(item.discountRate)) / 100;
-                    $("#coupon").text(parseFloat(total).toFixed(2));
-                    console.log(total);
-                    document.getElementById("coupon_form").reset();
-                    $("#invalid_coupon").text("");
-                    codes.push(coupon);
-                    console.log(codes);
-                    found = true;
-                }
-                else{
-                    found = true;
-                    document.getElementById("coupon_form").reset();
-                    $("#invalid_coupon").text("Coupon code already used.");
-                }
+            } else if( data == -1){
+                iziToast.show({
+                    title: 'Fail',
+                    message: 'Invalid coupon code.',
+                    position: 'topRight',
+                    color: 'red'
+                });
+            } else if( data == -2) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: 'Coupon already used.',
+                    position: 'topRight',
+                    color: 'red'
+                });
             }
-        }
-        if(found === false){
-            document.getElementById("coupon_form").reset();
-            $("#invalid_coupon").text("Invalid coupon code.");
-        }
+        });
 
-
-        console.log(codes);
     });
 
 
