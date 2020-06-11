@@ -53,6 +53,9 @@ public abstract class Product {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Image> images;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<RemindProduct> remind;
+
     // FUNCTIONS
 
     public void increaseStarNum(int star) {
@@ -233,5 +236,7 @@ public abstract class Product {
 
     public abstract Object getProductTypeName();
 
+    public List<RemindProduct> getRemind() { return remind; }
 
+    public void setRemind(List<RemindProduct> remind) { this.remind = remind; }
 }

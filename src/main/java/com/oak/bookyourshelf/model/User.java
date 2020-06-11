@@ -224,4 +224,5 @@ public class User {
     public void setReceiveMessage(Boolean receiveMeesage) {
         this.receiveMessage = receiveMeesage;
     }
+
 }
