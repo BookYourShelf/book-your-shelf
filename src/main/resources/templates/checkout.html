@@ -880,14 +880,15 @@
 
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="cart_extra_total_title">Coupon</div>
-                                        <div th:if="${order.getCouponPrice() == 0}"
+                                        <div th:if="${order.getDiscountRate() == 0}"
                                              class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto"> -₺0.00</div>
                                         </div>
-                                        <div th:unless ="${order.getCouponPrice() == 0}"
+                                        <div th:unless ="${order.getDiscountRate() == 0}"
                                              class="cart_extra_total_value ml-auto">
                                             <div class="cart_extra_total_value ml-auto">
-                                                <td th:text="${'-₺' + order.getCouponPrice() * -1}"></td></div>
+                                                <td th:text="${'-₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
+                                                order.getDiscountRate()/100, 0, 2)}"></td></div>
                                         </div>
                                     </li>
 
