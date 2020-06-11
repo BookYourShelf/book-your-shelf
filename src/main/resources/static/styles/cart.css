@@ -859,6 +859,7 @@ section {
 }
 
 .product_image img {
+    max-height: 90px;
     max-width: 100%;
 }
 

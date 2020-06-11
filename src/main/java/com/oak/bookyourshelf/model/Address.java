@@ -1,6 +1,8 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Address {
@@ -29,20 +31,12 @@ public class Address {
 
     // GETTER & SETTER
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "address_id=" + addressId +
-                ", address_title=" + addressTitle +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", town='" + town + '\'' +
-                ", zip_code=" + zipCode +
-                ", full_address='" + fullAddress + '\'' +
-                ", phone_number='" + phoneNumber + '\'' +
-                '}';
+    public List<String> getOrderAddress() {
+        List<String> orderAddress = new ArrayList<>();
+        orderAddress.add(this.fullAddress);
+        orderAddress.add(this.town + " / " + this.city + " / " + this.country + " " + this.zipCode);
+        orderAddress.add(this.name + " " + this.surname + " - " + this.phoneNumber);
+        return orderAddress;
     }
 
     public int getAddressId() {

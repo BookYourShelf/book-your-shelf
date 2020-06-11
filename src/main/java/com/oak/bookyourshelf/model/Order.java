@@ -66,12 +66,16 @@ public class Order {
     private int userId;
     private String userName;
     private Timestamp orderDate;
-    private String customerAddress;
-    private String billingAddress;
     private String shippingCompany;
     private String orderCode;
     private float subTotalAmount;
     private float totalAmount;
+
+    @ElementCollection
+    private List<String> deliveryAddress;
+
+    @ElementCollection
+    private List<String> billingAddress;
 
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
@@ -176,19 +180,19 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public String getCustomerAddress() {
-        return customerAddress;
+    public List<String> getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
+    public void setDeliveryAddress(List<String> deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
-    public String getBillingAddress() {
+    public List<String> getBillingAddress() {
         return billingAddress;
     }
 
-    public void setBillingAddress(String billingAddress) {
+    public void setBillingAddress(List<String> billingAddress) {
         this.billingAddress = billingAddress;
     }
 
