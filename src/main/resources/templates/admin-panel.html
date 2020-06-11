@@ -111,7 +111,8 @@
                                                                             page=(${#request.getParameter('page')} ?: '1'),
                                                                             sort=(${#request.getParameter('sort')} ?: 'time-desc'),
                                                                             optionFilter=(${#request.getParameter('optionFilter')} ?: 'all'),
-                                                                            statusFilter=(${#request.getParameter('statusFilter')} ?: 'all'))}"
+                                                                            statusFilter=(${#request.getParameter('statusFilter')} ?: 'all'),
+                                                                            couponFilter=(${#request.getParameter('couponFilter')} ?: 'all'))}"
                            th:href="@{#pending-order}">Pending Orders</a>
                     </li>
 

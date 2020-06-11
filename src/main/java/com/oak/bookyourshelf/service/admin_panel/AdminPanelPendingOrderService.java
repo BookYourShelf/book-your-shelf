@@ -1,7 +1,6 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 import com.oak.bookyourshelf.model.Order;
-import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelPendingOrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +41,12 @@ public class AdminPanelPendingOrderService {
 
             case "ID-asc":
                 return adminPanelPendingOrderRepository.findByOrderStatusOrderByUserIdAsc(orderStatus);
+
+            case "code-desc":
+                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeDesc(orderStatus);
+
+            case "code-asc":
+                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeAsc(orderStatus);
 
             case "price-desc":
                 return adminPanelPendingOrderRepository.findByOrderStatusOrderByTotalAmountDesc(orderStatus);

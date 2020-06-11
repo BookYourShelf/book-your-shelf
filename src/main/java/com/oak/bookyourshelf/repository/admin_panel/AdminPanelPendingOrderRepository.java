@@ -18,6 +18,10 @@ public interface AdminPanelPendingOrderRepository extends CrudRepository<Order, 
 
     List<Order> findByOrderStatusOrderByUserIdAsc(Order.OrderStatus orderStatus);
 
+    List<Order> findByOrderStatusOrderByOrderCodeDesc(Order.OrderStatus orderStatus);
+
+    List<Order> findByOrderStatusOrderByOrderCodeAsc(Order.OrderStatus orderStatus);
+
     List<Order> findByOrderStatusOrderByTotalAmountDesc(Order.OrderStatus orderStatus);
 
     List<Order> findByOrderStatusOrderByTotalAmountAsc(Order.OrderStatus orderStatus);
