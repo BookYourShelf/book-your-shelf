@@ -927,6 +927,12 @@
             url.searchParams.append('maxPrice', maxPrice);
         }
 
+        const x = new URL(window.location.href);
+        const categoryID = x.searchParams.get('categoryID');
+        if (categoryID) {
+            url.searchParams.append('categoryID', categoryID);
+        }
+
 
         if (productType === "BOOK") {
             window.location.href = url;
