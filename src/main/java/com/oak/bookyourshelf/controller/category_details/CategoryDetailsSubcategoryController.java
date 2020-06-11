@@ -49,6 +49,7 @@ public class CategoryDetailsSubcategoryController {
         Category category = categoryDetailsInformationService.get(id);
         Subcategory subcategory = new Subcategory();
         subcategory.setName(name);
+        subcategory.setProductType(category.getProductType());
         category.getSubcategories().add(subcategory);
         categoryDetailsInformationService.save(category);
 

@@ -69,6 +69,7 @@
 </div>
 
 <!-- Sort and filter categories -->
+<span th:if="${categoryPage.totalPages > 0}">
 <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
     <div class="products_dropdown product_dropdown_sorting">
         <div class="isotope_sorting_text"><span>Sort</span><i
@@ -153,6 +154,7 @@
         </ul>
     </div>
 </div>
+</span>
 
 
 <span th:if="${categoryPage.totalPages > 0}">
@@ -162,18 +164,20 @@
     <div>
         <div class="row order - row ">
 
-            <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="col-lg-2 col-md-2 col-xs-6">
                 <div class="profile-order-title">ID</div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-xs-6">
                 <div class="profile-order-title">Name</div>
             </div>
-
             <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Type</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-6">
                 <div class="profile-order-title">Total Product</div>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="col-lg-2 col-md-2 col-xs-6">
                 <div class="profile-order-title">Total Subcategory</div>
             </div>
         </div>
@@ -184,31 +188,40 @@
 
                     <!-- User -->
                     <div class="address-element-padding">
-                        <a th:href="@{'/category-details/' + ${category.id}}">
+                        <a th:href="@{'/category-details/' + ${category.getId()}}">
                             <div class="category-element">
                                 <div class="product_content">
                                     <div class="row order - row collapsible">
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
                                             <div class="profile-order-text">
-                                                <td class="category-id" th:text="${category.id}"></td>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
-                                                <td class="category-name" th:text="${category.name}"></td>
+                                                <td class="category-id" th:text="${category.getId()}"></td>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
                                             <div class="profile-order-text">
-                                                <td class="category-itemNum" th:text="${category.itemNum}"></td>
+                                                <td class="category-name" th:text="${category.getName()}"></td>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text">
+                                                <td class="category-type"
+                                                    th:text="#{${'category.' + category.getProductType()}}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
+                                            <div class="profile-order-text">
+                                                <td class="category-itemNum"
+                                                    th:text="${category.getBooks().size()}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
                                             <div class="profile-order-text">
                                                 <td class="category-subcategory-size"
-                                                    th:text="${category.subcategories.size()}"></td>
+                                                    th:text="${category.getSubcategories().size()}"></td>
                                             </div>
                                         </div>
                                     </div>
