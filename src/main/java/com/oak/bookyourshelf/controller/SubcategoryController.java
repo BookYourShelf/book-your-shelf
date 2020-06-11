@@ -78,8 +78,8 @@ public class SubcategoryController {
         if (!categoryIDList.get(0).equals("") && categoryIDList.size() == 1) {
             int cId = Integer.parseInt(categoryIDList.get(0));
             Category category = categoryService.get(cId);
-            ArrayList<String> path = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
-            if (path.size() > 1) {
+            ArrayList<Subcategory> path = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
+            if (path.size() > 0) {
                 path.remove(path.size() - 1); // Remove last subcategory
             }
             model.addAttribute("path", path);
@@ -244,6 +244,9 @@ public class SubcategoryController {
         Globals.getPageNumbers(page, size, booksMax, model, "subcategoryBooks");
         model.addAttribute("categoryService", categoryService);
         model.addAttribute("subcategoryService", subcategoryDetailsService);
+        if (!categoryIDList.get(0).equals("")) {
+            model.addAttribute("categoryID", Integer.valueOf(categoryIDList.get(0)));
+        }
         model.addAttribute("subcategory", subcategory);
         model.addAttribute("sort", currentSort);
         model.addAttribute("languages", languagesCount);
