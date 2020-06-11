@@ -222,7 +222,60 @@
                             </div>
                         </div>
 
-                        <!-- Stars -->
+                        <!-- Discount -->
+                        <div class="product">
+                            <div class="product_content">
+                                <div class="sidebar_title collapsible"><a>Discount</a></div>
+                                <div class="sidebar_text">
+                                    <form id="discountform">
+                                        <div class="inline sidebar_expand">
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   id="no_discount"
+                                                                   name="Discount1" value="No Discount"
+                                                                   th:checked="false">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           for="no_discount"
+                                                           th:text="'No Discount'"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             text=""></div> <!-- Discount num -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   id="discount"
+                                                                   name="Discount1" value="In Discount"
+                                                                   th:checked="false">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           for="discount"
+                                                           th:text="'In Discount'"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             text=""></div> <!-- Discount num -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rate -->
                         <div class="product">
                             <div class="product_content">
                                 <div class="sidebar_title collapsible "><a>Rate</a></div>
