@@ -101,7 +101,7 @@ public class CartController {
                         order.setSubTotalAmount(Float.parseFloat(subTotal));
                         order.setPaymentStatus(Order.PaymentStatus.NULL);
                         order.setOrderCode(generateAndCheckOrderCode());
-                        setOrderProductsDiscounts(user.getShoppingCart());
+                        setOrderProductPriceAndDiscount(user.getShoppingCart());
 
                         if (shipping.equals("0")) {
                             order.setShippingMethod(Order.ShippingMethod.FREE);
@@ -153,8 +153,9 @@ public class CartController {
         return null;
     }
 
-    public void setOrderProductsDiscounts(Set<CartItem> cart) {
+    public void setOrderProductPriceAndDiscount(Set<CartItem> cart) {
         for (CartItem c : cart) {
+            c.setUnitPrice(productDetailsInformationService.get(c.getProduct().getProductId()).getPrice());
             c.setDiscountRate(productDetailsInformationService.get(c.getProduct().getProductId()).getDiscountRate());
         }
     }

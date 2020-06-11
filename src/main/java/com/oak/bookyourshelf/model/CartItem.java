@@ -13,9 +13,18 @@ public class CartItem {
     private Product product;
 
     private int quantity;
+    private float unitPrice;
     private float discountRate;
 
     // GETTER & SETTER
+
+    public float getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
     public float getDiscountRate() {
         return discountRate;
