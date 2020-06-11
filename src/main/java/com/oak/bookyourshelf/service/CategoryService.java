@@ -28,6 +28,10 @@ public class CategoryService {
         return categoryRepository.findById(id).get();
     }
 
+    public Category get(String name) {
+        return categoryRepository.getCategoryByName(name);
+    }
+
     public void delete(int id) {
         categoryRepository.deleteById(id);
     }
