@@ -42,6 +42,7 @@ public class UserDetailsOrderController {
                       @RequestParam("sort") Optional<String> sort,
                       @RequestParam("payOptFilter") Optional<String> payOptFilter,
                       @RequestParam("payStatFilter") Optional<String> payStatFilter,
+                      @RequestParam("orderStatFilter") Optional<String> orderStatFilter,
                       @RequestParam("delStatFilter") Optional<String> delStatFilter,
                       @RequestParam("couponFilter") Optional<String> couponFilter, Model model) {
 
@@ -49,14 +50,15 @@ public class UserDetailsOrderController {
         String currentSort = sort.orElse("time-desc");
         String curPayOptFilter = payOptFilter.orElse("all");
         String curPayStatFilter = payStatFilter.orElse("all");
+        String curOrderStatFilter = orderStatFilter.orElse("all");
         String curDelStatFilter = delStatFilter.orElse("all");
         String curCouponFilter = couponFilter.orElse("all");
-        Globals.getPageNumbers(page, size, filterOrdersByCouponUsed(filterOrdersByPaymentOption(
+        Globals.getPageNumbers(page, size, filterOrdersByOrderStatus(filterOrdersByCouponUsed(filterOrdersByPaymentOption(
                 filterOrdersByPaymentStatus(
                         filterOrdersByDeliveryStatus(
                                 userDetailsOrderService.sortOrders(currentSort, user.getUserId()), curDelStatFilter),
                         curPayStatFilter),
-                curPayOptFilter), curCouponFilter), model, "orderPage");
+                curPayOptFilter), curCouponFilter), curOrderStatFilter), model, "orderPage");
 
         model.addAttribute("orderListEmpty", userDetailsOrderService.getAllOrdersOfUser(user.getUserId()).isEmpty());
         model.addAttribute("user", user);
@@ -64,6 +66,7 @@ public class UserDetailsOrderController {
         model.addAttribute("sort", currentSort);
         model.addAttribute("payOptFilter", curPayOptFilter);
         model.addAttribute("payStatFilter", curPayStatFilter);
+        model.addAttribute("orderStatFilter", curOrderStatFilter);
         model.addAttribute("delStatFilter", curDelStatFilter);
         model.addAttribute("couponFilter", curCouponFilter);
 
@@ -170,6 +173,19 @@ public class UserDetailsOrderController {
         }
     }
 
+    public List<Order> filterOrdersByOrderStatus(List<Order> orders, String couponUse) {
+        switch (couponUse) {
+            case "pending":
+                return orders.stream().filter(o -> o.getOrderStatus() == Order.OrderStatus.PENDING).collect(Collectors.toList());
+            case "confirmed":
+                return orders.stream().filter(o -> o.getOrderStatus() == Order.OrderStatus.CONFIRMED).collect(Collectors.toList());
+            case "canceled":
+                return orders.stream().filter(o -> o.getOrderStatus() == Order.OrderStatus.CANCELED).collect(Collectors.toList());
+            default:
+                return orders;
+        }
+    }
+
     public List<Order> filterOrdersByDeliveryStatus(List<Order> orders, String paymentStatus) {
         switch (paymentStatus) {
             case "info-received":
@@ -195,7 +211,7 @@ public class UserDetailsOrderController {
         }
     }
 
-    public List<Order> filterOrdersByCouponUsed(List<com.oak.bookyourshelf.model.Order> orders, String couponUse) {
+    public List<Order> filterOrdersByCouponUsed(List<Order> orders, String couponUse) {
         switch (couponUse) {
             case "yes":
                 return orders.stream().filter(o -> o.getCouponCode() != null).collect(Collectors.toList());
