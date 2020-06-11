@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.Globals;
+import com.oak.bookyourshelf.model.CartItem;
 import com.oak.bookyourshelf.model.Order;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.User;
@@ -83,13 +84,13 @@ public class UserDetailsOrderController {
             case "confirm":
                 List<Integer> productsIds = mapper.readValue(confirmedProducts, new TypeReference<List<Integer>>() {
                 });
-                Product outOfStockProduct = checkStock(productsIds);
+                Product outOfStockProduct = checkStock(order, productsIds);
 
                 if (outOfStockProduct != null) {
                     return ResponseEntity.badRequest().body(outOfStockProduct.getProductName() + " is out of stock.");
                 }
 
-                updateProducts(productsIds);
+                updateProducts(order, productsIds);
                 updateOrders(order, 1);
                 return ResponseEntity.ok("");
 
@@ -102,21 +103,21 @@ public class UserDetailsOrderController {
         }
     }
 
-    public Product checkStock(List<Integer> productsIds) {
+    public Product checkStock(Order order, List<Integer> productsIds) {
         for (Integer id : productsIds) {
             Product product = productDetailsInformationService.get(id);
-            if (product.getStock() <= 0) {   // TODO quantity
+            if (product.getStock() < getQuantity(order.getProducts(), id)) {
                 return product;
             }
         }
         return null;
     }
 
-    public void updateProducts(List<Integer> productsIds) {
+    public void updateProducts(Order order, List<Integer> productsIds) {
         for (Integer id : productsIds) {
             Product product = productDetailsInformationService.get(id);
             product.increaseSalesNum();
-            product.setStock(product.getStock() - 1);   // TODO quantity
+            product.setStock(product.getStock() - getQuantity(order.getProducts(), id));
             productDetailsInformationService.save(product);
         }
     }
@@ -133,6 +134,15 @@ public class UserDetailsOrderController {
         }
 
         userDetailsOrderService.save(order);
+    }
+
+    public int getQuantity(List<CartItem> cartItems, int productId) {
+        for (CartItem c : cartItems) {
+            if (c.getProduct().getProductId() == productId) {
+                return c.getQuantity();
+            }
+        }
+        return 0;
     }
 
     public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {
