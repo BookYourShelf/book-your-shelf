@@ -925,8 +925,6 @@ section {
     text-align: center;
     max-width: 320px;
     height: 50px;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 
 .product_name a {
@@ -934,6 +932,11 @@ section {
     line-height: 1.2;
     color: #4a4a4a;
     font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
 
 .product_name a:hover,
@@ -1832,4 +1835,10 @@ section {
     border-radius: 5px;
     border: 1px #b3b3b3 solid;
     margin-left: 10px;
+}
+
+.vertical_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

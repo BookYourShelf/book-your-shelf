@@ -4,7 +4,9 @@ import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Book;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.Product;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.service.CategoryService;
+import com.oak.bookyourshelf.service.SubcategoryDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.*;
 
 @Controller
-public class CategoryController {
+public class SubcategoryController {
 
+    final SubcategoryDetailsService subcategoryDetailsService;
     final CategoryService categoryService;
 
-    public CategoryController(CategoryService categoryService) {
+    public SubcategoryController(SubcategoryDetailsService subcategoryDetailsService, CategoryService categoryService) {
+        this.subcategoryDetailsService = subcategoryDetailsService;
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/subcategory/{id}", method = RequestMethod.GET)
     public String showCategory(@RequestParam("page") Optional<Integer> page,
                                @RequestParam("size") Optional<Integer> size,
                                @RequestParam("sort") Optional<String> sort,
@@ -35,6 +39,7 @@ public class CategoryController {
                                @RequestParam("stars") Optional<String> stars,
                                @RequestParam("minPrice") Optional<String> minPrice,
                                @RequestParam("maxPrice") Optional<String> maxPrice,
+                               @RequestParam("categoryID") Optional<String> categoryID,
                                Model model, @PathVariable int id) {
 
         String currentSort = sort.orElse("date-desc");
@@ -48,10 +53,11 @@ public class CategoryController {
         List<String> starList = new ArrayList<>(Arrays.asList(stars.orElse("").split(",")));
         List<String> minPriceList = new ArrayList<>(Arrays.asList(minPrice.orElse("").split(",")));
         List<String> maxPriceList = new ArrayList<>(Arrays.asList(maxPrice.orElse("").split(",")));
+        List<String> categoryIDList = new ArrayList<>(Arrays.asList(categoryID.orElse("").split(",")));
 
         // Get books and create return books object
-        Category category = categoryService.get(id);
-        List<Book> books = category.getBooks();
+        Subcategory subcategory = subcategoryDetailsService.get(id);
+        List<Book> books = subcategory.getBooks();
 
 
         sortBooks(books, currentSort);
@@ -67,6 +73,16 @@ public class CategoryController {
             if (price > maxP) {
                 maxP = price;
             }
+        }
+
+        if (!categoryIDList.get(0).equals("") && categoryIDList.size() == 1) {
+            int cId = Integer.parseInt(categoryIDList.get(0));
+            Category category = categoryService.get(cId);
+            ArrayList<Subcategory> path = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
+            if (path.size() > 0) {
+                path.remove(path.size() - 1); // Remove last subcategory
+            }
+            model.addAttribute("path", path);
         }
 
         // Filter languages
@@ -225,8 +241,13 @@ public class CategoryController {
                 }
             }
         }
-        Globals.getPageNumbers(page, size, booksMax, model, "categoryBooks");
-        model.addAttribute("category", category);
+        Globals.getPageNumbers(page, size, booksMax, model, "subcategoryBooks");
+        model.addAttribute("categoryService", categoryService);
+        model.addAttribute("subcategoryService", subcategoryDetailsService);
+        if (!categoryIDList.get(0).equals("")) {
+            model.addAttribute("categoryID", Integer.valueOf(categoryIDList.get(0)));
+        }
+        model.addAttribute("subcategory", subcategory);
         model.addAttribute("sort", currentSort);
         model.addAttribute("languages", languagesCount);
         model.addAttribute("translators", translatorsCount);
@@ -235,7 +256,7 @@ public class CategoryController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/category";
+        return "/subcategory";
     }
 
     private void sortBooks(List<Book> books, String sort) {
