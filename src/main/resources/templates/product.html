@@ -60,18 +60,22 @@
                         <div class="product_image_slider_container">
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
-                                    <li th:each="image : ${images}">
-                                        <img th:src="|data:image/png;base64,${image}|"/>
+                                    <li class="vertical_center" th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"
+                                             style="max-height: 700px; width: auto"/>
                                     </li>
                                 </ul>
                             </div>
+                            <span th:if="${#lists.size(images) > 1}">
                             <div id="carousel" class="flexslider">
                                 <ul class="slides">
                                     <li th:each="image : ${images}">
-                                        <img th:src="|data:image/png;base64,${image}|"/>
+                                        <img style="max-height: 200px; width: auto"
+                                             th:src="|data:image/png;base64,${image}|"/>
                                     </li>
                                 </ul>
                             </div>
+                            </span>
                         </div>
                     </div>
 
@@ -242,8 +246,9 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-                            <p th:text="${product.getShortDesc()}"></p>
-                            <p th:text="${product.getLongDesc()}"></p>
+                            <p class="descriptions" th:text="${product.getShortDesc()}"></p>
+                            <br>
+                            <p class="descriptions" th:text="${product.getLongDesc()}"></p>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="table-responsive">
@@ -595,8 +600,16 @@
                                     <div class="review_box">
                                         <h4>Add a Review</h4>
                                         <div sec:authorize="isAuthenticated()">
-                                            <form method="post" class="form-contact form-review mt-3">
+                                            <span th:if="${alreadyReviewed}">
+                                            <a style="color: #fbaa1d;">
+                                                <strong>
+                                                    You already reviewed this product.
+                                                </strong>
+                                            </a>
+                                            </span>
 
+                                            <span th:unless="${alreadyReviewed}">
+                                            <form class="form-contact form-review mt-3">
                                                 <fieldset class="rating">
                                                     <input class="scoreOutOf5" type="radio" id="star5" name="rating"
                                                            value="5" required="required"><label
@@ -641,7 +654,9 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                            </span>
                                         </div>
+
                                         <div sec:authorize="isAnonymous()" style="margin: 10px 0;">
                                             <a style="color: #fbaa1d;" th:href="@{/login}">
                                                 <strong>
@@ -670,7 +685,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'date-desc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Decreasing by Date'"
                                                        th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -681,7 +697,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'date-asc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Increasing by Date'"
                                                        th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -692,7 +709,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'title-asc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Review Title A - Z'"
                                                        th:style="${sort == 'title-asc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -703,7 +721,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'title-desc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Review Title Z - A'"
                                                        th:style="${sort == 'title-desc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -714,7 +733,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'content-asc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Review Content A - Z'"
                                                        th:style="${sort == 'content-asc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -725,7 +745,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'content-desc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Review Content Z - A'"
                                                        th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -736,7 +757,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'rate-desc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Decreasing by Rate'"
                                                        th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -747,7 +769,8 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${'rate-asc'},
-                                                                                            filter=${filter})}"
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'Increasing by Rate'"
                                                        th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
                                                     </a>
@@ -767,9 +790,10 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${sort},
-                                                                                            filter=${'all'})}"
+                                                                                            ratingFilter=${'all'},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'All'"
-                                                       th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                                                       th:style="${ratingFilter == 'all'} ? 'color:#1f5b70'">
                                                     </a>
                                                 </li>
                                                 <li class="item_filter_btn">
@@ -777,9 +801,10 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${sort},
-                                                                                            filter=${'1'})}"
+                                                                                            ratingFilter=${'1'},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'1 Star'"
-                                                       th:style="${filter == '1'} ? 'color:#1f5b70'">
+                                                       th:style="${ratingFilter == '1'} ? 'color:#1f5b70'">
                                                     </a>
                                                 </li>
                                                 <li class="item_filter_btn">
@@ -787,9 +812,10 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${sort},
-                                                                                            filter=${'2'})}"
+                                                                                            ratingFilter=${'2'},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'2 Star'"
-                                                       th:style="${filter == '2'} ? 'color:#1f5b70'">
+                                                       th:style="${ratingFilter == '2'} ? 'color:#1f5b70'">
                                                     </a>
                                                 </li>
                                                 <li class="item_filter_btn">
@@ -797,9 +823,10 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${sort},
-                                                                                            filter=${'3'})}"
+                                                                                            ratingFilter=${'3'},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'3 Star'"
-                                                       th:style="${filter == '3'} ? 'color:#1f5b70'">
+                                                       th:style="${ratingFilter == '3'} ? 'color:#1f5b70'">
                                                     </a>
                                                 </li>
                                                 <li class="item_filter_btn">
@@ -807,9 +834,10 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${sort},
-                                                                                            filter=${'4'})}"
+                                                                                            ratingFilter=${'4'},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'4 Star'"
-                                                       th:style="${filter == '4'} ? 'color:#1f5b70'">
+                                                       th:style="${ratingFilter == '4'} ? 'color:#1f5b70'">
                                                     </a>
                                                 </li>
                                                 <li class="item_filter_btn">
@@ -817,9 +845,52 @@
                                                                                             size=${reviewPage.size},
                                                                                             page=${1},
                                                                                             sort=${sort},
-                                                                                            filter=${'5'})}"
+                                                                                            ratingFilter=${'5'},
+                                                                                            titleFilter=${titleFilter})}"
                                                        th:text="'5 Star'"
-                                                       th:style="${filter == '5'} ? 'color:#1f5b70'">
+                                                       th:style="${ratingFilter == '5'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="products_dropdown product_dropdown_filter">
+                                            <div class="isotope_filter_text"><span>Title Filter</span><i
+                                                    class="fa fa-caret-down"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <ul>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${'all'})}"
+                                                       th:text="'All'"
+                                                       th:style="${titleFilter == 'all'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${'titled'})}"
+                                                       th:text="'Titled'"
+                                                       th:style="${titleFilter == 'titled'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${'untitled'})}"
+                                                       th:text="'Untitled'"
+                                                       th:style="${titleFilter == 'untitled'} ? 'color:#1f5b70'">
                                                     </a>
                                                 </li>
                                             </ul>
@@ -859,6 +930,31 @@
                                                                             &#xf014;
                                                                         </button>
                                                                     </div>
+
+                                                                    <div sec:authorize="isAuthenticated()">
+                                                                        <span th:if="${user.getRole() != 1 and
+                                                                                    review.getUserId() == user.getUserId()}">
+                                                                            <h5 class="date" style="float:left;"
+                                                                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+
+                                                                            <!-- Delete button -->
+                                                                            <button type="submit" value="&#xf014;"
+                                                                                    class="delete_review trans_200 fa"
+                                                                                    name="delete_review"
+                                                                                    th:id="${review.getReviewId()}"
+                                                                                    title="Delete this review"
+                                                                                    style="font-size: 24px; color: #4a4a4a; float: right"
+                                                                                    data-toggle="collapse">
+                                                                                &#xf014;
+                                                                            </button>
+                                                                        </span>
+
+                                                                        <span th:if="${user.getRole() != 1}"
+                                                                              th:unless="${review.getUserId() == user.getUserId()}">
+                                                                            <h5 class="review_date date"
+                                                                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
@@ -892,7 +988,8 @@
                                                                                                         size=${reviewPage.size},
                                                                                                         page=${currentPage - 1},
                                                                                                         sort=${sort},
-                                                                                                        filter=${filter})}"
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
                                                                    aria-label="Previous" title="Previous Page"
                                                                    rel="tooltip">
                                                                     <i class="pagination_arrow fa fa-angle-left"></i>
@@ -906,7 +1003,8 @@
                                                                                                         size=${reviewPage.size},
                                                                                                         page=${1},
                                                                                                         sort=${sort},
-                                                                                                        filter=${filter})}"
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
                                                                    th:title="${'Page '+ 1}"
                                                                    th:text="${1}" style="color: #fbaa1d;">
                                                                 </a>
@@ -923,7 +1021,8 @@
                                                                                                         size=${reviewPage.size},
                                                                                                         page=${i},
                                                                                                         sort=${sort},
-                                                                                                        filter=${filter})}"
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
                                                                    th:text="${i}" th:title="${'Page '+ i}"
                                                                    style="color: #fbaa1d;"></a>
                                                             </li>
@@ -938,7 +1037,8 @@
                                                                                                         size=${reviewPage.size},
                                                                                                         page=${reviewPage.totalPages},
                                                                                                         sort=${sort},
-                                                                                                        filter=${filter})}"
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
                                                                    th:text="${reviewPage.totalPages}"
                                                                    style="color: #fbaa1d;"
                                                                    th:title="${'Page '+ reviewPage.totalPages}">
@@ -951,7 +1051,8 @@
                                                                                                         size=${reviewPage.size},
                                                                                                         page=${currentPage + 1},
                                                                                                         sort=${sort},
-                                                                                                        filter=${filter})}"
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
                                                                    aria-label="Next" title="Next Page" rel="tooltip">
                                                                     <i class="pagination_arrow fa fa-angle-right"></i>
                                                                 </a>
@@ -964,7 +1065,7 @@
                                     </span>
 
                                     <!-- Empty page -->
-                                    <span th:unless="${reviewPage.totalPages > 0}">
+                                    <span th:unless="${reviewPage.totalPages > 0}" th:if="${reviewListEmpty == false}">
                                         <div class="warning-text">There are no reviews.</div>
                                     </span>
 
@@ -982,7 +1083,7 @@
             </section>
             <!--================End Product Description Area =================-->
 
-            <span th:unless="${similarProducts == null}">
+            <span th:unless="${similarProducts.size() == 0}">
             <div class="products" style="padding-top: 0">
                 <div class="container">
                     <div class="row">
@@ -1141,6 +1242,12 @@
 <script th:src="@{/static/js/iziToast.min.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
+
+    $(document).ready(function () {
+        document.getElementById("review_title").setAttribute("maxlength", "255");
+        document.getElementById("review_content").setAttribute("maxlength", "1000");
+    });
+
     var productID = /*[[${product.getProductId()}]]*/ 'default';
     var productName = /*[[${product.getProductName()}]]*/ 'default';
     var scoreOutOf5 = 0;
@@ -1255,16 +1362,14 @@
         if (validation_check(["review_content"])) {
             event.preventDefault();
             $.post("/product/" + productID, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Review added for ' + productName + ' successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/product/" + productID + "#information";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
+                // iziToast.show({
+                //     title: 'Success',
+                //     message: 'Review added for ' + productName + ' successfully.',
+                //     position: 'topRight',
+                //     color: 'green'
+                // });
+                window.location.hash = '#information';
+                window.location.reload(true);
 
             }).fail(function (data) {
 
@@ -1283,18 +1388,6 @@
         }
     });
 
-    $('#compare_products').click(function (event) {
-
-        var second = "38";
-        var ret = {
-            type: "compare",
-        };
-        console.log(second);
-        event.preventDefault();
-        $.get("/compare/" + productID + "/" + second, ret, function (data) {
-        })
-    });
-
     $('.delete_review').click(function (event) {
         var ret = {
             type: "delete_review",
@@ -1305,16 +1398,14 @@
         if (confirm('Are you sure you want to delete?')) {
             event.preventDefault();
             $.post("/product/" + productID, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Review deleted successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
-                window.location.href = "/product/" + productID + "#information";
-                setTimeout(function () {
-                    history.pushState(null, null, ' ');
-                }, 100);
+                // iziToast.show({
+                //     title: 'Success',
+                //     message: 'Review deleted successfully.',
+                //     position: 'topRight',
+                //     color: 'green'
+                // });
+                window.location.hash = '#information';
+                window.location.reload(true);
 
             }).fail(function (data) {
                 if (data.responseText === "") {
@@ -1365,11 +1456,6 @@
         })
     });
 
-    $('.compare').click(function (event) {
-        var id = $(this).attr("id");
-        window.location.href = "/compare/" + productID + "/" + id;
-    });
-
     $('.add_to_cart').click(function (event) {
         var id = $(this).attr("id");
         var name = $(this).attr("value");
@@ -1400,6 +1486,23 @@
                     color: 'red'
                 });
             }
+        })
+    });
+
+    $('.compare').click(function (event) {
+        var id = $(this).attr("id");
+        window.location.href = "/compare/" + productID + "/" + id;
+    });
+
+    $('#compare_products').click(function (event) {
+
+        var second = "38";
+        var ret = {
+            type: "compare",
+        };
+        console.log(second);
+        event.preventDefault();
+        $.get("/compare/" + productID + "/" + second, ret, function (data) {
         })
     });
 
