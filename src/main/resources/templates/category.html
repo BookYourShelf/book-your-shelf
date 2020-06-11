@@ -871,6 +871,9 @@
         $('input[name = "Author1"]:checked').each(function () {
             url.searchParams.append('authors', $(this).val());
         });
+        $('input[name = "Discount1"]:checked').each(function () {
+            url.searchParams.append('discount', $(this).val());
+        });
         const star1 = $('input[name = "star1"]:checked'); // 5 stars
         if (star1.length !== 0) {
             url.searchParams.append('stars', 5);
@@ -923,6 +926,7 @@
         currentUrl.searchParams.getAll("translators").length === 0 &&
         currentUrl.searchParams.getAll("publishers").length === 0 &&
         currentUrl.searchParams.getAll("authors").length === 0 &&
+        currentUrl.searchParams.getAll("discount").length === 0 &&
         currentUrl.searchParams.getAll("stars").length === 0 &&
         currentUrl.searchParams.getAll("minPrice").length === 0 &&
         currentUrl.searchParams.getAll("maxPrice").length === 0) {
