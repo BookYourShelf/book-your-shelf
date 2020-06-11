@@ -72,8 +72,8 @@ public class Order {
     private String orderCode;
     private float subTotalAmount;
     private float totalAmount;
-    private float couponPrice;
-
+    private String couponCode;
+    private int discountRate;
 
 
     @Enumerated(EnumType.STRING)
@@ -111,8 +111,8 @@ public class Order {
             totalAmount += NEXT_DAY_DEL_PRICE;
         }
 
-        if(this.couponPrice != 0.0f){
-            totalAmount += this.couponPrice;
+        if(this.discountRate != 0){
+            totalAmount -= ( this.subTotalAmount * this.discountRate/100);
         }
         return totalAmount;
     }
@@ -239,15 +239,17 @@ public class Order {
         this.shippingMethod = shippingMethod;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
+    public OrderStatus getOrderStatus() { return orderStatus; }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public float getCouponPrice() { return couponPrice; }
+    public String getCouponCode() { return couponCode; }
 
-    public void setCouponPrice(float couponPrice) { this.couponPrice = couponPrice; }
+    public void setCouponCode(String couponCode) { this.couponCode = couponCode; }
+
+    public int getDiscountRate() { return discountRate; }
+
+    public void setDiscountRate(int discountRate) { this.discountRate = discountRate; }
 }
