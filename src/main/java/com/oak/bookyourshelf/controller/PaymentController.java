@@ -3,7 +3,9 @@ package com.oak.bookyourshelf.controller;
 import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.CartService;
+import com.oak.bookyourshelf.service.CouponDetailsService;
 import com.oak.bookyourshelf.service.PaymentService;
+import com.oak.bookyourshelf.service.admin_panel.AdminPanelCouponService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,18 +28,21 @@ public class PaymentController {
     final AuthService authService;
     final CartService cartService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final AdminPanelCouponService adminPanelCouponService;
     Order order;
 
     public PaymentController(PaymentService paymentService,
                              @Qualifier("customUserDetailsService") AuthService authService,
                              ProfileInformationService profileInformationService,
                              CartService cartService,
-                             ProductDetailsInformationService productDetailsInformationService) {
+                             ProductDetailsInformationService productDetailsInformationService,
+                             AdminPanelCouponService adminPanelCouponService) {
         this.paymentService = paymentService;
         this.profileInformationService = profileInformationService;
         this.authService = authService;
         this.cartService = cartService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.adminPanelCouponService = adminPanelCouponService;
     }
 
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
@@ -90,6 +95,7 @@ public class PaymentController {
         order.setUserId(user.getUserId());
         order.setOrderStatus(Order.OrderStatus.PENDING);
         order.setDeliveryStatus(Order.DeliveryStatus.PENDING);
+        coupon(order, user);
 
         productModification(user);
         user.getShoppingCart().clear();
@@ -115,4 +121,16 @@ public class PaymentController {
             }
         }
     }
+
+    public void coupon(Order order, User user){
+        if(order.getCouponCode() != null){
+            Coupon coupon = adminPanelCouponService.findByCouponCode(order.getCouponCode());
+            System.out.println("there is value");
+            coupon.getUserId().add(user.getUserId());
+            adminPanelCouponService.save(coupon);
+            System.out.println(order.getCouponCode());
+        }
+    }
+
+
 }
