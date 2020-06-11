@@ -128,4 +128,35 @@ public class Globals {
         }
         return subcategories;
     }
+
+    public static ArrayList<String> traversePathBetweenSubcategories(Subcategory subcategory, Subcategory find) {
+        ArrayList<String> ret = new ArrayList<>();
+        ret.add(subcategory.getName());
+        for (Subcategory sub : subcategory.getSubcategories()) {
+            if (sub.equals(find)) {
+                ret.add(sub.getName());
+            } else {
+                traversePathBetweenSubcategories(sub, find);
+            }
+        }
+        if (ret.size() > 1) {
+            return ret;
+        }
+        ret.remove(0);
+        return ret;
+    }
+
+    public static ArrayList<String> findPathBetweenSubcategoryAndCategory(Category category, Subcategory subcategory) {
+        ArrayList<String> ret = new ArrayList<>();
+        ret.add(category.getName());
+        for (Subcategory sub : category.getSubcategories()) {
+            if (sub.equals(subcategory)) {
+                ret.add(sub.getName());
+            } else {
+                ret.addAll(traversePathBetweenSubcategories(sub, subcategory));
+            }
+        }
+
+        return ret;
+    }
 }
