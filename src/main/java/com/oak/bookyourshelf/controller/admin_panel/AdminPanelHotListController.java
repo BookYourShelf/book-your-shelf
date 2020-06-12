@@ -39,6 +39,7 @@ public class AdminPanelHotListController {
 
         HotList hotList = new HotList();
         model.addAttribute("hotList", hotList);
+        model.addAttribute("adminPanelHotListService", adminPanelHotListService);
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
@@ -203,4 +204,6 @@ public class AdminPanelHotListController {
                 return hotLists;
         }
     }
+
+
 }
