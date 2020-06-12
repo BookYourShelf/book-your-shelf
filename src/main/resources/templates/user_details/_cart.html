@@ -10,9 +10,9 @@
             <div class="cart_bar">
                 <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
                     <li class="mr-auto">Product</li>
-                    <li>Price</li>
-                    <li>Quantity</li>
-                    <li>Total</li>
+                    <li class="cart_item_li">Price</li>
+                    <li class="cart_item_li">Quantity</li>
+                    <li class="cart_item_li">Total</li>
                 </ul>
             </div>
 
@@ -25,82 +25,85 @@
                             <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                 <a th:href="'/product/' + ${cartItem.getProduct().getProductId()}">
                                     <div>
-                                        <div class="product_image">
-                                            <img th:src="|data:image/png;base64,${cartItem.getProduct().getEncodedCoverImage()}|"
-                                                 alt="" class="product_image_img"/>
+                                        <div class="product_image vertical_center"
+                                             style="margin-left: 20px; margin-right: 10px">
+                                            <img class="review_product_image" alt="Product Cover Image"
+                                                 th:src="|data:image/png;base64,${cartItem.getProduct().getEncodedCoverImage()}|"/>
                                         </div>
                                     </div>
                                     <div class="product_name_container">
-                                        <div class="shopping-cart-product-name"><a
-                                                th:href="'/product/' + ${cartItem.getProduct().getProductId()}">
-                                            <td th:text="${cartItem.getProduct().getProductName()}"></td></a></div>
+                                        <div class="cart-product-name" style="max-width: 600px!important;">
+                                            <a th:href="'/product/' + ${cartItem.getProduct().getProductId()}"
+                                               th:text="${cartItem.getProduct().getProductName()}"></a></div>
+
                                         <!-- Author -->
                                         <span th:if="${cartItem.getProduct().getProductTypeName() == 'Book' ||
-                                                       cartItem.getProduct().getProductTypeName() == 'E-Book' ||
-                                                       cartItem.getProduct().getProductTypeName() == 'Audio Book'}">
-                                            <div class="shopping-cart-product-text">
-                                                <span th:each="authors, iterStat : ${cartItem.getProduct().getAuthors()}"
-                                                      th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}" style="display:inline">
-                                                </span>
-                                            </div>
-                                        </span>
+                                                   cartItem.getProduct().getProductTypeName() == 'E-Book' ||
+                                                   cartItem.getProduct().getProductTypeName() == 'Audio Book'}">
+                                        <div class="cart-product-text" style="max-width: 600px!important;">
+                                            <span th:each="authors, iterStat : ${cartItem.getProduct().getAuthors()}"
+                                                  th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}">
+                                            </span>
+                                        </div>
+                                    </span>
+
                                         <!-- Case Brand -->
                                         <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader Case' ||
-                                                      cartItem.getProduct().getProductTypeName() == 'Book Case'}">
-                                            <div class="shopping-cart-product-text">
-                                                <td th:text="${cartItem.getProduct().getCaseBrand()}"></td>
-                                            </div>
-                                        </span>
+                                                  cartItem.getProduct().getProductTypeName() == 'Book Case'}">
+                                        <div class="cart-product-text" style="max-width: 600px!important;"
+                                             th:text="${cartItem.getProduct().getCaseBrand()}">
+                                        </div>
+                                    </span>
+
                                         <!-- Tablet Brand -->
                                         <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader'}">
-                                            <div class="shopping-cart-product-text">
-                                                <td th:text="${cartItem.getProduct().getReaderBrand()}"></td>
-                                            </div>
-                                        </span>
+                                        <div class="cart-product-text" style="max-width: 600px!important;"
+                                             th:text="${cartItem.getProduct().getReaderBrand()}">
+                                        </div>
+                                    </span>
                                     </div>
                                 </a>
                             </div>
+
                             <div class="cart_product_price product_text">
                                 <div th:if="${cartItem.getProduct().isOnDiscount()}">
                                     <div class="align-items-start justify-content-start">
                                         <!-- when no sale delete -->
                                         <div class="cart_sale_price"><b>
-                                            <td th:text="${cartItem.getProduct().getDiscountRate() + '%' + 'off'}"></td></b>
+                                            <td th:text="${cartItem.getProduct().getDiscountRate() + '%' + 'off'}"></td>
+                                        </b>
                                         </div>
 
                                         <div class="cart_sale_price">
-                                            <del><td th:text="${'₺' + cartItem.getProduct().getPrice()}"></td></del>
+                                            <del>
+                                                <td th:text="${'₺' + cartItem.getProduct().getPrice()}"></td>
+                                            </del>
                                         </div>
-
                                     </div>
                                 </div>
-                                 <span>Price:</span> <span style="display:block"
-                                       th:text="${'₺' + #numbers.formatDecimal(cartItem.getProduct().getPrice() - cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate(),0,2)}"></span>
+                                <span>Price:</span>
+                                <div class="product_total product_text"
+                                     th:text="${'₺' + #numbers.formatDecimal(cartItem.getProduct().getPrice() - cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate(),0,2)}"></div>
                             </div>
-                            <div class="product_total product_text"><td th:text="${cartItem.getQuantity()}"></td></div>
+
+                            <div class="product_total product_text" th:text="${cartItem.getQuantity()}"></div>
+
                             <div class="product_total product_text"><span>Total: </span>
                                 <span style="display:inline"
                                       th:with="result=${cartItem.getProduct().getPrice() - (cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate())} ,
-                                      quantity =${cartItem.getQuantity()},
-                                      total=${result*quantity}" th:text="${'₺' + #numbers.formatDecimal(total,0,2)}"></span>
+                                  quantity =${cartItem.getQuantity()},
+                                  total=${result*quantity}"
+                                      th:text="${'₺' + #numbers.formatDecimal(total,0,2)}"></span>
                             </div>
                         </li>
                     </tr>
                 </ul>
             </div>
-
-            <!-- Out of stock warning -->
-            <div class="out-of-stock" style="display: none">One or more products are out of
-                stock.
-            </div>
         </div>
     </div>
 </div>
 
-<!-- No product -->
-<div class="warning-text" style="display: none">There are no product.</div>
-
-<div class="row page_nav_row">
+<div class="row page_nav_row" style="margin-top: 5px">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
@@ -127,7 +130,7 @@
                 <!-- Pages -->
                 <li th:if="${cartPage.totalPages > 2}"
                     th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
-                                                                                , cartPage.totalPages > 2 + currentPage ? currentPage + 2 : cartPage.totalPages - 1, 1)}"
+                                                                            , cartPage.totalPages > 2 + currentPage ? currentPage + 2 : cartPage.totalPages - 1, 1)}"
                     th:class="${currentPage == i} ? 'active'">
                     <a th:href="@{/user-details/{id}#cart(id=${user.getUserId()},size=${cartPage.size}, page=${i})}"
                        th:text="${i}" th:title="${'Page '+ i}"
@@ -135,7 +138,8 @@
                 </li>
 
                 <li th:if="${currentPage + 3 < cartPage.totalPages}"
-                    class="pagination_dots">...</li>
+                    class="pagination_dots">...
+                </li>
 
                 <!-- Last page -->
                 <li th:if="${cartPage.totalPages > 1}"
@@ -159,7 +163,12 @@
     </div>
 </div>
 </span>
-<span th:unless="${cartPage.totalPages >0}">
-    <div class="warning-text">There are no products yet.</div>
+
+<span th:unless="${cartPage.totalPages > 0}">
+    <div class="warning-text">There are no products.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
 </span>
+
 </html>
