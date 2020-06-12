@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.model.Campaign;
+import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.service.CampaignDetailsService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCampaignService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
@@ -68,7 +69,14 @@ public class CampaignDetailsController {
                 campaignDetailsService.save(campaign);
                 return ResponseEntity.ok("");
             case "delete_campaign":
-                campaignDetailsService.delete(id);
+                if(campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK)
+                {
+                    campaignDetailsService.removeDiscount(campaign);
+                    campaignDetailsService.delete(id);
+                }
+                else
+                    campaignDetailsService.removeDiscountOtherProducts(campaign);
+
                 return ResponseEntity.ok("");
         }
         return ResponseEntity.badRequest().body("An error occurred.");
