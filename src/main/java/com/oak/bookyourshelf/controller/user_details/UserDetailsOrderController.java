@@ -84,18 +84,22 @@ public class UserDetailsOrderController {
             case "confirm":
                 List<Integer> productsIds = mapper.readValue(confirmedProducts, new TypeReference<List<Integer>>() {
                 });
-                Product outOfStockProduct = checkStock(order, productsIds);
 
+                if (productsIds.size() <= 0) {
+                    return ResponseEntity.badRequest().body("No product selected.");
+                }
+
+                Product outOfStockProduct = checkStock(order, productsIds);
                 if (outOfStockProduct != null) {
                     return ResponseEntity.badRequest().body(outOfStockProduct.getProductName() + " is out of stock.");
                 }
 
                 updateProducts(order, productsIds);
-                updateOrders(order, 1);
+                updateOrderStatus(order, 1);
                 return ResponseEntity.ok("");
 
             case "cancel":
-                updateOrders(order, 0);
+                updateOrderStatus(order, 0);
                 return ResponseEntity.ok("");
 
             default:
@@ -122,7 +126,7 @@ public class UserDetailsOrderController {
         }
     }
 
-    public void updateOrders(Order order, int success) {
+    public void updateOrderStatus(Order order, int success) {
         if (success == 1) {
             order.setOrderStatus(Order.OrderStatus.CONFIRMED);
             order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
