@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.*;
 
 @Controller
-public class EbookReaderController {
+public class ElectronicBookReaderController {
     final ProductService productService;
 
-    public EbookReaderController(ProductService productService) {
+    public ElectronicBookReaderController(ProductService productService) {
         this.productService = productService;
     }
 
