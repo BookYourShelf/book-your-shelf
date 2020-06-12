@@ -882,13 +882,13 @@
                                         <div class="cart_extra_total_title">Coupon</div>
                                         <div th:if="${order.getDiscountRate() == 0}"
                                              class="cart_extra_total_value ml-auto">
-                                            <div class="cart_extra_total_value ml-auto"> -₺0.00</div>
+                                            <div class="cart_extra_total_value ml-auto">- ₺0.00</div>
                                         </div>
-                                        <div th:unless ="${order.getDiscountRate() == 0}"
+                                        <div th:unless="${order.getDiscountRate() == 0}"
                                              class="cart_extra_total_value ml-auto">
-                                            <div class="cart_extra_total_value ml-auto">
-                                                <td th:text="${'-₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
-                                                order.getDiscountRate(), 0, 2)}"></td></div>
+                                            <div class="cart_extra_total_value ml-auto"
+                                                 th:text="${'- ₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
+                                                order.getDiscountRate(), 0, 2)}"></div>
                                         </div>
                                     </li>
 

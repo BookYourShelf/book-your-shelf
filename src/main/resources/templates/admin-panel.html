@@ -109,9 +109,10 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/admin-panel/pending-order(size=(${#request.getParameter('size')} ?: '3'),
                                                                             page=(${#request.getParameter('page')} ?: '1'),
-                                                                            sort=(${#request.getParameter('sort')} ?: 'date-desc'),
-                                                                            optionFilter=(${#request.getParameter('filter')} ?: 'all'),
-                                                                            statusFilter=(${#request.getParameter('filter')} ?: 'all'))}"
+                                                                            sort=(${#request.getParameter('sort')} ?: 'time-desc'),
+                                                                            optionFilter=(${#request.getParameter('optionFilter')} ?: 'all'),
+                                                                            statusFilter=(${#request.getParameter('statusFilter')} ?: 'all'),
+                                                                            couponFilter=(${#request.getParameter('couponFilter')} ?: 'all'))}"
                            th:href="@{#pending-order}">Pending Orders</a>
                     </li>
 
@@ -119,7 +120,7 @@
                         <a class="nav-link profile-navbar-text"
                            th:attr="data-url=@{/admin-panel/coupon(size=(${#request.getParameter('size')} ?: '3'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
-                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-asc'))}"
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
                            th:href="@{#coupon}">Coupons</a>
                     </li>
 

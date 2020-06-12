@@ -109,7 +109,11 @@ public abstract class Product {
     }
 
     public void increaseSalesNum() {
-        salesNum++;
+        this.salesNum++;
+    }
+
+    public void decreaseSalesNum() {
+        this.salesNum--;
     }
 
     // GETTER & SETTER
@@ -236,7 +240,11 @@ public abstract class Product {
 
     public abstract Object getProductTypeName();
 
-    public List<RemindProduct> getRemind() { return remind; }
+    public List<RemindProduct> getRemind() {
+        return remind;
+    }
 
-    public void setRemind(List<RemindProduct> remind) { this.remind = remind; }
+    public void setRemind(List<RemindProduct> remind) {
+        this.remind = remind;
+    }
 }

@@ -22,6 +22,8 @@ public class Payment {
     int paymentId;
 
     int payerId;
+    int orderId;
+    float amount;
     Timestamp issueDate;
 
     @Enumerated(EnumType.STRING)
@@ -31,6 +33,22 @@ public class Payment {
     PaymentResult paymentResult;
 
     // GETTER & SETTER
+    
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
 
     public int getPaymentId() {
         return paymentId;

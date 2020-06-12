@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- TODO name  -->
-    <title>Coupon Details | Book Your Shelf</title>
+    <title th:text="${'Coupon#' + coupon.getCouponId() + ' Details | Book Your Shelf'}"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
@@ -48,7 +47,6 @@
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
                                 <li><a th:href="@{/admin-panel}">Panel</a></li>
-                                <!-- TODO Name -->
                                 <li style="color: #fbaa1d" th:text="${'Coupon#' + coupon.getCouponId()}"></li>
                             </ul>
                         </div>
@@ -111,7 +109,7 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="tab-title-text">
-                                        Discount Rate
+                                        Discount Percentage
                                     </div>
                                 </div>
                                 <div class="col-lg-9">
@@ -130,10 +128,7 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        <div class="date"
-                                             th:text="${#dates.format(coupon.getUploadDate(), 'dd-MM-yyyy')}"></div>
-                                        <div class="time"
-                                             th:text="${#dates.format(coupon.getUploadDate(), 'hh:mm')}"></div>
+                                        <div th:text="${#dates.format(coupon.getUploadDate(), 'dd/MM/yyyy') + ' ' + #dates.format(coupon.getUploadDate(), 'HH:mm')}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -148,19 +143,10 @@
         <footer class="footer" th:insert="fragments/footer.html"></footer>
     </div>
 </div>
+
 <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
 <script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
-<script th:src="@{/static/js/plugins.js}"></script>
-<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
-<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
-<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
-<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
-<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
-<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
-<script th:src="@{/static/plugins/easing/easing.js}"></script>
-<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
-<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
 <script th:src="@{/static/js/classy-nav.min.js}"></script>
 <script th:src="@{/static/js/custom.js}"></script>
 <script th:src="@{/static/js/active.js}"></script>
@@ -168,8 +154,6 @@
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
 <script th:src="@{/static/js/jquery.mask.js}"></script>
-<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
-<script th:src="@{/static/js/bootstrap-multiselect.mask.js}"></script>
 <script th:src="@{/static/js/iziToast.min.js}"></script>
 
 <script th:inline="javascript">
@@ -200,10 +184,9 @@
                     color: 'red'
                 });
             })
-        } else window.location.href = "/coupon-details/" + couponId ;
+        } else window.location.href = "/coupon-details/" + couponId;
 
     });
-
 
     /*]]>*/
 </script>
