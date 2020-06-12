@@ -39,6 +39,7 @@ public class AdminPanelCampaignController {
 
         Campaign campaign = new Campaign();
         model.addAttribute("campaign", campaign);
+        model.addAttribute("adminPanelCampaignService",adminPanelCampaignService);
         model.addAttribute("campaignListEmpty", ((List)adminPanelCampaignService.listAll()).isEmpty());
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
