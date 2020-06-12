@@ -8,6 +8,7 @@ import com.oak.bookyourshelf.model.CartItem;
 import com.oak.bookyourshelf.model.Order;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.User;
+import com.oak.bookyourshelf.service.PaymentService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsOrderService;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,14 +28,16 @@ public class UserDetailsOrderController {
     final UserDetailsOrderService userDetailsOrderService;
     final UserDetailsInformationService userDetailsInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final PaymentService paymentService;
     ObjectMapper mapper = new ObjectMapper();
 
     public UserDetailsOrderController(UserDetailsOrderService userDetailsOrderService,
                                       UserDetailsInformationService userDetailsInformationService,
-                                      ProductDetailsInformationService productDetailsInformationService) {
+                                      ProductDetailsInformationService productDetailsInformationService, PaymentService paymentService) {
         this.userDetailsOrderService = userDetailsOrderService;
         this.userDetailsInformationService = userDetailsInformationService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.paymentService = paymentService;
     }
 
     @RequestMapping(value = "/user-details/order", method = RequestMethod.GET)
@@ -94,9 +98,10 @@ public class UserDetailsOrderController {
                     return ResponseEntity.badRequest().body(outOfStockProduct.getProductName() + " is out of stock.");
                 }
 
-                updateProducts(order, productsIds);
+                boolean canceledProductExists = updateOrderProducts(order, productsIds);
                 updateOrderStatus(order, 1);
-                return ResponseEntity.ok("");
+
+                return ResponseEntity.ok(String.valueOf(canceledProductExists));
 
             case "cancel":
                 updateOrderStatus(order, 0);
@@ -105,6 +110,19 @@ public class UserDetailsOrderController {
             default:
                 return ResponseEntity.badRequest().body("An error occurred.");
         }
+    }
+
+    public void updateOrderStatus(Order order, int success) {
+        if (success == 1) {
+            order.setOrderStatus(Order.OrderStatus.CONFIRMED);
+            order.setDeliveryStatus(Order.DeliveryStatus.INFO_RECEIVED);
+        } else {
+            order.setOrderStatus(Order.OrderStatus.CANCELED);
+            order.setPaymentStatus(Order.PaymentStatus.REFUNDED);
+            order.setDeliveryStatus(Order.DeliveryStatus.CANCELED);
+        }
+
+        userDetailsOrderService.save(order);
     }
 
     public Product checkStock(Order order, List<Integer> productsIds) {
@@ -117,29 +135,6 @@ public class UserDetailsOrderController {
         return null;
     }
 
-    public void updateProducts(Order order, List<Integer> productsIds) {
-        for (Integer id : productsIds) {
-            Product product = productDetailsInformationService.get(id);
-            product.increaseSalesNum();
-            product.setStock(product.getStock() - getQuantity(order.getProducts(), id));
-            productDetailsInformationService.save(product);
-        }
-    }
-
-    public void updateOrderStatus(Order order, int success) {
-        if (success == 1) {
-            order.setOrderStatus(Order.OrderStatus.CONFIRMED);
-            order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
-            order.setDeliveryStatus(Order.DeliveryStatus.INFO_RECEIVED);
-        } else {
-            order.setOrderStatus(Order.OrderStatus.CANCELED);
-            order.setPaymentStatus(Order.PaymentStatus.CANCELLED);
-            order.setDeliveryStatus(Order.DeliveryStatus.CANCELED);
-        }
-
-        userDetailsOrderService.save(order);
-    }
-
     public int getQuantity(List<CartItem> cartItems, int productId) {
         for (CartItem c : cartItems) {
             if (c.getProduct().getProductId() == productId) {
@@ -147,6 +142,33 @@ public class UserDetailsOrderController {
             }
         }
         return 0;
+    }
+
+    public boolean updateOrderProducts(Order order, List<Integer> productsIds) {
+        boolean unconfirmedProductExists = false;
+        Iterator<CartItem> i = order.getProducts().iterator();
+
+        while (i.hasNext()) {
+            CartItem c = i.next();
+            if (!productsIds.contains(c.getProduct().getProductId())) {
+                // rewind product changes back for canceled products
+                c.getProduct().decreaseSalesNum();
+                c.getProduct().setStock(c.getProduct().getStock() + c.getQuantity());
+                productDetailsInformationService.save(c.getProduct());
+
+                // rewind subtotal changes back for canceled products
+                float toBeDeleted = c.getQuantity() * (c.getUnitPrice() - (c.getUnitPrice() * c.getDiscountRate()));
+                order.setSubTotalAmount(order.getSubTotalAmount() - toBeDeleted);
+                i.remove();
+                unconfirmedProductExists = true;
+            }
+        }
+        // rewind total changes back for canceled products
+        order.setTotalAmount(order.calculateTotalAmount());
+        userDetailsOrderService.save(order);
+        // refund if needed
+        paymentService.findByOrderId(order.getOrderId()).setAmount(order.getTotalAmount());
+        return unconfirmedProductExists;
     }
 
     public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {

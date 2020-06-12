@@ -630,6 +630,8 @@
                                 <div class="cart_bar" style="padding-top: 20px">
                                     <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
                                         <li class="mr-auto" style="padding-left: 20px">Product</li>
+                                        <li th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}"
+                                            class="cart_item_li">Stock</li>
                                         <li class="cart_item_li">Price</li>
                                         <li class="cart_item_li">Quantity</li>
                                         <li class="cart_item_li">Total</li>
@@ -688,6 +690,12 @@
                                             </a>
                                         </div>
 
+                                        <div class="cart_product_price product_text"
+                                             th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}">
+                                            <div class="product_total product_text"
+                                                 th:text="${cartItem.getProduct().getStock()}"></div>
+                                        </div>
+
                                         <div class="cart_product_price product_text">
                                             <div th:if="${cartItem.getDiscountRate() != null and cartItem.getDiscountRate() != 0.0}">
                                                 <div class="align-items-start justify-content-start">
@@ -718,7 +726,8 @@
                                             <label class="checkbox_container">
                                                 <input checked type="checkbox"
                                                        th:name="'pending-order-' + ${order.getOrderId()}"
-                                                       th:id="${productId}" th:value="${productId}"
+                                                       th:id="${cartItem.getProduct().getProductId()}"
+                                                       th:value="${cartItem.getProduct().getProductId()}"
                                                        class="billing_checkbox">
                                                 <span class="checkbox_mark"></span>
                                             </label>
@@ -1008,12 +1017,22 @@
         if (validation_check([])) {
             event.preventDefault();
             $.post("/user-details/order/" + userId, ret, function (data) {
-                iziToast.show({
-                    title: 'Success',
-                    message: 'Order confirmed successfully.',
-                    position: 'topRight',
-                    color: 'green'
-                });
+                if (data === "true") {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Order confirmed and canceled product prices refunded successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                } else {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Order confirmed successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                }
+
                 window.location.href = "/user-details/" + userId + "#order";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
