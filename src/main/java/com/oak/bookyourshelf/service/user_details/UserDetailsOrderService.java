@@ -23,10 +23,20 @@ public class UserDetailsOrderService {
         userDetailsOrderRepository.save(order);
     }
 
+    public List<Order> getAllOrdersOfUser(int userId) {
+        return userDetailsOrderRepository.findByUserId(userId);
+    }
+
     public List<Order> sortOrders(String sortType, int userId) {
         switch (sortType) {
             case "time-asc":
                 return userDetailsOrderRepository.findByUserIdOrderByOrderDateAsc(userId);
+
+            case "code-desc":
+                return userDetailsOrderRepository.findByUserIdOrderByOrderCodeDesc(userId);
+
+            case "code-asc":
+                return userDetailsOrderRepository.findByUserIdOrderByOrderCodeAsc(userId);
 
             case "price-desc":
                 return userDetailsOrderRepository.findByUserIdOrderByTotalAmountDesc(userId);

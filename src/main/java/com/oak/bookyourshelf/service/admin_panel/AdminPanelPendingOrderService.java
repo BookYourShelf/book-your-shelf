@@ -27,6 +27,10 @@ public class AdminPanelPendingOrderService {
         adminPanelPendingOrderRepository.save(order);
     }
 
+    public Iterable<Order> listAll(Order.OrderStatus orderStatus) {
+        return adminPanelPendingOrderRepository.findByOrderStatus(orderStatus);
+    }
+
     public List<Order> sortOrders(String sortType, Order.OrderStatus orderStatus) {
         switch (sortType) {
             case "time-asc":
@@ -37,6 +41,12 @@ public class AdminPanelPendingOrderService {
 
             case "ID-asc":
                 return adminPanelPendingOrderRepository.findByOrderStatusOrderByUserIdAsc(orderStatus);
+
+            case "code-desc":
+                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeDesc(orderStatus);
+
+            case "code-asc":
+                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeAsc(orderStatus);
 
             case "price-desc":
                 return adminPanelPendingOrderRepository.findByOrderStatusOrderByTotalAmountDesc(orderStatus);

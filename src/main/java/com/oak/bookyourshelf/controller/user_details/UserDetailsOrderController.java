@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.Globals;
+import com.oak.bookyourshelf.model.CartItem;
 import com.oak.bookyourshelf.model.Order;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.User;
+import com.oak.bookyourshelf.service.PaymentService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsInformationService;
 import com.oak.bookyourshelf.service.user_details.UserDetailsOrderService;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,14 +28,16 @@ public class UserDetailsOrderController {
     final UserDetailsOrderService userDetailsOrderService;
     final UserDetailsInformationService userDetailsInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final PaymentService paymentService;
     ObjectMapper mapper = new ObjectMapper();
 
     public UserDetailsOrderController(UserDetailsOrderService userDetailsOrderService,
                                       UserDetailsInformationService userDetailsInformationService,
-                                      ProductDetailsInformationService productDetailsInformationService) {
+                                      ProductDetailsInformationService productDetailsInformationService, PaymentService paymentService) {
         this.userDetailsOrderService = userDetailsOrderService;
         this.userDetailsInformationService = userDetailsInformationService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.paymentService = paymentService;
     }
 
     @RequestMapping(value = "/user-details/order", method = RequestMethod.GET)
@@ -42,26 +47,34 @@ public class UserDetailsOrderController {
                       @RequestParam("sort") Optional<String> sort,
                       @RequestParam("payOptFilter") Optional<String> payOptFilter,
                       @RequestParam("payStatFilter") Optional<String> payStatFilter,
-                      @RequestParam("delStatFilter") Optional<String> delStatFilter, Model model) {
+                      @RequestParam("orderStatFilter") Optional<String> orderStatFilter,
+                      @RequestParam("delStatFilter") Optional<String> delStatFilter,
+                      @RequestParam("couponFilter") Optional<String> couponFilter, Model model) {
 
         User user = userDetailsInformationService.get(id);
         String currentSort = sort.orElse("time-desc");
         String curPayOptFilter = payOptFilter.orElse("all");
         String curPayStatFilter = payStatFilter.orElse("all");
+        String curOrderStatFilter = orderStatFilter.orElse("all");
         String curDelStatFilter = delStatFilter.orElse("all");
-        Globals.getPageNumbers(page, size, filterOrdersByPaymentOption(
+        String curCouponFilter = couponFilter.orElse("all");
+        Globals.getPageNumbers(page, size, filterOrdersByOrderStatus(filterOrdersByCouponUsed(filterOrdersByPaymentOption(
                 filterOrdersByPaymentStatus(
                         filterOrdersByDeliveryStatus(
                                 userDetailsOrderService.sortOrders(currentSort, user.getUserId()), curDelStatFilter),
                         curPayStatFilter),
-                curPayOptFilter), model, "orderPage");
+                curPayOptFilter), curCouponFilter), curOrderStatFilter), model, "orderPage");
 
+        model.addAttribute("orderListEmpty", userDetailsOrderService.getAllOrdersOfUser(user.getUserId()).isEmpty());
         model.addAttribute("user", user);
         model.addAttribute("productService", productDetailsInformationService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("payOptFilter", curPayOptFilter);
         model.addAttribute("payStatFilter", curPayStatFilter);
+        model.addAttribute("orderStatFilter", curOrderStatFilter);
         model.addAttribute("delStatFilter", curDelStatFilter);
+        model.addAttribute("couponFilter", curCouponFilter);
+
         return "user_details/_order";
     }
 
@@ -75,18 +88,23 @@ public class UserDetailsOrderController {
             case "confirm":
                 List<Integer> productsIds = mapper.readValue(confirmedProducts, new TypeReference<List<Integer>>() {
                 });
-                Product outOfStockProduct = checkStock(productsIds);
 
+                if (productsIds.size() <= 0) {
+                    return ResponseEntity.badRequest().body("No product selected.");
+                }
+
+                Product outOfStockProduct = checkStock(order, productsIds);
                 if (outOfStockProduct != null) {
                     return ResponseEntity.badRequest().body(outOfStockProduct.getProductName() + " is out of stock.");
                 }
 
-                updateProducts(productsIds);
-                updateOrders(order, 1);
-                return ResponseEntity.ok("");
+                boolean canceledProductExists = updateOrderProducts(order, productsIds);
+                updateOrderStatus(order, 1);
+
+                return ResponseEntity.ok(String.valueOf(canceledProductExists));
 
             case "cancel":
-                updateOrders(order, 0);
+                updateOrderStatus(order, 0);
                 return ResponseEntity.ok("");
 
             default:
@@ -94,37 +112,63 @@ public class UserDetailsOrderController {
         }
     }
 
-    public Product checkStock(List<Integer> productsIds) {
+    public void updateOrderStatus(Order order, int success) {
+        if (success == 1) {
+            order.setOrderStatus(Order.OrderStatus.CONFIRMED);
+            order.setDeliveryStatus(Order.DeliveryStatus.INFO_RECEIVED);
+        } else {
+            order.setOrderStatus(Order.OrderStatus.CANCELED);
+            order.setPaymentStatus(Order.PaymentStatus.REFUNDED);
+            order.setDeliveryStatus(Order.DeliveryStatus.CANCELED);
+        }
+
+        userDetailsOrderService.save(order);
+    }
+
+    public Product checkStock(Order order, List<Integer> productsIds) {
         for (Integer id : productsIds) {
             Product product = productDetailsInformationService.get(id);
-            if (product.getStock() <= 0) {   // TODO quantity
+            if (product.getStock() < getQuantity(order.getProducts(), id)) {
                 return product;
             }
         }
         return null;
     }
 
-    public void updateProducts(List<Integer> productsIds) {
-        for (Integer id : productsIds) {
-            Product product = productDetailsInformationService.get(id);
-            product.increaseSalesNum();
-            product.setStock(product.getStock() - 1);   // TODO quantity
-            productDetailsInformationService.save(product);
+    public int getQuantity(List<CartItem> cartItems, int productId) {
+        for (CartItem c : cartItems) {
+            if (c.getProduct().getProductId() == productId) {
+                return c.getQuantity();
+            }
         }
+        return 0;
     }
 
-    public void updateOrders(Order order, int success) {
-        if (success == 1) {
-            order.setOrderStatus(Order.OrderStatus.CONFIRMED);
-            order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
-            order.setDeliveryStatus(Order.DeliveryStatus.INFO_RECEIVED);
-        } else {
-            order.setOrderStatus(Order.OrderStatus.CANCELED);
-            order.setPaymentStatus(Order.PaymentStatus.CANCELLED);
-            order.setDeliveryStatus(Order.DeliveryStatus.CANCELED);
-        }
+    public boolean updateOrderProducts(Order order, List<Integer> productsIds) {
+        boolean unconfirmedProductExists = false;
+        Iterator<CartItem> i = order.getProducts().iterator();
 
+        while (i.hasNext()) {
+            CartItem c = i.next();
+            if (!productsIds.contains(c.getProduct().getProductId())) {
+                // rewind product changes back for canceled products
+                c.getProduct().decreaseSalesNum();
+                c.getProduct().setStock(c.getProduct().getStock() + c.getQuantity());
+                productDetailsInformationService.save(c.getProduct());
+
+                // rewind subtotal changes back for canceled products
+                float toBeDeleted = c.getQuantity() * (c.getUnitPrice() - (c.getUnitPrice() * c.getDiscountRate()));
+                order.setSubTotalAmount(order.getSubTotalAmount() - toBeDeleted);
+                i.remove();
+                unconfirmedProductExists = true;
+            }
+        }
+        // rewind total changes back for canceled products
+        order.setTotalAmount(order.calculateTotalAmount());
         userDetailsOrderService.save(order);
+        // refund if needed
+        paymentService.findByOrderId(order.getOrderId()).setAmount(order.getTotalAmount());
+        return unconfirmedProductExists;
     }
 
     public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {
@@ -165,6 +209,19 @@ public class UserDetailsOrderController {
         }
     }
 
+    public List<Order> filterOrdersByOrderStatus(List<Order> orders, String couponUse) {
+        switch (couponUse) {
+            case "pending":
+                return orders.stream().filter(o -> o.getOrderStatus() == Order.OrderStatus.PENDING).collect(Collectors.toList());
+            case "confirmed":
+                return orders.stream().filter(o -> o.getOrderStatus() == Order.OrderStatus.CONFIRMED).collect(Collectors.toList());
+            case "canceled":
+                return orders.stream().filter(o -> o.getOrderStatus() == Order.OrderStatus.CANCELED).collect(Collectors.toList());
+            default:
+                return orders;
+        }
+    }
+
     public List<Order> filterOrdersByDeliveryStatus(List<Order> orders, String paymentStatus) {
         switch (paymentStatus) {
             case "info-received":
@@ -185,6 +242,17 @@ public class UserDetailsOrderController {
                 return orders.stream().filter(p -> p.getDeliveryStatus() == Order.DeliveryStatus.PENDING).collect(Collectors.toList());
             case "canceled":
                 return orders.stream().filter(p -> p.getDeliveryStatus() == Order.DeliveryStatus.CANCELED).collect(Collectors.toList());
+            default:
+                return orders;
+        }
+    }
+
+    public List<Order> filterOrdersByCouponUsed(List<Order> orders, String couponUse) {
+        switch (couponUse) {
+            case "yes":
+                return orders.stream().filter(o -> o.getCouponCode() != null).collect(Collectors.toList());
+            case "no":
+                return orders.stream().filter(o -> o.getCouponCode() == null).collect(Collectors.toList());
             default:
                 return orders;
         }

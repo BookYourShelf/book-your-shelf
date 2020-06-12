@@ -21,7 +21,7 @@
     <div class="address-container">
         <div class="billingAddress">
             <div class="checkout_form_container">
-                <form id="new_campaign_form" class="checkout_form"  method="post">
+                <form id="new_campaign_form" class="checkout_form" method="post">
                     <div class="row">
                         <!-- Name -->
                         <div class="col-md-6">
@@ -30,23 +30,22 @@
                             </div>
 
                             <input type="text" id="coupon_code"
-                                   class="checkout_input form-control" pattern = "^[a-zA-Z ]+$"
+                                   class="checkout_input form-control" maxlength="255"
                                    placeholder="Coupon Code" required="required">
                         </div>
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
                                 Discount Rate (%)
                             </div>
-                            <input type="text" id="coupon_rate" pattern="^[0-9]+$"
+                            <input type="number" id="coupon_rate" min="1" max="99"
                                    class="checkout_input form-control discount-rate"
-                                   placeholder="Discount Rate in percent" required="required">
+                                   placeholder="Discount Rate in Percent" required="required">
                         </div>
                     </div>
 
-                    <div><!--ERROR--></div>
-
                     <!-- Button -->
-                    <input type="submit" class="login_button trans_200" value="Add Coupon" id="new_coupon" name="add_coupon">
+                    <input type="submit" class="login_button trans_200" value="Add Coupon" id="new_coupon"
+                           name="add_coupon">
                 </form>
             </div>
         </div>
@@ -91,28 +90,28 @@
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#coupon(sort=${'DiscountRate-asc'}, size=${couponPage.size}, page=${1})}"
-                       th:text="'Increasing By Rate'"
+                       th:text="'Increasing By Discount'"
                        th:style="${sort == 'DiscountRate-asc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#coupon(sort=${'DiscountRate-desc'}, size=${couponPage.size}, page=${1})}"
-                       th:text="'Decreasing By Rate'"
-                       th:style="${sort == 'DisountRate-desc'} ? 'color:#1f5b70'">
+                       th:text="'Decreasing By Discount'"
+                       th:style="${sort == 'DiscountRate-desc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#coupon(sort=${'UploadDate-asc'}, size=${couponPage.size}, page=${1})}"
-                       th:text="'Increasing By Date'"
+                       th:text="'Increasing By Upload Time'"
                        th:style="${sort == 'UploadDate-asc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#coupon(sort=${'UploadDate-desc'}, size=${couponPage.size}, page=${1})}"
-                       th:text="'Decreasing By Date'"
+                       th:text="'Decreasing By Upload Time'"
                        th:style="${sort == 'UploadDate-desc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
@@ -135,7 +134,7 @@
             </div>
 
             <div class="col-lg-3 col-md-3 col-xs-6">
-                <div class="profile-order-title">Discount Rate</div>
+                <div class="profile-order-title">Discount Percentage</div>
             </div>
             <div class="col-lg-3 col-md-3 col-xs-6">
                 <div class="profile-order-title">Upload Time</div>
@@ -153,31 +152,28 @@
                                 <div class="product_content">
                                     <div class="row order - row collapsible">
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <td class="category-id"
                                                     th:text="${coupon.getCouponId()}"></td>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <td class="category-name"
                                                     th:text="${coupon.getCouponCode()}"></td>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
+                                            <div class="profile-order-text vertical_center">
                                                 <td class="category-itemNum"
                                                     th:text="${'%' + #numbers.formatDecimal(coupon.getDiscountRate() * 100, 0, 0)}"></td>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-xs-6">
-                                            <div class="profile-order-text">
-                                                <div class="date"
-                                                     th:text="${#dates.format(coupon.getUploadDate(), 'dd-MM-yyyy')}"></div>
-                                                <div class="time"
-                                                     th:text="${#dates.format(coupon.getUploadDate(), 'hh:mm')}"></div>
+                                            <div class="profile-order-text vertical_center">
+                                                <div th:text="${#dates.format(coupon.getUploadDate(), 'dd/MM/yyyy') + ' ' + #dates.format(coupon.getUploadDate(), 'HH:mm')}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -245,6 +241,7 @@
         </div>
     </div>
 </span>
+
 <span th:unless="${couponPage.totalPages > 0}">
     <div class="warning-text">There are no coupons.</div>
     <div style="text-align: center; padding-bottom: 30px">
@@ -257,12 +254,11 @@
     $('#new_coupon').click(function (event) {
 
         var ret = {
-
             couponCode: $('#coupon_code').val(),
             discountRate: $('#coupon_rate').val()
         };
 
-        if(validation_check(["coupon_code", "coupon_rate"])){
+        if (validation_check(["coupon_code", "coupon_rate"])) {
             event.preventDefault();
             $.post("/admin-panel/coupon", ret, function (data) {
                 iziToast.show({
@@ -296,7 +292,6 @@
         }
         return true;
     }
-
 
 </script>
 

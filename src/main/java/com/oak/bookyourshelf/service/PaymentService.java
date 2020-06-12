@@ -30,4 +30,8 @@ public class PaymentService {
     public void delete(int id) {
         paymentRepository.deleteById(id);
     }
+
+    public Payment findByOrderId(int orderId) {
+        return paymentRepository.findByOrderId(orderId);
+    }
 }

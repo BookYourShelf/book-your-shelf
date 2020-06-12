@@ -23,25 +23,25 @@
             <div class="checkout_form_container">
                 <form id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
                     <div class="row">
-                    <!-- Name -->
-                    <div class="col-md-6">
-                        <div class="login-text p-b-10" style="color: black;">
-                            Campaign Name
-                        </div>
+                        <!-- Name -->
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Campaign Name
+                            </div>
 
-                        <input type="text" id="new_campaign_name"
-                               class="checkout_input form-control"
-                               placeholder="Campaign Name" required="required"
-                               pattern="[A-Za-z]+" title="Campaign name cannot have digits.">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="login-text p-b-10" style="color: black;">
-                            Discount Rate
+                            <input type="text" id="new_campaign_name"
+                                   class="checkout_input form-control"
+                                   placeholder="Campaign Name" required="required"
+                                   pattern="[A-Za-z]+" title="Campaign name cannot have digits.">
                         </div>
-                        <input type="text" id="new_campaign_rate"
-                               class="checkout_input form-control discount-rate"
-                               placeholder="Discount Rate" required="required">
-                    </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Discount Rate
+                            </div>
+                            <input type="text" id="new_campaign_rate"
+                                   class="checkout_input form-control discount-rate"
+                                   placeholder="Discount Rate" required="required">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -252,26 +252,26 @@
                 <a th:href="@{'/campaign-details/' + ${campaign.id}}">
                     <div class="category-element col-md-auto">
                         <div class="product_content">
-                            <div class="row order - row collapsible" >
+                            <div class="row order - row collapsible">
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${campaign.getId()}"></td>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${campaign.getName()}"></td>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">%
+                                    <div class="profile-order-text vertical_center">%
                                         <td th:text="${campaign.getRate()}"></td>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
+                                    <div class="profile-order-text vertical_center">
                                         <td th:text="${campaign.getProductType()}"></td>
                                     </div>
                                 </div>
@@ -279,7 +279,6 @@
                                  </div>
 
                             </div>
-                        </div>
                     </div>
                 </a>
             </div>
@@ -288,68 +287,62 @@
     </div>
 </div>
 
-
-
-
-
 <div class="row page_nav_row">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
 
-
-
                 <!-- Previous button -->
-                    <li th:style="${currentPage == 1} ? 'display:none'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1},sort=${sort},
-                                                            filter=${filter})}"
-                           aria-label="Previous" title="Previous Page" rel="tooltip">
-                            <i class="pagination_arrow fa fa-angle-left"></i>
-                        </a>
-                    </li>
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1},sort=${sort},
+                                                        filter=${filter})}"
+                       aria-label="Previous" title="Previous Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
 
                 <!-- First page -->
-                    <li th:if="${campaignPage.totalPages > 0}"
-                        th:class="${currentPage == 1} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1},sort=${sort},
-                                                            filter=${filter})}"
-                           th:title="${'Page '+ 1}"
-                           th:text="${1}" style="color: #fbaa1d;">
-                        </a>
-                    </li>
+                <li th:if="${campaignPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1},sort=${sort},
+                                                        filter=${filter})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
 
-                   <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+               <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
 
                 <!-- Pages -->
-                     <li th:if="${campaignPage.totalPages > 2}"
-                         th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
-                                        , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
-                         th:class="${currentPage == i} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${i},sort=${sort},
-                                                            filter=${filter})}"
-                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
-                    </li>
+                <li th:if="${campaignPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${i},sort=${sort},
+                                                        filter=${filter})}"
+                       th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                </li>
 
-                    <li th:if="${currentPage + 3 < campaignPage.totalPages}" class="pagination_dots">...</li>
+                <li th:if="${currentPage + 3 < campaignPage.totalPages}" class="pagination_dots">...</li>
 
                 <!-- Last page -->
-                    <li th:if="${campaignPage.totalPages > 1}"
-                        th:class="${currentPage == campaignPage.totalPages} ? 'active'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages},sort=${sort},
-                                                            filter=${filter})}"
-                           th:text="${campaignPage.totalPages}" style="color: #fbaa1d;"
-                           th:title="${'Page '+ campaignPage.totalPages}">
-                        </a>
-                    </li>
+                <li th:if="${campaignPage.totalPages > 1}"
+                    th:class="${currentPage == campaignPage.totalPages} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages},sort=${sort},
+                                                        filter=${filter})}"
+                       th:text="${campaignPage.totalPages}" style="color: #fbaa1d;"
+                       th:title="${'Page '+ campaignPage.totalPages}">
+                    </a>
+                </li>
 
                 <!-- Next button -->
-                    <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
-                        <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1},sort=${sort},
-                                                            filter=${filter})}"
-                           aria-label="Next" title="Next Page" rel="tooltip">
-                            <i class="pagination_arrow fa fa-angle-right"></i>
-                        </a>
-                    </li>
+                <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1},sort=${sort},
+                                                        filter=${filter})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
 
             </ul>
         </div>
@@ -357,6 +350,7 @@
 </div>
 
 </span>
+
 <!-- No categories -->
 <span th:unless="${campaignPage.totalPages >0}">
 <div class="warning-text">There are no campaigns.</div>
@@ -372,7 +366,6 @@
         var text_inputs = document.querySelectorAll("input[type=text]");
         var number_inputs = document.querySelectorAll("input[type=number]");
 
-
         const TEXT_MAX_LENGTH = "255";
         const NUMBER_MAX_LENGTH = 2147483647;
 
@@ -386,16 +379,14 @@
 
     });
 
-
     $('#new_campaign_button').click(function (event) {
-        console.log("dfsdf");
         var category;
         var subctgry;
-        var productType =$('#category_product_type option:selected').val();
-        if(productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK"){
+        var productType = $('#category_product_type option:selected').val();
+        if (productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK") {
 
             category = $('#new_campaign_categories').val();
-            if(document.getElementById("new_campaign_subcategories") !== null) {
+            if (document.getElementById("new_campaign_subcategories") !== null) {
                 var x = document.getElementById("new_campaign_subcategories");
                 var subcategory = [];
                 for (var i = 0; i < x.options.length; i++) {
@@ -408,17 +399,14 @@
                     subctgry += ("-");
                     subctgry += (String(subcategory[j]));
                 }
+            } else {
+                subctgry = "";
             }
-            else{
-                subctgry="";
-            }
+        } else {
+            subctgry = "";
+            category = "";
         }
-        else{
-            subctgry = "" ;
-            category = "" ;
-        }
-        console.log(subctgry);
-        console.log(category);
+
         var ret = {
 
             rate: $('#new_campaign_rate').val(),
@@ -431,8 +419,7 @@
             ptype: productType
         };
 
-        if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date",
-        ])) {
+        if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date"])) {
             event.preventDefault();
             $.post("/admin-panel/campaign", ret, function (data) {
                 iziToast.show({
@@ -456,8 +443,8 @@
             })
         }
     });
-    $(document).on('change', '#new_campaign_categories', function(event) {
-        if($(this).val() !== "SELECT") {
+    $(document).on('change', '#new_campaign_categories', function (event) {
+        if ($(this).val() !== "SELECT") {
             $.getJSON("/admin-panel/campaign/subcategory", {
                 category: $(this).val(),
                 ajax: 'true'
@@ -468,7 +455,7 @@
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
-        if(data.length >0) {
+        if (data.length > 0) {
             var div_id = 'subcategory_dynamicdiv';
             if (document.getElementById(div_id)) {
                 // delete div
@@ -480,7 +467,7 @@
             var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
             var len = data.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + data[i]+ '">' + data[i] + '</option>';
+                html += '<option value="' + data[i] + '">' + data[i] + '</option>';
             }
             html += '</option></select>';
             newdiv.innerHTML += html;
@@ -493,8 +480,8 @@
         }
     }
 
-    $('#category_product_type').change(function(event) {
-        if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
+    $('#category_product_type').change(function (event) {
+        if ($(this).val() === "BOOK" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK") {
             $.getJSON("/admin-panel/campaign/category", {
                 category: $(this).val(),
                 ajax: 'true'
@@ -506,12 +493,10 @@
 
     function buildCategoriesDropdown(data, categoryName) {
         var div_id = 'category_dynamicdiv';
-        console.log(document.getElementById(div_id));
-        if(document.getElementById(div_id)) {
-            console.log("remove");
+        if (document.getElementById(div_id)) {
             // delete div
             document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
-            document.getElementById("subcategory_row").style.display="none";
+            document.getElementById("subcategory_row").style.display = "none";
         }
 
         var newdiv = document.createElement('div');
@@ -519,7 +504,7 @@
         var html = '<select id=\"new_campaign_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
         }
         html += '</option></select>';
@@ -538,9 +523,9 @@
     }
 </script>
 
-
 <script th:src="@{/static/js/login.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
 <script th:src="@{/static/js/checkbox-dropdown.js}"></script>
 <script th:src="@{/static/js/bootstrap-multiselect.js}"></script>
+
 </html>

@@ -97,8 +97,8 @@ public class CheckoutController {
             case "payment":
                 if (billing_address != null && delivery_address != null) {
                     order.setShippingCompany(cargo);
-                    order.setBillingAddress(getSelectedAddress(user.getBillingAddresses(), billing_address).toString());
-                    order.setCustomerAddress(getSelectedAddress(user.getDeliveryAddresses(), delivery_address).toString());
+                    order.setBillingAddress(getSelectedAddress(user.getBillingAddresses(), billing_address).getOrderAddress());
+                    order.setDeliveryAddress(getSelectedAddress(user.getDeliveryAddresses(), delivery_address).getOrderAddress());
 
                     // Save updated order
                     List<Order> orders = user.getOrders();
