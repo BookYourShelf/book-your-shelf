@@ -152,7 +152,7 @@
                                     <!-- Category -->
                                     <div class="tab-content-text">
                                         <div th:if="${campaign.getCategories().size()>0}">
-                                            <td th:text="${campaign.getCategoryName()}"></td>
+                                            <td th:text="${campaign.getCategories().get(0).name}"></td>
                                         </div>
                                         <div th:unless="${campaign.getCategories().size()>0}">
                                             <div>-</div>
