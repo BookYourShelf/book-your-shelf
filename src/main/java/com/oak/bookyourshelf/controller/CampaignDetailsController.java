@@ -1,7 +1,9 @@
 package com.oak.bookyourshelf.controller;
 
+import com.oak.bookyourshelf.model.Book;
 import com.oak.bookyourshelf.model.Campaign;
 import com.oak.bookyourshelf.model.Category;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.service.CampaignDetailsService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCampaignService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
@@ -72,12 +74,24 @@ public class CampaignDetailsController {
             case "delete_campaign":
                 if(campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK)
                 {
-                    campaignDetailsService.removeDiscount(campaign);
-                    campaignDetailsService.delete(id);
-                }
-                else
-                    campaignDetailsService.removeDiscountOtherProducts(campaign);
+                    /*campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));*/
+                    List<Subcategory> subcategories = campaign.getSubcategories();
+                    campaignDetailsService.delete(campaign.getId());
 
+                    for(Subcategory subcategory:subcategories) {
+                        subcategory.setInCampaign(false);
+                        for(Book b:subcategory.getBooks())
+                        {
+                            b.setDiscountRate(0);
+                            b.setOnDiscount(false);
+                        }
+                    }
+
+                }
+                else{
+                    campaignDetailsService.removeDiscountOtherProducts(campaign);
+                    campaignDetailsService.deleteReaderOrCase(id);}
+                System.out.println("xxx");
                 return ResponseEntity.ok("");
         }
         return ResponseEntity.badRequest().body("An error occurred.");
