@@ -1,29 +1,26 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 
-import com.oak.bookyourshelf.model.Campaign;
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.Product;
-import com.oak.bookyourshelf.model.Subcategory;
+import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.repository.ProductRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCampaignRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.oak.bookyourshelf.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
 public class AdminPanelCampaignService {
     final AdminPanelCampaignRepository adminPanelCampaignRepository;
+    final ProductRepository productRepository;
+    final ProductService productService;
 
-    public AdminPanelCampaignService(AdminPanelCampaignRepository adminPanelCampaignRepository) {
+    public AdminPanelCampaignService(AdminPanelCampaignRepository adminPanelCampaignRepository, ProductRepository productRepository, ProductService productService) {
         this.adminPanelCampaignRepository = adminPanelCampaignRepository;
+        this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     public Iterable<Campaign> listAll() {
@@ -54,47 +51,57 @@ public class AdminPanelCampaignService {
         return adminPanelCampaignRepository.findAllByProductType(type);
     }
 
-    public Set<Product> createProductSet(List<Subcategory> subcategories)
-    {
-        Set<Product> allProducts = Collections.emptySet();
-        for(Subcategory sub :subcategories)
-        {
-            for(Product p:sub.getBooks())
-            {
-                allProducts.add(p);
+    public Set<Book> createProductSet(List<Subcategory> subcategories) {
+        Set<Book> allProducts = new HashSet<>();
+        for (Subcategory sub : subcategories) {
+            sub.setInCampaign(true);
+            for (Book b : sub.getBooks()) {
+                allProducts.add(b);
             }
         }
         return allProducts;
     }
 
 
-    public void setProductsRate(Set<Product> allProducts,int rate)
-    {
-        for(Product p :allProducts)
-        {
+    public void setProductsRate(Set<Book> allProducts, int rate) {
+        for (Product p : allProducts) {
             p.setOnDiscount(true);
-            p.setDiscountRate((float)rate);
+            p.setDiscountRate((float) rate / 100);
         }
 
     }
 
-    public boolean isDateValid(List<String> date)
-    {
+    public void setOtherProductsRate(String typeName, int rate) {
+        List<Product> products = new ArrayList<>();
+        if (typeName.equals("E_BOOK_READER"))
+            products = productService.filterProducts((List<Product>) productRepository.findAll(), "E-Book Reader");
+        else if (typeName.equals("E_BOOK_READER_CASE"))
+            products = productService.filterProducts((List<Product>) productRepository.findAll(), "E-Book Reader Case");
+        else if (typeName.equals("BOOK_CASE"))
+            products = productService.filterProducts((List<Product>) productRepository.findAll(), "Book Case");
+
+
+        for (Product p : products) {
+            p.setOnDiscount(true);
+            p.setDiscountRate((float) rate / 100);
+        }
+    }
+
+    public boolean isDateValid(List<String> date) {
         int day = Integer.parseInt(date.get(0));
         int month = Integer.parseInt(date.get(1));
         int year = Integer.parseInt(date.get(2));
 
-        if(!(day >0 && day <31))
+        if (!(day > 0 && day < 31))
             return false;
-        if(!(month>0 && month<13))
+        if (!(month > 0 && month < 13))
             return false;
-        if(!(year>=2020))
+        if (!(year >= 2020))
             return false;
         return true;
     }
 
-    public boolean isDateCorrect(List<String> endDate , List<String> startDate)
-    {
+    public boolean isDateCorrect(List<String> endDate, List<String> startDate) {
         int startDay = Integer.parseInt(startDate.get(0));
         int startMonth = Integer.parseInt(startDate.get(1));
         int startYear = Integer.parseInt(startDate.get(2));
@@ -103,28 +110,23 @@ public class AdminPanelCampaignService {
         int endMonth = Integer.parseInt(endDate.get(1));
         int endYear = Integer.parseInt(endDate.get(2));
 
-        if(endYear<startDay)
+        if (endYear < startDay)
             return false;
-        else if(endYear == startYear)
-        {
-            if(endMonth<startMonth)
+        else if (endYear == startYear) {
+            if (endMonth < startMonth)
                 return false;
-            else if(endMonth == startMonth)
-            {
-                if(endDay<startDay)
+            else if (endMonth == startMonth) {
+                if (endDay < startDay)
                     return false;
                 else
                     return true;
-            }
-            else
+            } else
                 return true;
-        }
-        else
+        } else
             return true;
     }
 
-    public List<Campaign> sortCampaigns(String sortType)
-    {
+    public List<Campaign> sortCampaigns(String sortType) {
         switch (sortType) {
             case "ID-desc":
                 return adminPanelCampaignRepository.findAllByOrderByIdDesc();
@@ -156,6 +158,21 @@ public class AdminPanelCampaignService {
 
         }
 
-        }
+    }
+
+    public String createProductType(Campaign campaign) {
+        if (campaign.getProductType() == Category.ProductType.BOOK)
+            return "Book";
+        else if (campaign.getProductType() == Category.ProductType.AUDIO_BOOK)
+            return "Audio Book";
+        else if (campaign.getProductType() == Category.ProductType.E_BOOK)
+            return "E Book";
+        else if (campaign.getProductType() == Category.ProductType.BOOK_CASE)
+            return "Book Case";
+        else if (campaign.getProductType() == Category.ProductType.E_BOOK_READER_CASE)
+            return "E Book Reader Case";
+        else
+            return "E Book Reader";
+    }
 
 }

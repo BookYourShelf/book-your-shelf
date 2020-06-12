@@ -34,6 +34,4 @@ public interface AdminPanelCampaignRepository extends CrudRepository<Campaign, I
     List<Campaign> findAllByOrderByProductTypeDesc();
 
 
-
-
 }

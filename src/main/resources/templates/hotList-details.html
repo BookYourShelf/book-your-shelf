@@ -108,7 +108,7 @@
                                 <div class="col-lg-9">
                                     <!-- Product Type -->
                                     <div class="tab-content-text">
-                                        <h th:text="${hotList.getProductType()}"></h>
+                                        <h th:text="${productType}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
                                         <div th:if="${hotList.getCategories().size()>0}">
-                                            <td th:text="${hotList.getCategoryName()}"></td>
+                                            <td th:text="${hotList.getCategories().get(0).name}"></td>
                                         </div>
                                         <div th:unless="${hotList.getCategories().size()>0}">
                                             <div>-</div>
@@ -148,7 +148,8 @@
                                             </div>
                                             <div th:if="${hotList.getSubcategories().size() > 0}">
                                                 <tr th:each="subcategory: ${hotList.getSubcategories()}">
-                                                    <h th:text="${subcategory.getName()}"></h><br>
+                                                    <h th:text="${subcategory.getName()}"></h>
+                                                    <br>
                                                 </tr>
                                             </div>
                                         </div>
@@ -167,7 +168,7 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        <h th:text="${hotList.getHotListType()}"></h>
+                                        <h th:text="${hotListType}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -250,8 +251,8 @@
                     <div class="address-container">
                         <div class="billingAddress">
                             <div class="checkout_form_container">
-                                <form th:object="${hotList}" th:action="@{/hotList-details}" id="campaign_update_form" class="checkout_form" method="post">
-
+                                <form th:object="${hotList}" th:action="@{/hotList-details}" id="campaign_update_form"
+                                      class="checkout_form" method="post">
 
 
                                     <div class="row">
@@ -318,7 +319,8 @@
                                     <div><!--ERROR--></div>
 
                                     <!-- Button -->
-                                    <input name=submit id="update_hotList" type="submit" value="UPDATE" class="login_button trans_200">
+                                    <input name=submit id="update_hotList" type="submit" value="UPDATE"
+                                           class="login_button trans_200">
                                 </form>
                             </div>
                         </div>
@@ -362,11 +364,11 @@
     var hotListId = /*[[${hotList.getId()}]]*/ 'default';
     $('#update_hotList,#delete_hotList').click(function (event) {
         var button = $(this).attr("id");
-        var productNum= $('#update_hot_list_product_number').val();
-        var startDate= $('#update_hot_list_start_date').val();
-        var startTime= $('#update_hot_list_start_time').val();
-        var endDate= $('#update_hot_list_end_date').val();
-        var endTime= $('#update_hot_list_end_time').val();
+        var productNum = $('#update_hot_list_product_number').val();
+        var startDate = $('#update_hot_list_start_date').val();
+        var startTime = $('#update_hot_list_start_time').val();
+        var endDate = $('#update_hot_list_end_date').val();
+        var endTime = $('#update_hot_list_end_time').val();
 
         console.log(hotListId);
 
@@ -383,7 +385,7 @@
 
         if (button === "update_hotList") {
             if (
-                (validation_check(['update_hot_list_start_date', 'update_hot_list_end_date', 'update_hot_list_end_time' , 'update_hot_list_start_time']))) {
+                (validation_check(['update_hot_list_start_date', 'update_hot_list_end_date', 'update_hot_list_end_time', 'update_hot_list_start_time']))) {
                 event.preventDefault();
                 $.post("/hotList-details/" + hotListId, ret, function (data) {
                     iziToast.show({
@@ -392,7 +394,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/hotList-details/" + hotListId ;
+                    window.location.href = "/hotList-details/" + hotListId;
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -430,7 +432,7 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "/hotList-details/" + hotListId ;
+            } else window.location.href = "/hotList-details/" + hotListId;
 
         }
 
@@ -468,8 +470,6 @@
 
     /*]]>*/
 </script>
-
-
 
 
 </body>

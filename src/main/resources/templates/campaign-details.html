@@ -121,7 +121,8 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        %<h th:text="${campaign.getRate()}"></h>
+                                        %
+                                        <h th:text="${campaign.getRate()}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +137,7 @@
                                 <div class="col-lg-9">
                                     <!-- Category -->
                                     <div class="tab-content-text">
-                                        <h th:text="${campaign.getProductType()}"></h>
+                                        <h th:text="${productType}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +153,7 @@
                                     <!-- Category -->
                                     <div class="tab-content-text">
                                         <div th:if="${campaign.getCategories().size()>0}">
-                                            <td th:text="${campaign.getCategoryName()}"></td>
+                                            <td th:text="${campaign.getCategories().get(0).name}"></td>
                                         </div>
                                         <div th:unless="${campaign.getCategories().size()>0}">
                                             <div>-</div>
@@ -176,7 +177,8 @@
                                             </div>
                                             <div th:if="${campaign.getSubcategories().size() > 0}">
                                                 <tr th:each="subcategory: ${campaign.getSubcategories()}">
-                                                    <h th:text="${subcategory.getName()}"></h><br>
+                                                    <h th:text="${subcategory.getName()}"></h>
+                                                    <br>
                                                 </tr>
                                             </div>
                                         </div>
@@ -222,19 +224,20 @@
                     <div class="address-container">
                         <div class="billingAddress">
                             <div class="checkout_form_container">
-                                <form th:object="${campaign}" th:action="@{/campaign-details}" id="campaign_update_form" class="checkout_form"  method="post">
+                                <form th:object="${campaign}" th:action="@{/campaign-details}" id="campaign_update_form"
+                                      class="checkout_form" method="post">
                                     <div class="row">
-                                    <!-- Name -->
-                                    <div class="col-md-6">
-                                        <div class="login-text p-b-10" style="color: black;">
-                                            Campaign Name
-                                        </div>
+                                        <!-- Name -->
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Campaign Name
+                                            </div>
 
-                                        <input type="text" id="campaign_update_name"
-                                               class="checkout_input form-control" th:field="${campaign.name}"
-                                               th:value="${campaign.getName()}"
-                                               placeholder="Campaign Name" required="required">
-                                    </div>
+                                            <input type="text" id="campaign_update_name"
+                                                   class="checkout_input form-control" th:field="${campaign.name}"
+                                                   th:value="${campaign.getName()}"
+                                                   placeholder="Campaign Name" required="required">
+                                        </div>
 
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
@@ -255,7 +258,8 @@
                                                 Campaign Start Date
                                             </div>
                                             <input type="text" id="campaign_update_start_date"
-                                                   class="checkout_input form-control date" th:field="${campaign.startDate}"
+                                                   class="checkout_input form-control date"
+                                                   th:field="${campaign.startDate}"
                                                    th:value="${campaign.getStartDate()}"
                                                    placeholder="dd/mm/yyyy" required="required">
                                         </div>
@@ -264,7 +268,8 @@
                                                 Campaign End Date
                                             </div>
                                             <input type="text" id="campaign_update_end_date"
-                                                   class="checkout_input form-control date" th:field="${campaign.endDate}"
+                                                   class="checkout_input form-control date"
+                                                   th:field="${campaign.endDate}"
                                                    th:value="${campaign.getEndDate()}"
                                                    placeholder="dd/mm/yyyy" required="required">
                                         </div>
@@ -273,7 +278,8 @@
                                     <div><!--ERROR--></div>
 
                                     <!-- Button -->
-                                    <input name=submit id="update_campaign" type="submit" value="UPDATE" class="login_button trans_200">
+                                    <input name=submit id="update_campaign" type="submit" value="UPDATE"
+                                           class="login_button trans_200">
                                 </form>
                             </div>
                         </div>
@@ -320,11 +326,10 @@
 
     $('#update_campaign, #delete_campaign').click(function (event) {
         var button = $(this).attr("id");
-        var name= $('#campaign_update_name').val();
-        var rate= $('#campaign_update_rate').val();
-        var startDate= $('#campaign_update_start_date').val();
-        var endDate= $('#campaign_update_end_date').val();
-
+        var name = $('#campaign_update_name').val();
+        var rate = $('#campaign_update_rate').val();
+        var startDate = $('#campaign_update_start_date').val();
+        var endDate = $('#campaign_update_end_date').val();
 
 
         var ret = {
@@ -341,7 +346,7 @@
 
         if (button === "update_campaign") {
             if (
-                (validation_check(['campaign_update_name', 'campaign_update_rate', 'campaign_update_start_date' , 'campaign_update_end_date']))) {
+                (validation_check(['campaign_update_name', 'campaign_update_rate', 'campaign_update_start_date', 'campaign_update_end_date']))) {
                 event.preventDefault();
                 $.post("/campaign-details/" + campaignId, ret, function (data) {
                     iziToast.show({
@@ -350,7 +355,7 @@
                         position: 'topRight',
                         color: 'green'
                     });
-                    window.location.href = "/campaign-details/" + campaignId ;
+                    window.location.href = "/campaign-details/" + campaignId;
                     setTimeout(function () {
                         history.pushState(null, null, ' ');
                     }, 100);
@@ -388,7 +393,7 @@
                         color: 'red'
                     });
                 })
-            } else window.location.href = "/campaign-details/" + campaignId ;
+            } else window.location.href = "/campaign-details/" + campaignId;
 
         }
 

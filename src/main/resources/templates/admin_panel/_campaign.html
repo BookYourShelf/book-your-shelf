@@ -163,7 +163,7 @@
 
                 <li class="item_sorting_btn">
                     <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1} ,sort=${'Name-asc'},filter=${filter})}"
-                       th:text="'Name(A - Z)'"
+                       th:text="'Name (A - Z)'"
                        th:style="${sort == 'Name-asc'} ? 'color:#1f5b70'">
                     </a>
                 </li>
@@ -177,8 +177,8 @@
         </ul>
     </div>
      <div class="products_dropdown product_dropdown_filter">
-            <div class="isotope_filter_text"><span>Campaign Filter</span><i class="fa fa-caret-down"
-                                                                            aria-hidden="true"></i>
+            <div class="isotope_filter_text"><span>Product Type Filter</span><i class="fa fa-caret-down"
+                                                                                aria-hidden="true"></i>
             </div>
             <ul>
                 <li class="item_filter_btn">
@@ -230,6 +230,10 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
             <div class="profile-order-title">Campaign Name</div>
         </div>
 
@@ -237,9 +241,7 @@
             <div class="profile-order-title">Discount Rate</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Product Type</div>
-        </div>
+
 
     </div>
     <br>
@@ -258,6 +260,12 @@
                                         <td th:text="${campaign.getId()}"></td>
                                     </div>
                                 </div>
+
+                                 <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${adminPanelCampaignService.createProductType(campaign)}"></td>
+                                    </div>
+                                </div>
                                 <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text vertical_center">
                                         <td th:text="${campaign.getName()}"></td>
@@ -270,11 +278,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text vertical_center">
-                                        <td th:text="${campaign.getProductType()}"></td>
-                                    </div>
-                                </div>
+
 
                                  </div>
 
@@ -443,6 +447,10 @@
             })
         }
     });
+
+    const category_div_id = 'category_dynamicdiv';
+    const subcategory_div_id = 'subcategory_dynamicdiv';
+
     $(document).on('change', '#new_campaign_categories', function (event) {
         if ($(this).val() !== "SELECT") {
             $.getJSON("/admin-panel/campaign/subcategory", {
@@ -451,19 +459,25 @@
             }, function (data) {
                 buildSubcategoriesDropdown(data, "new_campaign_subcategories");
             });
+        } else {
+            if (document.getElementById(subcategory_div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
         }
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
         if (data.length > 0) {
-            var div_id = 'subcategory_dynamicdiv';
-            if (document.getElementById(div_id)) {
+            if (document.getElementById(subcategory_div_id)) {
                 // delete div
-                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
             }
 
             var newdiv = document.createElement('div');
-            newdiv.id = div_id;
+            newdiv.id = subcategory_div_id;
             var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
             var len = data.length;
             for (var i = 0; i < len; i++) {
@@ -482,33 +496,54 @@
 
     $('#category_product_type').change(function (event) {
         if ($(this).val() === "BOOK" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK") {
+
             $.getJSON("/admin-panel/campaign/category", {
                 category: $(this).val(),
                 ajax: 'true'
             }, function (data) {
                 buildCategoriesDropdown(data, "new_campaign_categories");
             });
+        } else {
+            if (document.getElementById(category_div_id) != null) {
+                console.log("not null")
+                // delete div
+                document.getElementById("dynamic_category").removeChild(document.getElementById(category_div_id));
+                document.getElementById("category_row").style.display = "none";
+            }
+
+            if (document.getElementById(subcategory_div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
         }
     });
 
     function buildCategoriesDropdown(data, categoryName) {
-        var div_id = 'category_dynamicdiv';
-        if (document.getElementById(div_id)) {
+        if (document.getElementById(category_div_id) != null) {
             // delete div
-            document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
-            document.getElementById("subcategory_row").style.display = "none";
+            document.getElementById("dynamic_category").removeChild(document.getElementById(category_div_id));
+            document.getElementById("category_row").style.display = "none";
+
+            if (document.getElementById(subcategory_div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
         }
 
         var newdiv = document.createElement('div');
-        newdiv.id = div_id;
+        newdiv.id = category_div_id;
         var html = '<select id=\"new_campaign_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
+
         for (var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
         }
         html += '</option></select>';
         newdiv.innerHTML += html;
+        console.log(newdiv);
         document.getElementById("category_row").style.display = "block"
         document.getElementById("dynamic_category").appendChild(newdiv);
     }

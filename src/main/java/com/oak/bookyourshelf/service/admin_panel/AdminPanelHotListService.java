@@ -1,11 +1,10 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.HotList;
-import com.oak.bookyourshelf.model.Product;
-import com.oak.bookyourshelf.model.Subcategory;
+import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.repository.ProductRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelHotListRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelProductRepository;
+import com.oak.bookyourshelf.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +15,16 @@ import java.util.*;
 public class AdminPanelHotListService {
     final AdminPanelHotListRepository adminPanelHotListRepository;
     final AdminPanelProductRepository adminPanelProductRepository;
+    final ProductRepository productRepository;
+    final ProductService productService;
 
 
-    public AdminPanelHotListService(AdminPanelHotListRepository adminPanelHotListRepository, AdminPanelProductRepository adminPanelProductRepository) {
+    public AdminPanelHotListService(AdminPanelHotListRepository adminPanelHotListRepository, AdminPanelProductRepository adminPanelProductRepository, ProductRepository productRepository, ProductService productService) {
         this.adminPanelHotListRepository = adminPanelHotListRepository;
 
         this.adminPanelProductRepository = adminPanelProductRepository;
+        this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     public Iterable<HotList> listAll() {
@@ -53,53 +56,41 @@ public class AdminPanelHotListService {
     }
 
 
-    public Set<Product> createProductSet(List<Subcategory> subcategories)
-    {
-        Set<Product> allProducts = Collections.emptySet();
-        for(Subcategory sub :subcategories)
-        {
+    public Set<Book> createProductSet(List<Subcategory> subcategories) {
+        Set<Book> allProducts = new HashSet<>();
+        for (Subcategory sub : subcategories) {
             sub.setInHotList(true);
-            for(Product p:sub.getBooks())
-            {
-                allProducts.add(p);
+            for (Book b : sub.getBooks()) {
+                allProducts.add(b);
             }
         }
         return allProducts;
     }
 
-    public void setProductByType(HotList hotList,Set<Product> products)
-    {
-        List<Product> allProducts=new ArrayList<Product>();
-        List<Integer> productIds =new ArrayList<Integer>();
-        for(Product p:products)
-        {
-            productIds.add(p.getProductId());
+    public void setProductByType(HotList hotList, Set<Book> books) {
+        List<Product> allProducts = new ArrayList<Product>();
+        List<Integer> productIds = new ArrayList<Integer>();
+        for (Book b : books) {
+            productIds.add(b.getProductId());
         }
-        if(hotList.getHotListType() == HotList.HotListType.BEST_SELLERS)
-        {
+        if (hotList.getHotListType() == HotList.HotListType.BEST_SELLERS) {
             allProducts.addAll(adminPanelProductRepository.findAllByOrderBySalesNumDesc());
-        }
-        else if(hotList.getHotListType() == HotList.HotListType.NEW_RELEASES)
-        {
+        } else if (hotList.getHotListType() == HotList.HotListType.NEW_RELEASES) {
             allProducts.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
         }
         List<Product> result = new ArrayList<>();
-        if(hotList.getProductNum()<=products.size()) {
+        if (hotList.getProductNum() <= books.size()) {
 
             int elementNum = 0;
-            for(Product p : allProducts)
-            {
-                if((productIds.contains(p.getProductId())) && elementNum<hotList.getProductNum())
-                {
+            for (Product p : allProducts) {
+                if ((productIds.contains(p.getProductId())) && elementNum < hotList.getProductNum()) {
                     result.add(p);
                     elementNum++;
                 }
             }
             hotList.setProducts(result);
-        }
-        else
-        {
-            List<Product> all = new ArrayList<Product>(products);
+        } else {
+            List<Product> all = new ArrayList<Product>(books);
             hotList.setProducts(all);
             hotList.setProductNum(allProducts.size());
         }
@@ -107,23 +98,59 @@ public class AdminPanelHotListService {
 
     }
 
-    public boolean isDateValid(List<String> date)
-    {
+    public void setProductByTypeOtherTypes(HotList hotList) {
+        List<Product> allProducts = new ArrayList<Product>();
+        List<Product> products = new ArrayList<>();
+
+        if (hotList.getProductType() == Category.ProductType.E_BOOK_READER)
+            allProducts = productService.filterProducts((List<Product>) productRepository.findAll(), "E-Book Reader");
+        else if (hotList.getProductType() == Category.ProductType.E_BOOK_READER_CASE)
+            allProducts = productService.filterProducts((List<Product>) productRepository.findAll(), "E-Book Reader Case");
+        else if (hotList.getProductType() == Category.ProductType.BOOK_CASE)
+            allProducts = productService.filterProducts((List<Product>) productRepository.findAll(), "Book Case");
+        List<Integer> productIds = new ArrayList<Integer>();
+
+        if (hotList.getHotListType() == HotList.HotListType.BEST_SELLERS) {
+            products.addAll(adminPanelProductRepository.findAllByOrderBySalesNumDesc());
+        } else if (hotList.getHotListType() == HotList.HotListType.NEW_RELEASES) {
+            products.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
+        }
+        List<Product> result = new ArrayList<>();
+        if (hotList.getProductNum() <= allProducts.size()) {
+
+            int elementNum = 0;
+            for (Product p : products) {
+                if ((allProducts.contains(p)) && elementNum < hotList.getProductNum()) {
+                    result.add(p);
+                    elementNum++;
+                }
+            }
+            hotList.setProducts(result);
+        } else {
+            List<Product> all = new ArrayList<Product>(allProducts);
+            hotList.setProducts(all);
+            hotList.setProductNum(allProducts.size());
+        }
+
+
+    }
+
+
+    public boolean isDateValid(List<String> date) {
         int day = Integer.parseInt(date.get(0));
         int month = Integer.parseInt(date.get(1));
         int year = Integer.parseInt(date.get(2));
 
-        if(!(day >0 && day <31))
+        if (!(day > 0 && day < 31))
             return false;
-        if(!(month>0 && month<13))
+        if (!(month > 0 && month < 13))
             return false;
-        if(!(year>=2020))
+        if (!(year >= 2020))
             return false;
         return true;
     }
 
-    public boolean isDateCorrect(List<String> endDate , List<String> startDate)
-    {
+    public boolean isDateCorrect(List<String> endDate, List<String> startDate) {
         int startDay = Integer.parseInt(startDate.get(0));
         int startMonth = Integer.parseInt(startDate.get(1));
         int startYear = Integer.parseInt(startDate.get(2));
@@ -132,64 +159,55 @@ public class AdminPanelHotListService {
         int endMonth = Integer.parseInt(endDate.get(1));
         int endYear = Integer.parseInt(endDate.get(2));
 
-        if(endYear<startDay)
+        if (endYear < startDay)
             return false;
-        else if(endYear == startYear)
-        {
-            if(endMonth<startMonth)
+        else if (endYear == startYear) {
+            if (endMonth < startMonth)
                 return false;
-            else if(endMonth == startMonth)
-            {
-                if(endDay<startDay)
+            else if (endMonth == startMonth) {
+                if (endDay < startDay)
                     return false;
                 else
                     return true;
-            }
-            else
+            } else
                 return true;
-        }
-        else
+        } else
             return true;
     }
 
-    public boolean isTimeValid(List<String> time)
-    {
-        int minute =Integer.parseInt(time.get(1));
+    public boolean isTimeValid(List<String> time) {
+        int minute = Integer.parseInt(time.get(1));
         int hour = Integer.parseInt(time.get(0));
 
-        if(minute>59)
+        if (minute > 59)
             return false;
-        if(hour>23)
+        if (hour > 23)
             return false;
         else
             return true;
     }
 
-    public boolean isTimeCorrect(List<String> startTime , List<String> endTime)
-    {
-        int startMinute =Integer.parseInt(startTime.get(1));
+    public boolean isTimeCorrect(List<String> startTime, List<String> endTime) {
+        int startMinute = Integer.parseInt(startTime.get(1));
         int startHour = Integer.parseInt(startTime.get(0));
 
-        int endMinute =Integer.parseInt(endTime.get(1));
+        int endMinute = Integer.parseInt(endTime.get(1));
         int endHour = Integer.parseInt(endTime.get(0));
 
-        if(endHour<startHour)
+        if (endHour < startHour)
             return false;
-        else if(endHour == startHour)
-        {
-            if(endMinute<startMinute)
+        else if (endHour == startHour) {
+            if (endMinute < startMinute)
                 return false;
             else
                 return true;
 
-        }
-        else
+        } else
             return true;
     }
 
 
-    public List<HotList> sortHotlists(String sortType)
-    {
+    public List<HotList> sortHotlists(String sortType) {
         switch (sortType) {
 
             case "ID-desc":
@@ -222,6 +240,27 @@ public class AdminPanelHotListService {
     }
 
 
+    public String createProductType(HotList hotList) {
+        if (hotList.getProductType() == Category.ProductType.BOOK)
+            return "Book";
+        else if (hotList.getProductType() == Category.ProductType.AUDIO_BOOK)
+            return "Audio Book";
+        else if (hotList.getProductType() == Category.ProductType.E_BOOK)
+            return "E Book";
+        else if (hotList.getProductType() == Category.ProductType.BOOK_CASE)
+            return "Book Case";
+        else if (hotList.getProductType() == Category.ProductType.E_BOOK_READER_CASE)
+            return "E Book Reader Case";
+        else
+            return "E Book Reader";
+    }
+
+    public String createHotListType(HotList hotList) {
+        if (hotList.getHotListType() == HotList.HotListType.NEW_RELEASES)
+            return "New Releases";
+        else
+            return "Best Sellers";
+    }
 
 
 }
