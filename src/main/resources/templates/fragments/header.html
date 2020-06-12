@@ -119,13 +119,24 @@
 
         <!-- Favourite Area -->
         <div class="favourite-area">
-            <a th:href="@{/wish-list}"><img th:src="@{/static/images/core-img/heart.svg}" alt=""></a>
+            <a th:href="@{/wish-list}"><img th:src="@{/static/images/core-img/heart.svg}" alt="">
+                <span th:if="${user != null }" style="top:10px">
+                    <span th:if="${not #lists.isEmpty(user.getWishList())}">
+                        <span th:text="${#lists.size(user.getWishList())}"></span>
+                    </span>
+                </span>
+            </a>
         </div>
 
         <!-- Cart Area -->
         <div class="cart-area">
             <a th:href="@{/cart}" id="essenceCartBtn"><img th:src="@{/static/images/core-img/bag.svg}" alt="">
-                <span>3</span></a>
+                <span th:if="${ user != null }" style="top:10px">
+                    <span th:if="${not #lists.isEmpty(user.getShoppingCart())}">
+                        <span th:text="${#lists.size(user.getShoppingCart())}"></span>
+                    </span>
+                </span>
+            </a>
         </div>
     </div>
 </div>
