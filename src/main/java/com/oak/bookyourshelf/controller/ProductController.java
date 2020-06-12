@@ -86,8 +86,24 @@ public class ProductController {
         model.addAttribute("images", Globals.encodeAllImages(imageList));
         model.addAttribute("similarProducts", productService.createOurPicsForYou(product));
         model.addAttribute("compareProductsService", compareProductsService);
+        buildBreadCrumbs(product, model);
 
         return "product";
+    }
+
+    public void buildBreadCrumbs(Product product, Model model) {
+        if (product instanceof PhysicalBook || product instanceof ElectronicBook || product instanceof AudioBook) {
+            Category category = ((Book) product).getCategory().get(0);
+            Subcategory subcategory = ((Book) product).getSubcategory().get(0);
+
+            if (subcategory != null) {
+                List<Subcategory> subcategories = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
+                model.addAttribute("subcategoriesBreadcrumbs", subcategories);
+            } else {
+                model.addAttribute("subcategoriesBreadcrumbs", "");
+            }
+            model.addAttribute("categoryBreadcrumb", category);
+        }
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
@@ -111,7 +127,7 @@ public class ProductController {
 
                 case "cart":
                     if (!containsCartItem(user.getShoppingCart(), product.getProductId())) {
-                        if (product.getStock() > 0) {
+                        if (product.getStock() > 0) {       // TODO
                             CartItem cartItem = new CartItem();
                             cartItem.setProduct(product);
                             cartItem.setQuantity(1);
@@ -129,11 +145,11 @@ public class ProductController {
                     }
 
                 case "reminder":
-                    if(product.getStock() > 0){
+                    if (product.getStock() > 0) {
 
                         return ResponseEntity.badRequest().body("Product is available in stock .");
 
-                    } else{
+                    } else {
 
                         RemindProduct remindProduct = new RemindProduct();
                         remindProduct.setProductId(product.getProductId());
