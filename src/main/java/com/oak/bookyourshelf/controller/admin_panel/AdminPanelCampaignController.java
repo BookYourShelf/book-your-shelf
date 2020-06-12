@@ -49,16 +49,22 @@ public class AdminPanelCampaignController {
 
     @RequestMapping(value = "/admin-panel/campaign/category", method = RequestMethod.GET)
     @ResponseBody
-    public List<Category> findAllCategories(@RequestParam String category) {
-
+    public List<String> findAllCategories(@RequestParam String category) {
+        System.out.println("bbb");
+        List<Category> categories = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         if (category.equals("BOOK")) {
-            System.out.println(adminPanelCategoryService.getAllByCategory("Book"));
-            return (List<Category>) adminPanelCategoryService.getAllByCategory("Book");
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("Book"));
+
         } else if (category.equals("E_BOOK"))
-            return (List<Category>) adminPanelCategoryService.getAllByCategory("E-Book");
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("E-Book"));
+
         else if (category.equals("AUDIO_BOOK"))
-            return (List<Category>) adminPanelCategoryService.getAllByCategory("Audio Book");
-        else return null;
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("Audio Book"));
+
+        for( Category c:categories)
+            result.add(c.getName());
+        return result;
 
     }
 
@@ -124,12 +130,11 @@ public class AdminPanelCampaignController {
                         for (Subcategory s : newSubcategories) {
                             if (s.isInCampaign())
                                 return ResponseEntity.badRequest().body("There is a campaign in " + s.getName() + " subcategory . Please change your selection");
-                            else
-                                s.setInCampaign(true);
                         }
                     }
                 }
-                /*adminPanelCampaignService.setProductsRate(adminPanelCampaignService.createProductSet(newSubcategories), campaign.getRate());*/
+                Set<Book> products = adminPanelCampaignService.createProductSet(newSubcategories);
+                adminPanelCampaignService.setProductsRate(products, campaign.getRate());
 
                 campaign.setSubcategories(newSubcategories);
                 campaign.setCategories(newCategoryList);
@@ -142,6 +147,8 @@ public class AdminPanelCampaignController {
             else {
                 campaign.setSubcategories(newSubcategories);
                 campaign.setCategories(newCategoryList);
+
+                adminPanelCampaignService.setOtherProductsRate(ptype,campaign.getRate());
             }
         }
 
