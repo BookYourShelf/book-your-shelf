@@ -230,6 +230,10 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
             <div class="profile-order-title">Campaign Name</div>
         </div>
 
@@ -237,9 +241,7 @@
             <div class="profile-order-title">Discount Rate</div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Product Type</div>
-        </div>
+
 
     </div>
     <br>
@@ -258,6 +260,12 @@
                                         <td th:text="${campaign.getId()}"></td>
                                     </div>
                                 </div>
+
+                                 <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text">
+                                        <td th:text="${adminPanelCampaignService.createProductType(campaign)}"></td>
+                                    </div>
+                                </div>
                                 <div class="col-lg-3 col-md-3 col-xs-6">
                                     <div class="profile-order-text">
                                         <td th:text="${campaign.getName()}"></td>
@@ -270,11 +278,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text">
-                                        <td th:text="${campaign.getProductType()}"></td>
-                                    </div>
-                                </div>
+
 
                                  </div>
 
