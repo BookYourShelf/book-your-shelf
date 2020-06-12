@@ -44,18 +44,18 @@ public class ElectronicBookReaderController {
 
         // Get books and create return books object
         List<Product> products = (List<Product>) productService.filterProducts((List<Product>) productService.getAllProduct(), "E-Book Reader");
-        List<ElectronicBookReader> electronicBooks = new ArrayList<>();
+        List<ElectronicBookReader> electronicBookReaders = new ArrayList<>();
         for (Product product : products) {
-            electronicBooks.add((ElectronicBookReader) product);
+            electronicBookReaders.add((ElectronicBookReader) product);
         }
 
-        sortProducts(electronicBooks, currentSort);
+        sortProducts(electronicBookReaders, currentSort);
 
         float minP = Float.MAX_VALUE;
         float maxP = -1;
 
         // Find min and max prices
-        for (Product p : electronicBooks) {
+        for (Product p : electronicBookReaders) {
             float price = p.getPrice();
             if (price < minP) {
                 minP = price;
@@ -68,7 +68,7 @@ public class ElectronicBookReaderController {
         // Filter brands
         List<ElectronicBookReader> productsBrand = new ArrayList<>();
         if (!brandList.get(0).equals("")) {
-            for (ElectronicBookReader electronicBookReader : electronicBooks) {
+            for (ElectronicBookReader electronicBookReader : electronicBookReaders) {
                 for (String brand : brandList) {
                     if (electronicBookReader.getReaderBrand() != null) {
                         if (electronicBookReader.getReaderBrand().equals(brand)) {
@@ -78,7 +78,7 @@ public class ElectronicBookReaderController {
                 }
             }
         } else {
-            productsBrand.addAll(electronicBooks);
+            productsBrand.addAll(electronicBookReaders);
         }
 
         // Filter colors
