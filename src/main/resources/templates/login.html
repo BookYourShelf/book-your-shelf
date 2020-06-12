@@ -46,7 +46,8 @@
                                         <div class="login-text p-b-10" style="color: black;">E-Mail Address</div>
                                         <input type="email" th:field="*{email}" id="login_email"
                                                class="login_input form-control"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required">
+                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required"
+                                               maxlength="255">
                                     </div>
                                     <div>
                                         <!-- Password -->
@@ -54,7 +55,7 @@
                                         <div class="input-group">
                                             <input type="password" th:field="*{password}" id="login_password"
                                                    class="login_input form-control pwd" value="secret"
-                                                   required="required">
+                                                   required="required" maxlength="255">
                                             <div class="input-group-append">
                                                 <span class="input-group-text show_password_bg">
                                                     <button class="btn btn-default reveal" type="button"><i
