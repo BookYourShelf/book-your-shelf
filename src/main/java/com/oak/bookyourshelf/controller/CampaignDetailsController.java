@@ -34,6 +34,7 @@ public class CampaignDetailsController {
         }
         model.addAttribute("campaign", campaign);
         model.addAttribute("categoryService", adminPanelCategoryService);
+        model.addAttribute("productType",adminPanelCampaignService.createProductType(campaign));
         return "campaign-details";
     }
 
