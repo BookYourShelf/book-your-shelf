@@ -485,7 +485,7 @@
                                             <label class="checkbox_container">
                                                 <input checked type="checkbox"
                                                        th:name="'order-' + ${order.getOrderId()}"
-                                                       th:id="${productId}"
+                                                       th:id="${cartItem.getProduct().getProductId()}"
                                                        th:value="${cartItem.getProduct().getProductId()}"
                                                        class="billing_checkbox">
                                                 <span class="checkbox_mark"></span>
@@ -754,7 +754,7 @@
         if (validation_check([])) {
             event.preventDefault();
             $.post("/admin-panel/pending-order", ret, function (data) {
-                if (data == "true") {
+                if (data === "true") {
                     iziToast.show({
                         title: 'Success',
                         message: 'Order confirmed and canceled product prices refunded successfully.',
