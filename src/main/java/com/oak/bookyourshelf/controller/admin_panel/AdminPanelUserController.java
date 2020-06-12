@@ -28,7 +28,7 @@ public class AdminPanelUserController {
                       @RequestParam("size") Optional<Integer> size,
                       @RequestParam("sort") Optional<String> sort, Model model) {
 
-        String currentSort = sort.orElse("ID-asc");
+        String currentSort = sort.orElse("ID-desc");
         Globals.getPageNumbers(page, size, adminPanelUserService.sortUsers(currentSort), model, "userPage");
         model.addAttribute("sort", currentSort);
         model.addAttribute("userListEmpty",((List)adminPanelUserService.listAllCustomers()).isEmpty());

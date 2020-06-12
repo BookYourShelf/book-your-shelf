@@ -21,6 +21,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/w3-slider.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+
+
 </head>
 
 <body>
@@ -183,12 +185,14 @@
                 <div class="row products_row">
 
                     <tr th:each="product: ${ourPicks_1}">
-                        <div class="col-xl-3 col-md-3">
+                                                <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                             class="product_image_img"
-                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a></div>
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -206,11 +210,13 @@
                                         </div>
 
                                         <div>
-                                            <div class="product_name"><a
-                                                    th:href="@{'/product/' + ${product.productId}}">
-                                                <h th:text="${product.getProductName()}"></h>
-                                            </a></div>
-                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -220,47 +226,49 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                         </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                           <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                            <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <span th:if="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
-                                        </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
+
+                                        <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                     </div>
 
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
                                             <div title="Add to wish list"
-                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                 class="add_wish_list_our_picks_1 product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_our_picks_1"
+                                                 th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -268,7 +276,10 @@
                                                 </div>
                                             </div>
                                             <div title="Add to shopping cart"
-                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                 class="add_cart_our_picks_1 product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_our_picks_1"
+                                                 th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -284,17 +295,20 @@
                     </tr>
                 </div>
                     </div>
+                    <span th:if="${allProductsSize >4}">
 
-                                        <div class="w3-display-container mySlides">
+                <div class="w3-display-container mySlides">
                 <div class="row products_row">
 
                     <tr th:each="product: ${ourPicks_2}">
-                        <div class="col-xl-3 col-md-3">
+                            <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                             class="product_image_img"
-                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a></div>
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -312,11 +326,13 @@
                                         </div>
 
                                         <div>
-                                            <div class="product_name"><a
-                                                    th:href="@{'/product/' + ${product.productId}}">
-                                                <h th:text="${product.getProductName()}"></h>
-                                            </a></div>
-                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -326,47 +342,48 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                         </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                           <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                            <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <span th:if="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
-                                        </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
+
+                                        <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                     </div>
-
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
                                             <div title="Add to wish list"
-                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                 class="add_wish_list_our_picks_2 product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_our_picks_2"
+                                                 th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">>
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -374,7 +391,10 @@
                                                 </div>
                                             </div>
                                             <div title="Add to shopping cart"
-                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                 class="add_cart_our_picks_2 product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_our_picks_2"
+                                                 th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -390,17 +410,20 @@
                     </tr>
                 </div>
                     </div>
-
+</span>
+                    <span th:if="${allProductsSize>8}">
                 <div class="w3-display-container mySlides">
                 <div class="row products_row">
 
                     <tr th:each="product: ${ourPicks_3}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                             class="product_image_img"
-                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a></div>
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
                                         <div style="text-align:center;">
@@ -418,11 +441,13 @@
                                         </div>
 
                                         <div>
-                                            <div class="product_name"><a
-                                                    th:href="@{'/product/' + ${product.productId}}">
-                                                <h th:text="${product.getProductName()}"></h>
-                                            </a></div>
-                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -432,47 +457,49 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                         </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                           <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                            <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <span th:if="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
-                                        </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
+
+                                        <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                     </div>
 
                                     <div class="product_buttons">
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
                                             <div title="Add to wish list"
-                                                 class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                                 class="add_wish_list_our_picks_3 product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_our_picks_3"
+                                                 th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -480,7 +507,10 @@
                                                 </div>
                                             </div>
                                             <div title="Add to shopping cart"
-                                                 class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                                 class="add_cart_our_picks_3 product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_our_picks_3"
+                                                 th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
                                                         <div>+</div>
@@ -495,9 +525,13 @@
 
                     </tr>
                 </div>
+
                     </div>
+                         </span>
+                    <span th:if="${allProductsSize >4}">
                     <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
                     <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+                    </span>
 
                 </div>
 
@@ -507,7 +541,7 @@
 </span>
 
         <!-- Products -->
-        <div class="products">
+        <div class="products" style="padding-top: 0">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3">
@@ -520,10 +554,11 @@
                     <tr th:each="product: ${newProducts}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                             class="product_image_img"
-                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
                                 </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
@@ -542,12 +577,13 @@
                                         </div>
 
                                         <div>
-                                            <div class="product_name" id="new_name"
-                                                 th:value="${product.getProductName()}"><a
-                                                    th:href="@{'/product/' + ${product.productId}}">
-                                                <h th:text="${product.getProductName()}"></h>
-                                            </a></div>
-                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -557,40 +593,39 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                         </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                           <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                            <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <span th:if="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
-                                        </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
+
+                                        <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                     </div>
 
@@ -598,7 +633,8 @@
                                         <div class="text-right d-flex flex-row align-items-start justify-content-start">
                                             <div title="Add to wish list"
                                                  class="add_wish_list_new product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
-                                                 name="add_wish_list_new" th:id="${product.getProductId()}"
+                                                 name="add_wish_list_new"
+                                                 th:id="${product.getProductId()}"
                                                  th:value="${product.getProductName()}">
                                                 <div>
                                                     <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
@@ -631,10 +667,11 @@
 
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
-                                    <div class="product_image_showcase"><a
-                                            th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                                 class="product_image_img"
-                                                                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                    <div class="product_image_showcase vertical_center">
+                                        <a th:href="@{'/product/' + ${product.productId}}">
+                                            <img alt="" class="product_image_img"
+                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                        </a>
                                     </div>
                                     <div class="product_content">
                                         <div class="product_info align-items-center justify-content-center">
@@ -653,12 +690,13 @@
                                             </div>
 
                                             <div>
-                                                <div class="product_name" id="new_name_more"
-                                                     th:value="${product.getProductName()}"><a
-                                                        th:href="@{'/product/' + ${product.productId}}">
-                                                    <h th:text="${product.getProductName()}"></h>
-                                                </a></div>
-                                                <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                                <div class="product_name">
+                                                    <a th:href="@{'/product/' + ${product.productId}}"
+                                                       th:text="${product.getProductName()}"></a>
+                                                </div>
+                                                <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -668,40 +706,39 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                                <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                                <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                             </div>
+                                            <span th:if="${product.isOnDiscount()}">
                                             <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                           <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                                <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
                                             </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
+
+                                            <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                         </div>
 
@@ -739,6 +776,7 @@
 
                     </div>
                 </div>
+                <span th:if="${allProductsSize>8}">
                 <div class="row load_more_row" id="load_new">
                     <div class="col">
                         <input type="submit" class="button load_more ml-auto mr-auto"
@@ -746,6 +784,7 @@
                                id="load_more_new_releases">
                     </div>
                 </div>
+                </span>
             </div>
         </div>
 
@@ -761,10 +800,11 @@
                     <tr th:each="product: ${bestSeller}">
                         <div class="col-xl-3 col-md-3">
                             <div class="product">
-                                <div class="product_image_showcase"><a
-                                        th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                             class="product_image_img"
-                                                                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
                                 </div>
                                 <div class="product_content">
                                     <div class="product_info align-items-center justify-content-center">
@@ -783,11 +823,13 @@
                                         </div>
 
                                         <div>
-                                            <div class="product_name"><a
-                                                    th:href="@{'/product/' + ${product.productId}}">
-                                                <h th:text="${product.getProductName()}"></h>
-                                            </a></div>
-                                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -797,42 +839,39 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                         </div>
-                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
-
-                                            <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                            <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <span th:if="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
 
-                                        </div>
+                                        <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                     </div>
 
@@ -873,10 +912,11 @@
                         <tr th:each="product: ${moreBestSeller}">
                             <div class="col-xl-3 col-md-3">
                                 <div class="product">
-                                    <div class="product_image_showcase"><a
-                                            th:href="@{'/product/' + ${product.productId}}"><img alt=""
-                                                                                                 class="product_image_img"
-                                                                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/></a>
+                                    <div class="product_image_showcase vertical_center">
+                                        <a th:href="@{'/product/' + ${product.productId}}">
+                                            <img alt="" class="product_image_img"
+                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                        </a>
                                     </div>
                                     <div class="product_content">
                                         <div class="product_info align-items-center justify-content-center">
@@ -895,11 +935,13 @@
                                             </div>
 
                                             <div>
-                                                <div class="product_name"><a
-                                                        th:href="@{'/product/' + ${product.productId}}">
-                                                    <h th:text="${product.getProductName()}"></h>
-                                                </a></div>
-                                                <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                                <div class="product_name">
+                                                    <a th:href="@{'/product/' + ${product.productId}}"
+                                                       th:text="${product.getProductName()}"></a>
+                                                </div>
+                                                <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                            product.getProductTypeName() == 'E-Book' ||
+                                                            product.getProductTypeName() == 'Audio Book'}">
                                             <div class="product_text">
                                                 <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
                                             </div>
@@ -909,42 +951,39 @@
                                                 <div th:text="${product.getReaderBrand()}"></div>
                                             </div>
                                         </span>
-                                                <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                                <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            product.getProductTypeName() == 'Book Case'}">
                                             <div class="product_text">
                                                 <div th:text="${product.getCaseBrand()}"></div>
                                             </div>
                                         </span>
                                             </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-
                                             <span th:if="${product.isOnDiscount()}">
-                                             <div class="sale_price">
-                                                 <del><div th:text="${product.getPrice()} + ' ₺'" }></div></del>
-                                            </div>
-                                            <div class="ml-auto text-right">
-                                                <div class="sale_price"><b>
-                                                    <div th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></div>
-                                                </b></div>
-                                            </div>
-                                            <div class=class="product_price_recommended">
-                                                <div th:text="${compareProductsService.calculateNetPrice(product)} + ' ₺'"
-                                                     }></div></div>
-
-                                           </span>
-                                                <span th:unless="${product.isOnDiscount()}">
-                                                <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
                                                     <div class="sale_price">
-                                                        <del></del>
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b>&nbsp;</b></div>
+                                                        <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
                                                     </div>
                                                 </div>
-                                                <div class="product_price">
-                                                    <div th:text="${product.getPrice()} + ' ₺'" }></div></div>
-                                            </span>
-
                                             </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                        </span>
+
+                                            <span th:unless="${product.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
 
                                         </div>
 
@@ -983,6 +1022,7 @@
 
                     </div>
                 </div>
+                <span th:if="${allProductsSize>8}">
 
                 <div class="row load_more_row" id="load_best">
                     <div class="col">
@@ -991,6 +1031,7 @@
                                id="load_more_best_seller">
                     </div>
                 </div>
+                </span>
 
             </div>
 
@@ -1057,19 +1098,14 @@
         document.getElementById("load_best").remove();
     });
 
-    $('.add_wish_list_new , .add_wish_list_new_more ,.add_wish_list_best , .add_wish_list_best_more').click(function (event) {
+    $('.add_wish_list_new , .add_wish_list_new_more ,.add_wish_list_best , .add_wish_list_best_more, .add_wish_list_our_picks_1, .add_wish_list_our_picks_2 , .add_wish_list_our_picks_3').click(function (event) {
         var button = $(this).attr("name");
         var name = $(this).attr("value");
         console.log(button);
         var productID;
-        if (button === "add_wish_list_new")
-            productID = $(this).attr("id");
-        else if (button === "add_wish_list_new_more")
-            productID = $(this).attr("id");
-        else if (button === "add_wish_list_best")
-            productID = $(this).attr("id");
-        else if (button === "add_wish_list_best_more")
-            productID = $(this).attr("id");
+
+        productID = $(this).attr("id");
+
 
         var ret = {
             type: "wish-list",
@@ -1101,19 +1137,14 @@
         })
     });
 
-    $('.add_cart_new , .add_cart_new_more ,.add_cart_best , .add_cart_best_more').click(function (event) {
+    $('.add_cart_new , .add_cart_new_more ,.add_cart_best , .add_cart_best_more , .add_cart_our_picks_1 , .add_cart_our_picks_2 , .add_cart_our_picks_3').click(function (event) {
         var button = $(this).attr("name");
         var name = $(this).attr("value");
         console.log(button);
         var productID;
-        if (button === "add_cart_new")
-            productID = $(this).attr("id");
-        else if (button === "add_cart_new_more")
-            productID = $(this).attr("id");
-        else if (button === "add_cart_best")
-            productID = $(this).attr("id");
-        else if (button === "add_cart_best_more")
-            productID = $(this).attr("id");
+
+        productID = $(this).attr("id");
+
 
         var ret = {
             type: "cart",
