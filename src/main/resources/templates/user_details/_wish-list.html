@@ -62,7 +62,7 @@
                                     <div class="align-items-start justify-content-start">
                                         <!-- when no sale delete -->
                                         <div class="cart_sale_price">
-                                            <b th:text="${product.getDiscountRate() + '%' + 'off'}"></b>
+                                            <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0) + ' off'}"></b>
                                         </div>
 
                                         <div class="cart_sale_price">

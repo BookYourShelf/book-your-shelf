@@ -69,8 +69,8 @@
                                 <div th:if="${cartItem.getProduct().isOnDiscount()}">
                                     <div class="align-items-start justify-content-start">
                                         <!-- when no sale delete -->
-                                        <div class="cart_sale_price"
-                                             th:text="${cartItem.getProduct().getDiscountRate() + '%' + 'off'}"><b></b>
+                                        <div class="cart_sale_price">
+                                            <b th:text="${'%' + #numbers.formatDecimal(cartItem.getProduct().getDiscountRate() * 100, 0, 0) + ' off'}"></b>
                                         </div>
 
                                         <div class="cart_sale_price">
