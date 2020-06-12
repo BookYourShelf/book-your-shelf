@@ -32,6 +32,8 @@ public class HotListDetailsController {
             return "redirect:/admin-panel";
         }
         model.addAttribute("hotList", hotList);
+        model.addAttribute("productType",adminPanelHotListService.createProductType(hotList));
+        model.addAttribute("hotListType",adminPanelHotListService.createHotListType(hotList));
         model.addAttribute("categoryService", adminPanelCategoryService);
 
         return "hotList-details";
