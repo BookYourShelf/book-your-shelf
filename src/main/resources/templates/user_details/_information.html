@@ -337,6 +337,9 @@
         const TEXT_MAX_LENGTH = "255";
         const NUMBER_MAX_LENGTH = 2147483647;
 
+        document.getElementById("login_email").setAttribute("maxlength", TEXT_MAX_LENGTH );
+        document.getElementById("login_password").setAttribute("maxlength", TEXT_MAX_LENGTH );
+
         for (i = 0; i < text_inputs.length; i++) {
             text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
         }

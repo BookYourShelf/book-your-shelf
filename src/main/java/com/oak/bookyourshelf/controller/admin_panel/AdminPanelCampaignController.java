@@ -32,14 +32,15 @@ public class AdminPanelCampaignController {
                       @RequestParam("filter") Optional<String> filter, Model model) {
 
 
-        String currentSort = sort.orElse("ID-asc");
+        String currentSort = sort.orElse("ID-desc");
         String currentFilter = filter.orElse("all");
         Globals.getPageNumbers(page, size, filterCampaigns(adminPanelCampaignService.sortCampaigns(currentSort), currentFilter),
                 model, "campaignPage");
 
         Campaign campaign = new Campaign();
         model.addAttribute("campaign", campaign);
-        model.addAttribute("campaignListEmpty", ((List)adminPanelCampaignService.listAll()).isEmpty());
+        model.addAttribute("adminPanelCampaignService", adminPanelCampaignService);
+        model.addAttribute("campaignListEmpty", ((List) adminPanelCampaignService.listAll()).isEmpty());
         model.addAttribute("categoryService", adminPanelCategoryService);
         model.addAttribute("sort", currentSort);
         model.addAttribute("filter", currentFilter);
@@ -49,16 +50,22 @@ public class AdminPanelCampaignController {
 
     @RequestMapping(value = "/admin-panel/campaign/category", method = RequestMethod.GET)
     @ResponseBody
-    public List<Category> findAllCategories(@RequestParam String category) {
-
+    public List<String> findAllCategories(@RequestParam String category) {
+        System.out.println("bbb");
+        List<Category> categories = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         if (category.equals("BOOK")) {
-            System.out.println(adminPanelCategoryService.getAllByCategory("Book"));
-            return (List<Category>) adminPanelCategoryService.getAllByCategory("Book");
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("Book"));
+
         } else if (category.equals("E_BOOK"))
-            return (List<Category>) adminPanelCategoryService.getAllByCategory("E-Book");
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("E-Book"));
+
         else if (category.equals("AUDIO_BOOK"))
-            return (List<Category>) adminPanelCategoryService.getAllByCategory("Audio Book");
-        else return null;
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("Audio Book"));
+
+        for (Category c : categories)
+            result.add(c.getName());
+        return result;
 
     }
 
@@ -77,20 +84,17 @@ public class AdminPanelCampaignController {
 
         String[] start = campaign.getStartDate().split("/");
         String[] end = campaign.getEndDate().split("/");
-        List<String> startDate =Arrays.asList(start);
+        List<String> startDate = Arrays.asList(start);
         List<String> endDate = Arrays.asList(end);
 
-        if( !adminPanelCampaignService.isDateValid(startDate))
+        if (!adminPanelCampaignService.isDateValid(startDate))
             return ResponseEntity.badRequest().body("Start date is not valid");
-        else if(!adminPanelCampaignService.isDateValid(endDate))
+        else if (!adminPanelCampaignService.isDateValid(endDate))
             return ResponseEntity.badRequest().body("End date is not valid");
-        else
-        {
-            if(!adminPanelCampaignService.isDateCorrect(endDate,startDate))
+        else {
+            if (!adminPanelCampaignService.isDateCorrect(endDate, startDate))
                 return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
         }
-
-
 
 
         if (ptype.equals("BOOK") || ptype.equals("E_BOOK") || ptype.equals("AUDIO_BOOK")) {
@@ -124,12 +128,11 @@ public class AdminPanelCampaignController {
                         for (Subcategory s : newSubcategories) {
                             if (s.isInCampaign())
                                 return ResponseEntity.badRequest().body("There is a campaign in " + s.getName() + " subcategory . Please change your selection");
-                            else
-                                s.setInCampaign(true);
                         }
                     }
                 }
-                /*adminPanelCampaignService.setProductsRate(adminPanelCampaignService.createProductSet(newSubcategories), campaign.getRate());*/
+                Set<Book> products = adminPanelCampaignService.createProductSet(newSubcategories);
+                adminPanelCampaignService.setProductsRate(products, campaign.getRate());
 
                 campaign.setSubcategories(newSubcategories);
                 campaign.setCategories(newCategoryList);
@@ -142,6 +145,8 @@ public class AdminPanelCampaignController {
             else {
                 campaign.setSubcategories(newSubcategories);
                 campaign.setCategories(newCategoryList);
+
+                adminPanelCampaignService.setOtherProductsRate(ptype, campaign.getRate());
             }
         }
 
@@ -153,8 +158,7 @@ public class AdminPanelCampaignController {
 
     }
 
-    public List<Campaign> filterCampaigns(List<Campaign> campaigns , String productType)
-    {
+    public List<Campaign> filterCampaigns(List<Campaign> campaigns, String productType) {
         switch (productType) {
             case "book":
                 return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.BOOK).collect(Collectors.toList());
@@ -163,7 +167,7 @@ public class AdminPanelCampaignController {
             case "audio-book":
                 return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.AUDIO_BOOK).collect(Collectors.toList());
             case "e-book-reader":
-                return campaigns.stream().filter(p ->p.getProductType() == Category.ProductType.E_BOOK_READER).collect(Collectors.toList());
+                return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK_READER).collect(Collectors.toList());
             case "e-book-reader-case":
                 return campaigns.stream().filter(p -> p.getProductType() == Category.ProductType.E_BOOK_READER_CASE).collect(Collectors.toList());
             case "book-case":

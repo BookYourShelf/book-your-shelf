@@ -54,5 +54,4 @@ public interface AdminPanelHotListRepository extends CrudRepository<HotList, Int
     List<HotList> findAllByOrderByHotListTypeDesc();
 
 
-
 }

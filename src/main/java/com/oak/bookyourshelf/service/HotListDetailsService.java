@@ -4,6 +4,7 @@ package com.oak.bookyourshelf.service;
 import com.oak.bookyourshelf.model.Campaign;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.HotList;
+import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.HotListDetailsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +36,9 @@ public class HotListDetailsService {
     }
 
     public void delete(int id) {
-        hotListDetailsRepository.removeAllHotListCategories(id);
         hotListDetailsRepository.removeAllHotListSubcategories(id);
+        hotListDetailsRepository.removeAllHotListCategories(id);
+
         hotListDetailsRepository.removeAllHotListProducts(id);
         hotListDetailsRepository.deleteById(id);
     }
@@ -44,4 +46,12 @@ public class HotListDetailsService {
     public void save(HotList user) {
         hotListDetailsRepository.save(user);
     }
+
+    public List<Subcategory> removeInHotList(List<Subcategory> subcategories) {
+        for (Subcategory subcategory : subcategories)
+            subcategory.setInHotList(false);
+
+        return subcategories;
+    }
+
 }
