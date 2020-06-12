@@ -46,6 +46,9 @@ public class HomePageController {
         UserDetails userDetails = authService.getUserDetails();
         List<Product> ourPicksForYou = new ArrayList<>();
         if (userDetails != null) {
+            User user = profileInformationService.getByEmail(userDetails.getUsername());
+            List<Product> searchResult = (List<Product>) homePageService.createOurPicsForYouList(user);
+
             model.addAttribute("bestSeller", homePageService.createBestSellerList(0, 8));
 
             model.addAttribute("newProducts", homePageService.createNewProductsList(0, 8));
@@ -54,11 +57,20 @@ public class HomePageController {
 
             model.addAttribute("moreNewProducts", homePageService.createNewProductsList(8, 15));
 
-            model.addAttribute("ourPicks_1", homePageService.createBestSellerList(0, 4));
+            model.addAttribute("allProductsSize",((List<Product>)productService.getAllProduct()).size());
 
-            model.addAttribute("ourPicks_2", homePageService.createBestSellerList(4, 8));
-
-            model.addAttribute("ourPicks_3", homePageService.createBestSellerList(8, 12));
+            if(searchResult.size()>=4)
+                model.addAttribute("ourPicks_1", searchResult.subList(0, 4));
+            else
+                model.addAttribute("ourPicks_1",searchResult);
+            if(searchResult.size()>=8)
+                model.addAttribute("ourPicks_2", searchResult.subList(4, 8));
+            else if(searchResult.size()>4)
+                model.addAttribute("ourPicks_2",searchResult.subList(4,searchResult.size()));
+            if(searchResult.size()>= 12)
+                model.addAttribute("ourPicks_3", searchResult.subList(8, 12));
+            else if(searchResult.size()>8 )
+                model.addAttribute("ourPicks_3",searchResult.subList(8,searchResult.size()));
 
             model.addAttribute("user", profileInformationService.getByEmail(userDetails.getUsername()));
 
