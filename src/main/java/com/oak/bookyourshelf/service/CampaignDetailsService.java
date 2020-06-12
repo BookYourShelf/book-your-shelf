@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -25,6 +26,10 @@ public class CampaignDetailsService {
 
     public Iterable<Campaign> listAll() {
         return campaignDetailsRepository.findAll();
+    }
+
+    public List<Campaign> getAllByProductType(Category.ProductType productType) {
+        return campaignDetailsRepository.getAllByProductType(productType);
     }
 
     public Campaign get(int id) {

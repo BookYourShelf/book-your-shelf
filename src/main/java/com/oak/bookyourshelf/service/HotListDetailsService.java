@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.service;
 
 
 import com.oak.bookyourshelf.model.Campaign;
+import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.HotList;
 import com.oak.bookyourshelf.model.Subcategory;
 import com.oak.bookyourshelf.repository.HotListDetailsRepository;
@@ -21,6 +22,10 @@ public class HotListDetailsService {
 
     public Iterable<HotList> listAll() {
         return hotListDetailsRepository.findAll();
+    }
+
+    public List<HotList> getAllByProductType(Category.ProductType productType) {
+        return hotListDetailsRepository.getAllByProductType(productType);
     }
 
     public HotList get(int id) {
