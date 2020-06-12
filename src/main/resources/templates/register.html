@@ -180,6 +180,8 @@
         var i;
         var text_inputs = document.querySelectorAll("input[type=text]");
         var number_inputs = document.querySelectorAll("input[type=number]");
+        var email_inputs = document.querySelectorAll("input[type=email]");
+        var password_inputs = document.querySelectorAll("input[type=password]");
 
 
         const TEXT_MAX_LENGTH = "255";
@@ -191,6 +193,14 @@
 
         for (i = 0; i < number_inputs.length; i++) {
             number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        for (i = 0; i < email_inputs.length; i++) {
+            email_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < password_inputs.length; i++) {
+            password_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
         }
 
     });
