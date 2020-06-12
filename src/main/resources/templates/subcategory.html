@@ -144,31 +144,30 @@
                             </div>
                         </div>
 
-                        <!-- Translator -->
+                        <!-- Author -->
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible "><a>Translator</a></div>
+                                <div class="sidebar_title collapsible"><a>Author</a></div>
                                 <div class="sidebar_text">
-                                    <form id="mediaform">
-                                        <div class="inline sidebar_expand" th:each="translator : ${translators}">
+                                    <form id="authorform">
+                                        <div class="inline sidebar_expand" th:each="author : ${authors}">
                                             <div class="expand_element">
                                                 <div class="row">
                                                     <div class="col-lg-1">
                                                         <label class="checkbox_container">
                                                             <input style="display: none" type="checkbox"
-                                                                   th:id="${translator.getKey()}"
-                                                                   name="Translator1"
-                                                                   th:value="${translator.getKey()}"
-                                                                   th:checked="${#lists.contains(translators.keySet(), translator.getKey())}">
+                                                                   th:id="${author.getKey()}"
+                                                                   name="Author1" th:value="${author.getKey()}"
+                                                                   th:checked="${#lists.contains(authors.keySet(), author.getKey())}">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
                                                     <label class="col-lg-9 expand_element_text"
-                                                           th:for="${translator.getKey()}"
-                                                           th:text="${translator.getKey()}"></label>
+                                                           th:for="${author.getKey()}"
+                                                           th:text="${author.getKey()}"></label>
                                                     <div class="col-lg-1">
                                                         <div class="number" style="float:right"
-                                                             th:text="${translator.getValue()}"></div>
+                                                             th:text="${author.getValue()}"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,83 +211,31 @@
                             </div>
                         </div>
 
-                        <!-- Author -->
+                        <!-- Translator -->
                         <div class="product">
                             <div class="product_content">
-                                <div class="sidebar_title collapsible"><a>Author</a></div>
+                                <div class="sidebar_title collapsible "><a>Translator</a></div>
                                 <div class="sidebar_text">
-                                    <form id="authorform">
-                                        <div class="inline sidebar_expand" th:each="author : ${authors}">
+                                    <form id="mediaform">
+                                        <div class="inline sidebar_expand" th:each="translator : ${translators}">
                                             <div class="expand_element">
                                                 <div class="row">
                                                     <div class="col-lg-1">
                                                         <label class="checkbox_container">
                                                             <input style="display: none" type="checkbox"
-                                                                   th:id="${author.getKey()}"
-                                                                   name="Author1" th:value="${author.getKey()}"
-                                                                   th:checked="${#lists.contains(authors.keySet(), author.getKey())}">
+                                                                   th:id="${translator.getKey()}"
+                                                                   name="Translator1"
+                                                                   th:value="${translator.getKey()}"
+                                                                   th:checked="${#lists.contains(translators.keySet(), translator.getKey())}">
                                                             <span class="checkbox_mark"></span>
                                                         </label>
                                                     </div>
                                                     <label class="col-lg-9 expand_element_text"
-                                                           th:for="${author.getKey()}"
-                                                           th:text="${author.getKey()}"></label>
+                                                           th:for="${translator.getKey()}"
+                                                           th:text="${translator.getKey()}"></label>
                                                     <div class="col-lg-1">
                                                         <div class="number" style="float:right"
-                                                             th:text="${author.getValue()}"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Discount -->
-                        <div class="product">
-                            <div class="product_content">
-                                <div class="sidebar_title collapsible"><a>Discount</a></div>
-                                <div class="sidebar_text">
-                                    <form id="discountform">
-                                        <div class="inline sidebar_expand">
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox"
-                                                                   id="no_discount"
-                                                                   name="Discount1" value="No Discount"
-                                                                   th:checked="false">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text"
-                                                           for="no_discount"
-                                                           th:text="'No Discount'"></label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right"
-                                                             text=""></div> <!-- Discount num -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="expand_element">
-                                                <div class="row">
-                                                    <div class="col-lg-1">
-                                                        <label class="checkbox_container">
-                                                            <input style="display: none" type="checkbox"
-                                                                   id="discount"
-                                                                   name="Discount1" value="In Discount"
-                                                                   th:checked="false">
-                                                            <span class="checkbox_mark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <label class="col-lg-9 expand_element_text"
-                                                           for="discount"
-                                                           th:text="'In Discount'"></label>
-                                                    <div class="col-lg-1">
-                                                        <div class="number" style="float:right"
-                                                             text=""></div> <!-- Discount num -->
+                                                             th:text="${translator.getValue()}"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -451,6 +398,60 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Discount -->
+                        <div class="product">
+                            <div class="product_content">
+                                <div class="sidebar_title collapsible"><a>Discount</a></div>
+                                <div class="sidebar_text">
+                                    <form id="discountform">
+                                        <div class="inline sidebar_expand">
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   id="no_discount"
+                                                                   name="Discount1" value="No Discount"
+                                                                   th:checked="false">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           for="no_discount"
+                                                           th:text="'No Discount'"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             text=""></div> <!-- Discount num -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   id="discount"
+                                                                   name="Discount1" value="In Discount"
+                                                                   th:checked="false">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           for="discount"
+                                                           th:text="'In Discount'"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             text=""></div> <!-- Discount num -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="button" value="Filter Products" class="login_button trans-200"
                                id="category_filter_button">
                         <br>
