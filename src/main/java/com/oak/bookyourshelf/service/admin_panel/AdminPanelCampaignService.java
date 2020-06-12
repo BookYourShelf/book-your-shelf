@@ -173,4 +173,20 @@ public class AdminPanelCampaignService {
 
         }
 
+    public String createProductType(Campaign campaign)
+    {
+        if(campaign.getProductType() == Category.ProductType.BOOK)
+            return "Book";
+        else if(campaign.getProductType() == Category.ProductType.AUDIO_BOOK)
+            return "Audio Book";
+        else if(campaign.getProductType() == Category.ProductType.E_BOOK)
+            return "E Book";
+        else if (campaign.getProductType() == Category.ProductType.BOOK_CASE)
+            return "Book Case";
+        else if(campaign.getProductType() == Category.ProductType.E_BOOK_READER_CASE)
+            return "E Book Reader Case";
+        else
+            return "E Book Reader";
+    }
+
 }
