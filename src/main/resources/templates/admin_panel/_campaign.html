@@ -447,6 +447,10 @@
             })
         }
     });
+
+    const category_div_id = 'category_dynamicdiv';
+    const subcategory_div_id = 'subcategory_dynamicdiv';
+
     $(document).on('change', '#new_campaign_categories', function (event) {
         if ($(this).val() !== "SELECT") {
             $.getJSON("/admin-panel/campaign/subcategory", {
@@ -455,19 +459,25 @@
             }, function (data) {
                 buildSubcategoriesDropdown(data, "new_campaign_subcategories");
             });
+        } else {
+            if (document.getElementById(subcategory_div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
         }
     });
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
         if (data.length > 0) {
-            var div_id = 'subcategory_dynamicdiv';
-            if (document.getElementById(div_id)) {
+            if (document.getElementById(subcategory_div_id)) {
                 // delete div
-                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(div_id));
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
             }
 
             var newdiv = document.createElement('div');
-            newdiv.id = div_id;
+            newdiv.id = subcategory_div_id;
             var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
             var len = data.length;
             for (var i = 0; i < len; i++) {
@@ -484,7 +494,6 @@
         }
     }
 
-
     $('#category_product_type').change(function (event) {
         if ($(this).val() === "BOOK" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK") {
 
@@ -494,20 +503,37 @@
             }, function (data) {
                 buildCategoriesDropdown(data, "new_campaign_categories");
             });
+        } else {
+            if (document.getElementById(category_div_id) != null) {
+                console.log("not null")
+                // delete div
+                document.getElementById("dynamic_category").removeChild(document.getElementById(category_div_id));
+                document.getElementById("category_row").style.display = "none";
+            }
+
+            if (document.getElementById(subcategory_div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
         }
     });
 
     function buildCategoriesDropdown(data, categoryName) {
-        var div_id = 'category_dynamicdiv';
-
-        if (document.getElementById(div_id)) {
+        if (document.getElementById(category_div_id) != null) {
             // delete div
-            document.getElementById("dynamic_category").removeChild(document.getElementById(div_id));
-            document.getElementById("subcategory_row").style.display = "none";
+            document.getElementById("dynamic_category").removeChild(document.getElementById(category_div_id));
+            document.getElementById("category_row").style.display = "none";
+
+            if (document.getElementById(subcategory_div_id)) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
         }
 
         var newdiv = document.createElement('div');
-        newdiv.id = div_id;
+        newdiv.id = category_div_id;
         var html = '<select id=\"new_campaign_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
@@ -517,7 +543,7 @@
         }
         html += '</option></select>';
         newdiv.innerHTML += html;
-        console.log(html);
+        console.log(newdiv);
         document.getElementById("category_row").style.display = "block"
         document.getElementById("dynamic_category").appendChild(newdiv);
     }
