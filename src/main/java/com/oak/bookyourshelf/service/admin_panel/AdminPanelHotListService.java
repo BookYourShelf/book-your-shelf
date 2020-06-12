@@ -1,11 +1,10 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.HotList;
-import com.oak.bookyourshelf.model.Product;
-import com.oak.bookyourshelf.model.Subcategory;
+import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.repository.ProductRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelHotListRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelProductRepository;
+import com.oak.bookyourshelf.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +15,16 @@ import java.util.*;
 public class AdminPanelHotListService {
     final AdminPanelHotListRepository adminPanelHotListRepository;
     final AdminPanelProductRepository adminPanelProductRepository;
+    final ProductRepository productRepository;
+    final ProductService productService;
 
 
-    public AdminPanelHotListService(AdminPanelHotListRepository adminPanelHotListRepository, AdminPanelProductRepository adminPanelProductRepository) {
+    public AdminPanelHotListService(AdminPanelHotListRepository adminPanelHotListRepository, AdminPanelProductRepository adminPanelProductRepository, ProductRepository productRepository, ProductService productService) {
         this.adminPanelHotListRepository = adminPanelHotListRepository;
 
         this.adminPanelProductRepository = adminPanelProductRepository;
+        this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     public Iterable<HotList> listAll() {
@@ -53,27 +56,27 @@ public class AdminPanelHotListService {
     }
 
 
-    public Set<Product> createProductSet(List<Subcategory> subcategories)
+    public Set<Book> createProductSet(List<Subcategory> subcategories)
     {
-        Set<Product> allProducts = Collections.emptySet();
+        Set<Book> allProducts = new HashSet<>();
         for(Subcategory sub :subcategories)
         {
             sub.setInHotList(true);
-            for(Product p:sub.getBooks())
+            for(Book b:sub.getBooks())
             {
-                allProducts.add(p);
+                allProducts.add(b);
             }
         }
         return allProducts;
     }
 
-    public void setProductByType(HotList hotList,Set<Product> products)
+    public void setProductByType(HotList hotList,Set<Book> books)
     {
         List<Product> allProducts=new ArrayList<Product>();
         List<Integer> productIds =new ArrayList<Integer>();
-        for(Product p:products)
+        for(Book b: books)
         {
-            productIds.add(p.getProductId());
+            productIds.add(b.getProductId());
         }
         if(hotList.getHotListType() == HotList.HotListType.BEST_SELLERS)
         {
@@ -84,7 +87,7 @@ public class AdminPanelHotListService {
             allProducts.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
         }
         List<Product> result = new ArrayList<>();
-        if(hotList.getProductNum()<=products.size()) {
+        if(hotList.getProductNum()<=books.size()) {
 
             int elementNum = 0;
             for(Product p : allProducts)
@@ -99,13 +102,59 @@ public class AdminPanelHotListService {
         }
         else
         {
-            List<Product> all = new ArrayList<Product>(products);
+            List<Product> all = new ArrayList<Product>(books);
             hotList.setProducts(all);
             hotList.setProductNum(allProducts.size());
         }
 
 
     }
+
+    public void setProductByTypeOtherTypes(HotList hotList)
+    {
+        List<Product> allProducts=new ArrayList<Product>();
+        List<Product> products=new ArrayList<>();
+
+        if(hotList.getProductType()== Category.ProductType.E_BOOK_READER)
+            allProducts = productService.filterProducts((List<Product>) productRepository.findAll(),"E-Book Reader");
+        else if(hotList.getProductType() == Category.ProductType.E_BOOK_READER_CASE)
+            allProducts = productService.filterProducts((List<Product>) productRepository.findAll(),"E-Book Reader Case");
+        else if(hotList.getProductType() == Category.ProductType.BOOK_CASE)
+            allProducts = productService.filterProducts((List<Product>) productRepository.findAll(),"Book Case");
+        List<Integer> productIds =new ArrayList<Integer>();
+
+        if(hotList.getHotListType() == HotList.HotListType.BEST_SELLERS)
+        {
+            products.addAll(adminPanelProductRepository.findAllByOrderBySalesNumDesc());
+        }
+        else if(hotList.getHotListType() == HotList.HotListType.NEW_RELEASES)
+        {
+            products.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
+        }
+        List<Product> result = new ArrayList<>();
+        if(hotList.getProductNum()<=allProducts.size()) {
+
+            int elementNum = 0;
+            for(Product p : products)
+            {
+                if((allProducts.contains(p)) && elementNum<hotList.getProductNum())
+                {
+                    result.add(p);
+                    elementNum++;
+                }
+            }
+            hotList.setProducts(result);
+        }
+        else
+        {
+            List<Product> all = new ArrayList<Product>(allProducts);
+            hotList.setProducts(all);
+            hotList.setProductNum(allProducts.size());
+        }
+
+
+    }
+
 
     public boolean isDateValid(List<String> date)
     {
