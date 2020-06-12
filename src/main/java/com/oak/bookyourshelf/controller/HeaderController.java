@@ -30,7 +30,7 @@ public class HeaderController {
     final AuthService authService;
 
     public HeaderController(AdminPanelCategoryService categoryDetailsService, CampaignDetailsService campaignDetailsService,
-                            HotListDetailsService hotListDetailsService,ProfileInformationService profileInformationService,
+                            HotListDetailsService hotListDetailsService, ProfileInformationService profileInformationService,
                             @Qualifier("customUserDetailsService") AuthService authService) {
         this.categoryDetailsService = categoryDetailsService;
         this.campaignDetailsService = campaignDetailsService;
@@ -54,9 +54,9 @@ public class HeaderController {
         List<HotList> audiobookHotlists = hotListDetailsService.getAllByProductType(Category.ProductType.AUDIO_BOOK);
 
         UserDetails userDetails = authService.getUserDetails();
-        User user = profileInformationService.getByEmail(userDetails.getUsername());
 
-        if(user != null){
+        if (userDetails != null) {
+            User user = profileInformationService.getByEmail(userDetails.getUsername());
             model.addAttribute("user", user);
         }
 
