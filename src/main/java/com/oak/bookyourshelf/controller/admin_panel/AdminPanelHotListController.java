@@ -1,10 +1,7 @@
 package com.oak.bookyourshelf.controller.admin_panel;
 
 import com.oak.bookyourshelf.Globals;
-import com.oak.bookyourshelf.model.Campaign;
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.HotList;
-import com.oak.bookyourshelf.model.Subcategory;
+import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCategoryService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelHotListService;
 import org.springframework.data.domain.Page;
@@ -14,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -57,25 +51,29 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList/category", method = RequestMethod.GET)
     @ResponseBody
-    public List<Category> findAllCategories(@RequestParam String category) {
+    public List<String> findAllCategories(@RequestParam String category) {
 
+        List<Category> categories = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         if (category.equals("BOOK")) {
-            System.out.println("mkdfg");
-            System.out.println(adminPanelCategoryService.getAllByCategory("Book"));
-            return  (List<Category>) adminPanelCategoryService.getAllByCategory("Book");
-        }
-        else if(category.equals("E_BOOK"))
-            return  (List<Category>) adminPanelCategoryService.getAllByCategory("E-Book");
-        else if(category.equals("AUDIO_BOOK"))
-            return  (List<Category>) adminPanelCategoryService.getAllByCategory("Audio Book");
-        else return null;
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("Book"));
+
+        } else if (category.equals("E_BOOK"))
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("E-Book"));
+
+        else if (category.equals("AUDIO_BOOK"))
+            categories.addAll((Collection<? extends Category>) adminPanelCategoryService.getAllByCategory("Audio Book"));
+
+        for( Category c:categories)
+            result.add(c.getName());
+        return result;
 
     }
 
     @RequestMapping(value = "/admin-panel/hotList/subcategory", method = RequestMethod.GET)
     @ResponseBody
-    public List<Subcategory> findAllSubcategories(@RequestParam String category) {
-        return Globals.getAllChildSubcategories(adminPanelCategoryService.getByName(category));
+    public List<String> findAllSubcategories(@RequestParam String category) {
+        return Globals.getAllSubcategories(adminPanelCategoryService.getByName(category));
     }
 
 
@@ -161,6 +159,8 @@ public class AdminPanelHotListController {
 
                 hotList.setSubcategories(newSubcategories);
                 hotList.setCategories(newCategoryList);
+                Set<Book> book = adminPanelHotListService.createProductSet(newSubcategories);
+                adminPanelHotListService.setProductByType(hotList,book);
             }
         }
 
@@ -172,9 +172,10 @@ public class AdminPanelHotListController {
             else{
                 hotList.setSubcategories(newSubcategories);
                 hotList.setCategories(newCategoryList);
+                adminPanelHotListService.setProductByTypeOtherTypes(hotList);
             }
         }
-        /*adminPanelHotListService.setProductByType(hotList,adminPanelHotListService.createProductSet(newSubcategories));*/
+        adminPanelHotListService.setProductByType(hotList,adminPanelHotListService.createProductSet(newSubcategories));
         adminPanelHotListService.save(hotList);
 
 
