@@ -271,6 +271,31 @@ public class AdminPanelHotListService {
     }
 
 
+    public String createProductType(HotList hotList)
+    {
+        if(hotList.getProductType() == Category.ProductType.BOOK)
+            return "Book";
+        else if(hotList.getProductType() == Category.ProductType.AUDIO_BOOK)
+            return "Audio Book";
+        else if(hotList.getProductType() == Category.ProductType.E_BOOK)
+            return "E Book";
+        else if (hotList.getProductType() == Category.ProductType.BOOK_CASE)
+            return "Book Case";
+        else if(hotList.getProductType() == Category.ProductType.E_BOOK_READER_CASE)
+            return "E Book Reader Case";
+        else
+            return "E Book Reader";
+    }
+
+    public String createHotListType(HotList hotList)
+    {
+        if(hotList.getHotListType() == HotList.HotListType.NEW_RELEASES)
+            return "New Releases";
+        else
+            return "Best Sellers";
+    }
+
+
 
 
 }
