@@ -53,13 +53,13 @@ public class BookCaseController {
         }
 
 
-        sortProducts(products, currentSort);
+        sortProducts(bookCases, currentSort);
 
         float minP = Float.MAX_VALUE;
         float maxP = -1;
 
         // Find min and max prices
-        for (Product p : products) {
+        for (Product p : bookCases) {
             float price = p.getPrice();
             if (price < minP) {
                 minP = price;
@@ -196,7 +196,7 @@ public class BookCaseController {
         return "/bookcase";
     }
 
-    private void sortProducts(List<Product> products, String sort) {
+    private void sortProducts(List<BookCase> products, String sort) {
         switch (sort) {
             case "date-desc":
                 products.sort((o1, o2) -> (int) (o1.getUploadDate().getTime() - o2.getUploadDate().getTime()));
