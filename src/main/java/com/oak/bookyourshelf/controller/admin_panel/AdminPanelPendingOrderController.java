@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.service.PaymentService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelPendingOrderService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
 import com.oak.bookyourshelf.service.profile.ProfileInformationService;
@@ -26,14 +27,17 @@ public class AdminPanelPendingOrderController {
     final AdminPanelPendingOrderService adminPanelPendingOrderService;
     final ProfileInformationService profileInformationService;
     final ProductDetailsInformationService productDetailsInformationService;
+    final PaymentService paymentService;
     ObjectMapper mapper = new ObjectMapper();
 
     public AdminPanelPendingOrderController(AdminPanelPendingOrderService adminPanelPendingOrderService,
                                             ProfileInformationService profileInformationService,
-                                            ProductDetailsInformationService productDetailsInformationService) {
+                                            ProductDetailsInformationService productDetailsInformationService,
+                                            PaymentService paymentService) {
         this.adminPanelPendingOrderService = adminPanelPendingOrderService;
         this.profileInformationService = profileInformationService;
         this.productDetailsInformationService = productDetailsInformationService;
+        this.paymentService = paymentService;
     }
 
     @RequestMapping(value = "/admin-panel/pending-order", method = RequestMethod.GET)
@@ -84,9 +88,10 @@ public class AdminPanelPendingOrderController {
                     return ResponseEntity.badRequest().body(outOfStockProduct.getProductName() + " is out of stock.");
                 }
 
-                updateProducts(order, productsIds);
+                boolean canceledProductExists = updateOrderProducts(order, productsIds);
                 updateOrderStatus(order, 1);
-                return ResponseEntity.ok("");
+
+                return ResponseEntity.ok(String.valueOf(canceledProductExists));
 
             case "cancel":
                 updateOrderStatus(order, 0);
@@ -95,6 +100,19 @@ public class AdminPanelPendingOrderController {
             default:
                 return ResponseEntity.badRequest().body("An error occurred.");
         }
+    }
+
+    public void updateOrderStatus(Order order, int success) {
+        if (success == 1) {
+            order.setOrderStatus(Order.OrderStatus.CONFIRMED);
+            order.setDeliveryStatus(Order.DeliveryStatus.INFO_RECEIVED);
+        } else {
+            order.setOrderStatus(Order.OrderStatus.CANCELED);
+            order.setPaymentStatus(Order.PaymentStatus.REFUNDED);
+            order.setDeliveryStatus(Order.DeliveryStatus.CANCELED);
+        }
+
+        adminPanelPendingOrderService.save(order);
     }
 
     public Product checkStock(Order order, List<Integer> productsIds) {
@@ -107,29 +125,6 @@ public class AdminPanelPendingOrderController {
         return null;
     }
 
-    public void updateProducts(Order order, List<Integer> productsIds) {
-        for (Integer id : productsIds) {
-            Product product = productDetailsInformationService.get(id);
-            product.increaseSalesNum();
-            product.setStock(product.getStock() - getQuantity(order.getProducts(), id));
-            productDetailsInformationService.save(product);
-        }
-    }
-
-    public void updateOrderStatus(Order order, int success) {
-        if (success == 1) {
-            order.setOrderStatus(Order.OrderStatus.CONFIRMED);
-            order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
-            order.setDeliveryStatus(Order.DeliveryStatus.INFO_RECEIVED);
-        } else {
-            order.setOrderStatus(Order.OrderStatus.CANCELED);
-            order.setPaymentStatus(Order.PaymentStatus.CANCELLED);
-            order.setDeliveryStatus(Order.DeliveryStatus.CANCELED);
-        }
-
-        adminPanelPendingOrderService.save(order);
-    }
-
     public int getQuantity(List<CartItem> cartItems, int productId) {
         for (CartItem c : cartItems) {
             if (c.getProduct().getProductId() == productId) {
@@ -137,6 +132,31 @@ public class AdminPanelPendingOrderController {
             }
         }
         return 0;
+    }
+
+    public boolean updateOrderProducts(Order order, List<Integer> productsIds) {
+        boolean unconfirmedProductExists = false;
+
+        for (CartItem c : order.getProducts()) {
+            if (!productsIds.contains(c.getProduct().getProductId())) {
+                // rewind product changes back for canceled products
+                c.getProduct().decreaseSalesNum();
+                c.getProduct().setStock(c.getProduct().getStock() + c.getQuantity());
+                productDetailsInformationService.save(c.getProduct());
+
+                // rewind subtotal changes back for canceled products
+                float toBeDeleted = c.getQuantity() * (c.getUnitPrice() - (c.getUnitPrice() * c.getDiscountRate()));
+                order.setSubTotalAmount(order.getSubTotalAmount() - toBeDeleted);
+                order.getProducts().remove(c);
+                unconfirmedProductExists = true;
+            }
+        }
+        // rewind total changes back for canceled products
+        order.setTotalAmount(order.calculateTotalAmount());
+        adminPanelPendingOrderService.save(order);
+        // refund if needed
+        paymentService.findByOrderId(order.getOrderId()).setAmount(order.getTotalAmount());
+        return unconfirmedProductExists;
     }
 
     public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {
