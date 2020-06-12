@@ -48,6 +48,72 @@
                     <div class="col-md-4 col-lg-3">
                         <div><b class="category-name">Book Cases</b></div>
 
+                        <!-- Case Brand -->
+                        <div class="product">
+                            <div class="product_content">
+                                <div class="sidebar_title collapsible"><a>Brand</a></div>
+                                <div class="sidebar_text">
+                                    <form id="brandform">
+                                        <div class="inline sidebar_expand" th:each="brand : ${brands}">
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   th:id="${brand.getKey()}"
+                                                                   name="Brand1" th:value="${brand.getKey()}"
+                                                                   th:checked="${#lists.contains(brands.keySet(), brand.getKey())}">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           th:for="${brand.getKey()}"
+                                                           th:text="${brand.getKey()}"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             th:text="${brand.getValue()}"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case Colors -->
+                        <div class="product">
+                            <div class="product_content">
+                                <div class="sidebar_title collapsible"><a>Color</a></div>
+                                <div class="sidebar_text">
+                                    <form id="colorform">
+                                        <div class="inline sidebar_expand" th:each="color : ${colors}">
+                                            <div class="expand_element">
+                                                <div class="row">
+                                                    <div class="col-lg-1">
+                                                        <label class="checkbox_container">
+                                                            <input style="display: none" type="checkbox"
+                                                                   th:id="${color.getKey()}"
+                                                                   name="Color1" th:value="${color.getKey()}"
+                                                                   th:checked="${#lists.contains(colors.keySet(), color.getKey())}">
+                                                            <span class="checkbox_mark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <label class="col-lg-9 expand_element_text"
+                                                           th:for="${color.getKey()}"
+                                                           th:text="${color.getKey()}"></label>
+                                                    <div class="col-lg-1">
+                                                        <div class="number" style="float:right"
+                                                             th:text="${color.getValue()}"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Discount -->
                         <div class="product">
                             <div class="product_content">
@@ -678,17 +744,11 @@
     // Filter products
     $("#category_filter_button").click(function (event) {
         var url = new URL(window.location.href.split('?')[0]);
-        $('input[name = "languages1"]:checked').each(function () {
-            url.searchParams.append('languages', $(this).val());
+        $('input[name = "Brand1"]:checked').each(function () {
+            url.searchParams.append('brands', $(this).val());
         });
-        $('input[name = "Translator1"]:checked').each(function () {
-            url.searchParams.append('translators', $(this).val());
-        });
-        $('input[name = "pub1"]:checked').each(function () {
-            url.searchParams.append('publishers', $(this).val());
-        });
-        $('input[name = "Author1"]:checked').each(function () {
-            url.searchParams.append('authors', $(this).val());
+        $('input[name = "Color1"]:checked').each(function () {
+            url.searchParams.append('colors', $(this).val());
         });
         $('input[name = "Discount1"]:checked').each(function () {
             url.searchParams.append('discount', $(this).val());
@@ -739,10 +799,8 @@
 
     // If no filters found, clear all checkboxes
     var currentUrl = new URL(window.location.href);
-    if (currentUrl.searchParams.getAll("languages").length === 0 &&
-        currentUrl.searchParams.getAll("translators").length === 0 &&
-        currentUrl.searchParams.getAll("publishers").length === 0 &&
-        currentUrl.searchParams.getAll("authors").length === 0 &&
+    if (currentUrl.searchParams.getAll("brands").length === 0 &&
+        currentUrl.searchParams.getAll("colors").length === 0 &&
         currentUrl.searchParams.getAll("discount").length === 0 &&
         currentUrl.searchParams.getAll("stars").length === 0 &&
         currentUrl.searchParams.getAll("minPrice").length === 0 &&

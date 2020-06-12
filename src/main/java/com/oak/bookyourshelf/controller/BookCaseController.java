@@ -2,6 +2,7 @@ package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.Globals;
 import com.oak.bookyourshelf.model.Book;
+import com.oak.bookyourshelf.model.BookCase;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.service.ProductService;
@@ -26,6 +27,8 @@ public class BookCaseController {
     public String showCategory(@RequestParam("page") Optional<Integer> page,
                                @RequestParam("size") Optional<Integer> size,
                                @RequestParam("sort") Optional<String> sort,
+                               @RequestParam("brands") Optional<String> brands,
+                               @RequestParam("colors") Optional<String> colors,
                                @RequestParam("discount") Optional<String> discount,
                                @RequestParam("stars") Optional<String> stars,
                                @RequestParam("minPrice") Optional<String> minPrice,
@@ -35,21 +38,28 @@ public class BookCaseController {
         String currentSort = sort.orElse("date-desc");
 
         // Parse parameters
+        List<String> brandList = new ArrayList<>(Arrays.asList(brands.orElse("").split(",")));
+        List<String> colorList = new ArrayList<>(Arrays.asList(colors.orElse("").split(",")));
         List<String> discountList = new ArrayList<>(Arrays.asList(discount.orElse("").split(",")));
         List<String> starList = new ArrayList<>(Arrays.asList(stars.orElse("").split(",")));
         List<String> minPriceList = new ArrayList<>(Arrays.asList(minPrice.orElse("").split(",")));
         List<String> maxPriceList = new ArrayList<>(Arrays.asList(maxPrice.orElse("").split(",")));
 
         // Get books and create return books object
-        List<Product> bookCases = (List<Product>) productService.filterProducts((List<Product>) productService.getAllProduct(), "Book Case");
+        List<Product> products = productService.filterProducts((List<Product>) productService.getAllProduct(), "Book Case");
+        List<BookCase> bookCases = new ArrayList<>();
+        for (Product product : products) {
+            bookCases.add((BookCase) product);
+        }
 
-        sortProducts(bookCases, currentSort);
+
+        sortProducts(products, currentSort);
 
         float minP = Float.MAX_VALUE;
         float maxP = -1;
 
         // Find min and max prices
-        for (Product p : bookCases) {
+        for (Product p : products) {
             float price = p.getPrice();
             if (price < minP) {
                 minP = price;
@@ -59,31 +69,63 @@ public class BookCaseController {
             }
         }
 
-        // Filter discount
-        List<Product> productsDiscount = new ArrayList<>();
-        if (!discountList.get(0).equals("")) {
-            for (Product product : bookCases) {
-                for (String d : discountList) {
-                    if (d.equals("No Discount") && !product.isOnDiscount()) {
-                        productsDiscount.add(product);
-                    } else if (d.equals("Discount") && product.isOnDiscount()) {
-                        productsDiscount.add(product);
+        // Filter brands
+        List<BookCase> productsBrand = new ArrayList<>();
+        if (!brandList.get(0).equals("")) {
+            for (BookCase bookCase : bookCases) {
+                for (String brand : brandList) {
+                    if (bookCase.getCaseBrand() != null) {
+                        if (bookCase.getCaseBrand().equals(brand)) {
+                            productsBrand.add(bookCase);
+                        }
                     }
                 }
             }
         } else {
-            productsDiscount.addAll(bookCases);
+            productsBrand.addAll(bookCases);
+        }
+
+        // Filter colors
+        List<BookCase> productsColor = new ArrayList<>();
+        if (!colorList.get(0).equals("")) {
+            for (BookCase bookCase : productsBrand) {
+                for (String color : colorList) {
+                    if (bookCase.getCaseColor() != null) {
+                        if (bookCase.getCaseColor().equals(color)) {
+                            productsColor.add(bookCase);
+                        }
+                    }
+                }
+            }
+        } else {
+            productsColor.addAll(productsBrand);
+        }
+
+        // Filter discount
+        List<BookCase> productsDiscount = new ArrayList<>();
+        if (!discountList.get(0).equals("")) {
+            for (BookCase bookCase : productsColor) {
+                for (String d : discountList) {
+                    if (d.equals("No Discount") && !bookCase.isOnDiscount()) {
+                        productsDiscount.add(bookCase);
+                    } else if (d.equals("Discount") && bookCase.isOnDiscount()) {
+                        productsDiscount.add(bookCase);
+                    }
+                }
+            }
+        } else {
+            productsDiscount.addAll(productsColor);
         }
 
         // Filter stars and create star counts
-        List<Product> productsStar = new ArrayList<>();
+        List<BookCase> productsStar = new ArrayList<>();
         if (!starList.get(0).equals("")) {
-            for (Product product : productsDiscount) {
+            for (BookCase bookCase : productsDiscount) {
                 for (String s : starList) {
                     double star = Double.parseDouble(s);
 
-                    if (product.getScoreOutOf5() < star + 1 && product.getScoreOutOf5() >= star) {
-                        productsStar.add(product);
+                    if (bookCase.getScoreOutOf5() < star + 1 && bookCase.getScoreOutOf5() >= star) {
+                        productsStar.add(bookCase);
                     }
                 }
             }
@@ -92,24 +134,24 @@ public class BookCaseController {
         }
 
         // Set min and max values if parameters given
-        List<Product> productsMin = new ArrayList<>();
+        List<BookCase> productsMin = new ArrayList<>();
         if (!minPriceList.get(0).equals("")) {
             minP = Float.parseFloat(minPriceList.get(0));
-            for (Product product : productsStar) {
-                if (product.getPrice() >= minP) {
-                    productsMin.add(product);
+            for (BookCase bookCase : productsStar) {
+                if (bookCase.getPrice() >= minP) {
+                    productsMin.add(bookCase);
                 }
             }
         } else {
             productsMin.addAll(productsStar);
         }
 
-        List<Product> productsMax = new ArrayList<>();
+        List<BookCase> productsMax = new ArrayList<>();
         if (!maxPriceList.get(0).equals("")) {
             maxP = Float.parseFloat(maxPriceList.get(0));
-            for (Product product : productsMin) {
-                if (product.getPrice() <= maxP) {
-                    productsMax.add(product);
+            for (BookCase bookCase : productsMin) {
+                if (bookCase.getPrice() <= maxP) {
+                    productsMax.add(bookCase);
                 }
             }
         } else {
@@ -117,11 +159,14 @@ public class BookCaseController {
         }
 
 
-        // Find counts of languages, publishers and authors
+        // Find counts of brands, colors and stars
+        HashMap<String, Integer> brandCount = new HashMap<>();
+        HashMap<String, Integer> colorCount = new HashMap<>();
         HashMap<String, Integer> starCount = new HashMap<>();
 
-        for (Product product : productsMax) {
-
+        for (BookCase bookCase : productsMax) {
+            brandCount.merge(bookCase.getCaseBrand(), 1, Integer::sum);
+            colorCount.merge(bookCase.getCaseColor(), 1, Integer::sum);
 
             if (starList.get(0).equals("")) {
                 starList.remove(0);
@@ -135,13 +180,15 @@ public class BookCaseController {
             for (String s : starList) {
                 double star = Double.parseDouble(s);
 
-                if (product.getScoreOutOf5() < star + 1 && product.getScoreOutOf5() >= star) {
+                if (bookCase.getScoreOutOf5() < star + 1 && bookCase.getScoreOutOf5() >= star) {
                     starCount.merge(s, 1, Integer::sum);
                 }
             }
         }
         Globals.getPageNumbers(page, size, productsMax, model, "bookcaseProducts");
         model.addAttribute("sort", currentSort);
+        model.addAttribute("brands", brandCount);
+        model.addAttribute("colors", colorCount);
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
