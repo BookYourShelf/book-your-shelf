@@ -36,7 +36,7 @@ public class CampaignDetailsController {
         }
         model.addAttribute("campaign", campaign);
         model.addAttribute("categoryService", adminPanelCategoryService);
-        model.addAttribute("productType",adminPanelCampaignService.createProductType(campaign));
+        model.addAttribute("productType", adminPanelCampaignService.createProductType(campaign));
         return "campaign-details";
     }
 
@@ -54,13 +54,12 @@ public class CampaignDetailsController {
                 List<String> startDate = Arrays.asList(start);
                 List<String> endDate = Arrays.asList(end);
 
-                if( !adminPanelCampaignService.isDateValid(startDate))
+                if (!adminPanelCampaignService.isDateValid(startDate))
                     return ResponseEntity.badRequest().body("Start date is not valid");
-                else if(!adminPanelCampaignService.isDateValid(endDate))
+                else if (!adminPanelCampaignService.isDateValid(endDate))
                     return ResponseEntity.badRequest().body("End date is not valid");
-                else
-                {
-                    if(!adminPanelCampaignService.isDateCorrect(endDate,startDate))
+                else {
+                    if (!adminPanelCampaignService.isDateCorrect(endDate, startDate))
                         return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
                 }
 
@@ -72,25 +71,23 @@ public class CampaignDetailsController {
                 campaignDetailsService.save(campaign);
                 return ResponseEntity.ok("");
             case "delete_campaign":
-                if(campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK)
-                {
+                if (campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK) {
                     /*campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));*/
                     List<Subcategory> subcategories = campaign.getSubcategories();
                     campaignDetailsService.delete(campaign.getId());
 
-                    for(Subcategory subcategory:subcategories) {
+                    for (Subcategory subcategory : subcategories) {
                         subcategory.setInCampaign(false);
-                        for(Book b:subcategory.getBooks())
-                        {
+                        for (Book b : subcategory.getBooks()) {
                             b.setDiscountRate(0);
                             b.setOnDiscount(false);
                         }
                     }
 
-                }
-                else{
+                } else {
                     campaignDetailsService.removeDiscountOtherProducts(campaign);
-                    campaignDetailsService.deleteReaderOrCase(id);}
+                    campaignDetailsService.deleteReaderOrCase(id);
+                }
                 System.out.println("xxx");
                 return ResponseEntity.ok("");
         }

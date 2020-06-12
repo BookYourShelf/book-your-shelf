@@ -57,20 +57,20 @@ public class HomePageController {
 
             model.addAttribute("moreNewProducts", homePageService.createNewProductsList(8, 15));
 
-            model.addAttribute("allProductsSize",((List<Product>)productService.getAllProduct()).size());
+            model.addAttribute("allProductsSize", ((List<Product>) productService.getAllProduct()).size());
 
-            if(searchResult.size()>=4)
+            if (searchResult.size() >= 4)
                 model.addAttribute("ourPicks_1", searchResult.subList(0, 4));
             else
-                model.addAttribute("ourPicks_1",searchResult);
-            if(searchResult.size()>=8)
+                model.addAttribute("ourPicks_1", searchResult);
+            if (searchResult.size() >= 8)
                 model.addAttribute("ourPicks_2", searchResult.subList(4, 8));
-            else if(searchResult.size()>4)
-                model.addAttribute("ourPicks_2",searchResult.subList(4,searchResult.size()));
-            if(searchResult.size()>= 12)
+            else if (searchResult.size() > 4)
+                model.addAttribute("ourPicks_2", searchResult.subList(4, searchResult.size()));
+            if (searchResult.size() >= 12)
                 model.addAttribute("ourPicks_3", searchResult.subList(8, 12));
-            else if(searchResult.size()>8 )
-                model.addAttribute("ourPicks_3",searchResult.subList(8,searchResult.size()));
+            else if (searchResult.size() > 8)
+                model.addAttribute("ourPicks_3", searchResult.subList(8, searchResult.size()));
 
             model.addAttribute("user", profileInformationService.getByEmail(userDetails.getUsername()));
 
@@ -130,8 +130,6 @@ public class HomePageController {
                     }
 
 
-
-
             }
         } else {
             // direct to login page
@@ -143,8 +141,8 @@ public class HomePageController {
 
 
     public boolean containsCartItem(Set<CartItem> set, int productId) {
-        for (CartItem c: set) {
-            if(c.getProduct().getProductId() == productId) {
+        for (CartItem c : set) {
+            if (c.getProduct().getProductId() == productId) {
                 c.setQuantity(c.getQuantity() + 1);
                 return true;
             }
@@ -153,8 +151,8 @@ public class HomePageController {
     }
 
     public boolean containsProduct(Set<Product> set, int productId) {
-        for (Product p: set) {
-            if(p.getProductId() == productId) {
+        for (Product p : set) {
+            if (p.getProductId() == productId) {
                 return true;
             }
         }

@@ -47,9 +47,8 @@ public class HotListDetailsService {
         hotListDetailsRepository.save(user);
     }
 
-    public List<Subcategory> removeInHotList(List<Subcategory> subcategories)
-    {
-        for(Subcategory subcategory:subcategories)
+    public List<Subcategory> removeInHotList(List<Subcategory> subcategories) {
+        for (Subcategory subcategory : subcategories)
             subcategory.setInHotList(false);
 
         return subcategories;

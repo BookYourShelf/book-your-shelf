@@ -32,8 +32,8 @@ public class HotListDetailsController {
             return "redirect:/admin-panel";
         }
         model.addAttribute("hotList", hotList);
-        model.addAttribute("productType",adminPanelHotListService.createProductType(hotList));
-        model.addAttribute("hotListType",adminPanelHotListService.createHotListType(hotList));
+        model.addAttribute("productType", adminPanelHotListService.createProductType(hotList));
+        model.addAttribute("hotListType", adminPanelHotListService.createHotListType(hotList));
         model.addAttribute("categoryService", adminPanelCategoryService);
 
         return "hotList-details";
@@ -53,27 +53,25 @@ public class HotListDetailsController {
                 String[] start_time = newHotList.getStartTime().split(":");
                 String[] end_time = newHotList.getEndTime().split(":");
 
-                List<String> startTime= Arrays.asList(start_time);
+                List<String> startTime = Arrays.asList(start_time);
                 List<String> endTime = Arrays.asList(end_time);
-                List<String> startDate =Arrays.asList(start);
+                List<String> startDate = Arrays.asList(start);
                 List<String> endDate = Arrays.asList(end);
 
-                if( !adminPanelHotListService.isDateValid(startDate))
+                if (!adminPanelHotListService.isDateValid(startDate))
                     return ResponseEntity.badRequest().body("Start date is not valid");
-                if(!adminPanelHotListService.isDateValid(endDate))
+                if (!adminPanelHotListService.isDateValid(endDate))
                     return ResponseEntity.badRequest().body("End date is not valid");
-                if(adminPanelHotListService.isDateValid(startDate) && adminPanelHotListService.isDateValid(endDate))
-                {
-                    if(!adminPanelHotListService.isDateCorrect(endDate,startDate))
+                if (adminPanelHotListService.isDateValid(startDate) && adminPanelHotListService.isDateValid(endDate)) {
+                    if (!adminPanelHotListService.isDateCorrect(endDate, startDate))
                         return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
-                    else{
-                        if(!adminPanelHotListService.isTimeValid(startTime))
+                    else {
+                        if (!adminPanelHotListService.isTimeValid(startTime))
                             return ResponseEntity.badRequest().body("Start time is not valid");
-                        if(!adminPanelHotListService.isTimeValid(endTime))
+                        if (!adminPanelHotListService.isTimeValid(endTime))
                             return ResponseEntity.badRequest().body("End time is not valid");
-                        if(startDate.get(0).equals(endDate.get(0)) && startDate.get(1).equals(endDate.get(1)) && startDate.get(2).equals(endDate.get(2)))
-                        {
-                            if(!adminPanelHotListService.isTimeCorrect(startTime,endTime))
+                        if (startDate.get(0).equals(endDate.get(0)) && startDate.get(1).equals(endDate.get(1)) && startDate.get(2).equals(endDate.get(2))) {
+                            if (!adminPanelHotListService.isTimeCorrect(startTime, endTime))
                                 return ResponseEntity.badRequest().body("If dates are the same , end time can not be smaller than start time");
                         }
                     }
