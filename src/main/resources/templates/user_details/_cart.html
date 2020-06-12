@@ -40,27 +40,27 @@
                                         <span th:if="${cartItem.getProduct().getProductTypeName() == 'Book' ||
                                                    cartItem.getProduct().getProductTypeName() == 'E-Book' ||
                                                    cartItem.getProduct().getProductTypeName() == 'Audio Book'}">
-                                        <div class="cart-product-text" style="max-width: 600px!important;">
-                                            <span th:each="authors, iterStat : ${cartItem.getProduct().getAuthors()}"
-                                                  th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}">
-                                            </span>
-                                        </div>
-                                    </span>
+                                            <div class="cart-product-text" style="max-width: 600px!important;">
+                                                <span th:each="authors, iterStat : ${cartItem.getProduct().getAuthors()}"
+                                                      th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}">
+                                                </span>
+                                            </div>
+                                        </span>
 
                                         <!-- Case Brand -->
                                         <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader Case' ||
                                                   cartItem.getProduct().getProductTypeName() == 'Book Case'}">
-                                        <div class="cart-product-text" style="max-width: 600px!important;"
-                                             th:text="${cartItem.getProduct().getCaseBrand()}">
-                                        </div>
-                                    </span>
+                                            <div class="cart-product-text" style="max-width: 600px!important;"
+                                                 th:text="${cartItem.getProduct().getCaseBrand()}">
+                                            </div>
+                                        </span>
 
                                         <!-- Tablet Brand -->
                                         <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader'}">
-                                        <div class="cart-product-text" style="max-width: 600px!important;"
-                                             th:text="${cartItem.getProduct().getReaderBrand()}">
-                                        </div>
-                                    </span>
+                                            <div class="cart-product-text" style="max-width: 600px!important;"
+                                                 th:text="${cartItem.getProduct().getReaderBrand()}">
+                                            </div>
+                                        </span>
                                     </div>
                                 </a>
                             </div>
@@ -69,15 +69,12 @@
                                 <div th:if="${cartItem.getProduct().isOnDiscount()}">
                                     <div class="align-items-start justify-content-start">
                                         <!-- when no sale delete -->
-                                        <div class="cart_sale_price"><b>
-                                            <td th:text="${cartItem.getProduct().getDiscountRate() + '%' + 'off'}"></td>
-                                        </b>
+                                        <div class="cart_sale_price"
+                                             th:text="${cartItem.getProduct().getDiscountRate() + '%' + 'off'}"><b></b>
                                         </div>
 
                                         <div class="cart_sale_price">
-                                            <del>
-                                                <td th:text="${'₺' + cartItem.getProduct().getPrice()}"></td>
-                                            </del>
+                                            <del th:text="${'₺' + cartItem.getProduct().getPrice()}"></del>
                                         </div>
                                     </div>
                                 </div>
