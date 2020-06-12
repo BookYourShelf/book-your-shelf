@@ -7,6 +7,8 @@ import com.oak.bookyourshelf.repository.CategoryDetailsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CampaignDetailsService {
@@ -19,6 +21,10 @@ public class CampaignDetailsService {
 
     public Iterable<Campaign> listAll() {
         return campaignDetailsRepository.findAll();
+    }
+
+    public List<Campaign> getAllByProductType(Category.ProductType productType) {
+        return campaignDetailsRepository.getAllByProductType(productType);
     }
 
     public Campaign get(int id) {
