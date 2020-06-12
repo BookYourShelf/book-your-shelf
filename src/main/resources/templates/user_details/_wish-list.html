@@ -23,9 +23,10 @@
                             <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                 <a th:href="'/product/' + ${product.getProductId()}">
                                     <div>
-                                        <div class="product_image"><img
-                                                th:src="@{/static/images/seker_portakali.jpg}" alt=""
-                                                class="product_image_img"></div>
+                                        <div class="product_image">
+                                            <img th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"
+                                                 alt="" class="product_image_img"/>
+                                        </div>
                                     </div>
                                     <div class="product_name_container">
                                         <div class="cart-product-name"><a th:href="'/product/' + ${product.getProductId()}">

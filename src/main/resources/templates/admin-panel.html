@@ -116,7 +116,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link profile-navbar-text" data-url="/admin-panel/coupon" th:href="@{#coupon}">Coupons</a>
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/coupon(size=(${#request.getParameter('size')} ?: '3'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-asc'))}"
+                           th:href="@{#coupon}">Coupons</a>
                     </li>
 
                     <li class="nav-item">
