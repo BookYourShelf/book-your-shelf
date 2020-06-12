@@ -494,6 +494,7 @@
     }
 
     $('#category_product_type').change(function(event) {
+        console.log("category");
         if($(this).val() === "BOOK"  || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK" ) {
             $.getJSON("/admin-panel/campaign/category", {
                 category: $(this).val(),
@@ -506,7 +507,8 @@
 
     function buildCategoriesDropdown(data, categoryName) {
         var div_id = 'category_dynamicdiv';
-        console.log(document.getElementById(div_id));
+        console.log(data[0]);
+        console.log("dsfdsfsd");
         if(document.getElementById(div_id)) {
             console.log("remove");
             // delete div
@@ -520,10 +522,11 @@
         var len = data.length;
 
         for(var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
         }
         html += '</option></select>';
         newdiv.innerHTML += html;
+        console.log(html);
         document.getElementById("category_row").style.display = "block"
         document.getElementById("dynamic_category").appendChild(newdiv);
     }
