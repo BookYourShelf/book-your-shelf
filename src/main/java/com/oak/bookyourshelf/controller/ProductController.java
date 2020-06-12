@@ -126,8 +126,9 @@ public class ProductController {
                     return ResponseEntity.ok("");
 
                 case "cart":
-                    if (!containsCartItem(user.getShoppingCart(), product.getProductId())) {
-                        if (product.getStock() > 0) {       // TODO
+                    int quantity = containsCartItem(user.getShoppingCart(), product.getProductId());
+                    if (quantity == 0) {
+                        if (product.getStock() > 0) {
                             CartItem cartItem = new CartItem();
                             cartItem.setProduct(product);
                             cartItem.setQuantity(1);
@@ -139,18 +140,22 @@ public class ProductController {
                             return ResponseEntity.badRequest().body("There is no stock.");
                         }
                     } else {
-                        // already in cart, quantity updated, save user
-                        profileInformationService.save(user);
-                        return ResponseEntity.ok("");
+                        if (quantity + 1 > product.getStock()) {
+                            return ResponseEntity.badRequest().body("There is not enough stock.");
+
+                        } else {
+                            updateCartItemQuantity(user.getShoppingCart(), product.getProductId());
+                            // already in cart, quantity updated, save user
+                            profileInformationService.save(user);
+                            return ResponseEntity.ok("");
+                        }
                     }
 
                 case "reminder":
                     if (product.getStock() > 0) {
-
-                        return ResponseEntity.badRequest().body("Product is available in stock .");
+                        return ResponseEntity.badRequest().body("Product is already available.");
 
                     } else {
-
                         RemindProduct remindProduct = new RemindProduct();
                         remindProduct.setProductId(product.getProductId());
                         remindProduct.setRequestTime(new Timestamp(System.currentTimeMillis()));
@@ -160,6 +165,7 @@ public class ProductController {
                         productDetailsInformationService.save(product);
                         return ResponseEntity.ok("");
                     }
+
                 case "add_review":
                     if (reviewService.checkUserReviewsForProduct(user.getUserId(), id) != null) {
                         return ResponseEntity.badRequest().body("You already reviewed this product.");
@@ -222,14 +228,21 @@ public class ProductController {
         }
     }
 
-    public boolean containsCartItem(Set<CartItem> set, int productId) {
+    public int containsCartItem(Set<CartItem> set, int productId) {
+        for (CartItem c : set) {
+            if (c.getProduct().getProductId() == productId) {
+                return c.getQuantity();
+            }
+        }
+        return 0;
+    }
+
+    public void updateCartItemQuantity(Set<CartItem> set, int productId) {
         for (CartItem c : set) {
             if (c.getProduct().getProductId() == productId) {
                 c.setQuantity(c.getQuantity() + 1);
-                return true;
             }
         }
-        return false;
     }
 
     public boolean containsProduct(Set<Product> set, int productId) {
