@@ -35,8 +35,14 @@ public class CampaignDetailsService {
     }
 
     public void delete(int id) {
-        campaignDetailsRepository.removeAllCampaignCategories(id);
         campaignDetailsRepository.removeAllCampaignSubcategories(id);
+        campaignDetailsRepository.removeAllCampaignCategories(id);
+
+        campaignDetailsRepository.deleteById(id);
+    }
+
+    public void deleteReaderOrCase(int id) {
+
         campaignDetailsRepository.deleteById(id);
     }
 
@@ -44,10 +50,10 @@ public class CampaignDetailsService {
         campaignDetailsRepository.save(user);
     }
 
-    public  void removeDiscount(Campaign campaign)
+    public  List<Subcategory> removeDiscount(List<Subcategory> subcategories)
     {
-        List<Subcategory> subcategoryList = campaign.getSubcategories();
-        for(Subcategory subcategory : subcategoryList)
+
+        for(Subcategory subcategory : subcategories)
         {
             subcategory.setInCampaign(false);
             for(Book b : subcategory.getBooks())
@@ -56,6 +62,7 @@ public class CampaignDetailsService {
                 b.setDiscountRate(0);
             }
         }
+        return subcategories;
     }
 
     public void removeDiscountOtherProducts(Campaign campaign)
