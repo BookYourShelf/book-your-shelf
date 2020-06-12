@@ -164,21 +164,11 @@
 
                                             <div id="product-price"
                                                  class="product_total product_text cart_item_li"><span>Total: </span>
-                                                <span th:if="${cartItem.getQuantity() == 1}" style="display: block">
-                                                    <span th:id="'second-try' + ${cartItem.getProduct().getProductId()}"
-                                                          class="total" style="display:inline"
-                                                          th:with="result=${cartItem.getProduct().getPrice()},
-                                                          discount =${cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate()}, total = ${result - discount}"
-                                                          th:text="${'₺' + #numbers.formatDecimal(total,0,2)}"></span>
-                                                </span>
-
-                                                <span th:unless="${cartItem.getQuantity() == 1}" style="display:block">
-                                                    <span th:id="'second-try' + ${cartItem.getProduct().getProductId()}"
-                                                          class="total" style="display:inline"
-                                                          th:with="result=${cartItem.getProduct().getPrice() - (cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate())} ,
-                                                         quantity =${cartItem.getQuantity()}, total=${result*quantity}"
-                                                          th:text="${'₺' + #numbers.formatDecimal(total,0,2)}"></span>
-                                                </span>
+                                                <span th:id="'second-try' + ${cartItem.getProduct().getProductId()}"
+                                                      class="total" style="display:inline"
+                                                      th:with="result=${cartItem.getProduct().getPrice() - (cartItem.getProduct().getPrice() * cartItem.getProduct().getDiscountRate())},
+                                                                quantity =${cartItem.getQuantity()}, total=${result*quantity}"
+                                                      th:text="${'₺' + #numbers.formatDecimal(total,0,2)}"></span>
                                             </div>
 
                                             <div th:id="${cartItem.getProduct().getProductId()}" name="add_to_wish_list"
