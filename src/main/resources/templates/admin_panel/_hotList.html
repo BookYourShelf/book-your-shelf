@@ -501,7 +501,7 @@
             var html = '<select id="new_hotList_subcategories" class=\"subcategory\" multiple=\"multiple\">';
             var len = data.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+                html += '<option value="' + data[i] + '">' + data[i] + '</option>';
             }
             html += '</option></select>';
             newdiv.innerHTML += html;
@@ -541,7 +541,7 @@
         var len = data.length;
 
         for(var i = 0; i < len; i++) {
-            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
         }
         html += '</option></select>';
         newdiv.innerHTML += html;
