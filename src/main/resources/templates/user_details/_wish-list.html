@@ -10,10 +10,9 @@
             <div class="cart_bar">
                 <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
                     <li class="mr-auto">Product</li>
-                    <li>Price</li>
+                    <li class="cart_item_li">Price</li>
                 </ul>
             </div>
-
 
             <!-- Cart Items -->
             <div class="cart_items">
@@ -23,34 +22,37 @@
                             <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                 <a th:href="'/product/' + ${product.getProductId()}">
                                     <div>
-                                        <div class="product_image">
-                                            <img th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"
-                                                 alt="" class="product_image_img"/>
+                                        <div class="product_image vertical_center"
+                                             style="margin-left: 20px; margin-right: 10px">
+                                            <img class="review_product_image" alt="Product Cover Image"
+                                                 th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
                                         </div>
                                     </div>
                                     <div class="product_name_container">
-                                        <div class="cart-product-name"><a th:href="'/product/' + ${product.getProductId()}">
-                                            <td th:text="${product.getProductName()}"></td></a>
+                                        <div class="cart-product-name" style="max-width: 800px!important;">
+                                            <a th:href="'/product/' + ${product.getProductId()}"
+                                               th:text="${product.getProductName()}"></a>
                                         </div>
 
+                                        <!-- Author -->
                                          <div th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
-                                             <div class="cart-product-text">
+                                             <div class="cart-product-text" style="max-width: 800px!important;">
                                                  <span th:each="authors, iterStat : ${product.getAuthors()}"
-                                                       th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}" style="display:inline">
+                                                       th:text="${!iterStat.last} ? ${authors} + ', ': ${authors}">
                                                  </span>
                                              </div>
                                          </div>
+
                                         <!-- Case Brand -->
                                         <div th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
-                                            <div class="cart-product-text">
-                                                <td th:text="${product.getCaseBrand()}"></td>
-                                            </div>
+                                            <div class="cart-product-text" style="max-width: 800px!important;"
+                                                 th:text="${product.getCaseBrand()}"></div>
                                         </div>
+
                                         <!-- Tablet Brand -->
                                         <div th:if="${product.getProductTypeName() == 'E-Book Reader'}">
-                                            <div class="cart-product-text">
-                                                <td th:text="${product.getReaderBrand()}"></td>
-                                            </div>
+                                            <div class="cart-product-text" style="max-width: 800px!important;"
+                                                 th:text="${product.getReaderBrand()}"></div>
                                         </div>
                                     </div>
                                 </a>
@@ -59,30 +61,28 @@
                                 <div th:if="${product.isOnDiscount()}">
                                     <div class="align-items-start justify-content-start">
                                         <!-- when no sale delete -->
-                                        <div class="cart_sale_price"><b><td th:text="${product.getDiscountRate() + '%' + 'off'}"></td></b></div>
                                         <div class="cart_sale_price">
-                                            <del><td th:text="${product.getPrice()}"></td></del>
+                                            <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0) + ' off'}"></b>
+                                        </div>
+
+                                        <div class="cart_sale_price">
+                                            <del th:text="${'₺' + product.getPrice()}"></del>
                                         </div>
                                     </div>
                                 </div>
-                                <span>Price:</span> <span style="display:block" th:text="${#numbers.formatDecimal(product.getPrice() - product.getPrice() * product.getDiscountRate(),0,2)} + '₺'"></span>
+                                <span>Price:</span>
+                                <div class="product_total product_text"
+                                     th:text="${'₺' + #numbers.formatDecimal(product.getPrice() - product.getPrice() * product.getDiscountRate(),0,2)}"></div>
                             </div>
                         </li>
                     </tr>
-
                 </ul>
             </div>
-
-            <!-- Out of stock warning -->
-            <div class="out-of-stock" style="display: none">This product is out of stock.</div>
         </div>
     </div>
 </div>
 
-<!-- No product -->
-<div class="warning-text" style="display: none">There are no product.</div>
-
-<div class="row page_nav_row">
+<div class="row page_nav_row" style="margin-top: 5px">
     <div class="col">
         <div class="page_nav">
             <ul class="d-flex flex-row align-items-start justify-content-center">
@@ -142,7 +142,12 @@
     </div>
 </div>
 </span>
-<span th:unless="${wishListPage.totalPages >0}">
-    <div class="warning-text">There are no products yet.</div>
+
+<span th:unless="${wishListPage.totalPages > 0}">
+    <div class="warning-text">There are no products.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
 </span>
+
 </html>

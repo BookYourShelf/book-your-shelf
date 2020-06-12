@@ -1,6 +1,5 @@
 package com.oak.bookyourshelf.service.user_details;
 
-
 import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.user_details.UserDetailsSearchRepository;
 
@@ -9,10 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.Collections.*;
-
 
 @Service
 @Transactional
@@ -48,36 +45,33 @@ public class UserDetailsSearchService {
         return userDetailsSearchRepository.findAllIds();
     }
 
-    public Map<String,Integer> sortByKey(Map<String,Integer> searchValues){
+    public Map<String, Integer> sortByKey(Map<String, Integer> searchValues) {
         List sortedKeys;
         sortedKeys = new ArrayList(searchValues.keySet());
-        Map<String,Integer> sortedMap=new HashMap<String, Integer>();
+        Map<String, Integer> sortedMap = new HashMap<String, Integer>();
 
         sort(sortedKeys);
         String key = null;
-        for(int i =0 ;i<sortedKeys.size();++i)
-        {
-            sortedMap.put(sortedKeys.get(i).toString(),searchValues.get(sortedKeys.get(i).toString()));
+        for (int i = 0; i < sortedKeys.size(); ++i) {
+            sortedMap.put(sortedKeys.get(i).toString(), searchValues.get(sortedKeys.get(i).toString()));
         }
         return sortedMap;
     }
 
-    public List<String> sortSearchKey(String sortType , User user)
-    {
-        Map<String,Integer> before = new HashMap<String,Integer>(user.getSearchHistory());
+    public List<String> sortSearchKey(String sortType, User user) {
+        Map<String, Integer> before = new HashMap<String, Integer>(user.getSearchHistory());
         ArrayList<String> values = new ArrayList<String>(before.keySet());
         Map<String, Integer> map = new TreeMap<>();
         List<String> result = new ArrayList<>();
 
-        for(String s: before.keySet())
-        {
+        for (String s : before.keySet()) {
             map.put(s, before.get(s));
         }
-        result=map.entrySet().stream()
+
+        result = map.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-
 
         switch (sortType) {
             case "Search-Value-desc":
@@ -89,7 +83,6 @@ public class UserDetailsSearchService {
                 return values;
 
             case "Total-Search-desc":
-
                 return result;
 
             case "Total-Search-asc":
@@ -97,10 +90,7 @@ public class UserDetailsSearchService {
                 return result;
 
             default:        // total search
-               return result;
-
+                return result;
         }
     }
-
-
 }

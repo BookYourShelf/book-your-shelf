@@ -1098,6 +1098,7 @@ section {
 
 .coupon_button:hover {
     background: transparent;
+    color: #fbaa1d;
 }
 
 .coupon_button:hover a {
@@ -1705,4 +1706,83 @@ section {
 
 .checkout_input:hover::input-placeholder {
     color: #000000 !important;
+}
+
+.cart_item_li {
+    width: 100px;
+    text-align: center;
+}
+
+.review_product_image {
+    max-width: 67px;
+    max-height: 75px;
+    border-style: solid;
+    border-color: #C0C0C0;
+    border-width: 1px;
+}
+
+.vertical_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-product-name {
+    max-width: 370px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cart-product-name a {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cart-product-name a:hover {
+    color: #fbaa1d !important;
+}
+
+.cart-product-text {
+    max-width: 370px !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a4a4a;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.wish-list-product-name {
+    max-width: 500px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.wish-list-product-name a {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.wish-list-product-name a:hover {
+    color: #fbaa1d !important;
+}
+
+.wish-list-product-text {
+    max-width: 500px !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a4a4a;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
