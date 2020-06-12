@@ -1756,3 +1756,33 @@ section {
     overflow: hidden;
     white-space: nowrap;
 }
+
+.wish-list-product-name {
+    max-width: 500px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.wish-list-product-name a {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.wish-list-product-name a:hover {
+    color: #fbaa1d !important;
+}
+
+.wish-list-product-text {
+    max-width: 500px !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a4a4a;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
