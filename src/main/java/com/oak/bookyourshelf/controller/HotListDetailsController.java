@@ -89,6 +89,7 @@ public class HotListDetailsController {
                 hotListDetailsService.save(hotList);
                 return ResponseEntity.ok("");
             case "delete_hotList":
+                hotList.setSubcategories(hotListDetailsService.removeInHotList(hotList.getSubcategories()));
                 hotListDetailsService.delete(id);
                 return ResponseEntity.ok("");
         }
