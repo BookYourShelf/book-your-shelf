@@ -39,7 +39,7 @@ public class ThankYouController {
             }
         }
 
-        order.setPaymentStatus(Order.PaymentStatus.PENDING);
+        order.setPaymentStatus(Order.PaymentStatus.COMPLETED);
         profileInformationService.save(user);
         model.addAttribute("order", order);
         return "thank-you";

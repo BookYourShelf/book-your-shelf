@@ -3,7 +3,6 @@ package com.oak.bookyourshelf.controller;
 import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.AuthService;
 import com.oak.bookyourshelf.service.CartService;
-import com.oak.bookyourshelf.service.CouponDetailsService;
 import com.oak.bookyourshelf.service.PaymentService;
 import com.oak.bookyourshelf.service.admin_panel.AdminPanelCouponService;
 import com.oak.bookyourshelf.service.product_details.ProductDetailsInformationService;
@@ -87,6 +86,8 @@ public class PaymentController {
 
         payment.setIssueDate(new Timestamp(System.currentTimeMillis()));
         payment.setPayerId(user.getUserId());
+        payment.setAmount(order.getTotalAmount());
+        payment.setOrderId(order.getOrderId());
         payment.setPaymentResult(Payment.PaymentResult.PAYMENT_RESULT_SUCCESS);
         paymentService.save(payment);
 
@@ -97,7 +98,8 @@ public class PaymentController {
         order.setDeliveryStatus(Order.DeliveryStatus.PENDING);
         coupon(order, user);
 
-        productModification(user);
+        updateStocks(order.getProducts());
+        updateBuyerUserIds(user);
         user.getShoppingCart().clear();
 
         List<Order> orders = user.getOrders();
@@ -112,25 +114,37 @@ public class PaymentController {
         return ResponseEntity.ok("");
     }
 
-
-    public void productModification(User user) {
-        for (CartItem cartItem : user.getShoppingCart()) {
-            if (!cartItem.getProduct().getBuyerUserIds().contains(user.getUserId())) {
-                cartItem.getProduct().getBuyerUserIds().add(user.getUserId());
-                productDetailsInformationService.save(cartItem.getProduct());
+    public void updateBuyerUserIds(User user) {
+        for (CartItem c : user.getShoppingCart()) {
+            if (!c.getProduct().getBuyerUserIds().contains(user.getUserId())) {
+                c.getProduct().getBuyerUserIds().add(user.getUserId());
+                productDetailsInformationService.save(c.getProduct());
             }
         }
     }
 
-    public void coupon(Order order, User user){
-        if(order.getCouponCode() != null){
-            Coupon coupon = adminPanelCouponService.findByCouponCode(order.getCouponCode());
-            System.out.println("there is value");
-            coupon.getUserId().add(user.getUserId());
-            adminPanelCouponService.save(coupon);
-            System.out.println(order.getCouponCode());
+    public void updateStocks(List<CartItem> cartItems) {
+        for (CartItem c : cartItems) {
+            c.getProduct().increaseSalesNum();
+            c.getProduct().setStock(c.getProduct().getStock() - c.getQuantity());
+            productDetailsInformationService.save(c.getProduct());
         }
     }
 
+    public int getQuantity(List<CartItem> cartItems, int productId) {
+        for (CartItem c : cartItems) {
+            if (c.getProduct().getProductId() == productId) {
+                return c.getQuantity();
+            }
+        }
+        return 0;
+    }
 
+    public void coupon(Order order, User user) {
+        if (order.getCouponCode() != null) {
+            Coupon coupon = adminPanelCouponService.findByCouponCode(order.getCouponCode());
+            coupon.getUserId().add(user.getUserId());
+            adminPanelCouponService.save(coupon);
+        }
+    }
 }
