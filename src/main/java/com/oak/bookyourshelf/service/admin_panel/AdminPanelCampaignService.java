@@ -1,29 +1,26 @@
 package com.oak.bookyourshelf.service.admin_panel;
 
 
-import com.oak.bookyourshelf.model.Campaign;
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.Product;
-import com.oak.bookyourshelf.model.Subcategory;
+import com.oak.bookyourshelf.model.*;
+import com.oak.bookyourshelf.repository.ProductRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCampaignRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.oak.bookyourshelf.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
 public class AdminPanelCampaignService {
     final AdminPanelCampaignRepository adminPanelCampaignRepository;
+    final ProductRepository productRepository;
+    final ProductService productService;
 
-    public AdminPanelCampaignService(AdminPanelCampaignRepository adminPanelCampaignRepository) {
+    public AdminPanelCampaignService(AdminPanelCampaignRepository adminPanelCampaignRepository, ProductRepository productRepository, ProductService productService) {
         this.adminPanelCampaignRepository = adminPanelCampaignRepository;
+        this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     public Iterable<Campaign> listAll() {
@@ -54,28 +51,46 @@ public class AdminPanelCampaignService {
         return adminPanelCampaignRepository.findAllByProductType(type);
     }
 
-    public Set<Product> createProductSet(List<Subcategory> subcategories)
+    public Set<Book> createProductSet(List<Subcategory> subcategories)
     {
-        Set<Product> allProducts = Collections.emptySet();
+        Set<Book> allProducts = new HashSet<>();
         for(Subcategory sub :subcategories)
         {
-            for(Product p:sub.getBooks())
+            sub.setInCampaign(true);
+            for(Book b:sub.getBooks())
             {
-                allProducts.add(p);
+                allProducts.add(b);
             }
         }
         return allProducts;
     }
 
 
-    public void setProductsRate(Set<Product> allProducts,int rate)
+    public void setProductsRate(Set<Book> allProducts,int rate)
     {
         for(Product p :allProducts)
         {
             p.setOnDiscount(true);
-            p.setDiscountRate((float)rate);
+            p.setDiscountRate((float)rate/100);
         }
 
+    }
+    public void setOtherProductsRate(String typeName , int rate)
+    {
+        List<Product> products = new ArrayList<>();
+        if(typeName.equals("E_BOOK_READER"))
+            products = productService.filterProducts((List<Product>) productRepository.findAll(),"E-Book Reader");
+        else if(typeName.equals("E_BOOK_READER_CASE"))
+            products = productService.filterProducts((List<Product>) productRepository.findAll(),"E-Book Reader Case");
+        else if(typeName.equals("BOOK_CASE"))
+            products = productService.filterProducts((List<Product>) productRepository.findAll(),"Book Case");
+
+
+        for(Product p : products)
+        {
+            p.setOnDiscount(true);
+            p.setDiscountRate((float)rate/100);
+        }
     }
 
     public boolean isDateValid(List<String> date)
