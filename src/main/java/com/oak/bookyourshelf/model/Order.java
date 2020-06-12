@@ -59,7 +59,8 @@ public class Order {
     private int orderId;
 
     @ManyToMany(
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
     )
     private List<CartItem> products;
 
