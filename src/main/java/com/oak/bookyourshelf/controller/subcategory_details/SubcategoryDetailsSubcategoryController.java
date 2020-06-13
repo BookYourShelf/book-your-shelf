@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@SessionAttributes({"subcategoriesBreadcrumbs", "categoryBreadcrumb"})
 public class SubcategoryDetailsSubcategoryController {
 
     final SubcategoryDetailsSubcategoryService subcategoryDetailsSubcategoryService;
@@ -29,8 +30,13 @@ public class SubcategoryDetailsSubcategoryController {
                                      Model model, @PathVariable int id) {
         String currentSort = sort.orElse("ID-asc");
         Subcategory subcategory = subcategoryDetailsInformationService.get(id);
-        model.addAttribute("subcategoriesBreadcrumbs", new ArrayList<>()); // Add session breadcrumbs
-        model.addAttribute("categoryBreadcrumb", subcategory);
+
+        ArrayList<Subcategory> subcategoriesBreadcrumbs = (ArrayList<Subcategory>) model.getAttribute("subcategoriesBreadcrumbs");
+
+        model.addAttribute("subcategoriesBreadcrumbs", subcategoriesBreadcrumbs);
+        model.addAttribute("categoryBreadcrumb", model.getAttribute("categoryBreadcrumb"));
+
+
         List<Subcategory> subcategories = subcategory.getSubcategories();
         sortSubcategories(subcategories, currentSort);
         Globals.getPageNumbers(page, size, subcategories, model, "subcategoryPage");
