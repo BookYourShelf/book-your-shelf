@@ -350,6 +350,11 @@
                                                                 </select>
                                                             </div>
 
+                                                            <span style="display: none">
+                                                                <input th:id="'billing_country_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCountry()}">
+                                                            </span>
+
                                                             <!-- City Province -->
                                                             <div>
                                                                 <!-- City -->
@@ -365,6 +370,11 @@
                                                                 </select>
 
                                                             </div>
+
+                                                            <span style="display: none">
+                                                                <input th:id="'billing_city_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCity()}">
+                                                            </span>
 
                                                             <!-- Neighborhood Zipcode -->
                                                             <div class="row">
@@ -744,6 +754,11 @@
                                                                 </select>
                                                             </div>
 
+                                                            <span style="display: none">
+                                                                <input th:id="'delivery_country_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCountry()}">
+                                                            </span>
+
                                                             <!-- City Province -->
                                                             <div>
                                                                 <!-- City -->
@@ -758,6 +773,11 @@
                                                                         required="required">
                                                                 </select>
                                                             </div>
+
+                                                            <span style="display: none">
+                                                                <input th:id="'delivery_city_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCity()}">
+                                                            </span>
 
                                                             <!-- Neighborhood Zipcode -->
                                                             <div class="row">
@@ -1002,11 +1022,17 @@
     $('.update_address_icon').click(function () {
         var ID = $(this).attr("id");
         populateCountries("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+        document.getElementById("billing_address_update_country" + ID).value = document.getElementById("billing_country_value" + ID).value;
+        populateStates("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+        document.getElementById("billing_address_update_city" + ID).value = document.getElementById("billing_city_value" + ID).value;
     });
 
     $('.address_icon').click(function () {
         var ID = $(this).attr("id");
         populateCountries("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+        document.getElementById("delivery_address_update_country" + ID).value = document.getElementById("delivery_country_value" + ID).value;
+        populateStates("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+        document.getElementById("delivery_address_update_city" + ID).value = document.getElementById("delivery_city_value" + ID).value;
     });
 
     populateCountries("billing_address_country", "billing_address_city");
