@@ -1,10 +1,7 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User {
@@ -72,7 +69,8 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public User() {}
+    public User() {
+    }
 
     // FUNCTIONS
 
@@ -91,7 +89,16 @@ public class User {
     public ArrayList<Product> getProductsPurchased() {
 
         ArrayList<Product> products = new ArrayList<>();
-        // TODO get all products from orders
+        Set<CartItem> orderProducts = new HashSet<>();
+        if (getOrders().size() > 0) {
+            for (Order o : getOrders())
+                orderProducts.addAll(o.getProducts());
+
+            for (CartItem c : orderProducts)
+                products.add(c.getProduct());
+
+        }
+
         return products;
     }
 

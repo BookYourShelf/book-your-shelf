@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,8 +88,23 @@ public class HotListDetailsController {
                 hotListDetailsService.save(hotList);
                 return ResponseEntity.ok("");
             case "delete_hotList":
-                hotList.setSubcategories(hotListDetailsService.removeInHotList(hotList.getSubcategories()));
-                hotListDetailsService.delete(id);
+                if (hotList.getProductType() == Category.ProductType.BOOK || hotList.getProductType() == Category.ProductType.E_BOOK || hotList.getProductType() == Category.ProductType.AUDIO_BOOK) {
+                    /*campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));*/
+                    List<Subcategory> subcategories = new ArrayList<>();
+                    for(Subcategory s: hotList.getSubcategories())
+                        subcategories.add(s);
+
+                    hotListDetailsService.delete(id);
+
+
+                    for (Subcategory subcategory : subcategories) {
+                      subcategory.setInHotList(false);
+                    }
+
+                } else {
+                    hotListDetailsService.delete(id);
+                }
+
                 return ResponseEntity.ok("");
         }
         return ResponseEntity.badRequest().body("An error occurred.");

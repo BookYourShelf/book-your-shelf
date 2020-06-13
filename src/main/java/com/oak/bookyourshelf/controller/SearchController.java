@@ -55,7 +55,7 @@ public class SearchController {
         List<String> starList = new ArrayList<>(Arrays.asList(stars.orElse("").split(",")));
         List<String> minPriceList = new ArrayList<>(Arrays.asList(minPrice.orElse("").split(",")));
         List<String> maxPriceList = new ArrayList<>(Arrays.asList(maxPrice.orElse("").split(",")));
-
+        String searchWithoutWhitespace = search.trim();
         List<Product> products = (List<Product>) productService.getAllProduct();
         List<Book> books = new ArrayList<>();
         for (Product product : products) {
@@ -66,10 +66,10 @@ public class SearchController {
                 books.add(book);
             }
         }
-        List<Book> searchName = books.stream().filter(book -> book.getProductName().toLowerCase().contains(search)).collect(Collectors.toList());
-        List<Book> searchAuthors = books.stream().filter(book -> String.join(",", book.getAuthors()).contains(search)).collect(Collectors.toList());
-        List<Book> searchISBN = books.stream().filter(book -> book.getIsbn().replace("-", "").contains(search)).collect(Collectors.toList());
-        List<Book> searchKeywords = books.stream().filter(book -> String.join(",", book.getKeywords()).contains(search)).collect(Collectors.toList());
+        List<Book> searchName = books.stream().filter(book -> book.getProductName().toLowerCase().contains(searchWithoutWhitespace)).collect(Collectors.toList());
+        List<Book> searchAuthors = books.stream().filter(book -> String.join(",", book.getAuthors()).contains(searchWithoutWhitespace)).collect(Collectors.toList());
+        List<Book> searchISBN = books.stream().filter(book -> book.getIsbn().replace("-", "").contains(searchWithoutWhitespace)).collect(Collectors.toList());
+        List<Book> searchKeywords = books.stream().filter(book -> String.join(",", book.getKeywords()).contains(searchWithoutWhitespace)).collect(Collectors.toList());
 
         Set<Book> searchResults = new HashSet<>();
         searchResults.addAll(searchName);

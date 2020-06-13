@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,9 +73,13 @@ public class CampaignDetailsController {
                 return ResponseEntity.ok("");
             case "delete_campaign":
                 if (campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK) {
-                    /*campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));*/
-                    List<Subcategory> subcategories = campaign.getSubcategories();
-                    campaignDetailsService.delete(campaign.getId());
+                    campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));
+                    campaignDetailsService.save(campaign);
+                    List<Subcategory> subcategories = new ArrayList<>();
+                    for(Subcategory s : campaign.getSubcategories())
+                        subcategories.add(s);
+
+
 
                     for (Subcategory subcategory : subcategories) {
                         subcategory.setInCampaign(false);
@@ -84,6 +89,7 @@ public class CampaignDetailsController {
                         }
                     }
 
+                    campaignDetailsService.delete(campaign.getId());
                 } else {
                     campaignDetailsService.removeDiscountOtherProducts(campaign);
                     campaignDetailsService.deleteReaderOrCase(id);
