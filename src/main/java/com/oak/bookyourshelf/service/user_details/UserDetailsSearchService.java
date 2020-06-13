@@ -63,15 +63,13 @@ public class UserDetailsSearchService {
         ArrayList<String> values = new ArrayList<String>(before.keySet());
         Map<String, Integer> map = new TreeMap<>();
         List<String> result = new ArrayList<>();
+        List<String> reverse = new ArrayList<>();
 
         for (String s : before.keySet()) {
             map.put(s, before.get(s));
         }
-
-        result = map.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+        Map<String,Integer> sorted= sortByValue(before);
+        result.addAll(sorted.keySet());
 
         switch (sortType) {
             case "Search-Value-desc":
@@ -83,14 +81,34 @@ public class UserDetailsSearchService {
                 return values;
 
             case "Total-Search-desc":
-                return result;
+
+                for (int i = result.size()-1 ; i>=0; --i)
+                    reverse.add(result.get(i));
+                return reverse;
 
             case "Total-Search-asc":
-                result.sort(Collections.reverseOrder());
+
                 return result;
 
-            default:        // total search
-                return result;
+            default:
+                // total search
+                for (int i = result.size()-1 ; i>=0; --i)
+                    reverse.add(result.get(i));
+                return reverse;
         }
     }
+
+
+        public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+            List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+            list.sort(Map.Entry.comparingByValue());
+
+            Map<K, V> result = new LinkedHashMap<>();
+            for (Map.Entry<K, V> entry : list) {
+                result.put(entry.getKey(), entry.getValue());
+            }
+
+            return result;
+        }
+
 }
