@@ -1,6 +1,7 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Address {
     private int zipCode;
     private String fullAddress;
     private String phoneNumber;
+    private Timestamp date;
 
     // GETTER & SETTER
 
@@ -118,4 +120,8 @@ public class Address {
     public void setTown(String town) {
         this.town = town;
     }
+
+    public Timestamp getTime() { return date; }
+
+    public void setTime(Timestamp time) { this.date = time; }
 }
