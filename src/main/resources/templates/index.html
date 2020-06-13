@@ -539,6 +539,7 @@
         </div>
 
 </span>
+        <span th:if="${allProductsSize>0}">
 
         <!-- Products -->
         <div class="products" style="padding-top: 0">
@@ -787,7 +788,9 @@
                 </span>
             </div>
         </div>
+</span>
 
+        <span th:if="${allProductsSize>0}">
         <div class="products" style="padding-top: 0">
             <div class="container">
                 <div class="row">
@@ -1036,6 +1039,7 @@
             </div>
 
         </div>
+        </span>
 
         <!-- Footer -->
         <footer class="footer" th:insert="fragments/footer.html"></footer>
