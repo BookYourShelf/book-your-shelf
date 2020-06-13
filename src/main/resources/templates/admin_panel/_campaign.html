@@ -32,11 +32,11 @@
                             <input type="text" id="new_campaign_name"
                                    class="checkout_input form-control"
                                    placeholder="Campaign Name" required="required"
-                                   pattern="[A-Za-z]+" title="Campaign name cannot have digits.">
+                                   title="Campaign name cannot have digits.">
                         </div>
                         <div class="col-md-6">
                             <div class="login-text p-b-10" style="color: black;">
-                                Discount Rate
+                                Discount Percentage (%)
                             </div>
                             <input type="text" id="new_campaign_rate"
                                    class="checkout_input form-control discount-rate"
@@ -238,7 +238,7 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-6">
-            <div class="profile-order-title">Discount Rate</div>
+            <div class="profile-order-title">Discount Percentage</div>
         </div>
 
 
@@ -273,8 +273,8 @@
                                 </div>
 
                                 <div class="col-lg-3 col-md-3 col-xs-6">
-                                    <div class="profile-order-text vertical_center">%
-                                        <td th:text="${campaign.getRate()}"></td>
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${'%'+campaign.getRate()}"></td>
                                     </div>
                                 </div>
 
