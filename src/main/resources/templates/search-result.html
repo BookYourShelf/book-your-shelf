@@ -514,48 +514,37 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
-                                                <div th:if="${book.isOnDiscount()}"> <!-- In discount -->
-                                                    <!--                                                    <div class="sale_price">-->
-                                                    <!--                                                        <del th:text="'₺' + ${book.getPrice()}"></del>-->
-                                                    <!--                                                    </div>-->
-                                                    <div class="sale_price">
-                                                        <span th:switch="${book.isOnDiscount()}">
-                                                            <del th:case="True">
-                                                                <h th:text="${book.getPrice()}"></h> ₺
-                                                            </del>
-                                                        </span>
-                                                        </span>    <!-- when no sale delete it -->
-                                                        <div class="sale_price">
-                                                        <span th:switch="${book.isOnDiscount()}">
-                                                            <del th:case="True">    <link rel="stylesheet"
-                                                                                          type="text/css"
-                                                                                          th:href="@{/static/styles/profile.css}">
-
-                                                                <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
-                                                            </del>
-                                                            <div th:case="*">&nbsp;</div>
-                                                        </span>
-                                                        </div>  <!-- when no sale &nbsp; -->
-                                                    </div>
-                                                    <div class="ml-auto text-right">
-                                                        <div class="sale_price"><b
-                                                                th:text="'%' + ${book.getDiscountRate()}"></b></div>
-                                                        <!-- TODO: Test this -->
-                                                    </div>
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start"
+                                                 th:if="${book.isOnDiscount()}">
+                                                <div class="sale_price">
+                                                    <del>
+                                                        <h th:text="${book.getPrice()}"></h>
+                                                        ₺
+                                                    </del>
                                                 </div>
-                                                <div th:unless="${book.isOnDiscount()}"> <!-- Not In discount -->
-
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price">
+                                                        <b th:text="${'%' + #numbers.formatDecimal(book.getDiscountRate() * 100, 0, 0)}"></b>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="product_price"
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start"
+                                                 th:unless="${book.isOnDiscount()}">
+                                                <div class="sale_price">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price">
+                                                        <b>
+                                                            &nbsp;
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price" th:if="${book.isOnDiscount()}"
+                                                 th:text="'₺' + ${#numbers.formatDecimal(book.getPrice() - (book.getPrice() * book.getDiscountRate()), 0, 'COMMA', 2, 'POINT')}"></div>
+                                            <div class="product_price" th:unless="${book.isOnDiscount()}"
                                                  th:text="'₺' + ${#numbers.formatDecimal(book.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
-                                            <!--                                            <div th:if="${book.isOnDiscount()}"> &lt;!&ndash; In discount &ndash;&gt;-->
-                                            <!--                                                <div class="product_price" th:text="'₺' + ${book.getDiscountPriceDecimal()}"><span th:text="'.' + ${book.getDiscountPriceFloating()}"></span></div>-->
-                                            <!--                                            </div>-->
-                                            <!--                                            <div th:unless="${book.isOnDiscount()}"> &lt;!&ndash; Not In discount &ndash;&gt;-->
-                                            <!--                                                <div class="product_price" th:text="'₺' + ${book.getPriceDecimal()}"><span th:text="${book.getPriceFloating()}">.</span></div>-->
-                                            <!--                                            </div>-->
                                         </div>
 
                                         <div class="product_buttons">
