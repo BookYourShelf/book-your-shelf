@@ -8,7 +8,7 @@ public class ElectronicBookReader extends Product {
     private String readerColor;
     private String readerBrand;
     private String readerModel;
-    private String technicalSpecifications; /* TODO: This can be classified */
+    private String technicalSpecifications;
     private float weight;
     private float width;
     private float height;

@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- TODO name  -->
-    <title>Hot List Details | Book Your Shelf</title>
+    <title th:text="${'Hot List#' + hotList.getId() + ' Details | Book Your Shelf'}"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
@@ -48,7 +47,6 @@
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
                                 <li><a th:href="@{/admin-panel}">Panel</a></li>
-                                <!-- TODO Name -->
                                 <li style="color: #fbaa1d" th:text="${'Hot List#' + hotList.getId()}"></li>
                             </ul>
                         </div>

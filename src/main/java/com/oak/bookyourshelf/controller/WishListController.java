@@ -94,7 +94,6 @@ public class WishListController {
         return false;
     }
 
-    // TODO return
     public void deleteProductFromWishList(Set<Product> products, int productId) {
         products.removeIf(p -> p.getProductId() == productId);
     }

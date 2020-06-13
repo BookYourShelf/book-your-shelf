@@ -73,9 +73,83 @@
 
                 <div class="row">
 
+                    <div class="col-md-8 col-lg-9">
+                        <div><b class="category-name" th:text="${subcategory.getName()}"></b></div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-3">
+                        <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                            <div class="products_bar_side d-flex flex-row align-items-center justify-content-start ml-lg-auto">
+                                <div class="products_dropdown product_dropdown_sorting">
+                                    <div class="isotope_sorting_text"><span>Sort</span><i
+                                            class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                    <ul>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'date-desc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Decreasing by Date'"
+                                               th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'date-asc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Increasing by Date'"
+                                               th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'name-asc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'A - Z'"
+                                               th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'name-desc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Z - A'"
+                                               th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'price-desc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Decreasing by Price'"
+                                               th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'price-asc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Increasing by Price'"
+                                               th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'rate-desc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Decreasing by Rate'"
+                                               th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                        <li class="item_sorting_btn">
+                                            <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'rate-asc'}, size=${subcategoryBooks.size}, page=${1})}"
+                                               th:text="'Increasing by Rate'"
+                                               th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--                                <div class="products_dropdown text-right product_dropdown_filter">-->
+                                <!--                                    <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"-->
+                                <!--                                                                                           aria-hidden="true"></i></div>-->
+                                <!--                                    <ul>-->
+                                <!--                                        <li class="item_filter_btn" data-filter="*">All</li>-->
+                                <!--                                        <li class="item_filter_btn" data-filter=".hot">Hot</li>-->
+                                <!--                                        <li class="item_filter_btn" data-filter=".new">New</li>-->
+                                <!--                                        <li class="item_filter_btn" data-filter=".sale">Sale</li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Sidebar -->
                     <div class="col-md-4 col-lg-3">
-                        <div><b class="category-name" th:text="${subcategory.getName()}"></b></div>
                         <!-- Subcategories -->
                         <div class="product">
                             <div class="subcategory_text">
@@ -460,76 +534,6 @@
 
                     <!-- Products -->
                     <div class="col-md-8 col-lg-9 order-md-last" th:if="${subcategoryBooks.totalPages > 0}">
-                        <div class="col-lg-12">
-                            <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
-                                <div class="products_bar_side d-flex flex-row align-items-center justify-content-start ml-lg-auto">
-                                    <div class="products_dropdown product_dropdown_sorting">
-                                        <div class="isotope_sorting_text"><span>Sort</span><i
-                                                class="fa fa-caret-down" aria-hidden="true"></i></div>
-                                        <ul>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'date-desc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Decreasing by Date'"
-                                                   th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'date-asc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Increasing by Date'"
-                                                   th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'name-asc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'A - Z'"
-                                                   th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'name-desc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Z - A'"
-                                                   th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'price-desc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Decreasing by Price'"
-                                                   th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'price-asc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Increasing by Price'"
-                                                   th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'rate-desc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Decreasing by Rate'"
-                                                   th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                            <li class="item_sorting_btn">
-                                                <a th:href="@{/category/{id}(id=${subcategory.getId()}, sort=${'rate-asc'}, size=${subcategoryBooks.size}, page=${1})}"
-                                                   th:text="'Increasing by Rate'"
-                                                   th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--                                <div class="products_dropdown text-right product_dropdown_filter">-->
-                                    <!--                                    <div class="isotope_filter_text"><span>Filter</span><i class="fa fa-caret-down"-->
-                                    <!--                                                                                           aria-hidden="true"></i></div>-->
-                                    <!--                                    <ul>-->
-                                    <!--                                        <li class="item_filter_btn" data-filter="*">All</li>-->
-                                    <!--                                        <li class="item_filter_btn" data-filter=".hot">Hot</li>-->
-                                    <!--                                        <li class="item_filter_btn" data-filter=".new">New</li>-->
-                                    <!--                                        <li class="item_filter_btn" data-filter=".sale">Sale</li>-->
-                                    <!--                                    </ul>-->
-                                    <!--                                </div>-->
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="row">
                             <!-- Product -->
