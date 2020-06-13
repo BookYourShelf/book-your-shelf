@@ -90,7 +90,7 @@ public class User {
 
         ArrayList<Product> products = new ArrayList<>();
         Set<CartItem> orderProducts = new HashSet<>();
-        if (getOrders().size() > 0) {
+        if (getOrders() != null) {
             for (Order o : getOrders())
                 orderProducts.addAll(o.getProducts());
 
