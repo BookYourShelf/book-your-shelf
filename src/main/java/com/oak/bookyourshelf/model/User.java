@@ -96,7 +96,6 @@ public class User {
 
             for (CartItem c : orderProducts)
                 products.add(c.getProduct());
-
         }
 
         return products;
