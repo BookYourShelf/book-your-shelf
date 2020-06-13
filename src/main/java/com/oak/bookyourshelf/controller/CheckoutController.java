@@ -14,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CheckoutController {
@@ -46,8 +49,10 @@ public class CheckoutController {
         }
         model.addAttribute("order", order);
         model.addAttribute("user", user);
-        model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
-        model.addAttribute("allBillingAddress", user.getBillingAddresses());
+        List<Address> userBilling = user.getBillingAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
+        List<Address> userDelivery = user.getDeliveryAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
+        model.addAttribute("allDeliveryAddress", userDelivery);
+        model.addAttribute("allBillingAddress", userBilling);
         return "/checkout";
     }
 
@@ -61,11 +66,13 @@ public class CheckoutController {
 
         switch (button) {
             case "add_delivery_address":
+                address.setTime(new Timestamp(System.currentTimeMillis()));
                 user.getDeliveryAddresses().add(address);
                 profileInformationService.save(user);
                 break;
 
             case "add_billing_address":
+                address.setTime(new Timestamp(System.currentTimeMillis()));
                 user.getBillingAddresses().add(address);
                 profileInformationService.save(user);
                 break;
