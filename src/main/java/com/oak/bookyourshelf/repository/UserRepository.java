@@ -14,7 +14,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "delete from user_shopping_cart where shopping_cart_product_id like ?1", nativeQuery = true)
+    @Query(value = "delete from user_shopping_cart where shopping_cart_cart_item_id like ?1", nativeQuery = true)
     void removeAllShoppingCartProductId(int id);
 
 }
