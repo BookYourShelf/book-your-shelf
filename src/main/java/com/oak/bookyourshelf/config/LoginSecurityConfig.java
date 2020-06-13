@@ -37,7 +37,13 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable()
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/admin-panel/**").hasRole("ADMIN")
+                .antMatchers("/profile/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/", "/login*", "/register*", "/static/**", "/forgot-password*", "/new-password*",
+                        "/privacy_policy", "/membership", "/product/*", "/search-result*").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .sessionManagement()
                 .sessionFixation()
                 .none()
