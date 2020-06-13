@@ -115,13 +115,12 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="tab-title-text">
-                                        Discount Rate
+                                        Discount Percentage
                                     </div>
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="tab-content-text">
-                                        %
-                                        <h th:text="${campaign.getRate()}"></h>
+                                        <h th:text="${'%'+campaign.getRate()}"></h>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +239,7 @@
 
                                         <div class="col-md-6">
                                             <div class="login-text p-b-10" style="color: black;">
-                                                Discount Rate
+                                                Discount Percentage (%)
                                             </div>
                                             <input type="text" id="campaign_update_rate"
                                                    class="checkout_input form-control discount-rate"
