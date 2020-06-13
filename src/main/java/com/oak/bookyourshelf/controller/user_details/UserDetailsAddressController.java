@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserDetailsAddressController {
@@ -29,8 +32,10 @@ public class UserDetailsAddressController {
         Address address = new Address();
         model.addAttribute("user", user);
         model.addAttribute("address", address);
-        model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
-        model.addAttribute("allBillingAddress", user.getBillingAddresses());
+        List<Address> userBilling = user.getBillingAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
+        List<Address> userDelivery = user.getDeliveryAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
+        model.addAttribute("allDeliveryAddress", userDelivery);
+        model.addAttribute("allBillingAddress", userBilling);
         return "/user_details/_address";
     }
 
@@ -41,13 +46,15 @@ public class UserDetailsAddressController {
         User user = userDetailsInformationService.get(id);
 
         if (button.equals("add_billing_address")) {
+            address.setTime(new Timestamp(System.currentTimeMillis()));
             userDetailsAddressService.save(address);
-            user.getBillingAddresses().add(0, address);
+            user.getBillingAddresses().add(address);
             userDetailsInformationService.save(user);
 
         } else if (button.equals("add_delivery_address")) {
+            address.setTime(new Timestamp(System.currentTimeMillis()));
             userDetailsAddressService.save(address);
-            user.getDeliveryAddresses().add(0, address);
+            user.getDeliveryAddresses().add( address);
             userDetailsInformationService.save(user);
 
         } else if (button.equals("update_billing_address")) {
