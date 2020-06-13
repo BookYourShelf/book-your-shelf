@@ -260,6 +260,7 @@
                                                            required="required">
                                                 </div>
                                             </div>
+
                                             <!-- Country -->
                                             <div>
                                                 <div class="login-text p-b-10" style="color: black;">
@@ -272,21 +273,31 @@
                                                         required="required">
                                                 </select>
                                             </div>
+
+                                            <span style="display: none">
+                                                <input th:id="'billing_country_value' + ${address.getAddressId()}"
+                                                       th:value="${address.getCountry()}">
+                                            </span>
+
                                             <!-- City Province -->
                                             <div>
-                                                    <!-- City -->
-                                                    <div class="login-text p-b-10"
-                                                         style="color: black;">
-                                                        City
-                                                    </div>
-                                                    <select th:id="'billing_address_update_city' + ${address.getAddressId()}"
-                                                            name="billing_address_update_city"
-                                                            th:value="${address.getCity()}"
-                                                            class="dropdown_item_select checkout_input"
-                                                            required="required">
-                                                    </select>
-
+                                                <!-- City -->
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    City
+                                                </div>
+                                                <select th:id="'billing_address_update_city' + ${address.getAddressId()}"
+                                                        name="billing_address_update_city"
+                                                        th:value="${address.getCity()}"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                </select>
                                             </div>
+
+                                            <span style="display: none">
+                                                <input th:id="'billing_city_value' + ${address.getAddressId()}"
+                                                       th:value="${address.getCity()}">
+                                            </span>
+
                                             <!-- Neighborhood Zipcode -->
                                             <div class="row">
                                                 <div class="col-lg-6">
@@ -633,6 +644,12 @@
                                                             required="required">
                                                     </select>
                                                 </div>
+
+                                                <span style="display: none">
+                                                    <input th:id="'delivery_country_value' + ${address.getAddressId()}"
+                                                           th:value="${address.getCountry()}">
+                                                </span>
+
                                                 <!-- City Province -->
                                                 <div>
                                                     <!-- City -->
@@ -647,6 +664,12 @@
                                                             required="required">
                                                     </select>
                                                 </div>
+
+                                                <span style="display: none">
+                                                    <input th:id="'delivery_city_value' + ${address.getAddressId()}"
+                                                           th:value="${address.getCity()}">
+                                                </span>
+
                                                 <!-- Neighborhood Zipcode -->
                                                 <div class="row">
                                                     <div class="col-lg-6">
@@ -1029,22 +1052,26 @@
     $('.update_address_icon').click(function () {
         var ID = $(this).attr("id");
         populateCountries("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+        document.getElementById("billing_address_update_country" + ID).value = document.getElementById("billing_country_value" + ID).value;
+        populateStates("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+        document.getElementById("billing_address_update_city" + ID).value = document.getElementById("billing_city_value" + ID).value;
     });
 
     $('.delivery_icon').click(function () {
         var ID = $(this).attr("id");
         populateCountries("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+        document.getElementById("delivery_address_update_country" + ID).value = document.getElementById("delivery_country_value" + ID).value;
+        populateStates("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+        document.getElementById("delivery_address_update_city" + ID).value = document.getElementById("delivery_city_value" + ID).value;
     });
 
     populateCountries("billing_address_country", "billing_address_city");
-
-    populateCountries("delivery_address_country","delivery_address_city");
+    populateCountries("delivery_address_country", "delivery_address_city");
 
     $(document).ready(function () {
         var i;
         var text_inputs = document.querySelectorAll("input[type=text]");
         var number_inputs = document.querySelectorAll("input[type=number]");
-
 
         const TEXT_MAX_LENGTH = "255";
         const NUMBER_MAX_LENGTH = 2147483647;
@@ -1056,10 +1083,7 @@
         for (i = 0; i < number_inputs.length; i++) {
             number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
         }
-
     });
-
-
 
 </script>
 

@@ -1350,7 +1350,6 @@
     });
 
     $('#reminder').click(function (event) {
-        <!-- TODO -->
         var ret = {
             type: "reminder",
             id: productID
@@ -1409,7 +1408,6 @@
             }).fail(function (data) {
 
                 if (data.responseText === "") {
-                    <!-- TODO -->
                     window.location.href = "/login";
                 } else {
                     iziToast.show({
@@ -1444,7 +1442,6 @@
 
             }).fail(function (data) {
                 if (data.responseText === "") {
-                    <!-- TODO -->
                     window.location.href = "/login";
                 } else {
                     iziToast.show({
