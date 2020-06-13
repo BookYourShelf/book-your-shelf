@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,7 +74,10 @@ public class CampaignDetailsController {
             case "delete_campaign":
                 if (campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK) {
                     /*campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));*/
-                    List<Subcategory> subcategories = campaign.getSubcategories();
+                    List<Subcategory> subcategories = new ArrayList<>();
+                    for(Subcategory s : campaign.getSubcategories())
+                        subcategories.add(s);
+
                     campaignDetailsService.delete(campaign.getId());
 
                     for (Subcategory subcategory : subcategories) {
@@ -83,6 +87,7 @@ public class CampaignDetailsController {
                             b.setOnDiscount(false);
                         }
                     }
+
 
                 } else {
                     campaignDetailsService.removeDiscountOtherProducts(campaign);

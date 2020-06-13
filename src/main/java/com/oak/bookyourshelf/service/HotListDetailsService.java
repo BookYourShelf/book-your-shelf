@@ -36,10 +36,10 @@ public class HotListDetailsService {
     }
 
     public void delete(int id) {
+        hotListDetailsRepository.removeAllHotListProducts(id);
         hotListDetailsRepository.removeAllHotListSubcategories(id);
         hotListDetailsRepository.removeAllHotListCategories(id);
 
-        hotListDetailsRepository.removeAllHotListProducts(id);
         hotListDetailsRepository.deleteById(id);
     }
 
@@ -47,11 +47,5 @@ public class HotListDetailsService {
         hotListDetailsRepository.save(user);
     }
 
-    public List<Subcategory> removeInHotList(List<Subcategory> subcategories) {
-        for (Subcategory subcategory : subcategories)
-            subcategory.setInHotList(false);
-
-        return subcategories;
-    }
 
 }
