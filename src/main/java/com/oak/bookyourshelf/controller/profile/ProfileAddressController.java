@@ -12,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProfileAddressController {
@@ -38,8 +41,10 @@ public class ProfileAddressController {
             Address address = new Address();
             model.addAttribute("address", address);
             model.addAttribute("user", user);
-            model.addAttribute("allBillingAddress", user.getBillingAddresses());
-            model.addAttribute("allDeliveryAddress", user.getDeliveryAddresses());
+            List<Address> userBilling = user.getBillingAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
+            List<Address> userDelivery = user.getDeliveryAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
+            model.addAttribute("allBillingAddress", userBilling);
+            model.addAttribute("allDeliveryAddress", userDelivery);
             return "profile/_address";
         }
         return "/";
@@ -52,11 +57,13 @@ public class ProfileAddressController {
 
 
         if (button.equals("add_delivery_address")) {
+            address.setTime(new Timestamp(System.currentTimeMillis()));
             profileAddressService.save(address);
             user.getDeliveryAddresses().add(address);
             profileInformationService.save(user);
 
         } else if (button.equals("add_billing_address")) {
+            address.setTime(new Timestamp(System.currentTimeMillis()));
             profileAddressService.save(address);
             user.getBillingAddresses().add(address);
             profileInformationService.save(user);
