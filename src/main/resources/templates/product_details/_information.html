@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.getPrice()} + ' ₺'"></h>
+                            <h th:text="${'₺' + product.getPrice()}"></h>
                         </div>
                     </div>
                 </div>
@@ -2647,7 +2647,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/admin-panel";
+                window.location.href = "/admin-panel#product";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);
