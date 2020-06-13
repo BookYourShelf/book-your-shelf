@@ -859,6 +859,14 @@ section {
     color: #fbaa1d;
 }
 
+.breadcrumbs span ul {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+
 /*********************************
 6. Product
 *********************************/
