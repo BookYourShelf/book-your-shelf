@@ -73,12 +73,13 @@ public class CampaignDetailsController {
                 return ResponseEntity.ok("");
             case "delete_campaign":
                 if (campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK) {
-                    /*campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));*/
+                    campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));
+                    campaignDetailsService.save(campaign);
                     List<Subcategory> subcategories = new ArrayList<>();
                     for(Subcategory s : campaign.getSubcategories())
                         subcategories.add(s);
 
-                    campaignDetailsService.delete(campaign.getId());
+
 
                     for (Subcategory subcategory : subcategories) {
                         subcategory.setInCampaign(false);
@@ -88,7 +89,7 @@ public class CampaignDetailsController {
                         }
                     }
 
-
+                    campaignDetailsService.delete(campaign.getId());
                 } else {
                     campaignDetailsService.removeDiscountOtherProducts(campaign);
                     campaignDetailsService.deleteReaderOrCase(id);
