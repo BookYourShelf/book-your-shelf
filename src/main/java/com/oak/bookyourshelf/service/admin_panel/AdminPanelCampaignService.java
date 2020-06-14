@@ -8,6 +8,7 @@ import com.oak.bookyourshelf.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -102,6 +103,10 @@ public class AdminPanelCampaignService {
     }
 
     public boolean isDateCorrect(List<String> endDate, List<String> startDate) {
+        LocalDate now = LocalDate.now();
+        int yearNow =now.getYear();
+        int monthNow =now.getMonthValue();
+        int dayNow = now.getDayOfMonth();
         int startDay = Integer.parseInt(startDate.get(0));
         int startMonth = Integer.parseInt(startDate.get(1));
         int startYear = Integer.parseInt(startDate.get(2));
@@ -124,6 +129,37 @@ public class AdminPanelCampaignService {
                 return true;
         } else
             return true;
+    }
+
+    public boolean isDateInPast(List<String> startDate)
+    {
+        LocalDate now = LocalDate.now();
+        int yearNow =now.getYear();
+        int monthNow =now.getMonthValue();
+        int dayNow = now.getDayOfMonth();
+
+        int startDay = Integer.parseInt(startDate.get(0));
+        int startMonth = Integer.parseInt(startDate.get(1));
+        int startYear = Integer.parseInt(startDate.get(2));
+
+        if(startYear<yearNow)
+            return false;
+        else if(startYear == yearNow)
+        {
+            if(startMonth<monthNow)
+                return false;
+            else if(startMonth == monthNow)
+            {
+                if(startDay<dayNow)
+                    return false;
+                else
+                    return true;
+            }
+            else
+                return true;
+        }
+        else return true;
+
     }
 
     public List<Campaign> sortCampaigns(String sortType) {

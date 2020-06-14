@@ -559,6 +559,16 @@
         });
     });
 
+    $('#sub-total').on('DOMSubtreeModified', function () {
+        var subTotal = $("#sub-total").text();
+        var discount = $("#discount").val();
+        var total = (parseFloat(subTotal) * parseFloat(discount));
+        if (!isNaN(parseFloat(total).toFixed(2))) {
+            $("#coupon").text(parseFloat(total).toFixed(2));
+        }
+
+    });
+
     $('#shipping_text, #sub-total, #coupon').on('DOMSubtreeModified', function () {
         var sum = 0;
         var coupon = parseFloat($("#coupon").text()) * 2;

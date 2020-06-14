@@ -281,7 +281,7 @@
                     </tr>
                 </div>
                     </div>
-                    <span th:if="${allProductsSize >4}">
+                    <span th:if="${allProductsSize > 4}">
 
                 <div class="w3-display-container mySlides">
                 <div class="row products_row">
@@ -397,7 +397,7 @@
                 </div>
                     </div>
 </span>
-                    <span th:if="${allProductsSize>8}">
+                    <span th:if="${allProductsSize > 8}">
                 <div class="w3-display-container mySlides">
                 <div class="row products_row">
 
@@ -525,6 +525,7 @@
         </div>
 
 </span>
+        <span th:if="${allProductsSize>0}">
 
         <!-- Products -->
         <div class="products" style="padding-top: 0">
@@ -773,7 +774,9 @@
                 </span>
             </div>
         </div>
+</span>
 
+        <span th:if="${allProductsSize>0}">
         <div class="products" style="padding-top: 0">
             <div class="container">
                 <div class="row">
@@ -1022,6 +1025,7 @@
             </div>
 
         </div>
+        </span>
 
         <!-- Footer -->
         <footer class="footer" th:insert="fragments/footer.html"></footer>

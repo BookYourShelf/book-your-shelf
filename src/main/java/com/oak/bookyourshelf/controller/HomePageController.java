@@ -84,6 +84,8 @@ public class HomePageController {
             model.addAttribute("moreNewProducts", homePageService.createNewProductsList(8, 15));
 
             model.addAttribute("ourPicks_1", ourPicksForYou);
+
+            model.addAttribute("allProductsSize", ((List<Product>) productService.getAllProduct()).size());
         }
         model.addAttribute("compareProductsService", compareProductsService);
         return "/index";
@@ -111,7 +113,8 @@ public class HomePageController {
 
 
                 case "cart":
-                    if (!containsCartItem(user.getShoppingCart(), product.getProductId())) {
+                    int quantity = containsCartItem(user.getShoppingCart(), product.getProductId());
+                    if (quantity == 0) {
                         if (product.getStock() > 0) {
                             CartItem cartItem = new CartItem();
                             cartItem.setProduct(product);
@@ -124,11 +127,16 @@ public class HomePageController {
                             return ResponseEntity.badRequest().body("There is no stock.");
                         }
                     } else {
-                        // already in cart, quantity updated, save user
-                        profileInformationService.save(user);
-                        return ResponseEntity.ok("");
-                    }
+                        if (quantity + 1 > product.getStock()) {
+                            return ResponseEntity.badRequest().body("There is not enough stock.");
 
+                        } else {
+                            updateCartItemQuantity(user.getShoppingCart(), product.getProductId());
+                            // already in cart, quantity updated, save user
+                            profileInformationService.save(user);
+                            return ResponseEntity.ok("");
+                        }
+                    }
 
             }
         } else {
@@ -140,15 +148,6 @@ public class HomePageController {
     }
 
 
-    public boolean containsCartItem(Set<CartItem> set, int productId) {
-        for (CartItem c : set) {
-            if (c.getProduct().getProductId() == productId) {
-                c.setQuantity(c.getQuantity() + 1);
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean containsProduct(Set<Product> set, int productId) {
         for (Product p : set) {
@@ -157,6 +156,23 @@ public class HomePageController {
             }
         }
         return false;
+    }
+
+    public int containsCartItem(Set<CartItem> set, int productId) {
+        for (CartItem c : set) {
+            if (c.getProduct().getProductId() == productId) {
+                return c.getQuantity();
+            }
+        }
+        return 0;
+    }
+
+    public void updateCartItemQuantity(Set<CartItem> set, int productId) {
+        for (CartItem c : set) {
+            if (c.getProduct().getProductId() == productId) {
+                c.setQuantity(c.getQuantity() + 1);
+            }
+        }
     }
 
 
