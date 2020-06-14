@@ -520,11 +520,22 @@
                                                         th:text="${book.getProductName()}"></a>
                                                 </div>
                                                 <div class="product_text">
-                                                    <div th:if="${book.getAuthors() != null}">
-                                                        <div th:if="${book.getAuthors().size() > 0}">
-                                                            <p><span th:each="a, iterStat : ${book.getAuthors()}"
-                                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
-                                                            </p>
+                                                    <div th:if="${book instanceof T(com.oak.bookyourshelf.model.Book)}">
+                                                        <div th:if="${book.getAuthors() != null}">
+                                                            <div th:if="${book.getAuthors().size() > 0}">
+                                                                <p><span th:each="a, iterStat : ${book.getAuthors()}"
+                                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div th:unless="${book instanceof T(com.oak.bookyourshelf.model.Book)}">
+                                                        <div>
+                                                            <div>
+                                                                <p>
+                                                                    <span>&nbsp;</span>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -46,7 +46,6 @@ public class CampaignDetailsController {
     public ResponseEntity<String> updateCampaign(@PathVariable int id, @RequestParam String button, Campaign newCampaign) {
 
         Campaign campaign = campaignDetailsService.get(id);
-        System.out.println("update");
         switch (button) {
             case "update_campaign":
 
