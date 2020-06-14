@@ -1,6 +1,8 @@
 package com.oak.bookyourshelf.service.user_details;
 
+import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.Review;
+import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.user_details.UserDetailsReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,59 +36,59 @@ public class UserDetailsReviewService {
         userDetailsReviewRepository.save(review);
     }
 
-    public List<Review> sortReviewsOfUser(String sortType, int userId) {
+    public List<Review> sortReviewsOfUser(String sortType, User user) {
         switch (sortType) {
             case "date-asc":
-                return userDetailsReviewRepository.findByUserIdOrderByUploadDateAsc(userId);
+                return userDetailsReviewRepository.findByUserOrderByUploadDateAsc(user);
 
             case "title-desc":
-                return userDetailsReviewRepository.findByUserIdOrderByReviewTitleDesc(userId);
+                return userDetailsReviewRepository.findByUserOrderByReviewTitleDesc(user);
 
             case "title-asc":
-                return userDetailsReviewRepository.findByUserIdOrderByReviewTitleAsc(userId);
+                return userDetailsReviewRepository.findByUserOrderByReviewTitleAsc(user);
 
             case "content-desc":
-                return userDetailsReviewRepository.findByUserIdOrderByReviewContentDesc(userId);
+                return userDetailsReviewRepository.findByUserOrderByReviewContentDesc(user);
 
             case "content-asc":
-                return userDetailsReviewRepository.findByUserIdOrderByReviewContentAsc(userId);
+                return userDetailsReviewRepository.findByUserOrderByReviewContentAsc(user);
 
             case "rate-desc":
-                return userDetailsReviewRepository.findByUserIdOrderByScoreOutOf5Desc(userId);
+                return userDetailsReviewRepository.findByUserOrderByScoreOutOf5Desc(user);
 
             case "rate-asc":
-                return userDetailsReviewRepository.findByUserIdOrderByScoreOutOf5Asc(userId);
+                return userDetailsReviewRepository.findByUserOrderByScoreOutOf5Asc(user);
 
             default:        // date-desc
-                return userDetailsReviewRepository.findByUserIdOrderByUploadDateDesc(userId);
+                return userDetailsReviewRepository.findByUserOrderByUploadDateDesc(user);
         }
     }
 
-    public List<Review> sortReviewsOfProduct(String sortType, int productId) {
+    public List<Review> sortReviewsOfProduct(String sortType, Product product) {
         switch (sortType) {
             case "date-asc":
-                return userDetailsReviewRepository.findByProductIdOrderByUploadDateAsc(productId);
+                return userDetailsReviewRepository.findByProductOrderByUploadDateAsc(product);
 
             case "title-desc":
-                return userDetailsReviewRepository.findByProductIdOrderByReviewTitleDesc(productId);
+                return userDetailsReviewRepository.findByProductOrderByReviewTitleDesc(product);
 
             case "title-asc":
-                return userDetailsReviewRepository.findByProductIdOrderByReviewTitleAsc(productId);
+                return userDetailsReviewRepository.findByProductOrderByReviewTitleAsc(product);
 
             case "content-desc":
-                return userDetailsReviewRepository.findByProductIdOrderByReviewContentDesc(productId);
+                return userDetailsReviewRepository.findByProductOrderByReviewContentDesc(product);
 
             case "content-asc":
-                return userDetailsReviewRepository.findByProductIdOrderByReviewContentAsc(productId);
+                return userDetailsReviewRepository.findByProductOrderByReviewContentAsc(product);
 
             case "rate-desc":
-                return userDetailsReviewRepository.findByProductIdOrderByScoreOutOf5Desc(productId);
+                return userDetailsReviewRepository.findByProductOrderByScoreOutOf5Desc(product);
 
             case "rate-asc":
-                return userDetailsReviewRepository.findByProductIdOrderByScoreOutOf5Asc(productId);
+                return userDetailsReviewRepository.findByProductOrderByScoreOutOf5Asc(product);
 
             default:        // date-desc
-                return userDetailsReviewRepository.findByProductIdOrderByUploadDateDesc(productId);
+                return userDetailsReviewRepository.findByProductOrderByUploadDateDesc(product);
         }
     }
 }
