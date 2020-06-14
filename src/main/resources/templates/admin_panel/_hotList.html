@@ -33,10 +33,9 @@
                                     class="dropdown_item_select checkout_input"
                                     required="required" th:field="${hotList.productType}">
                                 <option value="">Select Product Type</option>
-                                <option th:each="ctgry : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
-                                        th:value="${ctgry}"
-                                        th:text="#{${'category.' + ctgry}}">productType
-                                </option>
+                                <option value="BOOK">Book</option>
+                                <option value="E_BOOK">E-Book</option>
+                                <option value="AUDIO_BOOK">Audio Book</option>
                             </select>
                         </div>
                         <div id="thumb0" style="display: none" onclick="productType()"></div>
@@ -458,8 +457,7 @@
         };
 
 
-        if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date"
-        ])) {
+        if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date", "new_hot_list_start_time", "new_hot_list_end_time"])) {
             event.preventDefault();
             $.post("/admin-panel/hotList", ret, function (data) {
                 iziToast.show({

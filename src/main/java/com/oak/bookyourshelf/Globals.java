@@ -53,7 +53,7 @@ public class Globals {
     }
 
     static void traverseSubcategories(Subcategory subcategory, ArrayList<String> subcategories) {
-        List<Subcategory> inSubcategory = subcategory.getSubcategories();
+        Set<Subcategory> inSubcategory = subcategory.getSubcategories();
         subcategories.add(subcategory.getName());
         if (subcategory.getSubcategories().size() != 0) {
             for (Subcategory sub : inSubcategory) {
@@ -64,7 +64,7 @@ public class Globals {
 
     public static ArrayList<String> getAllSubcategories(Category category) {
         ArrayList<String> subcategories = new ArrayList<>();
-        List<Subcategory> inCategory = category.getSubcategories();
+        Set<Subcategory> inCategory = category.getSubcategories();
         for (Subcategory sub : inCategory) {
             traverseSubcategories(sub, subcategories);
         }
@@ -72,7 +72,7 @@ public class Globals {
     }
 
     static void traverseChildSubcategories(Subcategory subcategory, ArrayList<Subcategory> subcategories) {
-        List<Subcategory> inSubcategory = subcategory.getSubcategories();
+        Set<Subcategory> inSubcategory = subcategory.getSubcategories();
         if (subcategory.getSubcategories().size() == 0) {
             subcategories.add(subcategory);
         } else {
@@ -84,7 +84,7 @@ public class Globals {
 
     public static ArrayList<Subcategory> getAllChildSubcategories(Category category) {
         ArrayList<Subcategory> subcategories = new ArrayList<>();
-        List<Subcategory> inCategory = category.getSubcategories();
+        Set<Subcategory> inCategory = category.getSubcategories();
         for (Subcategory sub : inCategory) {
             traverseChildSubcategories(sub, subcategories);
         }
@@ -111,7 +111,7 @@ public class Globals {
     }
 
     public static void productDetailsTraverseSubcategories(Subcategory subcategory, ArrayList<Subcategory> subcategories) {
-        List<Subcategory> inSubcategory = subcategory.getSubcategories();
+        Set<Subcategory> inSubcategory = subcategory.getSubcategories();
         subcategories.add(subcategory);
         if (subcategory.getSubcategories().size() != 0) {
             for (Subcategory sub : inSubcategory) {
@@ -122,7 +122,7 @@ public class Globals {
 
     public static ArrayList<Subcategory> productDetailsGetAllSubcategories(Category category) {
         ArrayList<Subcategory> subcategories = new ArrayList<>();
-        List<Subcategory> inCategory = category.getSubcategories();
+        Set<Subcategory> inCategory = category.getSubcategories();
         for (Subcategory sub : inCategory) {
             productDetailsTraverseSubcategories(sub, subcategories);
         }

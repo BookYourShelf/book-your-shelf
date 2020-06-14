@@ -227,7 +227,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <h th:text="${product.getCategory().get(0).getName()}"></h>
+                                <h th:text="${product.getCategory().getName()}"></h>
                             </div>
                         </div>
                     </div>
@@ -240,11 +240,11 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <div th:if="${product.getSubcategory() == null or product.getSubcategory().size() == 0}">
+                                <div th:if="${product.getSubcategory() == null}">
                                     <div>-</div>
                                 </div>
-                                <div th:if="${product.getSubcategory() != null and product.getSubcategory().size() != 0}">
-                                    <h th:text="${product.getSubcategory().get(0).getName()}"></h>
+                                <div th:if="${product.getSubcategory() != null}">
+                                    <h th:text="${product.getSubcategory().getName()}"></h>
                                 </div>
                             </div>
                         </div>
@@ -1031,9 +1031,10 @@
                                         Subcategory
                                     </div>
                                     <select name="subcategory" id="book_subcategory_input" th:field="*{subcategory}"
-                                            class="dropdown_item_select checkout_input">
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
                                          <option value="">-</option>
-                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
+                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
                                                  th:value="${subcategory.getId()}"
                                                  th:text="${subcategory.getName()}"></option>
                                     </select>
@@ -1301,9 +1302,10 @@
                                         Subcategory
                                     </div>
                                     <select name="subcategory" id="ebook_subcategory_input" th:field="*{subcategory}"
-                                            class="dropdown_item_select checkout_input">
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
                                         <option value="">-</option>
-                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
+                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
                                                 th:value="${subcategory.getId()}"
                                                 th:text="${subcategory.getName()}"></option>
                                     </select>
@@ -1511,9 +1513,10 @@
                                     </div>
                                     <select name="subcategory" id="audiobook_subcategory_select"
                                             th:field="*{subcategory}"
-                                            class="dropdown_item_select checkout_input">
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
                                         <option value="">-</option>
-                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
+                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
                                                 th:value="${subcategory.getId()}"
                                                 th:text="${subcategory.getName()}"></option>
                                     </select>

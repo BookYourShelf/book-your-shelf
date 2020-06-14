@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -117,7 +118,7 @@ public class CartController {
                     Product underStocked = getUnderStockedProduct(user.getShoppingCart());
 
                     if (underStocked == null) {
-                        order.setProducts(new ArrayList<>(user.getShoppingCart()));
+                        order.setProducts(new HashSet<>(user.getShoppingCart()));
                         order.setSubTotalAmount(Float.parseFloat(subTotal));
                         order.setPaymentStatus(Order.PaymentStatus.NULL);
                         order.setOrderCode(generateAndCheckOrderCode());
@@ -200,7 +201,7 @@ public class CartController {
         return false;
     }
 
-    public Order getUnpayedOrder(List<Order> orders) {
+    public Order getUnpayedOrder(Set<Order> orders) {
         for (Order o : orders) {
             if (o.getPaymentStatus() == Order.PaymentStatus.NULL) {
                 return o;

@@ -5,6 +5,7 @@ import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.repository.ProductRepository;
 import com.oak.bookyourshelf.repository.admin_panel.AdminPanelCampaignRepository;
 import com.oak.bookyourshelf.service.ProductService;
+import com.oak.bookyourshelf.service.SubcategoryDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,13 @@ public class AdminPanelCampaignService {
     final AdminPanelCampaignRepository adminPanelCampaignRepository;
     final ProductRepository productRepository;
     final ProductService productService;
+    final SubcategoryDetailsService subcategoryDetailsService;
 
-    public AdminPanelCampaignService(AdminPanelCampaignRepository adminPanelCampaignRepository, ProductRepository productRepository, ProductService productService) {
+    public AdminPanelCampaignService(AdminPanelCampaignRepository adminPanelCampaignRepository, ProductRepository productRepository, ProductService productService, SubcategoryDetailsService subcategoryDetailsService) {
         this.adminPanelCampaignRepository = adminPanelCampaignRepository;
         this.productRepository = productRepository;
         this.productService = productService;
+        this.subcategoryDetailsService = subcategoryDetailsService;
     }
 
     public Iterable<Campaign> listAll() {
@@ -52,13 +55,12 @@ public class AdminPanelCampaignService {
         return adminPanelCampaignRepository.findAllByProductType(type);
     }
 
-    public Set<Book> createProductSet(List<Subcategory> subcategories) {
+    public Set<Book> createProductSet(Set<Subcategory> subcategories) {
         Set<Book> allProducts = new HashSet<>();
         for (Subcategory sub : subcategories) {
             sub.setInCampaign(true);
-            for (Book b : sub.getBooks()) {
-                allProducts.add(b);
-            }
+            allProducts.addAll(sub.getBooks());
+            subcategoryDetailsService.save(sub);
         }
         return allProducts;
     }
@@ -68,6 +70,7 @@ public class AdminPanelCampaignService {
         for (Product p : allProducts) {
             p.setOnDiscount(true);
             p.setDiscountRate((float) rate / 100);
+            productRepository.save(p);
         }
 
     }

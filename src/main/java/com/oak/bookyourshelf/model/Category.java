@@ -1,9 +1,8 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -18,7 +17,7 @@ public class Category {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
@@ -29,13 +28,12 @@ public class Category {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
     )
-    private List<Subcategory> subcategories;
+    private Set<Subcategory> subcategories;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Book> books;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Book> books;
 
     // GETTER & SETTER
 
@@ -71,15 +69,15 @@ public class Category {
         this.name = name;
     }
 
-    public List<Subcategory> getSubcategories() {
+    public Set<Subcategory> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<Subcategory> subcategories) {
+    public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
 
-    private void traverseSubcategories(Subcategory subcategory, List<Book> bookList) {
+    private void traverseSubcategories(Subcategory subcategory, Set<Book> bookList) {
         bookList.addAll(subcategory.getBooks());
         for (Subcategory sub : subcategory.getSubcategories()) {
             bookList.addAll(sub.getBooks());
@@ -87,8 +85,8 @@ public class Category {
         }
     }
 
-    public List<Book> getBooks() {
-        List<Book> bookList = new ArrayList<>(books);
+    public Set<Book> getBooks() {
+        Set<Book> bookList = new HashSet<>(books);
         for (Subcategory sub : this.subcategories) {
             traverseSubcategories(sub, bookList);
         }
@@ -96,7 +94,11 @@ public class Category {
         return bookList;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    public Set<Book> getBookSet() {
+        return books;
     }
 }

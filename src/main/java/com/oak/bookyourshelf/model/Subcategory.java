@@ -1,7 +1,7 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Subcategory {
@@ -16,7 +16,7 @@ public class Subcategory {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
@@ -29,13 +29,12 @@ public class Subcategory {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
+            orphanRemoval = true
     )
-    private List<Subcategory> subcategories;
+    private Set<Subcategory> subcategories;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Book> books;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Book> books;
 
     // GETTER & SETTER
 
@@ -63,19 +62,19 @@ public class Subcategory {
         this.name = name;
     }
 
-    public List<Subcategory> getSubcategories() {
+    public Set<Subcategory> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<Subcategory> subcategories) {
+    public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 

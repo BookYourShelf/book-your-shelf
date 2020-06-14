@@ -2,8 +2,8 @@ package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Address {
@@ -15,7 +15,7 @@ public class Address {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int addressId;
 
     @Enumerated(EnumType.STRING)
@@ -33,8 +33,8 @@ public class Address {
 
     // GETTER & SETTER
 
-    public List<String> getOrderAddress() {
-        List<String> orderAddress = new ArrayList<>();
+    public Set<String> getOrderAddress() {
+        Set<String> orderAddress = new HashSet<>();
         orderAddress.add(this.fullAddress);
         orderAddress.add(this.town + " / " + this.city + " / " + this.country + " " + this.zipCode);
         orderAddress.add(this.name + " " + this.surname + " - " + this.phoneNumber);

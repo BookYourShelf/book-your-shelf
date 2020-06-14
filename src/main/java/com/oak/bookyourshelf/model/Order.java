@@ -3,6 +3,7 @@ package com.oak.bookyourshelf.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -55,14 +56,15 @@ public class Order {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
 
-    @ManyToMany(
+    @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
-    private List<CartItem> products;
+    private Set<CartItem> products;
 
     private int userId;
     private String userName;
@@ -75,10 +77,10 @@ public class Order {
     private float discountRate;
 
     @ElementCollection
-    private List<String> deliveryAddress;
+    private Set<String> deliveryAddress;
 
     @ElementCollection
-    private List<String> billingAddress;
+    private Set<String> billingAddress;
 
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
@@ -155,11 +157,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public List<CartItem> getProducts() {
+    public Set<CartItem> getProducts() {
         return products;
     }
 
-    public void setProducts(List<CartItem> products) {
+    public void setProducts(Set<CartItem> products) {
         this.products = products;
     }
 
@@ -187,19 +189,19 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public List<String> getDeliveryAddress() {
+    public Set<String> getDeliveryAddress() {
         return deliveryAddress;
     }
 
-    public void setDeliveryAddress(List<String> deliveryAddress) {
+    public void setDeliveryAddress(Set<String> deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public List<String> getBillingAddress() {
+    public Set<String> getBillingAddress() {
         return billingAddress;
     }
 
-    public void setBillingAddress(List<String> billingAddress) {
+    public void setBillingAddress(Set<String> billingAddress) {
         this.billingAddress = billingAddress;
     }
 

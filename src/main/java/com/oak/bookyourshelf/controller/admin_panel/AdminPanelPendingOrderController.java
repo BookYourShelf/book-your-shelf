@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -126,7 +127,7 @@ public class AdminPanelPendingOrderController {
         return null;
     }
 
-    public int getQuantity(List<CartItem> cartItems, int productId) {
+    public int getQuantity(Set<CartItem> cartItems, int productId) {
         for (CartItem c : cartItems) {
             if (c.getProduct().getProductId() == productId) {
                 return c.getQuantity();

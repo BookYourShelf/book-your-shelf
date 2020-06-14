@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -108,12 +109,14 @@ public class CheckoutController {
                     order.setDeliveryAddress(getSelectedAddress(user.getDeliveryAddresses(), delivery_address).getOrderAddress());
 
                     // Save updated order
-                    List<Order> orders = user.getOrders();
-                    for (int i = 0; i < orders.size(); i++) {
-                        if (orders.get(i).getOrderId() == order.getOrderId()) {
-                            orders.set(i, order);
+                    Set<Order> orders = user.getOrders();
+                    for (Order o : orders) {
+                        if (o.getOrderId() == order.getOrderId()) {
+                            orders.remove(o);
+                            orders.add(order);
                         }
                     }
+                    user.setOrders(orders); // TODO: check
                     profileInformationService.save(user);
 
                 } else if (billing_address == null) {
@@ -130,7 +133,7 @@ public class CheckoutController {
         return ResponseEntity.ok("");
     }
 
-    public Address findAddress(List<Address> addressList, int Id) {
+    public Address findAddress(Set<Address> addressList, int Id) {
         for (Address add : addressList) {
             if (add.getAddressId() == Id) {
                 return add;
@@ -152,7 +155,7 @@ public class CheckoutController {
         return oldAddress;
     }
 
-    public Address getSelectedAddress(List<Address> addresses, int addressId) {
+    public Address getSelectedAddress(Set<Address> addresses, int addressId) {
         for (Address a : addresses) {
             if (a.getAddressId() == addressId) {
                 return a;

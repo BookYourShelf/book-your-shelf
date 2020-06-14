@@ -13,12 +13,12 @@ public abstract class Book extends Product {
     private String isbn;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Category> category;
+    @ManyToOne
+    private Category category;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Subcategory> subcategory;
+    @ManyToOne
+    private Subcategory subcategory;
 
     @ElementCollection
     private List<String> publishers;
@@ -34,19 +34,19 @@ public abstract class Book extends Product {
 
     // GETTER & SETTER
 
-    public List<Category> getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(List<Category> category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public List<Subcategory> getSubcategory() {
+    public Subcategory getSubcategory() {
         return subcategory;
     }
 
-    public void setSubcategory(List<Subcategory> subcategory) {
+    public void setSubcategory(Subcategory subcategory) {
         this.subcategory = subcategory;
     }
 

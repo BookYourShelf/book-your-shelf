@@ -1,9 +1,8 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class HotList {
@@ -14,24 +13,21 @@ public class HotList {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
     private HotListType hotListType;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL)
+    @OneToMany
     private List<Category> categories;
 
 
-    @ManyToMany(
-            cascade = CascadeType.ALL)
-    private List<Subcategory> subcategories;
+    @OneToMany
+    private Set<Subcategory> subcategories;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL)
-    private List<Product> products;
+    @OneToMany
+    private Set<Product> products;
 
     private int productNum;
     private String startDate;
@@ -114,23 +110,21 @@ public class HotList {
         this.productType = productType;
     }
 
-    public List<Subcategory> getSubcategories() {
+    public Set<Subcategory> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<Subcategory> subcategories) {
+    public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
 
     public void addSubcategory(Subcategory subcategory){this.getSubcategories().add(subcategory);}
 
-    public String getCategoryName(){return this.getCategories().get(0).getName();}
-
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 }

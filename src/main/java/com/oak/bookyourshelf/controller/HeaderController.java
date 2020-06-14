@@ -48,6 +48,9 @@ public class HeaderController {
         List<Campaign> bookCampaigns = campaignDetailsService.getAllByProductType(Category.ProductType.BOOK);
         List<Campaign> ebookCampaigns = campaignDetailsService.getAllByProductType(Category.ProductType.E_BOOK);
         List<Campaign> audiobookCampaigns = campaignDetailsService.getAllByProductType(Category.ProductType.AUDIO_BOOK);
+        List<Campaign> ebookReaderCampaigns = campaignDetailsService.getAllByProductType(Category.ProductType.E_BOOK_READER);
+        List<Campaign> ebookReaderCaseCampaigns = campaignDetailsService.getAllByProductType(Category.ProductType.E_BOOK_READER_CASE);
+        List<Campaign> bookCaseCampaigns = campaignDetailsService.getAllByProductType(Category.ProductType.BOOK_CASE);
 
         List<HotList> bookHotlists = hotListDetailsService.getAllByProductType(Category.ProductType.BOOK);
         List<HotList> ebookHotlists = hotListDetailsService.getAllByProductType(Category.ProductType.E_BOOK);
@@ -68,6 +71,9 @@ public class HeaderController {
         ret.put("bookCampaigns", bookCampaigns);
         ret.put("ebookCampaigns", ebookCampaigns);
         ret.put("audiobookCampaigns", audiobookCampaigns);
+        ret.put("ebookReaderCampaigns", ebookReaderCampaigns);
+        ret.put("ebookReaderCaseCampaigns", ebookReaderCaseCampaigns);
+        ret.put("bookCaseCampaigns", bookCaseCampaigns);
 
         ret.put("bookHotlists", bookHotlists);
         ret.put("ebookHotlists", ebookHotlists);

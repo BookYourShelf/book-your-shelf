@@ -6,6 +6,7 @@ import com.oak.bookyourshelf.model.Campaign;
 import com.oak.bookyourshelf.model.Category;
 import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.service.CampaignDetailsService;
+import com.oak.bookyourshelf.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +20,11 @@ import java.util.*;
 public class CampaignController {
 
     final CampaignDetailsService campaignDetailsService;
+    final ProductService productService;
 
-    public CampaignController(CampaignDetailsService campaignDetailsService) {
+    public CampaignController(CampaignDetailsService campaignDetailsService, ProductService productService) {
         this.campaignDetailsService = campaignDetailsService;
+        this.productService = productService;
     }
 
     @RequestMapping(value = "/campaign/{id}", method = RequestMethod.GET)
@@ -54,8 +57,21 @@ public class CampaignController {
         Campaign campaign = campaignDetailsService.get(id);
         List<Category> categories = campaign.getCategories();
         List<Book> books = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         if (categories.size() > 0) {
-            books.addAll(campaign.getCategories().get(0).getBooks());
+            for (Category c : categories) {
+                books.addAll(c.getBooks());
+            }
+        }
+
+        if (campaign.getProductType() == Category.ProductType.E_BOOK_READER) {
+            products.addAll(productService.filterProducts((List<Product>) productService.getAllProduct(), "E-Book Reader"));
+        }
+        if (campaign.getProductType() == Category.ProductType.E_BOOK_READER_CASE) {
+            products.addAll(productService.filterProducts((List<Product>) productService.getAllProduct(), "E-Book Reader Case"));
+        }
+        if (campaign.getProductType() == Category.ProductType.BOOK_CASE) {
+            products.addAll(productService.filterProducts((List<Product>) productService.getAllProduct(), "Book Case"));
         }
 
 
@@ -230,7 +246,11 @@ public class CampaignController {
                 }
             }
         }
-        Globals.getPageNumbers(page, size, booksMax, model, "campaignBooks");
+        if (products.size() == 0) {
+            Globals.getPageNumbers(page, size, booksMax, model, "campaignBooks");
+        } else {
+            Globals.getPageNumbers(page, size, products, model, "campaignBooks");
+        }
         model.addAttribute("campaign", campaign);
         model.addAttribute("sort", currentSort);
         model.addAttribute("languages", languagesCount);

@@ -80,11 +80,11 @@ public class AdminPanelHotListController {
 
     @RequestMapping(value = "/admin-panel/hotList", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> saveCategory(@RequestParam String category, String subctgry, String ptype, String htype, HotList hotList) {
+    public ResponseEntity<String> saveCategory(String category, String subctgry, String ptype, String htype, HotList hotList) {
         System.out.println("post method");
         List<HotList> sameType = adminPanelHotListService.findAllByProductType(hotList.getProductType());
         List<Category> newCategoryList = new ArrayList<>();
-        List<Subcategory> newSubcategories = new ArrayList<Subcategory>();
+        Set<Subcategory> newSubcategories = new HashSet<>();
 
         String[] start = hotList.getStartDate().split("/");
         String[] end = hotList.getEndDate().split("/");
@@ -138,7 +138,7 @@ public class AdminPanelHotListController {
 
                 for (String s : subcategories) {
                     Subcategory newSubcategory = adminPanelCategoryService.getSubcategory(newCategory, s);
-                    if (newCategory != null) {
+                    if (newSubcategory != null) {
                         newSubcategories.add(newSubcategory);
                     }
                 }
@@ -156,6 +156,7 @@ public class AdminPanelHotListController {
                 hotList.setSubcategories(newSubcategories);
                 hotList.setCategories(newCategoryList);
                 Set<Book> book = adminPanelHotListService.createProductSet(newSubcategories);
+                book.addAll(newCategory.getBookSet());
                 adminPanelHotListService.setProductByType(hotList, book);
             }
         } else {
