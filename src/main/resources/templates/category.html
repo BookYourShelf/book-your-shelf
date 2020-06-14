@@ -138,10 +138,10 @@
                     <!-- Sidebar -->
                     <div class="col-md-4 col-lg-3">
                         <!-- Subcategories -->
-                        <div class="product">
+                        <div class="product" th:unless="${#lists.isEmpty(category.getSubcategories())}">
                             <div class="subcategory_text">
                                 <ul>
-                                    <span th:unless="${#lists.isEmpty(category.getSubcategories())}">
+                                    <span>
                                         <li class="subcategory_li"
                                             th:each="subcategory : ${category.getSubcategories()}">
                                             <a class="clearfix"
