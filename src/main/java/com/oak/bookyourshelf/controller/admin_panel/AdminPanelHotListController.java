@@ -114,6 +114,8 @@ public class AdminPanelHotListController {
                 }
             }
         }
+        if(!adminPanelHotListService.isDateInPast(startDate))
+            return ResponseEntity.badRequest().body("Hot list start date can not be earlier than today");
 
 
         if (ptype.equals("BOOK") || ptype.equals("E_BOOK") || ptype.equals("AUDIO_BOOK")) {

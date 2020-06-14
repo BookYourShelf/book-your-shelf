@@ -95,7 +95,8 @@ public class AdminPanelCampaignController {
             if (!adminPanelCampaignService.isDateCorrect(endDate, startDate))
                 return ResponseEntity.badRequest().body("End date cannot be smaller than start date");
         }
-
+        if(!adminPanelCampaignService.isDateInPast(startDate))
+            return ResponseEntity.badRequest().body("Campaign start date can not be earlier than today");
 
         if (ptype.equals("BOOK") || ptype.equals("E_BOOK") || ptype.equals("AUDIO_BOOK")) {
             Category newCategory = adminPanelCategoryService.getByName(category);
