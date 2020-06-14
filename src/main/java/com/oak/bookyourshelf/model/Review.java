@@ -13,8 +13,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reviewId;
 
-    private int productId;
-    private int userId;
     private String reviewTitle;
 
     @Column(length = 1000)
@@ -24,27 +22,20 @@ public class Review {
     private int scoreOutOf5;
     private Timestamp uploadDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<User> user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Product> product;
+    @ManyToOne
+    private Product product;
+
+    @ManyToOne
+    private User user;
 
     // GETTER & SETTER
 
-    public List<User> getUser() {
-        return user;
-    }
-
-    public void setUser(List<User> user) {
-        this.user = user;
-    }
-
-    public List<Product> getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(List<Product> product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
@@ -54,22 +45,6 @@ public class Review {
 
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getReviewTitle() {
@@ -102,5 +77,13 @@ public class Review {
 
     public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

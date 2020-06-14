@@ -1,6 +1,8 @@
 package com.oak.bookyourshelf.repository.user_details;
 
+import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.Review;
+import com.oak.bookyourshelf.model.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -23,35 +25,35 @@ public interface UserDetailsReviewRepository extends CrudRepository<Review, Inte
     @Query(value = "delete from user_reviews where reviews_review_id like ?1", nativeQuery = true)
     void removeUserReviewByReviewId(int id);
 
-    List<Review> findByUserIdOrderByUploadDateDesc(int userId);
+    List<Review> findByUserOrderByUploadDateDesc(User user);
 
-    List<Review> findByUserIdOrderByUploadDateAsc(int userId);
+    List<Review> findByUserOrderByUploadDateAsc(User user);
 
-    List<Review> findByUserIdOrderByReviewTitleDesc(int userId);
+    List<Review> findByUserOrderByReviewTitleDesc(User user);
 
-    List<Review> findByUserIdOrderByReviewTitleAsc(int userId);
+    List<Review> findByUserOrderByReviewTitleAsc(User user);
 
-    List<Review> findByUserIdOrderByReviewContentDesc(int userId);
+    List<Review> findByUserOrderByReviewContentDesc(User user);
 
-    List<Review> findByUserIdOrderByReviewContentAsc(int userId);
+    List<Review> findByUserOrderByReviewContentAsc(User user);
 
-    List<Review> findByUserIdOrderByScoreOutOf5Desc(int userId);
+    List<Review> findByUserOrderByScoreOutOf5Desc(User user);
 
-    List<Review> findByUserIdOrderByScoreOutOf5Asc(int userId);
+    List<Review> findByUserOrderByScoreOutOf5Asc(User user);
 
-    List<Review> findByProductIdOrderByUploadDateDesc(int productId);
+    List<Review> findByProductOrderByUploadDateDesc(Product product);
 
-    List<Review> findByProductIdOrderByUploadDateAsc(int productId);
+    List<Review> findByProductOrderByUploadDateAsc(Product product);
 
-    List<Review> findByProductIdOrderByReviewTitleDesc(int productId);
+    List<Review> findByProductOrderByReviewTitleDesc(Product product);
 
-    List<Review> findByProductIdOrderByReviewTitleAsc(int productId);
+    List<Review> findByProductOrderByReviewTitleAsc(Product product);
 
-    List<Review> findByProductIdOrderByReviewContentDesc(int productId);
+    List<Review> findByProductOrderByReviewContentDesc(Product product);
 
-    List<Review> findByProductIdOrderByReviewContentAsc(int productId);
+    List<Review> findByProductOrderByReviewContentAsc(Product product);
 
-    List<Review> findByProductIdOrderByScoreOutOf5Desc(int productId);
+    List<Review> findByProductOrderByScoreOutOf5Desc(Product product);
 
-    List<Review> findByProductIdOrderByScoreOutOf5Asc(int productId);
+    List<Review> findByProductOrderByScoreOutOf5Asc(Product product);
 }

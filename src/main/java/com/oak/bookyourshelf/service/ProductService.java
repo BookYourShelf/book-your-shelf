@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,20 +48,20 @@ public class ProductService {
         }
     }
 
-    public List<Book> findProductsSameCategory(List<Category> categories, List<Book> books) {
+    public List<Book> findProductsSameCategory(Category categories, List<Book> books) {
         List<Book> result = new ArrayList<>();
         for (Book b : books) {
-            if (b.getCategory().get(0).getName().equals(categories.get(0).getName())) {
+            if (b.getCategory().getName().equals(categories.getName())) {
                 result.add(b);
             }
         }
         return result;
     }
 
-    public List<Book> findProductsSameSubcategory(List<Subcategory> subcategories, List<Book> books) {
+    public List<Book> findProductsSameSubcategory(Subcategory subcategories, List<Book> books) {
         List<Book> result = new ArrayList<>();
         for (Book b : books) {
-            if (b.getSubcategory().get(0).getName().equals(subcategories.get(0).getName())) {
+            if (b.getSubcategory().getName().equals(subcategories.getName())) {
                 result.add(b);
             }
         }

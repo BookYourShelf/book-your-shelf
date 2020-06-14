@@ -56,7 +56,7 @@ public class ProfileReviewController {
             User user = profileInformationService.getByEmail(userDetails.getUsername());
             Globals.getPageNumbers(page, size, titleFilterReview(
                     ratingFilterReview(
-                            profileReviewService.sortReviews(currentSort, user.getUserId()),
+                            profileReviewService.sortReviews(currentSort, user),
                             curRatingFilter),
                     curTitleFilter), model, "reviewPage");
 
@@ -76,7 +76,7 @@ public class ProfileReviewController {
     @ResponseBody
     public ResponseEntity<String> deleteReview(@RequestParam int reviewId) {
         Review toBeDeleted = reviewService.get(reviewId);
-        Product product = productDetailsInformationService.get(toBeDeleted.getProductId());
+        Product product = productDetailsInformationService.get(toBeDeleted.getProduct().getProductId());
         product.decreaseStarNum(toBeDeleted.getScoreOutOf5() - 1);
         profileReviewService.delete(reviewId);
         return ResponseEntity.ok("");

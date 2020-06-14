@@ -57,7 +57,8 @@ public class SubcategoryController {
 
         // Get books and create return books object
         Subcategory subcategory = subcategoryDetailsService.get(id);
-        List<Book> books = subcategory.getBooks();
+        Set<Book> bs = subcategory.getBooks();
+        List<Book> books = new ArrayList<>(bs);
 
 
         sortBooks(books, currentSort);

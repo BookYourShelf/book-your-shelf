@@ -1,6 +1,8 @@
 package com.oak.bookyourshelf.service;
 
+import com.oak.bookyourshelf.model.Product;
 import com.oak.bookyourshelf.model.Review;
+import com.oak.bookyourshelf.model.User;
 import com.oak.bookyourshelf.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +32,7 @@ public class ReviewService {
         reviewRepository.deleteById(id);
     }
 
-    public Review checkUserReviewsForProduct(int userId, int productId) {
-        return reviewRepository.checkUserReviewsForProduct(userId, productId);
+    public Review checkUserReviewsForProduct(Product product, User user) {
+        return reviewRepository.getReviewByProductAndUser(product, user);
     }
 }

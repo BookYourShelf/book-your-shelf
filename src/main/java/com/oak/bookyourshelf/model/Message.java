@@ -7,7 +7,7 @@ import java.util.List;
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int messageID;
 
     boolean mail;

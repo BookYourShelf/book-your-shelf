@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -55,14 +56,11 @@ public class CampaignDetailsService {
         campaignDetailsRepository.save(user);
     }
 
-    public  List<Subcategory> removeDiscount(List<Subcategory> subcategories)
-    {
+    public Set<Subcategory> removeDiscount(Set<Subcategory> subcategories) {
 
-        for(Subcategory subcategory : subcategories)
-        {
+        for (Subcategory subcategory : subcategories) {
             subcategory.setInCampaign(false);
-            for(Book b : subcategory.getBooks())
-            {
+            for (Book b : subcategory.getBooks()) {
                 b.setOnDiscount(false);
                 b.setDiscountRate(0);
             }

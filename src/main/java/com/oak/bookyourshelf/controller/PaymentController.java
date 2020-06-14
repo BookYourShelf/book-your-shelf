@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class PaymentController {
@@ -102,12 +103,14 @@ public class PaymentController {
         updateBuyerUserIds(user);
         user.getShoppingCart().clear();
 
-        List<Order> orders = user.getOrders();
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getOrderId() == order.getOrderId()) {
-                orders.set(i, order);
+        Set<Order> orders = user.getOrders();
+        for (Order o : orders) {
+            if (o.getOrderId() == order.getOrderId()) {
+                orders.remove(o);
+                orders.add(order);
             }
         }
+        user.setOrders(orders); // TODO: check
 
         profileInformationService.save(user);
         order = null;
@@ -123,7 +126,7 @@ public class PaymentController {
         }
     }
 
-    public void updateStocks(List<CartItem> cartItems) {
+    public void updateStocks(Set<CartItem> cartItems) {
         for (CartItem c : cartItems) {
             c.getProduct().increaseSalesNum();
             c.getProduct().setStock(c.getProduct().getStock() - c.getQuantity());
@@ -131,7 +134,7 @@ public class PaymentController {
         }
     }
 
-    public int getQuantity(List<CartItem> cartItems, int productId) {
+    public int getQuantity(Set<CartItem> cartItems, int productId) {
         for (CartItem c : cartItems) {
             if (c.getProduct().getProductId() == productId) {
                 return c.getQuantity();

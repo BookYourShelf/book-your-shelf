@@ -51,7 +51,8 @@ public class CategoryController {
 
         // Get books and create return books object
         Category category = categoryService.get(id);
-        List<Book> books = category.getBooks();
+        Set<Book> bs = category.getBooks();
+        List<Book> books = new ArrayList<>(bs);
 
 
         sortBooks(books, currentSort);

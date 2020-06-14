@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 public class RemindProduct {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int remindProductId;
 
     private int productId;

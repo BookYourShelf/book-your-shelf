@@ -156,6 +156,9 @@
             const bookCampaigns = result.bookCampaigns;
             const ebookCampaigns = result.ebookCampaigns;
             const audiobookCampaigns = result.audiobookCampaigns;
+            const ebookReaderCampaigns = result.ebookReaderCampaigns;
+            const ebookReaderCaseCampaigns = result.ebookReaderCaseCampaigns;
+            const bookCaseCampaigns = result.bookCaseCampaigns;
 
             const bookHotlists = result.bookHotlists;
             const ebookHotlists = result.ebookHotlists;
@@ -172,6 +175,11 @@
             const bookHotlistElement = $('.megamenu-book-hotlist');
             const ebookHotlistElement = $('.megamenu-ebook-hotlist');
             const audiobookHotlistElement = $('.megamenu-audiobook-hotlist');
+
+            const hotlists = {
+                "BEST_SELLERS": "Best Sellers",
+                "NEW_RELEASES": "New Releases"
+            };
 
 
             bookCategories.forEach(function (entry) {
@@ -193,15 +201,24 @@
             audiobookCampaigns.forEach(function (entry) {
                 audiobookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
             });
+            ebookReaderCampaigns.forEach(function (entry) {
+                ebookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            ebookReaderCaseCampaigns.forEach(function (entry) {
+                ebookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            bookCaseCampaigns.forEach(function (entry) {
+                bookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
 
             bookHotlists.forEach(function (entry) {
-                bookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+                bookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
             });
             ebookHotlists.forEach(function (entry) {
-                ebookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+                ebookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
             });
             audiobookHotlists.forEach(function (entry) {
-                audiobookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+                audiobookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
             });
         },
         error: function (result) {

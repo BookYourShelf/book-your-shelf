@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
+@SessionAttributes({"subcategoriesBreadcrumbs", "categoryBreadcrumb"})
 public class SubcategoryDetailsInformationController {
 
     final SubcategoryDetailsInformationService subcategoryDetailsInformationService;
@@ -21,6 +24,10 @@ public class SubcategoryDetailsInformationController {
     public String showAdminPanelPage(Model model, @PathVariable int id) {
         Subcategory subcategory = subcategoryDetailsInformationService.get(id);
         model.addAttribute("subcategory", subcategory);
+        ArrayList<Subcategory> subcategoriesBreadcrumbs = (ArrayList<Subcategory>) model.getAttribute("subcategoriesBreadcrumbs");
+
+        model.addAttribute("subcategoriesBreadcrumbs", subcategoriesBreadcrumbs);
+        model.addAttribute("categoryBreadcrumb", model.getAttribute("categoryBreadcrumb"));
 
         return "subcategory_details/_information";
     }
