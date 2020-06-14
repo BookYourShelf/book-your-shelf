@@ -769,7 +769,7 @@ section {
 
 .our_picks_slider_nav {
     position: absolute;
-    top: 33%;
+    top: 50%;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -808,11 +808,13 @@ section {
 }
 
 .our_picks_slider_nav_prev {
-    left: 20px;
+    left: -55px;
+    top: 45%;
 }
 
 .our_picks_slider_nav_next {
-    right: 20px;
+    right: -55px;
+    top: 45%;
 }
 
 .home_slider_dots_container {

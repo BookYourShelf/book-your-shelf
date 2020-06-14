@@ -19,7 +19,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/w3-slider.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
 </head>
 
@@ -28,128 +27,127 @@
 <header class="header_area" th:insert="fragments/header.html"></header>
 
 <div class="super_container">
-<div class="super_container_inner">
-    <div class="super_overlay"></div>
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
 
-    <!-- Home -->
-    <div class="home">
-        <!-- Home Slider -->
-        <div class="home_slider_container">
-            <div class="owl-carousel home_slider">
+        <!-- Home -->
+        <div class="home">
+            <!-- Home Slider -->
+            <div class="home_slider_container">
+                <div class="owl-carousel home_slider banner_slide">
 
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-color: #E2D6C8;"></div>
-                    <div class="container fill_height">
-                        <div class="row fill_height">
-                            <div class="col fill_height">
-                                <div class="home_container_banner_1 d-flex flex-column align-items-center justify-content-start">
-                                    <img th:src="@{/static/images/book_your_shelf_banner.jpg}">
+                    <!-- Slide -->
+                    <div class="owl-item">
+                        <div class="background_image" style="background-color: #E2D6C8;"></div>
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col fill_height">
+                                    <div class="home_container_banner_1 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/book_your_shelf_banner.jpg}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-color: #F1F2E2;">
-                    </div>
-                    <div class="container fill_height">
-                        <div class="row fill_height">
-                            <div class="col fill_height">
-                                <div class="home_container_banner_2 d-flex flex-column align-items-center justify-content-start">
-                                    <img th:src="@{/static/images/banner-2.jpg}">
+                    <!-- Slide -->
+                    <div class="owl-item">
+                        <div class="background_image" style="background-color: #F1F2E2;">
+                        </div>
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col fill_height">
+                                    <div class="home_container_banner_2 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/banner-2.jpg}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-color: #FCCD49"></div>
-                    <div class="container fill_height">
-                        <div class="row fill_height">
-                            <div class="col fill_height">
-                                <div class="home_container_banner_3 d-flex flex-column align-items-center justify-content-start">
-                                    <img th:src="@{/static/images/banner-3.jpg}">
+                    <!-- Slide -->
+                    <div class="owl-item">
+                        <div class="background_image" style="background-color: #FCCD49"></div>
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col fill_height">
+                                    <div class="home_container_banner_3 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/banner-3.jpg}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-        </div>
-    </div>
-
-    <!-- Banner -->
-    <div class="sec-banner bg0 p-t-80 p-b-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-                    <!-- Block1 -->
-                    <div class="block1 wrap-pic-w">
-                        <img th:src="@{/static/images/icons/03brownbookicon.jpg}" alt="IMG-BANNER">
-                        <a href="product.html"
-                           class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-                            <div class="block1-txt-child1 flex-col-l">
-                                <span class="block1-name ltext-102 trans-04 p-b-8">Books</span>
-                                <span class="block1-info stext-102 trans-04"></span>
-                            </div>
-                            <div class="block1-txt-child2 p-b-4 trans-05">
-                                <div class="block1-link stext-101 cl0 trans-09">
-                                    Shop Book
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-                    <!-- Block1 -->
-                    <div class="block1 wrap-pic-w">
-                        <img th:src="@{/static/images/icons/03brownebookicon.jpg}" alt="IMG-BANNER">
-                        <a href="product.html"
-                           class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-                            <div class="block1-txt-child1 flex-col-l">
-                                <span class="block1-name ltext-102 trans-04 p-b-8">E-Books</span>
-                                <span class="block1-info stext-102 trans-04"></span>
-                            </div>
-                            <div class="block1-txt-child2 p-b-4 trans-05">
-                                <div class="block1-link stext-101 cl0 trans-09">
-                                    Shop E-Book
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
-                    <!-- Block1 -->
-                    <div class="block1 wrap-pic-w">
-                        <img th:src="@{/static/images/icons/03brownaudiobookicon.jpg}" alt="IMG-BANNER">
-                        <a href="product.html"
-                           class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
-                            <div class="block1-txt-child1 flex-col-l">
-                                <span class="block1-name ltext-102 trans-04 p-b-8">Audio Books</span>
-                                <span class="block1-info stext-102 trans-04"></span>
-                            </div>
-                            <div class="block1-txt-child2 p-b-4 trans-05">
-                                <div class="block1-link stext-101 cl0 trans-09">
-                                    Shop Audio Book
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <!-- Banner -->
+        <div class="sec-banner bg0 p-t-80 p-b-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                        <!-- Block1 -->
+                        <div class="block1 wrap-pic-w">
+                            <img th:src="@{/static/images/icons/03brownbookicon.jpg}" alt="IMG-BANNER">
+                            <a href="product.html"
+                               class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">Books</span>
+                                    <span class="block1-info stext-102 trans-04"></span>
+                                </div>
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop Book
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
-    <span th:if="${ourPicks_1.size()>0}">
+                    <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                        <!-- Block1 -->
+                        <div class="block1 wrap-pic-w">
+                            <img th:src="@{/static/images/icons/03brownebookicon.jpg}" alt="IMG-BANNER">
+                            <a href="product.html"
+                               class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">E-Books</span>
+                                    <span class="block1-info stext-102 trans-04"></span>
+                                </div>
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop E-Book
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                        <!-- Block1 -->
+                        <div class="block1 wrap-pic-w">
+                            <img th:src="@{/static/images/icons/03brownaudiobookicon.jpg}" alt="IMG-BANNER">
+                            <a href="product.html"
+                               class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">Audio Books</span>
+                                    <span class="block1-info stext-102 trans-04"></span>
+                                </div>
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop Audio Book
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span th:if="${ourPicks_1.size()>0}">
 
     <div class="products">
     <div class="container">
@@ -159,9 +157,9 @@
             </div>
         </div>
 
-        <div class="owl-carousel">
+        <div class="owl-carousel our_picks_slide">
 
-            <div class="row products_row">
+            <div class="row products_row" style="margin-left: 2px; margin-right: 2px">
                 <tr th:each="product: ${ourPicks_1}">
                     <div class="col-xl-3 col-md-3">
                         <div class="product">
@@ -274,9 +272,10 @@
 
                 </tr>
             </div>
+
             <span th:if="${allProductsSize > 4}">
 
-                <div class="row products_row">
+                <div class="row products_row" style="margin-left: 2px; margin-right: 2px">
 
                 <tr th:each="product: ${ourPicks_2}">
                     <div class="col-xl-3 col-md-3">
@@ -387,8 +386,8 @@
 
             </tr>
             </div>
-            </div>
             </span>
+
             <span th:if="${allProductsSize > 8}">
 
             <div class="row products_row">
@@ -506,13 +505,13 @@
                 </tr>
             </div>
             </span>
+
         </div>
     </div>
 </div>
 
 </span>
-    <span th:if="${allProductsSize>0}">
-
+        <span th:if="${allProductsSize>0}">
 
     <!-- Products -->
     <div class="products" style="padding-top: 0">
@@ -763,7 +762,7 @@
     </div>
 </span>
 
-    <span th:if="${allProductsSize>0}">
+        <span th:if="${allProductsSize>0}">
     <div class="products" style="padding-top: 0">
         <div class="container">
             <div class="row">
@@ -1014,9 +1013,9 @@
     </div>
     </span>
 
-    <!-- Footer -->
-    <footer class="footer" th:insert="fragments/footer.html"></footer>
-</div>
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
 </div>
 
 <script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
@@ -1036,31 +1035,6 @@
 <script th:src="@{/static/js/custom.js}"></script>
 <script th:src="@{/static/js/active.js}"></script>
 <script th:src="@{/static/js/iziToast.min.js}"></script>
-
-<script>
-    var slideIndex = 1;
-    showDivs(slideIndex);
-
-    function plusDivs(n) {
-        showDivs(slideIndex += n);
-    }
-
-    function showDivs(n) {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        if (n > x.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = x.length
-        }
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        x[slideIndex - 1].style.display = "block";
-    }
-</script>
-
 
 <script>
 
@@ -1152,8 +1126,7 @@
         })
     });
 
-    var owl = $('.owl-carousel');
-    owl.owlCarousel({
+    $('.banner_slide').owlCarousel({
         items: 1,
         loop: true,
         margin: 0,
@@ -1161,11 +1134,21 @@
         autoplayTimeout: 2500,
         dots: false,
         nav: true,
-        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-    });
+        navText: ['<div class="home_slider_nav home_slider_nav_prev"><i class="fa fa-chevron-left" aria-hidden="true"</i></div>',
+            '<div class="home_slider_nav home_slider_nav_next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>'],
+    })
 
-    $(".owl-prev").html('<div class="home_slider_nav home_slider_nav_prev"><i class="fa fa-chevron-left" aria-hidden="true"</i></div>');
-    $(".owl-next").html('<div class="home_slider_nav home_slider_nav_next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>');
+    $('.our_picks_slide').owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        autoplay: true,
+        autoplayTimeout: 2500,
+        dots: false,
+        nav: true,
+        navText: ['<div class="our_picks_slider_nav our_picks_slider_nav_prev"><i class="fa fa-chevron-left" aria-hidden="true"</i></div>',
+            '<div class="our_picks_slider_nav our_picks_slider_nav_next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>'],
+    })
 
 </script>
 </body>
