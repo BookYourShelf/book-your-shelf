@@ -156,8 +156,7 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="nav-tab-paypal">
-                                    <div class="checkout_button trans_200"><a id="PayPal" name="PayPal" target="_blank"
-                                                                              href="https://www.paypal.com/tr/signin">
+                                    <div class="checkout_button trans_200"><a id="PayPal" name="PayPal">
                                         Login my Paypal</a></div>
                                     <br>
                                     <p><strong>Note:</strong> Your payment will be processed from your PayPal
@@ -249,14 +248,14 @@
     });
 
     $('#PayPal').click(function (event) {
-
+        window.open('https://www.paypal.com/tr/signin', '_blank');
         var button = $(this).attr("name");
         var ret = {
             button: button
         };
         event.preventDefault();
         $.post("/payment", ret, function (data) {
-
+            window.location.href = "/thank-you";
         }).fail(function (data) {
             iziToast.show({
                 title: 'Fail',
