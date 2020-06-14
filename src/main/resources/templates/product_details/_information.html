@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="tab-content-text">
-                            <h th:text="${product.getPrice()} + ' ₺'"></h>
+                            <h th:text="${'₺' + product.getPrice()}"></h>
                         </div>
                     </div>
                 </div>
@@ -240,10 +240,10 @@
                         </div>
                         <div class="col-md-9">
                             <div class="tab-content-text">
-                                <div th:unless="${product.getSubcategory() != null}">
+                                <div th:if="${product.getSubcategory() == null or product.getSubcategory().size() == 0}">
                                     <div>-</div>
                                 </div>
-                                <div th:if="${product.getSubcategory() != null}">
+                                <div th:if="${product.getSubcategory() != null and product.getSubcategory().size() != 0}">
                                     <h th:text="${product.getSubcategory().get(0).getName()}"></h>
                                 </div>
                             </div>
@@ -1031,8 +1031,8 @@
                                         Subcategory
                                     </div>
                                     <select name="subcategory" id="book_subcategory_input" th:field="*{subcategory}"
-                                            class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            class="dropdown_item_select checkout_input">
+                                         <option value="">-</option>
                                          <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
                                                  th:value="${subcategory.getId()}"
                                                  th:text="${subcategory.getName()}"></option>
@@ -1301,8 +1301,8 @@
                                         Subcategory
                                     </div>
                                     <select name="subcategory" id="ebook_subcategory_input" th:field="*{subcategory}"
-                                            class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            class="dropdown_item_select checkout_input">
+                                        <option value="">-</option>
                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
                                                 th:value="${subcategory.getId()}"
                                                 th:text="${subcategory.getName()}"></option>
@@ -1511,8 +1511,8 @@
                                     </div>
                                     <select name="subcategory" id="audiobook_subcategory_select"
                                             th:field="*{subcategory}"
-                                            class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            class="dropdown_item_select checkout_input">
+                                        <option value="">-</option>
                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory().get(0))}"
                                                 th:value="${subcategory.getId()}"
                                                 th:text="${subcategory.getName()}"></option>
@@ -2320,8 +2320,7 @@
             "book_published_year_input", "book_language_input", "book_translator_input", "book_authors_input", "book_isbn_input",
             "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
             "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
-            "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_category_input",
-            "book_subcategory_input"])) {
+            "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_category_input"])) {
             event.preventDefault();
             $.post("/product-details/information/" + productId, ret, function (data) {
                 iziToast.show({
@@ -2376,8 +2375,7 @@
         if (validation_check(["ebook_product_name_input", "ebook_product_barcode_input", "ebook_stock_input", "ebook_price_input",
             "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
             "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
-            "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_category_input",
-            "ebook_subcategory_input"])) {
+            "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_category_input"])) {
             event.preventDefault();
             $.post("/product-details/information/" + productId, ret, function (data) {
                 iziToast.show({
@@ -2432,7 +2430,7 @@
             "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
             "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
             "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
-            "audiobook_category_select", "audiobook_subcategory_select"])) {
+            "audiobook_category_select"])) {
             event.preventDefault();
             $.post("/product-details/information/" + productId, ret, function (data) {
                 iziToast.show({
@@ -2647,7 +2645,7 @@
                     position: 'topRight',
                     color: 'green'
                 });
-                window.location.href = "/admin-panel";
+                window.location.href = "/admin-panel#product";
                 setTimeout(function () {
                     history.pushState(null, null, ' ');
                 }, 100);

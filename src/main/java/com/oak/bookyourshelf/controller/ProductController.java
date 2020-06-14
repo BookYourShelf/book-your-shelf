@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -94,13 +95,13 @@ public class ProductController {
     public void buildBreadCrumbs(Product product, Model model) {
         if (product instanceof PhysicalBook || product instanceof ElectronicBook || product instanceof AudioBook) {
             Category category = ((Book) product).getCategory().get(0);
-            Subcategory subcategory = ((Book) product).getSubcategory().get(0);
 
-            if (subcategory != null) {
+            if (((Book) product).getSubcategory().size() != 0) {
+                Subcategory subcategory = ((Book) product).getSubcategory().get(0);
                 List<Subcategory> subcategories = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
                 model.addAttribute("subcategoriesBreadcrumbs", subcategories);
             } else {
-                model.addAttribute("subcategoriesBreadcrumbs", "");
+                model.addAttribute("subcategoriesBreadcrumbs", new ArrayList<>());
             }
             model.addAttribute("categoryBreadcrumb", category);
         }

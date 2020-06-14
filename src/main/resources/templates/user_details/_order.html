@@ -792,7 +792,7 @@
                                             <li class="row" style="padding-top: 5px;">
                                                 <div class="order_summary_title">Delivery Status: </div>
                                                 <div class="order_summary_content"
-                                                     th:text="${order.getDeliveryStatus()}"></div>
+                                                     th:text="#{${'delivery_status.' + order.getDeliveryStatus()}}"></div>
                                             </li>
                                             <li class="row" style="padding-top: 5px;"
                                                 th:if="${order.getCouponCode() != null}">
