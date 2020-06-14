@@ -54,10 +54,9 @@ public class BooksController {
         // Get books and create return books object
         List<Book> books = new ArrayList<>();
         List<Category> categories = (List<Category>) categoryService.listAll();
+        categories.removeIf(category -> category.getProductType() != Category.ProductType.BOOK);
         for (Category c : categories) {
-            if (c.getProductType() == Category.ProductType.BOOK) {
-                books.addAll(c.getBooks());
-            }
+            books.addAll(c.getBooks());
         }
 
 
