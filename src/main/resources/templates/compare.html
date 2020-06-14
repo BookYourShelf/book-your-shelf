@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- TODO name -->
-    <title>Product Compare | Book Your Shelf</title>
+    
+    <title th:text="${mainProduct.getProductName() + ' vs ' + comparedProduct.getProductName() + ' | Book Your Shelf'}"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
@@ -88,6 +88,7 @@
                                              th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/></a>
                                     </div>
                                 </div>
+                                <br>
                                 <h th:text="${mainProduct.getProductName()}"></h>
                             </th>
                             <th style="width: 40.0%">
@@ -97,6 +98,7 @@
                                                                                                 th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/></a>
                                     </div>
                                 </div>
+                                <br>
                                 <h th:text="${comparedProduct.getProductName()}"></h>
                             </th>
                         </tr>
