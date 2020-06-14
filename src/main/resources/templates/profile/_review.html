@@ -240,41 +240,41 @@
                     <div class="row">
                         <div class="col-lg-10">
                             <div class="product-row d-flex">
-                                <a th:href="@{'/product/' + ${review.getProductId()}}">
+                                <a th:href="@{'/product/' + ${review.getProduct().getProductId()}}">
                                     <div>
                                         <div class="product_image vertical_center" style="padding-right: 4px">
                                             <img class="review_product_image" alt="Product Cover Image"
-                                                 th:src="|data:image/png;base64,${productService.get(review.getProductId()).getEncodedCoverImage()}|"/>
+                                                 th:src="|data:image/png;base64,${productService.get(review.getProduct().getProductId()).getEncodedCoverImage()}|"/>
                                         </div>
                                     </div>
                                     <div class="product_name_container">
                                         <div class="review-product-name txt-left"><a
-                                                th:text="${productService.get(review.getProductId()).getProductName()}"
-                                                th:href="@{'/product/' + ${review.getProductId()}}"></a>
+                                                th:text="${productService.get(review.getProduct().getProductId()).getProductName()}"
+                                                th:href="@{'/product/' + ${review.getProduct().getProductId()}}"></a>
                                         </div>
 
                                         <!-- Book, E-Book, Audio Book -->
-                                        <span th:if="${productService.get(review.getProductId()).getProductTypeName() == 'Book' ||
-                                                    productService.get(review.getProductId()).getProductTypeName() == 'E-Book' ||
-                                                    productService.get(review.getProductId()).getProductTypeName() == 'Audio Book'}">
+                                        <span th:if="${productService.get(review.getProduct().getProductId()).getProductTypeName() == 'Book' ||
+                                                    productService.get(review.getProduct().getProductId()).getProductTypeName() == 'E-Book' ||
+                                                    productService.get(review.getProduct().getProductId()).getProductTypeName() == 'Audio Book'}">
                                             <div class="review-product-text">
-                                                <span th:each="a, iterStat : ${productService.get(review.getProductId()).getAuthors()}"
+                                                <span th:each="a, iterStat : ${productService.get(review.getProduct().getProductId()).getAuthors()}"
                                                       th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
                                             </div>
                                         </span>
 
                                         <!-- E-Book Reader -->
-                                        <span th:if="${productService.get(review.getProductId()).getProductTypeName() == 'E-Book Reader'}">
+                                        <span th:if="${productService.get(review.getProduct().getProductId()).getProductTypeName() == 'E-Book Reader'}">
                                             <div class="review-product-text"
-                                                 th:text="${productService.get(review.getProductId()).getReaderBrand()}">
+                                                 th:text="${productService.get(review.getProduct().getProductId()).getReaderBrand()}">
                                             </div>
                                         </span>
 
                                         <!-- E-Book Reader Case, Book Case -->
-                                        <span th:if="${productService.get(review.getProductId()).getProductTypeName() == 'E-Book Reader Case' ||
-                                                    productService.get(review.getProductId()).getProductTypeName() == 'Book Case'}">
+                                        <span th:if="${productService.get(review.getProduct().getProductId()).getProductTypeName() == 'E-Book Reader Case' ||
+                                                    productService.get(review.getProduct().getProductId()).getProductTypeName() == 'Book Case'}">
                                             <div class="review-product-text"
-                                                 th:text="${productService.get(review.getProductId()).getCaseBrand()}">
+                                                 th:text="${productService.get(review.getProduct().getProductId()).getCaseBrand()}">
                                             </div>
                                         </span>
 
