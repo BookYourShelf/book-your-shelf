@@ -46,7 +46,13 @@
                                 <li><a th:href="@{'/product/' + ${mainProduct.productId}}">
                                     <h th:text="${mainProduct.getProductName()}"></h>
                                 </a></li>
-                                <li style="color: #fbaa1d">Compare</li>
+                                <li style="color: #fbaa1d">
+                                    <a th:href="@{'/product/' + ${mainProduct.productId}}">
+                                        <h th:text="${mainProduct.getProductName()}"></h>
+                                    </a> vs <a th:href="@{'/product/' + ${comparedProduct.productId}}">
+                                    <h th:text="${comparedProduct.getProductName()}"></h>
+                                </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -76,16 +82,19 @@
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image"><img alt="" class="product_image_img"
-                                                                    th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/>
+                                    <div class="product_image">
+                                        <a th:href="@{'/product/' + ${mainProduct.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/></a>
                                     </div>
                                 </div>
                                 <h th:text="${mainProduct.getProductName()}"></h>
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image"><img alt="" class="product_image_img"
-                                                                    th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/>
+                                    <div class="product_image">
+                                        <a th:href="@{'/product/' + ${comparedProduct.productId}}"><img alt="" class="product_image_img"
+                                                                                                th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/></a>
                                     </div>
                                 </div>
                                 <h th:text="${comparedProduct.getProductName()}"></h>
@@ -215,18 +224,18 @@
                         <span th:if="${mainProduct.getProductTypeName() == 'Book' && comparedProduct.getProductTypeName() == 'Book' }">
                         <tr>
                             <th scope="row">Media Type</th>
-                            <td th:text="${mainProduct.getMediaType()}"></td>
-                            <td th:text="${comparedProduct.getMediaType()}"></td>
+                            <td th:text="${compareProductService.createMediaTypeString(mainProduct.getMediaType())}"></td>
+                            <td th:text="${compareProductService.createMediaTypeString(comparedProduct.getMediaType())}"></td>
                         </tr>
                         <tr>
                             <th scope="row">Paper Type</th>
-                            <td th:text="${mainProduct.getPaperType()}"></td>
-                            <td th:text="${comparedProduct.getPaperType()}"></td>
+                            <td th:text="${compareProductService.createPaperTypeString(mainProduct.getPaperType())}"></td>
+                            <td th:text="${compareProductService.createPaperTypeString(comparedProduct.getPaperType())}"></td>
                         </tr>
                         <tr>
                             <th scope="row">Binding Type</th>
-                            <td th:text="${mainProduct.getBindingType()}"></td>
-                            <td th:text="${comparedProduct.getBindingType()}"></td>
+                            <td th:text="${compareProductService.createBindingTypeString(mainProduct.getBindingType())}"></td>
+                            <td th:text="${compareProductService.createBindingTypeString(comparedProduct.getBindingType())}"></td>
                         </tr>
                         <tr>
                             <th scope="row">Page Number</th>
@@ -240,13 +249,13 @@
                         </tr>
                         <tr>
                             <th scope="row">Width</th>
-                            <td th:text="${mainProduct.getWidth()}"></td>
-                            <td th:text="${comparedProduct.getWidth()}"></td>
+                            <td th:text="${mainProduct.getWidth() + ' mm'}"></td>
+                            <td th:text="${comparedProduct.getWidth() + ' mm'}"></td>
                         </tr>
                         <tr>
                             <th scope="row">Height</th>
-                            <td th:text="${mainProduct.getHeight()}"></td>
-                            <td th:text="${comparedProduct.getHeight()}"></td>
+                            <td th:text="${mainProduct.getHeight() + ' mm'}"></td>
+                            <td th:text="${comparedProduct.getHeight() + ' mm'}"></td>
                         </tr>
                         </span>
                         <span th:if="${mainProduct.getProductTypeName() == 'Audio Book' && comparedProduct.getProductTypeName() == 'Audio Book'}">
@@ -310,13 +319,13 @@
                             </tr>
                              <tr>
                                 <th scope="row">Height</th>
-                                <td th:text="${mainProduct.getHeight() + 'mm'}"></td>
-                                <td th:text="${comparedProduct.getHeight() + 'mm'}"></td>
+                                <td th:text="${mainProduct.getHeight() + ' mm'}"></td>
+                                <td th:text="${comparedProduct.getHeight() + ' mm'}"></td>
                             </tr>
                             <tr>
                                 <th scope="row">Width</th>
-                                <td th:text="${mainProduct.getWidth() + 'mm'}"></td>
-                                <td th:text="${comparedProduct.getWidth() + 'mm'}"></td>
+                                <td th:text="${mainProduct.getWidth() + ' mm'}"></td>
+                                <td th:text="${comparedProduct.getWidth() + ' mm'}"></td>
                             </tr>
                             <tr>
                                 <th scope="row">Depth</th>
