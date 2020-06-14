@@ -62,7 +62,7 @@
                             <div class="row fill_height">
                                 <div class="col fill_height">
                                     <div class="home_container d-flex flex-column align-items-center justify-content-start">
-
+                                        <img th:src="@{/static/images/banner-2.jpg}">
                                     </div>
                                 </div>
                             </div>
@@ -76,21 +76,7 @@
                             <div class="row fill_height">
                                 <div class="col fill_height">
                                     <div class="home_container d-flex flex-column align-items-center justify-content-start">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide -->
-                    <div class="owl-item">
-                        <div class="background_image"></div>
-                        <div class="container fill_height">
-                            <div class="row fill_height">
-                                <div class="col fill_height">
-                                    <div class="home_container d-flex flex-column align-items-center justify-content-start">
-
+                                        <img th:src="@{/static/images/banner-3.jpg}">
                                     </div>
                                 </div>
                             </div>
@@ -1175,6 +1161,14 @@
         })
     });
 
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 5,
+        autoplay: true,
+        autoplayTimeout: 2500,
+    });
 
 </script>
 </body>
