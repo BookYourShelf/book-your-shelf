@@ -1,10 +1,7 @@
 package com.oak.bookyourshelf.controller;
 
 import com.oak.bookyourshelf.Globals;
-import com.oak.bookyourshelf.model.Book;
-import com.oak.bookyourshelf.model.Category;
-import com.oak.bookyourshelf.model.HotList;
-import com.oak.bookyourshelf.model.Product;
+import com.oak.bookyourshelf.model.*;
 import com.oak.bookyourshelf.service.CategoryService;
 import com.oak.bookyourshelf.service.HotListDetailsService;
 import org.springframework.stereotype.Controller;
@@ -53,8 +50,16 @@ public class HotlistController {
 
         // Get books and create return books object
         HotList hotlist = hotListDetailsService.get(id);
-        Set<Book> bs = hotlist.getCategories().get(0).getBooks();
-        List<Book> books = new ArrayList<>(bs);
+        List<Book> books = new ArrayList<>();
+        for (Product p : hotlist.getProducts()) {
+            if (p.getProductTypeName().equals("Book")) {
+                books.add((Book) p);
+            } else if (p.getProductTypeName().equals("E-Book")) {
+                books.add((ElectronicBook) p);
+            } else if (p.getProductTypeName().equals("Audio Book")) {
+                books.add((AudioBook) p);
+            }
+        }
 
 
         sortBooks(books, currentSort);
