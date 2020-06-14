@@ -27,33 +27,33 @@ public class ProfileInformationController {
     }
 
     @RequestMapping(value = "/profile/information", method = RequestMethod.GET)
-    public String showUser(Model model ) {
+    public String showUser(Model model) {
 
         UserDetails userDetails = authService.getUserDetails();
-        if(userDetails != null) {
+        if (userDetails != null) {
             model.addAttribute("user", profileInformationService.getByEmail(userDetails.getUsername()));
             return "profile/_information";
         }
-        return "/";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/profile/information", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> updateInformation(@RequestParam Boolean receiveMessage , @RequestParam String button,
+    public ResponseEntity<String> updateInformation(@RequestParam Boolean receiveMessage, @RequestParam String button,
                                                     @RequestParam String newPassword, @RequestParam String currentPassword,
-                                                    @RequestParam String newPasswordAgain , User NewUser) {
+                                                    @RequestParam String newPasswordAgain, User NewUser) {
 
         UserDetails userDetails = authService.getUserDetails();
         User user;
 
-        if(userDetails != null) {
+        if (userDetails != null) {
             user = profileInformationService.getByEmail(userDetails.getUsername());
 
         } else {
             return ResponseEntity.badRequest().body("There is no logged in user");
         }
 
-        if(button.equals("updateInformations")) {
+        if (button.equals("updateInformations")) {
 
             user.setName(NewUser.getName());
             user.setSurname(NewUser.getSurname());
@@ -80,7 +80,7 @@ public class ProfileInformationController {
             profileInformationService.save(user);
 
         } else {
-            if(!(passwordEncoder.matches(currentPassword, user.getPassword()))) {
+            if (!(passwordEncoder.matches(currentPassword, user.getPassword()))) {
                 return ResponseEntity.badRequest().body("Your current password incorrect.");
             }
 

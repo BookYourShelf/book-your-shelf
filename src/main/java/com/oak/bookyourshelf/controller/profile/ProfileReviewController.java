@@ -69,7 +69,7 @@ public class ProfileReviewController {
             model.addAttribute("titleFilter", curTitleFilter);
             return "profile/_review";
         }
-        return "/";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/profile/review", method = RequestMethod.POST)
