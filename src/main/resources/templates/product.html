@@ -968,7 +968,7 @@
 
                                                                     <div sec:authorize="isAuthenticated()">
                                                                         <span th:if="${user.getRole() != 1 and
-                                                                                    review.getUserId() == user.getUserId()}">
+                                                                                    review.getUser().getUserId() == user.getUserId()}">
                                                                             <h5 class="date" style="float:left;"
                                                                                 th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
 
@@ -985,7 +985,7 @@
                                                                         </span>
 
                                                                         <span th:if="${user.getRole() != 1}"
-                                                                              th:unless="${review.getUserId() == user.getUserId()}">
+                                                                              th:unless="${review.getUser().getUserId() == user.getUserId()}">
                                                                             <h5 class="review_date date"
                                                                                 th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
                                                                         </span>
