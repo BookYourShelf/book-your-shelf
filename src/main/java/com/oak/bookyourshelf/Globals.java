@@ -18,6 +18,14 @@ public class Globals {
     public static int PAGINATION = 3;
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int ORDER_CODE_LENGTH = 8;
+    public static final Map<String, String> productTypeNames = Map.ofEntries(
+            Map.entry("BOOK", "Book"),
+            Map.entry("E_BOOK", "E-Book"),
+            Map.entry("AUDIO_BOOK", "Audio Book"),
+            Map.entry("E_BOOK_READER", "E-Book Reader"),
+            Map.entry("E_BOOK_CASE", "E-Book Case"),
+            Map.entry("BOOK_CASE", "Book Case")
+    );
 
     public static void getPageNumbers(Optional<Integer> page, Optional<Integer> size, List objects, Model model, String attrName) {
         int currentPage = page.orElse(1);

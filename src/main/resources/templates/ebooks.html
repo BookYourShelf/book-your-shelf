@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title th:text="${category.getName()} + ' | Book Your Shelf'"></title>
+    <title>E-Books | Book Your Shelf</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Little Closet template">
@@ -42,8 +42,7 @@
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
                             <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li th:text="#{${'category.' + category.getProductType()}}"></li>
-                                <li style="color: #fbaa1d" th:text="${category.getName()}"></li>
+                                <li>E-Books</li>
                             </ul>
                         </div>
                     </div>
@@ -61,7 +60,7 @@
                 <div class="row">
 
                     <div class="col-md-8 col-lg-9">
-                        <div><b class="category-name" th:text="${category.getName()}"></b></div>
+                        <div><b class="category-name">E-Books</b></div>
                     </div>
 
                     <div class="col-md-4 col-lg-3">
@@ -72,49 +71,49 @@
                                             class="fa fa-caret-down" aria-hidden="true"></i></div>
                                     <ul>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'date-desc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Decreasing by Date'"
                                                th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'date-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'date-asc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Increasing by Date'"
                                                th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'name-asc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'A - Z'"
                                                th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'name-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'name-desc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Z - A'"
                                                th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'price-desc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Decreasing by Price'"
                                                th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'price-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'price-asc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Increasing by Price'"
                                                th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-desc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'rate-desc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Decreasing by Rate'"
                                                th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
                                             </a>
                                         </li>
                                         <li class="item_sorting_btn">
-                                            <a th:href="@{/category/{id}(id=${category.getId()}, sort=${'rate-asc'}, size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(sort=${'rate-asc'}, size=${categoryBooks.size}, page=${1})}"
                                                th:text="'Increasing by Rate'"
                                                th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
                                             </a>
@@ -138,20 +137,20 @@
                     <!-- Sidebar -->
                     <div class="col-md-4 col-lg-3">
                         <!-- Subcategories -->
-                        <div class="product" th:unless="${#lists.isEmpty(category.getSubcategories())}">
+                        <div class="product" th:unless="${#lists.isEmpty(categories)}">
                             <div class="subcategory_text">
                                 <ul>
                                     <span>
                                         <li class="subcategory_li"
-                                            th:each="subcategory : ${category.getSubcategories()}">
+                                            th:each="category : ${categories}">
                                             <a class="clearfix"
-                                               th:href="@{'/subcategory/{id}'(id=${subcategory.getId()}, categoryID=${category.getId()})}">
+                                               th:href="@{'/category/{id}'(id=${category.getId()}, categoryID=${category.getId()})}">
                                             <span class="float_left">
                                                 <label class="expand_element_text"
-                                                       th:text="${subcategory.getName()}"></label>
+                                                       th:text="${category.getName()}"></label>
                                             </span>
                                                 <span class="float_right"
-                                                      th:text="${subcategory.getBooks().size()}"></span>
+                                                      th:text="${category.getBooks().size()}"></span>
                                             </a>
                                         </li>
                                     </span>
@@ -521,7 +520,7 @@
                                     <div class="product_image_showcase vertical_center">
                                         <a th:href="'/product/' + ${book.getProductId()}">
                                             <img th:src="|data:image/png;base64,${book.getEncodedCoverImage()}|" alt=""
-                                                 class="product_image_img"> <!-- TODO: Handle images -->
+                                                 class="product_image_img">
                                         </a>
                                     </div>
                                     <div class="product_content">
@@ -619,7 +618,7 @@
                                     <ul class="d-flex flex-row align-items-start justify-content-center">
                                         <!-- Previous button -->
                                         <li th:style="${currentPage == 1} ? 'display:none'">
-                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${currentPage - 1})}"
+                                            <a th:href="@{/books(size=${categoryBooks.size}, page=${currentPage - 1})}"
                                                aria-label="Previous" title="Previous Page" rel="tooltip">
                                                 <i class="pagination_arrow fa fa-angle-left"></i>
                                             </a>
@@ -628,7 +627,7 @@
                                         <!-- First page -->
                                         <li th:if="${categoryBooks.totalPages > 0}"
                                             th:class="${currentPage == 1} ? 'active'">
-                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${1})}"
+                                            <a th:href="@{/books(size=${categoryBooks.size}, page=${1})}"
                                                th:title="${'Page '+ 1}"
                                                th:text="${1}" style="color: #fbaa1d;">
                                             </a>
@@ -641,7 +640,7 @@
                                             th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
                                         , categoryBooks.totalPages > 2 + currentPage ? currentPage + 2 : categoryBooks.totalPages - 1, 1)}"
                                             th:class="${currentPage == i} ? 'active'">
-                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${i})}"
+                                            <a th:href="@{/books(size=${categoryBooks.size}, page=${i})}"
                                                th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
                                         </li>
 
@@ -652,7 +651,7 @@
                                         <!-- Last page -->
                                         <li th:if="${categoryBooks.totalPages > 1}"
                                             th:class="${currentPage == categoryBooks.totalPages} ? 'active'">
-                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${categoryBooks.totalPages})}"
+                                            <a th:href="@{/books(size=${categoryBooks.size}, page=${categoryBooks.totalPages})}"
                                                th:text="${categoryBooks.totalPages}" style="color: #fbaa1d;"
                                                th:title="${'Page '+ categoryBooks.totalPages}">
                                             </a>
@@ -660,7 +659,7 @@
 
                                         <!-- Next button -->
                                         <li th:style="${currentPage == categoryBooks.totalPages} ? 'display:none'">
-                                            <a th:href="@{/category/{id}(id=${category.getId()},size=${categoryBooks.size}, page=${currentPage + 1})}"
+                                            <a th:href="@{/books(size=${categoryBooks.size}, page=${currentPage + 1})}"
                                                aria-label="Next" title="Next Page" rel="tooltip">
                                                 <i class="pagination_arrow fa fa-angle-right"></i>
                                             </a>
@@ -784,8 +783,6 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var productID = $('.product_cart').attr('id');
-    const categoryID = /*[[${category.getId()}]]*/ 'default';
-    const productType = /*[[${category.getProductType()}]]*/ 'default';
 
     $('.product_cart').click(function (event) {
 
@@ -903,9 +900,7 @@
         }
 
 
-        if (productType === "BOOK") {
-            window.location.href = url;
-        }
+        window.location.href = url;
 
 
     });

@@ -124,11 +124,15 @@ public class AdminPanelHotListController {
             newCategoryList.add(newCategory);
             if (subctgry.equals("")) {
                 for (HotList i : sameType) {
-                    Category hotListCategory = i.getCategories().get(0);
-                    if (hotListCategory.getName().equals(category)) {
+                    if (i.getCategories().size() != 0) {
+                        Category hotListCategory = i.getCategories().get(0);
+                        if (hotListCategory.getName().equals(category)) {
 
-                        return ResponseEntity.badRequest().body("There is a  hot list in " + category + " category . Please change your selection");
+                            return ResponseEntity.badRequest().body("There is a hot list in " + category + " category . Please change your selection");
 
+                        }
+                    } else {
+                        return ResponseEntity.badRequest().body("There is a hot list in " + Globals.productTypeNames.get(i.getProductType().toString()) + " . Please change your selection");
                     }
                 }
                 hotList.setCategories(newCategoryList);

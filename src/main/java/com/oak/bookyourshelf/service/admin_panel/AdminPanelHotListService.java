@@ -88,10 +88,27 @@ public class AdminPanelHotListService {
                 }
             }
             hotList.setProducts(result);
-        } else {
+        } else if (books.size() != 0) {
             Set<Product> all = new HashSet<>(books);
             hotList.setProducts(all);
             hotList.setProductNum(allProducts.size());
+        } else {
+            Set<Product> all = new HashSet<>(books);
+            for (Product product : productService.getAllProduct()) {
+                if (all.size() < hotList.getProductNum()) {
+                    if (product.getProductTypeName() == "Book" && hotList.getProductType() == Category.ProductType.BOOK) {
+                        all.add(product);
+                    } else if (product.getProductTypeName() == "E-Book" && hotList.getProductType() == Category.ProductType.E_BOOK) {
+                        all.add(product);
+                    } else if (product.getProductTypeName() == "Audio Book" && hotList.getProductType() == Category.ProductType.AUDIO_BOOK) {
+                        all.add(product);
+                    }
+                } else {
+                    break;
+                }
+            }
+            hotList.setProducts(all);
+            hotList.setProductNum(all.size());
         }
 
 
