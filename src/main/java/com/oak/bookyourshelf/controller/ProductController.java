@@ -67,7 +67,7 @@ public class ProductController {
         String curTitleFilter = titleFilter.orElse("all");
         Globals.getPageNumbers(page, size, titleFilterReview(
                 ratingFilterReview(
-                        userDetailsReviewService.sortReviewsOfProduct(currentSort, product.getProductId()),
+                        userDetailsReviewService.sortReviewsOfProduct(currentSort, product),
                         curRatingFilter),
                 curTitleFilter), model, "reviewPage");
 
@@ -94,10 +94,10 @@ public class ProductController {
 
     public void buildBreadCrumbs(Product product, Model model) {
         if (product instanceof PhysicalBook || product instanceof ElectronicBook || product instanceof AudioBook) {
-            Category category = ((Book) product).getCategory().get(0);
+            Category category = ((Book) product).getCategory();
 
-            if (((Book) product).getSubcategory().size() != 0) {
-                Subcategory subcategory = ((Book) product).getSubcategory().get(0);
+            if (((Book) product).getSubcategory() != null) {
+                Subcategory subcategory = ((Book) product).getSubcategory();
                 List<Subcategory> subcategories = Globals.findPathBetweenSubcategoryAndCategory(category, subcategory);
                 model.addAttribute("subcategoriesBreadcrumbs", subcategories);
             } else {
@@ -168,7 +168,7 @@ public class ProductController {
                     }
 
                 case "add_review":
-                    if (reviewService.checkUserReviewsForProduct(user.getUserId(), id) != null) {
+                    if (reviewService.checkUserReviewsForProduct(product, user) != null) {
                         return ResponseEntity.badRequest().body("You already reviewed this product.");
 
                     } else {
@@ -177,7 +177,8 @@ public class ProductController {
                         }
 
                         review.setUploadDate(new Timestamp(System.currentTimeMillis()));
-                        review.setUserId(user.getUserId());
+                        review.setUser(user);
+                        review.setProduct(product);
                         user.addReview(review);
                         product.addReview(review);
                         product.increaseStarNum(review.getScoreOutOf5() - 1);
@@ -255,9 +256,9 @@ public class ProductController {
         return false;
     }
 
-    public boolean isAlreadyReviewed(List<Review> reviews, int productId) {
+    public boolean isAlreadyReviewed(Set<Review> reviews, int productId) {
         for (Review r : reviews) {
-            if (r.getProductId() == productId) {
+            if (r.getProduct().getProductId() == productId) {
                 return true;
             }
         }

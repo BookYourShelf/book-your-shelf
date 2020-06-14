@@ -130,14 +130,12 @@ public class ProductDetailsInformationController {
 //        productDetailsInformationService.save(oldProduct);
 
         category = adminPanelCategoryService.getByName(categoryName);
-        newProduct.setCategory(new ArrayList<Category>());
-        newProduct.getCategory().add(category);
-        newProduct.setSubcategory(new ArrayList<Subcategory>());
+        newProduct.setCategory(category);
         // TODO: category books add?
 
         if (!subcategoryName.equals("") && !subcategoryName.equals("-")) {      // subcategory selected
             subcategory = adminPanelCategoryService.getSubcategory(category, subcategoryName);
-            newProduct.getSubcategory().add(subcategory);
+            newProduct.setSubcategory(subcategory);
             subcategory.getBooks().add(newProduct);
             // TODO: subcategory books add?
         }

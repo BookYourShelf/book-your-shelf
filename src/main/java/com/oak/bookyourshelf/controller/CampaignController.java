@@ -55,7 +55,9 @@ public class CampaignController {
         List<Category> categories = campaign.getCategories();
         List<Book> books = new ArrayList<>();
         if (categories.size() > 0) {
-            books.addAll(campaign.getCategories().get(0).getBooks());
+            for (Category c : categories) {
+                books.addAll(c.getBooks());
+            }
         }
 
 

@@ -33,7 +33,8 @@ public class CategoryDetailsSubcategoryController {
         Category category = categoryDetailsInformationService.get(id);
         model.addAttribute("subcategoriesBreadcrumbs", new ArrayList<>()); // Add session breadcrumbs
         model.addAttribute("categoryBreadcrumb", category);
-        List<Subcategory> subcategories = category.getSubcategories();
+        Set<Subcategory> sub = category.getSubcategories();
+        List<Subcategory> subcategories = new ArrayList<>(sub);
         sortSubcategories(subcategories, currentSort);
         Globals.getPageNumbers(page, size, subcategories, model, "subcategoryPage");
         model.addAttribute("allSubcategories", subcategories);

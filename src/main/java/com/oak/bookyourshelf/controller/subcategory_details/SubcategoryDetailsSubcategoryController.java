@@ -37,7 +37,8 @@ public class SubcategoryDetailsSubcategoryController {
         model.addAttribute("categoryBreadcrumb", model.getAttribute("categoryBreadcrumb"));
 
 
-        List<Subcategory> subcategories = subcategory.getSubcategories();
+        Set<Subcategory> s = subcategory.getSubcategories();
+        List<Subcategory> subcategories = new ArrayList<>(s);
         sortSubcategories(subcategories, currentSort);
         Globals.getPageNumbers(page, size, subcategories, model, "subcategoryPage");
         model.addAttribute("allSubcategories", subcategories);

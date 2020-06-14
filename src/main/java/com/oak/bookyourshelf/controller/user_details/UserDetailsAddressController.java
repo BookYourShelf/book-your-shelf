@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -81,7 +82,7 @@ public class UserDetailsAddressController {
         return ResponseEntity.ok("");
     }
 
-    public Address findAddress(List<Address> addressList, int Id) {
+    public Address findAddress(Set<Address> addressList, int Id) {
         for (Address add : addressList) {
             if (add.getAddressId() == Id) {
                 return add;

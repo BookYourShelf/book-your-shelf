@@ -53,7 +53,8 @@ public class HotlistController {
 
         // Get books and create return books object
         HotList hotlist = hotListDetailsService.get(id);
-        List<Book> books = hotlist.getCategories().get(0).getBooks();
+        Set<Book> bs = hotlist.getCategories().get(0).getBooks();
+        List<Book> books = new ArrayList<>(bs);
 
 
         sortBooks(books, currentSort);
