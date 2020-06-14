@@ -173,6 +173,11 @@
             const ebookHotlistElement = $('.megamenu-ebook-hotlist');
             const audiobookHotlistElement = $('.megamenu-audiobook-hotlist');
 
+            const hotlists = {
+                "BEST_SELLERS": "Best Sellers",
+                "NEW_RELEASES": "New Releases"
+            };
+
 
             bookCategories.forEach(function (entry) {
                 bookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
@@ -195,13 +200,13 @@
             });
 
             bookHotlists.forEach(function (entry) {
-                bookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+                bookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
             });
             ebookHotlists.forEach(function (entry) {
-                ebookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+                ebookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
             });
             audiobookHotlists.forEach(function (entry) {
-                audiobookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+                audiobookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
             });
         },
         error: function (result) {
