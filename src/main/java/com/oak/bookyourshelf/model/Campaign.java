@@ -8,7 +8,7 @@ import java.util.List;
 public class Campaign {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int rate;
