@@ -43,32 +43,45 @@ public class AdminPanelUserService {
     {
         switch (sortType) {
             case "ID-desc":
-                return adminPanelUserRepository.findAllByOrderByUserIdDesc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByUserIdDesc());
 
             case "ID-asc":
-                return adminPanelUserRepository.findAllByOrderByUserIdAsc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByUserIdAsc());
 
             case "Name-desc":
-                return adminPanelUserRepository.findAllByOrderByNameDesc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByNameDesc());
 
             case "Name-asc":
-                return adminPanelUserRepository.findAllByOrderByNameAsc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByNameAsc());
 
             case "Surname-desc":
-                return adminPanelUserRepository.findAllByOrderBySurnameDesc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderBySurnameDesc());
 
             case "Surname-asc":
-                return adminPanelUserRepository.findAllByOrderBySurnameAsc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderBySurnameAsc());
 
             case "Email-desc":
-                return adminPanelUserRepository.findAllByOrderByEmailDesc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByEmailDesc());
 
             case "Email-asc":
-                return adminPanelUserRepository.findAllByOrderByEmailAsc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByEmailAsc());
             default:        // id
-                return adminPanelUserRepository.findAllByOrderByUserIdAsc();
+                return removeAdmin(adminPanelUserRepository.findAllByOrderByUserIdAsc());
 
         }
+    }
+
+    List<User> removeAdmin(List<User> users)
+    {
+        for(User u :users)
+        {
+            if(u.getRole() == 1)
+            {
+                users.remove(u);
+                return users;
+            }
+        }
+        return users;
     }
 
 
