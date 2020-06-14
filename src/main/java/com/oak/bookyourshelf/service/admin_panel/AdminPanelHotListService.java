@@ -57,13 +57,11 @@ public class AdminPanelHotListService {
     }
 
 
-    public Set<Book> createProductSet(List<Subcategory> subcategories) {
+    public Set<Book> createProductSet(Set<Subcategory> subcategories) {
         Set<Book> allProducts = new HashSet<>();
         for (Subcategory sub : subcategories) {
             sub.setInHotList(true);
-            for (Book b : sub.getBooks()) {
-                allProducts.add(b);
-            }
+            allProducts.addAll(sub.getBooks());
         }
         return allProducts;
     }
@@ -79,7 +77,7 @@ public class AdminPanelHotListService {
         } else if (hotList.getHotListType() == HotList.HotListType.NEW_RELEASES) {
             allProducts.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
         }
-        List<Product> result = new ArrayList<>();
+        Set<Product> result = new HashSet<>();
         if (hotList.getProductNum() <= books.size()) {
 
             int elementNum = 0;
@@ -91,7 +89,7 @@ public class AdminPanelHotListService {
             }
             hotList.setProducts(result);
         } else {
-            List<Product> all = new ArrayList<Product>(books);
+            Set<Product> all = new HashSet<>(books);
             hotList.setProducts(all);
             hotList.setProductNum(allProducts.size());
         }
@@ -116,7 +114,7 @@ public class AdminPanelHotListService {
         } else if (hotList.getHotListType() == HotList.HotListType.NEW_RELEASES) {
             products.addAll(adminPanelProductRepository.findAllByOrderByUploadDateDesc());
         }
-        List<Product> result = new ArrayList<>();
+        Set<Product> result = new HashSet<>();
         if (hotList.getProductNum() <= allProducts.size()) {
 
             int elementNum = 0;
@@ -128,7 +126,7 @@ public class AdminPanelHotListService {
             }
             hotList.setProducts(result);
         } else {
-            List<Product> all = new ArrayList<Product>(allProducts);
+            Set<Product> all = new HashSet<>(allProducts);
             hotList.setProducts(all);
             hotList.setProductNum(allProducts.size());
         }
