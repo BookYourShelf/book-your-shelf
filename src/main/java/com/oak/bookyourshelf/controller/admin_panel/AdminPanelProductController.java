@@ -15,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -157,15 +154,15 @@ public class AdminPanelProductController {
         product.setUploadDate(new Timestamp(System.currentTimeMillis()));
 
         category = adminPanelCategoryService.getByName(categoryName);
-        product.setCategory(new ArrayList<Category>());
-        product.getCategory().add(category);
-        category.getBooks().add(product);
-        product.setSubcategory(new ArrayList<Subcategory>());
+        product.setCategory(category);
+
 
         if (!subcategoryName.equals("")) {      // subcategory selected
             subcategory = adminPanelCategoryService.getSubcategory(category, subcategoryName);
-            product.getSubcategory().add(subcategory);
+            product.setSubcategory(subcategory);
             subcategory.getBooks().add(product);
+        } else {
+            category.getBookSet().add(product);
         }
 
         adminPanelProductService.save(product);
