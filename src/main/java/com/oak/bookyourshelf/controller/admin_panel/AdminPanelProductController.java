@@ -67,8 +67,7 @@ public class AdminPanelProductController {
                                               @RequestParam("subcategory_name") String subcategory_name,
                                               @RequestParam(value = "coverImage", required = false) MultipartFile coverImage,
                                               @RequestParam(value = "productImages", required = false) MultipartFile[] productImages) throws IOException {
-        Category category;
-        Subcategory subcategory;
+
         List<Image> images = new ArrayList<>();
 
         if (coverImage == null) {
@@ -93,41 +92,29 @@ public class AdminPanelProductController {
 
         switch (productType) {
             case "book":
-                category = adminPanelCategoryService.getByName(category_name);
-                subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                physicalBook.setCategory(new ArrayList<Category>());
-                physicalBook.getCategory().add(category);
-                physicalBook.setSubcategory(new ArrayList<Subcategory>());
-                physicalBook.getSubcategory().add(subcategory);
                 physicalBook.setImages(images);
-                return bookBarcodeAndISBNCheck(physicalBook, lists, category, subcategory);
+                return bookBarcodeAndISBNCheck(physicalBook, lists, category_name, subcategory_name);
+
             case "ebook":
-                category = adminPanelCategoryService.getByName(category_name);
-                subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                electronicBook.setCategory(new ArrayList<Category>());
-                electronicBook.getCategory().add(category);
-                electronicBook.setSubcategory(new ArrayList<Subcategory>());
-                electronicBook.getSubcategory().add(subcategory);
                 electronicBook.setImages(images);
-                return bookBarcodeAndISBNCheck(electronicBook, lists, category, subcategory);
+                return bookBarcodeAndISBNCheck(electronicBook, lists, category_name, subcategory_name);
+
             case "audio_book":
-                category = adminPanelCategoryService.getByName(category_name);
-                subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                audioBook.setCategory(new ArrayList<Category>());
-                audioBook.getCategory().add(category);
-                audioBook.setSubcategory(new ArrayList<Subcategory>());
-                audioBook.getSubcategory().add(subcategory);
                 audioBook.setImages(images);
-                return bookBarcodeAndISBNCheck(audioBook, lists, category, subcategory);
+                return bookBarcodeAndISBNCheck(audioBook, lists, category_name, subcategory_name);
+
             case "ebook_reader":
                 electronicBookReader.setImages(images);
                 return productBarcodeCheck(electronicBookReader);
+
             case "ebook_reader_case":
                 electronicBookReaderCase.setImages(images);
                 return productBarcodeCheck(electronicBookReaderCase);
+
             case "book_case":
                 physicalBookCase.setImages(images);
                 return productBarcodeCheck(physicalBookCase);
+
             default:
                 return ResponseEntity.badRequest().body("An error occurred.");
         }
@@ -145,10 +132,12 @@ public class AdminPanelProductController {
         return ResponseEntity.ok("");
     }
 
-    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book product, String lists, Category category, Subcategory subcategory) throws JsonProcessingException {
+    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book product, String lists, String categoryName, String subcategoryName) throws JsonProcessingException {
 
         // Add lists to product
         ObjectMapper mapper = new ObjectMapper();
+        Category category;
+        Subcategory subcategory;
         Map<String, ArrayList<String>> map = mapper.readValue(lists, Map.class);
         product.setPublishers(trimList(map.get("publishers")));
         product.setTranslators(trimList(map.get("translators")));
@@ -166,8 +155,19 @@ public class AdminPanelProductController {
         }
 
         product.setUploadDate(new Timestamp(System.currentTimeMillis()));
+
+        category = adminPanelCategoryService.getByName(categoryName);
+        product.setCategory(new ArrayList<Category>());
+        product.getCategory().add(category);
         category.getBooks().add(product);
-        subcategory.getBooks().add(product);
+        product.setSubcategory(new ArrayList<Subcategory>());
+
+        if (!subcategoryName.equals("")) {      // subcategory selected
+            subcategory = adminPanelCategoryService.getSubcategory(category, subcategoryName);
+            product.getSubcategory().add(subcategory);
+            subcategory.getBooks().add(product);
+        }
+
         adminPanelProductService.save(product);
         return ResponseEntity.ok("");
     }

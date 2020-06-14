@@ -57,40 +57,25 @@ public class ProductDetailsInformationController {
                                                 @RequestParam("subcategory_name") String subcategory_name) throws JsonProcessingException {
 
         Product product = productDetailsInformationService.get(id);
-        Category category;
-        Subcategory subcategory;
 
         switch (buttonType) {
             case "update":
                 switch (productType) {
                     case "book":
-                        category = adminPanelCategoryService.getByName(category_name);
-                        subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                        physicalBook.setCategory(new ArrayList<Category>());
-                        physicalBook.getCategory().add(category);
-                        physicalBook.setSubcategory(new ArrayList<Subcategory>());
-                        physicalBook.getSubcategory().add(subcategory);
-                        return bookBarcodeAndISBNCheck(physicalBook, lists, product, category, subcategory);
+                        return bookBarcodeAndISBNCheck(physicalBook, lists, product, category_name, subcategory_name);
+
                     case "ebook":
-                        category = adminPanelCategoryService.getByName(category_name);
-                        subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                        electronicBook.setCategory(new ArrayList<Category>());
-                        electronicBook.getCategory().add(category);
-                        electronicBook.setSubcategory(new ArrayList<Subcategory>());
-                        electronicBook.getSubcategory().add(subcategory);
-                        return bookBarcodeAndISBNCheck(electronicBook, lists, product, category, subcategory);
+                        return bookBarcodeAndISBNCheck(electronicBook, lists, product, category_name, subcategory_name);
+
                     case "audio_book":
-                        category = adminPanelCategoryService.getByName(category_name);
-                        subcategory = adminPanelCategoryService.getSubcategory(category, subcategory_name);
-                        audioBook.setCategory(new ArrayList<Category>());
-                        audioBook.getCategory().add(category);
-                        audioBook.setSubcategory(new ArrayList<Subcategory>());
-                        audioBook.getSubcategory().add(subcategory);
-                        return bookBarcodeAndISBNCheck(audioBook, lists, product, category, subcategory);
+                        return bookBarcodeAndISBNCheck(audioBook, lists, product, category_name, subcategory_name);
+
                     case "ebook_reader":
                         return productBarcodeCheck(electronicBookReader, product);
+
                     case "ebook_reader_case":
                         return productBarcodeCheck(electronicBookReaderCase, product);
+
                     case "book_case":
                         return productBarcodeCheck(physicalBookCase, product);
                 }
@@ -118,11 +103,13 @@ public class ProductDetailsInformationController {
         return ResponseEntity.ok("");
     }
 
-    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book newProduct, String lists, Product oldProduct, Category category, Subcategory subcategory)
+    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book newProduct, String lists, Product oldProduct, String categoryName, String subcategoryName)
             throws JsonProcessingException {
 
         // Add lists to product
         ObjectMapper mapper = new ObjectMapper();
+        Category category;
+        Subcategory subcategory;
         Map<String, ArrayList<String>> map = mapper.readValue(lists, Map.class);
         newProduct.setPublishers(AdminPanelProductController.trimList(map.get("publishers")));
         newProduct.setTranslators(AdminPanelProductController.trimList(map.get("translators")));
@@ -140,7 +127,20 @@ public class ProductDetailsInformationController {
         }
 
         remindProduct(newProduct, oldProduct);
-        productDetailsInformationService.save(oldProduct);
+//        productDetailsInformationService.save(oldProduct);
+
+        category = adminPanelCategoryService.getByName(categoryName);
+        newProduct.setCategory(new ArrayList<Category>());
+        newProduct.getCategory().add(category);
+        newProduct.setSubcategory(new ArrayList<Subcategory>());
+        // TODO: category books add?
+
+        if (!subcategoryName.equals("") && !subcategoryName.equals("-")) {      // subcategory selected
+            subcategory = adminPanelCategoryService.getSubcategory(category, subcategoryName);
+            newProduct.getSubcategory().add(subcategory);
+            subcategory.getBooks().add(newProduct);
+            // TODO: subcategory books add?
+        }
 
         newProduct = (Book) copyProduct(oldProduct, newProduct);
         productDetailsInformationService.save(newProduct);
@@ -160,9 +160,9 @@ public class ProductDetailsInformationController {
         return newProduct;
     }
 
-    public void remindProduct(Product newProduct,Product oldProduct){
-        if(newProduct.getStock() > 0 && oldProduct.getRemind().size() !=0){
-            for(RemindProduct r : oldProduct.getRemind()){
+    public void remindProduct(Product newProduct, Product oldProduct) {
+        if (newProduct.getStock() > 0 && oldProduct.getRemind().size() != 0) {
+            for (RemindProduct r : oldProduct.getRemind()) {
                 r.setProductAvailability(RemindProduct.ProductAvailability.AVAILABLE);
                 r.setAvailableTime(new Timestamp(System.currentTimeMillis()));
             }

@@ -56,7 +56,7 @@ public class PaymentController {
 
         // if order already payed
         if (order == null) {
-            return "index";
+            return "redirect:/";
         }
 
         CreditCard creditCard = new CreditCard();

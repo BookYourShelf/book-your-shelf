@@ -42,11 +42,11 @@
 
                     <!-- Slide -->
                     <div class="owl-item">
-                        <div class="background_image"></div>
+                        <div class="background_image" style="background-color: #E2D6C8;"></div>
                         <div class="container fill_height">
                             <div class="row fill_height">
                                 <div class="col fill_height">
-                                    <div class="home_container d-flex flex-column align-items-center justify-content-start">
+                                    <div class="home_container_banner_1 d-flex flex-column align-items-center justify-content-start">
                                         <img th:src="@{/static/images/book_your_shelf_banner.jpg}">
                                     </div>
                                 </div>
@@ -56,13 +56,13 @@
 
                     <!-- Slide -->
                     <div class="owl-item">
-                        <div class="background_image">
+                        <div class="background_image" style="background-color: #F1F2E2;">
                         </div>
                         <div class="container fill_height">
                             <div class="row fill_height">
                                 <div class="col fill_height">
-                                    <div class="home_container d-flex flex-column align-items-center justify-content-start">
-
+                                    <div class="home_container_banner_2 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/banner-2.jpg}">
                                     </div>
                                 </div>
                             </div>
@@ -71,26 +71,12 @@
 
                     <!-- Slide -->
                     <div class="owl-item">
-                        <div class="background_image"></div>
+                        <div class="background_image" style="background-color: #FCCD49"></div>
                         <div class="container fill_height">
                             <div class="row fill_height">
                                 <div class="col fill_height">
-                                    <div class="home_container d-flex flex-column align-items-center justify-content-start">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Slide -->
-                    <div class="owl-item">
-                        <div class="background_image"></div>
-                        <div class="container fill_height">
-                            <div class="row fill_height">
-                                <div class="col fill_height">
-                                    <div class="home_container d-flex flex-column align-items-center justify-content-start">
-
+                                    <div class="home_container_banner_3 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/banner-3.jpg}">
                                     </div>
                                 </div>
                             </div>
@@ -1175,6 +1161,15 @@
         })
     });
 
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        autoplay: true,
+        autoplayTimeout: 2500,
+        dots: false,
+    });
 
 </script>
 </body>

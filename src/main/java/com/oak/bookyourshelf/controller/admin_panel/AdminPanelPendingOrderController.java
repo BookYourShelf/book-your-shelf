@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -136,8 +137,10 @@ public class AdminPanelPendingOrderController {
 
     public boolean updateOrderProducts(Order order, List<Integer> productsIds) {
         boolean unconfirmedProductExists = false;
+        Iterator<CartItem> i = order.getProducts().iterator();
 
-        for (CartItem c : order.getProducts()) {
+        while (i.hasNext()) {
+            CartItem c = i.next();
             if (!productsIds.contains(c.getProduct().getProductId())) {
                 // rewind product changes back for canceled products
                 c.getProduct().decreaseSalesNum();
@@ -147,7 +150,7 @@ public class AdminPanelPendingOrderController {
                 // rewind subtotal changes back for canceled products
                 float toBeDeleted = c.getQuantity() * (c.getUnitPrice() - (c.getUnitPrice() * c.getDiscountRate()));
                 order.setSubTotalAmount(order.getSubTotalAmount() - toBeDeleted);
-                order.getProducts().remove(c);
+                i.remove();
                 unconfirmedProductExists = true;
             }
         }

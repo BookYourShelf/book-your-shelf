@@ -69,7 +69,7 @@ public class ProfileOrderController {
 
             return "profile/_order";
         }
-        return "/";
+        return "redirect:/";
     }
 
     public List<Order> filterOrdersByPaymentOption(List<Order> orders, String paymentOption) {
