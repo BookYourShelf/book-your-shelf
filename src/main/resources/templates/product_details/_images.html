@@ -19,9 +19,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="media">
-                    <div class="product_and_cover_image_div product_image">
+                    <div class="product_and_cover_image_div product_details_image">
                         <img th:src="|data:image/png;base64,${cover_image.encodeImage()}|" alt="Cover Image"
-                             class="product_and_cover_image product_image_img">
+                             class="product_and_cover_image product_details_image_img">
                     </div>
                 </div>
             </div>
@@ -67,9 +67,9 @@
                 <div class="col-lg-12">
                     <div class="media" th:each="image : ${product_images}">
                         <div class="col-lg-11">
-                            <div class="product_images_pad product_and_cover_image_div product_image">
+                            <div class="product_images_pad product_and_cover_image_div product_details_image">
                                 <img th:src="|data:image/png;base64,${image.encodeImage()}|" alt="Product Image"
-                                     class="product_and_cover_image product_image_img">
+                                     class="product_and_cover_image product_details_image_img">
                             </div>
                         </div>
                         <div class="col-lg-1">
@@ -126,7 +126,7 @@
     $('#update').click(function (event) {
         var retForm = new FormData();
         retForm.append("type", "update");
-        const coverImage = $('.upload_cover_image')[0].files[0]
+        const coverImage = $('.upload_cover_image')[0].files[0];
         retForm.append("coverImage", coverImage);
         //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
         const productImages = $('.upload_product_images')[0].files;

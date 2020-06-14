@@ -47,7 +47,7 @@ public class ProfileAddressController {
             model.addAttribute("allDeliveryAddress", userDelivery);
             return "profile/_address";
         }
-        return "/";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/profile/address", method = RequestMethod.POST)
