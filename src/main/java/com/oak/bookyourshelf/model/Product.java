@@ -35,26 +35,26 @@ public abstract class Product {
     private String longDesc;
 
     @ElementCollection
-    private List<Integer> buyerUserIds;
+    private Set<Integer> buyerUserIds;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    @OneToMany(orphanRemoval = true)
+    private Set<Review> reviews;
 
-    @ManyToMany(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
-    private List<User> onWishList;
+    private Set<User> onWishList;
 
-    @ManyToMany(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
-    private List<User> onShoppingCart;
+    private Set<User> onShoppingCart;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<RemindProduct> remind;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RemindProduct> remind;
 
     // FUNCTIONS
 
@@ -71,11 +71,11 @@ public abstract class Product {
     }
 
     public Image getCoverImage() {     // cover image of the product is the first image in images
-        return images.get(0);
+        return images.toArray(new Image[0])[0];
     }
 
     public String getEncodedCoverImage() {
-        return Base64.getEncoder().encodeToString(images.get(0).getImage());
+        return Base64.getEncoder().encodeToString(images.toArray(new Image[0])[0].getImage());
     }
 
     public double getScoreOutOf5() {        // calculate score of the product
@@ -166,11 +166,11 @@ public abstract class Product {
         return barcode;
     }
 
-    public List<Integer> getBuyerUserIds() {
+    public Set<Integer> getBuyerUserIds() {
         return buyerUserIds;
     }
 
-    public List<Review> getReviews() {
+    public Set<Review> getReviews() {
         return reviews;
     }
 
@@ -226,11 +226,11 @@ public abstract class Product {
         this.barcode = barcode;
     }
 
-    public void setBuyerUserIds(List<Integer> buyerUserIds) {
+    public void setBuyerUserIds(Set<Integer> buyerUserIds) {
         this.buyerUserIds = buyerUserIds;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -240,11 +240,11 @@ public abstract class Product {
 
     public abstract Object getProductTypeName();
 
-    public List<RemindProduct> getRemind() {
+    public Set<RemindProduct> getRemind() {
         return remind;
     }
 
-    public void setRemind(List<RemindProduct> remind) {
+    public void setRemind(Set<RemindProduct> remind) {
         this.remind = remind;
     }
 }

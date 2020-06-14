@@ -1,8 +1,8 @@
 package com.oak.bookyourshelf.model;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Campaign {
@@ -16,14 +16,12 @@ public class Campaign {
     private String startDate;
     private String endDate;
 
-    @ManyToMany(
-            cascade = CascadeType.ALL)
+    @OneToMany
     private List<Category> categories;
 
 
-    @ManyToMany(
-            cascade = CascadeType.ALL)
-    private List<Subcategory> subcategories;
+    @OneToMany
+    private Set<Subcategory> subcategories;
 
     private Category.ProductType productType;
 
@@ -85,11 +83,11 @@ public class Campaign {
         this.productType = productType;
     }
 
-    public List<Subcategory> getSubcategories() {
+    public Set<Subcategory> getSubcategories() {
         return subcategories;
     }
 
-    public void setSubcategories(List<Subcategory> subcategories) {
+    public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
 

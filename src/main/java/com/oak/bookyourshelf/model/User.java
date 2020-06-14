@@ -36,27 +36,27 @@ public class User {
     private String phoneNumber;
     private Boolean receiveMessage = false;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Review> reviews;
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Address> billingAddresses;
+    private Set<Address> billingAddresses;
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Address> deliveryAddresses;
+    private Set<Address> deliveryAddresses;
 
-    @ManyToMany(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
     private Set<CartItem> shoppingCart;
 
-    @ManyToMany(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
     private Set<Product> wishList;
@@ -66,8 +66,8 @@ public class User {
     @ElementCollection
     private Map<String, Integer> searchHistory;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Order> orders;
 
     public User() {
     }
@@ -159,11 +159,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Review> getReviews() {
+    public Set<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
 
@@ -199,27 +199,27 @@ public class User {
         this.searchHistory = searchHistory;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
-    public List<Address> getBillingAddresses() {
+    public Set<Address> getBillingAddresses() {
         return billingAddresses;
     }
 
-    public void setBillingAddresses(List<Address> billingAddresses) {
+    public void setBillingAddresses(Set<Address> billingAddresses) {
         this.billingAddresses = billingAddresses;
     }
 
-    public List<Address> getDeliveryAddresses() {
+    public Set<Address> getDeliveryAddresses() {
         return deliveryAddresses;
     }
 
-    public void setDeliveryAddresses(List<Address> deliveryAddresses) {
+    public void setDeliveryAddresses(Set<Address> deliveryAddresses) {
         this.deliveryAddresses = deliveryAddresses;
     }
 
