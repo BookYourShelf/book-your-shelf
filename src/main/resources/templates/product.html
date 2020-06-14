@@ -145,7 +145,7 @@
                                 <div class="sale_price">
                                     <span th:switch="${product.isOnDiscount()}">
                                         <del th:case="True">
-                                            <h th:text="${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h> ₺
+                                            <h th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h>
                                         </del>
                                     </span>
                                     </span>    <!-- when no sale delete it -->
@@ -306,7 +306,9 @@
 
                                     <tr>
                                         <td><h5>Price</h5></td>
-                                        <td><h5 th:text="${product.getPrice()} + ' ₺'"></h5></td>
+                                        <td>
+                                            <h5 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h5>
+                                        </td>
                                     </tr>
 
                                     <tr>
