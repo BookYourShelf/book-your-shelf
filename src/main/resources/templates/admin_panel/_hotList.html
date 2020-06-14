@@ -406,6 +406,9 @@
         for (i = 0; i < number_inputs.length; i++) {
             number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
         }
+        setTimeout(function () {
+            history.pushState(null, null, ' ');
+        }, 100);
 
     });
 
@@ -481,8 +484,6 @@
         }
     });
 
-    const category_div_id = 'category_dynamicdiv';
-    const subcategory_div_id = 'subcategory_dynamicdiv';
 
     $(document).on('change', '#new_hot_list_categories', function (event) {
         if ($(this).val() !== "SELECT") {
@@ -493,9 +494,9 @@
                 buildSubcategoriesDropdown(data, "new_hot_list_subcategories");
             });
         } else {
-            if (document.getElementById(subcategory_div_id)) {
+            if (document.getElementById('subcategory_dynamicdiv')) {
                 // delete div
-                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
                 document.getElementById("subcategory_row").style.display = "none";
             }
         }
@@ -503,14 +504,14 @@
 
     function buildSubcategoriesDropdown(data, subcategoryName) {
         if (data.length > 0) {
-            if (document.getElementById(subcategory_div_id)) {
+            if (document.getElementById('subcategory_dynamicdiv')) {
                 // delete div
-                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
                 document.getElementById("subcategory_row").style.display = "none";
             }
 
             var newdiv = document.createElement('div');
-            newdiv.id = subcategory_div_id;
+            newdiv.id = 'subcategory_dynamicdiv';
             var html = '<select id="new_hotList_subcategories" class=\"subcategory\" multiple=\"multiple\">';
             var len = data.length;
             for (var i = 0; i < len; i++) {
@@ -538,36 +539,36 @@
                 buildCategoriesDropdown(data, "new_hot_list_categories");
             });
         } else {
-            if (document.getElementById(category_div_id) != null) {
+            if (document.getElementById('category_dynamicdiv') != null) {
                 console.log("not null")
                 // delete div
-                document.getElementById("dynamic_category").removeChild(document.getElementById(category_div_id));
+                document.getElementById("dynamic_category").removeChild(document.getElementById('category_dynamicdiv'));
                 document.getElementById("category_row").style.display = "none";
             }
 
-            if (document.getElementById(subcategory_div_id)) {
+            if (document.getElementById('subcategory_dynamicdiv')) {
                 // delete div
-                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
                 document.getElementById("subcategory_row").style.display = "none";
             }
         }
     });
 
     function buildCategoriesDropdown(data, categoryName) {
-        if (document.getElementById(category_div_id) != null) {
+        if (document.getElementById('category_dynamicdiv') != null) {
             // delete div
-            document.getElementById("dynamic_category").removeChild(document.getElementById(category_div_id));
+            document.getElementById("dynamic_category").removeChild(document.getElementById('category_dynamicdiv'));
             document.getElementById("category_row").style.display = "none";
 
-            if (document.getElementById(subcategory_div_id)) {
+            if (document.getElementById('subcategory_dynamicdiv')) {
                 // delete div
-                document.getElementById("dynamic_subcategory").removeChild(document.getElementById(subcategory_div_id));
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
                 document.getElementById("subcategory_row").style.display = "none";
             }
         }
 
         var newdiv = document.createElement('div');
-        newdiv.id = category_div_id;
+        newdiv.id = 'category_dynamicdiv';
         var html = '<select id=\"new_hot_list_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
         var len = data.length;
 
