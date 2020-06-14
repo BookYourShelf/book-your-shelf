@@ -75,11 +75,12 @@ public class CampaignDetailsController {
                 if (campaign.getProductType() == Category.ProductType.BOOK || campaign.getProductType() == Category.ProductType.E_BOOK || campaign.getProductType() == Category.ProductType.AUDIO_BOOK) {
                     campaign.setSubcategories(campaignDetailsService.removeDiscount(campaign.getSubcategories()));
                     campaignDetailsService.save(campaign);
-                    List<Subcategory> subcategories = new ArrayList<>();
-                    for(Subcategory s : campaign.getSubcategories())
-                        subcategories.add(s);
+                    List<Subcategory> subcategories = new ArrayList<>(campaign.getSubcategories());
 
-
+                    for (Book book : campaign.getCategories().get(0).getBookSet()) {
+                        book.setDiscountRate(0);
+                        book.setOnDiscount(false);
+                    }
 
                     for (Subcategory subcategory : subcategories) {
                         subcategory.setInCampaign(false);

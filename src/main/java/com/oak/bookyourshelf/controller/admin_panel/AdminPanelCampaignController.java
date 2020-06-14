@@ -51,7 +51,7 @@ public class AdminPanelCampaignController {
     @RequestMapping(value = "/admin-panel/campaign/category", method = RequestMethod.GET)
     @ResponseBody
     public List<String> findAllCategories(@RequestParam String category) {
-        System.out.println("bbb");
+
         List<Category> categories = new ArrayList<>();
         List<String> result = new ArrayList<>();
         if (category.equals("BOOK")) {
