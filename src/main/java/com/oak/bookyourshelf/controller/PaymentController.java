@@ -104,14 +104,12 @@ public class PaymentController {
         updateBuyerUserIds(user);
         user.getShoppingCart().clear();
 
-        int counter = 0;
         Iterator<Order> iterator = user.getOrders().iterator();
         while (iterator.hasNext()) {
             Order o = iterator.next();
-            if (o.getOrderId() == order.getOrderId() && counter == 0) {
+            if (o.getOrderId() == order.getOrderId()) {
                 iterator.remove();
-                counter = 1;
-
+                break;
             }
         }
         user.getOrders().add(order);

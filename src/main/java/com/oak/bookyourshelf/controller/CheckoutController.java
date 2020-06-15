@@ -106,14 +106,12 @@ public class CheckoutController {
                     order.setBillingAddress(getSelectedAddress(user.getBillingAddresses(), billing_address).getOrderAddress());
                     order.setDeliveryAddress(getSelectedAddress(user.getDeliveryAddresses(), delivery_address).getOrderAddress());
 
-                    int counter = 0;
                     Iterator<Order> iterator = user.getOrders().iterator();
                     while (iterator.hasNext()) {
                         Order o = iterator.next();
-                        if (o.getOrderId() == order.getOrderId() && counter == 0) {
+                        if (o.getOrderId() == order.getOrderId()) {
                             iterator.remove();
-                            counter = 1;
-
+                            break;
                         }
                     }
                     user.getOrders().add(order);
