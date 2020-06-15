@@ -48,34 +48,6 @@ $('#siteTab a').click(function (e) {
         case "/admin-panel/coupon":
             url = "/admin-panel/coupon&size=10&page=1&sort=ID-desc";
             break;
-
-        case "/user-details/order":
-            url = "/user-details/order&size=10&page=1&sort=time-desc&payOptFilter=all&payStatFilter=all&orderStatFilter=all&delStatFilter=all&couponFilter=all";
-            break;
-
-        case "/user-details/review":
-            url = "/user-details/review&size=10&page=1&sort=date-desc&ratingFilter=all&titleFilter=all";
-            break;
-
-        case "/user-details/cart":
-            url = "/user-details/cart&size=10&page=1";
-            break;
-
-        case "/user-details/wish-list":
-            url = "/user-details/wish-list&size=10&page=1";
-            break;
-
-        case "/user-details/search":
-            url = "/user-details/search&size=10&page=1&sort=Total-Search-desc";
-            break;
-
-        case "/profile/order":
-            url = "/profile/order&size=10&page=1&sort=time-desc&payOptFilter=all&payStatFilter=all&orderStatFilter=all&delStatFilter=all&couponFilter=all";
-            break;
-
-        case "/profile/review":
-            url = "/profile/review&size=10&page=1&sort=date-desc&ratingFilter=all&titleFilter=all";
-            break;
     }
 
     $(href).load(url, function (result) {
