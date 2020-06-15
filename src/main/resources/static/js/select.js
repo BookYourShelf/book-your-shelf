@@ -19,6 +19,8 @@ $('#siteTab a').click(function (e) {
     var href = this.hash;
     var pane = $(this);
 
+    console.log(url);
+
     switch (url.split("?")[0]) {
 
         case "/admin-panel/user":
@@ -30,23 +32,31 @@ $('#siteTab a').click(function (e) {
             break;
 
         case "/admin-panel/category":
-            url = "/admin-panel/category&size=10&page=1&sort=ID-desc&filter=all";
+            url = "/admin-panel/category?size=10&page=1&sort=ID-desc&filter=all";
             break;
 
         case "/admin-panel/hotList":
-            url = "/admin-panel/hotList&size=10&page=1&sort=ID-desc&filter=all";
+            url = "/admin-panel/hotList?size=10&page=1&sort=ID-desc&filter=all";
             break;
 
         case "/admin-panel/campaign":
-            url = "/admin-panel/campaign&size=10&page=1&sort=ID-desc&filter=all";
+            url = "/admin-panel/campaign?size=10&page=1&sort=ID-desc&filter=all";
             break;
 
         case "/admin-panel/pending-order":
-            url = "/admin-panel/pending-order&size=10&page=1&sort=time-desc&optionFilter=all&statusFilter=all&couponFilter=all";
+            url = "/admin-panel/pending-order?size=10&page=1&sort=time-desc&optionFilter=all&statusFilter=all&couponFilter=all";
             break;
 
         case "/admin-panel/coupon":
-            url = "/admin-panel/coupon&size=10&page=1&sort=ID-desc";
+            url = "/admin-panel/coupon?size=10&page=1&sort=ID-desc";
+            break;
+
+        case "/profile/order":
+            url = "/profile/order?size=10&page=1&sort=time-desc&payOptFilter=all&payStatFilter=all&orderStatFilter=all&delStatFilter=all&couponFilter=all";
+            break;
+
+        case "/profile/review":
+            url = "/profile/review?size=10&page=1&sort=date-desc&ratingFilter=all&titleFilter=all";
             break;
     }
 
