@@ -23,22 +23,27 @@ public class ProfileOrderService {
     public List<Order> sortOrders(String sortType, int userId) {
         switch (sortType) {
             case "time-asc":
-                return profileOrderRepository.findByUserIdOrderByOrderDateAsc(userId);
+                return eliminateUnpayedOrders(profileOrderRepository.findByUserIdOrderByOrderDateAsc(userId));
 
             case "price-desc":
-                return profileOrderRepository.findByUserIdOrderByTotalAmountDesc(userId);
+                return eliminateUnpayedOrders(profileOrderRepository.findByUserIdOrderByTotalAmountDesc(userId));
 
             case "price-asc":
-                return profileOrderRepository.findByUserIdOrderByTotalAmountAsc(userId);
+                return eliminateUnpayedOrders(profileOrderRepository.findByUserIdOrderByTotalAmountAsc(userId));
 
             case "company-desc":
-                return profileOrderRepository.findByUserIdOrderByShippingCompanyDesc(userId);
+                return eliminateUnpayedOrders(profileOrderRepository.findByUserIdOrderByShippingCompanyDesc(userId));
 
             case "company-asc":
-                return profileOrderRepository.findByUserIdOrderByShippingCompanyAsc(userId);
+                return eliminateUnpayedOrders(profileOrderRepository.findByUserIdOrderByShippingCompanyAsc(userId));
 
             default:        // time-desc
-                return profileOrderRepository.findByUserIdOrderByOrderDateDesc(userId);
+                return eliminateUnpayedOrders(profileOrderRepository.findByUserIdOrderByOrderDateDesc(userId));
         }
+    }
+
+    public List<Order> eliminateUnpayedOrders(List<Order> orders) {
+        orders.removeIf(o -> o.getPaymentStatus() == Order.PaymentStatus.NULL);
+        return orders;
     }
 }
