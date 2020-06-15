@@ -48,6 +48,14 @@ $('#siteTab a').click(function (e) {
         case "/admin-panel/coupon":
             url = "/admin-panel/coupon&size=10&page=1&sort=ID-desc";
             break;
+
+        case "/profile/order":
+            url = "/profile/order&size=10&page=1&sort=time-desc&payOptFilter=all&payStatFilter=all&orderStatFilter=all&delStatFilter=all&couponFilter=all";
+            break;
+
+        case "/profile/review":
+            url = "/profile/review&size=10&page=1&sort=date-desc&ratingFilter=all&titleFilter=all";
+            break;
     }
 
     $(href).load(url, function (result) {

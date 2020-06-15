@@ -65,7 +65,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/profile/order(size=(${#request.getParameter('size')} ?: '10'),
                                                                 page=(${#request.getParameter('page')} ?: '1'),
                                                                 sort=(${#request.getParameter('sort')} ?: 'time-desc'),
                                                                 payOptFilter=(${#request.getParameter('payOptFilter')} ?: 'all'),
@@ -78,7 +78,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/profile/review(size=(${#request.getParameter('size')} ?: '10'),
                                                                 page=(${#request.getParameter('page')} ?: '1'),
                                                                 sort=(${#request.getParameter('sort')} ?: 'date-desc'),
                                                                 ratingFilter=(${#request.getParameter('ratingFilter')} ?: 'all'),
