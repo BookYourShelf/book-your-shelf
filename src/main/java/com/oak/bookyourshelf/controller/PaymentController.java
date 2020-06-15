@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -103,14 +104,17 @@ public class PaymentController {
         updateBuyerUserIds(user);
         user.getShoppingCart().clear();
 
-        Set<Order> orders = user.getOrders();
-        for (Order o : orders) {
-            if (o.getOrderId() == order.getOrderId()) {
-                orders.remove(o);
-                orders.add(order);
+        int counter = 0;
+        Iterator<Order> iterator = user.getOrders().iterator();
+        while (iterator.hasNext()) {
+            Order o = iterator.next();
+            if (o.getOrderId() == order.getOrderId() && counter == 0) {
+                iterator.remove();
+                counter = 1;
+
             }
         }
-        user.setOrders(orders); // TODO: check
+        user.getOrders().add(order);
 
         profileInformationService.save(user);
         order = null;

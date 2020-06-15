@@ -61,8 +61,7 @@ public class Order {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
+            fetch = FetchType.EAGER
     )
     private Set<CartItem> products;
 

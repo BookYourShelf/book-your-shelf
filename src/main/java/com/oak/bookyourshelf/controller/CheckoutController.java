@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -108,15 +106,17 @@ public class CheckoutController {
                     order.setBillingAddress(getSelectedAddress(user.getBillingAddresses(), billing_address).getOrderAddress());
                     order.setDeliveryAddress(getSelectedAddress(user.getDeliveryAddresses(), delivery_address).getOrderAddress());
 
-                    // Save updated order
-                    Set<Order> orders = user.getOrders();
-                    for (Order o : orders) {
-                        if (o.getOrderId() == order.getOrderId()) {
-                            orders.remove(o);
-                            orders.add(order);
+                    int counter = 0;
+                    Iterator<Order> iterator = user.getOrders().iterator();
+                    while (iterator.hasNext()) {
+                        Order o = iterator.next();
+                        if (o.getOrderId() == order.getOrderId() && counter == 0) {
+                            iterator.remove();
+                            counter = 1;
+
                         }
                     }
-                    user.setOrders(orders); // TODO: check
+                    user.getOrders().add(order);
                     profileInformationService.save(user);
 
                 } else if (billing_address == null) {
