@@ -62,13 +62,13 @@ public class ProductDetailsInformationController {
             case "update":
                 switch (productType) {
                     case "book":
-                        return bookBarcodeAndISBNCheck(physicalBook, lists, product, category_name, subcategory_name);
+                        return bookBarcodeAndISBNCheck(physicalBook, lists, (Book) product, category_name, subcategory_name);
 
                     case "ebook":
-                        return bookBarcodeAndISBNCheck(electronicBook, lists, product, category_name, subcategory_name);
+                        return bookBarcodeAndISBNCheck(electronicBook, lists, (Book) product, category_name, subcategory_name);
 
                     case "audio_book":
-                        return bookBarcodeAndISBNCheck(audioBook, lists, product, category_name, subcategory_name);
+                        return bookBarcodeAndISBNCheck(audioBook, lists, (Book) product, category_name, subcategory_name);
 
                     case "ebook_reader":
                         return productBarcodeCheck(electronicBookReader, product);
@@ -98,12 +98,21 @@ public class ProductDetailsInformationController {
         remindProduct(newProduct, oldProduct);
         productDetailsInformationService.save(oldProduct);
 
-        newProduct = copyProduct(oldProduct, newProduct);
-        productDetailsInformationService.save(newProduct);
+        copyProduct(oldProduct, newProduct);
+        productDetailsInformationService.save(oldProduct);
         return ResponseEntity.ok("");
     }
 
-    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book newProduct, String lists, Product oldProduct, String categoryName, String subcategoryName)
+    void copyProduct(Product oldProduct, Product newProduct) {
+        oldProduct.setProductName(newProduct.getProductName());
+        oldProduct.setBarcode(newProduct.getBarcode());
+        oldProduct.setStock(newProduct.getStock());
+        oldProduct.setPrice(newProduct.getPrice());
+        oldProduct.setShortDesc(newProduct.getShortDesc());
+        oldProduct.setLongDesc(newProduct.getLongDesc());
+    }
+
+    public ResponseEntity<String> bookBarcodeAndISBNCheck(Book newProduct, String lists, Book oldProduct, String categoryName, String subcategoryName)
             throws JsonProcessingException {
 
         // Add lists to product
@@ -111,10 +120,10 @@ public class ProductDetailsInformationController {
         Category category;
         Subcategory subcategory;
         Map<String, ArrayList<String>> map = mapper.readValue(lists, Map.class);
-        newProduct.setPublishers(AdminPanelProductController.trimList(map.get("publishers")));
-        newProduct.setTranslators(AdminPanelProductController.trimList(map.get("translators")));
-        newProduct.setAuthors(AdminPanelProductController.trimList(map.get("authors")));
-        newProduct.setKeywords(AdminPanelProductController.trimList(map.get("keywords")));
+        oldProduct.setPublishers(AdminPanelProductController.trimList(map.get("publishers")));
+        oldProduct.setTranslators(AdminPanelProductController.trimList(map.get("translators")));
+        oldProduct.setAuthors(AdminPanelProductController.trimList(map.get("authors")));
+        oldProduct.setKeywords(AdminPanelProductController.trimList(map.get("keywords")));
 
         Product barcodeDb = productDetailsInformationService.getByBarcode(newProduct.getBarcode());
         if (barcodeDb != null && oldProduct.getProductId() != barcodeDb.getProductId()) {
@@ -130,32 +139,34 @@ public class ProductDetailsInformationController {
 //        productDetailsInformationService.save(oldProduct);
 
         category = adminPanelCategoryService.getByName(categoryName);
-        newProduct.setCategory(category);
+        oldProduct.setCategory(category);
         // TODO: category books add?
 
         if (!subcategoryName.equals("") && !subcategoryName.equals("-")) {      // subcategory selected
             subcategory = adminPanelCategoryService.getSubcategory(category, subcategoryName);
-            newProduct.setSubcategory(subcategory);
-            subcategory.getBooks().add(newProduct);
+            oldProduct.setSubcategory(subcategory);
+            subcategory.getBooks().add(oldProduct);
             // TODO: subcategory books add?
         }
 
-        newProduct = (Book) copyProduct(oldProduct, newProduct);
-        productDetailsInformationService.save(newProduct);
+        copyBook(oldProduct, newProduct);
+        productDetailsInformationService.save(oldProduct);
         return ResponseEntity.ok("");
     }
 
-    public Product copyProduct(Product oldProduct, Product newProduct) {
-        newProduct.setProductId(oldProduct.getProductId());
-        newProduct.setSalesNum(oldProduct.getSalesNum());
-        newProduct.setTotalStarNum(oldProduct.getTotalStarNum());
-        newProduct.setDiscountRate(oldProduct.getDiscountRate());
-        newProduct.setOnDiscount(oldProduct.isOnDiscount());
-        newProduct.setUploadDate(oldProduct.getUploadDate());
-        newProduct.setBuyerUserIds(oldProduct.getBuyerUserIds());
-        newProduct.setReviews(oldProduct.getReviews());
-        newProduct.setImages(oldProduct.getImages());
-        return newProduct;
+    public void copyBook(Book oldProduct, Book newProduct) {
+        oldProduct.setProductName(newProduct.getProductName());
+        oldProduct.setBarcode(newProduct.getBarcode());
+        oldProduct.setStock(newProduct.getStock());
+        oldProduct.setPrice(newProduct.getPrice());
+        oldProduct.setLanguage(newProduct.getLanguage());
+        oldProduct.setIsbn(newProduct.getIsbn());
+        oldProduct.setAuthors(newProduct.getAuthors());
+        oldProduct.setTranslators(newProduct.getTranslators());
+        oldProduct.setPublishers(newProduct.getPublishers());
+        oldProduct.setKeywords(newProduct.getKeywords());
+        oldProduct.setShortDesc(newProduct.getShortDesc());
+        oldProduct.setLongDesc(newProduct.getLongDesc());
     }
 
     public void remindProduct(Product newProduct, Product oldProduct) {

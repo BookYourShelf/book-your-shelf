@@ -41,7 +41,9 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin-panel/**").hasRole("ADMIN")
                 .antMatchers("/profile/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/", "/login*", "/register*", "/static/**", "/forgot-password*", "/new-password*",
-                        "/privacy_policy", "/membership", "/product/*", "/search-result*", "/header").permitAll()
+                        "/privacy_policy", "/membership", "/product/*", "/search-result*", "/header", "/books",
+                        "/ebooks", "/audiobooks", "/category/*", "/subcategory/*", "/bookcases", "/campaign/*",
+                        "/ebookreaders", "/ebookreadercases", "/hotlist/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

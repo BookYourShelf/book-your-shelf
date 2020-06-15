@@ -65,7 +65,7 @@
                             </div>
                             <select name="new_hot_list_type" id="new_hot_list_type"
                                     class="dropdown_item_select checkout_input"
-                                    require="required" th:field="${hotList.hotListType}">
+                                    required="required" th:field="${hotList.hotListType}">
                                 <option value="">Select Hot List Type</option>
                                 <option value="BEST_SELLERS">Best Sellers</option>
                                 <option value="NEW_RELEASES">New Releases</option>
@@ -457,7 +457,8 @@
         };
 
 
-        if (validation_check(["new_hot_list_product_number", "new_hot_list_start_date", "new_hot_list_end_date", "new_hot_list_start_time", "new_hot_list_end_time"])) {
+        if (validation_check(["category_product_type", "new_hot_list_type", "new_hot_list_product_number",
+            "new_hot_list_start_date", "new_hot_list_end_date", "new_hot_list_start_time", "new_hot_list_end_time"])) {
             event.preventDefault();
             $.post("/admin-panel/hotList", ret, function (data) {
                 iziToast.show({
