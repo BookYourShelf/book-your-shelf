@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    
+
     <title th:text="${mainProduct.getProductName() + ' vs ' + comparedProduct.getProductName() + ' | Book Your Shelf'}"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,6 @@
     <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/flexslider/flexslider.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/product.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/styles/product_responsive.css}">
@@ -82,10 +81,10 @@
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image">
+                                    <div class="product_image vertical_center">
                                         <a th:href="@{'/product/' + ${mainProduct.productId}}">
-                                        <img alt="" class="product_image_img"
-                                             th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/></a>
+                                            <img alt="" class="product_image_img"
+                                                 th:src="|data:image/png;base64,${mainProduct.getEncodedCoverImage()}|"/></a>
                                     </div>
                                 </div>
                                 <br>
@@ -93,9 +92,10 @@
                             </th>
                             <th style="width: 40.0%">
                                 <div>
-                                    <div class="product_image">
-                                        <a th:href="@{'/product/' + ${comparedProduct.productId}}"><img alt="" class="product_image_img"
-                                                                                                th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/></a>
+                                    <div class="product_image vertical_center">
+                                        <a th:href="@{'/product/' + ${comparedProduct.productId}}"><img alt=""
+                                                                                                        class="product_image_img"
+                                                                                                        th:src="|data:image/png;base64,${comparedProduct.getEncodedCoverImage()}|"/></a>
                                     </div>
                                 </div>
                                 <br>
@@ -105,36 +105,36 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">Stars</th>
+                            <th scope="row">Rating</th>
                             <td>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${mainProduct.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${mainProduct.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${mainProduct.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${mainProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${mainProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${mainProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <div class="product_reviews">
+                                <div>
                                     <h th:text="${mainProduct.getScoreOutOf5()}"></h>
                                     out of
                                     <h th:text="${mainProduct.getStarNum()}"></h>
                                 </div>
                             </td>
                             <td>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${comparedProduct.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${comparedProduct.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${comparedProduct.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${comparedProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <i class="summary_star fa"
+                                <i class="summary_star no_hover fa"
                                    th:classappend="${comparedProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${comparedProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
-                                <div class="product_reviews">
+                                <div>
                                     <h th:text="${comparedProduct.getScoreOutOf5()}"></h>
                                     out of
                                     <h th:text="${comparedProduct.getStarNum()}"></h>
@@ -143,8 +143,8 @@
                         </tr>
                         <tr>
                             <th scope="row">Price</th>
-                            <td th:text="${'₺' + mainProduct.getPrice()}"></td>
-                            <td th:text="${'₺' + comparedProduct.getPrice()}"></td>
+                            <td th:text="${'₺' + #numbers.formatDecimal(mainProduct.getPrice(), 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${'₺' + #numbers.formatDecimal(comparedProduct.getPrice(), 0, 'COMMA', 2, 'POINT')}"></td>
                         </tr>
 
 
@@ -582,6 +582,8 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
 
         <!-- Footer -->
         <footer class="footer" th:insert="fragments/footer.html"></footer>
@@ -601,16 +603,10 @@
 <script th:src="@{/static/plugins/easing/easing.js}"></script>
 <script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
 <script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
-<script th:src="@{/static/plugins/flexslider/jquery/flexslider.min.js}"></script>
 <script th:src="@{/static/js/classy-nav.min.js}"></script>
-<script th:src="@{/static/js/product.js}"></script>
 <script th:src="@{/static/js/active.js}"></script>
 <script th:src="@{/static/js/input-mask.js}"></script>
 <script th:src="@{/static/js/jquery.mask.js}"></script>
 
-
 </body>
 </html>
-
-
-

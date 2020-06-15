@@ -1598,3 +1598,9 @@ section {
     overflow: hidden;
     white-space: nowrap;
 }
+
+.vertical_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

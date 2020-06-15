@@ -38,10 +38,38 @@
                 <div class="col">
                     <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
                         <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
-                            <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                            <span th:if="${product.getProductTypeName() == 'Book'}">
                                 <ul class="d-flex flex-row align-items-start justify-content-start text-center">
                                     <li><a th:href="@{/}">Home</a></li>
-                                    <li th:text="${product.getProductTypeName()}"></li>
+                                    <li><a th:text="${product.getProductTypeName()}" th:href="@{/books}"></a></li>
+                                    <li><a th:href="@{/category/{id}(id=${categoryBreadcrumb.getId()})}"
+                                           th:text="${categoryBreadcrumb.getName()}"></a></li>
+                                    <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
+                                        <a th:href="@{/subcategory/{id}(id=${subcategory.getId()})}"
+                                           th:text="${subcategory.getName()}"></a>
+                                    </li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}" th:href="@{/ebooks}"></a></li>
+                                    <li><a th:href="@{/category/{id}(id=${categoryBreadcrumb.getId()})}"
+                                           th:text="${categoryBreadcrumb.getName()}"></a></li>
+                                    <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
+                                        <a th:href="@{/subcategory/{id}(id=${subcategory.getId()})}"
+                                           th:text="${subcategory.getName()}"></a>
+                                    </li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'Audio Book'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}" th:href="@{/audiobooks}"></a></li>
                                     <li><a th:href="@{/category/{id}(id=${categoryBreadcrumb.getId()})}"
                                            th:text="${categoryBreadcrumb.getName()}"></a></li>
                                     <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
