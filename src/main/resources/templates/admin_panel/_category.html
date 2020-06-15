@@ -34,10 +34,9 @@
                                 class="dropdown_item_select checkout_input"
                                 required="required" th:field="*{productType}">
                             <option value="">Select Product Type</option>
-                            <option th:each="category : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
-                                    th:value="${category}"
-                                    th:text="#{${'category.' + category}}">productType
-                            </option>
+                            <option value="BOOK">Book</option>
+                            <option value="E_BOOK">E-Book</option>
+                            <option value="AUDIO_BOOK">Audio Book</option>
                         </select>
                     </div>
 
