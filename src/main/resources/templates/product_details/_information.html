@@ -1018,7 +1018,7 @@
                                     </div>
                                     <select name="category" id="book_category_input" th:field="*{category}"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            required="required" disabled>
                                         <option th:each="category : ${categoryService.getAllByCategory('Book')}"
                                                 th:value="${category.getId()}"
                                                 th:text="${category.getName()}">category
@@ -1032,7 +1032,7 @@
                                     </div>
                                     <select name="subcategory" id="book_subcategory_input" th:field="*{subcategory}"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            required="required" disabled>
                                          <option value="">-</option>
                                          <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
                                                  th:value="${subcategory.getId()}"
@@ -1290,7 +1290,7 @@
                                     </div>
                                     <select name="category" id="ebook_category_input" th:field="*{category}"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            required="required" disabled>
                                         <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
                                                 th:value="${category.getId()}"
                                                 th:text="${category.getName()}">category
@@ -1304,7 +1304,7 @@
                                     </div>
                                     <select name="subcategory" id="ebook_subcategory_input" th:field="*{subcategory}"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            required="required" disabled>
                                         <option value="">-</option>
                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
                                                 th:value="${subcategory.getId()}"
@@ -1501,7 +1501,7 @@
                                     </div>
                                     <select name="category" id="audiobook_category_select" th:field="*{category}"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            required="required" disabled>
                                         <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
                                                 th:value="${category.getId()}"
                                                 th:text="${category.getName()}">category
@@ -1516,7 +1516,7 @@
                                     <select name="subcategory" id="audiobook_subcategory_select"
                                             th:field="*{subcategory}"
                                             class="dropdown_item_select checkout_input"
-                                            required="required">
+                                            required="required" disabled>
                                         <option value="">-</option>
                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
                                                 th:value="${subcategory.getId()}"
