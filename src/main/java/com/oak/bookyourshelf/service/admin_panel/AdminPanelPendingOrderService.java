@@ -34,34 +34,39 @@ public class AdminPanelPendingOrderService {
     public List<Order> sortOrders(String sortType, Order.OrderStatus orderStatus) {
         switch (sortType) {
             case "time-asc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderDateAsc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderDateAsc(orderStatus));
 
             case "ID-desc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByUserIdDesc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByUserIdDesc(orderStatus));
 
             case "ID-asc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByUserIdAsc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByUserIdAsc(orderStatus));
 
             case "code-desc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeDesc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeDesc(orderStatus));
 
             case "code-asc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeAsc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderCodeAsc(orderStatus));
 
             case "price-desc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByTotalAmountDesc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByTotalAmountDesc(orderStatus));
 
             case "price-asc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByTotalAmountAsc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByTotalAmountAsc(orderStatus));
 
             case "company-desc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByShippingCompanyDesc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByShippingCompanyDesc(orderStatus));
 
             case "company-asc":
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByShippingCompanyAsc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByShippingCompanyAsc(orderStatus));
 
             default:        // time-desc
-                return adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderDateDesc(orderStatus);
+                return eliminateUnpayedOrders(adminPanelPendingOrderRepository.findByOrderStatusOrderByOrderDateDesc(orderStatus));
         }
+    }
+
+    public List<Order> eliminateUnpayedOrders(List<Order> orders) {
+        orders.removeIf(o -> o.getPaymentStatus() == Order.PaymentStatus.NULL);
+        return orders;
     }
 }

@@ -30,28 +30,33 @@ public class UserDetailsOrderService {
     public List<Order> sortOrders(String sortType, int userId) {
         switch (sortType) {
             case "time-asc":
-                return userDetailsOrderRepository.findByUserIdOrderByOrderDateAsc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByOrderDateAsc(userId));
 
             case "code-desc":
-                return userDetailsOrderRepository.findByUserIdOrderByOrderCodeDesc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByOrderCodeDesc(userId));
 
             case "code-asc":
-                return userDetailsOrderRepository.findByUserIdOrderByOrderCodeAsc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByOrderCodeAsc(userId));
 
             case "price-desc":
-                return userDetailsOrderRepository.findByUserIdOrderByTotalAmountDesc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByTotalAmountDesc(userId));
 
             case "price-asc":
-                return userDetailsOrderRepository.findByUserIdOrderByTotalAmountAsc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByTotalAmountAsc(userId));
 
             case "company-desc":
-                return userDetailsOrderRepository.findByUserIdOrderByShippingCompanyDesc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByShippingCompanyDesc(userId));
 
             case "company-asc":
-                return userDetailsOrderRepository.findByUserIdOrderByShippingCompanyAsc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByShippingCompanyAsc(userId));
 
             default:        // time-desc
-                return userDetailsOrderRepository.findByUserIdOrderByOrderDateDesc(userId);
+                return eliminateUnpayedOrders(userDetailsOrderRepository.findByUserIdOrderByOrderDateDesc(userId));
         }
+    }
+
+    public List<Order> eliminateUnpayedOrders(List<Order> orders) {
+        orders.removeIf(o -> o.getPaymentStatus() == Order.PaymentStatus.NULL);
+        return orders;
     }
 }
