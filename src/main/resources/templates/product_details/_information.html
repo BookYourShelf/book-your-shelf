@@ -1067,7 +1067,8 @@
                                     </div>
                                     <input type="text" id="book_published_year_input" th:field="*{publishedYear}"
                                            th:value="${product.getPublishedYear()}"
-                                           class="checkout_input form-control" pattern="[1-2][0-9]{3}"
+                                           class="checkout_input form-control"
+                                           pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
                                            placeholder="Published Year" required="required">
                                 </div>
                                 <div class="col-md-4">
@@ -1319,7 +1320,8 @@
                                     </div>
                                     <input type="text" id="ebook_published_year_input" th:field="*{publishedYear}"
                                            th:value="${product.getPublishedYear()}"
-                                           class="checkout_input form-control" pattern="[1-2][0-9]{3}"
+                                           class="checkout_input form-control"
+                                           pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
                                            placeholder="Published Year" required="required">
                                 </div>
                                 <div class="col-md-4">
@@ -1529,7 +1531,8 @@
                                     </div>
                                     <input type="text" id="audiobook_published_year_input" th:field="*{publishedYear}"
                                            th:value="${product.getPublishedYear()}"
-                                           class="checkout_input form-control" pattern="[1-2][0-9]{3}"
+                                           class="checkout_input form-control"
+                                           pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
                                            placeholder="Published Year" required="required">
                                 </div>
                                 <div class="col-md-4">

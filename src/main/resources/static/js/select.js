@@ -19,6 +19,37 @@ $('#siteTab a').click(function (e) {
     var href = this.hash;
     var pane = $(this);
 
+    switch (url.split("?")[0]) {
+
+        case "/admin-panel/user":
+            url = "/admin-panel/user?size=10&page=1&sort=ID-desc";
+            break;
+
+        case "/admin-panel/product":
+            url = "/admin-panel/product?size=3&page=1&sort=date-desc&filter=all";
+            break;
+
+        case "/admin-panel/category":
+            url = "/admin-panel/category&size=10&page=1&sort=ID-desc&filter=all";
+            break;
+
+        case "/admin-panel/hotList":
+            url = "/admin-panel/hotList&size=10&page=1&sort=ID-desc&filter=all";
+            break;
+
+        case "/admin-panel/campaign":
+            url = "/admin-panel/campaign&size=10&page=1&sort=ID-desc&filter=all";
+            break;
+
+        case "/admin-panel/pending-order":
+            url = "/admin-panel/pending-order&size=10&page=1&sort=time-desc&optionFilter=all&statusFilter=all&couponFilter=all";
+            break;
+
+        case "/admin-panel/coupon":
+            url = "/admin-panel/coupon&size=10&page=1&sort=ID-desc";
+            break;
+    }
+
     $(href).load(url, function (result) {
         pane.tab('show');
     });
@@ -31,6 +62,7 @@ $(window).on("hashchange", function () {
         menu_item$ = tabs$.filter('[href="' + hash + '"]');
 
     var url = menu_item$.attr("data-url");
+    console.log(url);
     if (hash) {
         $(hash).load(url, function (result) {
             menu_item$.tab("show");

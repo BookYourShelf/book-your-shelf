@@ -63,7 +63,7 @@
                 <ul class="nav nav-tabs justify-content-center" id="siteTab">
                     <li class="nav-item">
                         <a class="nav-link active profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/user(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/admin-panel/user(size=(${#request.getParameter('size')} ?: '10'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
                            th:href="@{#user}">Users</a>
@@ -71,7 +71,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/product(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/admin-panel/product(size=(${#request.getParameter('size')} ?: '10'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
                                                                     sort=(${#request.getParameter('sort')} ?: 'date-desc'),
                                                                     filter=(${#request.getParameter('filter')} ?: 'all'))}"
@@ -80,7 +80,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '10'),
                                                                      page=(${#request.getParameter('page')} ?: '1'),
                                                                      sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
                                                                      filter=(${#request.getParameter('filter')} ?: 'all'))}"
@@ -89,7 +89,7 @@
 
                     <li class="nav-item">
 
-                        <a class="nav-link profile-navbar-text" th:attr="data-url=@{/admin-panel/hotList(size=(${#request.getParameter('size')} ?: '3'),
+                        <a class="nav-link profile-navbar-text" th:attr="data-url=@{/admin-panel/hotList(size=(${#request.getParameter('size')} ?: '10'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
                                                                     filter=(${#request.getParameter('filter')} ?: 'all'))}"
@@ -98,7 +98,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/campaign(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/admin-panel/campaign(size=(${#request.getParameter('size')} ?: '10'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
                                                                     filter=(${#request.getParameter('filter')} ?: 'all'))}"
@@ -107,7 +107,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/pending-order(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/admin-panel/pending-order(size=(${#request.getParameter('size')} ?: '10'),
                                                                             page=(${#request.getParameter('page')} ?: '1'),
                                                                             sort=(${#request.getParameter('sort')} ?: 'time-desc'),
                                                                             optionFilter=(${#request.getParameter('optionFilter')} ?: 'all'),
@@ -118,7 +118,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link profile-navbar-text"
-                           th:attr="data-url=@{/admin-panel/coupon(size=(${#request.getParameter('size')} ?: '3'),
+                           th:attr="data-url=@{/admin-panel/coupon(size=(${#request.getParameter('size')} ?: '10'),
                                                                     page=(${#request.getParameter('page')} ?: '1'),
                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
                            th:href="@{#coupon}">Coupons</a>
