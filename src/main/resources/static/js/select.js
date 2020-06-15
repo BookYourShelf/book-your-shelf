@@ -51,6 +51,36 @@ $('#siteTab a').click(function (e) {
             url = "/admin-panel/coupon?size=10&page=1&sort=ID-desc";
             break;
 
+        case "/user-details/order":
+            var url_ = new URL("https://localhost:8443" + url);
+            var id = url_.searchParams.get("id");
+            url = "/user-details/order?id=" + id + "&size=10&page=1&sort=time-desc&payOptFilter=all&payStatFilter=all&orderStatFilter=all&delStatFilter=all&couponFilter=all";
+            break;
+
+        case "/user-details/review":
+            var url_ = new URL("https://localhost:8443" + url);
+            var id = url_.searchParams.get("id");
+            url = "/user-details/review?id=" + id + "&size=10&page=1&sort=date-desc&ratingFilter=all&titleFilter=all";
+            break;
+
+        case "/user-details/cart":
+            var url_ = new URL("https://localhost:8443" + url);
+            var id = url_.searchParams.get("id");
+            url = "/user-details/cart?id=" + id + "&size=10&page=1";
+            break;
+
+        case "/user-details/wish-list":
+            var url_ = new URL("https://localhost:8443" + url);
+            var id = url_.searchParams.get("id");
+            url = "/user-details/wish-list?id=" + id + "&size=10&page=1";
+            break;
+
+        case "/user-details/search":
+            var url_ = new URL("https://localhost:8443" + url);
+            var id = url_.searchParams.get("id");
+            url = "/user-details/search?id=" + id + "&size=10&page=1&sort=Total-Search-desc";
+            break;
+
         case "/profile/order":
             url = "/profile/order?size=10&page=1&sort=time-desc&payOptFilter=all&payStatFilter=all&orderStatFilter=all&delStatFilter=all&couponFilter=all";
             break;
