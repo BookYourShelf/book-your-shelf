@@ -48,6 +48,11 @@ public class CategoryDetailsSubcategoryController {
     @ResponseBody
     public ResponseEntity<String> categoryUpdate(String name, @PathVariable int id) {
         Category category = categoryDetailsInformationService.get(id);
+        for (Subcategory sub : category.getSubcategories()) {
+            if (sub.getName().equals(name)) {
+                return ResponseEntity.badRequest().body("There is a subcategory named " + name + " in " + category.getName());
+            }
+        }
         Subcategory subcategory = new Subcategory();
         subcategory.setName(name);
         subcategory.setProductType(category.getProductType());
