@@ -10,7 +10,8 @@
     </parent>
     <groupId>com.oak</groupId>
     <artifactId>bookyourshelf</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>jar</packaging>
     <name>BookYourShelf</name>
     <description>BookYourShelf: Online Book Store</description>
 
@@ -81,6 +82,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <addResources>true</addResources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
