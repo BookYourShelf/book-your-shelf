@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 
 public class Globals {
 
-    public static int PAGINATION = 3;
+    public static int PAGINATION = 10;
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int ORDER_CODE_LENGTH = 8;
     public static final Map<String, String> productTypeNames = Map.ofEntries(
