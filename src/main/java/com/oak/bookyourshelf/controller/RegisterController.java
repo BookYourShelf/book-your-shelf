@@ -42,7 +42,7 @@ public class RegisterController {
 //            model.addAttribute("name", user.getName());
 //            model.addAttribute("surname", user.getSurname());
 //            model.addAttribute("email", user.getEmail());
-            return "/register";
+            return "register";
         }
         String pw = user.getPassword();
         user.setPassword(passwordEncoder.encode(user.getPassword()));

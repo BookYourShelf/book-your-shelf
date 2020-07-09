@@ -50,7 +50,7 @@ public class CartController {
         model.addAttribute("user", user);
         model.addAttribute("cartItems", user.getShoppingCart());
         model.addAttribute("coupons", couponDetailsService.listAll());
-        return "/cart";
+        return "cart";
     }
 
     @RequestMapping(value = "/cart/coupon", method = RequestMethod.GET)

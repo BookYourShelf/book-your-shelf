@@ -241,7 +241,7 @@ public class AudioBooksController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/audiobooks";
+        return "audiobooks";
     }
 
     private void sortBooks(List<Book> books, String sort) {

@@ -28,7 +28,7 @@ public class UserDetailsMessageController {
         message.setReceivers(receiver);
         model.addAttribute("PersonalMessage", message);
 
-        return "/user_details/_message";
+        return "user_details/_message";
     }
 
     @RequestMapping(value = "/user-details/message/{id}", method = RequestMethod.POST)

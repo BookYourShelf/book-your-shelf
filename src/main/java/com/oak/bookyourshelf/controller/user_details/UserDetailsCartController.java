@@ -31,6 +31,6 @@ public class UserDetailsCartController {
         User user = userDetailsInformationService.get(id);
         Globals.getPageNumbers(page, size, new ArrayList<>(user.getShoppingCart()), model, "cartPage");
         model.addAttribute("user", user);
-        return "/user_details/_cart";
+        return "user_details/_cart";
     }
 }

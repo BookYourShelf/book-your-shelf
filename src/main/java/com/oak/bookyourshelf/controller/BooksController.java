@@ -241,7 +241,7 @@ public class BooksController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/books";
+        return "books";
     }
 
     private void sortBooks(List<Book> books, String sort) {

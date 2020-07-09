@@ -260,7 +260,7 @@ public class CampaignController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/campaign";
+        return "campaign";
     }
 
     private void sortBooks(List<Book> books, String sort) {

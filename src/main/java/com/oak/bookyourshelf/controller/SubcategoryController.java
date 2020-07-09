@@ -257,7 +257,7 @@ public class SubcategoryController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/subcategory";
+        return "subcategory";
     }
 
     private void sortBooks(List<Book> books, String sort) {

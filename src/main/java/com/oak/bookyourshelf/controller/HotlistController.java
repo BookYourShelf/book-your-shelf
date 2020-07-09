@@ -243,7 +243,7 @@ public class HotlistController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/hotlist";
+        return "hotlist";
     }
 
     private void sortBooks(List<Book> books, String sort) {

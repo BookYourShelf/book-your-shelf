@@ -52,7 +52,7 @@ public class CheckoutController {
         List<Address> userDelivery = user.getDeliveryAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
         model.addAttribute("allDeliveryAddress", userDelivery);
         model.addAttribute("allBillingAddress", userBilling);
-        return "/checkout";
+        return "checkout";
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)

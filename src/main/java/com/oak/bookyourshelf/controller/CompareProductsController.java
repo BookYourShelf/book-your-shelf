@@ -34,6 +34,6 @@ public class CompareProductsController {
 
         model.addAttribute("compareProductService",compareProductsService);
 
-        return "/compare";
+        return "compare";
     }
 }

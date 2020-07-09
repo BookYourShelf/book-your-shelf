@@ -37,7 +37,7 @@ public class UserDetailsAddressController {
         List<Address> userDelivery = user.getDeliveryAddresses().stream().sorted(Comparator.comparing(Address::getTime).reversed()).collect(Collectors.toList());
         model.addAttribute("allDeliveryAddress", userDelivery);
         model.addAttribute("allBillingAddress", userBilling);
-        return "/user_details/_address";
+        return "user_details/_address";
     }
 
     @RequestMapping(value = "/user-details/address/{id}", method = RequestMethod.POST)

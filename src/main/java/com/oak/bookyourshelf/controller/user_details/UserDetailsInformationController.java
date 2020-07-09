@@ -25,7 +25,7 @@ public class UserDetailsInformationController {
         User user = userDetailsInformationService.get(id);
         model.addAttribute("user", user);
 
-        return "/user_details/_information";
+        return "user_details/_information";
     }
 
     @RequestMapping(value = "/user-details/information/{id}", method = RequestMethod.POST)

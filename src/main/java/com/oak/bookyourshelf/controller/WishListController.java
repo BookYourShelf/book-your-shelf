@@ -37,7 +37,7 @@ public class WishListController {
         User user = profileInformationService.getByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("wishListProducts", user.getWishList());
-        return "/wish-list";
+        return "wish-list";
     }
 
     @RequestMapping(value = "/wish-list", method = RequestMethod.POST)

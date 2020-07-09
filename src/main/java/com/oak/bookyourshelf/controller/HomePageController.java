@@ -88,7 +88,7 @@ public class HomePageController {
             model.addAttribute("allProductsSize", ((List<Product>) productService.getAllProduct()).size());
         }
         model.addAttribute("compareProductsService", compareProductsService);
-        return "/index";
+        return "index";
     }
 
 

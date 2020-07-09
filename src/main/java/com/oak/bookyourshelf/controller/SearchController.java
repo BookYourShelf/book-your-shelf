@@ -271,7 +271,7 @@ public class SearchController {
         model.addAttribute("maxPrice", maxP);
         model.addAttribute("searchValue", search);
 
-        return "/search-result";
+        return "search-result";
     }
 
     private void sortBooks(List<Book> books, String sort) {

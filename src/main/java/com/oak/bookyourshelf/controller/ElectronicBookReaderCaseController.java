@@ -231,7 +231,7 @@ public class ElectronicBookReaderCaseController {
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
 
-        return "/ebookreadercase";
+        return "ebookreadercase";
     }
 
     private void sortProducts(List<ElectronicBookReaderCase> products, String sort) {

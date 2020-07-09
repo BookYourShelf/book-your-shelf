@@ -31,6 +31,6 @@ public class UserDetailsWishListController {
         User user = userDetailsInformationService.get(id);
         Globals.getPageNumbers(page, size, new ArrayList<>(user.getWishList()), model, "wishListPage");
         model.addAttribute("user", user);
-        return "/user_details/_wish-list";
+        return "user_details/_wish-list";
     }
 }

@@ -236,7 +236,7 @@ public class CategoryController {
         model.addAttribute("stars", starCount);
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
-        return "/category";
+        return "category";
     }
 
     private void sortBooks(List<Book> books, String sort) {

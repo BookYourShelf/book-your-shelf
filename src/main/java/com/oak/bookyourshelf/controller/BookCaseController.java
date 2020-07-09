@@ -193,7 +193,7 @@ public class BookCaseController {
         model.addAttribute("minPrice", minP);
         model.addAttribute("maxPrice", maxP);
 
-        return "/bookcase";
+        return "bookcase";
     }
 
     private void sortProducts(List<BookCase> products, String sort) {
