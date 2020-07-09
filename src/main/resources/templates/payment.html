@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Payment | Book Your Shelf</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/payment.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/cart}">Your Cart</a></li>
+                                <li><a th:href="@{/checkout}">Checkout</a></li>
+                                <li style="color: #fbaa1d">Payment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="container m-45-btm">
+            <div class="row">
+                <aside class="col-md-1"></aside>
+                <aside class="col-md-10">
+                    <article class="billing">
+                        <div class="card-body">
+                            <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+                                <li class="nav-item col-md-4 p-all-0 payment_option_li">
+                                    <a class="nav-link active accent-color" data-toggle="pill" href="#nav-tab-card">
+                                        <i class="tab_icons fa fa-credit-card"></i> Bank-Credit-PTT Card</a></li>
+                                <li class="nav-item col-md-4 p-all-0 payment_option_li">
+                                    <a class="nav-link accent-color" data-toggle="pill" href="#nav-tab-paypal">
+                                        <i class="tab_icons fa fa-paypal"></i> PayPal</a></li>
+                                <li class="nav-item col-md-4 p-all-0 payment_option_li">
+                                    <a class="nav-link accent-color" data-toggle="pill" href="#nav-tab-bank">
+                                        <i class="tab_icons fa fa-university"></i> Bank Transfer</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="nav-tab-card">
+                                    <p class="alert alert-success d-none">Some text success or error</p>
+                                    <br>
+                                    <form role="form" action="#" method="post">
+                                        <div class="form-group">
+                                            <label>Full Name On the Card</label>
+                                            <input id="name" type="text" class="checkout_input form-control" name="name"
+                                                   required="required" pattern="^[a-zA-Z]{3,}((\s)[a-zA-Z]{3,})+"
+                                                   placeholder="Name Surname">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Card Number</label>
+                                            <div class="input-group">
+                                                <input id="credit_number" type="text"
+                                                       class="checkout_input form-control credit-card"
+                                                       name="card-number" pattern=".{19}"
+                                                       required="required">
+                                                <div class="input-group-append">
+                                                        <span class="input-group-text text-muted">
+                                                            <i class="fa fa-cc-visa" style="padding-right: 2px"></i>
+                                                            <i class="fa fa-cc-amex" style="padding-right: 2px"></i>
+                                                            <i class="fa fa-cc-mastercard"></i>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="hidden-xs">Expiration Date</span> </label>
+                                            <div class="input-group">
+                                                <select name="billing_address_title" id="expiration-month"
+                                                        class="dropdown_item_select checkout_input form-control payment_select"
+                                                        required="required">
+                                                    <option value="">MONTH</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+
+                                                <select name="billing_address_title" id="expiration-year"
+                                                        class="dropdown_item_select checkout_input form-control payment_select"
+                                                        required="required">
+                                                    <option value="">YEAR</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                    <option value="2034">2034</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label data-toggle="tooltip" title=""
+                                                   data-original-title="3-digit number on the back side of the card.">CVV
+                                                <i class="fa fa-question-circle"></i></label>
+                                            <input id="cvv" type="text" class="checkout_input form-control cvv"
+                                                   pattern="^[0-9]{3}$" required="required">
+                                        </div>
+
+                                        <input type="submit" style="cursor:pointer" id="ConfirmCreditCard"
+                                               value="Confirm" class="checkout_button trans_200">
+                                    </form>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-tab-paypal">
+                                    <div class="checkout_button trans_200"><a id="PayPal" name="PayPal"
+                                                                              href="">
+                                        Login my Paypal</a></div>
+                                    <br>
+                                    <p><strong>Note:</strong> Your payment will be processed from your PayPal
+                                        account. Please visit
+                                        <a href="https://www.paypal.me" target="_blank"
+                                           style="text-decoration: none; color:#fbaa1d;">
+                                            PayPal's official website</a> for more information.</p>
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-tab-bank">
+                                    <br>
+                                    <dl class="param">
+                                        <dt>Bank:</dt>
+                                        <dd> THE OAK BANK</dd>
+                                    </dl>
+                                    <dl class="param">
+                                        <dt>Account Number:</dt>
+                                        <dd> 1234 1234 1234 1234</dd>
+                                    </dl>
+                                    <dl class="param">
+                                        <dt>IBAN:</dt>
+                                        <dd> 1234 1234 1234 1234</dd>
+                                    </dl>
+                                    <p><strong>Note:</strong> Your payment will be processed from the account
+                                        information provided
+                                        above. Please contact your service provider for more information. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </aside>
+                <aside class="col-md-1"></aside>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#ConfirmCreditCard').click(function (event) {
+        var button = $(this).attr("id");
+
+        var ret = {
+            button: button,
+            fullName: $('#name').val(),
+            cardNumber: $('#credit_number').val(),
+            expMonth: $('#expiration-month').val(),
+            expYear: $('#expiration-year').val(),
+            cvv: $('#cvv').val()
+        };
+
+        if (button === "ConfirmCreditCard") {
+            if (validation_check(["name", "credit_number", "expiration-month", "expiration-year", "cvv"])) {
+                event.preventDefault();
+                $.post("/payment", ret, function (data) {
+                    window.location.href = "/thank-you";
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+    $('#PayPal').click(function (event) {
+        window.open('https://www.paypal.com/tr/signin', '_blank');
+        var button = $(this).attr("name");
+        var ret = {
+            button: button
+        };
+        event.preventDefault();
+        $.post("/payment", ret, function (data) {
+            window.location.href = "/thank-you";
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+    });
+
+    /*]]>*/
+</script>
+
+</body>
+
+</html>

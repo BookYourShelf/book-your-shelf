@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<span th:if="${orderListEmpty == false}">
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'time-desc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Decreasing by Time'"
+                   th:style="${sort == 'time-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'time-asc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Increasing by Time'"
+                   th:style="${sort == 'time-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'code-asc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Order Code (A - Z)'"
+                   th:style="${sort == 'code-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'code-desc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Order Code (Z - A)'"
+                   th:style="${sort == 'code-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'price-desc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Decreasing by Total Price'"
+                   th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'price-asc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Increasing by Total Price'"
+                   th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'company-asc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Shipping Company (A - Z)'"
+                   th:style="${sort == 'company-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${'content-desc'},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Shipping Company (Z - A)'"
+                   th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Payment Option</span><i class="fa fa-caret-down"
+                                                                       aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${'all'},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'All'" th:style="${payOptFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${'card'},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Credit Card'" th:style="${payOptFilter == 'card'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${'paypal'},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'PayPal'" th:style="${payOptFilter == 'paypal'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${'ptt'},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'via PTT'" th:style="${payOptFilter == 'ptt'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Payment Status</span><i class="fa fa-caret-down"
+                                                                       aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'all'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'All'" th:style="${payStatFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'pending'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Pending'" th:style="${payStatFilter == 'pending'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'processed'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Processed'" th:style="${payStatFilter == 'processed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'completed'},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Completed'" th:style="${payStatFilter == 'completed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'refunded'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Refunded'" th:style="${payStatFilter == 'refunded'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'failed'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Failed'" th:style="${payStatFilter == 'failed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'expired'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Expired'" th:style="${payStatFilter == 'expired'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'revoked'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Revoked'" th:style="${payStatFilter == 'revoked'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${'canceled'},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Canceled'" th:style="${payStatFilter == 'canceled'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Order Status</span><i class="fa fa-caret-down"
+                                                                     aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${'all'},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'All'" th:style="${orderStatFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${'pending'},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Pending'" th:style="${orderStatFilter == 'pending'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${'confirmed'},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Confirmed'" th:style="${orderStatFilter == 'confirmed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${'canceled'},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Canceled'" th:style="${orderStatFilter == 'canceled'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+     <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Delivery Status</span><i class="fa fa-caret-down"
+                                                                        aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'all'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'All'" th:style="${delStatFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'info-received'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Information Received'" th:style="${delStatFilter == 'info-received'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'transit'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'In Transit'" th:style="${delStatFilter == 'transit'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'out'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Out for Delivery'" th:style="${delStatFilter == 'out'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'failed'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Failed Attempt'" th:style="${delStatFilter == 'failed'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'delivered'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Delivered'" th:style="${delStatFilter == 'delivered'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'exception'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Exception'" th:style="${delStatFilter == 'exception'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'expired'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Expired'" th:style="${delStatFilter == 'expired'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'pending'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Pending'" th:style="${delStatFilter == 'pending'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${'canceled'},
+                                                        couponFilter=${couponFilter})}"
+                   th:text="'Canceled'" th:style="${delStatFilter == 'canceled'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Coupon Filter</span><i class="fa fa-caret-down"
+                                                                      aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${'all'})}"
+                   th:text="'All'" th:style="${couponFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${'yes'})}"
+                   th:text="'Coupon used'" th:style="${couponFilter == 'yes'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                        size=${orderPage.size},
+                                                        page=${1},
+                                                        sort=${sort},
+                                                        payOptFilter=${payOptFilter},
+                                                        payStatFilter=${payStatFilter},
+                                                        orderStatFilter=${orderStatFilter},
+                                                        delStatFilter=${delStatFilter},
+                                                        couponFilter=${'no'})}"
+                   th:text="'Coupon not used'" th:style="${couponFilter == 'no'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</span>
+
+<span th:if="${orderPage.totalPages > 0}">
+
+<br>
+
+<div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="profile-order-title">Order Time</div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="profile-order-title">Order Code</div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="profile-order-title">Order Status</div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="profile-order-title">Payment Status</div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <div class="orderDetailBox">
+            <tr th:each="order: ${orderPage.content}">
+
+                <!-- Order -->
+                <div class="product">
+                    <a th:href="'#order-' + ${order.getOrderId()}" class="trans_200" data-toggle="collapse">
+                        <div class="product_content">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="profile-order-text vertical_center">
+                                        <div th:text="${#dates.format(order.getOrderDate(), 'dd-MM-yyyy')
+                                             + ' ' + #dates.format(order.getOrderDate(), 'HH:mm')}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="profile-order-text vertical_center"
+                                         th:text="${order.getOrderCode()}"></div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="profile-order-text vertical_center"
+                                         th:text="#{${'order_status.' + order.getOrderStatus()}}"></div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="profile-order-text vertical_center"
+                                         th:text="#{${'payment_status.' + order.getPaymentStatus()}}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div th:id="'order-' + ${order.getOrderId()}" class="collapse">
+                    <div class="cart_container">
+                        <div class="product profile-order-expand-box">
+
+                            <!-- Cart Items -->
+                            <div class="cart_items">
+                                <div class="cart_bar" style="padding-top: 20px">
+                                    <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+                                        <li class="mr-auto" style="padding-left: 20px">Product</li>
+                                        <li th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}"
+                                            class="cart_item_li">Stock</li>
+                                        <li class="cart_item_li">Price</li>
+                                        <li class="cart_item_li">Quantity</li>
+                                        <li class="cart_item_li">Total</li>
+                                        <li th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}"
+                                            class="cart_item_li"></li>
+                                    </ul>
+                                </div>
+
+                                <ul class="cart_items_list">
+
+                                    <!-- Cart Item -->
+                                    <li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start"
+                                        th:each="cartItem: ${order.getProducts()}">
+                                        <div class="product-row d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+                                            <a th:href="@{'/product/' + ${cartItem.getProduct().getProductId()}}">
+                                                <div>
+                                                    <div class="product_image vertical_center"
+                                                         style="margin-left: 20px; margin-right: 10px">
+                                                        <img class="review_product_image" alt="Product Cover Image"
+                                                             th:src="|data:image/png;base64,${cartItem.getProduct().getEncodedCoverImage()}|"/>
+                                                    </div>
+                                                </div>
+                                                <div class="product_name_container">
+                                                    <div class="cart-product-name">
+                                                        <a th:href="@{'/product/' + ${cartItem.getProduct().getProductId()}}"
+                                                           th:text="${cartItem.getProduct().getProductName()}">
+                                                        </a>
+                                                    </div>
+
+                                                    <!-- Book, E-Book, Audio Book -->
+                                                    <span th:if="${cartItem.getProduct().getProductTypeName() == 'Book' ||
+                                                                cartItem.getProduct().getProductTypeName() == 'E-Book' ||
+                                                                cartItem.getProduct().getProductTypeName() == 'Audio Book'}">
+                                                        <div class="cart-product-text">
+                                                            <span th:each="a, iterStat : ${cartItem.getProduct().getAuthors()}"
+                                                                  th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
+                                                        </div>
+                                                    </span>
+
+                                                    <!-- E-Book Reader -->
+                                                    <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader'}">
+                                                        <div class="cart-product-text"
+                                                             th:text="${cartItem.getProduct().getReaderBrand()}">
+                                                        </div>
+                                                    </span>
+
+                                                    <!-- E-Book Reader Case, Book Case -->
+                                                    <span th:if="${cartItem.getProduct().getProductTypeName() == 'E-Book Reader Case' ||
+                                                                cartItem.getProduct().getProductTypeName() == 'Book Case'}">
+                                                        <div class="cart-product-text"
+                                                             th:text="${cartItem.getProduct().getCaseBrand()}">
+                                                        </div>
+                                                    </span>
+
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        <div class="cart_product_price product_text"
+                                             th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}">
+                                            <div class="product_total product_text"
+                                                 th:text="${cartItem.getProduct().getStock()}"></div>
+                                        </div>
+
+                                        <div class="cart_product_price product_text">
+                                            <div th:if="${cartItem.getDiscountRate() != null and cartItem.getDiscountRate() != 0.0}">
+                                                <div class="align-items-start justify-content-start">
+                                                    <!-- when no sale delete -->
+                                                    <div class="cart_sale_price"><b
+                                                            th:text="${'%' + #numbers.formatDecimal(cartItem.getDiscountRate() * 100, 0, 0) + ' off'}"></b></div>
+                                                    <div class="cart_sale_price">
+                                                        <del th:text="${'₺' + cartItem.getUnitPrice()}"></del>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span>Price:</span>
+                                            <div class="product_total product_text"
+                                                 th:text="${'₺' + #numbers.formatDecimal(cartItem.getUnitPrice() - (cartItem.getUnitPrice() * cartItem.getDiscountRate()), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </div>
+                                        <div class="product_total product_text"
+                                             th:text="${cartItem.getQuantity()}"></div>
+                                        <div class="product_total product_text"><span>Total: </span>
+                                            <span style="display:inline"
+                                                  th:with="result=${cartItem.getUnitPrice() - (cartItem.getUnitPrice() * cartItem.getDiscountRate())} ,
+                                                            quantity=${cartItem.getQuantity()},
+                                                            total=${result*quantity}"
+                                                  th:text="${'₺' + #numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span>
+                                        </div>
+
+                                        <div style="padding-bottom: 15px"
+                                             th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}">
+                                            <label class="checkbox_container">
+                                                <input checked type="checkbox"
+                                                       th:name="'pending-order-' + ${order.getOrderId()}"
+                                                       th:id="${cartItem.getProduct().getProductId()}"
+                                                       th:value="${cartItem.getProduct().getProductId()}"
+                                                       class="billing_checkbox">
+                                                <span class="checkbox_mark"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <br>
+
+                                <div class="row aligned-row order_info_col">
+                                    <div class="col-lg-6 cart_col cart_total order_info_col">
+                                        <br>
+                                        <div class="order_info_title">Billing Address</div>
+                                        <div class="order_address">
+                                            <li class="row">
+                                                <div class="registered-address-content"
+                                                     th:text="${order.getBillingAddress()[0]}">
+                                                </div>
+                                            </li>
+                                            <li class="row">
+                                                <div class="registered-address-content"
+                                                     th:text="${order.getBillingAddress()[1]}">
+                                                </div>
+                                            </li>
+                                            <li class="row">
+                                                <div class="registered-address-content"
+                                                     th:text="${order.getBillingAddress()[2]}">
+                                                </div>
+                                            </li>
+                                        </div>
+
+                                        <div class="order_info_title">Delivery Address</div>
+                                        <div class="order_address">
+                                            <li class="row">
+                                                <div class="registered-address-content"
+                                                     th:text="${order.getDeliveryAddress()[0]}">
+                                                </div>
+                                            </li>
+                                            <li class="row">
+                                                <div class="registered-address-content"
+                                                     th:text="${order.getDeliveryAddress()[1]}">
+                                                </div>
+                                            </li>
+                                            <li class="row">
+                                                <div class="registered-address-content"
+                                                     th:text="${order.getDeliveryAddress()[2]}">
+                                                </div>
+                                            </li>
+                                        </div>
+
+                                        <div class="order_address">
+                                            <li class="row" style="padding-top: 0;">
+                                                <div class="order_summary_title">Payment Option: </div>
+                                                <div class="order_summary_content"
+                                                     th:text="#{${'payment_option.' + order.getPaymentOption()}}"></div>
+                                            </li>
+                                            <li class="row" style="padding-top: 5px;">
+                                                <div class="order_summary_title">Shipping Company: </div>
+                                                <div class="order_summary_content"
+                                                     th:text="${order.getShippingCompany()}"></div>
+                                            </li>
+                                            <li class="row" style="padding-top: 5px;">
+                                                <div class="order_summary_title">Delivery Status: </div>
+                                                <div class="order_summary_content"
+                                                     th:text="#{${'delivery_status.' + order.getDeliveryStatus()}}"></div>
+                                            </li>
+                                            <li class="row" style="padding-top: 5px;"
+                                                th:if="${order.getCouponCode() != null}">
+                                                <div class="order_summary_title">Coupon Code: </div>
+                                                <div class="order_summary_content"
+                                                     th:text="${order.getCouponCode()}"></div>
+                                            </li>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cart Total -->
+                                    <div class="col-lg-6 cart_col cart_total order_info_col">
+                                        <br>
+                                        <div class="order_info_title">Invoice Summary</div>
+                                        <ul class="cart_extra_total_list">
+                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                <div class="cart_extra_total_title">Subtotal</div>
+                                                <div class="cart_extra_total_value ml-auto">
+                                                    <div>
+                                                        <td th:text="${'₺' + #numbers.formatDecimal(order.getSubTotalAmount(), 0, 2)}"></td>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                <div class="cart_extra_total_title">Shipping Method</div>
+                                                <div th:if="${order.getShippingMethod() == T(com.oak.bookyourshelf.model.Order.ShippingMethod).FREE}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto">Free</div>
+                                                </div>
+                                                <div th:unless="${order.getShippingMethod() == T(com.oak.bookyourshelf.model.Order.ShippingMethod).FREE}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto">₺7.99</div>
+                                                </div>
+                                            </li>
+
+                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                <div class="cart_extra_total_title">Shipping Price</div>
+                                                <div th:if="${order.getSubTotalAmount() >= 100}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto">Free</div>
+                                                </div>
+                                                <div th:unless="${order.getSubTotalAmount() >= 100}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto">₺6.99</div>
+                                                </div>
+                                            </li>
+
+                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                <div class="cart_extra_total_title"
+                                                     th:text="${'Coupon (-%' + #numbers.formatDecimal(order.getDiscountRate() * 100, 0, 0) + ')'}"></div>
+                                                <div th:if="${order.getDiscountRate() == 0}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto">- ₺0.00</div>
+                                                </div>
+                                                <div th:unless="${order.getDiscountRate() == 0}"
+                                                     class="cart_extra_total_value ml-auto">
+                                                    <div class="cart_extra_total_value ml-auto"
+                                                         th:text="${'- ₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
+                                                        order.getDiscountRate(), 0, 2)}"></div>
+                                                </div>
+                                            </li>
+
+                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                <div class="cart_extra_total_title relativer">Total</div>
+                                                <div class="cart_extra_total_value ml-auto relativer">
+                                                    <div class="cart_extra_total_value ml-auto relativer"
+                                                         th:text="${'₺' + #numbers.formatDecimal(order.getTotalAmount(), 0, 2)}">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <span th:if="${order.getOrderStatus() == T(com.oak.bookyourshelf.model.Order.OrderStatus).PENDING}">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="submit" value="Confirm sale"
+                                                   class="confirm login_button trans_200"
+                                                   th:id="'confirm-' + ${order.getOrderId()}">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="submit" value="Cancel sale"
+                                                   class="cancel login_button trans_200"
+                                                   th:id="'cancel-' + ${order.getOrderId()}">
+                                        </div>
+                                    </div>
+                                </span>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </div>
+    </div>
+</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                            size=${orderPage.size},
+                                                            page=${currentPage - 1},
+                                                            payOptFilter=${payOptFilter},
+                                                            payStatFilter=${payStatFilter},
+                                                            orderStatFilter=${orderStatFilter},
+                                                            delStatFilter=${delStatFilter},
+                                                            couponFilter=${couponFilter})}"
+                       aria-label="Previous" title="Previous Page"
+                       rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${orderPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                            size=${orderPage.size},
+                                                            page=${1},
+                                                            payOptFilter=${payOptFilter},
+                                                            payStatFilter=${payStatFilter},
+                                                            orderStatFilter=${orderStatFilter},
+                                                            delStatFilter=${delStatFilter},
+                                                            couponFilter=${couponFilter})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${orderPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , orderPage.totalPages > 2 + currentPage ? currentPage + 2 : orderPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                            size=${orderPage.size},
+                                                            page=${i},
+                                                            payOptFilter=${payOptFilter},
+                                                            payStatFilter=${payStatFilter},
+                                                            orderStatFilter=${orderStatFilter},
+                                                            delStatFilter=${delStatFilter},
+                                                            couponFilter=${couponFilter})}"
+                       th:text="${i}" th:title="${'Page '+ i}"
+                       style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < orderPage.totalPages}"
+                    class="pagination_dots">...
+                </li>
+
+                <!-- Last page -->
+                <li th:if="${orderPage.totalPages > 1}"
+                    th:class="${currentPage == orderPage.totalPages} ? 'active'">
+                    <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                            size=${orderPage.size},
+                                                            page=${orderPage.totalPages},
+                                                            payOptFilter=${payOptFilter},
+                                                            payStatFilter=${payStatFilter},
+                                                            orderStatFilter=${orderStatFilter},
+                                                            delStatFilter=${delStatFilter},
+                                                            couponFilter=${couponFilter})}"
+                       th:text="${orderPage.totalPages}"
+                       style="color: #fbaa1d;"
+                       th:title="${'Page '+ orderPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == orderPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/user-details/{id}#order(id=${user.getUserId()},
+                                                            size=${orderPage.size},
+                                                            page=${currentPage + 1},
+                                                            payOptFilter=${payOptFilter},
+                                                            payStatFilter=${payStatFilter},
+                                                            orderStatFilter=${orderStatFilter},
+                                                            delStatFilter=${delStatFilter},
+                                                            couponFilter=${couponFilter})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</span>
+
+<!-- No orders -->
+<span th:unless="${orderPage.totalPages > 0}">
+    <div class="warning-text">There are no orders.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+<script th:src="@{/static/js/input-mask.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var userId = /*[[${user.getUserId()}]]*/ 'default';
+
+    $('.confirm').click(function (event) {
+        var orderId = $(this).attr("id").split("-")[1];
+        var ret = {
+            reply: "confirm",
+            orderId: orderId,
+            confirmedProducts: JSON.stringify(getCheckedProducts("pending-order-" + orderId))
+        };
+
+        if (validation_check([])) {
+            event.preventDefault();
+            $.post("/user-details/order/" + userId, ret, function (data) {
+                if (data === "true") {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Order confirmed and canceled product prices refunded successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                } else {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Order confirmed successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                }
+
+                window.location.href = "/user-details/" + userId + "#order";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('.cancel').click(function (event) {
+        if (confirm('Are you sure you want to cancel the order?')) {
+            var ret = {
+                reply: "cancel",
+                orderId: $(this).attr("id").split("-")[1]
+            };
+
+            event.preventDefault();
+            $.post("/user-details/order/" + userId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Order canceled successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/user-details/" + userId + "#order";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    function getCheckedProducts(checkboxName) {
+        var arr = [];
+        $.each($('input[name=' + checkboxName + ']:checked'), function () {
+            var value = $(this).val();
+            arr.push(value)
+        });
+        return arr;
+    }
+
+    /*]]>*/
+</script>
+
+</html>

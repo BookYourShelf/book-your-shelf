@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="address-element-padding">
+    <div class="billingAddress">
+        <div class="product_content">
+
+            <!-- ID -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="tab-title-text align-items-center">
+                        ID
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-11 tab-content-text">
+                            <h th:text="${subcategory.id}"></h>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="col-lg-1">
+                            <div class="row">
+                                <!-- Update button -->
+                                <a href="#category-info-update"
+                                   class="trans_200" data-toggle="collapse"><i
+                                        style="font-size: 25px; padding-right: 10px"
+                                        class="fa fa-pencil"></i></a>
+                                <!-- Delete button -->
+                                <button type="submit" value="&#xf014;"
+                                        class="trans_200 fa product_text"
+                                        id="deleteSubcategory"
+                                        style="font-size: 25px; color: #4a4a4a"
+                                        data-toggle="collapse">
+                                    &#xf014;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="tab-title-text">
+                        Name
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="tab-content-text">
+                        <h th:text="${subcategory.name}"></h>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Products -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="tab-title-text">
+                        Total Products
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="tab-content-text">
+                        <h th:text="${subcategory.itemNum}"></h>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Subcategories -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="tab-title-text">
+                        Total Subcategories
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="tab-content-text">
+                        <h th:text="${subcategory.subcategories.size()}"></h>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update information form -->
+<div id="category-info-update" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form action="#" id="category-info-update-form" class="checkout_form">
+
+
+                    <!-- Subcategory Name -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Subcategory Name
+                        </div>
+                        <input type="text" id="category-name-update"
+                               class="login_input form-control"
+                               pattern="[A-Za-z ]+" title="Category name cannot have digits."
+                               required="required" th:value="${subcategory.name}">
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+                    <input name=submit id="updateSubcategory" type="submit" value="UPDATE"
+                           class="login_button trans_200">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateSubcategory,#deleteSubcategory').click(function (event) {
+        var button = $(this).attr("id");
+        var subcategoryId = /*[[${subcategory.getId()}]]*/ 'default';
+        var name = $('#category-name-update').val();
+        var productType = $('#category_product_type option:selected').val();
+        var ret = {
+            name: name,
+            button: button
+        };
+
+        if (button === "updateSubcategory") {
+            if (validation_check(["category-name-update"])) {
+                event.preventDefault();
+                $.post("/subcategory-details/" + subcategoryId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Subcategory ' + name + ' updated successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/subcategory-details/" + subcategoryId;
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else if (button === "deleteSubcategory") {
+            if (confirm('Are you sure you want to delete?')) {
+                $.post("/subcategory-details/" + subcategoryId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Subcategory ' + name + ' removed successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#category";
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else {
+                window.location.href = "/admin-panel#category";
+            }
+        }
+
+    })
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+</html>

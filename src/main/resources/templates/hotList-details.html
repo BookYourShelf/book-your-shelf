@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${'Hot List#' + hotList.getId() + ' Details | Book Your Shelf'}"></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/user-details.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/admin-panel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/admin-panel}">Panel</a></li>
+                                <li style="color: #fbaa1d" th:text="${'Hot List#' + hotList.getId()}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="product_description_area">
+            <div class="container">
+                <br>
+                <div class="address-element-padding">
+                    <div class="billingAddress">
+                        <div class="product_content">
+                            <!-- ID -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        ID
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <!-- ID -->
+                                        <div class="col-lg-11 tab-content-text">
+                                            <h th:text="${hotList.getId()}"></h>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="col-lg-1">
+                                            <div class="row">
+                                                <!-- Update button -->
+                                                <a href="#campaign-info-update"
+                                                   class="trans_200" data-toggle="collapse"><i
+                                                        style="font-size: 25px; padding-right: 10px"
+                                                        class="fa fa-pencil"></i></a>
+                                                <!-- Delete button -->
+                                                <button type="submit" value="&#xf014;"
+                                                        class="trans_200 fa product_text"
+                                                        id="delete_hotList"
+                                                        style="font-size: 25px; color: #4a4a4a"
+                                                        data-toggle="collapse">
+                                                    &#xf014;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Type -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Product Type
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Product Type -->
+                                    <div class="tab-content-text">
+                                        <h th:text="${productType}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Category
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <div th:if="${hotList.getCategories().size()>0}">
+                                            <td th:text="${hotList.getCategories().get(0).name}"></td>
+                                        </div>
+                                        <div th:unless="${hotList.getCategories().size()>0}">
+                                            <div>-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subcategory -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Subcategory
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Subcategory -->
+                                    <div class="tab-content-text">
+                                        <div th:if="${hotList.getSubcategories() != null}">
+                                            <div th:unless="${hotList.getSubcategories().size() > 0}">
+                                                <div>-</div>
+                                            </div>
+                                            <div th:if="${hotList.getSubcategories().size() > 0}">
+                                                <tr th:each="subcategory: ${hotList.getSubcategories()}">
+                                                    <h th:text="${subcategory.getName()}"></h>
+                                                    <br>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!-- Hot List Type -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Hot List Type
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <h th:text="${hotListType}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Number of Products -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Number of Products
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <h th:text="${hotList.getProductNum()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Start Date -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Start Date
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text date">
+                                        <h th:text="${hotList.getStartDate()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Start Time -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Start Time
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text time">
+                                        <h th:text="${hotList.getStartTime()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        End Date
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text date">
+                                        <h th:text="${hotList.getEndDate()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        End Time
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text time">
+                                        <h th:text="${hotList.getEndTime()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update informations form -->
+                <div id="campaign-info-update" class="collapse">
+                    <div class="address-container">
+                        <div class="billingAddress">
+                            <div class="checkout_form_container">
+                                <form th:object="${hotList}" th:action="@{/hotList-details}" id="campaign_update_form"
+                                      class="checkout_form" method="post">
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Number of Products
+                                            </div>
+                                            <input type="number" id="update_hot_list_product_number"
+                                                   class="checkout_input form-control" min="1"
+                                                   th:field="${hotList.productNum}"
+                                                   th:value="${hotList.getProductNum()}"
+                                                   placeholder="Number of Products" required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- Start -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Hot List Start Date
+                                            </div>
+                                            <input type="text" id="update_hot_list_start_date"
+                                                   class="checkout_input form-control date"
+                                                   th:field="${hotList.startDate}"
+                                                   th:value="${hotList.getStartDate()}"
+                                                   placeholder="dd/mm/yyyy" required="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Hot List Start Time
+                                            </div>
+                                            <input type="text" id="update_hot_list_start_time"
+                                                   class="checkout_input form-control time"
+                                                   th:field="${hotList.startTime}"
+                                                   th:value="${hotList.getStartTime()}"
+                                                   placeholder="hh:mm" required="required">
+                                        </div>
+                                    </div>
+
+                                    <!-- End -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Hot List End Date
+                                            </div>
+                                            <input type="text" id="update_hot_list_end_date"
+                                                   class="checkout_input form-control date"
+                                                   th:field="${hotList.endDate}"
+                                                   th:value="${hotList.getEndDate()}"
+                                                   placeholder="dd/mm/yyyy" required="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Hot List End Time
+                                            </div>
+                                            <input type="text" id="update_hot_list_end_time"
+                                                   class="checkout_input form-control time"
+                                                   th:field="${hotList.endTime}"
+                                                   th:value="${hotList.getEndTime()}"
+                                                   placeholder="hh:mm" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div><!--ERROR--></div>
+
+                                    <!-- Button -->
+                                    <input name=submit id="update_hotList" type="submit" value="UPDATE"
+                                           class="login_button trans_200">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var hotListId = /*[[${hotList.getId()}]]*/ 'default';
+    $('#update_hotList,#delete_hotList').click(function (event) {
+        var button = $(this).attr("id");
+        var productNum = $('#update_hot_list_product_number').val();
+        var startDate = $('#update_hot_list_start_date').val();
+        var startTime = $('#update_hot_list_start_time').val();
+        var endDate = $('#update_hot_list_end_date').val();
+        var endTime = $('#update_hot_list_end_time').val();
+
+        console.log(hotListId);
+
+        var ret = {
+
+            button: button,
+            productNum: productNum,
+            startDate: startDate,
+            startTime: startTime,
+            endDate: endDate,
+            endTime: endTime,
+
+        };
+
+        if (button === "update_hotList") {
+            if (
+                (validation_check(['update_hot_list_start_date', 'update_hot_list_end_date', 'update_hot_list_end_time', 'update_hot_list_start_time']))) {
+                event.preventDefault();
+                $.post("/hotList-details/" + hotListId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Hot List updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/hotList-details/" + hotListId;
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/hotList-details/" + hotListId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'User deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#hotList";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/hotList-details/" + hotListId;
+
+        }
+
+
+    });
+
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+
+
+</body>
+
+</html>
+

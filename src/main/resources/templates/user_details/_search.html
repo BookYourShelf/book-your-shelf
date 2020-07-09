@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<span th:if="${searchValuesListEmpty == false}">
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul style="text-align: start">
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#search(id=${user.userId}, size=${keyPage.size}, page=${1},sort=${'Search-Value-asc'})}"
+                   th:text="'Search Value (A - Z)'"
+                   th:style="${sort == 'Search-Value-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#search(id=${user.userId}, size=${keyPage.size}, page=${1},sort=${'Search-Value-desc'})}"
+                   th:text="'Search Value (Z - A)'"
+                   th:style="${sort == 'Search-Value-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#search(id=${user.userId}, size=${keyPage.size}, page=${1},sort=${'Total-Search-desc'})}"
+                   th:text="'Decreasing Total Search'"
+                   th:style="${sort == 'Total-Search-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/user-details/{id}#search(id=${user.userId}, size=${keyPage.size},page=${1}, sort=${'Total-Search-asc'})}"
+                   th:text="'Increasing by Total Search'"
+                   th:style="${sort == 'Total-Search-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+       </ul>
+    </div>
+</div>
+</span>
+
+<br>
+
+<span th:if="${keyPage.totalPages>0}">
+<div class="table-responsive">
+    <table>
+        <tr>
+            <th>Search Value</th>
+            <th>Total Search</th>
+        </tr>
+        <tr th:each="searchValue: ${keyPage.content}">
+            <td th:text="${searchValue}"></td>
+            <td th:text="${user.getSearchHistory().get(searchValue)}"></td>
+        </tr>
+    </table>
+</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center" style="color: #fbaa1d;">
+
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/user-details/{id}#search(sort=${sort},size=${keyPage.size}, id=${user.userId}, page=${currentPage - 1})}"
+                       aria-label="Previous" title="Previous Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${keyPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/user-details/{id}#search(id=${user.userId},size=${keyPage.size},  page=${1},sort=${sort})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+               <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${keyPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , keyPage.totalPages > 2 + currentPage ? currentPage + 2 : keyPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/user-details/{id}#search(id=${user.userId},size=${keyPage.size}, page=${i},sort=${sort})}"
+                       th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < keyPage.totalPages}" class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                <li th:if="${keyPage.totalPages > 1}"
+                    th:class="${currentPage == keyPage.totalPages} ? 'active'">
+                    <a th:href="@{/user-details/{id}#search(id=${user.userId},size=${keyPage.size},  page=${keyPage.totalPages},sort=${sort})}"
+                       th:text="${keyPage.totalPages}" style="color: #fbaa1d;"
+                       th:title="${'Page '+ keyPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == keyPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/user-details/{id}#search(id=${user.userId},size=${keyPage.size},  page=${currentPage + 1},sort=${sort})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</span>
+
+<span th:unless="${keyPage.totalPages >0}">
+<div class="warning-text">There are no search values.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+</html>

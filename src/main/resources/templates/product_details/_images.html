@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Cover Image -->
+<div class="address-element-padding">
+    <div class="billingAddress">
+        <div class="product_content">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <div class="tab-title-text">
+                        Cover Image
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="media">
+                    <div class="product_and_cover_image_div product_details_image">
+                        <img th:src="|data:image/png;base64,${cover_image.encodeImage()}|" alt="Cover Image"
+                             class="product_and_cover_image product_details_image_img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+                <label for="cover_image" class="choose_file_label trans_200">
+                    <a class="choose_file_button">Change Cover Image</a>
+                </label>
+                <input id="cover_image"
+                       onchange="updatePhoto(this.id);" accept="image/x-png" class="upload_cover_image"
+                       style="visibility:hidden;" type="file">
+                <p style="padding-bottom: 6px;">Selected file:</p>
+                <div id="cover_image_list" style="word-wrap: break-word;"></div>
+            </div>
+
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+<!-- Product Images -->
+<div class="address-element-padding">
+    <div class="billingAddress">
+        <div class="product_content">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="tab-title-text">
+                        Product Images
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <br>
+
+            <span th:if="${product_images.size() > 0}">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="media" th:each="image : ${product_images}">
+                        <div class="col-lg-11">
+                            <div class="product_images_pad product_and_cover_image_div product_details_image">
+                                <img th:src="|data:image/png;base64,${image.encodeImage()}|" alt="Product Image"
+                                     class="product_and_cover_image product_details_image_img">
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <!-- Delete button -->
+                            <button type="submit" value="&#xf014;"
+                                    class="delete trans_200 fa vertical_center"
+                                    th:id="${image.getId()}"
+                                    title="Delete this image"
+                                    style="font-size: 30px; color: #4a4a4a"
+                                    data-toggle="collapse">
+                                &#xf014;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </span>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+
+                <div class="col-md-8">
+                    <label for="product_images" class="choose_file_label trans_200">
+                        <a class="choose_file_button">Upload Cover Image</a>
+                    </label>
+                    <input multiple id="product_images" class="upload_product_images"
+                           accept="image/x-png"
+                           onchange="updatePhoto(this.id);"
+                           style="visibility:hidden;" type="file">
+                    <p style="padding-bottom: 6px;">Selected file:</p>
+                    <div id="product_images_list" style="word-wrap: break-word;"></div>
+                </div>
+
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 address-element-padding">
+        <input type="button" value="Update product" class="login_button trans_200" id="update">
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<br>
+<br>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var productId = /*[[${product.getProductId()}]]*/ 'default';
+
+    $('#update').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("type", "update");
+        const coverImage = $('.upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/product-details/images/" + productId,
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Images updated successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/product-details/" + productId + "#images";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+
+    });
+
+    $('.delete').click(function (event) {
+        var ret = {
+            type: "delete",
+            imageId: $(this).attr("id")
+        };
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/product-details/images/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Image deleted successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId + "#images";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+                window.location.href = "/product-details/" + productId + "#images";
+            })
+        }
+    });
+
+    function file_size_check(coverImage, productImages) {
+
+        if (coverImage !== undefined && coverImage.size > 10000000) {
+            iziToast.show({
+                title: 'Fail',
+                message: "Cover image's maximum size can be 10MB.",
+                position: 'topRight',
+                color: 'red'
+            });
+            return false;
+        }
+
+        if (productImages === undefined) {
+            return true;
+        }
+
+        for (var i = 0; i < productImages.length; i++) {
+            if (productImages[i].size > 10000000) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: "Product image's maximum size can be 10MB.",
+                    position: 'topRight',
+                    color: 'red'
+                });
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+
+<script th:src="@{/static/js/admin-panel.js}"></script>
+
+</html>

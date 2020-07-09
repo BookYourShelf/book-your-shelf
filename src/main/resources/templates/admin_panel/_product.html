@@ -1,0 +1,2189 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Add product button -->
+<div class="address-element-padding">
+    <a href="#new_product" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Product</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div id="new_product" class="collapse">
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <select name="product_type" id="product_type"
+                        class="dropdown_item_select checkout_input"
+                        required="required">
+                    <option>Select Product Type</option>
+                    <option>Book</option>
+                    <option>E-Book</option>
+                    <option>Audio Book</option>
+                    <option>E-Book Reader</option>
+                    <option>E-Book Reader Case</option>
+                    <option>Book Case</option>
+                </select>
+                <br><br>
+                <div id="book" class="d-none">
+                    <form>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="book_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+                                <input type="text" id="book_barcode_input" pattern="[0-9]+"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+                                <input type="number" id="book_stock_input" min=0 max=2147483647
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required">
+                            </div>
+                        </div>
+
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price (₺)
+                                </div>
+                                <input type="number" id="book_price_input" step="0.01"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="category" id="book_category_input"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                            th:value="${category.getName()}"
+                                            th:text="${category.getName()}">category
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                                <select name="subcategory" id="book_subcategory_input"
+                                        class="dropdown_item_select checkout_input">
+                                    <option value="">SELECT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Language
+                                </div>
+                                <input type="text" id="book_language_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Language" required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    ISBN (13 digits)
+                                </div>
+                                <input type="text" id="book_isbn_input" pattern=".{17}"
+                                       class="checkout_input form-control isbn"
+                                       placeholder="ISBN" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Published Year
+                                </div>
+                                <input type="text" id="book_published_year_input"
+                                       class="checkout_input form-control" pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
+                                       placeholder="Published Year" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Page Number
+                                </div>
+                                <input type="number" id="book_page_number_input" max=2147483647
+                                       class="checkout_input form-control" min=0
+                                       placeholder="Page Number" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Edition Number
+                                </div>
+                                <input type="number" id="book_edition_number_input" max=2147483647
+                                       class="checkout_input form-control" min=0
+                                       placeholder="Edition Number" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Authors
+                                </div>
+                                <input type="text" id="book_authors_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Authors (Separate with comma)"
+                                       required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Translators
+                                </div>
+                                <input type="text" id="book_translator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Translators (Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Publishers
+                                </div>
+                                <input type="text" id="book_publisher_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Publishers (Separate with comma)" required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Keywords
+                                </div>
+                                <input type="text" id="book_keywords_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Keywords (Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+                                <textarea type="text" id="book_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Short Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+                                <textarea type="text" id="book_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
+                                          placeholder="Long Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Media Type
+                                </div>
+                                <select name="media-type" id="book_media_type_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="media_type : ${T(com.oak.bookyourshelf.model.PhysicalBook.MediaType).values()}"
+                                            th:value="${media_type}"
+                                            th:text="#{${'media_type.' + media_type}}">mediaType
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Paper Type
+                                </div>
+                                <select name="paper-type" id="book_paper_type_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="paper_type : ${T(com.oak.bookyourshelf.model.PhysicalBook.PaperType).values()}"
+                                            th:value="${paper_type}"
+                                            th:text="#{${'paper_type.' + paper_type}}">paperType
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Binding Type
+                                </div>
+                                <select name="binding-type" id="book_binding_type_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="binding_type : ${T(com.oak.bookyourshelf.model.PhysicalBook.BindingType).values()}"
+                                            th:value="${binding_type}"
+                                            th:text="#{${'binding_type.' + binding_type}}">bindingType
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height (mm)
+                                </div>
+                                <input type="number" step="0.01" id="book_height_input"
+                                       class="checkout_input form-control" min=0 max=2147483647
+                                       placeholder="Height" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width (mm)
+                                </div>
+                                <input type="number" step="0.01" id="book_width_input"
+                                       class="checkout_input form-control" min=0 max=2147483647
+                                       placeholder="Width" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Depth (mm)
+                                </div>
+                                <input type="number" step="0.01" id="book_depth_input"
+                                       class="checkout_input form-control" min=0 max=2147483647
+                                       placeholder="Width" required="required">
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="book_cover_image" class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Cover Image</a>
+                                </label>
+                                <input id="book_cover_image" class="book_upload_cover_image"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="book_cover_image_list" style="word-wrap: break-word;"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="book_product_images" class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Product Images</a>
+                                </label>
+                                <input multiple id="book_product_images" class="book_upload_product_images"
+                                       accept="image/x-png"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="book_product_images_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Add product" class="login_button trans_200" id="new_book">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ELECTRONIK BOOK -->
+                <div id="e-book" class="d-none">
+                    <form>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="ebook_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+                                <input type="text" id="ebook_product_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+                                <input type="number" id="ebook_stock_input" max=2147483647
+                                       class="checkout_input form-control"
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price (₺)
+                                </div>
+                                <input type="number" id="ebook_price_input" step="0.01"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="category" id="ebook_category_input"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
+                                            th:value="${category.getName()}"
+                                            th:text="${category.getName()}">category
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                                <select name="subcategory" id="ebook_subcategory_input"
+                                        class="dropdown_item_select checkout_input">
+                                    <option value="">SELECT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Published Year
+                                </div>
+                                <input type="text" id="ebook_published_year_input"
+                                       class="checkout_input form-control" pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
+                                       placeholder="Published Year" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Language
+                                </div>
+                                <input type="text" id="ebook_language_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Language" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    ISBN (13 digits)
+                                </div>
+                                <input type="text" id="ebook_isbn_input" pattern=".{17}"
+                                       class="checkout_input form-control isbn"
+                                       placeholder="ISBN" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Authors
+                                </div>
+                                <input type="text" id="ebook_authors_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Authors (Separate with comma)"
+                                       required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Translators
+                                </div>
+                                <input type="text" id="ebook_translator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Translators (Separate with comma)" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Publishers
+                                </div>
+                                <input type="text" id="ebook_publisher_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Publishers (Separate with comma)" required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Keywords
+                                </div>
+                                <input type="text" id="ebook_keywords_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Keywords (Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+                                <textarea type="text" id="ebook_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Short Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+                                <textarea type="text" id="ebook_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
+                                          placeholder="Long Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Page Number
+                                </div>
+                                <input type="number" id="ebook_page_number_input" max=2147483647
+                                       class="checkout_input form-control" min="0"
+                                       placeholder="Page Number" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    File Size (MB)
+                                </div>
+                                <input type="number" id="ebook_filesize_input" max=2147483647
+                                       class="checkout_input form-control" min=0
+                                       placeholder="File Size" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    File Format
+                                </div>
+                                <select name="file_format" id="ebook_file_format_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="file_format : ${T(com.oak.bookyourshelf.model.ElectronicBook.FileFormat).values()}"
+                                            th:value="${file_format}"
+                                            th:text="#{${'file_format.' + file_format}}">fileFormat
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="ebook_cover_image" class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Cover Image</a>
+                                </label>
+                                <input id="ebook_cover_image" class="ebook_upload_cover_image"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="ebook_cover_image_list" style="word-wrap: break-word;"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="ebook_product_images"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Product Images</a>
+                                </label>
+                                <input multiple id="ebook_product_images" class="ebook_upload_product_images"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="ebook_product_images_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Add product" class="login_button trans_200" id="new_ebook">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- AUDIO BOOK -->
+                <div id="audiobook" class="d-none">
+                    <form>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="audiobook_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+                                <input type="text" id="audiobook_barcode_input" pattern="[0-9]+"
+                                       class="checkout_input form-control"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+                                <input type="number" id="audiobook_stock_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price (₺)
+                                </div>
+                                <input type="number" id="audiobook_price_input" step="0.01"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                                <select name="category" id="audiobook_category_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
+                                            th:value="${category.getName()}"
+                                            th:text="${category.getName()}">category
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                                <select name="subcategory" id="audiobook_subcategory_select"
+                                        class="dropdown_item_select checkout_input">
+                                    <option value="">SELECT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Published Year
+                                </div>
+                                <input type="text" id="audiobook_published_year_input"
+                                       class="checkout_input form-control" pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
+                                       placeholder="Published Year" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Language
+                                </div>
+                                <input type="text" id="audiobook_language_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Language" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    ISBN (13 digits)
+                                </div>
+                                <input type="text" id="audiobook_isbn_input" pattern=".{17}"
+                                       class="checkout_input form-control isbn"
+                                       placeholder="ISBN" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Translators
+                                </div>
+                                <input type="text" id="audiobook_translator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Translators (Separate with comma)" required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Authors
+                                </div>
+                                <input type="text" id="audiobook_authors_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Authors (Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Publishers
+                                </div>
+                                <input type="text" id="audiobook_publisher_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Publishers (Separate with comma)" required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Keywords
+                                </div>
+                                <input type="text" id="audiobook_keywords_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Keywords (Separate with comma)"
+                                       required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+                                <textarea type="text" id="audiobook_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Short Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+                                <textarea type="text" id="audiobook_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
+                                          placeholder="Long Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Length (In minutes)
+                                </div>
+                                <input type="number" id="audiobook_length_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Length (In minutes)" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Narrated By
+                                </div>
+                                <input type="text" id="audiobook_narrator_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Narrated By" required="required">
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="audiobook_cover_image"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Cover Image</a>
+                                </label>
+                                <input id="audiobook_cover_image" accept="image/x-png"
+                                       class="audiobook_upload_cover_image"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="audiobook_cover_image_list" style="word-wrap: break-word;"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="audiobook_product_images"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Product Images</a>
+                                </label>
+                                <input multiple id="audiobook_product_images" class="audiobook_upload_product_images"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="audiobook_product_images_list" style="word-wrap: break-word;"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <input type="submit" value="Add product" class="login_button trans_200"
+                                       id="new_audio_book">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ELECTRONIC BOOK READER -->
+                <div id="e-book_reader" class="d-none">
+                    <form>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="ebook_reader_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+                                <input type="text" id="ebook_reader_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+                                <input type="number" id="ebook_reader_stock_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price (₺)
+                                </div>
+                                <input type="number" id="ebook_reader_price_input" step="0.01"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Brand
+                                </div>
+                                <input type="text" id="ebook_reader_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Model
+                                </div>
+                                <input type="text" id="ebook_reader_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Model" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+                                <textarea type="text" id="ebook_reader_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Short Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+                                <textarea type="text" id="ebook_reader_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
+                                          placeholder="Long Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Color
+                                </div>
+                                <input type="text" id="ebook_reader_color_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Color" required="required">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Technical Specifications
+                                </div>
+                                <input type="text" id="ebook_reader_specification_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Specification" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Weight (g)
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_weight_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Weight" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height (mm)
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_height_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Height" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width (mm)
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_width_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Width" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Depth (mm)
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_depth_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Depth" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Screen Size (inch)
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_screen_size_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Screen Size" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Battery Life (hours)
+                                </div>
+                                <input type="number" step="0.01" max=2147483647
+                                       id="ebook_reader_battery_life_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Battery Life" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Resolution (dpi)
+                                </div>
+                                <input type="number" step="0.01" id="ebook_reader_resolution_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Resolution" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    RAM (MB)
+                                </div>
+                                <input type="number" id="ebook_reader_ram_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="RAM" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Glare Free Screen
+                                </div>
+                                <select name="glare_free_screen" id="ebook_reader_glare_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Water Proof
+                                </div>
+                                <select name="water_proof" id="ebook_reader_water_proof_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Auto Adjusting Light
+                                </div>
+                                <select name="auto_adjusting_light"
+                                        id="ebook_reader_auto_adjusting_light_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Buttons
+                                </div>
+                                <select name="buttons" id="ebook_reader_buttons_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Wifi
+                                </div>
+                                <select name="wifi" id="ebook_reader_wifi_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Cellular
+                                </div>
+                                <select name="cellular" id="ebook_reader_cellular_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Backlight
+                                </div>
+                                <select name="backlight" id="ebook_reader_backlight_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Warm Backlight
+                                </div>
+                                <select name="warm_backlight"
+                                        id="ebook_reader_warm_backlight_select"
+                                        class="dropdown_item_select checkout_input"
+                                        required="required">
+                                    <option value="">SELECT</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="ebook_reader_cover_image"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Cover Image</a>
+                                </label>
+                                <input id="ebook_reader_cover_image" class="ebook_reader_upload_cover_image"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="ebook_reader_cover_image_list" style="word-wrap: break-word;"></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="ebook_reader_product_images"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Product Images</a>
+                                </label>
+                                <input multiple id="ebook_reader_product_images"
+                                       class="ebook_reader_upload_product_images"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="ebook_reader_product_images_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Add product" class="login_button trans_200"
+                                       id="new_ebook_reader">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ELECTRONIC BOOK READER CASE -->
+                <div id="e-book_reader_case" class="d-none">
+                    <form>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="ebook_reader_case_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+                                <input type="text" id="ebook_reader_case_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+                                <input type="number" id="ebook_reader_case_stock_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price (₺)
+                                </div>
+                                <input type="number" id="ebook_reader_case_price_input" step="0.01"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Brand
+                                </div>
+                                <input type="text" id="ebook_reader_case_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Model
+                                </div>
+                                <input type="text" id="ebook_reader_case_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Case Model" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Color
+                                </div>
+                                <input type="text" id="ebook_reader_case_color_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Color" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Reader Brand
+                                </div>
+                                <input type="text" id="ebook_reader_case_reader_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Reader Brand" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Reader Model
+                                </div>
+                                <input type="text" id="ebook_reader_case_reader_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Reader Model" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+                                <textarea type="text" id="ebook_reader_case_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Short Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+                                <textarea type="text" id="ebook_reader_case_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
+                                          placeholder="Long Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height (mm)
+                                </div>
+                                <input type="number" step="0.01" min=0 max=2147483647
+                                       id="ebook_reader_case_height_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Height" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width (mm)
+                                </div>
+                                <input type="number" step="0.01" min=0 id="ebook_reader_case_width_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Width" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Depth (mm)
+                                </div>
+                                <input type="number" step="0.01" min=0 id="ebook_reader_case_depth_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Depth" required="required">
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="ebook_reader_case_cover_image"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Cover Image</a>
+                                </label>
+                                <input id="ebook_reader_case_cover_image" class="ebook_reader_case_upload_cover_image"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="ebook_reader_case_cover_image_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ebook_reader_case_product_images"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Product Images</a>
+                                </label>
+                                <input multiple id="ebook_reader_case_product_images"
+                                       class="ebook_reader_case_upload_product_images"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="ebook_reader_case_product_images_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Add product" class="login_button trans_200"
+                                       id="new_ebook_reader_case">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Physical Book Case -->
+                <div id="book_case" class="d-none">
+                    <form>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Product Name
+                                </div>
+                                <input type="text" id="book_case_product_name_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Product Name" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Barcode
+                                </div>
+                                <input type="text" id="book_case_barcode_input"
+                                       class="checkout_input form-control" pattern="[0-9]+"
+                                       placeholder="Barcode" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Stock
+                                </div>
+                                <input type="number" id="book_case_stock_input"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Stock" required="required"
+                                       min=0>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Price (₺)
+                                </div>
+                                <input type="number" id="book_case_price_input" step="0.01"
+                                       class="checkout_input form-control" max=2147483647
+                                       placeholder="Price" required="required"
+                                       min=0>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Brand
+                                </div>
+                                <input type="text" id="book_case_brand_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Brand" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Model
+                                </div>
+                                <input type="text" id="book_case_model_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Model" required="required">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Color
+                                </div>
+                                <input type="text" id="book_case_color_input"
+                                       class="checkout_input form-control"
+                                       placeholder="Color" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Width (mm)
+                                </div>
+                                <input type="number" step="0.01" id="book_case_case_width_input"
+                                       class="checkout_input form-control" min=0 max=2147483647
+                                       placeholder="Width" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Height (mm)
+                                </div>
+                                <input type="number" step="0.01"
+                                       id="book_case_case_height_input"
+                                       class="checkout_input form-control" min=0 max=2147483647
+                                       placeholder="Height" required="required">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Maximum Book Depth (mm)
+                                </div>
+                                <input type="number" step="0.01"
+                                       id="book_case_max_depth_input"
+                                       class="checkout_input form-control" min=0 max=2147483647
+                                       placeholder="Maximum Book Depth" required="required">
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Short Description
+                                </div>
+                                <textarea type="text" id="book_case_short_description_input"
+                                          class="long_desc_textarea form-control different-control w-100" rows="4"
+                                          placeholder="Short Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Long Description
+                                </div>
+                                <textarea type="text" id="book_case_long_description_input" maxlength="5000"
+                                          class="long_desc_textarea form-control different-control w-100" rows="6"
+                                          placeholder="Long Description" required="required"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-4">
+                                <label for="book_case_cover_image"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Cover Image</a>
+                                </label>
+                                <input id="book_case_cover_image" accept="image/x-png"
+                                       class="book_case_upload_cover_image"
+                                       onchange="updatePhoto(this.id);"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected file:</p>
+                                <div id="book_case_cover_image_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="book_case_product_images"
+                                       class="choose_file_label trans_200">
+                                    <a class="choose_file_button">Upload Product Images</a>
+                                </label>
+                                <input multiple id="book_case_product_images" class="book_case_upload_product_images"
+                                       onchange="updatePhoto(this.id);" accept="image/x-png"
+                                       style="visibility:hidden;" type="file">
+                                <p style="padding-bottom: 6px;">Selected files:</p>
+                                <div id="book_case_product_images_list" style="word-wrap: break-word;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Add product" class="login_button trans_200"
+                                       id="new_book_case">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sort orders -->
+<span th:if="${productListEmpty == false}">
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'date-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Date'"
+                   th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'date-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Date'"
+                   th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'ID-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by ID'"
+                   th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'ID-asc'}, filter=${filter})}"
+                   th:text="'Increasing by ID'"
+                   th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'name-asc'}, filter=${filter})}"
+                   th:text="'A - Z'"
+                   th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'name-desc'}, filter=${filter})}"
+                   th:text="'Z - A'"
+                   th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'price-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Price'"
+                   th:style="${sort == 'price-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'price-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Price'"
+                   th:style="${sort == 'price-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'barcode-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Barcode'"
+                   th:style="${sort == 'barcode-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'barcode-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Barcode'"
+                   th:style="${sort == 'barcode-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'stock-desc'}, filter=${filter})}"
+                   th:text="'Decreasing by Stock'"
+                   th:style="${sort == 'stock-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${'stock-asc'}, filter=${filter})}"
+                   th:text="'Increasing by Stock'"
+                   th:style="${sort == 'stock-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Product Filter</span><i class="fa fa-caret-down"
+                                                                       aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
+                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
+                   th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
+                   th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
+                   th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
+                   th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
+                   th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#product(size=${productPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
+                   th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</span>
+
+<span th:if="${productPage.totalPages > 0}">
+
+    <br>
+
+    <div>
+        <div class="row order - row ">
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">ID</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Name</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Type</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Price</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Barcode</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="profile-order-title">Stock</div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="orderDetailBox">
+            <tr th:each="product: ${productPage.content}">
+
+                <!-- Product -->
+                <div class="address-element-padding">
+                    <a th:href="@{'/product-details/' + ${product.productId}}">
+                        <div class="category-element">
+                            <div class="product_content">
+                                <div class="row order - row collapsible">
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text vertical_center">
+                                            <td th:text="${product.productId}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text vertical_center">
+                                            <td th:text="${product.productName}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text vertical_center">
+                                            <td th:text="${product.getProductTypeName()}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text vertical_center">
+                                            <td th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text vertical_center">
+                                            <td th:text="${product.barcode}"></td>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-xs-4">
+                                        <div class="profile-order-text vertical_center">
+                                            <td th:text="${product.stock}"></td>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </tr>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page_nav_row">
+        <div class="col">
+            <div class="page_nav">
+                <ul class="d-flex flex-row align-items-start justify-content-center">
+                    <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size},
+                                                            page=${currentPage - 1},
+                                                            sort=${sort},
+                                                            filter=${filter})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- First page -->
+                    <li th:if="${productPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size},
+                                                            page=${1},
+                                                            sort=${sort},
+                                                            filter=${filter})}"
+                           th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                    <!-- Pages -->
+                    <li th:if="${productPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , productPage.totalPages > 2 + currentPage ? currentPage + 2 : productPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size},
+                                                            page=${i},
+                                                            sort=${sort},
+                                                            filter=${filter})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
+
+                    <li th:if="${currentPage + 3 < productPage.totalPages}" class="pagination_dots">...</li>
+
+                    <!-- Last page -->
+                    <li th:if="${productPage.totalPages > 1}"
+                        th:class="${currentPage == productPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size},
+                                                            page=${productPage.totalPages},
+                                                            sort=${sort},
+                                                            filter=${filter})}"
+                           th:text="${productPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ productPage.totalPages}">
+                        </a>
+                    </li>
+
+                    <!-- Next button -->
+                    <li th:style="${currentPage == productPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#product(size=${productPage.size},
+                                                            page=${currentPage + 1},
+                                                            sort=${sort},
+                                                            filter=${filter})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</span>
+
+<!-- No product -->
+<span th:unless="${productPage.totalPages > 0}">
+    <div class="warning-text">There are no products.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+<script>
+
+    $(document).ready(function () {
+        var i;
+        const short_desc_ids = ['book_short_description_input', 'ebook_short_description_input',
+            'audiobook_short_description_input', 'ebook_reader_short_description_input',
+            'ebook_reader_case_short_description_input', 'book_case_short_description_input'];
+        const long_desc_ids = ['book_long_description_input', 'ebook_long_description_input',
+            'audiobook_long_description_input', 'ebook_reader_long_description_input',
+            'ebook_reader_case_long_description_input', 'book_case_long_description_input'];
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+        var textarea_inputs = document.querySelectorAll("textarea[type=text]");
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        for (i = 0; i < textarea_inputs.length; i++) {
+            if (short_desc_ids.includes(textarea_inputs[i].id)) {
+                textarea_inputs[i].setAttribute("maxlength", 1000);
+
+            } else if (long_desc_ids.includes(textarea_inputs[i].id)) {
+                textarea_inputs[i].setAttribute("maxlength", 5000);
+
+            } else {
+                textarea_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+            }
+        }
+    });
+
+    // var token = $("meta[name='_csrf']").attr("content");
+    // var header = $("meta[name='_csrf_header']").attr("content");
+
+    $('#new_book').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("productType", "book");
+        retForm.append("productName", $('#book_product_name_input').val());
+        retForm.append("barcode", $('#book_barcode_input').val());
+        retForm.append("stock", $('#book_stock_input').val());
+        retForm.append("price", $('#book_price_input').val());
+        retForm.append("publishedYear", $('#book_published_year_input').val());
+        retForm.append("language", $('#book_language_input').val());
+        retForm.append("isbn", $('#book_isbn_input').val());
+        retForm.append("shortDesc", $('#book_short_description_input').val());
+        retForm.append("longDesc", $('#book_long_description_input').val());
+        retForm.append("mediaType", $('#book_media_type_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("paperType", $('#book_paper_type_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("bindingType", $('#book_binding_type_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("pageNum", $('#book_page_number_input').val());
+        retForm.append("editionNum", $('#book_edition_number_input').val());
+        retForm.append("height", $('#book_height_input').val());
+        retForm.append("width", $('#book_width_input').val());
+        retForm.append("depth", $('#book_depth_input').val());
+        retForm.append("category_name", $('#book_category_input').val());
+        retForm.append("subcategory_name", $('#book_subcategory_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#book_publisher_input').val().split(','),
+            translators: $('#book_translator_input').val().split(','),
+            authors: $('#book_authors_input').val().split(','),
+            keywords: $('#book_keywords_input').val().split(','),
+        }));
+        const coverImage = $('.book_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.book_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (validation_check(["book_product_name_input", "book_barcode_input", "book_stock_input", "book_price_input",
+            "book_published_year_input", "book_language_input", "book_translator_input", "book_authors_input", "book_isbn_input",
+            "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
+            "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
+            "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_cover_image",
+            "book_category_input"]) && file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Book added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+    });
+
+    $('#new_ebook').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("productType", "ebook");
+        retForm.append("productName", $('#ebook_product_name_input').val());
+        retForm.append("barcode", $('#ebook_product_barcode_input').val());
+        retForm.append("stock", $('#ebook_stock_input').val());
+        retForm.append("price", $('#ebook_price_input').val());
+        retForm.append("publishedYear", $('#ebook_published_year_input').val());
+        retForm.append("language", $('#ebook_language_input').val());
+        retForm.append("isbn", $('#ebook_isbn_input').val());
+        retForm.append("shortDesc", $('#ebook_short_description_input').val());
+        retForm.append("longDesc", $('#ebook_long_description_input').val());
+        retForm.append("pageNum", $('#ebook_page_number_input').val());
+        retForm.append("category_name", $('#ebook_category_input').val());
+        retForm.append("subcategory_name", $('#ebook_subcategory_input').val());
+        retForm.append("fileSize", $('#ebook_filesize_input').val());
+        retForm.append("fileFormat", $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"));
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#ebook_publisher_input').val().split(','),
+            translators: $('#ebook_translator_input').val().split(','),
+            authors: $('#ebook_authors_input').val().split(','),
+            keywords: $('#ebook_keywords_input').val().split(','),
+        }));
+        const coverImage = $('.ebook_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.ebook_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (validation_check(["ebook_product_name_input", "ebook_product_barcode_input", "ebook_stock_input", "ebook_price_input",
+            "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
+            "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
+            "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_cover_image",
+            "ebook_category_input"]) && file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'E-Book added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+    });
+
+    $('#new_audio_book').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("productType", "audio_book");
+        retForm.append("productName", $('#audiobook_product_name_input').val());
+        retForm.append("barcode", $('#audiobook_barcode_input').val());
+        retForm.append("stock", $('#audiobook_stock_input').val());
+        retForm.append("price", $('#audiobook_price_input').val());
+        retForm.append("publishedYear", $('#audiobook_published_year_input').val());
+        retForm.append("language", $('#audiobook_language_input').val());
+        retForm.append("isbn", $('#audiobook_isbn_input').val());
+        retForm.append("shortDesc", $('#audiobook_short_description_input').val());
+        retForm.append("longDesc", $('#audiobook_long_description_input').val());
+        retForm.append("category_name", $('#audiobook_category_select').val());
+        retForm.append("subcategory_name", $('#audiobook_subcategory_select').val());
+        retForm.append("lengthInMinutes", $('#audiobook_length_input').val());
+        retForm.append("narratedBy", $('#audiobook_narrator_input').val());
+        retForm.append("lists", JSON.stringify({
+            publishers: $('#audiobook_publisher_input').val().split(','),
+            translators: $('#audiobook_translator_input').val().split(','),
+            authors: $('#audiobook_authors_input').val().split(','),
+            keywords: $('#audiobook_keywords_input').val().split(','),
+        }));
+        const coverImage = $('.audiobook_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.audiobook_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (validation_check(["audiobook_product_name_input", "audiobook_barcode_input", "audiobook_stock_input", "audiobook_price_input",
+            "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
+            "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
+            "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
+            "audiobook_cover_image", "audiobook_category_select"]) && file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Audio book added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+    });
+
+    $('#new_ebook_reader').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("productType", "ebook_reader");
+        retForm.append("productName", $('#ebook_reader_product_name_input').val());
+        retForm.append("barcode", $('#ebook_reader_barcode_input').val());
+        retForm.append("stock", $('#ebook_reader_stock_input').val());
+        retForm.append("price", $('#ebook_reader_price_input').val());
+        retForm.append("shortDesc", $('#ebook_reader_short_description_input').val());
+        retForm.append("longDesc", $('#ebook_reader_long_description_input').val());
+        retForm.append("category_name", "");
+        retForm.append("subcategory_name", "");
+        retForm.append("readerBrand", $('#ebook_reader_brand_input').val());
+        retForm.append("readerModel", $('#ebook_reader_model_input').val());
+        retForm.append("readerColor", $('#ebook_reader_color_input').val());
+        retForm.append("technicalSpecifications", $('#ebook_reader_specification_input').val());
+        retForm.append("weight", $('#ebook_reader_weight_input').val());
+        retForm.append("width", $('#ebook_reader_width_input').val());
+        retForm.append("height", $('#ebook_reader_height_input').val());
+        retForm.append("depth", $('#ebook_reader_depth_input').val());
+        retForm.append("screenSize", $('#ebook_reader_screen_size_input').val());
+        retForm.append("batteryLife", $('#ebook_reader_battery_life_input').val());
+        retForm.append("resolution", $('#ebook_reader_resolution_input').val());
+        retForm.append("ram", $('#ebook_reader_ram_input').val());
+        retForm.append("glareFreeScreen", $('#ebook_reader_glare_select').val());
+        retForm.append("waterProof", $('#ebook_reader_water_proof_select').val());
+        retForm.append("autoAdjustingLight", $('#ebook_reader_auto_adjusting_light_select').val());
+        retForm.append("buttons", $('#ebook_reader_buttons_select').val());
+        retForm.append("wifi", $('#ebook_reader_wifi_select').val());
+        retForm.append("cellular", $('#ebook_reader_cellular_select').val());
+        retForm.append("backLight", $('#ebook_reader_backlight_select').val());
+        retForm.append("warmBackLight", $('#ebook_reader_warm_backlight_select').val());
+        retForm.append("lists", JSON.stringify({}));
+        const coverImage = $('.ebook_reader_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.ebook_reader_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (validation_check(["ebook_reader_product_name_input", "ebook_reader_barcode_input", "ebook_reader_stock_input",
+            "ebook_reader_price_input", "ebook_reader_short_description_input", "ebook_reader_long_description_input",
+            "ebook_reader_brand_input", "ebook_reader_model_input", "ebook_reader_color_input", "ebook_reader_specification_input",
+            "ebook_reader_weight_input", "ebook_reader_width_input", "ebook_reader_height_input", "ebook_reader_depth_input",
+            "ebook_reader_screen_size_input", "ebook_reader_battery_life_input", "ebook_reader_resolution_input", "ebook_reader_ram_input",
+            "ebook_reader_glare_select", "ebook_reader_water_proof_select", "ebook_reader_auto_adjusting_light_select",
+            "ebook_reader_buttons_select", "ebook_reader_wifi_select", "ebook_reader_cellular_select", "ebook_reader_backlight_select",
+            "ebook_reader_warm_backlight_select", "ebook_reader_cover_image"]) && file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'E-book reader added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+    });
+
+    $('#new_ebook_reader_case').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("productType", "ebook_reader_case");
+        retForm.append("productName", $('#ebook_reader_case_product_name_input').val());
+        retForm.append("barcode", $('#ebook_reader_case_barcode_input').val());
+        retForm.append("stock", $('#ebook_reader_case_stock_input').val());
+        retForm.append("price", $('#ebook_reader_case_price_input').val());
+        retForm.append("shortDesc", $('#ebook_reader_case_short_description_input').val());
+        retForm.append("longDesc", $('#ebook_reader_case_long_description_input').val());
+        retForm.append("category_name", "");
+        retForm.append("subcategory_name", "");
+        retForm.append("readerBrand", $('#ebook_reader_case_reader_brand_input').val());
+        retForm.append("readerModel", $('#ebook_reader_case_reader_model_input').val());
+        retForm.append("caseBrand", $('#ebook_reader_case_brand_input').val());
+        retForm.append("caseModel", $('#ebook_reader_case_model_input').val());
+        retForm.append("caseColor", $('#ebook_reader_case_color_input').val());
+        retForm.append("caseWidth", $('#ebook_reader_case_width_input').val());
+        retForm.append("caseHeight", $('#ebook_reader_case_height_input').val());
+        retForm.append("caseDepth", $('#ebook_reader_case_depth_input').val());
+        retForm.append("lists", JSON.stringify({}));
+        const coverImage = $('.ebook_reader_case_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.ebook_reader_case_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (validation_check(["ebook_reader_case_product_name_input", "ebook_reader_case_barcode_input", "ebook_reader_case_stock_input",
+            "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
+            "ebook_reader_case_reader_brand_input", "ebook_reader_case_reader_model_input", "ebook_reader_case_short_description_input",
+            "ebook_reader_case_long_description_input", "ebook_reader_case_height_input", "ebook_reader_case_width_input",
+            "ebook_reader_case_depth_input", "ebook_reader_case_cover_image"]) && file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'E-book reader case added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+    });
+
+    $('#new_book_case').click(function (event) {
+        var retForm = new FormData();
+        retForm.append("productType", "book_case");
+        retForm.append("productName", $('#book_case_product_name_input').val());
+        retForm.append("barcode", $('#book_case_barcode_input').val());
+        retForm.append("stock", $('#book_case_stock_input').val());
+        retForm.append("price", $('#book_case_price_input').val());
+        retForm.append("shortDesc", $('#book_case_short_description_input').val());
+        retForm.append("longDesc", $('#book_case_long_description_input').val());
+        retForm.append("category_name", "");
+        retForm.append("subcategory_name", "");
+        retForm.append("caseBrand", $('#book_case_brand_input').val());
+        retForm.append("caseModel", $('#book_case_model_input').val());
+        retForm.append("caseColor", $('#book_case_color_input').val());
+        retForm.append("caseWidth", $('#book_case_case_width_input').val());
+        retForm.append("caseHeight", $('#book_case_case_height_input').val());
+        retForm.append("maxBookDepth", $('#book_case_max_depth_input').val());
+        retForm.append("lists", JSON.stringify({}));
+        const coverImage = $('.book_case_upload_cover_image')[0].files[0];
+        retForm.append("coverImage", coverImage);
+        //retForm.append("productImages", Array.from($('.upload_product_images')[0].files));
+        const productImages = $('.book_case_upload_product_images')[0].files;
+
+        for (var i = 0; i < productImages.length; i++) {
+            retForm.append('productImages', productImages[i]);
+        }
+
+        if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
+            "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
+            "book_case_case_width_input", "book_case_case_height_input", "book_case_short_description_input",
+            "book_case_long_description_input", "book_case_cover_image", "book_case_max_depth_input"]) && file_size_check(coverImage, productImages)) {
+            event.preventDefault();
+            $.ajax({
+                url: "/admin-panel/product",
+                data: retForm,
+                // beforeSend: function(xhr) {
+                //     xhr.setRequestHeader(header, token);
+                // },
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Book case added successfully.',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#product";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                },
+                error: function (result) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: result.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            });
+        }
+    });
+
+    $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function (event) {
+        $.getJSON("/admin-panel/product/subcategory", {
+            category: $(this).val(),
+            ajax: 'true'
+        }, function (data) {
+            buildSubcategoriesDropdown(data, event.target.id.replace("category", "subcategory"));
+        });
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        var html = '<option value="">SELECT</option>';
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
+        }
+        html += '</option>';
+        $('#' + subcategoryName).html(html);
+    }
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function file_size_check(coverImage, productImages) {
+
+        if (coverImage !== undefined && coverImage.size > 10000000) {
+            iziToast.show({
+                title: 'Fail',
+                message: "Cover image's maximum size can be 10MB.",
+                position: 'topRight',
+                color: 'red'
+            });
+            return false;
+        }
+
+        if (productImages === undefined) {
+            return true;
+        }
+
+        for (var i = 0; i < productImages.length; i++) {
+            if (productImages[i].size > 10000000) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: "Product image's maximum size can be 10MB.",
+                    position: 'topRight',
+                    color: 'red'
+                });
+                return false;
+            }
+        }
+        return true;
+    }
+
+</script>
+<script th:src="@{/static/js/admin-panel.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+</html>

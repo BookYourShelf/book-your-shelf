@@ -1,0 +1,346 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Add category button -->
+<div class="address-element-padding">
+    <a href="#new_category" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Category</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<!-- Category form -->
+<div id="new_category" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form id="new_category_form" class="checkout_form" th:object="${category}" method="post">
+
+                    <!-- Product Type -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Product Type
+                        </div>
+
+                        <select name="product_type" id="category_product_type"
+                                class="dropdown_item_select checkout_input"
+                                required="required" th:field="*{productType}">
+                            <option value="">Select Product Type</option>
+                            <option value="BOOK">Book</option>
+                            <option value="E_BOOK">E-Book</option>
+                            <option value="AUDIO_BOOK">Audio Book</option>
+                        </select>
+                    </div>
+
+                    <!-- Name -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Category Name
+                        </div>
+
+                        <input type="text" id="new_category_name"
+                               class="checkout_input form-control"
+                               placeholder="Category Name" required="required" th:field="*{name}"
+                               pattern="[A-Za-z ]+" title="Category name cannot have digits.">
+                    </div>
+
+                    <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+
+                    <!-- Button -->
+                    <input id="add_category_button" type="submit" value="Add category" class="login_button trans_200">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sort and filter categories -->
+<span th:if="${categoryPage.totalPages > 0}">
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'ID-desc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Decreasing by ID'"
+                   th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'ID-asc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Increasing by ID'"
+                   th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'name-asc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'A - Z'"
+                   th:style="${sort == 'name-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'name-desc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Z - A'"
+                   th:style="${sort == 'name-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'total-desc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Decreasing by Total'"
+                   th:style="${sort == 'total-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'total-asc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Increasing by Total'"
+                   th:style="${sort == 'total-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'subcategory-desc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Decreasing by Subcategory'"
+                   th:style="${sort == 'subcategory-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_sorting_btn">
+                <a th:href="@{/admin-panel#category(sort=${'subcategory-asc'}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                   th:text="'Increasing by Subcategory'"
+                   th:style="${sort == 'subcategory-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Product Filter</span><i class="fa fa-caret-down"
+                                                                       aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
+                   th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
+                   th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
+                   th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/admin-panel#category(size=${categoryPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
+                   th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</span>
+
+
+<span th:if="${categoryPage.totalPages > 0}">
+
+    <br>
+
+    <div>
+        <div class="row order - row ">
+
+            <div class="col-lg-2 col-md-2 col-xs-6">
+                <div class="profile-order-title">ID</div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Name</div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Type</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-6">
+                <div class="profile-order-title">Total Product</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-xs-6">
+                <div class="profile-order-title">Total Subcategory</div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="orderDetailBox">
+                <tr th:each="category: ${categoryPage.content}">
+
+                    <!-- User -->
+                    <div class="address-element-padding">
+                        <a th:href="@{'/category-details/' + ${category.getId()}}">
+                            <div class="category-element">
+                                <div class="product_content">
+                                    <div class="row order - row collapsible">
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-id" th:text="${category.getId()}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-name" th:text="${category.getName()}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-type"
+                                                    th:text="#{${'category.' + category.getProductType()}}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-itemNum"
+                                                    th:text="${category.getBooks().size()}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-subcategory-size"
+                                                    th:text="${category.getSubcategories().size()}"></td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </tr>
+            </div>
+        </div>
+    </div>
+
+    <div class="row page_nav_row">
+        <div class="col">
+            <div class="page_nav">
+                <ul class="d-flex flex-row align-items-start justify-content-center">
+                    <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#category(sort=${sort}, size=${categoryPage.size}, page=${currentPage - 1}, filter=${filter}}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- First page -->
+                    <li th:if="${categoryPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#category(sort=${sort}, size=${categoryPage.size}, page=${1}, filter=${filter})}"
+                           th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                    <!-- Pages -->
+                    <li th:if="${categoryPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , categoryPage.totalPages > 2 + currentPage ? currentPage + 2 : categoryPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#category(sort=${sort}, size=${categoryPage.size}, page=${i}, filter=${filter})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
+
+                    <li th:if="${currentPage + 3 < categoryPage.totalPages}" class="pagination_dots">...</li>
+
+                    <!-- Last page -->
+                    <li th:if="${categoryPage.totalPages > 1}"
+                        th:class="${currentPage == categoryPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#category(sort=${sort}, size=${categoryPage.size}, page=${categoryPage.totalPages}, filter=${filter})}"
+                           th:text="${categoryPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ categoryPage.totalPages}">
+                        </a>
+                    </li>
+
+                    <!-- Next button -->
+                    <li th:style="${currentPage == categoryPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#category(sort=${sort}, size=${categoryPage.size}, page=${currentPage + 1}, filter=${filter})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</span>
+
+<!-- No category -->
+<span th:unless="${categoryPage.totalPages > 0}">
+    <div class="warning-text">There are no categories.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+
+<script>
+    $('#add_category_button').click(function (event) {
+        var name = $('#new_category_name').val();
+        var productType = $('#category_product_type option:selected').val();
+        var ret = {
+            name: name,
+            productType: productType
+        };
+
+        if (validation_check(["category_product_type", "new_category_name"])) {
+            event.preventDefault();
+            $.post("/admin-panel/category", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Category ' + name + ' added successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/admin-panel#category";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+</script>
+<script th:src="@{/static/js/category.js}"></script>
+</html>

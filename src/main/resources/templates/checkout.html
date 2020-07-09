@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Checkout | Book Your Shelf</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/cart}">Your Cart</a></li>
+                                <li style="color: #fbaa1d">Checkout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout -->
+        <div class="checkout">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Billing -->
+                    <div class="col-lg-4">
+                        <div class="address-element-padding">
+                            <div class="billingAddress">
+                                <div class="product_content">
+                                    <div class="row order - row ">
+                                        <div class="address-title">Billing Address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add address button -->
+                        <div class="address-element-padding">
+                            <a href="#billing_address_column" class="trans_200" data-toggle="collapse">
+                                <div class="billingAddress">
+                                    <div class="product_content">
+                                        <div style="align-items: center; justify-content: center"
+                                             class="row order - row ">
+                                            <div class="add-address">Add New Address</div>
+                                            <i style="padding-left: 5px; color: #fbaa1d" class="fa fa-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Address form -->
+                        <div id="billing_address_column" class="collapse">
+
+                            <div class="address-container">
+                                <div class="billingAddress">
+                                    <div class="checkout_form_container">
+                                        <form action="#" id="billing_address_form" class="checkout_form" method="post">
+
+                                            <!-- Address Title -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Address Title
+                                                </div>
+
+                                                <select name="billing_address_title" id="billing_address_title"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                    <option value="">SELECT</option>
+                                                    <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
+                                                            th:value="${address_title}"
+                                                            th:text="#{${'address_title.' + address_title}}">
+                                                        addressTitle
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Name Surname -->
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <!-- Name -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Name
+                                                    </div>
+
+                                                    <input type="text" id="billing_address_name"
+                                                           th:value="${user.getName()}"
+                                                           class="checkout_input form-control"
+                                                           pattern="^[a-zA-Z ]+$" placeholder="Name"
+                                                           required="required">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <!-- Surname -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Surname
+                                                    </div>
+
+                                                    <input type="text" id="billing_address_surname"
+                                                           th:value="${user.getSurname()}"
+                                                           class="checkout_input form-control"
+                                                           pattern="^[a-zA-Z ]+$" placeholder="Surname"
+                                                           required="required">
+                                                </div>
+                                            </div>
+
+                                            <!-- Country -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Country
+                                                </div>
+
+                                                <select name="billing_address_country"
+                                                        id="billing_address_country"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                </select>
+                                            </div>
+
+                                            <!-- City Province -->
+                                            <div>
+                                                <!-- City -->
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    City
+                                                </div>
+
+                                                <select name="billing_address_city"
+                                                        id="billing_address_city"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                </select>
+
+                                            </div>
+
+                                            <!-- Neighborhood Zipcode -->
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <!-- Neighborhood -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Town
+                                                    </div>
+
+                                                    <input type="text" id="billing_address_neighborhood"
+                                                           placeholder="Town" class="checkout_input form-control"
+                                                           required="required" pattern="^[a-zA-Z ]+$">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <!-- Zipcode -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Zip Code
+                                                    </div>
+
+                                                    <input type="number" id="billing_address_zip_code"
+                                                           placeholder="Zip Code" class="checkout_input form-control"
+                                                           required="required">
+                                                </div>
+                                            </div>
+
+                                            <!-- Address -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Address
+                                                </div>
+                                                <input type="text" id="billing_open_address"
+                                                       class="checkout_input form-control"
+                                                       placeholder="Full Address" required="required">
+                                            </div>
+
+                                            <!-- Phone no -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">Phone
+                                                    Number
+                                                </div>
+                                                <input type="text" id="billing_address_phone"
+                                                       class="checkout_input form-control phone_mask"
+                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                       pattern=".{15}">
+                                            </div>
+
+                                            <div><!--ERROR--></div>
+
+                                            <!-- Button -->
+                                            <input name=submit id="add_billing_address" type="submit"
+                                                   value="ADD ADDRESS"
+                                                   class="login_button trans_200">
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registered addresses -->
+                        <div>
+                            <ul>
+                                <span th:unless="${#lists.isEmpty(allBillingAddress)}">
+                                    <tr th:each="address , iStat : ${allBillingAddress}">
+                                        <div class="address-element-padding">
+                                            <div class="billingAddress">
+                                                <div class="product_content">
+                                                    <li class="row">
+                                                        <div class="col-md-9 registered-address-title">
+
+                                                            <label class="radio_container">
+                                                                <input type="radio" id="billing_address_choice_1"
+                                                                       th:value="${address.getAddressId()}"
+                                                                       name="billing_address_choice"
+                                                                       class="payment_radio">
+                                                                <span class="radio_mark"></span>
+                                                                <span class="registered-address-title">
+                                                                    <td th:text="${address.getAddressTitle()}"></td>
+                                                                </span>
+                                                            </label>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a th:href="'#billing_address_update' + ${address.getAddressId()}"
+                                                               th:id="${address.getAddressId()}"
+                                                               class="trans_200 update_address_icon"
+                                                               data-toggle="collapse"><i
+                                                                    style="font-size: 25px; color: #fbaa1d"
+                                                                    class="fa fa-pencil"></i></a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="row">
+                                                        <div class="col-md-9 registered-address-content">
+                                                            <td th:text="${address.getFullAddress() + ','}"></td>
+                                                            <td th:text="${address.getTown() + ','}"></td>
+                                                            <td th:text="${address.getZipCode()}"></td>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a href="#" class="trans_200 delete_billing_address"
+                                                               th:id="${address.getAddressId()}"
+                                                               name="delete_billing_address" data-toggle="collapse">
+                                                                <i style="font-size: 25px; color: #4a4a4a"
+                                                                   class="fa product_text">&#xf014;</i></a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="row">
+                                                        <div class="col-md-9 registered-address-content">
+                                                            <td th:text="${address.getCity() + '/'}"></td>
+                                                            <td th:text="${address.getCountry()}"></td>
+                                                        </div>
+                                                    </li>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Update address form -->
+                                        <div th:id="'billing_address_update' + ${address.getAddressId()}"
+                                             class="collapse">
+
+                                            <div class="address-container">
+                                                <div class="billingAddress">
+                                                    <div class="checkout_form_container">
+                                                        <form action="#" id="billing_address_update_form"
+                                                              class="checkout_form" method="post">
+
+                                                            <!-- Address Title -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    Address Title
+                                                                </div>
+
+                                                                <select name="billing_address_update_title"
+                                                                        th:id="'billing_address_update_title'+ ${address.getAddressId()}"
+                                                                        th:value="${address.getAddressTitle()}"
+                                                                        class="dropdown_item_select checkout_input"
+                                                                        required="required">
+                                                                     <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
+                                                                             th:value="${address_title}"
+                                                                             th:text="#{${'address_title.' + address_title}}"
+                                                                             th:selected="${address_title == address.getAddressTitle()}">addressTitle
+                                                                     </option>
+                                                                </select>
+                                                            </div>
+
+                                                            <!-- Name Surname -->
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <!-- Name -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Name
+                                                                    </div>
+
+                                                                    <input type="text"
+                                                                           th:id="'billing_address_update_name' + ${address.getAddressId()}"
+                                                                           th:value="${address.getName()}"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Name" pattern="^[a-zA-Z ]+$"
+                                                                           required="required">
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <!-- Surname -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Surname
+                                                                    </div>
+
+                                                                    <input type="text"
+                                                                           th:id="'billing_address_update_surname' + ${address.getAddressId()}"
+                                                                           th:value="${address.getSurname()}"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Surname"
+                                                                           pattern="^[a-zA-Z ]+$" required="required">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Country -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    Country
+                                                                </div>
+
+                                                                <select name="billing_address_update_country"
+                                                                        th:id="'billing_address_update_country' + ${address.getAddressId()}"
+                                                                        th:value="${address.getCountry()}"
+                                                                        class="dropdown_item_select checkout_input"
+                                                                        required="required">
+                                                                </select>
+                                                            </div>
+
+                                                            <span style="display: none">
+                                                                <input th:id="'billing_country_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCountry()}">
+                                                            </span>
+
+                                                            <!-- City Province -->
+                                                            <div>
+                                                                <!-- City -->
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    City
+                                                                </div>
+
+                                                                <select name="billing_address_update_city"
+                                                                        th:id="'billing_address_update_city' + ${address.getAddressId()}"
+                                                                        th:value="${address.getCity()}"
+                                                                        class="dropdown_item_select checkout_input"
+                                                                        required="required">
+                                                                </select>
+
+                                                            </div>
+
+                                                            <span style="display: none">
+                                                                <input th:id="'billing_city_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCity()}">
+                                                            </span>
+
+                                                            <!-- Neighborhood Zipcode -->
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <!-- Neighborhood -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Town
+                                                                    </div>
+
+                                                                    <input type="text"
+                                                                           th:id="'billing_address_update_neighborhood' + ${address.getAddressId()}"
+                                                                           th:value="${address.getTown()}"
+                                                                           pattern="^[a-zA-Z ]+$"
+                                                                           class="checkout_input form-control"
+                                                                           required="required">
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <!-- Zipcode -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Zip Code
+                                                                    </div>
+
+                                                                    <input type="number"
+                                                                           th:id="'billing_address_update_zip_code' + ${address.getAddressId()}"
+                                                                           th:value="${address.getZipCode()}"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Zip code"
+                                                                           required="required">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Address -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    Address
+                                                                </div>
+                                                                <input type="text"
+                                                                       th:id="'billing_address_update_open_address_1_id' + ${address.getAddressId()}"
+                                                                       th:value="${address.getFullAddress()}"
+                                                                       class="checkout_input form-control"
+                                                                       placeholder="Full Address" required="required">
+                                                            </div>
+
+                                                            <!-- Phone no -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">Phone
+                                                                    Number
+                                                                </div>
+                                                                <input type="text"
+                                                                       th:id="'billing_address_update_phone' + ${address.getAddressId()}"
+                                                                       th:value="${address.getPhoneNumber()}"
+                                                                       class="checkout_input form-control phone_mask"
+                                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                                       pattern=".{15}">
+                                                            </div>
+
+                                                            <div><!--ERROR--></div>
+
+                                                            <!-- Button -->
+                                                             <input name="update_billing_address"
+                                                                    th:id="${address.getAddressId()}"
+                                                                    type="submit" value="UPDATE"
+                                                                    class="login_button trans_200 update_billing_address">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </span>
+                                <!-- No Billing  Address -->
+                                <span th:if="${#lists.isEmpty(allBillingAddress)}">
+                                    <div class="warning-text">There are no billing addresses.</div>
+                                </span>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+
+
+                        <div class="address-element-padding">
+                            <div class="billingAddress">
+                                <div class="product_content">
+                                    <div class="row order - row ">
+                                        <div class="address-title">Delivery Address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add address button -->
+                        <div class="address-element-padding">
+                            <a href="#delivery_address_column" class="trans_200" data-toggle="collapse">
+                                <div class="billingAddress">
+                                    <div class="product_content">
+                                        <div style="align-items: center; justify-content: center"
+                                             class="row order - row ">
+                                            <div class="add-address">Add New Address</div>
+                                            <i style="padding-left: 5px; color: #fbaa1d" class="fa fa-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Address form -->
+                        <div id="delivery_address_column" class="collapse">
+
+                            <div class="address-container">
+                                <div class="billingAddress">
+                                    <div class="checkout_form_container">
+                                        <form action="#" id="delivery_address_form" class="checkout_form">
+
+                                            <!-- Address Title -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Address Title
+                                                </div>
+
+                                                <select name="delivery_address_title"
+                                                        id="delivery_address_title"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                    <option value="">SELECT</option>
+                                                    <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
+                                                            th:value="${address_title}"
+                                                            th:text="#{${'address_title.' + address_title}}">
+                                                        addressTitle
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Name Surname -->
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <!-- Name -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Name
+                                                    </div>
+
+                                                    <input type="text" id="delivery_address_name"
+                                                           th:value="${user.getName()}"
+                                                           class="checkout_input form-control"
+                                                           placeholder="Name" required="required"
+                                                           pattern="^[a-zA-Z ]+$">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <!-- Surname -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Surname
+                                                    </div>
+
+                                                    <input type="text" id="delivery_address_surname"
+                                                           th:value="${user.getSurname()}"
+                                                           class="checkout_input form-control"
+                                                           placeholder="Surname"
+                                                           required="required" pattern="^[a-zA-Z ]+$">
+                                                </div>
+                                            </div>
+
+                                            <!-- Country -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Country
+                                                </div>
+
+                                                <select name="delivery_address_country"
+                                                        id="delivery_address_country"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                </select>
+                                            </div>
+
+                                            <!-- City Province -->
+                                            <div>
+                                                <!-- City -->
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    City
+                                                </div>
+
+                                                <select name="delivery_address_city"
+                                                        id="delivery_address_city"
+                                                        class="dropdown_item_select checkout_input"
+                                                        required="required">
+                                                </select>
+                                            </div>
+
+                                            <!-- Neighborhood Zipcode -->
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <!-- Neighborhood -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Town
+                                                    </div>
+
+                                                    <input type="text" id="delivery_address_neighborhood"
+                                                           class="checkout_input form-control" placeholder="Town"
+                                                           required="required" pattern="^[a-zA-Z ]+$">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <!-- Zipcode -->
+                                                    <div class="login-text p-b-10" style="color: black;">
+                                                        Zip Code
+                                                    </div>
+
+                                                    <input type="number" id="delivery_address_zip_code"
+                                                           class="checkout_input form-control" placeholder="Zip Code"
+                                                           required="required">
+                                                </div>
+                                            </div>
+
+                                            <!-- Address -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">
+                                                    Address
+                                                </div>
+                                                <input type="text" id="delivery_open_address"
+                                                       class="checkout_input form-control"
+                                                       placeholder="Full Address" required="required">
+                                            </div>
+
+                                            <!-- Phone no -->
+                                            <div>
+                                                <div class="login-text p-b-10" style="color: black;">Phone
+                                                    Number
+                                                </div>
+                                                <input type="text" id="delivery_address_phone"
+                                                       class="checkout_input form-control phone_mask"
+                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                       pattern=".{15}">
+                                            </div>
+
+                                            <div><!--ERROR--></div>
+
+                                            <!-- Button -->
+                                            <input name="add_delivery_address" id="add_delivery_address" type="submit"
+                                                   value="ADD ADDRESS"
+                                                   class="login_button trans_200">
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registered addresses -->
+                        <div>
+                            <ul>
+                                <span th:unless="${#lists.isEmpty(allDeliveryAddress)}">
+                                    <tr th:each="address : ${allDeliveryAddress}">
+                                        <!-- Registered address 1 -->
+                                        <div class="address-element-padding">
+                                            <div class="billingAddress">
+                                                <div class="product_content">
+                                                    <li class="row">
+                                                        <div class="col-md-9 registered-address-title">
+                                                            <label class="radio_container">
+                                                                <input type="radio" th:value="${address.getAddressId()}"
+                                                                       id="delivery_address_choice_1"
+                                                                       name="delivery_address_choice"
+                                                                       class="payment_radio">
+                                                                <span class="radio_mark"></span>
+                                                                <span class="registered-address-title">
+                                                                    <td th:text="${address.getAddressTitle()}"></td>
+                                                                </span>
+                                                            </label>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a th:href="'#delivery_address_update' + ${address.getAddressId()}"
+                                                               th:id="${address.getAddressId()}"
+                                                               class="trans_200 address_icon" data-toggle="collapse"><i
+                                                                    style="font-size: 25px; color: #fbaa1d;"
+                                                                    class="fa fa-pencil"></i></a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="row">
+                                                        <div class="col-md-9 registered-address-content">
+                                                            <td th:text="${address.getFullAddress() + ','}"></td>
+                                                            <td th:text="${address.getTown() + ','}"></td>
+                                                            <td th:text="${address.getZipCode()}"></td>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a href="#" class="trans_200 delete_delivery_address"
+                                                               data-toggle="collapse" name="delete_delivery_address"
+                                                               th:id="${address.getAddressId()}"><i
+                                                                    style="font-size: 25px; color: #4a4a4a"
+                                                                    class="fa product_text">&#xf014;</i></a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="row">
+                                                        <div class="col-md-9 registered-address-content">
+                                                            <td th:text="${address.getCity() + '/'}"></td>
+                                                            <td th:text="${address.getCountry()}"></td>
+                                                        </div>
+                                                    </li>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Update address form -->
+                                        <div th:id="'delivery_address_update' + ${address.getAddressId()}"
+                                             class="collapse">
+
+                                            <div class="address-container">
+                                                <div class="billingAddress">
+                                                    <div class="checkout_form_container">
+                                                        <form action="#" id="delivery_address_update_form"
+                                                              class="checkout_form">
+
+                                                            <!-- Address Title -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    Address Title
+                                                                </div>
+
+                                                                <select th:id="'delivery_address_update_title' + ${address.getAddressId()}"
+                                                                        name="delivery_address_update_title"
+                                                                        th:value="${address.getAddressTitle()}"
+                                                                        class="dropdown_item_select checkout_input"
+                                                                        required="required">
+                                                                    <option th:each="address_title : ${T(com.oak.bookyourshelf.model.Address.AddressTitle).values()}"
+                                                                            th:value="${address_title}"
+                                                                            th:text="#{${'address_title.' + address_title}}"
+                                                                            th:selected="${address_title == address.getAddressTitle()}">addressTitle
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+
+                                                            <!-- Name Surname -->
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <!-- Name -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Name
+                                                                    </div>
+
+                                                                    <input type="text"
+                                                                           th:id="'delivery_address_update_name' + ${address.getAddressId()}"
+                                                                           th:value="${address.getName()}"
+                                                                           class="checkout_input form-control"
+                                                                           pattern="^[a-zA-Z ]+$" placeholder="Name"
+                                                                           required="required">
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <!-- Surname -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Surname
+                                                                    </div>
+
+                                                                    <input type="text"
+                                                                           th:id="'delivery_address_update_surname' + ${address.getAddressId()}"
+                                                                           th:value="${address.getSurname()}"
+                                                                           class="checkout_input form-control"
+                                                                           pattern="^[a-zA-Z ]+$" placeholder="Surname"
+                                                                           required="required">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Country -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    Country
+                                                                </div>
+
+                                                                <select name="delivery_address_update_country"
+                                                                        th:id="'delivery_address_update_country' + ${address.getAddressId()}"
+                                                                        th:value="${address.getCountry()}"
+                                                                        class="dropdown_item_select checkout_input"
+                                                                        required="required">
+                                                                </select>
+                                                            </div>
+
+                                                            <span style="display: none">
+                                                                <input th:id="'delivery_country_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCountry()}">
+                                                            </span>
+
+                                                            <!-- City Province -->
+                                                            <div>
+                                                                <!-- City -->
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    City
+                                                                </div>
+
+                                                                <select name="delivery_address_update_city"
+                                                                        th:id="'delivery_address_update_city' + ${address.getAddressId()}"
+                                                                        th:value="${address.getCity()}"
+                                                                        class="dropdown_item_select checkout_input"
+                                                                        required="required">
+                                                                </select>
+                                                            </div>
+
+                                                            <span style="display: none">
+                                                                <input th:id="'delivery_city_value' + ${address.getAddressId()}"
+                                                                       th:value="${address.getCity()}">
+                                                            </span>
+
+                                                            <!-- Neighborhood Zipcode -->
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <!-- Neighborhood -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Town
+                                                                    </div>
+
+                                                                    <input type="text"
+                                                                           th:id="'delivery_address_update_neighborhood' + ${address.getAddressId()}"
+                                                                           th:value="${address.getTown()}"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Town"
+                                                                           required="required">
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <!-- Zipcode -->
+                                                                    <div class="login-text p-b-10"
+                                                                         style="color: black;">
+                                                                        Zip Code
+                                                                    </div>
+
+                                                                    <input type="number"
+                                                                           th:id="'delivery_address_update_zip_code' + ${address.getAddressId()}"
+                                                                           th:value="${address.getZipCode()}"
+                                                                           class="checkout_input form-control"
+                                                                           placeholder="Zip Code"
+                                                                           required="required">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Address -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">
+                                                                    Address
+                                                                </div>
+                                                                <input type="text"
+                                                                       th:id="'delivery_address_update_open_address_id' + ${address.getAddressId()}"
+                                                                       th:value="${address.getFullAddress()}"
+                                                                       class="checkout_input form-control"
+                                                                       placeholder="Full Address" required="required">
+                                                            </div>
+
+                                                            <!-- Phone no -->
+                                                            <div>
+                                                                <div class="login-text p-b-10" style="color: black;">Phone
+                                                                    Number
+                                                                </div>
+                                                                <input type="text"
+                                                                       th:id="'delivery_address_update_phone' + ${address.getAddressId()}"
+                                                                       th:value="${address.getPhoneNumber()}"
+                                                                       class="checkout_input form-control phone_mask"
+                                                                       placeholder="(XXX) XXX XX XX" required="required"
+                                                                       pattern=".{15}">
+                                                            </div>
+
+                                                            <div><!--ERROR--></div>
+
+                                                            <!-- Button -->
+                                                            <input name="update_delivery_address"
+                                                                   th:id="${address.getAddressId()}" type="submit"
+                                                                   value="UPDATE"
+                                                                   class="login_button trans_200 update_delivery_address">
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </span>
+                                <!-- No Delivery Address -->
+                                <span th:if="${#lists.isEmpty(allDeliveryAddress)}">
+                                    <div class="warning-text">There are no delivery addresses.</div>
+                                </span>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Cart Total -->
+                    <div class="col-lg-4 cart_col">
+                        <div class="cart_total">
+                            <div class="cart_extra_content cart_extra_total">
+                                <div class="checkout_title">Cart Total</div>
+                                <ul class="cart_extra_total_list">
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div class="cart_extra_total_title">Subtotal</div>
+                                        <div class="cart_extra_total_value ml-auto">
+                                            <div>
+                                                <td th:text="${'₺' + #numbers.formatDecimal(order.getSubTotalAmount(), 0, 2)}"></td>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div class="cart_extra_total_title">Shipping Method</div>
+                                        <div th:if="${order.getShippingMethod() == T(com.oak.bookyourshelf.model.Order.ShippingMethod).FREE}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">Free</div>
+                                        </div>
+                                        <div th:unless="${order.getShippingMethod() == T(com.oak.bookyourshelf.model.Order.ShippingMethod).FREE}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">₺7.99</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div class="cart_extra_total_title">Shipping Price</div>
+                                        <div th:if="${order.getSubTotalAmount() >= 100}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">Free</div>
+                                        </div>
+                                        <div th:unless="${order.getSubTotalAmount() >= 100}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">₺6.99</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div class="cart_extra_total_title">Coupon</div>
+                                        <div th:if="${order.getDiscountRate() == 0}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto">- ₺0.00</div>
+                                        </div>
+                                        <div th:unless="${order.getDiscountRate() == 0}"
+                                             class="cart_extra_total_value ml-auto">
+                                            <div class="cart_extra_total_value ml-auto"
+                                                 th:text="${'- ₺' + #numbers.formatDecimal(order.getSubTotalAmount() *
+                                                order.getDiscountRate(), 0, 2)}"></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div class="cart_extra_total_title relativer">Total</div>
+                                        <div class="cart_extra_total_value ml-auto relativer">
+                                            <div class="cart_extra_total_value ml-auto relativer"
+                                                 th:text="${'₺' + #numbers.formatDecimal(order.getTotalAmount(), 0, 2)}">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="payment_options">
+                                    <div class="checkout_title">Cargo</div>
+                                    <ul>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="cargo_radio_1" name="cargo_radio"
+                                                       class="payment_radio" value="Aras Cargo" checked="checked"
+                                                       required>
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">Aras Cargo</span>
+                                            </label>
+                                        </li>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="cargo_radio_2" name="cargo_radio"
+                                                       class="payment_radio" value="Yurtiçi Cargo">
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">Yurtiçi Cargo</span>
+                                            </label>
+                                        </li>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="cargo_radio_3" name="cargo_radio"
+                                                       class="payment_radio" value="Sürat Cargo">
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">Sürat Cargo</span>
+                                            </label>
+                                        </li>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="cargo_radio_4" name="cargo_radio"
+                                                       class="payment_radio" value="MNG Cargo">
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">MNG Cargo</span>
+                                            </label>
+                                        </li>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="cargo_radio_5" name="cargo_radio"
+                                                       class="payment_radio" value="PTT Cargo">
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">PTT Cargo</span>
+                                            </label>
+                                        </li>
+                                        <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+                                            <label class="radio_container">
+                                                <input type="radio" id="cargo_radio_6" name="cargo_radio"
+                                                       class="payment_radio" value="UPS Cargo">
+                                                <span class="radio_mark"></span>
+                                                <span class="radio_text">UPS Cargo</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="cart_text">
+                                    <p>No changes can be made to the billing and delivery information after
+                                        ordering.</p>
+                                </div>
+                                <div class="checkout_button trans_200">
+                                    <a id="payment" th:href="@{/payment}">proceed to payment</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/select.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/countries.js}"></script>
+
+<script th:inline="javascript">
+
+    $('.update_address_icon').click(function () {
+        var ID = $(this).attr("id");
+        populateCountries("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+        document.getElementById("billing_address_update_country" + ID).value = document.getElementById("billing_country_value" + ID).value;
+        populateStates("billing_address_update_country" + ID, "billing_address_update_city" + ID);
+        document.getElementById("billing_address_update_city" + ID).value = document.getElementById("billing_city_value" + ID).value;
+    });
+
+    $('.address_icon').click(function () {
+        var ID = $(this).attr("id");
+        populateCountries("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+        document.getElementById("delivery_address_update_country" + ID).value = document.getElementById("delivery_country_value" + ID).value;
+        populateStates("delivery_address_update_country" + ID, "delivery_address_update_city" + ID);
+        document.getElementById("delivery_address_update_city" + ID).value = document.getElementById("delivery_city_value" + ID).value;
+    });
+
+    populateCountries("billing_address_country", "billing_address_city");
+    populateCountries("delivery_address_country", "delivery_address_city");
+
+
+    $('#add_delivery_address').click(function (event) {
+        var button = $(this).attr("id");
+
+        var ret = {
+            button: button,
+            name: $('#delivery_address_name').val(),
+            surname: $('#delivery_address_surname').val(),
+            country: $('#delivery_address_country').val(),
+            city: $('#delivery_address_city').val(),
+            town: $('#delivery_address_neighborhood').val(),
+            zipCode: $('#delivery_address_zip_code').val(),
+            fullAddress: $('#delivery_open_address').val(),
+            addressTitle: $('#delivery_address_title').val().toUpperCase().split(" ").join("_"),
+            phoneNumber: $('#delivery_address_phone').val(),
+        };
+
+        if (button === "add_delivery_address") {
+            if (validation_check(["delivery_address_name", "delivery_address_surname", "delivery_open_address", "delivery_address_neighborhood",
+                "delivery_address_phone", "delivery_address_zip_code", "delivery_address_country", "delivery_address_city",
+                "delivery_address_title"])) {
+                event.preventDefault();
+                $.post("/checkout", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address added successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "checkout";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+    $('.update_delivery_address, .delete_delivery_address').click(function (event) {
+        var addressId = $(this).attr("id");
+        var button = $(this).attr("name");
+
+        var ret = {
+            button: button,
+            name: $('#delivery_address_update_name' + addressId).val(),
+            surname: $('#delivery_address_update_surname' + addressId).val(),
+            country: $('#delivery_address_update_country' + addressId).children("option:selected").text(),
+            city: $('#delivery_address_update_city' + addressId).children("option:selected").text(),
+            town: $('#delivery_address_update_neighborhood' + addressId).val(),
+            zipCode: $('#delivery_address_update_zip_code' + addressId).val(),
+            fullAddress: $('#delivery_address_update_open_address_id' + addressId).val(),
+            addressTitle: $('#delivery_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_"),
+            phoneNumber: $('#delivery_address_update_phone' + addressId).val(),
+            addressId: addressId
+        };
+
+        if (button === "update_delivery_address") {
+            if (validation_check(["delivery_address_update_name" + addressId, "delivery_address_update_surname" + addressId, "delivery_address_update_country" + addressId, "delivery_address_update_city" + addressId,
+                "delivery_address_update_neighborhood" + addressId, "delivery_address_update_zip_code" + addressId, "delivery_address_update_open_address_id" + addressId, "delivery_address_update_title" + addressId,
+                "delivery_address_update_phone" + addressId])) {
+                event.preventDefault();
+                $.post("/checkout", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "checkout";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else if (button === "delete_delivery_address") {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/checkout", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "checkout";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+    $('#add_billing_address').click(function (event) {
+        var button = $(this).attr("id");
+
+        var ret = {
+            button: button,
+            name: $('#billing_address_name').val(),
+            surname: $('#billing_address_surname').val(),
+            country: $('#billing_address_country').val(),
+            city: $('#billing_address_city').val(),
+            town: $('#billing_address_neighborhood').val(),
+            zipCode: $('#billing_address_zip_code').val(),
+            fullAddress: $('#billing_open_address').val(),
+            phoneNumber: $('#billing_address_phone').val(),
+            addressTitle: $('#billing_address_title').val().toUpperCase().split(" ").join("_")
+        };
+
+        if (button === "add_billing_address") {
+            if (validation_check(["billing_address_name", "billing_address_surname", "billing_open_address", "billing_address_neighborhood",
+                "billing_address_phone", "billing_address_zip_code", "billing_address_country", "billing_address_city",
+                "billing_address_title"])) {
+                event.preventDefault();
+                $.post("/checkout", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address added successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "checkout";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+    $('.update_billing_address, .delete_billing_address').click(function (event) {
+        var addressId = $(this).attr("id");
+        var button = $(this).attr("name");
+
+        var ret = {
+            button: button,
+            name: $('#billing_address_update_name' + addressId).val(),
+            surname: $('#billing_address_update_surname' + addressId).val(),
+            country: $('#billing_address_update_country' + addressId).children("option:selected").val(),
+            city: $('#billing_address_update_city' + addressId).children("option:selected").val(),
+            town: $('#billing_address_update_neighborhood' + addressId).val(),
+            zipCode: $('#billing_address_update_zip_code' + addressId).val(),
+            fullAddress: $('#billing_address_update_open_address_1_id' + addressId).val(),
+            addressTitle: $('#billing_address_update_title' + addressId).children("option:selected").val().toUpperCase().split(" ").join("_"),
+            phoneNumber: $('#billing_address_update_phone' + addressId).val(),
+            addressId: addressId
+        };
+
+        if (button === "update_billing_address") {
+            if (validation_check(["billing_address_update_name" + addressId, "billing_address_update_surname" + addressId, "billing_address_update_country" + addressId,
+                "billing_address_update_city" + addressId, "billing_address_update_neighborhood" + addressId, "billing_address_update_zip_code" + addressId, "billing_address_update_open_address_1_id" + addressId, "billing_address_update_title" + addressId,
+                "billing_address_update_phone" + addressId])) {
+                event.preventDefault();
+                $.post("/checkout", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "checkout";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else if (button === "delete_billing_address") {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/checkout", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Address deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "checkout";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+    $('#payment').click(function (event) {
+
+        var ret = {
+            cargo: $("input[name='cargo_radio']:checked").val(),
+            billing_address: $("input[name='billing_address_choice']:checked").val(),
+            delivery_address: $("input[name='delivery_address_choice']:checked").val(),
+            button: $(this).attr("id")
+        };
+
+        event.preventDefault();
+        $.post("/checkout", ret, function (data) {
+            window.location.href = "/payment";
+
+        }).fail(function (data) {
+            iziToast.show({
+                title: 'Fail',
+                message: data.responseText,
+                position: 'topRight',
+                color: 'red'
+            });
+        })
+    });
+
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

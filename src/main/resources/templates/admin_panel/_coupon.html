@@ -1,0 +1,298 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Add campaign button -->
+
+<div class="address-element-padding">
+    <a href="#new_campaign" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add Coupons</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Coupon form -->
+<div id="new_campaign" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form id="new_campaign_form" class="checkout_form" method="post">
+                    <div class="row">
+                        <!-- Name -->
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Coupon Code
+                            </div>
+
+                            <input type="text" id="coupon_code"
+                                   class="checkout_input form-control" maxlength="255"
+                                   placeholder="Coupon Code" required="required">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Discount Percentage (%)
+                            </div>
+                            <input type="number" id="coupon_rate" min="1" max="99"
+                                   class="checkout_input form-control discount-rate"
+                                   placeholder="Discount Rate in Percent" required="required">
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <input type="submit" class="login_button trans_200" value="Add Coupon" id="new_coupon"
+                           name="add_coupon">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span th:if="${couponListEmpty == false}">
+
+    <div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+        <div class="products_dropdown product_dropdown_sorting">
+            <div class="isotope_sorting_text"><span>Sort</span><i
+                    class="fa fa-caret-down" aria-hidden="true"></i></div>
+            <ul>
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'ID-desc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Decreasing by ID'"
+                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'ID-asc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Increasing by ID'"
+                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'CouponCode-asc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Coupon Code (A - Z)'"
+                       th:style="${sort == 'CouponCode-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'CouponCode-desc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Coupon Code (Z - A)'"
+                       th:style="${sort == 'CouponCode-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'DiscountRate-asc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Increasing By Discount'"
+                       th:style="${sort == 'DiscountRate-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'DiscountRate-desc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Decreasing By Discount'"
+                       th:style="${sort == 'DiscountRate-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'UploadDate-asc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Increasing By Upload Time'"
+                       th:style="${sort == 'UploadDate-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#coupon(sort=${'UploadDate-desc'}, size=${couponPage.size}, page=${1})}"
+                       th:text="'Decreasing By Upload Time'"
+                       th:style="${sort == 'UploadDate-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</span>
+
+<span th:if="${couponPage.totalPages > 0}">
+    <br>
+    <div>
+        <div class="row order - row ">
+
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">ID</div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Coupon Code</div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Discount Percentage</div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="profile-order-title">Upload Time</div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="orderDetailBox">
+                <tr th:each="coupon: ${couponPage.content}">
+
+                    <!-- User -->
+                    <div class="address-element-padding">
+                        <a th:href="@{'/coupon-details/' + ${coupon.getCouponId()}}">
+                            <div class="category-element">
+                                <div class="product_content">
+                                    <div class="row order - row collapsible">
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-id"
+                                                    th:text="${coupon.getCouponId()}"></td>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-name"
+                                                    th:text="${coupon.getCouponCode()}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <td class="category-itemNum"
+                                                    th:text="${'%' + #numbers.formatDecimal(coupon.getDiscountRate() * 100, 0, 0)}"></td>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-3 col-xs-6">
+                                            <div class="profile-order-text vertical_center">
+                                                <div th:text="${#dates.format(coupon.getUploadDate(), 'dd/MM/yyyy') + ' ' + #dates.format(coupon.getUploadDate(), 'HH:mm')}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </tr>
+            </div>
+        </div>
+    </div>
+
+     <div class="row page_nav_row">
+        <div class="col">
+            <div class="page_nav">
+                <ul class="d-flex flex-row align-items-start justify-content-center">
+                    <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#coupon(sort=${sort}, size=${couponPage.size}, page=${currentPage - 1})}"
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- First page -->
+                    <li th:if="${couponPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#coupon(sort=${sort}, size=${couponPage.size}, page=${1})}"
+                           th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                    <!-- Pages -->
+                    <li th:if="${couponPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , couponPage.totalPages > 2 + currentPage ? currentPage + 2 : couponPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#coupon(sort=${sort}, size=${couponPage.size}, page=${i})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
+
+                    <li th:if="${currentPage + 3 < couponPage.totalPages}" class="pagination_dots">...</li>
+
+                    <!-- Last page -->
+                    <li th:if="${couponPage.totalPages > 1}"
+                        th:class="${currentPage == couponPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#coupon(sort=${sort}, size=${couponPage.size}, page=${couponPage.totalPages})}"
+                           th:text="${couponPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ couponPage.totalPages}">
+                        </a>
+                    </li>
+
+                    <!-- Next button -->
+                    <li th:style="${currentPage == couponPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#coupon(sort=${sort}, size=${couponPage.size}, page=${currentPage + 1})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</span>
+
+<span th:unless="${couponPage.totalPages > 0}">
+    <div class="warning-text">There are no coupons.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+<script th:inline="javascript">
+
+    $('#new_coupon').click(function (event) {
+
+        var ret = {
+            couponCode: $('#coupon_code').val(),
+            discountRate: $('#coupon_rate').val()
+        };
+
+        if (validation_check(["coupon_code", "coupon_rate"])) {
+            event.preventDefault();
+            $.post("/admin-panel/coupon", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Coupon added successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+
+                window.location.href = "/admin-panel#coupon";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+</script>
+
+</html>

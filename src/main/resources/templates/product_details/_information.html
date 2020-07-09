@@ -1,0 +1,2702 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="address-element-padding">
+    <div class="billingAddress">
+        <div class="product_content">
+
+            <div id="book_content" class="">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text align-items-center">
+                            ID
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getProductId()}"></h>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="row">
+
+                            <!-- Update button -->
+                            <a href="#product-info-update"
+                               class="trans_200" data-toggle="collapse"><i
+                                    style="font-size: 25px; padding-right: 10px"
+                                    class="fa fa-pencil"></i></a>
+
+                            <!-- Delete button -->
+                            <button type="submit" value="&#xf014;"
+                                    class="trans_200 fa product_text"
+                                    id="delete_product"
+                                    style="font-size: 25px; color: #4a4a4a"
+                                    title="Delete this product"
+                                    data-toggle="collapse">
+                                &#xf014;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Name
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getProductName()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Upload Date
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h class="date" th:text="${#dates.format(product.getUploadDate(), 'dd-MM-yyyy')}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Barcode
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getBarcode()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Stock
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getStock()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Price
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Short Description
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getShortDesc()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Long Description
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getLongDesc()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Number of Sales
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getSalesNum()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Star
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getScoreOutOf5()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Discount
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Buyer User IDs
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <div th:if="${product.getBuyerUserIds() != null}">
+                                <div th:unless="${product.getBuyerUserIds().size() > 0}">
+                                    <div>-</div>
+                                </div>
+                                <div th:if="${product.getBuyerUserIds().size() > 0}">
+                                    <tr>
+                                        <h><span th:each="a, iterStat : ${product.getBuyerUserIds()}"
+                                                 th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="tab-title-text">
+                            Number of Reviews
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content-text">
+                            <h th:text="${product.getTotalReviewNum()}"></h>
+                        </div>
+                    </div>
+                </div>
+
+                <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                ISBN
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getIsbn()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Category
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getCategory().getName()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Subcategory
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:if="${product.getSubcategory() == null}">
+                                    <div>-</div>
+                                </div>
+                                <div th:if="${product.getSubcategory() != null}">
+                                    <h th:text="${product.getSubcategory().getName()}"></h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Published Year
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getPublishedYear()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Language
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getLanguage()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Authors
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:if="${product.getAuthors() != null}">
+                                    <div th:unless="${product.getAuthors().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getAuthors().size() > 0}">
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
+                                        </tr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Translators
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:if="${product.getTranslators() != null}">
+                                    <div th:unless="${product.getTranslators().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getTranslators().size() > 0}">
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
+                                        </tr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Publishers
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:if="${product.getPublishers() != null}">
+                                    <div th:unless="${product.getPublishers().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getPublishers().size() > 0}">
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
+                                        </tr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Keywords
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:if="${product.getKeywords() != null}">
+                                    <div th:unless="${product.getKeywords().size() > 0}">
+                                        <div>-</div>
+                                    </div>
+                                    <div th:if="${product.getKeywords().size() > 0}">
+                                        <tr>
+                                            <h><span th:each="a, iterStat : ${product.getKeywords()}"
+                                                     th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h>
+                                        </tr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span th:if="${product.getProductTypeName() == 'Book'}">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Media Type
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="#{${'media_type.' + product.getMediaType()}}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Paper Type
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="#{${'paper_type.' + product.getPaperType()}}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Binding Type
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="#{${'binding_type.' + product.getBindingType()}}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Page Number
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getPageNum()}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Edition Number
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getEditionNum()}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Height
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getHeight() + ' mm'}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Width
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getWidth() + ' mm'}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Depth
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getDepth() + ' mm'}"></h>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Page Number
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getPageNum()}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    File Size
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getFileSize()}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    File Format
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getFileFormat()}"></h>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'Audio Book'}">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Length
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getLengthInMinutes() + ' minutes'}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Narrated By
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getNarratedBy()}"></h>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </span>
+
+                <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Color
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getReaderColor()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Brand
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getReaderBrand()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Model
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getReaderModel()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Technical Specifications
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getTechnicalSpecifications()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Weight
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getWeight() + ' g'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Height
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getHeight() + ' mm'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Width
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getWidth() + ' mm'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Depth
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getDepth() + ' mm'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Screen Size
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getScreenSize() + ' inch'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Battery Life
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getBatteryLife() + ' hours'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Resolution
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getResolution() + ' dpi'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                RAM
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getRam() + ' MB'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Glare Free Screen
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isGlareFreeScreen()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Water Proof
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isWaterProof()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Auto Adjusting Light
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isAutoAdjustingLight()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Buttons
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isButtons()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Wifi
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isWifi()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Cellular
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isCellular()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Backlight
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isBackLight()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Warm Backlight
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <div th:switch="${product.isWarmBackLight()}">
+                                    <h th:case="True">Yes</h>
+                                    <h th:case="*">No</h>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+
+                <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Color
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getCaseColor()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Brand
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getCaseBrand()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Model
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getCaseModel()}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Height
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getCaseHeight() + ' mm'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tab-title-text">
+                                Width
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="tab-content-text">
+                                <h th:text="${product.getCaseWidth() + ' mm'}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Reader Brand
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getReaderBrand()}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Reader Model
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getReaderModel()}"></h>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Depth
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getCaseDepth()}"></h>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'Book Case'}">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="tab-title-text">
+                                    Maximum Book Depth
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content-text">
+                                    <h th:text="${product.getMaxBookDepth() + ' mm'}"></h>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update information form -->
+<div id="product-info-update" class="collapse">
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form th:object="${product}" th:action="@{/product-details}" id="product-info-update-form"
+                      class="checkout_form" method="post">
+
+                    <span th:if="${product.getProductTypeName() == 'Book'}">
+                        <div id="book" class="">
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Product Name
+                                    </div>
+                                    <input type="text" id="book_product_name_input" th:field="*{productName}"
+                                           th:value="${product.getProductName()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Product Name" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Barcode
+                                    </div>
+                                    <input type="text" id="book_barcode_input" pattern="[0-9]+" th:field="*{barcode}"
+                                           th:value="${product.getBarcode()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Barcode" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Stock
+                                    </div>
+                                    <input type="number" id="book_stock_input" min=0 max=2147483647 th:field="*{stock}"
+                                           th:value="${product.getStock()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Stock" required="required">
+                                </div>
+                            </div>
+
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Price (₺)
+                                    </div>
+                                    <input type="number" id="book_price_input" step="0.01" th:field="*{price}"
+                                           th:value="${product.getPrice()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Price" required="required"
+                                           min=0>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Category
+                                    </div>
+                                    <select name="category" id="book_category_input" th:field="*{category}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required" disabled>
+                                        <option th:each="category : ${categoryService.getAllByCategory('Book')}"
+                                                th:value="${category.getId()}"
+                                                th:text="${category.getName()}">category
+                                    </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Subcategory
+                                    </div>
+                                    <select name="subcategory" id="book_subcategory_input" th:field="*{subcategory}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required" disabled>
+                                         <option value="">-</option>
+                                         <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
+                                                 th:value="${subcategory.getId()}"
+                                                 th:text="${subcategory.getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Language
+                                    </div>
+                                    <input type="text" id="book_language_input" th:field="*{language}"
+                                           th:value="${product.getLanguage()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Language" required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        ISBN (13 digits)
+                                    </div>
+                                    <input type="text" id="book_isbn_input" pattern=".{17}" th:field="*{isbn}"
+                                           th:value="${product.getIsbn()}"
+                                           class="checkout_input form-control isbn"
+                                           placeholder="ISBN" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Published Year
+                                    </div>
+                                    <input type="text" id="book_published_year_input" th:field="*{publishedYear}"
+                                           th:value="${product.getPublishedYear()}"
+                                           class="checkout_input form-control"
+                                           pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
+                                           placeholder="Published Year" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Page Number
+                                    </div>
+                                    <input type="number" id="book_page_number_input" max=2147483647
+                                           th:field="*{pageNum}"
+                                           th:value="${product.getPageNum()}"
+                                           class="checkout_input form-control" min=0
+                                           placeholder="Page Number" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Edition Number
+                                    </div>
+                                    <input type="number" id="book_edition_number_input" max=2147483647
+                                           th:field="*{editionNum}"
+                                           th:value="${product.getEditionNum()}"
+                                           class="checkout_input form-control" min=0
+                                           placeholder="Edition Number" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Authors
+                                    </div>
+                                    <input type="text" id="book_authors_input" th:field="*{authors}"
+                                           th:value="${product.getAuthors()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Authors (Separate with comma)"
+                                           required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Translators
+                                    </div>
+                                    <input type="text" id="book_translator_input" th:field="*{translators}"
+                                           th:value="${product.getTranslators()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Translators (Separate with comma)"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Publishers
+                                    </div>
+                                    <input type="text" id="book_publisher_input" th:field="*{publishers}"
+                                           th:value="${product.getPublishers()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Publishers (Separate with comma)" required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Keywords
+                                    </div>
+                                    <input type="text" id="book_keywords_input" th:field="*{keywords}"
+                                           th:value="${product.getKeywords()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Keywords (Separate with comma)"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Short Description
+                                    </div>
+                                    <textarea type="text" id="book_short_description_input" th:field="*{shortDesc}"
+                                              th:value="${product.getShortDesc()}"
+                                              class="long_desc_textarea form-control different-control w-100" rows="4"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Long Description
+                                    </div>
+                                    <textarea type="text" id="book_long_description_input" th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="5000" rows="6"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Media Type
+                                    </div>
+                                    <select name="media-type" id="book_media_type_select" th:field="*{mediaType}"
+                                            th:value="${product.getMediaType()}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
+                                        <option th:each="media_type : ${T(com.oak.bookyourshelf.model.PhysicalBook.MediaType).values()}"
+                                                th:value="${media_type}"
+                                                th:text="#{${'media_type.' + media_type}}">mediaType
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Paper Type
+                                    </div>
+                                    <select name="paper-type" id="book_paper_type_select" th:field="*{paperType}"
+                                            th:value="${product.getPaperType()}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
+                                        <option th:each="paper_type : ${T(com.oak.bookyourshelf.model.PhysicalBook.PaperType).values()}"
+                                                th:value="${paper_type}"
+                                                th:text="#{${'paper_type.' + paper_type}}">paperType
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Binding Type
+                                    </div>
+                                    <select name="binding-type" id="book_binding_type_select" th:field="*{bindingType}"
+                                            th:value="${product.getBindingType()}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
+                                        <option th:each="binding_type : ${T(com.oak.bookyourshelf.model.PhysicalBook.BindingType).values()}"
+                                                th:value="${binding_type}"
+                                                th:text="#{${'binding_type.' + binding_type}}">bindingType
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Height (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="book_height_input" th:field="*{height}"
+                                           th:value="${product.getHeight()}"
+                                           class="checkout_input form-control" min=0 max=2147483647
+                                           placeholder="Height" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Width (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="book_width_input" th:field="*{width}"
+                                           th:value="${product.getWidth()}"
+                                           class="checkout_input form-control" min=0 max=2147483647
+                                           placeholder="Width" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Depth (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="book_depth_input" th:field="*{depth}"
+                                           th:value="${product.getDepth()}"
+                                           class="checkout_input form-control" min=0 max=2147483647
+                                           placeholder="Width" required="required">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="login_button trans_200"
+                                       id="update_book">
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                        <div id="e-book" class="">
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Product Name
+                                    </div>
+                                    <input type="text" id="ebook_product_name_input" th:field="*{productName}"
+                                           th:value="${product.getProductName()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Product Name" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Barcode
+                                    </div>
+                                    <input type="text" id="ebook_product_barcode_input" th:field="*{barcode}"
+                                           th:value="${product.getBarcode()}"
+                                           class="checkout_input form-control" pattern="[0-9]+"
+                                           placeholder="Barcode" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Stock
+                                    </div>
+                                    <input type="number" id="ebook_stock_input" max=2147483647 th:field="*{stock}"
+                                           th:value="${product.getStock()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Stock" required="required"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Price (₺)
+                                    </div>
+                                    <input type="number" id="ebook_price_input" step="0.01" th:field="*{price}"
+                                           th:value="${product.getPrice()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Price" required="required"
+                                           min=0>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Category
+                                    </div>
+                                    <select name="category" id="ebook_category_input" th:field="*{category}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required" disabled>
+                                        <option th:each="category : ${categoryService.getAllByCategory('E-Book')}"
+                                                th:value="${category.getId()}"
+                                                th:text="${category.getName()}">category
+                                    </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Subcategory
+                                    </div>
+                                    <select name="subcategory" id="ebook_subcategory_input" th:field="*{subcategory}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required" disabled>
+                                        <option value="">-</option>
+                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
+                                                th:value="${subcategory.getId()}"
+                                                th:text="${subcategory.getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Published Year
+                                    </div>
+                                    <input type="text" id="ebook_published_year_input" th:field="*{publishedYear}"
+                                           th:value="${product.getPublishedYear()}"
+                                           class="checkout_input form-control"
+                                           pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
+                                           placeholder="Published Year" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Language
+                                    </div>
+                                    <input type="text" id="ebook_language_input" th:field="*{language}"
+                                           th:value="${product.getLanguage()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Language" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        ISBN (13 digits)
+                                    </div>
+                                    <input type="text" id="ebook_isbn_input" pattern=".{17}" th:field="*{isbn}"
+                                           th:value="${product.getIsbn()}"
+                                           class="checkout_input form-control isbn"
+                                           placeholder="ISBN" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Authors
+                                    </div>
+                                    <input type="text" id="ebook_authors_input" th:field="*{authors}"
+                                           th:value="${product.getAuthors()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Authors (Separate with comma)"
+                                           required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Translators
+                                    </div>
+                                    <input type="text" id="ebook_translator_input" th:field="*{translators}"
+                                           th:value="${product.getTranslators()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Translators (Separate with comma)" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Publishers
+                                    </div>
+                                    <input type="text" id="ebook_publisher_input" th:field="*{publishers}"
+                                           th:value="${product.getPublishers()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Publishers (Separate with comma)" required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Keywords
+                                    </div>
+                                    <input type="text" id="ebook_keywords_input" th:field="*{keywords}"
+                                           th:value="${product.getKeywords()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Keywords (Separate with comma)"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Short Description
+                                    </div>
+                                    <textarea type="text" id="ebook_short_description_input" th:field="*{shortDesc}"
+                                              th:value="${product.getShortDesc()}"
+                                              class="long_desc_textarea form-control different-control w-100" rows="4"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Long Description
+                                    </div>
+                                    <textarea type="text" id="ebook_long_description_input" th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="5000" rows="6"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Page Number
+                                    </div>
+                                    <input type="number" id="ebook_page_number_input" max=2147483647
+                                           class="checkout_input form-control" min="0" th:field="*{pageNum}"
+                                           th:value="${product.getPageNum()}"
+                                           placeholder="Page Number" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        File Size (MB)
+                                    </div>
+                                    <input type="number" id="ebook_filesize_input" max=2147483647
+                                           class="checkout_input form-control" min=0 th:field="*{fileSize}"
+                                           th:value="${product.getFileSize()}"
+                                           placeholder="File Size" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        File Format
+                                    </div>
+                                    <select name="file_format" id="ebook_file_format_select" th:field="*{fileFormat}"
+                                            th:value="${product.getFileFormat()}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
+                                        <option th:each="file_format : ${T(com.oak.bookyourshelf.model.ElectronicBook.FileFormat).values()}"
+                                                th:value="${file_format}"
+                                                th:text="#{${'file_format.' + file_format}}">fileFormat
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="login_button trans_200"
+                                       id="update_ebook">
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'Audio Book'}">
+                        <div id="audiobook" class="">
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Product Name
+                                    </div>
+                                    <input type="text" id="audiobook_product_name_input" th:field="*{productName}"
+                                           th:value="${product.getProductName()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Product Name" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Barcode
+                                    </div>
+                                    <input type="text" id="audiobook_barcode_input" pattern="[0-9]+"
+                                           class="checkout_input form-control" th:field="*{barcode}"
+                                           th:value="${product.getBarcode()}"
+                                           placeholder="Barcode" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Stock
+                                    </div>
+                                    <input type="number" id="audiobook_stock_input" th:field="*{stock}"
+                                           th:value="${product.getStock()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Stock" required="required"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Price (₺)
+                                    </div>
+                                    <input type="number" id="audiobook_price_input" step="0.01"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Price" required="required" th:field="*{price}"
+                                           th:value="${product.getPrice()}"
+                                           min=0>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Category
+                                    </div>
+                                    <select name="category" id="audiobook_category_select" th:field="*{category}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required" disabled>
+                                        <option th:each="category : ${categoryService.getAllByCategory('Audio Book')}"
+                                                th:value="${category.getId()}"
+                                                th:text="${category.getName()}">category
+                                    </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Subcategory
+                                    </div>
+                                    <select name="subcategory" id="audiobook_subcategory_select"
+                                            th:field="*{subcategory}"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required" disabled>
+                                        <option value="">-</option>
+                                        <option th:each="subcategory : ${categoryService.getAllSubcategories(product.getCategory())}"
+                                                th:value="${subcategory.getId()}"
+                                                th:text="${subcategory.getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Published Year
+                                    </div>
+                                    <input type="text" id="audiobook_published_year_input" th:field="*{publishedYear}"
+                                           th:value="${product.getPublishedYear()}"
+                                           class="checkout_input form-control"
+                                           pattern="\b(1[4-9][0-9][0-9]|20[0-2][012])\b"
+                                           placeholder="Published Year" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Language
+                                    </div>
+                                    <input type="text" id="audiobook_language_input" th:field="*{language}"
+                                           th:value="${product.getLanguage()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Language" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        ISBN (13 digits)
+                                    </div>
+                                    <input type="text" id="audiobook_isbn_input" pattern=".{17}"
+                                           class="checkout_input form-control isbn" th:field="*{isbn}"
+                                           th:value="${product.getIsbn()}"
+                                           placeholder="ISBN" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Translators
+                                    </div>
+                                    <input type="text" id="audiobook_translator_input"
+                                           class="checkout_input form-control" th:field="*{translators}"
+                                           th:value="${product.getTranslators()}"
+                                           placeholder="Translators (Separate with comma)" required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Authors
+                                    </div>
+                                    <input type="text" id="audiobook_authors_input"
+                                           class="checkout_input form-control" th:field="*{authors}"
+                                           th:value="${product.getAuthors()}"
+                                           placeholder="Authors (Separate with comma)"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Publishers
+                                    </div>
+                                    <input type="text" id="audiobook_publisher_input"
+                                           class="checkout_input form-control" th:field="*{publishers}"
+                                           th:value="${product.getPublishers()}"
+                                           placeholder="Publishers (Separate with comma)" required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Keywords
+                                    </div>
+                                    <input type="text" id="audiobook_keywords_input"
+                                           class="checkout_input form-control" th:field="*{keywords}"
+                                           th:value="${product.getKeywords()}"
+                                           placeholder="Keywords (Separate with comma)"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Short Description
+                                    </div>
+                                    <textarea type="text" id="audiobook_short_description_input" th:field="*{shortDesc}"
+                                              th:value="${product.getShortDesc()}"
+                                              class="long_desc_textarea form-control different-control w-100" rows="4"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Long Description
+                                    </div>
+                                    <textarea type="text" id="audiobook_long_description_input" th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="5000" rows="6"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Length (In minutes)
+                                    </div>
+                                    <input type="number" id="audiobook_length_input" th:field="*{lengthInMinutes}"
+                                           th:value="${product.getLengthInMinutes()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Length (In minutes)" required="required"
+                                           min=0>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Narrated By
+                                    </div>
+                                    <input type="text" id="audiobook_narrator_input" th:field="*{narratedBy}"
+                                           th:value="${product.getNarratedBy()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Narrated By" required="required">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="login_button trans_200"
+                                       id="update_audiobook">
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                        <div id="e-book_reader" class="">
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Product Name
+                                    </div>
+                                    <input type="text" id="ebook_reader_product_name_input"
+                                           class="checkout_input form-control" th:field="*{productName}"
+                                           th:value="${product.getProductName()}"
+                                           placeholder="Product Name" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Barcode
+                                    </div>
+                                    <input type="text" id="ebook_reader_barcode_input" th:field="*{barcode}"
+                                           th:value="${product.getBarcode()}"
+                                           class="checkout_input form-control" pattern="[0-9]+"
+                                           placeholder="Barcode" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Stock
+                                    </div>
+                                    <input type="number" id="ebook_reader_stock_input" th:field="*{stock}"
+                                           th:value="${product.getStock()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Stock" required="required"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Price (₺)
+                                    </div>
+                                    <input type="number" id="ebook_reader_price_input" step="0.01"
+                                           class="checkout_input form-control" max=2147483647 th:field="*{price}"
+                                           th:value="${product.getPrice()}"
+                                           placeholder="Price" required="required"
+                                           min=0>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Brand
+                                    </div>
+                                    <input type="text" id="ebook_reader_brand_input" th:field="*{readerBrand}"
+                                           th:value="${product.getReaderBrand()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Brand" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Model
+                                    </div>
+                                    <input type="text" id="ebook_reader_model_input" th:field="*{readerModel}"
+                                           th:value="${product.getReaderModel()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Model" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Short Description
+                                    </div>
+                                    <textarea type="text" id="ebook_reader_short_description_input"
+                                              th:field="*{shortDesc}"
+                                              th:value="${product.getShortDesc()}"
+                                              class="long_desc_textarea form-control different-control w-100" rows="4"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Long Description
+                                    </div>
+                                    <textarea type="text" id="ebook_reader_long_description_input"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="5000" rows="6"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Color
+                                    </div>
+                                    <input type="text" id="ebook_reader_color_input"
+                                           class="checkout_input form-control" th:field="*{readerColor}"
+                                           th:value="${product.getReaderColor()}"
+                                           placeholder="Color" required="required">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Technical Specifications
+                                    </div>
+                                    <input type="text" id="ebook_reader_specification_input"
+                                           class="checkout_input form-control" th:field="*{technicalSpecifications}"
+                                           th:value="${product.getTechnicalSpecifications()}"
+                                           placeholder="Specification" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Weight (g)
+                                    </div>
+                                    <input type="number" step="0.01" id="ebook_reader_weight_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Weight" required="required" th:field="*{weight}"
+                                           th:value="${product.getWeight()}"
+                                           min=0>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Height (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="ebook_reader_height_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Height" required="required" th:field="*{height}"
+                                           th:value="${product.getHeight()}"
+                                           min=0>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Width (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="ebook_reader_width_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Width" required="required" th:field="*{width}"
+                                           th:value="${product.getWidth()}"
+                                           min=0>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Depth (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="ebook_reader_depth_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Depth" required="required" th:field="*{depth}"
+                                           th:value="${product.getDepth()}"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Screen Size (inch)
+                                    </div>
+                                    <input type="number" step="0.01" id="ebook_reader_screen_size_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Screen Size" required="required" th:field="*{screenSize}"
+                                           th:value="${product.getScreenSize()}"
+                                           min=0>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Battery Life (hours)
+                                    </div>
+                                    <input type="number" step="0.01" max=2147483647
+                                           id="ebook_reader_battery_life_input"
+                                           class="checkout_input form-control" th:field="*{batteryLife}"
+                                           th:value="${product.getBatteryLife()}"
+                                           placeholder="Battery Life" required="required"
+                                           min=0>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Resolution (dpi)
+                                    </div>
+                                    <input type="number" step="0.01" id="ebook_reader_resolution_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Resolution" required="required" th:field="*{resolution}"
+                                           th:value="${product.getResolution()}"
+                                           min=0>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        RAM (MB)
+                                    </div>
+                                    <input type="number" id="ebook_reader_ram_input"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="RAM" required="required" th:field="*{ram}"
+                                           th:value="${product.getRam()}"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Glare Free Screen
+                                    </div>
+                                    <select name="glare_free_screen" id="ebook_reader_glare_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{glareFreeScreen}"
+                                            th:value="${product.isGlareFreeScreen()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Water Proof
+                                    </div>
+                                    <select name="water_proof" id="ebook_reader_water_proof_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{waterProof}"
+                                            th:value="${product.isWaterProof()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Auto Adjusting Light
+                                    </div>
+                                    <select name="auto_adjusting_light"
+                                            id="ebook_reader_auto_adjusting_light_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{autoAdjustingLight}"
+                                            th:value="${product.isAutoAdjustingLight()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Buttons
+                                    </div>
+                                    <select name="buttons" id="ebook_reader_buttons_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{buttons}"
+                                            th:value="${product.isButtons()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Wifi
+                                    </div>
+                                    <select name="wifi" id="ebook_reader_wifi_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{wifi}"
+                                            th:value="${product.isWifi()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Cellular
+                                    </div>
+                                    <select name="cellular" id="ebook_reader_cellular_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{cellular}"
+                                            th:value="${product.isCellular()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Backlight
+                                    </div>
+                                    <select name="backlight" id="ebook_reader_backlight_select"
+                                            class="dropdown_item_select checkout_input" th:field="*{backLight}"
+                                            th:value="${product.isBackLight()}"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Warm Backlight
+                                    </div>
+                                    <select name="warm_backlight" th:field="*{warmBackLight}"
+                                            th:value="${product.isWarmBackLight()}"
+                                            id="ebook_reader_warm_backlight_select"
+                                            class="dropdown_item_select checkout_input"
+                                            required="required">
+                                        <option th:value="true">Yes</option>
+                                        <option th:value="false">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="login_button trans_200"
+                                       id="update_ebook_reader">
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                        <div id="e-book_reader_case" class="">
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Product Name
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_product_name_input"
+                                           class="checkout_input form-control" th:field="*{productName}"
+                                           th:value="${product.getProductName()}"
+                                           placeholder="Product Name" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Barcode
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_barcode_input" th:field="*{barcode}"
+                                           th:value="${product.getBarcode()}"
+                                           class="checkout_input form-control" pattern="[0-9]+"
+                                           placeholder="Barcode" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Stock
+                                    </div>
+                                    <input type="number" id="ebook_reader_case_stock_input" th:field="*{stock}"
+                                           th:value="${product.getStock()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Stock" required="required"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Price (₺)
+                                    </div>
+                                    <input type="number" id="ebook_reader_case_price_input" step="0.01"
+                                           class="checkout_input form-control" max=2147483647 th:field="*{price}"
+                                           th:value="${product.getPrice()}"
+                                           placeholder="Price" required="required"
+                                           min=0>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Brand
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_brand_input"
+                                           class="checkout_input form-control" th:field="*{caseBrand}"
+                                           th:value="${product.getCaseBrand()}"
+                                           placeholder="Brand" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Model
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_model_input" th:field="*{caseModel}"
+                                           th:value="${product.getCaseModel()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Case Model" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Color
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_color_input"
+                                           class="checkout_input form-control" th:field="*{caseColor}"
+                                           th:value="${product.getCaseColor()}"
+                                           placeholder="Color" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Reader Brand
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_reader_brand_input"
+                                           class="checkout_input form-control" th:field="*{readerBrand}"
+                                           th:value="${product.getReaderBrand()}"
+                                           placeholder="Reader Brand" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Reader Model
+                                    </div>
+                                    <input type="text" id="ebook_reader_case_reader_model_input"
+                                           class="checkout_input form-control" th:field="*{readerModel}"
+                                           th:value="${product.getReaderModel()}"
+                                           placeholder="Reader Model" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Short Description
+                                    </div>
+                                    <textarea type="text" id="ebook_reader_case_short_description_input"
+                                              th:field="*{shortDesc}"
+                                              th:value="${product.getShortDesc()}"
+                                              class="long_desc_textarea form-control different-control w-100" rows="4"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Long Description
+                                    </div>
+                                    <textarea type="text" id="ebook_reader_case_long_description_input"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="5000" rows="6"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Height (mm)
+                                    </div>
+                                    <input type="number" step="0.01" min=0 max=2147483647
+                                           id="ebook_reader_case_height_input" th:field="*{caseHeight}"
+                                           th:value="${product.getCaseHeight()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Height" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Width (mm)
+                                    </div>
+                                    <input type="number" step="0.01" min=0 id="ebook_reader_case_width_input"
+                                           class="checkout_input form-control" max=2147483647 th:field="*{caseWidth}"
+                                           th:value="${product.getCaseWidth()}"
+                                           placeholder="Width" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Depth (mm)
+                                    </div>
+                                    <input type="number" step="0.01" min=0 id="ebook_reader_case_depth_input"
+                                           class="checkout_input form-control" max=2147483647 th:field="*{caseDepth}"
+                                           th:value="${product.getCaseDepth()}"
+                                           placeholder="Depth" required="required">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="login_button trans_200"
+                                       id="update_ebook_reader_case">
+                            </div>
+                        </div>
+                    </span>
+
+                    <span th:if="${product.getProductTypeName() == 'Book Case'}">
+                        <div id="book_case" class="">
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Product Name
+                                    </div>
+                                    <input type="text" id="book_case_product_name_input"
+                                           class="checkout_input form-control" th:field="*{productName}"
+                                           th:value="${product.getProductName()}"
+                                           placeholder="Product Name" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Barcode
+                                    </div>
+                                    <input type="text" id="book_case_barcode_input" th:field="*{barcode}"
+                                           th:value="${product.getBarcode()}"
+                                           class="checkout_input form-control" pattern="[0-9]+"
+                                           placeholder="Barcode" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Stock
+                                    </div>
+                                    <input type="number" id="book_case_stock_input" th:field="*{stock}"
+                                           th:value="${product.getStock()}"
+                                           class="checkout_input form-control" max=2147483647
+                                           placeholder="Stock" required="required"
+                                           min=0>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Price (₺)
+                                    </div>
+                                    <input type="number" id="book_case_price_input" step="0.01"
+                                           class="checkout_input form-control" max=2147483647 th:field="*{price}"
+                                           th:value="${product.getPrice()}"
+                                           placeholder="Price" required="required"
+                                           min=0>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Brand
+                                    </div>
+                                    <input type="text" id="book_case_brand_input"
+                                           class="checkout_input form-control" th:field="*{caseBrand}"
+                                           th:value="${product.getCaseBrand()}"
+                                           placeholder="Brand" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Model
+                                    </div>
+                                    <input type="text" id="book_case_model_input"
+                                           class="checkout_input form-control" th:field="*{caseModel}"
+                                           th:value="${product.getCaseModel()}"
+                                           placeholder="Model" required="required">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Color
+                                    </div>
+                                    <input type="text" id="book_case_color_input" th:field="*{caseColor}"
+                                           th:value="${product.getCaseColor()}"
+                                           class="checkout_input form-control"
+                                           placeholder="Color" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Width (mm)
+                                    </div>
+                                    <input type="number" step="0.01" id="book_case_case_width_input"
+                                           class="checkout_input form-control" min=0 max=2147483647
+                                           th:field="*{caseWidth}"
+                                           th:value="${product.getCaseWidth()}"
+                                           placeholder="Width" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Height (mm)
+                                    </div>
+                                    <input type="number" step="0.01"
+                                           id="book_case_case_height_input" th:field="*{caseHeight}"
+                                           th:value="${product.getCaseHeight()}"
+                                           class="checkout_input form-control" min=0 max=2147483647
+                                           placeholder="Height" required="required">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Maximum Book Depth (mm)
+                                    </div>
+                                    <input type="number" step="0.01"
+                                           id="book_case_max_depth_input" th:field="*{maxBookDepth}"
+                                           th:value="${product.getMaxBookDepth()}"
+                                           class="checkout_input form-control" min=0 max=2147483647
+                                           placeholder="Maximum Book Depth" required="required">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Short Description
+                                    </div>
+                                    <textarea type="text" id="book_case_short_description_input" th:field="*{shortDesc}"
+                                              th:value="${product.getShortDesc()}"
+                                              class="long_desc_textarea form-control different-control w-100" rows="4"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-12">
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Long Description
+                                    </div>
+                                    <textarea type="text" id="book_case_long_description_input"
+                                              class="long_desc_textarea form-control different-control w-100"
+                                              th:field="*{longDesc}"
+                                              th:value="${product.getLongDesc()}" maxlength="5000" rows="6"
+                                              placeholder="Long Description" required="required"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <input type="submit" value="Update" class="login_button trans_200"
+                                       id="update_book_case">
+                            </div>
+                        </div>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var productId = /*[[${product.getProductId()}]]*/ 'default';
+
+    $(document).ready(function () {
+        var i;
+        const short_desc_ids = ['book_short_description_input', 'ebook_short_description_input',
+            'audiobook_short_description_input', 'ebook_reader_short_description_input',
+            'ebook_reader_case_short_description_input', 'book_case_short_description_input'];
+        const long_desc_ids = ['book_long_description_input', 'ebook_long_description_input',
+            'audiobook_long_description_input', 'ebook_reader_long_description_input',
+            'ebook_reader_case_long_description_input', 'book_case_long_description_input'];
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+        var textarea_inputs = document.querySelectorAll("textarea[type=text]");
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        for (i = 0; i < textarea_inputs.length; i++) {
+            if (short_desc_ids.includes(textarea_inputs[i].id)) {
+                textarea_inputs[i].setAttribute("maxlength", 1000);
+
+            } else if (long_desc_ids.includes(textarea_inputs[i].id)) {
+                textarea_inputs[i].setAttribute("maxlength", 5000);
+
+            } else {
+                textarea_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+            }
+        }
+    });
+
+    $('#update_book').click(function (event) {
+        var ret = {
+            productType: "book",
+            buttonType: "update",
+            productId: productId,
+            productName: $('#book_product_name_input').val(),
+            barcode: $('#book_barcode_input').val(),
+            stock: $('#book_stock_input').val(),
+            price: $('#book_price_input').val(),
+            publishedYear: $('#book_published_year_input').val(),
+            language: $('#book_language_input').val(),
+            isbn: $('#book_isbn_input').val(),
+            shortDesc: $('#book_short_description_input').val(),
+            longDesc: $('#book_long_description_input').val(),
+            mediaType: $('#book_media_type_select').val().toUpperCase().split(" ").join("_"),
+            paperType: $('#book_paper_type_select').val().toUpperCase().split(" ").join("_"),
+            bindingType: $('#book_binding_type_select').val().toUpperCase().split(" ").join("_"),
+            pageNum: $('#book_page_number_input').val(),
+            editionNum: $('#book_edition_number_input').val(),
+            height: $('#book_height_input').val(),
+            width: $('#book_width_input').val(),
+            depth: $('#book_depth_input').val(),
+            category_name: $('#book_category_input option:selected').text(),
+            subcategory_name: $('#book_subcategory_input option:selected').text(),
+            lists: JSON.stringify({
+                publishers: $('#book_publisher_input').val().split(','),
+                translators: $('#book_translator_input').val().split(','),
+                authors: $('#book_authors_input').val().split(','),
+                keywords: $('#book_keywords_input').val().split(','),
+            }),
+        };
+
+        if (validation_check(["book_product_name_input", "book_barcode_input", "book_stock_input", "book_price_input",
+            "book_published_year_input", "book_language_input", "book_translator_input", "book_authors_input", "book_isbn_input",
+            "book_publisher_input", "book_keywords_input", "book_short_description_input", "book_long_description_input",
+            "book_media_type_select", "book_paper_type_select", "book_binding_type_select", "book_page_number_input",
+            "book_edition_number_input", "book_height_input", "book_width_input", "book_depth_input", "book_category_input"])) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Book updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('#update_ebook').click(function (event) {
+        var ret = {
+            productType: "ebook",
+            buttonType: "update",
+            productId: productId,
+            productName: $('#ebook_product_name_input').val(),
+            barcode: $('#ebook_product_barcode_input').val(),
+            stock: $('#ebook_stock_input').val(),
+            price: $('#ebook_price_input').val(),
+            publishedYear: $('#ebook_published_year_input').val(),
+            language: $('#ebook_language_input').val(),
+            isbn: $('#ebook_isbn_input').val(),
+            shortDesc: $('#ebook_short_description_input').val(),
+            longDesc: $('#ebook_long_description_input').val(),
+            pageNum: $('#ebook_page_number_input').val(),
+            fileSize: $('#ebook_filesize_input').val(),
+            fileFormat: $('#ebook_file_format_select').val().toUpperCase().split(" ").join("_"),
+            category_name: $('#ebook_category_input option:selected').text(),
+            subcategory_name: $('#ebook_subcategory_input option:selected').text(),
+            lists: JSON.stringify({
+                publishers: $('#ebook_publisher_input').val().split(','),
+                translators: $('#ebook_translator_input').val().split(','),
+                authors: $('#ebook_authors_input').val().split(','),
+                keywords: $('#ebook_keywords_input').val().split(',')
+            }),
+        };
+
+        if (validation_check(["ebook_product_name_input", "ebook_product_barcode_input", "ebook_stock_input", "ebook_price_input",
+            "ebook_published_year_input", "ebook_language_input", "ebook_translator_input", "ebook_authors_input", "ebook_isbn_input",
+            "ebook_publisher_input", "ebook_keywords_input", "ebook_short_description_input", "ebook_long_description_input",
+            "ebook_page_number_input", "ebook_filesize_input", "ebook_file_format_select", "ebook_category_input"])) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'E-book updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('#update_audiobook').click(function (event) {
+        var ret = {
+            productType: "audio_book",
+            buttonType: "update",
+            productId: productId,
+            productName: $('#audiobook_product_name_input').val(),
+            barcode: $('#audiobook_barcode_input').val(),
+            stock: $('#audiobook_stock_input').val(),
+            price: $('#audiobook_price_input').val(),
+            publishedYear: $('#audiobook_published_year_input').val(),
+            language: $('#audiobook_language_input').val(),
+            isbn: $('#audiobook_isbn_input').val(),
+            shortDesc: $('#audiobook_short_description_input').val(),
+            longDesc: $('#audiobook_long_description_input').val(),
+            lengthInMinutes: $('#audiobook_length_input').val(),
+            narratedBy: $('#audiobook_narrator_input').val(),
+            category_name: $('#audiobook_category_select option:selected').text(),
+            subcategory_name: $('#audiobook_subcategory_select option:selected').text(),
+            lists: JSON.stringify({
+                publishers: $('#audiobook_publisher_input').val().split(','),
+                translators: $('#audiobook_translator_input').val().split(','),
+                authors: $('#audiobook_authors_input').val().split(','),
+                keywords: $('#audiobook_keywords_input').val().split(','),
+            }),
+        };
+
+        if (validation_check(["audiobook_product_name_input", "audiobook_barcode_input", "audiobook_stock_input", "audiobook_price_input",
+            "audiobook_published_year_input", "audiobook_language_input", "audiobook_language_input", "audiobook_translator_input",
+            "audiobook_authors_input", "audiobook_isbn_input", "audiobook_publisher_input", "audiobook_keywords_input",
+            "audiobook_short_description_input", "audiobook_long_description_input", "audiobook_length_input", "audiobook_narrator_input",
+            "audiobook_category_select"])) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Audio book updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('#update_ebook_reader').click(function (event) {
+        var ret = {
+            productType: "ebook_reader",
+            buttonType: "update",
+            productId: productId,
+            productName: $('#ebook_reader_product_name_input').val(),
+            barcode: $('#ebook_reader_barcode_input').val(),
+            stock: $('#ebook_reader_stock_input').val(),
+            price: $('#ebook_reader_price_input').val(),
+            shortDesc: $('#ebook_reader_short_description_input').val(),
+            longDesc: $('#ebook_reader_long_description_input').val(),
+            readerBrand: $('#ebook_reader_brand_input').val(),
+            readerModel: $('#ebook_reader_model_input').val(),
+            readerColor: $('#ebook_reader_color_input').val(),
+            technicalSpecifications: $('#ebook_reader_specification_input').val(),
+            weight: $('#ebook_reader_weight_input').val(),
+            width: $('#ebook_reader_width_input').val(),
+            height: $('#ebook_reader_height_input').val(),
+            depth: $('#ebook_reader_depth_input').val(),
+            screenSize: $('#ebook_reader_screen_size_input').val(),
+            batteryLife: $('#ebook_reader_battery_life_input').val(),
+            resolution: $('#ebook_reader_resolution_input').val(),
+            ram: $('#ebook_reader_ram_input').val(),
+            glareFreeScreen: $('#ebook_reader_glare_select').val(),
+            waterProof: $('#ebook_reader_water_proof_select').val(),
+            autoAdjustingLight: $('#ebook_reader_auto_adjusting_light_select').val(),
+            buttons: $('#ebook_reader_buttons_select').val(),
+            wifi: $('#ebook_reader_wifi_select').val(),
+            cellular: $('#ebook_reader_cellular_select').val(),
+            backLight: $('#ebook_reader_backlight_select').val(),
+            warmBackLight: $('#ebook_reader_warm_backlight_select').val(),
+            category_name: "",
+            subcategory_name: "",
+            lists: JSON.stringify({})
+        };
+
+        if (validation_check(["ebook_reader_product_name_input", "ebook_reader_barcode_input", "ebook_reader_stock_input",
+            "ebook_reader_price_input", "ebook_reader_short_description_input", "ebook_reader_long_description_input",
+            "ebook_reader_brand_input", "ebook_reader_model_input", "ebook_reader_color_input", "ebook_reader_specification_input",
+            "ebook_reader_weight_input", "ebook_reader_width_input", "ebook_reader_height_input", "ebook_reader_depth_input",
+            "ebook_reader_screen_size_input", "ebook_reader_battery_life_input", "ebook_reader_resolution_input", "ebook_reader_ram_input",
+            "ebook_reader_glare_select", "ebook_reader_water_proof_select", "ebook_reader_auto_adjusting_light_select",
+            "ebook_reader_buttons_select", "ebook_reader_wifi_select", "ebook_reader_cellular_select", "ebook_reader_backlight_select",
+            "ebook_reader_warm_backlight_select"])) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'E-book reader updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('#update_ebook_reader_case').click(function (event) {
+        var ret = {
+            productType: "ebook_reader_case",
+            buttonType: "update",
+            productId: productId,
+            productName: $('#ebook_reader_case_product_name_input').val(),
+            barcode: $('#ebook_reader_case_barcode_input').val(),
+            stock: $('#ebook_reader_case_stock_input').val(),
+            price: $('#ebook_reader_case_price_input').val(),
+            caseBrand: $('#ebook_reader_case_brand_input').val(),
+            caseModel: $('#ebook_reader_case_model_input').val(),
+            caseColor: $('#ebook_reader_case_color_input').val(),
+            readerBrand: $('#ebook_reader_case_reader_brand_input').val(),
+            readerModel: $('#ebook_reader_case_reader_model_input').val(),
+            shortDesc: $('#ebook_reader_case_short_description_input').val(),
+            longDesc: $('#ebook_reader_case_long_description_input').val(),
+            caseHeight: $('#ebook_reader_case_height_input').val(),
+            caseWidth: $('#ebook_reader_case_width_input').val(),
+            caseDepth: $('#ebook_reader_case_depth_input').val(),
+            category_name: "",
+            subcategory_name: "",
+            lists: JSON.stringify({})
+        };
+
+        if (validation_check(["ebook_reader_case_product_name_input", "ebook_reader_case_barcode_input", "ebook_reader_case_stock_input",
+            "ebook_reader_case_price_input", "ebook_reader_case_brand_input", "ebook_reader_case_model_input", "ebook_reader_case_color_input",
+            "ebook_reader_case_reader_brand_input", "ebook_reader_case_reader_model_input", "ebook_reader_case_short_description_input",
+            "ebook_reader_case_long_description_input", "ebook_reader_case_height_input", "ebook_reader_case_width_input",
+            "ebook_reader_case_depth_input"])) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'E-book reader case updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('#update_book_case').click(function (event) {
+        var ret = {
+            productType: "book_case",
+            buttonType: "update",
+            productId: productId,
+            productName: $('#book_case_product_name_input').val(),
+            barcode: $('#book_case_barcode_input').val(),
+            stock: $('#book_case_stock_input').val(),
+            price: $('#book_case_price_input').val(),
+            caseBrand: $('#book_case_brand_input').val(),
+            caseModel: $('#book_case_model_input').val(),
+            caseColor: $('#book_case_color_input').val(),
+            caseWidth: $('#book_case_case_width_input').val(),
+            caseHeight: $('#book_case_case_height_input').val(),
+            maxBookDepth: $('#book_case_max_depth_input').val(),
+            shortDesc: $('#book_case_short_description_input').val(),
+            longDesc: $('#book_case_long_description_input').val(),
+            category_name: "",
+            subcategory_name: "",
+            lists: JSON.stringify({})
+        };
+
+        if (validation_check(["book_case_product_name_input", "book_case_barcode_input", "book_case_stock_input",
+            "book_case_price_input", "book_case_brand_input", "book_case_model_input", "book_case_color_input",
+            "book_case_case_width_input", "book_case_case_height_input", "book_case_short_description_input",
+            "book_case_long_description_input", "book_case_max_depth_input"])) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Book case updated successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/product-details/" + productId;
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+    $('#delete_product').click(function (event) {
+        var ret = {
+            productType: "none",
+            buttonType: "delete",
+            category_name: "",
+            subcategory_name: "",
+            productId: productId,
+            lists: JSON.stringify({})
+        };
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/product-details/information/" + productId, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Product deleted successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/admin-panel#product";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+                window.location.href = "/product-details/" + productId;
+            })
+        }
+    });
+
+    $('#book_category_input, #ebook_category_input, #audiobook_category_select').change(function (event) {
+        $.getJSON("/product-details/information/subcategory/" + productId, {
+            category: $("option:selected", this).text(),
+            ajax: 'true'
+        }, function (data) {
+            buildSubcategoriesDropdown(data, event.target.id.replace("category", "subcategory"));
+        });
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        var html = '<option value="">SELECT</option>';
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
+        }
+        html += '</option>';
+        $('#' + subcategoryName).html(html);
+    }
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+</html>

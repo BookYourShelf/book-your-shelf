@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Panel | Book Your Shelf</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/admin-panel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/user-details.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/admin-panel-product.css}">
+
+    <!-- CSRF Fix -->
+    <!--    <meta th:name="_csrf" th:content="${_csrf.token}"/>-->
+    <!--    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li style="color: #fbaa1d">Panel</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="product_description_area">
+            <div class="container">
+                <ul class="nav nav-tabs justify-content-center" id="siteTab">
+                    <li class="nav-item">
+                        <a class="nav-link active profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/user(size=(${#request.getParameter('size')} ?: '10'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
+                           th:href="@{#user}">Users</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/product(size=(${#request.getParameter('size')} ?: '10'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'date-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#product}">Products</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/category(size=(${#request.getParameter('size')} ?: '10'),
+                                                                     page=(${#request.getParameter('page')} ?: '1'),
+                                                                     sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
+                                                                     filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#category}">Categories</a>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link profile-navbar-text" th:attr="data-url=@{/admin-panel/hotList(size=(${#request.getParameter('size')} ?: '10'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#hotList}">Hot Lists</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/campaign(size=(${#request.getParameter('size')} ?: '10'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-desc'),
+                                                                    filter=(${#request.getParameter('filter')} ?: 'all'))}"
+                           th:href="@{#campaign}">Campaigns</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/pending-order(size=(${#request.getParameter('size')} ?: '10'),
+                                                                            page=(${#request.getParameter('page')} ?: '1'),
+                                                                            sort=(${#request.getParameter('sort')} ?: 'time-desc'),
+                                                                            optionFilter=(${#request.getParameter('optionFilter')} ?: 'all'),
+                                                                            statusFilter=(${#request.getParameter('statusFilter')} ?: 'all'),
+                                                                            couponFilter=(${#request.getParameter('couponFilter')} ?: 'all'))}"
+                           th:href="@{#pending-order}">Pending Orders</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link profile-navbar-text"
+                           th:attr="data-url=@{/admin-panel/coupon(size=(${#request.getParameter('size')} ?: '10'),
+                                                                    page=(${#request.getParameter('page')} ?: '1'),
+                                                                    sort=(${#request.getParameter('sort')} ?: 'ID-desc'))}"
+                           th:href="@{#coupon}">Coupons</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link profile-navbar-text" data-url="/admin-panel/message" th:href="@{#message}">Send
+                            Message</a>
+                    </li>
+                </ul>
+                <br>
+                <br>
+                <div class="tab-content" id="myTabContent">
+
+                    <!-- User -->
+                    <div class="tab-pane active" id="user"></div>
+
+                    <!-- Category -->
+                    <div class="tab-pane" id="category"></div>
+
+                    <!-- Hot List -->
+                    <div class="tab-pane" id="hotList"></div>
+
+                    <!-- Campaign -->
+                    <div class="tab-pane" id="campaign"></div>
+
+                    <!-- Product -->
+                    <div class="tab-pane" id="product"></div>
+
+                    <!-- Pending Order -->
+                    <div class="tab-pane" id="pending-order"></div>
+
+                    <!-- Coupons -->
+                    <div class="tab-pane" id="coupon"></div>
+
+                    <!-- Message -->
+                    <div class="tab-pane" id="message"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/admin-panel.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.js}"></script>
+<script th:src="@{/static/js/select.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script>
+    $('#user').load($('.nav-link.active').attr("data-url"), function (result) {
+    });
+</script>
+
+</body>
+</html>

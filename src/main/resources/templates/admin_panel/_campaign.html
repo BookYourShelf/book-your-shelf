@@ -1,0 +1,572 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
+<!-- Add campaign button -->
+<div class="address-element-padding">
+    <a href="#new_campaign" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Campaign</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Category form -->
+<div id="new_campaign" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form id="new_campaign_form" class="checkout_form" th:object="${campaign}" method="post">
+                    <div class="row">
+                        <!-- Name -->
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Campaign Name
+                            </div>
+
+                            <input type="text" id="new_campaign_name"
+                                   class="checkout_input form-control"
+                                   placeholder="Campaign Name" required="required"
+                                   title="Campaign name cannot have digits."
+                                   pattern="[A-Za-z ]+">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Discount Percentage (%)
+                            </div>
+                            <input type="text" id="new_campaign_rate"
+                                   class="checkout_input form-control discount-rate"
+                                   placeholder="Discount Rate" required="required">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Product Type
+                            </div>
+
+                            <select name="product_type" id="category_product_type"
+                                    class="dropdown_item_select checkout_input"
+                                    required="required" th:field="*{productType}">
+                                <option value="">Select Product Type</option>
+                                <option th:each="ctgry : ${T(com.oak.bookyourshelf.model.Category.ProductType).values()}"
+                                        th:value="${ctgry}"
+                                        th:text="#{${'category.' + ctgry}}">productType
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" id="category_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_category">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="subcategory_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_subcategory">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Campaign Start Date
+                            </div>
+                            <input type="text" id="campaign_start_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy" required="required">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Campaign End Date
+                            </div>
+                            <input type="text" id="campaign_end_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy" required="required">
+                        </div>
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+
+                    <input type="submit" class="login_button trans_200" value="Add Campaign" id="new_campaign_button">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span th:if="${campaignListEmpty == false}">
+
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1},sort=${'ID-desc'},filter=${filter})}"
+                       th:text="'Decreasing by ID'"
+                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1},sort=${'ID-asc'},filter=${filter})}"
+                       th:text="'Increasing by ID'"
+                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1},sort=${'Rate-desc'},filter=${filter})}"
+                       th:text="'Decreasing by Rate'"
+                       th:style="${sort == 'Rate-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1}, sort=${'Rate-asc'},filter=${filter})}"
+                       th:text="'Increasing by Rate'"
+                       th:style="${sort == 'Rate-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1},sort=${'Product-Type-asc'},filter=${filter})}"
+                       th:text="'Product Type (A - Z)'"
+                       th:style="${sort == 'Product-Type-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1}, sort=${'Product-Type-desc'},filter=${filter})}"
+                       th:text="'Product Type (Z - A)'"
+                       th:style="${sort == 'Product-Type-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1} ,sort=${'Name-asc'},filter=${filter})}"
+                       th:text="'Name (A - Z)'"
+                       th:style="${sort == 'Name-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                 <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#campaign( size=${campaignPage.size}, page=${1} ,sort=${'Name-dsc'},filter=${filter})}"
+                       th:text="'Name (Z - A)'"
+                       th:style="${sort == 'Name-dsc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+        </ul>
+    </div>
+     <div class="products_dropdown product_dropdown_filter">
+            <div class="isotope_filter_text"><span>Product Type Filter</span><i class="fa fa-caret-down"
+                                                                                aria-hidden="true"></i>
+            </div>
+            <ul>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
+                       th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
+                       th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
+                       th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
+                       th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
+                       th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
+                       th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
+                       th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+            </ul>
+        </div>
+</div>
+    </span>
+<span th:if="${campaignPage.totalPages>0}">
+<br>
+<div>
+    <div class="row order - row ">
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">ID</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Campaign Name</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Discount Percentage</div>
+        </div>
+
+
+
+    </div>
+    <br>
+    <div class="container">
+        <div class="orderDetailBox">
+            <tr th:each="campaign: ${campaignPage.content}">
+
+            <!-- Category -->
+            <div class="address-element-padding">
+                <a th:href="@{'/campaign-details/' + ${campaign.id}}">
+                    <div class="category-element col-md-auto">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${campaign.getId()}"></td>
+                                    </div>
+                                </div>
+
+                                 <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${adminPanelCampaignService.createProductType(campaign)}"></td>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${campaign.getName()}"></td>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${'%'+campaign.getRate()}"></td>
+                                    </div>
+                                </div>
+
+
+
+                                 </div>
+
+                            </div>
+                    </div>
+                </a>
+            </div>
+            </tr>
+        </div>
+    </div>
+</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage - 1},sort=${sort},
+                                                        filter=${filter})}"
+                       aria-label="Previous" title="Previous Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${campaignPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${1},sort=${sort},
+                                                        filter=${filter})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+               <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${campaignPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , campaignPage.totalPages > 2 + currentPage ? currentPage + 2 : campaignPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${i},sort=${sort},
+                                                        filter=${filter})}"
+                       th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < campaignPage.totalPages}" class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                <li th:if="${campaignPage.totalPages > 1}"
+                    th:class="${currentPage == campaignPage.totalPages} ? 'active'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${campaignPage.totalPages},sort=${sort},
+                                                        filter=${filter})}"
+                       th:text="${campaignPage.totalPages}" style="color: #fbaa1d;"
+                       th:title="${'Page '+ campaignPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == campaignPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/admin-panel#campaign(size=${campaignPage.size}, page=${currentPage + 1},sort=${sort},
+                                                        filter=${filter})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+</span>
+
+<!-- No categories -->
+<span th:unless="${campaignPage.totalPages >0}">
+<div class="warning-text">There are no campaigns.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+<script>
+
+    $(document).ready(function () {
+        console.log("ready");
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        setTimeout(function () {
+            history.pushState(null, null, ' ');
+        }, 100);
+
+    });
+
+    $('#new_campaign_button').click(function (event) {
+        var category;
+        var subctgry;
+        var productType = $('#category_product_type option:selected').val();
+        if (productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK") {
+
+            category = $('#new_campaign_categories').val();
+            if (document.getElementById("new_campaign_subcategories") !== null) {
+                var x = document.getElementById("new_campaign_subcategories");
+                var subcategory = [];
+                for (var i = 0; i < x.options.length; i++) {
+                    if (x.options[i].selected === true) {
+                        subcategory.push(x.options[i].value);
+                    }
+                }
+                subctgry = String(subcategory[0]);
+                for (var j = 1; j < subcategory.length; j++) {
+                    subctgry += ("-");
+                    subctgry += (String(subcategory[j]));
+                }
+            } else {
+                subctgry = "";
+            }
+        } else {
+            subctgry = "";
+            category = "";
+        }
+
+        var ret = {
+
+            rate: $('#new_campaign_rate').val(),
+            name: $('#new_campaign_name').val(),
+            startDate: $('#campaign_start_date').val(),
+            endDate: $('#campaign_end_date').val(),
+            productType: productType,
+            subctgry: subctgry,
+            category: category,
+            ptype: productType
+        };
+
+        if (validation_check(["new_campaign_rate", "new_campaign_name", "campaign_start_date", "campaign_end_date"])) {
+            event.preventDefault();
+            $.post("/admin-panel/campaign", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Campaign added successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/admin-panel#campaign";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+
+
+    $(document).on('change', '#new_campaign_categories', function (event) {
+        if ($(this).val() !== "SELECT") {
+            $.getJSON("/admin-panel/campaign/subcategory", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildSubcategoriesDropdown(data, "new_campaign_subcategories");
+            });
+        } else {
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+        }
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        if (data.length > 0) {
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+
+            var newdiv = document.createElement('div');
+            newdiv.id = 'subcategory_dynamicdiv';
+            var html = '<select id="new_campaign_subcategories" class=\"subcategory\" multiple=\"multiple\">';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i] + '">' + data[i] + '</option>';
+            }
+            html += '</option></select>';
+            newdiv.innerHTML += html;
+            document.getElementById("subcategory_row").style.display = "block";
+            document.getElementById("dynamic_subcategory").appendChild(newdiv);
+
+            $(newdiv).find('.subcategory').multiselect({
+                includeSelectAllOption: true
+            });  // call
+        }
+    }
+    $(document).on('change', '#category_product_type', function (event) {
+        console.log("type");
+        console.log($(this).val());
+        if ($(this).val() === "BOOK" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK") {
+
+            $.getJSON("/admin-panel/campaign/category", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildCategoriesDropdown(data, "new_campaign_categories");
+            });
+        } else {
+            if (document.getElementById('category_dynamicdiv') != null) {
+                console.log("not null")
+                // delete div
+                document.getElementById("dynamic_category").removeChild(document.getElementById('category_dynamicdiv'));
+                document.getElementById("category_row").style.display = "none";
+            }
+
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+        }
+    });
+
+    function buildCategoriesDropdown(data, categoryName) {
+        if (document.getElementById('category_dynamicdiv') != null) {
+            // delete div
+            document.getElementById("dynamic_category").removeChild(document.getElementById('category_dynamicdiv'));
+            document.getElementById("category_row").style.display = "none";
+
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+        }
+
+        var newdiv = document.createElement('div');
+        newdiv.id = 'category_dynamicdiv';
+        var html = '<select id=\"new_campaign_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
+        var len = data.length;
+
+
+        for (var i = 0; i < len; i++) {
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
+        }
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        console.log(newdiv);
+        document.getElementById("category_row").style.display = "block"
+        document.getElementById("dynamic_category").appendChild(newdiv);
+    }
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.js}"></script>
+
+</html>

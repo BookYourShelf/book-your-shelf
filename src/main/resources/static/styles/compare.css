@@ -1,0 +1,21 @@
+.table td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+}
+
+.product_image {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table {
+    color: #4a4a4a;
+    border: 1px groove #dee2e6;
+}
+
+.no_hover {
+    pointer-events: none;
+}

@@ -1,0 +1,361 @@
+.product_dropdown_sorting {
+    position: relative;
+    width: 170px;
+    border-radius: 5px;
+    border: 1px #b3b3b3 solid;
+}
+
+.isotope_sorting_text {
+    text-align: center;
+    cursor: pointer;
+}
+
+.isotope_filter_text {
+    text-align: center;
+    cursor: pointer;
+}
+
+.isotope_filter_text span,
+.isotope_sorting_text span {
+    font-size: 16px;
+    font-weight: 400;
+    color: #969696;
+}
+
+.product_dropdown_filter {
+    position: relative;
+    width: 170px;
+    border-radius: 5px;
+    border: 1px #b3b3b3 solid;
+    margin-left: 10px;
+}
+
+.page_nav_row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.page_nav ul li {
+    width: 32px;
+    height: 32px;
+    border: solid 2px transparent;
+    text-align: center;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.page_nav ul li:not(:last-of-type) {
+    margin-right: 8px;
+}
+
+.page_nav ul li.active,
+.page_nav ul li:hover {
+    border: solid 2px #fbaa1d;
+    border-radius: 2px;
+}
+
+.page_nav ul li a {
+    display: block;
+    color: #fbaa1d;
+}
+
+.tab-title-text {
+    color: #4a4a4a;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tab-content-text {
+    color: #4a4a4a;
+    font-size: 20px;
+    word-wrap: break-word;
+}
+
+.product-container-padding {
+    padding-bottom: 25px;
+}
+
+.product-row {
+    height: 100%;
+}
+
+.cart_product_price {
+    font-size: 16px !important;
+}
+
+.cart_sale_price {
+    color: #fbaa1d;
+    font-weight: 500;
+    margin-top: 10px;
+    line-height: 0.75;
+}
+
+.cart_sale_price del {
+    color: #b3b3b3;
+}
+
+.cart-product-name {
+    max-width: 400px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cart-product-name a {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cart-product-name a:hover {
+    color: #fbaa1d !important;
+}
+
+.cart-product-text {
+    max-width: 800px !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a4a4a;
+}
+
+.search-value-text {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.search-value-height {
+    height: 30px !important;
+}
+
+.review-product-name {
+    max-width: 250px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.review-product-name a {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.review-product-name a:hover {
+    color: #fbaa1d !important;
+}
+
+.review-product-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a4a4a;
+    max-width: 250px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.shopping-cart-product-name {
+    max-width: 700px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.shopping-cart-product-name a {
+    font-size: 18px;
+    color: #4a4a4a !important;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.shopping-cart-product-name a:hover {
+    color: #fbaa1d !important;
+}
+
+.shopping-cart-product-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4a4a4a;
+    max-width: 700px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.form-review .form-control {
+    background: transparent;
+    border: 1px solid #999999;
+    font-size: 18px;
+    color: #495057;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-size: 18px;
+    color: #4a4a4a;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.review_item {
+    margin-bottom: 25px;
+    border: solid 1px #ededed;
+    border-radius: 5px;
+    padding: 10px 16px;
+}
+
+.review_item:last-child {
+    margin-bottom: 0px
+}
+
+.review_item .media {
+    position: relative
+}
+
+.review_item .media .d-flex {
+    padding-right: 15px
+}
+
+.review_item .col-lg-8 .media .media-body {
+    vertical-align: middle;
+    align-self: center;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.review_item .col-lg-8 .media .media-body h4 {
+    font-size: 16px;
+    color: #222;
+    margin-bottom: 4px;
+    font-weight: 400;
+    line-height: 1.3;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.review_item .col-lg-8 .media .media-body i {
+    color: #fbd600
+}
+
+.review_item .col-lg-8 .media .media-body h5 {
+    font-size: 14px;
+    font-weight: normal;
+    color: #777
+}
+
+.review_item .col-lg-8 .media .media-body .reply_btn {
+    border: 1px solid #e0e0e0;
+    padding: 0px 28px;
+    display: inline-block;
+    line-height: 32px;
+    border-radius: 16px;
+    font-size: 14px;
+    color: #222;
+    position: absolute;
+    right: 0px;
+    top: 14px;
+@icnlude transition
+}
+
+.review_item .col-lg-8 .media .media-body .reply_btn:hover {
+    background: #fbaa1d;
+    border-color: #fbaa1d;
+    color: #fff
+}
+
+.review_item p {
+    padding-top: 10px;
+    margin-bottom: 0px
+}
+
+.review_item.reply {
+    padding-left: 28px
+}
+
+.review_date {
+    padding-bottom: 6px;
+}
+
+.review_star {
+    color: #fbd600;
+}
+
+.vertical_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review_product_image {
+    max-width: 67px;
+    max-height: 75px;
+    border-style: solid;
+    border-color: #C0C0C0;
+    border-width: 1px;
+}
+
+.aligned-row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.aligned-row::before {
+    display: block;
+}
+
+.order_info_col {
+    padding: 15px 30px;
+}
+
+.order_address {
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.order_info_title {
+    font-weight: 600;
+    color: #4a4a4a;
+    font-size: 20px;
+    line-height: 0.75;
+}
+
+.order_summary_title {
+    color: #4a4a4a;
+    float: left;
+    margin-right: 5px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.order_summary_content {
+    color: #4a4a4a;
+    font-size: 18px;
+}
+
+.cart_item_li {
+    width: 100px;
+    text-align: center;
+}

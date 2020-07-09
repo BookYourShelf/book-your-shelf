@@ -1,0 +1,600 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
+<!-- Add hot list button -->
+<div class="address-element-padding">
+    <a href="#new_hot_list" class="trans_200" data-toggle="collapse">
+        <div class="billingAddress">
+            <div class="product_content">
+                <div style="align-items: center; justify-content: center"
+                     class="row order - row ">
+                    <div class="add-address">Add New Hot List</div>
+                    <i style="padding-left: 5px" class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Category form -->
+<div id="new_hot_list" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form id="new_hot_list_form" class="checkout_form" th:object="${hotList}" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Product Type
+                            </div>
+
+                            <select name="product_type" id="category_product_type"
+                                    class="dropdown_item_select checkout_input"
+                                    required="required" th:field="${hotList.productType}">
+                                <option value="">Select Product Type</option>
+                                <option value="BOOK">Book</option>
+                                <option value="E_BOOK">E-Book</option>
+                                <option value="AUDIO_BOOK">Audio Book</option>
+                            </select>
+                        </div>
+                        <div id="thumb0" style="display: none" onclick="productType()"></div>
+                    </div>
+                    <div class="row" id="category_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_category">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Category
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="subcategory_row" style="display: none">
+                        <div class="col-md-12">
+                            <div id="dynamic_subcategory">
+                                <div class="login-text p-b-10" style="color: black;">
+                                    Subcategory
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Type
+                            </div>
+                            <select name="new_hot_list_type" id="new_hot_list_type"
+                                    class="dropdown_item_select checkout_input"
+                                    required="required" th:field="${hotList.hotListType}">
+                                <option value="">Select Hot List Type</option>
+                                <option value="BEST_SELLERS">Best Sellers</option>
+                                <option value="NEW_RELEASES">New Releases</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Number of Products
+                            </div>
+                            <input type="number" id="new_hot_list_product_number"
+                                   class="checkout_input form-control" min="1"
+                                   placeholder="Number of Products" required="required">
+                        </div>
+                    </div>
+
+                    <!-- Start -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Start Date
+                            </div>
+                            <input type="text" id="new_hot_list_start_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy" required="required">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List Start Time
+                            </div>
+                            <input type="text" id="new_hot_list_start_time"
+                                   class="checkout_input form-control time"
+                                   placeholder="hh:mm" required="required">
+                        </div>
+                    </div>
+
+                    <!-- End -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List End Date
+                            </div>
+                            <input type="text" id="new_hot_list_end_date"
+                                   class="checkout_input form-control date"
+                                   placeholder="dd/mm/yyyy" required="required">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="login-text p-b-10" style="color: black;">
+                                Hot List End Time
+                            </div>
+                            <input type="text" id="new_hot_list_end_time"
+                                   class="checkout_input form-control time"
+                                   placeholder="hh:mm" required="required">
+                        </div>
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+                    <!-- Button -->
+                    <input type="submit" class="login_button trans_200" value="Add Hot List" id="new_hotList_button">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<span th:if="${hotListListEmpty == false}">
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+            <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1},sort=${'ID-desc'},filter=${filter})}"
+                       th:text="'Decreasing by ID'"
+                       th:style="${sort == 'ID-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1},sort=${'ID-asc'},filter=${filter})}"
+                       th:text="'Increasing by ID'"
+                       th:style="${sort == 'ID-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1},sort=${'Product-Num-desc'},filter=${filter})}"
+                       th:text="'Decreasing by Product Num'"
+                       th:style="${sort == 'Product-Num-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1}, sort=${'Product-Num-asc'},filter=${filter})}"
+                       th:text="'Increasing by Product Num'"
+                       th:style="${sort == 'Product-Num-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1},sort=${'Product-Type-asc'},filter=${filter})}"
+                       th:text="'Product Type (A - Z)'"
+                       th:style="${sort == 'Product-Type-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1}, sort=${'Product-Type-desc'},filter=${filter})}"
+                       th:text="'Product Type (Z - A)'"
+                       th:style="${sort == 'Product-Type-desc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1} ,sort=${'Hot-List-Type-asc'},filter=${filter})}"
+                       th:text="'Hot List Type (A - Z)'"
+                       th:style="${sort == 'Hot-List-Type-asc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+                 <li class="item_sorting_btn">
+                    <a th:href="@{/admin-panel#hotList( size=${hotListPage.size}, page=${1} ,sort=${'Hot-List-Type-dsc'},filter=${filter})}"
+                       th:text="'Hot List Type (Z - A)'"
+                       th:style="${sort == 'Hot-List-Type-dsc'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+
+        </ul>
+    </div>
+    <div class="products_dropdown product_dropdown_filter">
+
+            <div class="isotope_filter_text"><span>Product Type Filter</span><i class="fa fa-caret-down"
+                                                                                aria-hidden="true"></i>
+
+            </div>
+            <ul>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'all'})}"
+                       th:text="'All'" th:style="${filter == 'all'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'book'})}"
+                       th:text="'Book'" th:style="${filter == 'book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'e-book'})}"
+                       th:text="'E-Book'" th:style="${filter == 'e-book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'audio-book'})}"
+                       th:text="'Audio Book'" th:style="${filter == 'audio-book'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader'})}"
+                       th:text="'E-Book Reader'" th:style="${filter == 'e-book-reader'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'e-book-reader-case'})}"
+                       th:text="'E-Book Reader Case'" th:style="${filter == 'e-book-reader-case'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+                <li class="item_filter_btn">
+                    <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1}, sort=${sort}, filter=${'book-case'})}"
+                       th:text="'Book Case'" th:style="${filter == 'book-case'} ? 'color:#1f5b70'">
+                    </a>
+                </li>
+            </ul>
+        </div>
+</div>
+
+    </span>
+
+<br>
+<span th:if="${hotListPage.totalPages>0}">
+<div>
+    <div class="row order - row ">
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">ID</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Product Type</div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Hot List Type</div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-xs-6">
+            <div class="profile-order-title">Number of Products</div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="orderDetailBox">
+             <tr th:each="hotList: ${hotListPage.content}">
+            <!-- Category -->
+            <div class="address-element-padding">
+               <a th:href="@{'/hotList-details/' + ${hotList.id}}">
+                    <div class="category-element">
+                        <div class="product_content">
+                            <div class="row order - row collapsible">
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${hotList.getId()}"></td>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-3 col-md-3 col-xs-6">
+
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${adminPanelHotListService.createProductType(hotList)}"></td>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${adminPanelHotListService.createHotListType(hotList)}"></td>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-xs-6">
+                                    <div class="profile-order-text vertical_center">
+                                        <td th:text="${hotList.getProductNum()}"></td>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+             </tr>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+
+                <!-- Previous button -->
+                    <li th:style="${currentPage == 1} ? 'display:none'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${currentPage - 1},sort=${sort},
+                                                            filter=${filter})}"
+
+                           aria-label="Previous" title="Previous Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                <!-- First page -->
+                    <li th:if="${hotListPage.totalPages > 0}"
+                        th:class="${currentPage == 1} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${1},sort=${sort},
+                                                            filter=${filter})}"
+                           th:title="${'Page '+ 1}"
+                           th:text="${1}" style="color: #fbaa1d;">
+                        </a>
+                    </li>
+
+                    <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                    <li th:if="${hotListPage.totalPages > 2}"
+                        th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                        , hotListPage.totalPages > 2 + currentPage ? currentPage + 2 : hotListPage.totalPages - 1, 1)}"
+                        th:class="${currentPage == i} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${i},sort=${sort},
+                                                            filter=${filter})}"
+                           th:text="${i}" th:title="${'Page '+ i}" style="color: #fbaa1d;"></a>
+                    </li>
+
+                    <li th:if="${currentPage + 3 < hotListPage.totalPages}" class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                    <li th:if="${hotListPage.totalPages > 1}"
+                        th:class="${currentPage == hotListPage.totalPages} ? 'active'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${hotListPage.totalPages},sort=${sort},
+                                                            filter=${filter})}"
+                           th:text="${hotListPage.totalPages}" style="color: #fbaa1d;"
+                           th:title="${'Page '+ hotListPage.totalPages}">
+                        </a>
+                    </li>
+
+                <!-- Next button -->
+                    <li th:style="${currentPage == hotListPage.totalPages} ? 'display:none'">
+                        <a th:href="@{/admin-panel#hotList(size=${hotListPage.size}, page=${currentPage + 1},sort=${sort},
+                                                            filter=${filter})}"
+                           aria-label="Next" title="Next Page" rel="tooltip">
+                            <i class="pagination_arrow fa fa-angle-right"></i>
+                        </a>
+                    </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+    </span>
+
+
+<!-- No categories -->
+<span th:unless="${hotListPage.totalPages >0}">
+<div class="warning-text">There are no hot lists.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+<script>
+
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+        setTimeout(function () {
+            history.pushState(null, null, ' ');
+        }, 100);
+
+    });
+
+    $('#new_hotList_button').click(function (event) {
+        var category;
+        var subctgry;
+        var productType = $('#category_product_type option:selected').val();
+
+        if (productType === "BOOK" || productType === "AUDIO_BOOK" || productType === "E_BOOK") {
+
+            category = $('#new_hot_list_categories').val();
+            if (document.getElementById("new_hotList_subcategories") !== null) {
+                var x = document.getElementById("new_hotList_subcategories");
+                var subcategory = [];
+                for (var i = 0; i < x.options.length; i++) {
+                    if (x.options[i].selected === true) {
+                        subcategory.push(x.options[i].value);
+                    }
+                }
+                subctgry = String(subcategory[0]);
+                for (var j = 1; j < subcategory.length; j++) {
+                    subctgry += ("-");
+                    subctgry += (String(subcategory[j]));
+                }
+            } else {
+                subctgry = "";
+            }
+        } else {
+            subctgry = "";
+            category = "";
+        }
+        var hotListType = $('#new_hot_list_type option:selected').val();
+        var ret = {
+
+            productNum: $('#new_hot_list_product_number').val(),
+            startDate: $('#new_hot_list_start_date').val(),
+            endDate: $('#new_hot_list_end_date').val(),
+            productType: productType,
+            startTime: $('#new_hot_list_start_time').val(),
+            endTime: $('#new_hot_list_end_time').val(),
+            hotListType: hotListType,
+            subctgry: subctgry,
+            category: category,
+            ptype: productType,
+            htype: hotListType
+
+        };
+
+
+        if (validation_check(["category_product_type", "new_hot_list_type", "new_hot_list_product_number",
+            "new_hot_list_start_date", "new_hot_list_end_date", "new_hot_list_start_time", "new_hot_list_end_time"])) {
+            event.preventDefault();
+            $.post("/admin-panel/hotList", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Hot List added successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/admin-panel#hotList";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+
+    $(document).on('change', '#new_hot_list_categories', function (event) {
+        if ($(this).val() !== "SELECT") {
+            $.getJSON("/admin-panel/hotList/subcategory", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildSubcategoriesDropdown(data, "new_hot_list_subcategories");
+            });
+        } else {
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+        }
+    });
+
+    function buildSubcategoriesDropdown(data, subcategoryName) {
+        if (data.length > 0) {
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+
+            var newdiv = document.createElement('div');
+            newdiv.id = 'subcategory_dynamicdiv';
+            var html = '<select id="new_hotList_subcategories" class=\"subcategory\" multiple=\"multiple\">';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i] + '">' + data[i] + '</option>';
+            }
+            html += '</option></select>';
+            newdiv.innerHTML += html;
+            document.getElementById("subcategory_row").style.display = "block";
+            document.getElementById("dynamic_subcategory").appendChild(newdiv);
+
+            $(newdiv).find('.subcategory').multiselect({
+                includeSelectAllOption: true
+            });  // call
+
+        }
+
+    }
+
+    $('#category_product_type').change(function (event) {
+        if ($(this).val() === "BOOK" || $(this).val() === "E_BOOK" || $(this).val() === "AUDIO_BOOK") {
+            $.getJSON("/admin-panel/hotList/category", {
+                category: $(this).val(),
+                ajax: 'true'
+            }, function (data) {
+                buildCategoriesDropdown(data, "new_hot_list_categories");
+            });
+        } else {
+            if (document.getElementById('category_dynamicdiv') != null) {
+                console.log("not null")
+                // delete div
+                document.getElementById("dynamic_category").removeChild(document.getElementById('category_dynamicdiv'));
+                document.getElementById("category_row").style.display = "none";
+            }
+
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+        }
+    });
+
+    function buildCategoriesDropdown(data, categoryName) {
+        if (document.getElementById('category_dynamicdiv') != null) {
+            // delete div
+            document.getElementById("dynamic_category").removeChild(document.getElementById('category_dynamicdiv'));
+            document.getElementById("category_row").style.display = "none";
+
+            if (document.getElementById('subcategory_dynamicdiv')) {
+                // delete div
+                document.getElementById("dynamic_subcategory").removeChild(document.getElementById('subcategory_dynamicdiv'));
+                document.getElementById("subcategory_row").style.display = "none";
+            }
+        }
+
+        var newdiv = document.createElement('div');
+        newdiv.id = 'category_dynamicdiv';
+        var html = '<select id=\"new_hot_list_categories\" class=\"dropdown_item_select checkout_input\"><option value=\"\">SELECT</option>';
+        var len = data.length;
+
+
+        for (var i = 0; i < len; i++) {
+            html += '<option value="' + data[i] + '">' + data[i] + '</option>';
+        }
+        html += '</option></select>';
+        newdiv.innerHTML += html;
+        document.getElementById("category_row").style.display = "block"
+        document.getElementById("dynamic_category").appendChild(newdiv);
+    }
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+
+
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.js}"></script>
+
+</html>

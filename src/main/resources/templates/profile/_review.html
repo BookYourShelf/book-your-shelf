@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<br>
+<br>
+
+<span th:if="${reviewListEmpty == false}">
+<!-- Sort orders -->
+<div class="products_bar_side d-flex flex-row align-items-end justify-content-end ml-lg-auto">
+    <div class="products_dropdown product_dropdown_sorting">
+        <div class="isotope_sorting_text"><span>Sort</span><i
+                class="fa fa-caret-down" aria-hidden="true"></i></div>
+        <ul>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                        page=${1},
+                                                        sort=${'date-desc'},
+                                                        ratingFilter=${ratingFilter},
+                                                        titleFilter=${titleFilter})}"
+                   th:text="'Decreasing by Date'"
+                   th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'date-asc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Increasing by Date'"
+                   th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'title-asc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Review Title A - Z'"
+                   th:style="${sort == 'title-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'title-desc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Review Title Z - A'"
+                   th:style="${sort == 'title-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'content-asc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Review Content A - Z'"
+                   th:style="${sort == 'content-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'content-desc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Review Content Z - A'"
+                   th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'rate-desc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Decreasing by Rate'"
+                   th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+
+            <li class="item_sorting_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${'rate-asc'},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'Increasing by Rate'"
+                   th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Rating Filter</span><i class="fa fa-caret-down"
+                                                                      aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${'all'},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'All'" th:style="${ratingFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${'1'},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'1 Star'" th:style="${ratingFilter == '1'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${'2'},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'2 Star'" th:style="${ratingFilter == '2'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${'3'},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'3 Star'" th:style="${ratingFilter == '3'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${'4'},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'4 Star'" th:style="${ratingFilter == '4'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${'5'},
+                                                titleFilter=${titleFilter})}"
+                   th:text="'5 Star'" th:style="${ratingFilter == '5'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="products_dropdown product_dropdown_filter">
+        <div class="isotope_filter_text"><span>Title Filter</span><i class="fa fa-caret-down"
+                                                                     aria-hidden="true"></i>
+        </div>
+        <ul>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${'all'})}"
+                   th:text="'All'" th:style="${titleFilter == 'all'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${'titled'})}"
+                   th:text="'Titled'" th:style="${titleFilter == 'titled'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+            <li class="item_filter_btn">
+                <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                page=${1},
+                                                sort=${sort},
+                                                ratingFilter=${ratingFilter},
+                                                titleFilter=${'untitled'})}"
+                   th:text="'Untitled'" th:style="${titleFilter == 'untitled'} ? 'color:#1f5b70'">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</span>
+
+<span th:if="${reviewPage.totalPages > 0}">
+<br>
+<div class="review_list">
+    <tr th:each="review: ${reviewPage.content}">
+
+        <!-- Review -->
+        <div class="review_item">
+            <div class="row">
+
+                <div class="col-lg-8">
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="review_date date"
+                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+                            <span th:if="${review.getReviewTitle() != null}">
+                                <h4 th:text="${review.getReviewTitle()}"></h4>
+                            </span>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 1} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 2} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 3} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() >= 4} ? 'fa-star' : 'fa-star-o'"></i>
+                            <i class="review_star fa"
+                               th:classappend="${review.getScoreOutOf5() == 5} ? 'fa-star' : 'fa-star-o'"></i>
+                        </div>
+                    </div>
+                    <p th:text="${review.getReviewContent()}"></p>
+                </div>
+
+                <!-- Product -->
+                <div class="col-lg-4 vertical_center">
+
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="product-row d-flex">
+                                <a th:href="@{'/product/' + ${review.getProduct().getProductId()}}">
+                                    <div>
+                                        <div class="product_image vertical_center" style="padding-right: 4px">
+                                            <img class="review_product_image" alt="Product Cover Image"
+                                                 th:src="|data:image/png;base64,${productService.get(review.getProduct().getProductId()).getEncodedCoverImage()}|"/>
+                                        </div>
+                                    </div>
+                                    <div class="product_name_container">
+                                        <div class="review-product-name txt-left"><a
+                                                th:text="${productService.get(review.getProduct().getProductId()).getProductName()}"
+                                                th:href="@{'/product/' + ${review.getProduct().getProductId()}}"></a>
+                                        </div>
+
+                                        <!-- Book, E-Book, Audio Book -->
+                                        <span th:if="${productService.get(review.getProduct().getProductId()).getProductTypeName() == 'Book' ||
+                                                    productService.get(review.getProduct().getProductId()).getProductTypeName() == 'E-Book' ||
+                                                    productService.get(review.getProduct().getProductId()).getProductTypeName() == 'Audio Book'}">
+                                            <div class="review-product-text">
+                                                <span th:each="a, iterStat : ${productService.get(review.getProduct().getProductId()).getAuthors()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span>
+                                            </div>
+                                        </span>
+
+                                        <!-- E-Book Reader -->
+                                        <span th:if="${productService.get(review.getProduct().getProductId()).getProductTypeName() == 'E-Book Reader'}">
+                                            <div class="review-product-text"
+                                                 th:text="${productService.get(review.getProduct().getProductId()).getReaderBrand()}">
+                                            </div>
+                                        </span>
+
+                                        <!-- E-Book Reader Case, Book Case -->
+                                        <span th:if="${productService.get(review.getProduct().getProductId()).getProductTypeName() == 'E-Book Reader Case' ||
+                                                    productService.get(review.getProduct().getProductId()).getProductTypeName() == 'Book Case'}">
+                                            <div class="review-product-text"
+                                                 th:text="${productService.get(review.getProduct().getProductId()).getCaseBrand()}">
+                                            </div>
+                                        </span>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 vertical_center">
+                            <!-- Delete button -->
+                            <button type="submit" value="&#xf014;"
+                                    class="delete_review trans_200 fa product_text" name="delete_review"
+                                    th:id="${review.getReviewId()}" title="Delete this review"
+                                    style="font-size: 24px; color: #4a4a4a; display: block"
+                                    data-toggle="collapse">
+                                &#xf014;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </tr>
+</div>
+
+<div class="row page_nav_row">
+    <div class="col">
+        <div class="page_nav">
+            <ul class="d-flex flex-row align-items-start justify-content-center">
+                <!-- Previous button -->
+                <li th:style="${currentPage == 1} ? 'display:none'">
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${currentPage - 1},
+                                                    sort=${sort},
+                                                    ratingFilter=${ratingFilter},
+                                                    titleFilter=${titleFilter})}"
+                       aria-label="Previous" title="Previous Page"
+                       rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- First page -->
+                <li th:if="${reviewPage.totalPages > 0}"
+                    th:class="${currentPage == 1} ? 'active'">
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${1},
+                                                    sort=${sort},
+                                                    ratingFilter=${ratingFilter},
+                                                    titleFilter=${titleFilter})}"
+                       th:title="${'Page '+ 1}"
+                       th:text="${1}" style="color: #fbaa1d;">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                <!-- Pages -->
+                <li th:if="${reviewPage.totalPages > 2}"
+                    th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                    , reviewPage.totalPages > 2 + currentPage ? currentPage + 2 : reviewPage.totalPages - 1, 1)}"
+                    th:class="${currentPage == i} ? 'active'">
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${i},
+                                                    sort=${sort},
+                                                    ratingFilter=${ratingFilter},
+                                                    titleFilter=${titleFilter})}"
+                       th:text="${i}" th:title="${'Page '+ i}"
+                       style="color: #fbaa1d;"></a>
+                </li>
+
+                <li th:if="${currentPage + 3 < reviewPage.totalPages}"
+                    class="pagination_dots">...</li>
+
+                <!-- Last page -->
+                <li th:if="${reviewPage.totalPages > 1}"
+                    th:class="${currentPage == reviewPage.totalPages} ? 'active'">
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${reviewPage.totalPages},
+                                                    sort=${sort},
+                                                    ratingFilter=${ratingFilter},
+                                                    titleFilter=${titleFilter})}"
+                       th:text="${reviewPage.totalPages}"
+                       style="color: #fbaa1d;"
+                       th:title="${'Page '+ reviewPage.totalPages}">
+                    </a>
+                </li>
+
+                <!-- Next button -->
+                <li th:style="${currentPage == reviewPage.totalPages} ? 'display:none'">
+                    <a th:href="@{/profile#review(size=${reviewPage.size},
+                                                    page=${currentPage + 1},
+                                                    sort=${sort},
+                                                    ratingFilter=${ratingFilter},
+                                                    titleFilter=${titleFilter})}"
+                       aria-label="Next" title="Next Page" rel="tooltip">
+                        <i class="pagination_arrow fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</span>
+
+<!-- No product -->
+<span th:unless="${reviewPage.totalPages > 0}">
+    <div class="warning-text">There are no reviews.</div>
+    <div style="text-align: center; padding-bottom: 30px">
+        <img th:src="@{/static/images/no_data.png}">
+    </div>
+</span>
+
+<script th:src="@{/static/js/input-mask.js}"></script>
+
+<script>
+    $('.delete_review').click(function (event) {
+        var ret = {
+            reviewId: $(this).attr("id")
+        };
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/profile/review", ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Review deleted successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/profile#review";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+                window.location.href = "/profile#review";
+            })
+        }
+    });
+</script>
+
+</html>

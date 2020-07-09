@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${'Thank You, ' + user.getName() + ' | Book Your Shelf'}"></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/fonts/icomoon/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/admin-panel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+</head>
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Thank You -->
+        <div class="site-section" style="padding: 50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1 text-center"></div>
+                    <div class="col-md-10 text-center">
+                        <span class="icon-check_circle display-3 text-success"></span>
+                        <h2 class="display-4 text-black"
+                            th:text="${'Thank you ' +  user.getName() + ' ' + user.getSurname() + '!'}">Thank you!</h2>
+                        <p class="lead mb-5">Your order is successfully completed. Thank you for choosing Book Your
+                            Shelf in your shopping.</p>
+                        <p class="lead mb-5">Book Your Shelf is certified with Payment Card Industry
+                            Data Security Standards (PCI DSS).
+                            We assure you that your credit card information will be kept confidential and will not be
+                            leaked by any means.
+                            For more information please refer to our <a th:href="@{/privacy_policy}" target="_blank"
+                                                                        style="text-decoration: none; color:#fbaa1d;
+                                               background:#FFFFFF"> Privacy Policy</a>.</p>
+                        <p class="lead mb-5">
+
+                        <div>
+                            <div class="container">
+                                <div class="orderDetailBox">
+
+                                    <!-- Product -->
+                                    <div class="address-element-padding">
+                                        <a th:href="@{/profile#order}">
+                                            <div class="category-element">
+                                                <div class="product_content">
+
+                                                    <div class="row order - row ">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-title">Order Code</div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-title">Number of Products</div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-title">Shipping Company</div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-title">Total Amount</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row order - row collapsible">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-text vertical_center">
+                                                                <td th:text="${order.getOrderCode()}"></td>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-text vertical_center">
+                                                                <td th:text="${order.getTotalNumberOfProducts()}"></td>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-text vertical_center">
+                                                                <td th:text="${order.getShippingCompany()}"></td>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-3 col-md-3 col-xs-3">
+                                                            <div class="profile-order-text vertical_center">
+                                                                <td th:text="'₺' + ${#numbers.formatDecimal(order.getTotalAmount(), 0, 'COMMA', 2, 'POINT')}"></td>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 text-center"></div>
+                            <div class="col-md-6 checkout_button trans_200"><a th:href="@{/}">Back to shop</a></div>
+                            <div class="col-md-3 text-center"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-1 text-center"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+
+</body>
+</html>

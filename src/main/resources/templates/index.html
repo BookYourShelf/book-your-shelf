@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home | Book Your Shelf</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Home -->
+        <div class="home">
+            <!-- Home Slider -->
+            <div class="home_slider_container">
+                <div class="owl-carousel home_slider banner_slide">
+
+                    <!-- Slide -->
+                    <div class="owl-item">
+                        <div class="background_image" style="background-color: #E2D6C8;"></div>
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col fill_height">
+                                    <div class="home_container_banner_1 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/book_your_shelf_banner.jpg}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide -->
+                    <div class="owl-item">
+                        <div class="background_image" style="background-color: #F1F2E2;">
+                        </div>
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col fill_height">
+                                    <div class="home_container_banner_2 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/banner-2.jpg}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide -->
+                    <div class="owl-item">
+                        <div class="background_image" style="background-color: #FCCD49"></div>
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col fill_height">
+                                    <div class="home_container_banner_3 d-flex flex-column align-items-center justify-content-start">
+                                        <img th:src="@{/static/images/banner-3.jpg}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner -->
+        <div class="sec-banner bg0 p-t-80 p-b-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                        <!-- Block1 -->
+                        <div class="block1 wrap-pic-w">
+                            <img th:src="@{/static/images/icons/03brownbookicon.jpg}" alt="IMG-BANNER">
+                            <a th:href="@{/books}"
+                               class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">Books</span>
+                                    <span class="block1-info stext-102 trans-04"></span>
+                                </div>
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop Book
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                        <!-- Block1 -->
+                        <div class="block1 wrap-pic-w">
+                            <img th:src="@{/static/images/icons/03brownebookicon.jpg}" alt="IMG-BANNER">
+                            <a th:href="@{/ebooks}"
+                               class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">E-Books</span>
+                                    <span class="block1-info stext-102 trans-04"></span>
+                                </div>
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop E-Book
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                        <!-- Block1 -->
+                        <div class="block1 wrap-pic-w">
+                            <img th:src="@{/static/images/icons/03brownaudiobookicon.jpg}" alt="IMG-BANNER">
+                            <a th:href="@{/audiobooks}"
+                               class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">Audio Books</span>
+                                    <span class="block1-info stext-102 trans-04"></span>
+                                </div>
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop Audio Book
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span th:if="${ourPicks_1.size()>0}">
+
+    <div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section_title text-center">Our Picks For You</div>
+            </div>
+        </div>
+
+        <div class="owl-carousel our_picks_slide">
+
+            <div class="row products_row" style="margin-left: 2px; margin-right: 2px">
+                <tr th:each="product: ${ourPicks_1}">
+                    <div class="col-xl-3 col-md-3">
+                        <div class="product">
+                            <div class="product_image_showcase vertical_center">
+                                <a th:href="@{'/product/' + ${product.productId}}">
+                                    <img alt="" class="product_image_img"
+                                         th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                </a>
+                            </div>
+                            <div class="product_content">
+                                <div class="product_info align-items-center justify-content-center">
+                                    <div style="text-align:center;">
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                    </div>
+
+                                    <div>
+                                        <div class="product_name">
+                                            <a th:href="@{'/product/' + ${product.productId}}"
+                                               th:text="${product.getProductName()}"></a>
+                                        </div>
+                                        <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                        product.getProductTypeName() == 'E-Book' ||
+                                                        product.getProductTypeName() == 'Audio Book'}">
+                                        <div class="product_text">
+                                            <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getReaderBrand()}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                        product.getProductTypeName() == 'Book Case'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getCaseBrand()}"></div>
+                                        </div>
+                                    </span>
+                                    </div>
+                                    <span th:if="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                 <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price">
+                                                    <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                    </span>
+
+                                    <span th:unless="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price"><del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                    </span>
+
+                                </div>
+
+                                <div class="product_buttons">
+                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                        <div title="Add to wish list"
+                                             class="add_wish_list_our_picks_1 product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_wish_list_our_picks_1"
+                                             th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                          alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div title="Add to shopping cart"
+                                             class="add_cart_our_picks_1 product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_cart_our_picks_1"
+                                             th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                          alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </tr>
+            </div>
+
+            <span th:if="${allProductsSize > 4}">
+
+                <div class="row products_row" style="margin-left: 2px; margin-right: 2px">
+
+                <tr th:each="product: ${ourPicks_2}">
+                    <div class="col-xl-3 col-md-3">
+                    <div class="product">
+                        <div class="product_image_showcase vertical_center">
+                            <a th:href="@{'/product/' + ${product.productId}}">
+                                <img alt="" class="product_image_img"
+                                     th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                            </a>
+                        </div>
+                        <div class="product_content">
+                            <div class="product_info align-items-center justify-content-center">
+                                <div style="text-align:center;">
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                </div>
+
+                                <div>
+                                    <div class="product_name">
+                                        <a th:href="@{'/product/' + ${product.productId}}"
+                                           th:text="${product.getProductName()}"></a>
+                                    </div>
+                                    <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                    product.getProductTypeName() == 'E-Book' ||
+                                                    product.getProductTypeName() == 'Audio Book'}">
+                                    <div class="product_text">
+                                        <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                    </div>
+                                </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                    <div class="product_text">
+                                        <div th:text="${product.getReaderBrand()}"></div>
+                                    </div>
+                                </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                    product.getProductTypeName() == 'Book Case'}">
+                                    <div class="product_text">
+                                        <div th:text="${product.getCaseBrand()}"></div>
+                                    </div>
+                                </span>
+                                </div>
+                                <span th:if="${product.isOnDiscount()}">
+                                    <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <div class="sale_price">
+                                             <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                        </div>
+                                        <div class="ml-auto text-right">
+                                            <div class="sale_price">
+                                                <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product_price_recommended"
+                                         th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                </span>
+
+                                <span th:unless="${product.isOnDiscount()}">
+                                    <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                        <div class="sale_price"><del></del>
+                                        </div>
+                                        <div class="ml-auto text-right">
+                                            <div class="sale_price"><b>&nbsp;</b></div>
+                                        </div>
+                                    </div>
+                                    <div class="product_price_recommended"
+                                         th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                </span>
+
+                            </div>
+                            <div class="product_buttons">
+                                <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                    <div title="Add to wish list"
+                                         class="add_wish_list_our_picks_2 product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                         name="add_wish_list_our_picks_2"
+                                         th:id="${product.getProductId()}"
+                                         th:value="${product.getProductName()}">
+                                        <div>
+                                            <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                <div>+</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div title="Add to shopping cart"
+                                         class="add_cart_our_picks_2 product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                         name="add_cart_our_picks_2"
+                                         th:id="${product.getProductId()}"
+                                         th:value="${product.getProductName()}">
+                                        <div>
+                                            <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                <div>+</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </tr>
+            </div>
+            </span>
+
+            <span th:if="${allProductsSize > 8}">
+
+            <div class="row products_row">
+
+                <tr th:each="product: ${ourPicks_3}">
+                    <div class="col-xl-3 col-md-3">
+                        <div class="product">
+                            <div class="product_image_showcase vertical_center">
+                                <a th:href="@{'/product/' + ${product.productId}}">
+                                    <img alt="" class="product_image_img"
+                                         th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                </a>
+                            </div>
+                            <div class="product_content">
+                                <div class="product_info align-items-center justify-content-center">
+                                    <div style="text-align:center;">
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                    </div>
+
+                                    <div>
+                                        <div class="product_name">
+                                            <a th:href="@{'/product/' + ${product.productId}}"
+                                               th:text="${product.getProductName()}"></a>
+                                        </div>
+                                        <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                        product.getProductTypeName() == 'E-Book' ||
+                                                        product.getProductTypeName() == 'Audio Book'}">
+                                        <div class="product_text">
+                                            <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getReaderBrand()}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                        product.getProductTypeName() == 'Book Case'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getCaseBrand()}"></div>
+                                        </div>
+                                    </span>
+                                    </div>
+                                    <span th:if="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                 <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price">
+                                                    <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                    </span>
+
+                                    <span th:unless="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price"><del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                    </span>
+
+                                </div>
+
+                                <div class="product_buttons">
+                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                        <div title="Add to wish list"
+                                             class="add_wish_list_our_picks_3 product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_wish_list_our_picks_3"
+                                             th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                          alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div title="Add to shopping cart"
+                                             class="add_cart_our_picks_3 product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_cart_our_picks_3"
+                                             th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                          alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </tr>
+            </div>
+            </span>
+
+        </div>
+    </div>
+</div>
+
+</span>
+        <span th:if="${allProductsSize>0}">
+
+    <!-- Products -->
+    <div class="products" style="padding-top: 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section_title text-center">New Releases</div>
+                </div>
+            </div>
+
+            <div class="row products_row">
+
+                <tr th:each="product: ${newProducts}">
+                    <div class="col-xl-3 col-md-3">
+                        <div class="product">
+                            <div class="product_image_showcase vertical_center">
+                                <a th:href="@{'/product/' + ${product.productId}}">
+                                    <img alt="" class="product_image_img"
+                                         th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                </a>
+                            </div>
+                            <div class="product_content">
+                                <div class="product_info align-items-center justify-content-center">
+                                    <div style="text-align:center;">
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                    </div>
+
+                                    <div>
+                                        <div class="product_name">
+                                            <a th:href="@{'/product/' + ${product.productId}}"
+                                               th:text="${product.getProductName()}"></a>
+                                        </div>
+                                        <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                        product.getProductTypeName() == 'E-Book' ||
+                                                        product.getProductTypeName() == 'Audio Book'}">
+                                        <div class="product_text">
+                                            <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getReaderBrand()}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                        product.getProductTypeName() == 'Book Case'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getCaseBrand()}"></div>
+                                        </div>
+                                    </span>
+                                    </div>
+                                    <span th:if="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                 <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price">
+                                                    <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                    </span>
+
+                                    <span th:unless="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price"><del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                    </span>
+
+                                </div>
+
+                                <div class="product_buttons">
+                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                        <div title="Add to wish list"
+                                             class="add_wish_list_new product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_wish_list_new"
+                                             th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div title="Add to shopping cart"
+                                             class="add_cart_new product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_cart_new" th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </tr>
+            </div>
+
+            <div id="more_new_releases" style="display:none;">
+                <div class="row products_row">
+                    <tr th:each="product: ${moreNewProducts}">
+
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
+                                <div class="product_content">
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                        </div>
+
+                                        <div>
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                        product.getProductTypeName() == 'E-Book' ||
+                                                        product.getProductTypeName() == 'Audio Book'}">
+                                        <div class="product_text">
+                                            <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                        </div>
+                                    </span>
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getReaderBrand()}"></div>
+                                        </div>
+                                    </span>
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                        product.getProductTypeName() == 'Book Case'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getCaseBrand()}"></div>
+                                        </div>
+                                    </span>
+                                        </div>
+                                        <span th:if="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                 <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price">
+                                                    <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                    </span>
+
+                                        <span th:unless="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price"><del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                    </span>
+
+                                    </div>
+
+                                    <div class="product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="add_wish_list_new_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_new_more" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                              alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="add_cart_new_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_new_more" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                              alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
+
+                </div>
+            </div>
+            <span th:if="${allProductsSize>8}">
+            <div class="row load_more_row" id="load_new">
+                <div class="col">
+                    <input type="submit" class="button load_more ml-auto mr-auto"
+                           style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
+                           id="load_more_new_releases">
+                </div>
+            </div>
+            </span>
+        </div>
+    </div>
+</span>
+
+        <span th:if="${allProductsSize>0}">
+    <div class="products" style="padding-top: 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section_title text-center">Best Sellers</div>
+                </div>
+            </div>
+
+            <div class="row products_row">
+                <tr th:each="product: ${bestSeller}">
+                    <div class="col-xl-3 col-md-3">
+                        <div class="product">
+                            <div class="product_image_showcase vertical_center">
+                                <a th:href="@{'/product/' + ${product.productId}}">
+                                    <img alt="" class="product_image_img"
+                                         th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                </a>
+                            </div>
+                            <div class="product_content">
+                                <div class="product_info align-items-center justify-content-center">
+                                    <div style="text-align:center;">
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        <i class="summary_star fa"
+                                           th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                    </div>
+
+                                    <div>
+                                        <div class="product_name">
+                                            <a th:href="@{'/product/' + ${product.productId}}"
+                                               th:text="${product.getProductName()}"></a>
+                                        </div>
+                                        <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                        product.getProductTypeName() == 'E-Book' ||
+                                                        product.getProductTypeName() == 'Audio Book'}">
+                                        <div class="product_text">
+                                            <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getReaderBrand()}"></div>
+                                        </div>
+                                    </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                        product.getProductTypeName() == 'Book Case'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getCaseBrand()}"></div>
+                                        </div>
+                                    </span>
+                                    </div>
+                                    <span th:if="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                 <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price">
+                                                    <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                    </span>
+
+                                    <span th:unless="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price"><del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                    </span>
+
+                                </div>
+
+                                <div class="product_buttons">
+                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                        <div title="Add to wish list"
+                                             class="add_wish_list_best product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_wish_list_best" th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div title="Add to shopping cart"
+                                             class="add_cart_best product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                             name="add_cart_best" th:id="${product.getProductId()}"
+                                             th:value="${product.getProductName()}">
+                                            <div>
+                                                <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </tr>
+            </div>
+
+
+            <div id="more_best_seller" style="display:none;">
+                <div class="row products_row">
+                    <tr th:each="product: ${moreBestSeller}">
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${product.productId}}">
+                                        <img alt="" class="product_image_img"
+                                             th:src="|data:image/png;base64,${product.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
+                                <div class="product_content">
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+
+                                        </div>
+
+                                        <div>
+                                            <div class="product_name">
+                                                <a th:href="@{'/product/' + ${product.productId}}"
+                                                   th:text="${product.getProductName()}"></a>
+                                            </div>
+                                            <span th:if="${product.getProductTypeName() == 'Book' ||
+                                                        product.getProductTypeName() == 'E-Book' ||
+                                                        product.getProductTypeName() == 'Audio Book'}">
+                                        <div class="product_text">
+                                            <div th:text="${compareProductsService.createString(product.getAuthors())}"></div>
+                                        </div>
+                                    </span>
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getReaderBrand()}"></div>
+                                        </div>
+                                    </span>
+                                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' ||
+                                                        product.getProductTypeName() == 'Book Case'}">
+                                        <div class="product_text">
+                                            <div th:text="${product.getCaseBrand()}"></div>
+                                        </div>
+                                    </span>
+                                        </div>
+                                        <span th:if="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price">
+                                                 <del th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price">
+                                                    <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' +compareProductsService.calculateNetPrice(product)}"></div>
+                                    </span>
+
+                                        <span th:unless="${product.isOnDiscount()}">
+                                        <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                            <div class="sale_price"><del></del>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <div class="sale_price"><b>&nbsp;</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="product_price_recommended"
+                                             th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                    </span>
+
+                                    </div>
+
+                                    <div class="product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="add_wish_list_best_more product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_wish_list_best_more" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                              alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="add_cart_best_more product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_cart_best_more" th:id="${product.getProductId()}"
+                                                 th:value="${product.getProductName()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                              alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </tr>
+
+
+                </div>
+            </div>
+            <span th:if="${allProductsSize>8}">
+
+            <div class="row load_more_row" id="load_best">
+                <div class="col">
+                    <input type="submit" class="button load_more ml-auto mr-auto"
+                           style="color: #FFFFFF;font-size: 18px;font-weight: bold" value="Load More"
+                           id="load_more_best_seller">
+                </div>
+            </div>
+            </span>
+
+        </div>
+
+    </div>
+    </span>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script>
+
+    $('#load_more_new_releases').click(function (event) {
+        document.getElementById("more_new_releases").style.display = "block";
+        document.getElementById("load_new").remove();
+
+    });
+    $('#load_more_best_seller').click(function (event) {
+
+        document.getElementById("more_best_seller").style.display = "block";
+        document.getElementById("load_best").remove();
+    });
+
+    $('.add_wish_list_new , .add_wish_list_new_more ,.add_wish_list_best , .add_wish_list_best_more, .add_wish_list_our_picks_1, .add_wish_list_our_picks_2 , .add_wish_list_our_picks_3').click(function (event) {
+        var button = $(this).attr("name");
+        var name = $(this).attr("value");
+        console.log(button);
+        var productID;
+
+        productID = $(this).attr("id");
+
+
+        var ret = {
+            type: "wish-list",
+            id: productID
+        };
+        console.log(productID);
+        console.log(name);
+        event.preventDefault();
+        $.post("/index/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: name + ' added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.add_cart_new , .add_cart_new_more ,.add_cart_best , .add_cart_best_more , .add_cart_our_picks_1 , .add_cart_our_picks_2 , .add_cart_our_picks_3').click(function (event) {
+        var button = $(this).attr("name");
+        var name = $(this).attr("value");
+        console.log(button);
+        var productID;
+
+        productID = $(this).attr("id");
+
+
+        var ret = {
+            type: "cart",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/index/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: name + ' added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.banner_slide').owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        autoplay: true,
+        autoplayTimeout: 2500,
+        dots: false,
+        nav: true,
+        navText: ['<div class="home_slider_nav home_slider_nav_prev"><i class="fa fa-chevron-left" aria-hidden="true"</i></div>',
+            '<div class="home_slider_nav home_slider_nav_next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>'],
+    })
+
+    $('.our_picks_slide').owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        autoplay: true,
+        autoplayTimeout: 2500,
+        dots: false,
+        nav: true,
+        navText: ['<div class="our_picks_slider_nav our_picks_slider_nav_prev"><i class="fa fa-chevron-left" aria-hidden="true"</i></div>',
+            '<div class="our_picks_slider_nav our_picks_slider_nav_next"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>'],
+    })
+
+</script>
+</body>
+
+</html>

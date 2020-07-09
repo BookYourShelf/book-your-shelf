@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<form class="form-contact form-review mt-3" th:object="${PersonalMessage}" th:action="@{/user-details}" method="post"
+      id="message_form">
+    <div class="form-group">
+        <input class="form-control" id="subject_area" name="subject" type="text"
+               placeholder="Enter Subject" required="">
+    </div>
+    <div class="form-group">
+                                <textarea type="text" class="form-control different-control w-100" name="textarea"
+                                          id="textarea" cols="30" rows="4"
+                                          placeholder="Enter Message" required=""></textarea>
+    </div>
+    <p>
+        Note 1: This message will be sent to the user
+    </p>
+    <p>
+        Note 2: E-mail will be sent from oak.bookyourshelf@gmail.com
+    </p>
+    <br>
+    <div class="row">
+        <div class="col-lg-4">
+            <input name=submit id="sms" type="submit" value="Send SMS" class="login_button trans_200">
+        </div>
+
+        <div class="col-lg-4">
+            <input name=submit id="mail" type="submit" value="Send E-mail" class="login_button trans_200">
+
+        </div>
+
+        <div class="col-lg-4">
+            <input name=submit id="SmsAndMail" type="submit" value="Send SMS & E-mail"
+                   class="login_button trans_200">
+        </div>
+    </div>
+    <br/>
+    <br/>
+</form>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#sms ,#mail ,#SmsAndMail').click(function (event) {
+
+        var subject = $('#subject_area').val();
+        var messageContent = $('#textarea').val();
+        var submit = $(this).attr("id");
+        var receiver = /*[[${PersonalMessage.getReceivers()}]]*/ 'default';
+
+
+        var ret = {
+            subject: subject,
+            messageContent: messageContent,
+            submit: submit,
+
+
+        };
+        if (validation_check(["subject_area", "textarea"])) {
+            event.preventDefault();
+            $.post("/user-details/message/" + receiver, ret, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Message sent successfully.',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                $("#message_form")[0].reset();
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        }
+    });
+
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+        var textarea_inputs = document.querySelectorAll("textarea[type=text]");
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+        for (i = 0; i < textarea_inputs.length; i++) {
+
+            textarea_inputs[i].setAttribute("maxlength", 1000);
+
+        }
+    });
+
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</html>

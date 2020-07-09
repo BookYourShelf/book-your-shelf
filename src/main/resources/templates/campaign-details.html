@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${campaign.getName() + ' Details | Book Your Shelf'}"></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/user-details.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/admin-panel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/admin-panel}">Panel</a></li>
+                                <!-- TODO Name -->
+                                <li style="color: #fbaa1d" th:text="${campaign.getName()}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="product_description_area">
+            <div class="container">
+                <br>
+                <div class="address-element-padding">
+                    <div class="billingAddress">
+                        <div class="product_content">
+                            <!-- ID -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        ID
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <!-- ID -->
+                                        <div class="col-lg-11 tab-content-text">
+                                            <h th:text="${campaign.getId()}"></h>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="col-lg-1">
+                                            <div class="row">
+                                                <!-- Update button -->
+                                                <a href="#campaign-info-update"
+                                                   class="trans_200" data-toggle="collapse"><i
+                                                        style="font-size: 25px; padding-right: 10px"
+                                                        class="fa fa-pencil"></i></a>
+                                                <!-- Delete button -->
+                                                <button type="submit" value="&#xf014;"
+                                                        class="trans_200 fa product_text"
+                                                        id="delete_campaign"
+                                                        style="font-size: 25px; color: #4a4a4a"
+                                                        data-toggle="collapse">
+                                                    &#xf014;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Campaign Name
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <h th:text="${campaign.getName()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rate -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Discount Percentage
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <h th:text="${'%'+campaign.getRate()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Type -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Product Type
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Category -->
+                                    <div class="tab-content-text">
+                                        <h th:text="${productType}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Category
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Category -->
+                                    <div class="tab-content-text">
+                                        <div th:if="${campaign.getCategories().size()>0}">
+                                            <td th:text="${campaign.getCategories().get(0).getName()}"></td>
+                                        </div>
+                                        <div th:unless="${campaign.getCategories().size()>0}">
+                                            <div>-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Subcategory -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Subcategory
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Subcategory -->
+                                    <div class="tab-content-text">
+                                        <div th:if="${campaign.getSubcategories() != null}">
+                                            <div th:unless="${campaign.getSubcategories().size() > 0}">
+                                                <div>-</div>
+                                            </div>
+                                            <div th:if="${campaign.getSubcategories().size() > 0}">
+                                                <tr th:each="subcategory: ${campaign.getSubcategories()}">
+                                                    <h th:text="${subcategory.getName()}"></h>
+                                                    <br>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!-- Start -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Campaign Start Date
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text date">
+                                        <h th:text="${campaign.getStartDate()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Campaign End Date
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text date">
+                                        <h th:text="${campaign.getEndDate()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update information form -->
+                <div id="campaign-info-update" class="collapse">
+                    <div class="address-container">
+                        <div class="billingAddress">
+                            <div class="checkout_form_container">
+                                <form th:object="${campaign}" th:action="@{/campaign-details}" id="campaign_update_form"
+                                      class="checkout_form" method="post">
+                                    <div class="row">
+                                        <!-- Name -->
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Campaign Name
+                                            </div>
+
+                                            <input type="text" id="campaign_update_name"
+                                                   class="checkout_input form-control" th:field="${campaign.name}"
+                                                   th:value="${campaign.getName()}"
+                                                   placeholder="Campaign Name" required="required"
+                                                   pattern="[A-Za-z ]+">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Discount Percentage (%)
+                                            </div>
+                                            <input type="text" id="campaign_update_rate"
+                                                   class="checkout_input form-control discount-rate"
+                                                   th:field="${campaign.rate}"
+                                                   th:value="${campaign.getRate()}"
+                                                   placeholder="Discount Rate" required="required">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Campaign Start Date
+                                            </div>
+                                            <input type="text" id="campaign_update_start_date"
+                                                   class="checkout_input form-control date"
+                                                   th:field="${campaign.startDate}"
+                                                   th:value="${campaign.getStartDate()}"
+                                                   placeholder="dd/mm/yyyy" required="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="login-text p-b-10" style="color: black;">
+                                                Campaign End Date
+                                            </div>
+                                            <input type="text" id="campaign_update_end_date"
+                                                   class="checkout_input form-control date"
+                                                   th:field="${campaign.endDate}"
+                                                   th:value="${campaign.getEndDate()}"
+                                                   placeholder="dd/mm/yyyy" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div><!--ERROR--></div>
+
+                                    <!-- Button -->
+                                    <input name=submit id="update_campaign" type="submit" value="UPDATE"
+                                           class="login_button trans_200">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <!-- Orders -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/checkbox-dropdown.js}"></script>
+<script th:src="@{/static/js/bootstrap-multiselect.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var campaignId = /*[[${campaign.getId()}]]*/ 'default';
+
+    $('#update_campaign, #delete_campaign').click(function (event) {
+        var button = $(this).attr("id");
+        var name = $('#campaign_update_name').val();
+        var rate = $('#campaign_update_rate').val();
+        var startDate = $('#campaign_update_start_date').val();
+        var endDate = $('#campaign_update_end_date').val();
+
+
+        var ret = {
+
+            button: button,
+            rate: rate,
+            name: name,
+            startDate: startDate,
+            endDate: endDate,
+
+        };
+
+        console.log(ret)
+
+        if (button === "update_campaign") {
+            if (
+                (validation_check(['campaign_update_name', 'campaign_update_rate', 'campaign_update_start_date', 'campaign_update_end_date']))) {
+                event.preventDefault();
+                $.post("/campaign-details/" + campaignId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Campaign updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/campaign-details/" + campaignId;
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/campaign-details/" + campaignId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Campaign deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel#campaign";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/campaign-details/" + campaignId;
+
+        }
+
+
+    });
+
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+
+</body>
+</html>

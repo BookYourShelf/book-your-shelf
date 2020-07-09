@@ -1,0 +1,230 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+    <!-- Classy Menu -->
+    <nav class="classy-navbar" id="essenceNav">
+        <!-- Logo -->
+        <a th:href="@{/}" class="book_your_shelf_logo">
+            <img th:src="@{/static/images/logo/book_your_shelf_logo.png}" alt="">
+        </a>
+        <!-- Navbar Toggler -->
+        <div class="classy-navbar-toggler">
+            <span class="navbarToggler"><span></span><span></span><span></span></span>
+        </div>
+        <!-- Menu -->
+        <div class="classy-menu">
+            <!-- close btn -->
+            <div class="classycloseIcon">
+                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </div>
+            <!-- Nav Start -->
+            <div class="classynav">
+                <ul>
+                    <li><a th:href="@{/books}">Book</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4 megamenu-book-category">
+                                <li class="title">Categories</li>
+                                <li><a th:href="@{/bookcases}" class="nav-bar-text-overflow"
+                                       style="font-weight: bold">
+                                    Book Cases
+                                </a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4 megamenu-book-campaign">
+                                <li class="title">Campaigns</li>
+                            </ul>
+                            <ul class="single-mega cn-col-4 megamenu-book-hotlist">
+                                <li class="title">Hot Lists</li>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownbookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                    <li><a th:href="@{/ebooks}">E-Book</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4 megamenu-ebook-category">
+                                <li class="title">Categories</li>
+                                <li><a th:href="@{/ebookreaders}" class="nav-bar-text-overflow"
+                                       style="font-weight: bold">
+                                    E-Book Readers
+                                </a></li>
+                                <li><a th:href="@{/ebookreadercases}" class="nav-bar-text-overflow"
+                                       style="font-weight: bold">
+                                    E-Book Reader Cases
+                                </a></li>
+                            </ul>
+                            <ul class="single-mega cn-col-4 megamenu-ebook-campaign">
+                                <li class="title">Campaigns</li>
+                            </ul>
+                            <ul class="single-mega cn-col-4 megamenu-ebook-hotlist">
+                                <li class="title">Hot Lists</li>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownebookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                    <li><a th:href="@{/audiobooks}">Audio Book</a>
+                        <div class="megamenu">
+                            <ul class="single-mega cn-col-4 megamenu-audiobook-category">
+                                <li class="title">Categories</li>
+                            </ul>
+                            <ul class="single-mega cn-col-4 megamenu-audiobook-campaign">
+                                <li class="title">Campaigns</li>
+                            </ul>
+                            <ul class="single-mega cn-col-4 megamenu-audiobook-hotlist">
+                                <li class="title">Hot Lists</li>
+                                </li>
+                            </ul>
+                            <div class="single-mega cn-col-4">
+                                <img th:src="@{/static/images/icons/01brownaudiobookicon.jpg}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Nav End -->
+        </div>
+    </nav>
+
+    <!-- Header Meta Data -->
+    <div class="header-meta d-flex clearfix justify-content-end">
+        <!-- Search Area -->
+        <div class="search-area">
+            <form th:action="@{/search-result}">
+                <input type="search" name="search" id="searchValue" placeholder="Type for search" required="required">
+                <button type="submit" id="headerSearch"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+
+        <!-- User Area -->
+        <div class="user-button-dropdown user-login-info">
+            <a href=""><img th:src="@{/static/images/core-img/user.svg}" alt=""></a>
+            <div class="user-button-dropdown-content">
+                <div sec:authorize="isAnonymous()">
+                    <a th:href="@{/register}" style="line-height: 40px">Register</a>
+                    <a th:href="@{/login}" style="line-height: 40px">Login</a>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin-panel}" style="line-height: 40px">Panel</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a th:href="@{/profile}" style="line-height: 40px">Profile</a>
+                    <a th:href="@{/perform_logout}" style="line-height: 40px">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favourite Area -->
+        <div class="favourite-area">
+            <a th:href="@{/wish-list}"><img th:src="@{/static/images/core-img/heart.svg}" alt="">
+                <span th:if="${user != null }" style="top:10px">
+                    <span th:if="${not #lists.isEmpty(user.getWishList())}">
+                        <span th:text="${#lists.size(user.getWishList())}"></span>
+                    </span>
+                </span>
+            </a>
+        </div>
+
+        <!-- Cart Area -->
+        <div class="cart-area">
+            <a th:href="@{/cart}" id="essenceCartBtn"><img th:src="@{/static/images/core-img/bag.svg}" alt="">
+                <span th:if="${ user != null }" style="top:10px">
+                    <span th:if="${not #lists.isEmpty(user.getShoppingCart())}">
+                        <span th:text="${#lists.size(user.getShoppingCart())}"></span>
+                    </span>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script>
+    $.ajax({
+        url: "/header",
+        type: "GET",
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            console.log(result);
+            const bookCategories = result.bookCategories;
+            const ebookCategories = result.ebookCategories;
+            const audioBookCategories = result.audioBookCategories;
+
+            const bookCampaigns = result.bookCampaigns;
+            const ebookCampaigns = result.ebookCampaigns;
+            const audiobookCampaigns = result.audiobookCampaigns;
+            const ebookReaderCampaigns = result.ebookReaderCampaigns;
+            const ebookReaderCaseCampaigns = result.ebookReaderCaseCampaigns;
+            const bookCaseCampaigns = result.bookCaseCampaigns;
+
+            const bookHotlists = result.bookHotlists;
+            const ebookHotlists = result.ebookHotlists;
+            const audiobookHotlists = result.audiobookHotlists;
+
+            const bookCategoryElement = $('.megamenu-book-category');
+            const ebookCategoryElement = $('.megamenu-ebook-category');
+            const audiobookCategoryElement = $('.megamenu-audiobook-category');
+
+            const bookCampaignElement = $('.megamenu-book-campaign');
+            const ebookCampaignElement = $('.megamenu-ebook-campaign');
+            const audiobookCampaignElement = $('.megamenu-audiobook-campaign');
+
+            const bookHotlistElement = $('.megamenu-book-hotlist');
+            const ebookHotlistElement = $('.megamenu-ebook-hotlist');
+            const audiobookHotlistElement = $('.megamenu-audiobook-hotlist');
+
+            const hotlists = {
+                "BEST_SELLERS": "Best Sellers",
+                "NEW_RELEASES": "New Releases"
+            };
+
+
+            bookCategories.forEach(function (entry) {
+                bookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            ebookCategories.forEach(function (entry) {
+                ebookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            audioBookCategories.forEach(function (entry) {
+                audiobookCategoryElement.append('<li><a href="/category/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+
+            bookCampaigns.forEach(function (entry) {
+                bookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            ebookCampaigns.forEach(function (entry) {
+                ebookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            audiobookCampaigns.forEach(function (entry) {
+                audiobookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            ebookReaderCampaigns.forEach(function (entry) {
+                ebookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            ebookReaderCaseCampaigns.forEach(function (entry) {
+                ebookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+            bookCaseCampaigns.forEach(function (entry) {
+                bookCampaignElement.append('<li><a href="/campaign/' + entry.id + '" class="nav-bar-text-overflow">' + entry.name + '</a></li>')
+            });
+
+            bookHotlists.forEach(function (entry) {
+                bookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
+            });
+            ebookHotlists.forEach(function (entry) {
+                ebookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
+            });
+            audiobookHotlists.forEach(function (entry) {
+                audiobookHotlistElement.append('<li><a href="/hotlist/' + entry.id + '" class="nav-bar-text-overflow">' + hotlists[entry.hotListType] + '</a></li>')
+            });
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+</script>
+
+</html>

@@ -1,0 +1,57 @@
+.nav-pills > li > a.active {
+    background-color: #fbaa1d !important;
+}
+
+.accent-color {
+    color: #fbaa1d;
+}
+
+.subscribe {
+    background-color: #fbaa1d !important;
+    border-color: #fbaa1d !important;
+}
+
+.m-45-btm {
+    margin-top: 45px;
+    margin-bottom: 60px;
+}
+
+.dropdown_item_select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    background-image: url(../images/down.png);
+    background-position: center right;
+    background-repeat: no-repeat;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    color: #969696 !important;
+}
+
+.dropdown_item_select::-ms-expand {
+    display: none;
+}
+
+.tab_icons {
+    color: inherit!important;
+}
+
+.payment_select {
+    line-height: 1.5!important;
+    height: 52px!important;
+}
+
+.payment_option_li {
+    background-color: #fff;
+    border: 1px solid #eeee;
+    border-radius: .25rem;
+}

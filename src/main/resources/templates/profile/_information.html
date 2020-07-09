@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<br>
+<br>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="login">
+            <div class="container">
+                <div class="row">
+                    <div class="billing">
+                        <div class="checkout_title">Personal Information</div>
+                        <div class="login_form_container">
+                            <form th:object="${user}" th:action="@{/profile}" id="personal_information_form"
+                                  class="login_form">
+                                <div>
+                                    <br>
+                                    <!-- Name -->
+                                    <div class="login-text p-b-10" style="color: black;">Name
+                                    </div>
+                                    <input type="text" th:field="*{name}" th:value="${user.getName()}" id="change_name"
+                                           class="checkout_input form-control" pattern="^[a-zA-Z ]+$"
+                                           placeholder="Name" required="required">
+                                </div>
+                                <div>
+                                    <!-- Surname -->
+                                    <br>
+                                    <div class="login-text p-b-10" style="color: black;">
+                                        Surname
+                                    </div>
+                                    <input type="text" th:field="*{surname}" th:value="${user.getSurname()}"
+                                           id="change_surname"
+                                           class="checkout_input form-control" pattern="^[a-zA-Z ]+$"
+                                           placeholder="Surname" required="required">
+                                </div>
+                                <div>
+                                    <br>
+                                    <!-- Email -->
+                                    <div class="login-text p-b-10" style="color: black;">E-Mail
+                                        Address
+                                    </div>
+                                    <input type="email" th:field="*{email}" th:value="${user.getEmail()}" id="change_email"
+
+                                           class="checkout_input form-control"
+                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                           placeholder="E-Mail" required="required">
+                                </div>
+                                <div>
+                                    <br>
+                                    <!-- Birth Date -->
+                                    <div class="login-text p-b-10" style="color: black;">Birth
+                                        Date
+                                    </div>
+                                    <input type="text" th:field="*{birthDate}"
+                                           id="change_birthdate"
+                                           class="checkout_input form-control date"
+                                           pattern=".{10}"
+                                           placeholder="dd/mm/yyyy">
+                                </div>
+                                <div>
+                                    <br>
+                                    <!-- Phone Number -->
+                                    <div class="login-text p-b-10" style="color: black;">Phone
+                                        Number
+                                    </div>
+                                    <input type="text" th:field="*{phoneNumber}" th:value="${user.getPhoneNumber()}"
+                                           id="change_phone"
+                                           class="checkout_input form-control phone_mask"
+                                           placeholder="(XXX) XXX XX XX" pattern=".{15}">
+                                </div>
+                                <div class="login_extra">
+                                    <br>
+                                    <ul>
+                                        <li class="billing_info d-flex flex-row">
+                                            <div>
+                                                <label>
+                                                    <label class="checkbox_container">
+                                                        <input type="checkbox"
+                                                               id="permission_agreement"
+                                                               name="permission_agreement"
+                                                               class="billing_checkbox"
+                                                        th:checked="${user.getReceiveMessage()}">
+                                                        <span class="checkbox_mark"></span>
+                                                    </label>
+                                                    <label style="padding-left: 29px; cursor: text">
+                                                                                <span class="checkbox_text login-text">I want to receive
+                                                                                    electronic messages to be informed about the campaigns
+                                                                                    and promotions that Book Your Shelf will do.</span>
+                                                    </label>
+                                                </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <br>
+                                </div>
+                                <div><!--ERROR--></div>
+
+                                <input name=submit id="updateInformations" type="submit" value="UPDATE"
+                                       class="login_button trans_200">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="container">
+            <div class="row">
+                <div class="billing">
+                    <div class="checkout_title">Password Information</div>
+                    <div class="login_form_container">
+                        <form action="#" id="login_form" class="login_form">
+                            <div>
+                                <br>
+                                <!-- Current Password -->
+                                <div class="login-text p-b-10" style="color: black;">Your
+                                    Current Password
+                                </div>
+                                <div class="input-group">
+                                    <input type="password" id="current_password"
+                                           class="checkout_input form-control pwd" pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$" required="required"
+                                           title="Write your password register in the system.">
+                                </div>
+                            </div>
+                            <div>
+                                <br>
+                                <!-- New Password -->
+                                <div class="login-text p-b-10" style="color: black;">Your New
+                                    Password
+                                </div>
+                                <div class="input-group">
+                                    <input type="password" id="new_password"
+                                           class="checkout_input form-control pwd1" pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$" required="required"
+                                           title="Write your new password.">
+                                </div>
+                            </div>
+                            <div>
+                                <br>
+                                <!-- New Password Again -->
+                                <div class="login-text p-b-10" style="color: black;">Your New
+                                    Password Again
+                                </div>
+                                <div class="input-group">
+                                    <input type="password" id="new_password_again" pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$" required="required"
+                                           class="checkout_input form-control pwd1"
+                                           title="Write your new password.">
+                                </div>
+                                <br>
+                                <div>
+                                    <span>*Your password must be 8-16 characters, and include at least one lowercase letter, one uppercase letter, and a number.</span>
+                                </div>
+                                <br>
+                            </div>
+                            <div><!--ERROR--></div>
+                            <input id="update_password" type="submit" value="UPDATE" class="login_button trans_200">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateInformations, #update_password').click(function (event) {
+
+        var button = $(this).attr("id");
+        var ret;
+        var receiveMessage;
+
+        if(button === "updateInformations") {
+
+            var name = $('#change_name').val();
+            var surname = $('#change_surname').val();
+            var email = $('#change_email').val();
+            var phoneNumber = $('#change_phone').val();
+            var birthDate = $('#change_birthdate').val();
+
+            if(document.getElementById('permission_agreement').checked === true){
+                receiveMessage = true;
+
+            } else {
+                receiveMessage=false;
+            }
+
+            ret = {
+                name: name,
+                surname: surname,
+                email: email,
+                phoneNumber: phoneNumber,
+                birthDate : birthDate,
+                button:button,
+                currentPassword: "",
+                newPassword: "",
+                newPasswordAgain: "",
+                receiveMessage: receiveMessage
+            };
+
+            if ((((birthDate !== "") && (validation_check(['change_birthdate']))) || birthDate === "") &&
+                (((phoneNumber !== "") && (validation_check(['change_phone']))) || phoneNumber === "") &&
+                (validation_check(['change_name', 'change_surname', 'change_email']))) {
+                event.preventDefault();
+                $.post("/profile/information", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Your informations updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/profile#information";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+
+        } else if(button === "update_password") {
+
+            var currentPassword = $('#current_password').val();
+            var newPassword = $('#new_password').val();
+            var newPasswordAgain = $('#new_password_again').val();
+
+            ret = {
+                currentPassword: currentPassword,
+                newPassword: newPassword,
+                newPasswordAgain: newPasswordAgain,
+                button:button,
+                receiveMessage:false
+            };
+
+            if ((validation_check(['current_password', 'new_password', 'new_password_again']))) {
+                event.preventDefault();
+                $.post("/profile/information", ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'Your informations updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/profile#information";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        }
+    });
+
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        document.getElementById("change_email").setAttribute("maxlength", TEXT_MAX_LENGTH );
+        document.getElementById("current_password").setAttribute("maxlength", TEXT_MAX_LENGTH );
+        document.getElementById("new_password").setAttribute("maxlength", TEXT_MAX_LENGTH );
+        document.getElementById("new_password_again").setAttribute("maxlength", TEXT_MAX_LENGTH );
+
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /*]]>*/
+</script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+
+</html>

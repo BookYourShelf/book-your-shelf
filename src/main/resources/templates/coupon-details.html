@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${'Coupon#' + coupon.getCouponId() + ' Details | Book Your Shelf'}"></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap-multiselect.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/user-details.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/cart_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/checkout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/admin-panel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/admin-panel}">Panel</a></li>
+                                <li style="color: #fbaa1d" th:text="${'Coupon ' + coupon.getCouponId()}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="product_description_area">
+            <div class="container">
+                <br>
+                <div class="address-element-padding">
+                    <div class="billingAddress">
+                        <div class="product_content">
+                            <!-- ID -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        ID
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <!-- ID -->
+                                        <div class="col-lg-11 tab-content-text">
+                                            <h th:text="${coupon.getCouponId()}"></h>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="col-lg-1">
+                                            <div class="row">
+                                                <!-- Delete button -->
+                                                <button type="submit" value="&#xf014;"
+                                                        class="trans_200 fa product_text"
+                                                        id="delete_coupon"
+                                                        style="font-size: 25px; color: #4a4a4a"
+                                                        data-toggle="collapse">
+                                                    &#xf014;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product Type -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Coupon Code
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <!-- Coupon Code -->
+                                    <div class="tab-content-text">
+                                        <h th:text="${coupon.getCouponCode()}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rate -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Discount Percentage
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <h th:text="${'%' + #numbers.formatDecimal(coupon.getDiscountRate() * 100, 0, 0)}"></h>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Time and Date -->
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="tab-title-text">
+                                        Upload Time
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="tab-content-text">
+                                        <div th:text="${#dates.format(coupon.getUploadDate(), 'dd/MM/yyyy') + ' ' + #dates.format(coupon.getUploadDate(), 'HH:mm')}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" th:insert="fragments/footer.html"></footer>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var couponId = /*[[${coupon.getCouponId()}]]*/ 'default';
+
+    $('#delete_coupon').click(function (event) {
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/coupon-details/" + couponId, function (data) {
+                iziToast.show({
+                    title: 'Success',
+                    message: 'Coupon deleted successfully',
+                    position: 'topRight',
+                    color: 'green'
+                });
+                window.location.href = "/admin-panel#coupon";
+                setTimeout(function () {
+                    history.pushState(null, null, ' ');
+                }, 100);
+
+            }).fail(function (data) {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            })
+        } else window.location.href = "/coupon-details/" + couponId;
+
+    });
+
+    /*]]>*/
+</script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="address-element-padding">
+    <div class="billingAddress">
+        <div class="product_content">
+            <div class="row">
+                <!-- ID -->
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        ID
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-11 tab-content-text">
+                            <h th:text="${user.userId}"></h>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="col-lg-1">
+                            <div class="row">
+                                <!-- Update button -->
+                                <a href="#user-info-update"
+                                   class="trans_200" data-toggle="collapse"><i
+                                        style="font-size: 25px; padding-right: 10px"
+                                        class="fa fa-pencil"></i></a>
+                                <!-- Delete button -->
+                                <button type="submit" value="&#xf014;"
+                                        class="trans_200 fa product_text"
+                                        id="deleteUser"
+                                        style="font-size: 25px; color: #4a4a4a"
+                                        data-toggle="collapse"
+                                >
+                                    &#xf014;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Name
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="tab-content-text">
+                        <h th:text="${user.name}"></h>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Surname -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Surname
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="tab-content-text">
+                        <h th:text="${user.surname}"></h>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        E-Mail
+                    </div>
+                </div>
+
+                <div class="col-lg-10">
+                    <div class="tab-content-text">
+                        <h th:text="${user.email}"></h>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birth Date -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Birth Date
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div th:if="${user.getBirthDate() != null}">
+                        <div class="tab-content-text date">
+                            <h th:text="${user.birthDate}"></h>
+                        </div>
+                    </div>
+
+                    <div th:unless="${user.birthDate != null }">
+
+                        <h>-</h>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="tab-title-text">
+                        Phone
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div th:unless="${user.phoneNumber != null}">
+                        <div>-</div>
+                    </div>
+
+                    <div th:if="${user.phoneNumber != null}">
+                        <div th:unless="${user.phoneNumber.length() > 3}">
+                            <div>-</div>
+                        </div>
+                        <div th:if="${user.phoneNumber.length() > 3}">
+                            <div class="tab-content-text phone_mask">
+                                <h th:text="${user.phoneNumber}"></h>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update informations form -->
+<div id="user-info-update" class="collapse">
+
+    <div class="address-container">
+        <div class="billingAddress">
+            <div class="checkout_form_container">
+                <form th:object="${user}" th:action="@{/user-details}" id="user-info-update_form" class="checkout_form"
+                      method="post">
+
+                    <!-- Name Surname -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Name -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Name
+                            </div>
+
+                            <input type="text" th:field="*{name}" th:value="${user.getName()}"
+                                   id="user-info-update_name"
+                                   class="login_input form-control" pattern="^[a-zA-Z ]+$"
+                                   placeholder="Name" required="required">
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- Surname -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Surname
+                            </div>
+
+                            <input type="text" class="login_input form-control" th:field="*{surname}"
+                                   th:value="${user.getSurname()}" style="color: black;"
+                                   id="user-info-update_surname"
+                                   pattern="^[a-zA-Z ]+$"
+                                   placeholder="Surname"
+                                   required="required">
+                        </div>
+                    </div>
+
+                    <!-- E-Mail -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            E-Mail
+                        </div>
+                        <input type="email" th:field="*{email}" th:value="${user.getEmail()}" id="login_email"
+                               class="login_input form-control"
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required">
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <div class="login-text p-b-10" style="color: black;">
+                            Password
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" th:field="*{password}" id="login_password"
+                                   class="login_input form-control pwd"
+                                   pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$"
+                                   placeholder="Password">
+                            <div class="input-group-append">
+                                                        <span class="input-group-text show_password_bg">
+                                                            <button class="btn btn-default reveal" type="button">
+                                                                <i class="fa fa-eye" id="eye"></i>
+                                                            </button>
+                                                        </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Birth Date - Phone no -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Birth Date -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Birth Date
+                            </div>
+                            <input type="text" th:field="*{birthDate}"
+                                   id="user-info-update_birth_date" style="color: black;"
+                                   class="login_input form-control date"
+                                   placeholder="dd/mm/yyyy"
+                                   pattern=".{10}">
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- Phone no -->
+                            <div class="login-text p-b-10" style="color: black;">
+                                Phone Number
+                            </div>
+                            <input type="text" th:field="*{phoneNumber}" th:value="${user.getPhoneNumber()}"
+                                   id="user-info-update_phone"
+                                   class="login_input form-control phone_mask"
+                                   placeholder="(XXX) XXX XX XX" pattern=".{15}">
+                        </div>
+                    </div>
+
+                    <div><!--ERROR--></div>
+
+
+                    <!-- Button -->
+
+                    <input name=submit id="updateUser" type="submit" value="UPDATE" class="login_button trans_200">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $('#updateUser,#deleteUser').click(function (event) {
+        var button = $(this).attr("id");
+        var name = $('#user-info-update_name').val();
+        var surname = $('#user-info-update_surname').val();
+        var email = $('#login_email').val();
+        var phoneNumber = $('#user-info-update_phone').val();
+        var birthDate = $('#user-info-update_birth_date').val();
+        var userId = /*[[${user.getUserId()}]]*/ 'default';
+        var user = /*[[${user}]]*/ 'default';
+        var password = $('#login_password').val();
+
+
+        var ret = {
+
+            button: button,
+            name: name,
+            surname: surname,
+            email: email,
+            phoneNumber: phoneNumber,
+            userId: userId,
+            user: user,
+            birthDate: birthDate,
+            password: password
+
+        };
+
+        <!-- Burada eger date ve phone bos degilse validation_check ile kontrol et -->
+        if (button === "updateUser") {
+            if ((((birthDate !== "") && (validation_check(['user-info-update_birth_date']))) || birthDate === "") &&
+                (((password !== "") && (validation_check(['login_password']))) || password === "") &&
+                (((phoneNumber !== "") && (validation_check(['user-info-update_phone']))) || phoneNumber === "") &&
+                (validation_check(['user-info-update_name', 'user-info-update_surname', 'login_email']))) {
+                event.preventDefault();
+                $.post("/user-details/information/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'User updated successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/user-details/" + userId + "#information";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            }
+        } else {
+            if (confirm('Are you sure you want to delete?')) {
+                event.preventDefault();
+                $.post("/user-details/information/" + userId, ret, function (data) {
+                    iziToast.show({
+                        title: 'Success',
+                        message: 'User deleted successfully',
+                        position: 'topRight',
+                        color: 'green'
+                    });
+                    window.location.href = "/admin-panel";
+                    setTimeout(function () {
+                        history.pushState(null, null, ' ');
+                    }, 100);
+
+                }).fail(function (data) {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                })
+            } else window.location.href = "/user-details/" + userId + "#information";
+
+        }
+
+
+    });
+
+
+    $(document).ready(function () {
+        var i;
+        var text_inputs = document.querySelectorAll("input[type=text]");
+        var number_inputs = document.querySelectorAll("input[type=number]");
+
+
+        const TEXT_MAX_LENGTH = "255";
+        const NUMBER_MAX_LENGTH = 2147483647;
+
+        document.getElementById("login_email").setAttribute("maxlength", TEXT_MAX_LENGTH );
+        document.getElementById("login_password").setAttribute("maxlength", TEXT_MAX_LENGTH );
+
+        for (i = 0; i < text_inputs.length; i++) {
+            text_inputs[i].setAttribute("maxlength", TEXT_MAX_LENGTH)
+        }
+
+        for (i = 0; i < number_inputs.length; i++) {
+            number_inputs[i].setAttribute("max", NUMBER_MAX_LENGTH)
+        }
+
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+<script th:src="@{/static/js/login.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+
+</html>

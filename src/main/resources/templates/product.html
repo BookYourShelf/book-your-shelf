@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title th:text="${product.productName + ' | Book Your Shelf'}"></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Little Closet template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/static/images/logo/book_your_shelf_tab.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/bootstrap-4.1.2/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plugins/flexslider/flexslider.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/product_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/core-style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/single-product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/star.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/styles/iziToast.min.css}">
+</head>
+
+<body>
+<!-- Header -->
+<header class="header_area" th:insert="fragments/header.html"></header>
+
+<div class="super_container">
+
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <div class="row products_bar_row">
+                <div class="col">
+                    <div class="products_bar d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-start justify-content-center">
+                        <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                            <span th:if="${product.getProductTypeName() == 'Book'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}" th:href="@{/books}"></a></li>
+                                    <li><a th:href="@{/category/{id}(id=${categoryBreadcrumb.getId()})}"
+                                           th:text="${categoryBreadcrumb.getName()}"></a></li>
+                                    <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
+                                        <a th:href="@{/subcategory/{id}(id=${subcategory.getId()})}"
+                                           th:text="${subcategory.getName()}"></a>
+                                    </li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}" th:href="@{/ebooks}"></a></li>
+                                    <li><a th:href="@{/category/{id}(id=${categoryBreadcrumb.getId()})}"
+                                           th:text="${categoryBreadcrumb.getName()}"></a></li>
+                                    <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
+                                        <a th:href="@{/subcategory/{id}(id=${subcategory.getId()})}"
+                                           th:text="${subcategory.getName()}"></a>
+                                    </li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'Audio Book'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}" th:href="@{/audiobooks}"></a></li>
+                                    <li><a th:href="@{/category/{id}(id=${categoryBreadcrumb.getId()})}"
+                                           th:text="${categoryBreadcrumb.getName()}"></a></li>
+                                    <li th:each="subcategory : ${subcategoriesBreadcrumbs}">
+                                        <a th:href="@{/subcategory/{id}(id=${subcategory.getId()})}"
+                                           th:text="${subcategory.getName()}"></a>
+                                    </li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}"
+                                           th:href="@{/ebookreaders}"></a></li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}"
+                                           th:href="@{/ebookreadercases}"></a></li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+
+                            <span th:if="${product.getProductTypeName() == 'Book Case'}">
+
+                                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                                    <li><a th:href="@{/}">Home</a></li>
+                                    <li><a th:text="${product.getProductTypeName()}"
+                                           th:href="@{/bookcases}"></a></li>
+                                    <li style="color: #fbaa1d" th:text="${product.getProductName()}"></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product -->
+        <div class="product_panel">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Product Image -->
+                    <div class="col-lg-5">
+                        <div class="product_image_slider_container">
+                            <div id="slider" class="flexslider">
+                                <ul class="slides">
+                                    <li class="vertical_center" th:each="image : ${images}">
+                                        <img th:src="|data:image/png;base64,${image}|"
+                                             style="max-height: 700px; width: auto"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span th:if="${#lists.size(images) > 1}">
+                            <div id="carousel" class="flexslider">
+                                <ul class="slides">
+                                    <li th:each="image : ${images}">
+                                        <img style="max-height: 200px; width: auto"
+                                             th:src="|data:image/png;base64,${image}|"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="col-lg-7 product_col" style="padding-bottom: 50px">
+                        <div class="product_info">
+                            <span class="product_name">
+                                <h th:text="${product.productName}"></h>
+                            </span>
+                            <div class="product_rating_container d-flex flex-row align-items-center justify-content-start">
+                                <div style="text-align:center;">
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${product.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${product.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${product.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${product.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                    <i class="summary_star fa"
+                                       th:classappend="${product.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${product.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                </div>
+                                <div class="product_reviews">
+                                    <h th:text="${product.getScoreOutOf5()}"></h>
+                                    out of
+                                    <h th:text="${product.getStarNum()}"></h>
+                                </div>
+                                <div class="product_reviews_link"><a href="#information" id="show_review">Review</a>
+                                </div>
+                            </div>
+                            <div class="sale_price_container align-items-start justify-content-start">
+                                <div class="sale_price">
+                                    <span th:switch="${product.isOnDiscount()}">
+                                        <del th:case="True">
+                                            <h th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h>
+                                        </del>
+                                    </span>
+                                    </span>    <!-- when no sale delete it -->
+                                    <div class="sale_price">
+                                    <span th:switch="${product.isOnDiscount()}">
+                                        <del th:case="True">
+                                            <b th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></b>
+                                        </del>
+                                        <div th:case="*">&nbsp;</div>
+                                    </span>
+                                    </div>  <!-- when no sale &nbsp; -->
+                                </div>
+                                <div class="product_price"
+                                     th:text="'₺' + ${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+
+                                <div class="product_text">
+                                    <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+                                        <div th:if="${product.getAuthors() != null}">
+                                            <div th:if="${product.getAuthors().size() > 0}">
+                                                <p class="product_summary_title">Authors: </p>
+                                                <p><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.getTranslators() != null}">
+                                            <div th:if="${product.getTranslators().size() > 0}">
+                                                <p class="product_summary_title">Translators: </p>
+                                                <p><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.getPublishers() != null}">
+                                            <div th:if="${product.getPublishers().size() > 0}">
+                                                <p class="product_summary_title">Publishers: </p>
+                                                <p><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                         th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></p>
+                                            </div>
+                                        </div>
+                                        <p class="product_summary_title">Language: </p>
+                                        <p th:text="${product.getLanguage()}"></p>
+                                        <p class="product_summary_title">Published Year: </p>
+                                        <p th:text="${product.getPublishedYear()}"></p>
+                                        <p class="product_summary_title">ISBN: </p>
+                                        <p th:text="${product.getIsbn()}"></p>
+                                        <span th:if="${product.getProductTypeName() == 'Book'}">
+                                            <p class="product_summary_title">Media Type: </p>
+                                            <p th:text="#{${'media_type.' + product.getMediaType()}}"></p>
+                                            <p class="product_summary_title">Paper Type: </p>
+                                            <p th:text="#{${'paper_type.' + product.getPaperType()}}"></p>
+                                            <p class="product_summary_title">Binding Type: </p>
+                                            <p th:text="#{${'binding_type.' + product.getBindingType()}}"></p>
+                                        </span>
+                                        <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                            <p class="product_summary_title">File Format: </p>
+                                            <p th:text="${product.getFileFormat()}"></p>
+                                        </span>
+                                    </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                        <p class="product_summary_title">Brand: </p>
+                                        <p th:text="${product.getReaderBrand()}"></p>
+                                        <p class="product_summary_title">Model: </p>
+                                        <p th:text="${product.getReaderModel()}"></p>
+                                        <p class="product_summary_title">Color: </p>
+                                        <p th:text="${product.getReaderColor()}"></p>
+                                    </span>
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                        <p class="product_summary_title">Brand: </p>
+                                        <p th:text="${product.getCaseBrand()}"></p>
+                                        <p class="product_summary_title">Model: </p>
+                                        <p th:text="${product.getCaseModel()}"></p>
+                                        <p class="product_summary_title">Color: </p>
+                                        <p th:text="${product.getCaseColor()}"></p>
+                                    </span>
+                                    <br>
+                                    <p th:text="${product.getShortDesc()}"></p>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="product_buttons">
+                                    <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                        <div title="Add to wish list" id="add_wish_list"
+                                             class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div>
+                                                <div><img th:src="@{/static/images/heart_2.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div title="Add to shopping cart" id="add_cart"
+                                             class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div>
+                                                <div><img th:src="@{/static/images/cart.svg}" class="svg" alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div title="Add reminder" id="reminder"
+                                             class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                            <div>
+                                                <div><img th:src="@{/static/images/notification.svg}" class="svg"
+                                                          alt="">
+                                                    <div>+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Description Area -->
+            <section class="product_description_area" id="information">
+                <div class="container">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="desc-tab" data-toggle="tab" href="#desc" role="tab"
+                               aria-controls="desc"
+                               aria-selected="true">DESCRIPTION</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile"
+                               aria-selected="false">SPECIFICATION</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
+                               aria-controls="review"
+                               aria-selected="false">REVIEWS</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade" id="desc" role="tabpanel" aria-labelledby="desc-tab">
+                            <p class="descriptions" th:text="${product.getShortDesc()}"></p>
+                            <br>
+                            <p class="descriptions" th:text="${product.getLongDesc()}"></p>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td><h5>Name</h5></td>
+                                        <td><h5 th:text="${product.getProductName()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Barcode</h5></td>
+                                        <td><h5 th:text="${product.getBarcode()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Stock</h5></td>
+                                        <td><h5 th:text="${product.getStock()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Price</h5></td>
+                                        <td>
+                                            <h5 th:text="${'₺' + #numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"></h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Number of Sales</h5></td>
+                                        <td><h5 th:text="${product.getSalesNum()}"></h5></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h5>Discount Rate</h5></td>
+                                        <td>
+                                            <h5 th:text="${'%' + #numbers.formatDecimal(product.getDiscountRate() * 100, 0, 0)}"></h5>
+                                        </td>
+                                    </tr>
+
+                                    <span th:if="${product.getProductTypeName() == 'Book' || product.getProductTypeName() == 'E-Book' || product.getProductTypeName() == 'Audio Book'}">
+
+                                    <tr><td><h5>ISBN</h5></td>
+                                        <td><h5 th:text="${product.getIsbn()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Published Year</h5></td>
+                                        <td><h5 th:text="${product.getPublishedYear()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Language</h5></td>
+                                        <td><h5 th:text="${product.getLanguage()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Author</h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getAuthors()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Translator</h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getTranslators()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Publisher</h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getPublishers()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Keyword</h5></td>
+                                        <td><h5><span th:each="a, iterStat : ${product.getKeywords()}"
+                                                      th:text="!${iterStat.last} ? ${a} + ', ': ${a}"></span></h5></td>
+                                    </tr>
+
+                                    <span th:if="${product.getProductTypeName() == 'Book'}">
+                                        <tr><td><h5>Media Type</h5></td>
+                                            <td><h5 th:text="#{${'media_type.' + product.getMediaType()}}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Paper Type</h5></td>
+                                            <td><h5 th:text="#{${'paper_type.' + product.getPaperType()}}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Binding Type</h5></td>
+                                            <td><h5 th:text="#{${'binding_type.' + product.getBindingType()}}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Page Number</h5></td>
+                                            <td><h5 th:text="${product.getPageNum()}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Edition Number</h5></td>
+                                            <td><h5 th:text="${product.getEditionNum() + '. Edition'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Height</h5></td>
+                                            <td><h5 th:text="${product.getHeight() + ' mm'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Width</h5></td>
+                                            <td><h5 th:text="${product.getWidth() + ' mm'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Depth</h5></td>
+                                            <td><h5 th:text="${product.getDepth() + ' mm'}"></h5></td>
+                                        </tr>
+                                    </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book'}">
+                                        <tr><td><h5>Page Number</h5></td>
+                                            <td><h5 th:text="${product.getPageNum()}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>File Size</h5></td>
+                                            <td><h5 th:text="${product.getFileSize() + ' MB'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>File Format</h5></td>
+                                            <td><h5 th:text="${product.getFileFormat()}"></h5></td>
+                                        </tr>
+                                    </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'Audio Book'}">
+                                        <tr><td><h5>Length</h5></td>
+                                            <td><h5 th:text="${product.getLengthInMinutes() + ' minutes'}"></h5></td>
+                                        </tr>
+
+                                        <tr><td><h5>Narrated By</h5></td>
+                                            <td><h5 th:text="${product.getNarratedBy()}"></h5></td>
+                                        </tr>
+                                    </span>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader'}">
+                                    <tr><td><h5>Color</h5></td>
+                                        <td><h5 th:text="${product.getReaderColor()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Brand</h5></td>
+                                        <td><h5 th:text="${product.getReaderBrand()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Model</h5></td>
+                                        <td><h5 th:text="${product.getReaderModel()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Technical Specifications</h5></td>
+                                        <td><h5 th:text="${product.getTechnicalSpecifications()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Weight</h5></td>
+                                        <td><h5 th:text="${product.getWeight() + ' g'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Height</h5></td>
+                                        <td><h5 th:text="${product.getHeight() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Width</h5></td>
+                                        <td><h5 th:text="${product.getWidth() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Depth</h5></td>
+                                        <td><h5 th:text="${product.getDepth() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Screen Size</h5></td>
+                                        <td><h5 th:text="${product.getScreenSize() + ' inch'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Battery Life</h5></td>
+                                        <td><h5 th:text="${product.getBatteryLife() + ' hours'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Resolution</h5></td>
+                                        <td><h5 th:text="${product.getResolution() + ' dpi'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>RAM</h5></td>
+                                        <td><h5 th:text="${product.getRam() + ' MB'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Glare Free Screen</h5></td>
+                                        <td th:switch="${product.isGlareFreeScreen()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Water Proof</h5></td>
+                                        <td th:switch="${product.isWaterProof()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Auto Adjusting Light</h5></td>
+                                        <td th:switch="${product.isAutoAdjustingLight()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Buttons</h5></td>
+                                        <td th:switch="${product.isButtons()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Wifi</h5></td>
+                                        <td th:switch="${product.isWifi()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Cellular</h5></td>
+                                        <td th:switch="${product.isCellular()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Backlight</h5></td>
+                                        <td th:switch="${product.isBackLight()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+
+                                    <tr><td><h5>Warm Backlight</h5></td>
+                                        <td th:switch="${product.isWarmBackLight()}">
+                                            <h5 th:case="True">Yes</h5>
+                                            <h5 th:case="*">No</h5>
+                                        </td>
+                                    </tr>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case' || product.getProductTypeName() == 'Book Case'}">
+                                    <tr><td><h5>Color</h5></td>
+                                        <td><h5 th:text="${product.getCaseColor()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Brand</h5></td>
+                                        <td><h5 th:text="${product.getCaseBrand()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Model</h5></td>
+                                        <td><h5 th:text="${product.getCaseModel()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Height</h5></td>
+                                        <td><h5 th:text="${product.getCaseHeight() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Width</h5></td>
+                                        <td><h5 th:text="${product.getCaseWidth() + ' mm'}"></h5></td>
+                                    </tr>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'E-Book Reader Case'}">
+                                    <tr><td><h5>Depth</h5></td>
+                                        <td><h5 th:text="${product.getCaseDepth() + ' mm'}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Reader Brand</h5></td>
+                                        <td><h5 th:text="${product.getReaderBrand()}"></h5></td>
+                                    </tr>
+
+                                    <tr><td><h5>Reader Model</h5></td>
+                                        <td><h5 th:text="${product.getReaderModel()}"></h5></td>
+                                    </tr>
+                                </span>
+
+                                    <span th:if="${product.getProductTypeName() == 'Book Case'}">
+                                    <tr><td><h5>Maximum Book Depth</h5></td>
+                                        <td><h5 th:text="${product.getMaxBookDepth() + ' mm'}"></h5></td>
+                                    </tr>
+                                </span>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div class="row total_rate">
+                                        <div class="col-6">
+                                            <div class="box_total">
+                                                <h5 style="font-weight: 500">Overall</h5>
+                                                <h4 th:text="${product.getScoreOutOf5()}"></h4>
+                                                <h6 th:text="${'(' + product.getStarNum() + ' Reviews)'}"></h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="rating_list">
+                                                <ul class="list" style="padding-top: 20px">
+                                                    <li><a>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(4)}"></span></a>
+                                                    </li>
+                                                    <li><a>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(3)}"></span></a>
+                                                    </li>
+                                                    <li><a>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(2)}"></span></a>
+                                                    </li>
+                                                    <li><a>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(1)}"></span></a>
+                                                    </li>
+                                                    <li><a>
+                                                        <i class="review_star fa fa-star"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <i class="review_star fa fa-star-o"></i>
+                                                        <span class="review_star_numbers"
+                                                              th:text="${product.getTotalStarNum().get(0)}"></span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-7">
+                                    <div class="review_box">
+                                        <h4>Add a Review</h4>
+                                        <div sec:authorize="isAuthenticated()">
+                                            <span th:if="${alreadyReviewed}">
+                                            <a style="color: #fbaa1d;">
+                                                <strong>
+                                                    You already reviewed this product.
+                                                </strong>
+                                            </a>
+                                            </span>
+
+                                            <span th:unless="${alreadyReviewed}">
+                                            <form class="form-contact form-review mt-3">
+                                                <fieldset class="rating">
+                                                    <input class="scoreOutOf5" type="radio" id="star5" name="rating"
+                                                           value="5" required="required"><label
+                                                        class="full review-star-cursor"
+                                                        for="star5"
+                                                        title="Excellent - 5 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star4" name="rating"
+                                                           value="4"><label
+                                                        class="full review-star-cursor"
+                                                        for="star4"
+                                                        title="Very good - 4 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star3" name="rating"
+                                                           value="3"><label
+                                                        class="full review-star-cursor"
+                                                        for="star3"
+                                                        title="Good - 3 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star2" name="rating"
+                                                           value="2"><label
+                                                        class="full review-star-cursor"
+                                                        for="star2"
+                                                        title="Bad - 2 stars"></label>
+                                                    <input class="scoreOutOf5" type="radio" id="star1" name="rating"
+                                                           value="1"><label
+                                                        class="full review-star-cursor"
+                                                        for="star1"
+                                                        title="Very bad- 1 star"></label>
+                                                </fieldset>
+                                                <br>
+                                                <div class="form-group">
+                                                    <input class="form-control" name="subject" type="text"
+                                                           id="review_title"
+                                                           placeholder="Specify Your Review Title (Optional)">
+                                                </div>
+                                                <div class="form-group">
+                                                <textarea class="form-control different-control w-100" name="textarea"
+                                                          id="review_content" cols="30" rows="5" required="required"
+                                                          placeholder="Write Your Review"></textarea>
+                                                </div>
+                                                <div class="form-group text-center text-md-right mt-3">
+                                                    <button type="submit" id="add_review"
+                                                            class="button button--active button-review">SUBMIT
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            </span>
+                                        </div>
+
+                                        <div sec:authorize="isAnonymous()" style="margin: 10px 0;">
+                                            <a style="color: #fbaa1d;" th:href="@{/login}">
+                                                <strong>
+                                                    You must login to review.
+                                                </strong>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <span th:if="${reviewListEmpty == false}">
+                                    <!-- Sort orders -->
+                                    <div class="products_bar_side d-flex flex-row align-items-start justify-content-start ml-lg-auto"
+                                         style="padding-top: 25px">
+                                        <div class="products_dropdown product_dropdown_sorting">
+                                            <div class="isotope_sorting_text"><span>Sort</span><i
+                                                    class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                            <ul>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'date-desc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Decreasing by Date'"
+                                                       th:style="${sort == 'date-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'date-asc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Increasing by Date'"
+                                                       th:style="${sort == 'date-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'title-asc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Review Title A - Z'"
+                                                       th:style="${sort == 'title-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'title-desc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Review Title Z - A'"
+                                                       th:style="${sort == 'title-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'content-asc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Review Content A - Z'"
+                                                       th:style="${sort == 'content-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'content-desc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Review Content Z - A'"
+                                                       th:style="${sort == 'content-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'rate-desc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Decreasing by Rate'"
+                                                       th:style="${sort == 'rate-desc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                                <li class="item_sorting_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${'rate-asc'},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'Increasing by Rate'"
+                                                       th:style="${sort == 'rate-asc'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <div class="products_dropdown product_dropdown_filter">
+                                            <div class="isotope_filter_text"><span>Rating Filter</span><i
+                                                    class="fa fa-caret-down"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <ul>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${'all'},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'All'"
+                                                       th:style="${ratingFilter == 'all'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${'1'},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'1 Star'"
+                                                       th:style="${ratingFilter == '1'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${'2'},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'2 Star'"
+                                                       th:style="${ratingFilter == '2'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${'3'},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'3 Star'"
+                                                       th:style="${ratingFilter == '3'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${'4'},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'4 Star'"
+                                                       th:style="${ratingFilter == '4'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${'5'},
+                                                                                            titleFilter=${titleFilter})}"
+                                                       th:text="'5 Star'"
+                                                       th:style="${ratingFilter == '5'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="products_dropdown product_dropdown_filter">
+                                            <div class="isotope_filter_text"><span>Title Filter</span><i
+                                                    class="fa fa-caret-down"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <ul>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${'all'})}"
+                                                       th:text="'All'"
+                                                       th:style="${titleFilter == 'all'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${'titled'})}"
+                                                       th:text="'Titled'"
+                                                       th:style="${titleFilter == 'titled'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                                <li class="item_filter_btn">
+                                                    <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                            size=${reviewPage.size},
+                                                                                            page=${1},
+                                                                                            sort=${sort},
+                                                                                            ratingFilter=${ratingFilter},
+                                                                                            titleFilter=${'untitled'})}"
+                                                       th:text="'Untitled'"
+                                                       th:style="${titleFilter == 'untitled'} ? 'color:#1f5b70'">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    </span>
+
+                                    <span th:if="${reviewPage.totalPages > 0}">
+                                        <br>
+                                        <div class="review_list">
+                                            <tr th:each="review: ${reviewPage.content}">
+
+                                                <!-- Review -->
+                                                <div class="review_item">
+                                                    <div class="media">
+                                                        <div class="media-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+
+                                                                    <div sec:authorize="isAnonymous()">
+                                                                        <h5 class="review_date date"
+                                                                            th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+                                                                    </div>
+
+                                                                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                                                        <h5 class="date" style="float:left;"
+                                                                            th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+
+                                                                        <!-- Delete button -->
+                                                                        <button type="submit" value="&#xf014;"
+                                                                                class="delete_review trans_200 fa"
+                                                                                name="delete_review"
+                                                                                th:id="${review.getReviewId()}"
+                                                                                title="Delete this review"
+                                                                                style="font-size: 24px; color: #4a4a4a; float: right"
+                                                                                data-toggle="collapse">
+                                                                            &#xf014;
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div sec:authorize="isAuthenticated()">
+                                                                        <span th:if="${user.getRole() != 1 and
+                                                                                    review.getUser().getUserId() == user.getUserId()}">
+                                                                            <h5 class="date" style="float:left;"
+                                                                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+
+                                                                            <!-- Delete button -->
+                                                                            <button type="submit" value="&#xf014;"
+                                                                                    class="delete_review trans_200 fa"
+                                                                                    name="delete_review"
+                                                                                    th:id="${review.getReviewId()}"
+                                                                                    title="Delete this review"
+                                                                                    style="font-size: 24px; color: #4a4a4a; float: right"
+                                                                                    data-toggle="collapse">
+                                                                                &#xf014;
+                                                                            </button>
+                                                                        </span>
+
+                                                                        <span th:if="${user.getRole() != 1}"
+                                                                              th:unless="${review.getUser().getUserId() == user.getUserId()}">
+                                                                            <h5 class="review_date date"
+                                                                                th:text="${#dates.format(review.getUploadDate(), 'dd-MM-yyyy')}"></h5>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <span th:if="${review.getReviewTitle() != null}">
+                                                                <h4 th:text="${review.getReviewTitle()}"></h4>
+                                                            </span>
+
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 1} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 2} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 3} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() >= 4} ? 'fa-star' : 'fa-star-o'"></i>
+                                                            <i class="review_star fa"
+                                                               th:classappend="${review.getScoreOutOf5() == 5} ? 'fa-star' : 'fa-star-o'"></i>
+                                                        </div>
+                                                    </div>
+                                                    <p th:text="${review.getReviewContent()}"></p>
+                                                </div>
+                                            </tr>
+
+                                            <div class="row page_nav_row">
+                                                <div class="col">
+                                                    <div class="page_nav">
+                                                        <ul class="d-flex flex-row align-items-start justify-content-center">
+                                                            <!-- Previous button -->
+                                                            <li th:style="${currentPage == 1} ? 'display:none'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                                        size=${reviewPage.size},
+                                                                                                        page=${currentPage - 1},
+                                                                                                        sort=${sort},
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
+                                                                   aria-label="Previous" title="Previous Page"
+                                                                   rel="tooltip">
+                                                                    <i class="pagination_arrow fa fa-angle-left"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <!-- First page -->
+                                                            <li th:if="${reviewPage.totalPages > 0}"
+                                                                th:class="${currentPage == 1} ? 'active'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                                        size=${reviewPage.size},
+                                                                                                        page=${1},
+                                                                                                        sort=${sort},
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
+                                                                   th:title="${'Page '+ 1}"
+                                                                   th:text="${1}" style="color: #fbaa1d;">
+                                                                </a>
+                                                            </li>
+
+                                                            <li th:if="${currentPage - 3 > 1}" class="pagination_dots">...</li>
+
+                                                            <!-- Pages -->
+                                                            <li th:if="${reviewPage.totalPages > 2}"
+                                                                th:each="i : ${#numbers.sequence(currentPage - 2 > 1 ? currentPage - 2 : 2
+                                                                                , reviewPage.totalPages > 2 + currentPage ? currentPage + 2 : reviewPage.totalPages - 1, 1)}"
+                                                                th:class="${currentPage == i} ? 'active'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                                        size=${reviewPage.size},
+                                                                                                        page=${i},
+                                                                                                        sort=${sort},
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
+                                                                   th:text="${i}" th:title="${'Page '+ i}"
+                                                                   style="color: #fbaa1d;"></a>
+                                                            </li>
+
+                                                            <li th:if="${currentPage + 3 < reviewPage.totalPages}"
+                                                                class="pagination_dots">...</li>
+
+                                                            <!-- Last page -->
+                                                            <li th:if="${reviewPage.totalPages > 1}"
+                                                                th:class="${currentPage == reviewPage.totalPages} ? 'active'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                                        size=${reviewPage.size},
+                                                                                                        page=${reviewPage.totalPages},
+                                                                                                        sort=${sort},
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
+                                                                   th:text="${reviewPage.totalPages}"
+                                                                   style="color: #fbaa1d;"
+                                                                   th:title="${'Page '+ reviewPage.totalPages}">
+                                                                </a>
+                                                            </li>
+
+                                                            <!-- Next button -->
+                                                            <li th:style="${currentPage == reviewPage.totalPages} ? 'display:none'">
+                                                                <a th:href="@{/product/{id}#information(id=${product.getProductId()},
+                                                                                                        size=${reviewPage.size},
+                                                                                                        page=${currentPage + 1},
+                                                                                                        sort=${sort},
+                                                                                                        ratingFilter=${ratingFilter},
+                                                                                                        titleFilter=${titleFilter})}"
+                                                                   aria-label="Next" title="Next Page" rel="tooltip">
+                                                                    <i class="pagination_arrow fa fa-angle-right"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+
+                                    <!-- Empty page -->
+                                    <span th:unless="${reviewPage.totalPages > 0}" th:if="${reviewListEmpty == false}">
+                                        <div class="warning-text">There are no reviews.</div>
+                                    </span>
+
+                                    <!-- No reviews -->
+                                    <span th:if="${reviewListEmpty == true}">
+                                        <div class="warning-text">There are no reviews.
+                                            Be the first to review!
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--================End Product Description Area =================-->
+
+            <span th:unless="${similarProducts.size() == 0}">
+            <div class="products" style="padding-top: 0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <div class="section_title text-center">Our Picks For You</div>
+                        </div>
+                    </div>
+
+                    <div class="row products_row">
+                        <tr th:each="similarProduct: ${similarProducts}">
+                        <!-- Product -->
+                        <div class="col-xl-3 col-md-3">
+                            <div class="product">
+                                <div class="product_image_showcase vertical_center">
+                                    <a th:href="@{'/product/' + ${similarProduct.productId}}">
+                                        <img class="product_image_img"
+                                             th:src="|data:image/png;base64,${similarProduct.getEncodedCoverImage()}|"/>
+                                    </a>
+                                </div>
+                                <div class="product_content">
+                                    <div class="product_info align-items-center justify-content-center">
+                                        <div style="text-align:center;">
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 1.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 0.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 2.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 1.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 3.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 2.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 4.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 3.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                            <i class="summary_star fa"
+                                               th:classappend="${similarProduct.getScoreOutOf5() >= 5.0} ? 'fa-star' : (${similarProduct.getScoreOutOf5() > 4.0} ? 'fa-star-half-full' : 'fa-star-o')"></i>
+                                        </div>
+
+                                        <div>
+                                            <div class="our_picks_product_name">
+                                                <a th:href="@{'/product/' + ${similarProduct.productId}}"
+                                                   th:text="${similarProduct.getProductName()}"></a>
+                                            </div>
+
+                                            <span th:if="${similarProduct.getProductTypeName() == 'Book' ||
+                                                            similarProduct.getProductTypeName() == 'E-Book' ||
+                                                            similarProduct.getProductTypeName() == 'Audio Book'}">
+                                                <div class="our_picks_product_text"
+                                                     th:text="${compareProductsService.createString(similarProduct.getAuthors())}"></div>
+                                            </span>
+
+                                            <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader'}">
+                                                <div class="our_picks_product_text"
+                                                     th:text="${similarProduct.getReaderBrand()}"></div>
+                                            </span>
+
+                                            <span th:if="${similarProduct.getProductTypeName() == 'E-Book Reader Case' ||
+                                                            similarProduct.getProductTypeName() == 'Book Case'}">
+                                                <div class="our_picks_product_text"
+                                                     th:text="${similarProduct.getCaseBrand()}"></div>
+                                            </span>
+                                        </div>
+
+                                        <span th:if="${similarProduct.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price">
+                                                     <del th:text="${'₺' + #numbers.formatDecimal(similarProduct.getPrice(), 0, 'COMMA', 2, 'POINT')}"></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price">
+                                                        <b th:text="${'%' + #numbers.formatDecimal(similarProduct.getDiscountRate() * 100, 0, 0)}"></b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' +compareProductsService.calculateNetPrice(similarProduct)}"></div>
+                                        </span>
+
+                                        <span th:unless="${similarProduct.isOnDiscount()}">
+                                            <div class="product_info d-flex flex-row align-items-start justify-content-start">
+                                                <div class="sale_price"><del></del>
+                                                </div>
+                                                <div class="ml-auto text-right">
+                                                    <div class="sale_price"><b>&nbsp;</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="product_price_recommended"
+                                                 th:text="${'₺' + #numbers.formatDecimal(similarProduct.getPrice(), 0, 'COMMA', 2, 'POINT')}"></div>
+                                        </span>
+                                    </div>
+                                    <div class="our_picks_product_buttons product_buttons">
+                                        <div class="text-right d-flex flex-row align-items-start justify-content-start">
+                                            <div title="Add to wish list"
+                                                 class="add_to_wish_list our_picks_product_button product_button product_fav text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_to_wish_list"
+                                                 th:value="${similarProduct.getProductName()}"
+                                                 th:id="${similarProduct.getProductId()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/heart_2.svg}" class="svg"
+                                                              alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Add to shopping cart"
+                                                 class="add_to_cart our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="add_to_cart" th:id="${similarProduct.getProductId()}"
+                                                 th:value="${similarProduct.getProductName()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/cart.svg}" class="svg"
+                                                              alt="">
+                                                        <div>+</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div title="Compare products"
+                                                 class="compare our_picks_product_button product_button product_cart text-center d-flex flex-column align-items-center justify-content-center"
+                                                 name="compare" th:id="${similarProduct.getProductId()}">
+                                                <div>
+                                                    <div><img th:src="@{/static/images/compare.svg}" class="svg"
+                                                              alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </tr>
+                    </div>
+                </div>
+            </div>
+            </span>
+            <!-- Footer -->
+            <footer class="footer" th:insert="fragments/footer.html"></footer>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/static/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/popper.js}"></script>
+<script th:src="@{/static/styles/bootstrap-4.1.2/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/plugins.js}"></script>
+<script th:src="@{/static/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/static/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/static/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/static/plugins/easing/easing.js}"></script>
+<script th:src="@{/static/plugins/progressbar/progressbar.min.js}"></script>
+<script th:src="@{/static/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/static/plugins/flexslider/jquery.flexslider-min.js}"></script>
+<script th:src="@{/static/js/classy-nav.min.js}"></script>
+<script th:src="@{/static/js/product.js}"></script>
+<script th:src="@{/static/js/active.js}"></script>
+<script th:src="@{/static/js/input-mask.js}"></script>
+<script th:src="@{/static/js/jquery.mask.js}"></script>
+<script th:src="@{/static/js/iziToast.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(document).ready(function () {
+        document.getElementById("review_title").setAttribute("maxlength", "255");
+        document.getElementById("review_content").setAttribute("maxlength", "1000");
+    });
+
+    var productID = /*[[${product.getProductId()}]]*/ 'default';
+    var productName = /*[[${product.getProductName()}]]*/ 'default';
+    var scoreOutOf5 = 0;
+
+    $('#add_wish_list').click(function (event) {
+
+        var ret = {
+            type: "wish-list",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: productName + ' added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('#add_cart').click(function (event) {
+
+        var ret = {
+            type: "cart",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: productName + ' added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('#reminder').click(function (event) {
+        var ret = {
+            type: "reminder",
+            id: productID
+        };
+
+        event.preventDefault();
+        $.post("/product/" + productID, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: 'Reminder added for ' + productName + ' successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.scoreOutOf5').click(function (event) {
+        scoreOutOf5 = $(this).attr("value");
+    });
+
+    $('#add_review').click(function (event) {
+        var ret = {
+            type: "add_review",
+            id: productID,
+            productId: productID,
+            reviewTitle: $('#review_title').val(),
+            reviewContent: $('#review_content').val(),
+            scoreOutOf5: scoreOutOf5
+        };
+
+        if (validation_check(["review_content"])) {
+            event.preventDefault();
+            $.post("/product/" + productID, ret, function (data) {
+                // iziToast.show({
+                //     title: 'Success',
+                //     message: 'Review added for ' + productName + ' successfully.',
+                //     position: 'topRight',
+                //     color: 'green'
+                // });
+                window.location.hash = '#information';
+                window.location.reload(true);
+
+            }).fail(function (data) {
+
+                if (data.responseText === "") {
+                    window.location.href = "/login";
+                } else {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            })
+        }
+    });
+
+    $('.delete_review').click(function (event) {
+        var ret = {
+            type: "delete_review",
+            id: productID,
+            reviewId: $(this).attr("id")
+        };
+
+        if (confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+            $.post("/product/" + productID, ret, function (data) {
+                // iziToast.show({
+                //     title: 'Success',
+                //     message: 'Review deleted successfully.',
+                //     position: 'topRight',
+                //     color: 'green'
+                // });
+                window.location.hash = '#information';
+                window.location.reload(true);
+
+            }).fail(function (data) {
+                if (data.responseText === "") {
+                    window.location.href = "/login";
+                } else {
+                    iziToast.show({
+                        title: 'Fail',
+                        message: data.responseText,
+                        position: 'topRight',
+                        color: 'red'
+                    });
+                }
+            })
+        }
+    });
+
+    $('.add_to_wish_list').click(function (event) {
+        var id = $(this).attr("id");
+        var name = $(this).attr("value");
+
+        var ret = {
+            type: "wish-list",
+            id: id
+        };
+
+        event.preventDefault();
+        $.post("/product/" + id, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: name + ' added to wish list successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.add_to_cart').click(function (event) {
+        var id = $(this).attr("id");
+        var name = $(this).attr("value");
+
+        var ret = {
+            type: "cart",
+            id: id
+        };
+
+        event.preventDefault();
+        $.post("/product/" + id, ret, function (data) {
+            iziToast.show({
+                title: 'Success',
+                message: name + ' added to shopping cart successfully.',
+                position: 'topRight',
+                color: 'green'
+            });
+
+        }).fail(function (data) {
+
+            if (data.responseText === "") {
+                window.location.href = "/login";
+            } else {
+                iziToast.show({
+                    title: 'Fail',
+                    message: data.responseText,
+                    position: 'topRight',
+                    color: 'red'
+                });
+            }
+        })
+    });
+
+    $('.compare').click(function (event) {
+        var id = $(this).attr("id");
+        window.location.href = "/compare/" + productID + "/" + id;
+    });
+
+    $('#compare_products').click(function (event) {
+
+        var second = "38";
+        var ret = {
+            type: "compare",
+        };
+        console.log(second);
+        event.preventDefault();
+        $.get("/compare/" + productID + "/" + second, ret, function (data) {
+        })
+    });
+
+    function validation_check(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!document.getElementById(arr[i]).checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*]]>*/
+</script>
+
+</body>
+</html>
