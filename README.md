@@ -38,5 +38,7 @@ Book Your Shelf is an online book store system designed by the Oak team. It is t
 - Download latest release on releases tab
 - Run server with `java -jar bookyourshelf-1.0.jar`
 
+<br>
+<br>
 
 ![](src/main/resources/static/images/logo/book_your_shelf_logo.png)
