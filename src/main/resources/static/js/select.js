@@ -28,7 +28,7 @@ $('#siteTab a').click(function (e) {
             break;
 
         case "/admin-panel/product":
-            url = "/admin-panel/product?size=3&page=1&sort=date-desc&filter=all";
+            url = "/admin-panel/product?size=10&page=1&sort=date-desc&filter=all";
             break;
 
         case "/admin-panel/category":
