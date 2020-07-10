@@ -34,8 +34,8 @@ Book Your Shelf is an online book store system designed by the Oak team. It is t
 
 ## Run
 
-- Create new MySQL database with name `bys_db`
 - Download latest release on releases tab
+- Create new MySQL database with name `bys_db`
 - Run server with `java -jar bookyourshelf-1.0.jar`
 
 <br>
